@@ -2,7 +2,7 @@
 
 Cross-cloud AI architecture playbook for comparing AWS, Azure, and Google Cloud services end to end — with FinOps LLM costing and an architecture canvas.
 
-**Live:** https://sudipawtg.github.io/sudip-ai-playbook/
+**Live:** https://sudip-ai-playbook.github.io
 
 ## Enter
 
@@ -50,8 +50,6 @@ npm run build
 
 ## Deploy (GitHub Pages)
 
-Push to `main`. GitHub Actions builds `app/` and publishes `dist/` to Pages.
+Push to `main` on `sudip-ai-playbook/sudip-ai-playbook.github.io`.
 
-Project site URL: https://sudipawtg.github.io/sudip-ai-playbook/
-
-`vite.config.ts` uses `base: '/sudip-ai-playbook/'` for this project Pages path.
+GitHub Actions publishes to https://sudip-ai-playbook.github.io
