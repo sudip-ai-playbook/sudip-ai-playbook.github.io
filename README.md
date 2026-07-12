@@ -24,12 +24,29 @@ Password: `sudipaiplaybook`
 
 ## ConsultAI OS
 
-Guided consulting playbook with executable frameworks and workshop facilitation:
+Guided consulting workspace — situation-first, stage-aware, and evidence-linked. Full-feature MVP (client-side SPA, localStorage; no backend).
 
-1. **Playbook** — choose a business situation, filter by lifecycle step, open framework explanations.
-2. **Framework Lab** — explanations + runnable canvases for every framework (18 specialized MVP canvases; use-case workbooks for all others).
-3. **Workshop Studio** — define your **use case card** once, run frameworks against it (fields pre-fill), capture notes/decisions/actions.
-4. **Export** — download playbook HTML/Excel, or a **workshop pack** (HTML + Excel + Markdown) including the use case.
+### Navigation
+
+1. **Home** — engagement health, open work, upcoming gates, benefits snapshot.
+2. **Workspaces** — multi-client / multi-engagement setup, scope, stakeholders, RACI.
+3. **Journey** — visual stages 0–19 with soft gate override.
+4. **Playbook** — choose a business situation, filter by lifecycle step, open frameworks.
+5. **Control** — status strip, phase gates, full registers (actions, risks, deliverables, benefits…).
+6. **Framework Lab** — explanations + runnable canvases (18 specialized MVP canvases; workbooks for others).
+7. **Workshop** — use-case card, editable agenda/questions, voting, decisions/actions, per-stage persistence.
+8. **Decisions** — decision centre with options, recommendation, approval evidence.
+9. **Governance** — AI inventory, policies/controls, assessments, exceptions; risks shared with Control.
+10. **Architecture** — capability/process/system notes, ADRs; deep-links to `/canvas` and `/map`.
+11. **Service** — catalogue, SLA targets, incidents, runbook, monthly report export.
+12. **Deliverables** — generate drafts from engagement + workshop; write back to deliverable register.
+13. **Copilot** — rule-based next-step, framework advice, quality findings (human approval required).
+
+Persona selector is a **UI stub** (read-only hides edits). Not real RBAC.
+
+### Persistence
+
+Versioned workspace document in `localStorage` (`sudip-consult-workspace`). Legacy single engagement/workshop keys are migrated on first load.
 
 Offline Excel workbook:
 

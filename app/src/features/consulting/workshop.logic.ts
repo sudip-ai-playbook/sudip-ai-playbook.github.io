@@ -50,17 +50,37 @@ export interface FrameworkOutput {
   savedAt: string
 }
 
+export interface WorkshopVoteOption {
+  id: string
+  label: string
+  votes: string[]
+}
+
+export interface WorkshopVoting {
+  question: string
+  options: WorkshopVoteOption[]
+}
+
 export interface WorkshopSession {
   stageId: string
   title: string
   agenda: string[]
+  questions: string[]
   participants: string
   notes: string
   useCase: UseCaseCard
   frameworkOutputs: Record<string, FrameworkOutput>
   decisions: WorkshopDecision[]
   actions: WorkshopAction[]
+  voting: WorkshopVoting
   updatedAt: string
+}
+
+export function createEmptyVoting(): WorkshopVoting {
+  return {
+    question: '',
+    options: [],
+  }
 }
 
 export function isUseCaseReady(useCase: UseCaseCard): boolean {
@@ -195,22 +215,55 @@ export function createEmptyWorkshop(stageId: string): WorkshopSession {
         `Review gate: ${stage.gate}`,
       ]
     : ['Define use case', 'Run frameworks', 'Capture actions']
+  const questions = stage
+    ? [
+        `What would make ${stage.shortLabel} successful?`,
+        'What evidence is missing?',
+        'What decision is required before the gate?',
+      ]
+    : ['What is the problem?', 'What decision is required?']
 
   return {
     stageId,
     title: stage ? `Workshop · ${stage.shortLabel}: ${stage.title}` : 'Workshop',
     agenda,
+    questions,
     participants: '',
     notes: '',
     useCase: { ...EMPTY_USE_CASE },
     frameworkOutputs: {},
     decisions: [],
     actions: [],
+    voting: createEmptyVoting(),
     updatedAt: new Date().toISOString(),
   }
 }
 
-export function loadWorkshop(): WorkshopSession | null {
+export function normalizeWorkshopSession(raw: WorkshopSession): WorkshopSession {
+  const base = createEmptyWorkshop(
+    raw.stageId && CONSULTING_STAGES.some((stage) => stage.id === raw.stageId)
+      ? raw.stageId
+      : 'stage-0',
+  )
+  return {
+    ...base,
+    ...raw,
+    stageId: base.stageId,
+    useCase: { ...EMPTY_USE_CASE, ...(raw.useCase ?? {}) },
+    frameworkOutputs: raw.frameworkOutputs ?? {},
+    decisions: Array.isArray(raw.decisions) ? raw.decisions : [],
+    actions: Array.isArray(raw.actions) ? raw.actions : [],
+    agenda: Array.isArray(raw.agenda) && raw.agenda.length > 0 ? raw.agenda : base.agenda,
+    questions:
+      Array.isArray(raw.questions) && raw.questions.length > 0 ? raw.questions : base.questions,
+    voting: {
+      question: raw.voting?.question ?? '',
+      options: Array.isArray(raw.voting?.options) ? raw.voting.options : [],
+    },
+  }
+}
+
+export function loadWorkshopFromLegacyKey(): WorkshopSession | null {
   try {
     const raw = localStorage.getItem(WORKSHOP_STORAGE_KEY)
     if (!raw) return null
@@ -219,43 +272,107 @@ export function loadWorkshop(): WorkshopSession | null {
       localStorage.removeItem(WORKSHOP_STORAGE_KEY)
       return null
     }
-    return {
-      ...createEmptyWorkshop(parsed.stageId),
-      ...parsed,
-      useCase: { ...EMPTY_USE_CASE, ...(parsed.useCase ?? {}) },
-      frameworkOutputs: parsed.frameworkOutputs ?? {},
-      decisions: Array.isArray(parsed.decisions) ? parsed.decisions : [],
-      actions: Array.isArray(parsed.actions) ? parsed.actions : [],
-      agenda: Array.isArray(parsed.agenda)
-        ? parsed.agenda
-        : createEmptyWorkshop(parsed.stageId).agenda,
-    }
+    return normalizeWorkshopSession(parsed)
   } catch {
     return null
   }
 }
 
-export function saveWorkshop(session: WorkshopSession): WorkshopSession {
-  const next = { ...session, updatedAt: new Date().toISOString() }
-  localStorage.setItem(WORKSHOP_STORAGE_KEY, JSON.stringify(next))
-  return next
-}
-
-export function clearWorkshop(): void {
+export function clearWorkshopLegacyKey(): void {
   localStorage.removeItem(WORKSHOP_STORAGE_KEY)
 }
 
-export function startWorkshopForStage(stageId: string): WorkshopSession {
-  const existing = loadWorkshop()
-  if (existing && existing.stageId === stageId) {
-    return existing
+export function addAgendaItem(session: WorkshopSession, item: string): WorkshopSession {
+  const text = item.trim()
+  if (!text) return session
+  return { ...session, agenda: [...session.agenda, text] }
+}
+
+export function updateAgendaItem(
+  session: WorkshopSession,
+  index: number,
+  item: string,
+): WorkshopSession {
+  if (index < 0 || index >= session.agenda.length) return session
+  const agenda = [...session.agenda]
+  agenda[index] = item
+  return { ...session, agenda }
+}
+
+export function removeAgendaItem(session: WorkshopSession, index: number): WorkshopSession {
+  if (index < 0 || index >= session.agenda.length) return session
+  return { ...session, agenda: session.agenda.filter((_, itemIndex) => itemIndex !== index) }
+}
+
+export function addQuestionItem(session: WorkshopSession, item: string): WorkshopSession {
+  const text = item.trim()
+  if (!text) return session
+  return { ...session, questions: [...session.questions, text] }
+}
+
+export function removeQuestionItem(session: WorkshopSession, index: number): WorkshopSession {
+  if (index < 0 || index >= session.questions.length) return session
+  return {
+    ...session,
+    questions: session.questions.filter((_, itemIndex) => itemIndex !== index),
   }
-  const previousUseCase = existing?.useCase
-  const created = createEmptyWorkshop(stageId)
-  if (previousUseCase && isUseCaseReady(previousUseCase)) {
-    created.useCase = previousUseCase
+}
+
+export function setVotingQuestion(session: WorkshopSession, question: string): WorkshopSession {
+  return {
+    ...session,
+    voting: { ...session.voting, question },
   }
-  return saveWorkshop(created)
+}
+
+export function addVoteOption(session: WorkshopSession, label: string): WorkshopSession {
+  const text = label.trim()
+  if (!text) return session
+  return {
+    ...session,
+    voting: {
+      ...session.voting,
+      options: [
+        ...session.voting.options,
+        { id: createRegisterId('vote'), label: text, votes: [] },
+      ],
+    },
+  }
+}
+
+export function castVote(
+  session: WorkshopSession,
+  optionId: string,
+  voter: string,
+): WorkshopSession {
+  const name = voter.trim()
+  if (!name) return session
+  return {
+    ...session,
+    voting: {
+      ...session.voting,
+      options: session.voting.options.map((option) => {
+        if (option.id !== optionId) {
+          return {
+            ...option,
+            votes: option.votes.filter((existing) => existing !== name),
+          }
+        }
+        if (option.votes.includes(name)) return option
+        return { ...option, votes: [...option.votes, name] }
+      }),
+    },
+  }
+}
+
+export function tallyVotes(
+  session: WorkshopSession,
+): Array<{ optionId: string; label: string; count: number }> {
+  return session.voting.options.map((option) => ({
+    optionId: option.id,
+    label: option.label,
+    count: option.votes.length,
+  }))
 }
 
 export function validateCanvasFields(
@@ -330,3 +447,10 @@ export function computeRiceScore(fields: Record<string, string>): number | null 
   }
   return (reach * impact * (confidence / 100)) / effort
 }
+
+export {
+  clearWorkshop,
+  loadWorkshop,
+  saveWorkshop,
+  startWorkshopForStage,
+} from './workshop.storage'

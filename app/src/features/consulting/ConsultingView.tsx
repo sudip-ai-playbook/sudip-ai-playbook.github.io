@@ -8,6 +8,16 @@ import {
   BookOpen,
   Play,
   Briefcase,
+  ClipboardList,
+  FileText,
+  LayoutDashboard,
+  Building2,
+  Route,
+  Scale,
+  Shield,
+  Boxes,
+  LifeBuoy,
+  Bot,
 } from 'lucide-react'
 import {
   BUSINESS_SITUATIONS,
@@ -29,37 +39,93 @@ import {
 } from './consulting.export'
 import { FrameworkLabView } from './FrameworkLabView'
 import { WorkshopStudio } from './WorkshopStudio'
+import { EngagementControlView } from './EngagementControlView'
+import { DeliverableBuilderView } from './DeliverableBuilderView'
+import { ClientWorkspacesView } from './workspaces/ClientWorkspacesView'
+import { ConsultingHomeView } from './dashboard/ConsultingHomeView'
+import { ConsultingJourneyView } from './journey/ConsultingJourneyView'
+import { DecisionCentreView } from './decisions/DecisionCentreView'
+import { GovernanceRiskCentreView } from './governance/GovernanceRiskCentreView'
+import { ArchitectureStudioView } from './architecture-studio/ArchitectureStudioView'
+import { ServiceManagementCentreView } from './service-management/ServiceManagementCentreView'
+import { CopilotPanel } from './copilot/CopilotPanel'
 import { getFrameworkByName, isSpecializedCanvas } from './framework.logic'
 import {
-  loadWorkshop,
-  saveWorkshop,
   startWorkshopForStage,
   type FrameworkOutput,
 } from './workshop.logic'
+import { useConsultingWorkspace } from './useConsultingWorkspace'
+import {
+  CONSULT_PERSONA_OPTIONS,
+  type ConsultPersona,
+} from './roles/roles.logic'
+import type { DeliverableTemplateId } from './deliverable.logic'
+import {
+  getWorkshopForStage,
+  upsertWorkshop,
+} from './workspace/workspace.logic'
 
+const TAB_HOME = 'home'
+const TAB_WORKSPACES = 'workspaces'
+const TAB_JOURNEY = 'journey'
 const TAB_PLAYBOOK = 'playbook'
 const TAB_LAB = 'lab'
 const TAB_WORKSHOP = 'workshop'
+const TAB_CONTROL = 'control'
+const TAB_DELIVERABLES = 'deliverables'
+const TAB_DECISIONS = 'decisions'
+const TAB_GOVERNANCE = 'governance'
+const TAB_ARCHITECTURE = 'architecture'
+const TAB_SERVICE = 'service'
+const TAB_COPILOT = 'copilot'
 
-type ConsultTab = typeof TAB_PLAYBOOK | typeof TAB_LAB | typeof TAB_WORKSHOP
+const ALL_TABS = [
+  TAB_HOME,
+  TAB_WORKSPACES,
+  TAB_JOURNEY,
+  TAB_PLAYBOOK,
+  TAB_CONTROL,
+  TAB_LAB,
+  TAB_WORKSHOP,
+  TAB_DECISIONS,
+  TAB_GOVERNANCE,
+  TAB_ARCHITECTURE,
+  TAB_SERVICE,
+  TAB_DELIVERABLES,
+  TAB_COPILOT,
+] as const
+
+type ConsultTab = (typeof ALL_TABS)[number]
 
 function parseTab(value: string | null): ConsultTab {
-  if (value === TAB_LAB || value === TAB_WORKSHOP) return value
-  return TAB_PLAYBOOK
+  if (value && (ALL_TABS as readonly string[]).includes(value)) {
+    return value as ConsultTab
+  }
+  return TAB_HOME
 }
 
 export function ConsultingView() {
   const [searchParams, setSearchParams] = useSearchParams()
   const tab = parseTab(searchParams.get('tab'))
   const workshopStage = searchParams.get('stage')
+  const {
+    store,
+    engagement,
+    persona,
+    persistStore,
+    persistEngagement,
+    setPersona,
+  } = useConsultingWorkspace()
 
   const [stageFilter, setStageFilter] = useState<StageFilterId>(
     workshopStage && CONSULTING_STAGES.some((stage) => stage.id === workshopStage)
       ? workshopStage
       : FILTER_ALL,
   )
-  const [situationId, setSituationId] = useState<string | null>(null)
+  const [situationId, setSituationId] = useState<string | null>(engagement.situationId)
   const [query, setQuery] = useState('')
+  const [preferredDeliverable, setPreferredDeliverable] =
+    useState<DeliverableTemplateId | null>(null)
 
   const filtered = searchStages(
     resolveConsultingStages({ stageFilter, situationId }),
@@ -70,9 +136,19 @@ export function ConsultingView() {
 
   const tabItems: Array<{ id: ConsultTab; label: string; icon: typeof Filter }> = useMemo(
     () => [
+      { id: TAB_HOME, label: 'Home', icon: LayoutDashboard },
+      { id: TAB_WORKSPACES, label: 'Workspaces', icon: Building2 },
+      { id: TAB_JOURNEY, label: 'Journey', icon: Route },
       { id: TAB_PLAYBOOK, label: 'Playbook', icon: Filter },
-      { id: TAB_LAB, label: 'Framework Lab', icon: BookOpen },
+      { id: TAB_CONTROL, label: 'Control', icon: ClipboardList },
+      { id: TAB_LAB, label: 'Lab', icon: BookOpen },
       { id: TAB_WORKSHOP, label: 'Workshop', icon: Briefcase },
+      { id: TAB_DECISIONS, label: 'Decisions', icon: Scale },
+      { id: TAB_GOVERNANCE, label: 'Governance', icon: Shield },
+      { id: TAB_ARCHITECTURE, label: 'Architecture', icon: Boxes },
+      { id: TAB_SERVICE, label: 'Service', icon: LifeBuoy },
+      { id: TAB_DELIVERABLES, label: 'Deliverables', icon: FileText },
+      { id: TAB_COPILOT, label: 'Copilot', icon: Bot },
     ],
     [],
   )
@@ -94,7 +170,9 @@ export function ConsultingView() {
 
   function handleSituation(event: ChangeEvent<HTMLSelectElement>): void {
     const value = event.target.value
-    setSituationId(value === '' ? null : value)
+    const nextSituationId = value === '' ? null : value
+    setSituationId(nextSituationId)
+    persistEngagement({ ...engagement, situationId: nextSituationId })
   }
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
@@ -140,32 +218,34 @@ export function ConsultingView() {
   }
 
   function handleLabSave(output: Omit<FrameworkOutput, 'savedAt'>): void {
-    const existing = loadWorkshop()
-    if (!existing) {
-      const created = startWorkshopForStage(
-        stageFilter !== FILTER_ALL ? stageFilter : 'stage-5',
-      )
-      saveWorkshop({
-        ...created,
-        frameworkOutputs: {
-          ...created.frameworkOutputs,
-          [output.frameworkId]: { ...output, savedAt: new Date().toISOString() },
-        },
-      })
-      return
-    }
-    saveWorkshop({
-      ...existing,
+    const stageId = stageFilter !== FILTER_ALL ? stageFilter : engagement.currentStageId
+    const workshop = getWorkshopForStage(engagement, stageId)
+    const nextWorkshop = {
+      ...workshop,
       frameworkOutputs: {
-        ...existing.frameworkOutputs,
+        ...workshop.frameworkOutputs,
         [output.frameworkId]: { ...output, savedAt: new Date().toISOString() },
       },
-    })
+    }
+    persistEngagement(upsertWorkshop(engagement, nextWorkshop))
   }
 
   function handleWorkshopStageRequest(stageId: string): void {
     setStageFilter(stageId)
     setTab(TAB_WORKSHOP, stageId)
+  }
+
+  function handlePersonaChange(event: ChangeEvent<HTMLSelectElement>): void {
+    setPersona(event.target.value as ConsultPersona)
+  }
+
+  function handleOpenDeliverablesFromCopilot(templateId: string | null): void {
+    setPreferredDeliverable((templateId as DeliverableTemplateId | null) ?? null)
+    setTab(TAB_DELIVERABLES)
+  }
+
+  function handleSetTab(tabId: ConsultTab): void {
+    setTab(tabId, tabId === TAB_WORKSHOP ? workshopStage : null)
   }
 
   return (
@@ -174,23 +254,43 @@ export function ConsultingView() {
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">
           ConsultAI OS
         </p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">
-          {CONSULTING_OS_META.workingName}
-        </h1>
-        <p className="max-w-3xl text-sm text-ink-secondary">
-          {CONSULTING_OS_META.positioning}
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">
+              {CONSULTING_OS_META.workingName}
+            </h1>
+            <p className="mt-1 max-w-3xl text-sm text-ink-secondary">
+              {CONSULTING_OS_META.positioning}
+            </p>
+          </div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-ink-muted">
+            Persona (UI stub)
+            <select
+              className="field-input mt-2"
+              data-testid="consult-persona"
+              value={persona}
+              onChange={handlePersonaChange}
+            >
+              {CONSULT_PERSONA_OPTIONS.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <p className="text-xs text-ink-muted" data-testid="consult-active-context">
+          Active: {engagement.clientName || 'Unnamed client'} /{' '}
+          {engagement.engagementName || 'Unnamed engagement'}
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2" data-testid="consult-tab-nav">
           {tabItems.map((item) => (
             <button
               key={item.id}
               type="button"
               data-testid={`consult-tab-${item.id}`}
-              onClick={() => setTab(item.id, item.id === TAB_WORKSHOP ? workshopStage : null)}
-              className={[
-                'btn',
-                tab === item.id ? 'btn-accent' : 'btn-ghost',
-              ].join(' ')}
+              onClick={() => handleSetTab(item.id)}
+              className={['btn', tab === item.id ? 'btn-accent' : 'btn-ghost'].join(' ')}
             >
               <item.icon className="h-4 w-4" />
               {item.label}
@@ -198,6 +298,33 @@ export function ConsultingView() {
           ))}
         </div>
       </header>
+
+      {tab === TAB_HOME ? (
+        <ConsultingHomeView
+          store={store}
+          engagement={engagement}
+          onOpenTab={(nextTab) => setTab(parseTab(nextTab))}
+        />
+      ) : null}
+
+      {tab === TAB_WORKSPACES ? (
+        <ClientWorkspacesView
+          store={store}
+          engagement={engagement}
+          persona={persona}
+          onStoreChange={persistStore}
+          onEngagementChange={persistEngagement}
+        />
+      ) : null}
+
+      {tab === TAB_JOURNEY ? (
+        <ConsultingJourneyView
+          engagement={engagement}
+          persona={persona}
+          onEngagementChange={persistEngagement}
+          onOpenWorkshop={handleRunWorkshop}
+        />
+      ) : null}
 
       {tab === TAB_LAB ? (
         <FrameworkLabView
@@ -210,6 +337,63 @@ export function ConsultingView() {
         <WorkshopStudio
           stageId={workshopStage}
           onRequestStage={handleWorkshopStageRequest}
+        />
+      ) : null}
+
+      {tab === TAB_CONTROL ? (
+        <EngagementControlView
+          engagement={engagement}
+          persona={persona}
+          onEngagementChange={persistEngagement}
+          onOpenWorkshop={handleRunWorkshop}
+          onOpenLab={() => setTab(TAB_LAB)}
+          onOpenDeliverables={() => setTab(TAB_DELIVERABLES)}
+        />
+      ) : null}
+
+      {tab === TAB_DECISIONS ? (
+        <DecisionCentreView
+          engagement={engagement}
+          persona={persona}
+          onEngagementChange={persistEngagement}
+        />
+      ) : null}
+
+      {tab === TAB_GOVERNANCE ? (
+        <GovernanceRiskCentreView
+          engagement={engagement}
+          persona={persona}
+          onEngagementChange={persistEngagement}
+        />
+      ) : null}
+
+      {tab === TAB_ARCHITECTURE ? (
+        <ArchitectureStudioView
+          engagement={engagement}
+          persona={persona}
+          onEngagementChange={persistEngagement}
+        />
+      ) : null}
+
+      {tab === TAB_SERVICE ? (
+        <ServiceManagementCentreView
+          engagement={engagement}
+          persona={persona}
+          onEngagementChange={persistEngagement}
+        />
+      ) : null}
+
+      {tab === TAB_DELIVERABLES ? (
+        <DeliverableBuilderView
+          preferredStageId={stageFilter !== FILTER_ALL ? stageFilter : null}
+          preferredTemplateId={preferredDeliverable}
+        />
+      ) : null}
+
+      {tab === TAB_COPILOT ? (
+        <CopilotPanel
+          engagement={engagement}
+          onOpenDeliverables={handleOpenDeliverablesFromCopilot}
         />
       ) : null}
 

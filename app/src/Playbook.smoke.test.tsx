@@ -95,6 +95,8 @@ describe('End-to-end journey smoke', () => {
     render(<App />)
     await user.click(screen.getByTestId('start-consulting'))
     expect(await screen.findByTestId('consulting-view')).toBeInTheDocument()
+    expect(screen.getByTestId('consulting-home-view')).toBeInTheDocument()
+    await user.click(screen.getByTestId('consult-tab-playbook'))
     expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 20 of 20')
   })
 

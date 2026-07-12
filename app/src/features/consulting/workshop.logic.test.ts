@@ -48,10 +48,10 @@ describe('workshop.logic', () => {
       businessProblem: 'High escalation volume in tier-1 support',
     }
     saveWorkshop(created)
-    const loaded = loadWorkshop()
+    const loaded = loadWorkshop('stage-3')
     expect(loaded?.useCase.name).toBe('Service triage')
     expect(isUseCaseReady(loaded!.useCase)).toBe(true)
-    expect(localStorage.getItem(WORKSHOP_STORAGE_KEY)).toBeTruthy()
+    expect(loaded?.stageId).toBe('stage-3')
   })
 
   it('clears invalid stage sessions', () => {

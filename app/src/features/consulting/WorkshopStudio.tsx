@@ -23,6 +23,14 @@ import {
   loadWorkshop,
   saveWorkshop,
   startWorkshopForStage,
+  addAgendaItem,
+  removeAgendaItem,
+  addQuestionItem,
+  removeQuestionItem,
+  setVotingQuestion,
+  addVoteOption,
+  castVote,
+  tallyVotes,
   type FrameworkOutput,
   type UseCaseCard,
   type WorkshopSession,
@@ -54,6 +62,10 @@ export function WorkshopStudio({ stageId, onRequestStage }: WorkshopStudioProps)
   const [actionText, setActionText] = useState('')
   const [actionOwner, setActionOwner] = useState('')
   const [actionDue, setActionDue] = useState('')
+  const [agendaDraft, setAgendaDraft] = useState('')
+  const [questionDraft, setQuestionDraft] = useState('')
+  const [voteOptionDraft, setVoteOptionDraft] = useState('')
+  const [voterName, setVoterName] = useState('')
 
   useEffect(() => {
     if (!stageId) return
@@ -327,11 +339,77 @@ export function WorkshopStudio({ stageId, onRequestStage }: WorkshopStudioProps)
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="glass-panel space-y-3 p-5">
           <h3 className="font-bold">Agenda</h3>
-          <ul className="list-disc space-y-1 pl-4 text-sm text-ink-secondary">
-            {session.agenda.map((item) => (
-              <li key={item}>{item}</li>
+          <ul className="space-y-1 text-sm text-ink-secondary" data-testid="workshop-agenda-list">
+            {session.agenda.map((item, index) => (
+              <li key={`${item}-${index}`} className="flex items-start justify-between gap-2">
+                <span>{item}</span>
+                <button
+                  type="button"
+                  data-testid={`workshop-remove-agenda-${index}`}
+                  onClick={() => persist(removeAgendaItem(session, index))}
+                >
+                  <Trash2 className="h-3 w-3" />
+                </button>
+              </li>
             ))}
           </ul>
+          <div className="flex gap-2">
+            <input
+              className="field-input"
+              data-testid="workshop-agenda-draft"
+              value={agendaDraft}
+              onChange={(event) => setAgendaDraft(event.target.value)}
+              placeholder="Add agenda item"
+            />
+            <button
+              type="button"
+              className="btn btn-ghost"
+              data-testid="workshop-add-agenda"
+              onClick={() => {
+                persist(addAgendaItem(session, agendaDraft))
+                setAgendaDraft('')
+              }}
+            >
+              Add
+            </button>
+          </div>
+
+          <h3 className="font-bold">Question bank</h3>
+          <ul className="space-y-1 text-sm" data-testid="workshop-questions-list">
+            {session.questions.map((item, index) => (
+              <li key={`${item}-${index}`} className="flex justify-between gap-2">
+                <span>{item}</span>
+                <button
+                  type="button"
+                  data-testid={`workshop-remove-question-${index}`}
+                  onClick={() => persist(removeQuestionItem(session, index))}
+                >
+                  <Trash2 className="h-3 w-3" />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="flex gap-2">
+            <input
+              className="field-input"
+              data-testid="workshop-question-draft"
+              value={questionDraft}
+              onChange={(event) => setQuestionDraft(event.target.value)}
+              placeholder="Add question"
+            />
+            <button
+              type="button"
+              className="btn btn-ghost"
+              data-testid="workshop-add-question"
+              onClick={() => {
+                persist(addQuestionItem(session, questionDraft))
+                setQuestionDraft('')
+              }}
+            >
+              Add
+            </button>
+          </div>
+
           <label className="block text-xs font-semibold uppercase text-ink-muted">
             Participants
             <textarea
@@ -406,6 +484,64 @@ export function WorkshopStudio({ stageId, onRequestStage }: WorkshopStudioProps)
           </div>
         </section>
       </div>
+
+      <section className="glass-panel space-y-3 p-5" data-testid="workshop-voting">
+        <h3 className="font-bold">Voting</h3>
+        <label className="block text-xs font-semibold uppercase text-ink-muted">
+          Vote question
+          <input
+            className="field-input mt-2"
+            data-testid="workshop-vote-question"
+            value={session.voting.question}
+            onChange={(event) => persist(setVotingQuestion(session, event.target.value))}
+            placeholder="What should we prioritise?"
+          />
+        </label>
+        <ul className="space-y-2 text-sm">
+          {tallyVotes(session).map((option) => (
+            <li key={option.optionId} className="flex flex-wrap items-center gap-2">
+              <span>
+                {option.label} · {option.count} vote(s)
+              </span>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                data-testid={`workshop-cast-vote-${option.optionId}`}
+                onClick={() => persist(castVote(session, option.optionId, voterName))}
+              >
+                Vote
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="flex flex-wrap gap-2">
+          <input
+            className="field-input"
+            data-testid="workshop-vote-option"
+            value={voteOptionDraft}
+            onChange={(event) => setVoteOptionDraft(event.target.value)}
+            placeholder="Option label"
+          />
+          <input
+            className="field-input w-40"
+            data-testid="workshop-voter-name"
+            value={voterName}
+            onChange={(event) => setVoterName(event.target.value)}
+            placeholder="Voter name"
+          />
+          <button
+            type="button"
+            className="btn btn-ghost"
+            data-testid="workshop-add-vote-option"
+            onClick={() => {
+              persist(addVoteOption(session, voteOptionDraft))
+              setVoteOptionDraft('')
+            }}
+          >
+            Add option
+          </button>
+        </div>
+      </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="glass-panel space-y-3 p-5">

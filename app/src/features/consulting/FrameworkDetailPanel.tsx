@@ -114,6 +114,19 @@ export function FrameworkDetailPanel({
         <span className="font-semibold">Recommended next action:</span> {framework.nextAction}
       </p>
 
+      {framework.relatedFrameworkIds.length > 0 ? (
+        <div data-testid="framework-related">
+          <p className="text-xs font-semibold uppercase text-ink-muted">Related frameworks</p>
+          <p className="mt-1 text-sm text-ink-secondary">
+            {framework.relatedFrameworkIds.join(' · ')}
+          </p>
+        </div>
+      ) : null}
+
+      <p className="text-sm">
+        <span className="font-semibold">Output format:</span> {framework.outputFormat}
+      </p>
+
       {onRunCanvas ? (
         <button
           type="button"
