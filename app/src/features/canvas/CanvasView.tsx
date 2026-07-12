@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react'
-import { useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import architectureMap from '../../data/architectureMap.json'
 import serviceMatrix from '../../data/serviceMatrix.json'
 import { PROVIDER_LABELS, type ProviderId } from '../../constants/playbook'
@@ -7,6 +7,12 @@ import { filterServices } from '../decide/decide.logic'
 import { StepNav } from '../journey/StepNav'
 import { useProject } from '../journey/useProject'
 import { buildDecisionBrief } from '../journey/project.logic'
+import { EXCALIDRAW_LABELS } from './excalidraw.constants'
+
+const ExcalidrawBoard = lazy(async function loadExcalidrawBoard() {
+  const module = await import('./ExcalidrawBoard')
+  return { default: module.ExcalidrawBoard }
+})
 
 interface LayerRow {
   layer: string
@@ -101,9 +107,7 @@ export function CanvasView() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 7 · Build</p>
           <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Assemble the stack</h1>
-          <p className="mt-1 text-sm text-ink-secondary">
-            Shared journey stack · refine in diagrams.net
-          </p>
+          <p className="mt-1 text-sm text-ink-secondary">{EXCALIDRAW_LABELS.subtitle}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button type="button" className="btn btn-ghost" onClick={handleExportMarkdown} data-testid="canvas-export">
@@ -113,18 +117,25 @@ export function CanvasView() {
             Clear
           </button>
           <button type="button" className="btn btn-primary" onClick={handleToggleEmbed} data-testid="canvas-embed-toggle">
-            {showEmbed ? 'Hide diagrams.net' : 'Open diagrams.net'}
+            {showEmbed ? EXCALIDRAW_LABELS.hide : EXCALIDRAW_LABELS.open}
           </button>
         </div>
       </header>
 
       {showEmbed ? (
         <div className="glass-panel overflow-hidden p-2" data-testid="canvas-embed">
-          <iframe
-            title="diagrams.net"
-            className="h-[70vh] w-full rounded-xl border-0 bg-white"
-            src="https://embed.diagrams.net/?embed=1&ui=min&spin=1&proto=json&libraries=1&saveAndExit=0&noSaveBtn=1"
-          />
+          <Suspense
+            fallback={
+              <div
+                className="flex h-[70vh] items-center justify-center text-sm text-ink-muted"
+                data-testid="excalidraw-loading"
+              >
+                {EXCALIDRAW_LABELS.loading}
+              </div>
+            }
+          >
+            <ExcalidrawBoard />
+          </Suspense>
         </div>
       ) : null}
 

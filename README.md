@@ -19,17 +19,17 @@ Password: `sudipaiplaybook`
 | Quick Picks | Scenario defaults across clouds |
 | Decision Assistant | Weighted scoring with ecosystem context |
 | LLM FinOps | Model costs, alternatives, monthly estimates |
-| Architecture Canvas | Compose a stack + diagrams.net embed |
+| Architecture Canvas | Compose a stack + [Excalidraw](https://excalidraw.com/) whiteboard |
 | AI Platform | Foundry / Bedrock / Vertex + governance |
 
 ## ConsultAI OS
 
-Guided consulting playbook:
+Guided consulting playbook with executable frameworks and workshop facilitation:
 
-1. Choose **what you are trying to achieve** (business situation).
-2. Filter by **lifecycle step** (Qualify → Close).
-3. Search frameworks, actions and deliverables.
-4. **Download HTML** or **Download Excel** of the filtered playbook to share.
+1. **Playbook** — choose a business situation, filter by lifecycle step, open framework explanations.
+2. **Framework Lab** — explanations + runnable canvases for every framework (18 specialized MVP canvases; use-case workbooks for all others).
+3. **Workshop Studio** — define your **use case card** once, run frameworks against it (fields pre-fill), capture notes/decisions/actions.
+4. **Export** — download playbook HTML/Excel, or a **workshop pack** (HTML + Excel + Markdown) including the use case.
 
 Offline Excel workbook:
 

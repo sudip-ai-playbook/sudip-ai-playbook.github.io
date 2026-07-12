@@ -20,7 +20,7 @@ const PLANES = [
   {
     to: '/consult',
     title: 'ConsultAI OS',
-    desc: 'End-to-end consulting lifecycle',
+    desc: 'Playbook, Framework Lab & Workshop Studio',
     icon: Briefcase,
     accent: 'blue' as const,
   },

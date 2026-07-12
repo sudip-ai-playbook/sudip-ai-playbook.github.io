@@ -12,7 +12,7 @@ import { CompareView } from './features/compare/CompareView'
 import { QuickPicksView } from './features/picks/QuickPicksView'
 import { DecideView } from './features/decide/DecideView'
 import { FinOpsView } from './features/finops/FinOpsView'
-import { CanvasView } from './features/canvas/CanvasView'
+import { CanvasView } from './features/canvas'
 import { AiPlatformView } from './features/ai/AiPlatformView'
 import { ConsultingView } from './features/consulting'
 

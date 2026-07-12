@@ -1,53 +1,76 @@
-import { describe, expect, it, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { MemoryRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ConsultingView } from './ConsultingView'
+import { WORKSHOP_STORAGE_KEY } from './workshop.logic'
 import * as exportModule from './consulting.export'
 
-describe('ConsultingView', () => {
+function renderConsult(initialEntry = '/consult') {
+  return render(
+    <MemoryRouter initialEntries={[initialEntry]}>
+      <ConsultingView />
+    </MemoryRouter>,
+  )
+}
+
+describe('Consulting workshop flow', () => {
   beforeEach(() => {
+    localStorage.clear()
     vi.restoreAllMocks()
   })
 
-  it('filters by lifecycle stage and situation', async () => {
+  it('defines a use case, runs Five Whys, and exports a pack', async () => {
     const user = userEvent.setup()
-    render(<ConsultingView />)
+    const downloadSpy = vi
+      .spyOn(exportModule, 'downloadTextFile')
+      .mockImplementation(() => undefined)
+
+    renderConsult()
 
     expect(screen.getByTestId('consulting-view')).toBeInTheDocument()
-    expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 20 of 20')
+    await user.click(screen.getByTestId('consulting-run-workshop-stage-5'))
+    expect(await screen.findByTestId('workshop-studio')).toBeInTheDocument()
 
-    await user.selectOptions(screen.getByTestId('consulting-stage-filter'), 'stage-6')
-    expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 1 of 20')
-    expect(screen.getByTestId('consulting-stage-stage-6')).toBeInTheDocument()
+    await user.type(screen.getByTestId('workshop-usecase-name'), 'Claims copilot')
+    await user.type(
+      screen.getByTestId('workshop-usecase-businessProblem'),
+      'Handlers spend too long finding clauses',
+    )
+    expect(screen.getByTestId('workshop-use-case-status')).toHaveTextContent(
+      'Ready for frameworks',
+    )
 
-    await user.selectOptions(screen.getByTestId('consulting-situation'), 'ai-maturity')
-    expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 0 of 20')
+    await user.click(screen.getByTestId('workshop-framework-fiveWhys'))
+    expect(await screen.findByTestId('framework-detail')).toBeInTheDocument()
+    await user.click(screen.getByTestId('framework-run-canvas'))
+    expect(await screen.findByTestId('framework-canvas')).toBeInTheDocument()
+    expect(screen.getByTestId('canvas-use-case-banner')).toHaveTextContent('Claims copilot')
+    expect(screen.getByTestId('canvas-field-problem')).toHaveValue(
+      'Handlers spend too long finding clauses',
+    )
 
-    await user.click(screen.getByTestId('consulting-clear-filters'))
-    expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 20 of 20')
+    await user.type(screen.getByTestId('canvas-field-why1'), 'Agents rework cases')
+    await user.type(screen.getByTestId('canvas-field-rootCause'), 'Incomplete intake data')
+    await user.click(screen.getByTestId('canvas-save'))
+
+    expect(await screen.findByTestId('workshop-studio')).toBeInTheDocument()
+    expect(localStorage.getItem(WORKSHOP_STORAGE_KEY)).toContain('fiveWhys')
+    expect(localStorage.getItem(WORKSHOP_STORAGE_KEY)).toContain('Claims copilot')
+
+    await user.click(screen.getByTestId('workshop-export-pack'))
+    expect(downloadSpy).toHaveBeenCalledTimes(3)
   })
 
-  it('searches frameworks and downloads filtered exports', async () => {
+  it('opens Framework Lab and blocks empty canvas saves', async () => {
     const user = userEvent.setup()
-    const downloadSpy = vi.spyOn(exportModule, 'downloadTextFile').mockImplementation(() => undefined)
-    render(<ConsultingView />)
+    renderConsult('/consult?tab=lab')
 
-    await user.type(screen.getByTestId('consulting-search'), 'ADKAR')
-    expect(screen.getByTestId('consulting-stage-stage-13')).toBeInTheDocument()
-
-    await user.click(screen.getByTestId('consulting-download-html'))
-    await user.click(screen.getByTestId('consulting-download-excel'))
-
-    expect(downloadSpy).toHaveBeenCalledTimes(2)
-    expect(downloadSpy.mock.calls[0]?.[0]).toContain('.html')
-    expect(downloadSpy.mock.calls[1]?.[0]).toContain('.xls')
-  })
-
-  it('selects a stage from the journey rail', async () => {
-    const user = userEvent.setup()
-    render(<ConsultingView />)
-    await user.click(screen.getByTestId('consulting-rail-stage-0'))
-    expect(screen.getByTestId('consulting-stage-filter')).toHaveValue('stage-0')
-    expect(screen.getByTestId('consulting-stage-stage-0')).toBeInTheDocument()
+    expect(await screen.findByTestId('framework-lab')).toBeInTheDocument()
+    await user.click(screen.getByTestId('framework-lab-item-mece'))
+    expect(await screen.findByTestId('framework-detail')).toBeInTheDocument()
+    await user.click(screen.getByTestId('framework-run-canvas'))
+    await user.click(screen.getByTestId('canvas-save'))
+    expect(screen.getByTestId('canvas-error')).toBeInTheDocument()
   })
 })

@@ -1,6 +1,14 @@
-import { afterEach, beforeAll } from 'vitest'
+import { afterEach, beforeAll, vi } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+
+vi.mock('@excalidraw/excalidraw', () => ({
+  Excalidraw: function ExcalidrawMock() {
+    return null
+  },
+}))
+
+vi.mock('@excalidraw/excalidraw/index.css', () => ({}))
 
 const memoryStore = new Map<string, string>()
 
