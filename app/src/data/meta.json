@@ -1,0 +1,83 @@
+{
+  "title": "Cross-Cloud Service Selection Workbook",
+  "subtitle": "A solution-engineering decision system for AWS, Microsoft Azure and Google Cloud.",
+  "steps": [
+    {
+      "step": "1",
+      "title": "Frame the outcome",
+      "action": "Write the business outcome, users, data, scale, security, SLA and budget constraints.",
+      "guardrail": "Do not begin with a product name."
+    },
+    {
+      "step": "2",
+      "title": "Locate the layer",
+      "action": "Use Architecture Map to identify the layer and subcategory.",
+      "guardrail": "This reduces hundreds of services into a small decision set."
+    },
+    {
+      "step": "3",
+      "title": "Start from a default",
+      "action": "Use Quick Picks for common scenarios, or filter Service Decision Matrix.",
+      "guardrail": "Defaults reduce analysis paralysis but remain challengeable."
+    },
+    {
+      "step": "4",
+      "title": "Compare trade-offs",
+      "action": "Use Decision Assistant and adjust criteria weights and ecosystem context.",
+      "guardrail": "A small score difference means context matters more than the rating."
+    },
+    {
+      "step": "5",
+      "title": "Validate and record",
+      "action": "Check region, SLA, security, price, quotas and proof of value; record an ADR.",
+      "guardrail": "A recommendation is not an approval."
+    }
+  ],
+  "guides": [
+    {
+      "sheet": "MASTER TAXONOMY",
+      "what": "Browse 24 architecture domains and 307 capability families.",
+      "when": "Begin here when defining scope or checking whether a category is missing."
+    },
+    {
+      "sheet": "AI Platform Components",
+      "what": "Decompose Unity Catalog, Microsoft Foundry, SageMaker, Bedrock and Gemini Enterprise into 55 internal capabilities.",
+      "when": "Use when designing AI platforms, agents, RAG, MLOps or AI governance."
+    },
+    {
+      "sheet": "AI Governance Controls",
+      "what": "Apply 33 lifecycle controls across ownership, data, identity, safety, evaluation, monitoring and incident response.",
+      "when": "Use for governance workshops, control design and architecture assurance."
+    },
+    {
+      "sheet": "AI Compliance Evidence",
+      "what": "Use 28 reusable evidence artifacts for audits, AI Act/GDPR readiness, NIST AI RMF and ISO/IEC 42001 alignment.",
+      "when": "Use to build the AI assurance evidence pack."
+    },
+    {
+      "sheet": "Database Deep Dive",
+      "what": "Compare 31 SQL, NoSQL, vector, graph, cache, ledger and analytical data-store decisions.",
+      "when": "Use before selecting RDS, Cosmos DB, Spanner, DynamoDB, Firestore and related services."
+    },
+    {
+      "sheet": "Exhaustive Decision Matrix",
+      "what": "Filter the 268 scored capabilities using the expanded taxonomy.",
+      "when": "Use for detailed AWS, Azure and Google Cloud service selection."
+    },
+    {
+      "sheet": "Coverage Audit",
+      "what": "See which domains are strong, partial, limited or missing.",
+      "when": "Use to prevent false confidence in incomplete areas."
+    },
+    {
+      "sheet": "Gap Backlog",
+      "what": "Review unscored capabilities that still need detailed provider decisions.",
+      "when": "Use before calling a domain decision-complete."
+    },
+    {
+      "sheet": "Cross-Cutting Lenses",
+      "what": "Apply reliability, security, cost, performance, data and responsible-AI lenses.",
+      "when": "Use during architecture reviews and client decision workshops."
+    }
+  ]
+}

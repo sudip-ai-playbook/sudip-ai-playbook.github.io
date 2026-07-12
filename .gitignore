@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+.DS_Store
+*.local
+.venv
+.env
+.env.*
+app/dist
+app/coverage

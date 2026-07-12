@@ -1,0 +1,82 @@
+[
+  {
+    "layer": "01 Strategy, Governance & FinOps",
+    "purpose": "Set organisational guardrails before choosing workload services.",
+    "subcategories": "Cloud Foundation & Governance\nFinOps, Cost & Sustainability\nCloud Operations & Management\nArchitecture Assurance & Service Health",
+    "primaryDecisionQuestion": "What operating model, account hierarchy, policy, budget and ownership model will govern the solution?",
+    "typicalSolutionEngineeringOutputs": "Landing zone, tagging, policy baseline, budget, RACI and architecture principles.",
+    "stopRule": "Do not select workload services before ownership, policy, tagging and budget are clear."
+  },
+  {
+    "layer": "02 Security, Identity & Compliance",
+    "purpose": "Establish identity, security, privacy and compliance controls.",
+    "subcategories": "Identity & Access\nCryptography, Keys & Secrets\nNetwork & Application Security\nData Protection & Privacy\nThreat Detection & Security Operations\nGovernance, Posture & Compliance",
+    "primaryDecisionQuestion": "Who can access what, how is data protected, and how will threats and evidence be managed?",
+    "typicalSolutionEngineeringOutputs": "Identity model, threat model, control matrix, logging plan and compliance evidence.",
+    "stopRule": "Do not treat a product name as a security design; define identities, threats and evidence."
+  },
+  {
+    "layer": "03 Network & Connectivity",
+    "purpose": "Design boundaries, connectivity, routing and delivery paths.",
+    "subcategories": "Virtual Networks & Segmentation\nTraffic Management & Content Delivery\nDNS & Naming\nHybrid & Private Connectivity\nService Networking & Private Access\nNetwork Operations",
+    "primaryDecisionQuestion": "Where does traffic flow, which paths are private, and what resilience and latency are required?",
+    "typicalSolutionEngineeringOutputs": "Network topology, IP plan, ingress/egress design, DNS and connectivity pattern.",
+    "stopRule": "Avoid unnecessary public paths and duplicated network appliances."
+  },
+  {
+    "layer": "04 Compute, Containers & Runtime",
+    "purpose": "Choose the execution model with the least necessary operational burden.",
+    "subcategories": "Virtual Machines & Core Compute\nServerless Compute\nContainers & Kubernetes\nManaged Application Platforms\nSpecialised & High-Performance Compute\nHybrid, Multicloud & Edge Runtime",
+    "primaryDecisionQuestion": "How much control is truly required versus managed simplicity?",
+    "typicalSolutionEngineeringOutputs": "Runtime decision, scaling model, availability design and operations ownership.",
+    "stopRule": "Use the least operationally complex runtime that meets the requirement."
+  },
+  {
+    "layer": "05 Data Infrastructure",
+    "purpose": "Select storage and operational databases from access patterns.",
+    "subcategories": "Object & Archive Storage\nBlock & Local Storage\nFile & High-Performance Storage\nRelational Databases\nDistributed & Cloud-Native SQL\nNoSQL Databases\nCaching & In-Memory Data\nSpecialised Databases\nBackup & Disaster Recovery\nData Transfer & Hybrid Storage",
+    "primaryDecisionQuestion": "What data model, consistency, latency, durability, retention and recovery requirements apply?",
+    "typicalSolutionEngineeringOutputs": "Data-store selection, backup/DR, migration and lifecycle policy.",
+    "stopRule": "Choose from access patterns and recovery needs—not database popularity."
+  },
+  {
+    "layer": "06 Data Platform, Analytics & BI",
+    "purpose": "Build governed pipelines from raw data to business insight.",
+    "subcategories": "Data Lake, Warehouse & Lakehouse\nData Engineering & Orchestration\nStreaming & Real-Time Data\nData Governance, Sharing & Quality\nAnalytics, BI & Search",
+    "primaryDecisionQuestion": "How will data be ingested, governed, transformed, served and consumed?",
+    "typicalSolutionEngineeringOutputs": "Data architecture, ingestion pattern, semantic model, governance and BI platform.",
+    "stopRule": "Avoid duplicating warehouse, lakehouse and BI responsibilities."
+  },
+  {
+    "layer": "07 AI & Intelligent Systems",
+    "purpose": "Select AI capabilities only after data, risk and evaluation requirements are clear.",
+    "subcategories": "Foundation Models & GenAI\nAgents, RAG & Enterprise Search\nML Platform & MLOps\nResponsible AI, Safety & Governance\nPrebuilt Cognitive AI Services\nIndustry & Applied AI",
+    "primaryDecisionQuestion": "What intelligence is needed, what evidence proves quality, and what risks require controls?",
+    "typicalSolutionEngineeringOutputs": "Model/platform decision, RAG/agent design, evaluation plan and AI control framework.",
+    "stopRule": "Do not scale an AI prototype without evaluation, governance and operating controls."
+  },
+  {
+    "layer": "08 Applications, APIs & Integration",
+    "purpose": "Compose user experiences, APIs, events and enterprise workflows.",
+    "subcategories": "Messaging & Eventing\nWorkflow & Orchestration\nEnterprise Integration & iPaaS\nApplication Communications\nEnd-User, Collaboration & Contact Centre",
+    "primaryDecisionQuestion": "How will users and systems interact, integrate and exchange data reliably?",
+    "typicalSolutionEngineeringOutputs": "Application architecture, API contract, integration pattern and channel design.",
+    "stopRule": "Choose the integration semantic first: request, event, queue, stream or workflow."
+  },
+  {
+    "layer": "09 Engineering, Operations & Migration",
+    "purpose": "Create repeatable delivery, observability and change mechanisms.",
+    "subcategories": "Software Delivery & Supply Chain\nDeveloper Experience & Platform Engineering\nTesting & Resilience Engineering\nObservability & Application Performance\nReliability, SRE & Service Health\nMigration, Modernisation & Transformation",
+    "primaryDecisionQuestion": "How will the solution be built, released, observed, supported and evolved?",
+    "typicalSolutionEngineeringOutputs": "CI/CD, golden path, SLOs, runbooks, migration plan and support model.",
+    "stopRule": "No production approval without CI/CD, observability, runbooks and support ownership."
+  },
+  {
+    "layer": "10 Edge, IoT & Industry",
+    "purpose": "Use specialist capabilities only where the industry requirement justifies them.",
+    "subcategories": "IoT, Devices & Industrial Edge\nMedia, Communications & Location\nIndustry & Sovereign Solutions",
+    "primaryDecisionQuestion": "Which physical, edge, media, sovereign or industry constraints cannot be met by general services?",
+    "typicalSolutionEngineeringOutputs": "Edge topology, device model, specialist service selection and industry controls.",
+    "stopRule": "Use specialist services only when a real edge, media, sovereign or industry constraint exists."
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "architectureLayer": "01 Strategy, Governance & FinOps",
+    "awsAverage": 3.81,
+    "azureAverage": 3.77,
+    "gcpAverage": 3.74,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Existing operating model, contracts, policy tooling and FinOps maturity.",
+    "caution": "Small score differences rarely justify changing the strategic cloud."
+  },
+  {
+    "architectureLayer": "02 Security, Identity & Compliance",
+    "awsAverage": 3.78,
+    "azureAverage": 3.91,
+    "gcpAverage": 3.79,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Workforce identity, SIEM ecosystem, regulatory evidence and security operations model.",
+    "caution": "Avoid buying overlapping security tools without an integration plan."
+  },
+  {
+    "architectureLayer": "03 Network & Connectivity",
+    "awsAverage": 3.88,
+    "azureAverage": 3.92,
+    "gcpAverage": 3.89,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Global footprint, hybrid circuits, private access, latency and egress.",
+    "caution": "Network designs are workload-specific; region and topology can reverse a default."
+  },
+  {
+    "architectureLayer": "04 Compute, Containers & Runtime",
+    "awsAverage": 3.85,
+    "azureAverage": 3.9,
+    "gcpAverage": 3.87,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Required control, runtime portability, team skill and operational burden.",
+    "caution": "Do not default to Kubernetes or VMs when managed runtimes suffice."
+  },
+  {
+    "architectureLayer": "05 Data Infrastructure",
+    "awsAverage": 3.88,
+    "azureAverage": 3.92,
+    "gcpAverage": 3.87,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Data model, consistency, latency, engine compatibility and data gravity.",
+    "caution": "Database migrations are expensive; benchmark with representative workloads."
+  },
+  {
+    "architectureLayer": "06 Data Platform, Analytics & BI",
+    "awsAverage": 3.8,
+    "azureAverage": 3.83,
+    "gcpAverage": 3.93,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Data gravity, semantic layer, BI adoption, streaming and governance.",
+    "caution": "Avoid fragmented lake, warehouse and BI platforms with duplicated ownership."
+  },
+  {
+    "architectureLayer": "07 AI & Intelligent Systems",
+    "awsAverage": 3.82,
+    "azureAverage": 3.88,
+    "gcpAverage": 3.97,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Model quality, data integration, evaluation, safety, agents and accelerator needs.",
+    "caution": "Model and service capabilities change rapidly; revalidate before commitment."
+  },
+  {
+    "architectureLayer": "08 Applications, APIs & Integration",
+    "awsAverage": 3.83,
+    "azureAverage": 3.86,
+    "gcpAverage": 3.65,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Enterprise applications, API lifecycle, connector estate and user channels.",
+    "caution": "Distinguish integration, eventing, workflow and API-management requirements."
+  },
+  {
+    "architectureLayer": "09 Engineering, Operations & Migration",
+    "awsAverage": 3.82,
+    "azureAverage": 3.8,
+    "gcpAverage": 3.71,
+    "defaultLeader": "Context-dependent",
+    "whatUsuallyDecidesTheOutcome": "Developer tooling, golden paths, observability standards and migration estate.",
+    "caution": "Toolchain duplication creates cognitive load and control gaps."
+  },
+  {
+    "architectureLayer": "10 Edge, IoT & Industry",
+    "awsAverage": 3.79,
+    "azureAverage": 3.54,
+    "gcpAverage": 3.41,
+    "defaultLeader": "AWS average",
+    "whatUsuallyDecidesTheOutcome": "Device, latency, disconnected, media or sovereign requirements.",
+    "caution": "Some providers rely on partners; validate lifecycle and support ownership."
+  }
+]
