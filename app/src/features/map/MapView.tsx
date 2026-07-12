@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import architectureMap from '../../data/architectureMap.json'
+import { StepNav } from '../journey/StepNav'
+import { useProject } from '../journey/useProject'
 
 interface LayerRow {
   layer: string
@@ -13,20 +15,31 @@ interface LayerRow {
 const layers = architectureMap as LayerRow[]
 
 export function MapView() {
-  const [selectedLayer, setSelectedLayer] = useState(layers[0]?.layer)
+  const { project, setFocus } = useProject()
+  const [selectedLayer, setSelectedLayer] = useState(
+    project.selectedLayer || layers[0]?.layer || '',
+  )
+
+  useEffect(() => {
+    if (project.selectedLayer && project.selectedLayer !== selectedLayer) {
+      setSelectedLayer(project.selectedLayer)
+    }
+  }, [project.selectedLayer, selectedLayer])
 
   const selected = layers.find((layer) => layer.layer === selectedLayer) ?? layers[0]
 
   function handleSelectLayer(layerName: string): void {
     setSelectedLayer(layerName)
+    setFocus({ selectedLayer: layerName })
   }
 
   return (
     <div data-testid="map-view" className="space-y-6">
       <header>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Architecture Map</h1>
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 2 · Map</p>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Locate the layer</h1>
         <p className="mt-1 text-sm text-ink-secondary">
-          Top-down: foundation decisions constrain platform decisions.
+          Foundation decisions constrain platform decisions.
         </p>
       </header>
 
@@ -56,7 +69,6 @@ export function MapView() {
         <div className="glass-panel space-y-5 p-6" data-testid="layer-detail">
           <h2 className="font-[family-name:var(--font-display)] text-2xl font-700">{selected.layer}</h2>
           <p className="text-ink-secondary">{selected.purpose}</p>
-
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="glass-card glass-card-accent-blue p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Decide</p>
@@ -67,7 +79,6 @@ export function MapView() {
               <p className="mt-2 text-sm font-medium">{selected.stopRule}</p>
             </div>
           </div>
-
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Subcategories</p>
             <div className="mt-2 flex flex-wrap gap-2">
@@ -81,13 +92,10 @@ export function MapView() {
               ))}
             </div>
           </div>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Outputs</p>
-            <p className="mt-2 text-sm text-ink-secondary">{selected.typicalSolutionEngineeringOutputs}</p>
-          </div>
         </div>
       </div>
+
+      <StepNav path="/map" nextHint="Next: scenario defaults" />
     </div>
   )
 }

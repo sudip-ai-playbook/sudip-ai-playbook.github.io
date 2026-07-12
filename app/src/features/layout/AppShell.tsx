@@ -2,9 +2,12 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 import { APP_NAME, NAV_ITEMS } from '../../constants/playbook'
 import { useAuth } from '../auth/useAuth'
+import { JourneyRail } from '../journey/JourneyRail'
+import { useProject } from '../journey/useProject'
 
 export function AppShell() {
   const { lock } = useAuth()
+  const { project } = useProject()
 
   function handleLock(): void {
     lock()
@@ -14,9 +17,16 @@ export function AppShell() {
     <div className="playbook-bg min-h-screen" data-testid="app-shell">
       <header className="relative z-20 border-b border-slate-blue/15 bg-white/50 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <NavLink to="/" className="font-[family-name:var(--font-display)] text-lg font-700 text-indigo-velvet">
-            {APP_NAME}
-          </NavLink>
+          <div>
+            <NavLink to="/" className="font-[family-name:var(--font-display)] text-lg font-700 text-indigo-velvet">
+              {APP_NAME}
+            </NavLink>
+            {project.outcome ? (
+              <p className="max-w-md truncate text-[11px] text-ink-muted" data-testid="shell-outcome">
+                {project.outcome}
+              </p>
+            ) : null}
+          </div>
           <nav className="flex flex-wrap items-center gap-1" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
               <NavLink
@@ -48,6 +58,7 @@ export function AppShell() {
           </nav>
         </div>
       </header>
+      <JourneyRail />
       <main className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
         <Outlet />
       </main>

@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react'
+import type { ChangeEvent } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { Plus } from 'lucide-react'
 import providerRatings from '../../data/providerRatings.json'
 import {
   CRITERIA_LABELS,
@@ -9,6 +11,7 @@ import {
   type CriteriaKey,
   type DeploymentOption,
   type EcosystemOption,
+  type ProviderId,
 } from '../../constants/playbook'
 import {
   applyContextAdjustments,
@@ -17,14 +20,23 @@ import {
   type CapabilityScores,
   type CriteriaWeights,
 } from './decide.logic'
+import { StepNav } from '../journey/StepNav'
+import { useProject } from '../journey/useProject'
 
 const ratings = providerRatings as CapabilityScores[]
 
 export function DecideView() {
-  const [capabilityName, setCapabilityName] = useState(ratings[0]?.capability ?? '')
-  const [ecosystem, setEcosystem] = useState<EcosystemOption>('Neutral')
-  const [deployment, setDeployment] = useState<DeploymentOption>('Cloud-native')
+  const { project, updateBrief, setFocus, addToStack } = useProject()
+  const [capabilityName, setCapabilityName] = useState(
+    project.selectedCapability || ratings[0]?.capability || '',
+  )
   const [weights, setWeights] = useState<CriteriaWeights>({ ...DEFAULT_CRITERIA_WEIGHTS })
+
+  useEffect(() => {
+    if (project.selectedCapability) {
+      setCapabilityName(project.selectedCapability)
+    }
+  }, [project.selectedCapability])
 
   const capability = useMemo(
     () => ratings.find((item) => item.capability === capabilityName) ?? ratings[0],
@@ -37,26 +49,46 @@ export function DecideView() {
   )
 
   const finalScores = useMemo(
-    () => applyContextAdjustments(baseScores, ecosystem, deployment),
-    [baseScores, ecosystem, deployment],
+    () => applyContextAdjustments(baseScores, project.ecosystem, project.deployment),
+    [baseScores, project.ecosystem, project.deployment],
   )
 
   const recommendation = useMemo(() => recommendProvider(finalScores), [finalScores])
 
-  function handleCapabilityChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setCapabilityName(event.target.value)
+  function handleCapabilityChange(event: ChangeEvent<HTMLSelectElement>): void {
+    const next = event.target.value
+    setCapabilityName(next)
+    setFocus({ selectedCapability: next })
   }
 
-  function handleEcosystemChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setEcosystem(event.target.value as EcosystemOption)
+  function handleEcosystemChange(event: ChangeEvent<HTMLSelectElement>): void {
+    updateBrief({ ecosystem: event.target.value as EcosystemOption })
   }
 
-  function handleDeploymentChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setDeployment(event.target.value as DeploymentOption)
+  function handleDeploymentChange(event: ChangeEvent<HTMLSelectElement>): void {
+    updateBrief({ deployment: event.target.value as DeploymentOption })
   }
 
   function handleWeightChange(key: CriteriaKey, value: number): void {
     setWeights((previous) => ({ ...previous, [key]: value }))
+  }
+
+  function handleApplyWinner(): void {
+    if (!capability) return
+    const provider: ProviderId =
+      recommendation.winner === 'tie' ? 'azure' : recommendation.winner
+    setFocus({
+      preferredProvider: provider,
+      selectedCapability: capability.capability,
+      selectedLayer: capability.layer,
+    })
+    addToStack({
+      layer: capability.layer,
+      capability: capability.capability,
+      provider,
+      service: capability[provider],
+      source: 'decide',
+    })
   }
 
   if (!capability) {
@@ -66,9 +98,10 @@ export function DecideView() {
   return (
     <div data-testid="decide-view" className="space-y-6">
       <header>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Decision Assistant</h1>
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 5 · Decide</p>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Score the trade-offs</h1>
         <p className="mt-1 text-sm text-ink-secondary">
-          Adjust weights and context — small score gaps mean context wins.
+          Using your framed ecosystem ({project.ecosystem}) and deployment ({project.deployment}).
         </p>
       </header>
 
@@ -93,7 +126,7 @@ export function DecideView() {
           <select
             data-testid="decide-ecosystem"
             className="field-input mt-1"
-            value={ecosystem}
+            value={project.ecosystem}
             onChange={handleEcosystemChange}
           >
             {ECOSYSTEM_OPTIONS.map((option) => (
@@ -108,7 +141,7 @@ export function DecideView() {
           <select
             data-testid="decide-deployment"
             className="field-input mt-1"
-            value={deployment}
+            value={project.deployment}
             onChange={handleDeploymentChange}
           >
             {DEPLOYMENT_OPTIONS.map((option) => (
@@ -152,13 +185,9 @@ export function DecideView() {
                 <div className="score-bar">
                   <span style={{ width: `${(finalScores[provider] / 5) * 100}%` }} />
                 </div>
-                <p className="mt-1 text-xs text-ink-muted whitespace-pre-line">
-                  {capability[provider]}
-                </p>
               </div>
             ))}
           </div>
-
           <div className="glass-card glass-card-accent-amber p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Starting point</p>
             <p className="mt-2 text-lg font-bold" data-testid="decide-winner">
@@ -168,12 +197,14 @@ export function DecideView() {
             </p>
             <p className="mt-1 text-xs text-ink-secondary">Margin: {recommendation.margin}</p>
           </div>
-
-          {capability.recommendation ? (
-            <p className="text-sm text-ink-secondary">{capability.recommendation}</p>
-          ) : null}
+          <button type="button" className="btn btn-primary" data-testid="decide-apply" onClick={handleApplyWinner}>
+            <Plus className="h-4 w-4" />
+            Apply winner to stack
+          </button>
         </div>
       </div>
+
+      <StepNav path="/decide" nextHint="Next: check LLM FinOps" />
     </div>
   )
 }

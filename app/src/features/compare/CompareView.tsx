@@ -1,7 +1,11 @@
+import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
+import { Plus } from 'lucide-react'
 import serviceMatrix from '../../data/serviceMatrix.json'
+import { PROVIDER_LABELS, type ProviderId } from '../../constants/playbook'
 import { filterServices } from '../decide/decide.logic'
-import { PROVIDER_LABELS } from '../../constants/playbook'
+import { StepNav } from '../journey/StepNav'
+import { useProject } from '../journey/useProject'
 
 interface ServiceRow {
   layer: string
@@ -43,10 +47,28 @@ function ScoreCell({ score, label }: { score?: number; label: string }) {
   )
 }
 
+function serviceFor(row: ServiceRow, provider: ProviderId): string {
+  if (provider === 'aws') return row.aws ?? 'TBD'
+  if (provider === 'azure') return row.azure ?? 'TBD'
+  return row.gcp ?? 'TBD'
+}
+
+function bestProvider(row: ServiceRow): ProviderId {
+  const scores: Array<{ provider: ProviderId; score: number }> = [
+    { provider: 'aws', score: row.awsScore ?? 0 },
+    { provider: 'azure', score: row.azureScore ?? 0 },
+    { provider: 'gcp', score: row.gcpScore ?? 0 },
+  ]
+  return scores.sort((left, right) => right.score - left.score)[0].provider
+}
+
 export function CompareView() {
+  const { project, setFocus, addToStack } = useProject()
   const [query, setQuery] = useState('')
-  const [layer, setLayer] = useState('')
-  const [selectedId, setSelectedId] = useState<string | undefined>()
+  const [layer, setLayer] = useState(project.selectedLayer || '')
+  const [selectedId, setSelectedId] = useState<string | undefined>(
+    project.selectedCapability || undefined,
+  )
 
   const layers = useMemo(
     () => [...new Set(services.map((service) => service.layer))].sort(),
@@ -54,27 +76,50 @@ export function CompareView() {
   )
 
   const filtered = useMemo(() => filterServices(services, query, layer), [query, layer])
-
   const selected = filtered.find((service) => service.capability === selectedId) ?? filtered[0]
 
-  function handleQueryChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleQueryChange(event: ChangeEvent<HTMLInputElement>): void {
     setQuery(event.target.value)
   }
 
-  function handleLayerChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setLayer(event.target.value)
+  function handleLayerChange(event: ChangeEvent<HTMLSelectElement>): void {
+    const nextLayer = event.target.value
+    setLayer(nextLayer)
+    if (nextLayer) setFocus({ selectedLayer: nextLayer })
   }
 
   function handleSelect(capability: string): void {
     setSelectedId(capability)
+    const row = services.find((service) => service.capability === capability)
+    setFocus({
+      selectedCapability: capability,
+      selectedLayer: row?.layer || project.selectedLayer,
+    })
+  }
+
+  function handleAddToStack(provider: ProviderId): void {
+    if (!selected) return
+    setFocus({
+      selectedCapability: selected.capability,
+      selectedLayer: selected.layer,
+      preferredProvider: provider,
+    })
+    addToStack({
+      layer: selected.layer,
+      capability: selected.capability,
+      provider,
+      service: serviceFor(selected, provider),
+      source: 'compare',
+    })
   }
 
   return (
     <div data-testid="compare-view" className="space-y-6">
       <header>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Service Compare</h1>
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 4 · Compare</p>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Compare services</h1>
         <p className="mt-1 text-sm text-ink-secondary">
-          Filter {services.length} scored capabilities · pick the cloud fit
+          {services.length} scored capabilities · add the winner to your stack
         </p>
       </header>
 
@@ -118,11 +163,6 @@ export function CompareView() {
               >
                 <p className="text-sm font-bold text-ink">{service.capability}</p>
                 <p className="mt-0.5 text-xs text-ink-muted">{service.layer}</p>
-                {service.bestFit ? (
-                  <span className="mt-2 inline-block rounded-full bg-amber-flame/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink">
-                    {service.bestFit}
-                  </span>
-                ) : null}
               </button>
             )
           })}
@@ -136,41 +176,43 @@ export function CompareView() {
               </h2>
               <p className="mt-2 text-sm text-ink-secondary">{selected.purpose}</p>
             </div>
-
             <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-xl provider-aws p-3">
-                <p className="text-xs font-bold uppercase">{PROVIDER_LABELS.aws}</p>
-                <p className="mt-1 text-sm font-medium whitespace-pre-line">{selected.aws}</p>
-              </div>
-              <div className="rounded-xl provider-azure p-3">
-                <p className="text-xs font-bold uppercase">{PROVIDER_LABELS.azure}</p>
-                <p className="mt-1 text-sm font-medium whitespace-pre-line">{selected.azure}</p>
-              </div>
-              <div className="rounded-xl provider-gcp p-3">
-                <p className="text-xs font-bold uppercase">{PROVIDER_LABELS.gcp}</p>
-                <p className="mt-1 text-sm font-medium whitespace-pre-line">{selected.gcp}</p>
-              </div>
+              {(['aws', 'azure', 'gcp'] as const).map((provider) => (
+                <div key={provider} className={`rounded-xl p-3 provider-${provider}`}>
+                  <p className="text-xs font-bold uppercase">{PROVIDER_LABELS[provider]}</p>
+                  <p className="mt-1 text-sm font-medium whitespace-pre-line">
+                    {serviceFor(selected, provider)}
+                  </p>
+                  <button
+                    type="button"
+                    className="btn btn-ghost mt-3 w-full px-2 py-1 text-xs"
+                    data-testid={`compare-add-${provider}`}
+                    onClick={() => handleAddToStack(provider)}
+                  >
+                    <Plus className="h-3 w-3" /> Add
+                  </button>
+                </div>
+              ))}
             </div>
-
             <div className="space-y-3">
               <ScoreCell score={selected.awsScore} label="AWS" />
               <ScoreCell score={selected.azureScore} label="Azure" />
               <ScoreCell score={selected.gcpScore} label="GCP" />
             </div>
-
-            {selected.question ? (
-              <div className="glass-card glass-card-accent-blue p-4">
-                <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Question</p>
-                <p className="mt-1 text-sm">{selected.question}</p>
-              </div>
-            ) : null}
-
-            {selected.recommendation ? (
-              <p className="text-sm text-ink-secondary">{selected.recommendation}</p>
-            ) : null}
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-testid="compare-add-best"
+              onClick={() => handleAddToStack(bestProvider(selected))}
+            >
+              <Plus className="h-4 w-4" />
+              Add best-fit to stack
+            </button>
           </div>
         ) : null}
       </div>
+
+      <StepNav path="/compare" nextHint="Next: weight the decision" />
     </div>
   )
 }

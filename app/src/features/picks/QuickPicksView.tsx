@@ -1,5 +1,10 @@
+import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
+import { Plus } from 'lucide-react'
 import quickPicks from '../../data/quickPicks.json'
+import type { ProviderId } from '../../constants/playbook'
+import { StepNav } from '../journey/StepNav'
+import { useProject } from '../journey/useProject'
 
 interface QuickPick {
   scenario: string
@@ -18,37 +23,83 @@ interface QuickPick {
 
 const picks = quickPicks as QuickPick[]
 
+function inferProvider(defaultChoice?: string): ProviderId {
+  const value = (defaultChoice ?? '').toLowerCase()
+  if (value.includes('azure')) return 'azure'
+  if (value.includes('gcp') || value.includes('google')) return 'gcp'
+  if (value.includes('aws')) return 'aws'
+  return 'azure'
+}
+
+function serviceFor(pick: QuickPick, provider: ProviderId): string {
+  if (provider === 'aws') return pick.awsOption ?? 'TBD'
+  if (provider === 'azure') return pick.azureOption ?? 'TBD'
+  return pick.googleCloudOption ?? 'TBD'
+}
+
 export function QuickPicksView() {
+  const { project, setFocus, addToStack } = useProject()
   const [query, setQuery] = useState('')
-  const [selected, setSelected] = useState(picks[0]?.scenario)
+  const [selected, setSelected] = useState(project.selectedScenario || picks[0]?.scenario)
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase()
-    if (!normalized) return picks
-    return picks.filter((pick) =>
+    let list = picks
+    if (project.selectedLayer) {
+      list = list.filter((pick) => pick.architectureLayer === project.selectedLayer)
+    }
+    if (!normalized) return list.length > 0 ? list : picks
+    return list.filter((pick) =>
       [pick.scenario, pick.architectureLayer, pick.subcategory, pick.useWhenTrigger]
         .filter(Boolean)
         .join(' ')
         .toLowerCase()
         .includes(normalized),
     )
-  }, [query])
+  }, [query, project.selectedLayer])
 
   const active = filtered.find((pick) => pick.scenario === selected) ?? filtered[0]
 
-  function handleQueryChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleQueryChange(event: ChangeEvent<HTMLInputElement>): void {
     setQuery(event.target.value)
   }
 
   function handleSelect(scenario: string): void {
     setSelected(scenario)
+    const pick = picks.find((item) => item.scenario === scenario)
+    setFocus({
+      selectedScenario: scenario,
+      selectedLayer: pick?.architectureLayer || project.selectedLayer,
+    })
+  }
+
+  function handleUsePick(): void {
+    if (!active) return
+    const provider = inferProvider(active.defaultFirstChoice)
+    setFocus({
+      selectedScenario: active.scenario,
+      selectedLayer: active.architectureLayer || project.selectedLayer,
+      preferredProvider: provider,
+    })
+    addToStack({
+      layer: active.architectureLayer || project.selectedLayer || 'Unspecified',
+      capability: active.scenario,
+      provider,
+      service: serviceFor(active, provider),
+      source: 'picks',
+    })
   }
 
   return (
     <div data-testid="picks-view" className="space-y-6">
       <header>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Quick Picks</h1>
-        <p className="mt-1 text-sm text-ink-secondary">Scenario defaults — then challenge with Compare.</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 3 · Picks</p>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Start from a default</h1>
+        <p className="mt-1 text-sm text-ink-secondary">
+          {project.selectedLayer
+            ? `Filtered to ${project.selectedLayer}`
+            : 'Scenario shortcuts — then challenge in Compare'}
+        </p>
       </header>
 
       <input
@@ -84,31 +135,29 @@ export function QuickPicksView() {
             <p className="inline-flex rounded-full bg-amber-flame/20 px-3 py-1 text-xs font-bold">
               Default: {active.defaultFirstChoice}
             </p>
-
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-xl provider-aws p-3">
                 <p className="text-xs font-bold">AWS</p>
                 <p className="mt-1 text-sm">{active.awsOption}</p>
-                <p className="mt-2 text-xs opacity-80">{active.chooseAwsWhen}</p>
               </div>
               <div className="rounded-xl provider-azure p-3">
                 <p className="text-xs font-bold">Azure</p>
                 <p className="mt-1 text-sm">{active.azureOption}</p>
-                <p className="mt-2 text-xs opacity-80">{active.chooseAzureWhen}</p>
               </div>
               <div className="rounded-xl provider-gcp p-3">
                 <p className="text-xs font-bold">GCP</p>
                 <p className="mt-1 text-sm">{active.googleCloudOption}</p>
-                <p className="mt-2 text-xs opacity-80">{active.chooseGoogleCloudWhen}</p>
               </div>
             </div>
-
-            {active.complexityCaution ? (
-              <p className="text-xs text-cayenne-red">{active.complexityCaution}</p>
-            ) : null}
+            <button type="button" className="btn btn-primary" data-testid="picks-use" onClick={handleUsePick}>
+              <Plus className="h-4 w-4" />
+              Use default & add to stack
+            </button>
           </div>
         ) : null}
       </div>
+
+      <StepNav path="/picks" nextHint="Next: compare alternatives" />
     </div>
   )
 }

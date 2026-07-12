@@ -8,6 +8,7 @@ import {
   type LlmModel,
 } from '../../data/llmPricing'
 import { estimateTokenCost, monthlyCostFromDaily } from '../decide/decide.logic'
+import { StepNav } from '../journey/StepNav'
 
 const PROVIDER_FILTERS: Array<{ id: CloudProvider | 'all'; label: string }> = [
   { id: 'all', label: 'All' },
@@ -84,6 +85,7 @@ export function FinOpsView() {
   return (
     <div data-testid="finops-view" className="space-y-6">
       <header>
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 6 · FinOps</p>
         <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">LLM FinOps</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           Compare models, alternatives, and token economics across clouds.
@@ -271,6 +273,8 @@ export function FinOpsView() {
       <p className="text-xs text-ink-muted">
         Snapshot rates for FinOps comparison. Always verify live regional pricing before commitment.
       </p>
+
+      <StepNav path="/finops" nextHint="Next: assemble the stack" />
     </div>
   )
 }

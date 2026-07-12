@@ -42,13 +42,4 @@ export type EcosystemOption = (typeof ECOSYSTEM_OPTIONS)[number]
 export const DEPLOYMENT_OPTIONS = ['Cloud-native', 'Hybrid', 'Multicloud'] as const
 export type DeploymentOption = (typeof DEPLOYMENT_OPTIONS)[number]
 
-export const NAV_ITEMS = [
-  { path: '/', label: 'Hub', id: 'hub' },
-  { path: '/map', label: 'Map', id: 'map' },
-  { path: '/compare', label: 'Compare', id: 'compare' },
-  { path: '/picks', label: 'Quick Picks', id: 'picks' },
-  { path: '/decide', label: 'Decide', id: 'decide' },
-  { path: '/finops', label: 'LLM FinOps', id: 'finops' },
-  { path: '/canvas', label: 'Canvas', id: 'canvas' },
-  { path: '/ai', label: 'AI Platform', id: 'ai' },
-] as const
+export { NAV_ITEMS } from './journey'
