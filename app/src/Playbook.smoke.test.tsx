@@ -90,11 +90,19 @@ describe('End-to-end journey smoke', () => {
     await user.click(screen.getByTestId('summary-export'))
   })
 
+  it('opens ConsultAI OS from the hub', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.click(screen.getByTestId('start-consulting'))
+    expect(await screen.findByTestId('consulting-view')).toBeInTheDocument()
+    expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 20 of 20')
+  })
+
   it('locks the shell and continues a framed journey from hub', async () => {
     const user = userEvent.setup()
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
-    expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue journey')
+    expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue architecture journey')
     await user.click(screen.getByTestId('lock-button'))
     expect(await screen.findByTestId('password-gate')).toBeInTheDocument()
   })

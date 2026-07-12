@@ -1,0 +1,228 @@
+[
+  {
+    "id": "understand-business",
+    "label": "Understand the client’s business",
+    "recommendedStageIds": [
+      "stage-0",
+      "stage-1",
+      "stage-3"
+    ],
+    "recommendedFrameworks": [
+      "Business Model Canvas",
+      "PESTLE",
+      "Porter's Five Forces",
+      "MECE"
+    ]
+  },
+  {
+    "id": "identify-problems",
+    "label": "Identify business problems",
+    "recommendedStageIds": [
+      "stage-1",
+      "stage-3",
+      "stage-5"
+    ],
+    "recommendedFrameworks": [
+      "SPIN questioning",
+      "Five Whys",
+      "Issue trees",
+      "MECE"
+    ]
+  },
+  {
+    "id": "underperforming-process",
+    "label": "Analyse an underperforming process",
+    "recommendedStageIds": [
+      "stage-3",
+      "stage-5"
+    ],
+    "recommendedFrameworks": [
+      "SIPOC",
+      "BPMN",
+      "Value Stream Mapping",
+      "Five Whys",
+      "Fishbone Diagram",
+      "MECE"
+    ]
+  },
+  {
+    "id": "ai-opportunities",
+    "label": "Identify AI opportunities",
+    "recommendedStageIds": [
+      "stage-5"
+    ],
+    "recommendedFrameworks": [
+      "AI Canvas",
+      "Jobs to Be Done",
+      "How Might We",
+      "Lean AI Canvas"
+    ]
+  },
+  {
+    "id": "ai-maturity",
+    "label": "Assess AI maturity",
+    "recommendedStageIds": [
+      "stage-4"
+    ],
+    "recommendedFrameworks": [
+      "AI Maturity Model",
+      "NIST AI RMF",
+      "ISO/IEC 42001",
+      "Skills Heatmap"
+    ]
+  },
+  {
+    "id": "prioritise-use-cases",
+    "label": "Prioritise use cases",
+    "recommendedStageIds": [
+      "stage-6"
+    ],
+    "recommendedFrameworks": [
+      "Value-versus-Feasibility Matrix",
+      "RICE",
+      "WSJF",
+      "Dependency Mapping"
+    ]
+  },
+  {
+    "id": "ai-strategy",
+    "label": "Develop an AI strategy",
+    "recommendedStageIds": [
+      "stage-7"
+    ],
+    "recommendedFrameworks": [
+      "Strategy Choice Cascade",
+      "Target Operating Model",
+      "Three Horizons",
+      "Build–Buy–Partner"
+    ]
+  },
+  {
+    "id": "data-readiness",
+    "label": "Assess data readiness",
+    "recommendedStageIds": [
+      "stage-3",
+      "stage-8"
+    ],
+    "recommendedFrameworks": [
+      "Data maturity model",
+      "Data quality dimensions",
+      "DAMA principles"
+    ]
+  },
+  {
+    "id": "evaluate-risk",
+    "label": "Evaluate risk",
+    "recommendedStageIds": [
+      "stage-8"
+    ],
+    "recommendedFrameworks": [
+      "NIST AI RMF",
+      "ISO/IEC 42001",
+      "STRIDE",
+      "AI Impact Assessment"
+    ]
+  },
+  {
+    "id": "business-case",
+    "label": "Build a business case",
+    "recommendedStageIds": [
+      "stage-9"
+    ],
+    "recommendedFrameworks": [
+      "TCO",
+      "ROI",
+      "NPV",
+      "Benefits Dependency Network"
+    ]
+  },
+  {
+    "id": "design-solution",
+    "label": "Design an AI solution",
+    "recommendedStageIds": [
+      "stage-10"
+    ],
+    "recommendedFrameworks": [
+      "C4 Model",
+      "TOGAF",
+      "ADR",
+      "Well-Architected Frameworks"
+    ]
+  },
+  {
+    "id": "run-prototype",
+    "label": "Run a prototype",
+    "recommendedStageIds": [
+      "stage-11"
+    ],
+    "recommendedFrameworks": [
+      "Lean Startup",
+      "Build–Measure–Learn",
+      "Evaluation scorecards"
+    ]
+  },
+  {
+    "id": "prepare-production",
+    "label": "Prepare for production",
+    "recommendedStageIds": [
+      "stage-12",
+      "stage-15"
+    ],
+    "recommendedFrameworks": [
+      "DevSecOps",
+      "MLOps",
+      "LLMOps",
+      "Definition of Done"
+    ]
+  },
+  {
+    "id": "organisational-change",
+    "label": "Manage organisational change",
+    "recommendedStageIds": [
+      "stage-13"
+    ],
+    "recommendedFrameworks": [
+      "ADKAR",
+      "Kotter Eight-Step Model",
+      "Change Impact Matrix"
+    ]
+  },
+  {
+    "id": "setup-coe",
+    "label": "Set up an AI Centre of Excellence",
+    "recommendedStageIds": [
+      "stage-14"
+    ],
+    "recommendedFrameworks": [
+      "Target Operating Model",
+      "RACI",
+      "Service Catalogue"
+    ]
+  },
+  {
+    "id": "define-service-levels",
+    "label": "Define service levels",
+    "recommendedStageIds": [
+      "stage-16"
+    ],
+    "recommendedFrameworks": [
+      "ITIL Service Level Management",
+      "SRE",
+      "SLI / SLO / SLA"
+    ]
+  },
+  {
+    "id": "monitor-value",
+    "label": "Monitor value after go-live",
+    "recommendedStageIds": [
+      "stage-17",
+      "stage-18"
+    ],
+    "recommendedFrameworks": [
+      "Benefits Realisation Management",
+      "FinOps",
+      "LLMOps",
+      "OKRs"
+    ]
+  }
+]

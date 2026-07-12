@@ -77,6 +77,7 @@ export type JourneyStepId = (typeof JOURNEY_STEPS)[number]['id']
 
 export const NAV_ITEMS = [
   { path: '/', label: 'Hub', id: 'hub' },
+  { path: '/consult', label: 'Consult', id: 'consult' },
   { path: '/frame', label: 'Guide', id: 'guide' },
   { path: '/map', label: 'Map', id: 'map' },
   { path: '/picks', label: 'Picks', id: 'picks' },

@@ -14,6 +14,7 @@ import { DecideView } from './features/decide/DecideView'
 import { FinOpsView } from './features/finops/FinOpsView'
 import { CanvasView } from './features/canvas/CanvasView'
 import { AiPlatformView } from './features/ai/AiPlatformView'
+import { ConsultingView } from './features/consulting'
 
 function ProtectedApp() {
   const { authenticated } = useAuth()
@@ -25,6 +26,7 @@ function ProtectedApp() {
       <Routes>
         <Route element={<AppShell />}>
           <Route index element={<HubView />} />
+          <Route path="consult" element={<ConsultingView />} />
           <Route path="frame" element={<FrameView />} />
           <Route path="map" element={<MapView />} />
           <Route path="compare" element={<CompareView />} />

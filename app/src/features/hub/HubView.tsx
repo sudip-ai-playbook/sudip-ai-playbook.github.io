@@ -11,11 +11,19 @@ import {
   ArrowRight,
   Compass,
   FileCheck,
+  Briefcase,
 } from 'lucide-react'
 import { isFrameComplete } from '../journey/project.logic'
 import { useProject } from '../journey/useProject'
 
 const PLANES = [
+  {
+    to: '/consult',
+    title: 'ConsultAI OS',
+    desc: 'End-to-end consulting lifecycle',
+    icon: Briefcase,
+    accent: 'blue' as const,
+  },
   { to: '/map', title: 'Architecture Map', desc: 'Locate the layer', icon: Map, accent: 'blue' as const },
   { to: '/picks', title: 'Quick Picks', desc: 'Scenario defaults', icon: Zap, accent: 'orange' as const },
   { to: '/compare', title: 'Service Compare', desc: '268 scored capabilities', icon: GitCompare, accent: 'amber' as const },
@@ -49,13 +57,18 @@ export function HubView() {
           <span className="text-shimmer">Sudip AI Playbook</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-ink-secondary">
-          One guided path: frame → map → pick → compare → decide → cost → build → record.
+          Architecture decisions plus an end-to-end AI consulting playbook — filter by stage and
+          share as HTML or Excel.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link to={startPath} className="btn btn-accent" data-testid="start-journey">
-            <Compass className="h-4 w-4" />
-            {framed ? 'Continue journey' : 'Start guided journey'}
+          <Link to="/consult" className="btn btn-accent" data-testid="start-consulting">
+            <Briefcase className="h-4 w-4" />
+            Open ConsultAI OS
             <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link to={startPath} className="btn btn-ghost" data-testid="start-journey">
+            <Compass className="h-4 w-4" />
+            {framed ? 'Continue architecture journey' : 'Start architecture journey'}
           </Link>
           <Link to="/picks" className="btn btn-ghost" data-testid="jump-picks">
             Jump to Quick Picks

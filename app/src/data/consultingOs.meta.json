@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "workingName": "ConsultAI OS",
+    "productName": "End-to-End AI Consulting Workspace",
+    "positioning": "ConsultAI OS helps consulting teams turn complex AI engagements into a controlled, repeatable and evidence-based process—from the first executive conversation to production operations and measurable business value.",
+    "guidingQuestions": [
+      "Where are we in the engagement?",
+      "What should we do next?",
+      "Which framework should we use?",
+      "What evidence, deliverable or approval is required before progressing?"
+    ]
+  },
+  "frameworkRecommendations": [
+    {
+      "id": "underperforming-process-combo",
+      "question": "I need to understand why a process is underperforming.",
+      "frameworks": [
+        "SIPOC",
+        "BPMN",
+        "Value Stream Mapping",
+        "Five Whys",
+        "Fishbone Diagram",
+        "MECE",
+        "Benefits Dependency Network"
+      ]
+    },
+    {
+      "id": "invest-use-cases-combo",
+      "question": "I need to decide which AI use cases to invest in.",
+      "frameworks": [
+        "AI Canvas",
+        "Value-versus-Feasibility Matrix",
+        "RICE or WSJF",
+        "Data Readiness Assessment",
+        "AI Impact Assessment",
+        "Business Case",
+        "Portfolio Dependency Map"
+      ]
+    },
+    {
+      "id": "governance-model-combo",
+      "question": "I need to set up an AI governance model.",
+      "frameworks": [
+        "NIST AI RMF",
+        "ISO/IEC 42001",
+        "Three Lines Model",
+        "RACI",
+        "AI risk-tiering model",
+        "AI lifecycle",
+        "Policy and control hierarchy"
+      ]
+    }
+  ],
+  "mvpFrameworks": [
+    "MECE",
+    "Five Whys",
+    "SIPOC",
+    "Value Stream Mapping",
+    "Jobs to Be Done",
+    "AI Canvas",
+    "Value-versus-Feasibility",
+    "RICE",
+    "SWOT",
+    "PESTLE",
+    "Business Model Canvas",
+    "McKinsey 7S",
+    "NIST AI RMF",
+    "RACI",
+    "RAID",
+    "ADKAR",
+    "Business Case",
+    "TCO and ROI"
+  ]
+}
