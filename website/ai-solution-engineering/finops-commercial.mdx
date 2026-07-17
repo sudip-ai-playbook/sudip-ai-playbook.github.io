@@ -1,0 +1,76 @@
+---
+sidebar_position: 12
+slug: finops-commercial
+title: AI FinOps and Commercial Design
+description: Control AI unit economics, cost drivers and TCO, and design commercial models that survive production usage patterns.
+---
+
+# AI FinOps and Commercial Design
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 12 of 18</span>
+</div>
+
+## Why AI economics matter
+
+AI systems introduce variable costs through input tokens, output tokens, embeddings, search, reranking, agent loops, tool calls, storage, networking, observability and human review.
+
+## Unit economics
+
+Track cost at the level of business value:
+
+- Cost per conversation
+- Cost per resolved case
+- Cost per analysed document
+- Cost per qualified lead
+- Cost per completed workflow
+- Cost per active user
+
+## Cost drivers
+
+Major drivers: model size, prompt length, context length, output length, request volume, retry behaviour, agent loops, retrieval volume, data retention and regional deployment.
+
+## Cost controls
+
+Use model routing, prompt compression, context filtering, caching, batch processing, smaller models, request limits, budget alerts, token quotas and tool-call limits.
+
+## Commercial models
+
+Possible delivery models: fixed-price discovery, time and materials, milestone-based delivery, managed service, subscription, consumption pricing, outcome-based pricing, and licence plus implementation.
+
+## Total cost of ownership
+
+Include discovery, development, cloud, models, data engineering, integration, security, evaluation, governance, support, training, change, maintenance and incident management.
+
+## ROI measurement
+
+Avoid measuring only technical usage. Measure business outcome, adoption, quality, cost, risk and time to value.
+
+## Case study: financial-services assistant
+
+Unit metric: **cost per resolved query**. Controls: small model for routing, cache frequent FAQs, truncate context to top reranked chunks, budget alerts on agent tool loops (disabled in V1). Commercial framing: discovery fixed-price, delivery milestones, managed run-cost shared with the business owner.
+
+## Common failure modes
+
+- Optimising model price while ignoring retrieval and human review
+- No unit metric tied to value
+- Consumption surprises after a successful launch
+- TCO that ignores change and support
+- Outcome-based pricing without measurement infrastructure
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Unit economic metric agreed with the sponsor
+- [ ] Cost drivers ranked for this architecture
+- [ ] Controls implemented before scale-out
+- [ ] TCO includes ops, governance and change
+- [ ] Commercial model matches uncertainty level
+
+</div>
+
+## Practical exercise
+
+Estimate likely-case monthly cost at 10k, 100k and 1M queries. Identify which control activates at each threshold.

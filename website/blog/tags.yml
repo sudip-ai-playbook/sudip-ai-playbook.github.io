@@ -27,3 +27,13 @@ finops:
   label: FinOps
   permalink: /finops
   description: LLM cost, alternatives, and commercial trade-offs
+
+governance:
+  label: Governance
+  permalink: /governance
+  description: Responsible AI, risk classification, and audit-ready controls
+
+security:
+  label: Security
+  permalink: /security
+  description: Privacy, threat modelling, and secure AI delivery

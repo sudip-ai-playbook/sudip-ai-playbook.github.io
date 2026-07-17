@@ -1,0 +1,131 @@
+---
+sidebar_position: 4
+slug: architecture
+title: Enterprise AI Architecture
+description: Reference architecture layers, principles and key decisions for modular, secure, observable and governable enterprise AI systems.
+---
+
+# Enterprise AI Architecture
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 4 of 18</span>
+</div>
+
+Enterprise AI architecture is the structure that lets a capability survive contact with identity systems, legacy apps, audit requirements and production load.
+
+## Architecture principles
+
+Enterprise AI architecture should be modular, secure by design, observable, auditable, cloud-efficient, model-agnostic where practical, resilient, scalable, governable, easy to integrate and designed for failure.
+
+## Reference architecture layers
+
+### Layer 1: Experience
+
+Web, mobile, contact centre, Microsoft Teams, Slack, email, voice, enterprise applications and APIs.
+
+### Layer 2: Access and identity
+
+SSO, MFA, RBAC, ABAC, service identity, tenant isolation and session management.
+
+### Layer 3: API and integration
+
+API gateway, load balancer, event bus, message queue, webhooks, ESB, connector framework and rate limiting.
+
+### Layer 4: AI orchestration
+
+Prompt management, tool selection, workflow control, agent coordination, context construction, guardrails, human approval, retry handling and fallback logic.
+
+### Layer 5: Model services
+
+Managed cloud models, commercial APIs, open-source models, fine-tuned models, small language models and specialist ML models.
+
+### Layer 6: Knowledge and retrieval
+
+Search, vector database, graph database, document store, metadata catalogue, ranking, reranking and knowledge graph.
+
+### Layer 7: Data platform
+
+Data lake, warehouse, operational database, streaming, master data, catalogue and lineage tools.
+
+### Layer 8: Security and governance
+
+Secrets management, encryption, PII detection, masking, policy enforcement, audit logging, content safety, model approval and risk classification.
+
+### Layer 9: Observability
+
+Traces, logs, metrics, prompts, responses, retrieval, tool calls, latency, errors, cost and user feedback.
+
+### Layer 10: Platform and infrastructure
+
+Containers, Kubernetes, serverless, VMs, CI/CD, infrastructure as code, environment separation, backup and disaster recovery.
+
+```text
+Experience → Identity → API → Orchestration → Models
+                ↓              ↓
+           Data platform ← Knowledge / retrieval
+                ↓
+        Security · Governance · Observability · Infra
+```
+
+## Key architecture decisions
+
+### Centralised or federated platform
+
+A centralised platform improves standardisation. A federated model gives business units greater autonomy. Many enterprises need a hybrid:
+
+- Central standards and shared services
+- Domain-owned solutions
+- Federated delivery
+- Central governance
+
+### Synchronous or asynchronous processing
+
+Use synchronous processing where the user expects an immediate response. Use asynchronous processing for long documents, batch analysis, multi-step reasoning, complex agent tasks and heavy model workloads.
+
+### Stateful or stateless design
+
+State may include user session, conversation history, workflow checkpoint, approval state and agent memory. Store state deliberately, with access and retention controls.
+
+### Multi-model strategy
+
+Route requests based on complexity, sensitivity, cost, latency, modality, region and availability. Do not use the most powerful model for every task.
+
+## Case study: financial-services assistant
+
+Target components:
+
+| Concern | Choice direction |
+| --- | --- |
+| Experience | Service-desk sidebar + web |
+| Identity | Enterprise SSO with role claims |
+| Orchestration | Prompt + retrieval + policy engine |
+| Knowledge | Hybrid search over approved corpus |
+| Privacy | PII detection before model calls |
+| Observability | OpenTelemetry + LLM trace store |
+| Processing | Sync for Q&A; async for bulk document packs |
+
+## Common failure modes
+
+- Point solutions glued together with no identity story
+- One mega-model for every request
+- Missing async path for long-running work
+- Observability bolted on after incidents
+- Platform vs domain ownership left ambiguous
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Ten layers considered, even if some are “N/A with rationale”
+- [ ] Central / federated / hybrid decision recorded
+- [ ] Sync vs async paths defined
+- [ ] State stores named with retention rules
+- [ ] Multi-model routing criteria drafted
+- [ ] Failure and fallback behaviour described
+
+</div>
+
+## Practical exercise
+
+Draw the ten layers for your organisation as they exist today. Mark gaps in red. Those gaps become architecture foundations in the prioritisation matrix.

@@ -1,0 +1,75 @@
+---
+sidebar_position: 8
+slug: agentic-ai
+title: Agentic AI Systems
+description: Design production agentic systems with planners, tools, state, human approval, failure modes and minimum necessary autonomy.
+---
+
+# Agentic AI Systems
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 8 of 18</span>
+</div>
+
+## What makes a system agentic?
+
+An agentic system can interpret an objective, plan actions, select tools, execute steps, read results, update state, request approval and continue until completion.
+
+## Agent architecture
+
+A production agent typically includes planner, tool registry, policy layer, state store, memory, execution engine, guardrails, human approval, observability and evaluation.
+
+## Single-agent versus multi-agent
+
+Use a **single agent** when the workflow is relatively simple, centralised reasoning is sufficient and operational control is important.
+
+Use **multiple agents** where roles are clearly separable, specialist context improves performance, parallel execution creates value, or different tools or policies apply.
+
+Do not create multiple agents only because the design appears innovative.
+
+## Human-in-the-loop controls
+
+Human approval may be required before sending external communications, updating financial systems, approving payments, changing customer records, making regulated decisions, deleting data or executing high-impact actions.
+
+## Agent state
+
+State may include current objective, completed steps, pending actions, tool results, approval status, errors and retry count.
+
+State should be durable, auditable, secure, recoverable and tenant-isolated.
+
+## Agent failure modes
+
+Common risks: infinite loops, tool misuse, incorrect planning, prompt injection, excessive cost, duplicate actions, unauthorised access, state corruption and inconsistent recovery.
+
+## Agent design principle
+
+> Give an agent the minimum autonomy required to create value.
+
+## Case study: financial-services assistant
+
+Default mode is **not** fully agentic. Start with RAG Q&A. Introduce tools only for authorised CRM lookups. Any customer-record update requires human approval. Multi-agent designs are deferred until single-agent tool use is stable and observable.
+
+## Common failure modes
+
+- Agents with write access and weak allowlists
+- No budget or loop limits
+- State in chat history only
+- Multi-agent complexity before single-agent reliability
+- Missing approval gates on irreversible actions
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Autonomy justified against a simpler pattern
+- [ ] Tool allowlist and permissions documented
+- [ ] Approval points mapped to impact
+- [ ] State store and recovery tested
+- [ ] Loop, cost and duplicate-action controls in place
+
+</div>
+
+## Practical exercise
+
+List every tool an agent might call. Label each read-only, reversible write, or irreversible. Only irreversible tools may proceed with human approval in V1.

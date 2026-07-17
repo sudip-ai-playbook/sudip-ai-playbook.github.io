@@ -1,30 +1,325 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Minimal reading aesthetic for the AI Solution Engineering blog & guides.
  */
 
-/* You can override the default Infima variables here. */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap');
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-primary: #0f6e56;
+  --ifm-color-primary-dark: #0d634d;
+  --ifm-color-primary-darker: #0c5d49;
+  --ifm-color-primary-darkest: #0a4d3c;
+  --ifm-color-primary-light: #11795f;
+  --ifm-color-primary-lighter: #127f63;
+  --ifm-color-primary-lightest: #158f70;
+
+  --ifm-font-family-base: 'Instrument Sans', system-ui, sans-serif;
+  --ifm-heading-font-family: 'Instrument Sans', system-ui, sans-serif;
+  --ifm-font-family-monospace: 'SF Mono', ui-monospace, Menlo, monospace;
+  --ifm-code-font-size: 90%;
+  --ifm-line-height-base: 1.7;
+  --ifm-leading: 1.65rem;
+  --ifm-heading-line-height: 1.25;
+  --ifm-global-radius: 10px;
+  --ifm-navbar-shadow: none;
+  --ifm-footer-padding-vertical: 2.5rem;
+
+  --ase-ink: #14201b;
+  --ase-muted: #5c6b64;
+  --ase-paper: #f7f6f2;
+  --ase-paper-deep: #efece4;
+  --ase-rule: rgba(20, 32, 27, 0.1);
+  --ase-accent-soft: rgba(15, 110, 86, 0.08);
+  --ase-quote: #0f6e56;
+
+  --ifm-background-color: var(--ase-paper);
+  --ifm-navbar-background-color: rgba(247, 246, 242, 0.86);
+  --ifm-footer-background-color: #14201b;
+  --ifm-color-content: var(--ase-ink);
+  --ifm-color-content-secondary: var(--ase-muted);
+  --ifm-heading-color: var(--ase-ink);
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-blockquote-border-color: var(--ifm-color-primary);
+  --docusaurus-highlighted-code-line-bg: rgba(15, 110, 86, 0.08);
+
+  --ifm-h1-font-size: 2.35rem;
+  --ifm-h2-font-size: 1.55rem;
+  --ifm-h3-font-size: 1.2rem;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #4ec9a8;
+  --ifm-color-primary-dark: #3bbf9b;
+  --ifm-color-primary-darker: #34b593;
+  --ifm-color-primary-darkest: #2a9478;
+  --ifm-color-primary-light: #61cfb3;
+  --ifm-color-primary-lighter: #6cd3b8;
+  --ifm-color-primary-lightest: #86dbc5;
+
+  --ase-ink: #e8eee9;
+  --ase-muted: #9aaba3;
+  --ase-paper: #101613;
+  --ase-paper-deep: #161d19;
+  --ase-rule: rgba(232, 238, 233, 0.12);
+  --ase-accent-soft: rgba(78, 201, 168, 0.12);
+  --ase-quote: #4ec9a8;
+
+  --ifm-background-color: var(--ase-paper);
+  --ifm-navbar-background-color: rgba(16, 22, 19, 0.88);
+  --ifm-footer-background-color: #0a0e0c;
+  --ifm-color-content: var(--ase-ink);
+  --ifm-heading-color: var(--ase-ink);
+  --docusaurus-highlighted-code-line-bg: rgba(78, 201, 168, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  letter-spacing: -0.01em;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, var(--ase-accent-soft), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(20, 32, 27, 0.04), transparent 50%),
+    var(--ase-paper);
+}
+
+[data-theme='dark'] body {
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, var(--ase-accent-soft), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 100% 0%, rgba(78, 201, 168, 0.06), transparent 50%),
+    var(--ase-paper);
+}
+
+.navbar {
+  border-bottom: 1px solid var(--ase-rule);
+  backdrop-filter: blur(12px);
+}
+
+.navbar__title {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.navbar__link {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.footer {
+  border-top: 1px solid var(--ase-rule);
+}
+
+.footer__title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* Blog list */
+.blog-list-page article {
+  margin-bottom: 2.75rem;
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--ase-rule);
+}
+
+.blog-list-page article header h2 {
+  font-size: 1.65rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.blog-list-page article header h2 a {
+  color: var(--ase-ink);
+  text-decoration: none;
+}
+
+.blog-list-page article header h2 a:hover {
+  color: var(--ifm-color-primary);
+}
+
+.blog-list-page .avatar__subtitle,
+.blog-list-page .margin-vert--md {
+  color: var(--ase-muted);
+}
+
+/* Reading column */
+.markdown {
+  max-width: 42rem;
+}
+
+article .markdown > h1:first-child,
+.theme-doc-markdown > h1:first-child {
+  letter-spacing: -0.035em;
+  margin-bottom: 0.75rem;
+}
+
+.markdown > h2 {
+  margin-top: 2.4rem;
+  padding-top: 0.4rem;
+  letter-spacing: -0.025em;
+  border-top: 1px solid var(--ase-rule);
+}
+
+.markdown > h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.markdown > h3 {
+  margin-top: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.markdown p,
+.markdown li {
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  font-optical-sizing: auto;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown .badge,
+.markdown table,
+.markdown th,
+.markdown td {
+  font-family: var(--ifm-font-family-base);
+}
+
+.markdown blockquote {
+  background: var(--ase-accent-soft);
+  border-left-width: 3px;
+  border-radius: 0 8px 8px 0;
+  padding: 0.85rem 1.1rem;
+  color: var(--ase-ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-size: 1.08rem;
+}
+
+.markdown blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown table {
+  display: table;
+  width: 100%;
+  font-size: 0.92rem;
+  border-collapse: collapse;
+}
+
+.markdown th {
+  background: var(--ase-paper-deep);
+  font-weight: 600;
+}
+
+.markdown th,
+.markdown td {
+  border-color: var(--ase-rule);
+  padding: 0.65rem 0.75rem;
+}
+
+.markdown code {
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}
+
+.markdown hr {
+  border: none;
+  border-top: 1px solid var(--ase-rule);
+  margin: 2.5rem 0;
+}
+
+/* Soft callout boxes via admonitions */
+.alert {
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--ase-rule) !important;
+}
+
+.menu__link {
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background: var(--ase-accent-soft);
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--ase-rule);
+  border-radius: 10px;
+  background: transparent;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+}
+
+.theme-doc-footer,
+.blog-post-page footer {
+  border-top: 1px solid var(--ase-rule);
+  padding-top: 1.5rem;
+}
+
+.tag {
+  border-radius: 999px;
+  border: 1px solid var(--ase-rule);
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.tag:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+}
+
+/* Series meta strip */
+.ase-series-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin: 0 0 1.75rem;
+  padding: 0.75rem 0 1rem;
+  border-bottom: 1px solid var(--ase-rule);
+  color: var(--ase-muted);
+  font-size: 0.88rem;
+  font-family: var(--ifm-font-family-base);
+}
+
+.ase-series-meta strong {
+  color: var(--ase-ink);
+  font-weight: 600;
+}
+
+.ase-checklist {
+  background: var(--ase-paper-deep);
+  border: 1px solid var(--ase-rule);
+  border-radius: 10px;
+  padding: 1rem 1.15rem 0.35rem;
+  margin: 1.25rem 0 1.75rem;
+}
+
+.ase-checklist h3,
+.ase-checklist h4 {
+  margin-top: 0;
+}
+
+@media (max-width: 996px) {
+  .markdown p,
+  .markdown li {
+    font-size: 1.02rem;
+  }
+
+  --ifm-h1-font-size: 1.9rem;
 }

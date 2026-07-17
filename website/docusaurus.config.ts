@@ -37,6 +37,11 @@ const config: Config = {
         blog: {
           routeBasePath: '/',
           showReadingTime: true,
+          blogTitle: 'AI Solution Engineering Blog',
+          blogDescription:
+            'Practical notes on designing, governing and scaling production AI systems.',
+          blogSidebarTitle: 'Recent posts',
+          blogSidebarCount: 8,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -54,10 +59,31 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'ai-solution-engineering',
+        path: 'ai-solution-engineering',
+        routeBasePath: 'ai-solution-engineering',
+        sidebarPath: './sidebarsAiSolutionEngineering.ts',
+        editUrl:
+          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
+        showLastUpdateTime: false,
+      },
+    ],
+  ],
+
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
       respectPrefersColorScheme: true,
+    },
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
     },
     navbar: {
       title: 'AI Solution Engineering',
@@ -69,18 +95,20 @@ const config: Config = {
         {to: '/', label: 'Blog', position: 'left'},
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'aiSolutionEngineeringSidebar',
+          docsPluginId: 'ai-solution-engineering',
           position: 'left',
-          label: 'Guides',
+          label: 'Guide',
         },
         {
-          to: '/docs/ai-solution-engineering/8d-framework',
-          label: '8D Framework',
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
           position: 'left',
+          label: 'Playbook docs',
         },
         {
           href: 'https://sudip-ai-playbook.github.io/',
-          label: 'Back to Playbook',
+          label: 'Playbook app',
           position: 'right',
         },
         {
@@ -101,8 +129,8 @@ const config: Config = {
               to: '/',
             },
             {
-              label: 'Guides',
-              to: '/docs/intro',
+              label: 'AI Solution Engineering guide',
+              to: '/ai-solution-engineering/overview',
             },
             {
               label: '8D Framework',
@@ -111,6 +139,27 @@ const config: Config = {
             {
               label: 'VALUE gate',
               to: '/docs/ai-solution-engineering/value-gate',
+            },
+          ],
+        },
+        {
+          title: 'Series',
+          items: [
+            {
+              label: 'Opportunity discovery',
+              to: '/ai-solution-engineering/discovery',
+            },
+            {
+              label: 'Enterprise architecture',
+              to: '/ai-solution-engineering/architecture',
+            },
+            {
+              label: 'RAG engineering',
+              to: '/ai-solution-engineering/rag',
+            },
+            {
+              label: 'Security and privacy',
+              to: '/ai-solution-engineering/security-privacy',
             },
           ],
         },
@@ -125,11 +174,6 @@ const config: Config = {
               label: 'ConsultAI OS',
               href: 'https://sudip-ai-playbook.github.io/consult',
             },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
             {
               label: 'GitHub',
               href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',

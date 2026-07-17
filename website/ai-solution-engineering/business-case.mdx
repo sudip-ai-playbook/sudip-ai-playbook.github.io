@@ -1,0 +1,150 @@
+---
+sidebar_position: 3
+slug: business-case
+title: Business Case and Prioritisation
+description: Qualify AI use cases, score value, feasibility, risk and adoption, and build honest business cases with scenario planning.
+---
+
+# Business Case and Prioritisation
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 3 of 18</span>
+</div>
+
+Not every opportunity should progress to delivery. Prioritisation protects scarce engineering capacity and reduces the risk of building impressive systems that nobody adopts.
+
+## AI use-case qualification
+
+Evaluate candidate use cases across:
+
+- Strategic alignment
+- Business value
+- Technical feasibility
+- Data readiness
+- User desirability
+- Risk
+- Time to value
+- Scalability
+- Organisational readiness
+
+## AI suitability test
+
+Before proposing AI, determine whether the task involves large volumes of information, pattern recognition, unstructured data, repetitive judgement, knowledge retrieval, prediction, personalisation, optimisation, content generation or multi-step coordination.
+
+Then ask:
+
+- Could a deterministic rule solve this more safely?
+- Could workflow redesign solve the problem?
+- Could traditional automation solve it?
+- Is AI materially better than the alternatives?
+
+If the answer is “rules would do,” choose rules. AI is a means, not a goal.
+
+## Use-case prioritisation matrix
+
+Score each use case from 1 to 5.
+
+| Dimension | What to score |
+| --- | --- |
+| **Value** | Revenue, cost reduction, productivity, risk reduction, customer value, strategic relevance |
+| **Feasibility** | Data readiness, technical complexity, integration effort, model availability, delivery capability |
+| **Risk** | Data sensitivity, regulatory exposure, decision impact, explainability, security exposure |
+| **Adoption** | User readiness, process fit, leadership support, change complexity, trust requirements |
+
+A simple ranking heuristic:
+
+**Priority score = Value + Feasibility + Adoption − Risk**
+
+Adjust weights to organisational strategy, but keep the method transparent.
+
+## Example priority categories
+
+| Category | Meaning |
+| --- | --- |
+| **Quick wins** | High value, low complexity, manageable risk |
+| **Strategic bets** | High value with significant architecture, data or change requirements |
+| **Foundations** | Capabilities that unlock many future use cases (identity, model gateway, vector platform, evaluation, governance) |
+| **Defer** | Low value, high complexity or unacceptable risk |
+
+## Building the business case
+
+Include problem, baseline, target outcome, proposed intervention, investment, expected benefits, risks, dependencies, delivery approach and measurement plan.
+
+### Benefit categories
+
+**Financial** — revenue growth, cost avoidance, reduced headcount growth, lower third-party spend, reduced error cost.
+
+**Operational** — faster cycle time, increased throughput, reduced manual effort, improved availability, better consistency.
+
+**Customer** — faster response, better personalisation, improved resolution, increased satisfaction, reduced abandonment.
+
+**Risk and compliance** — fewer policy breaches, better audit evidence, improved monitoring, faster issue detection, reduced regulatory exposure.
+
+## Business case formula
+
+A simple annual-value estimate:
+
+**Annual value = Productivity value + Revenue value + Risk reduction value − Annual operating cost**
+
+Where:
+
+**Productivity value = Hours saved × Loaded hourly cost × Adoption rate**
+
+Avoid presenting theoretical savings as guaranteed cash savings. Separate:
+
+- Capacity released
+- Avoided future hiring
+- Direct cost reduction
+- Revenue uplift
+- Risk-adjusted benefit
+
+## Scenario planning
+
+Develop three scenarios.
+
+| Scenario | Assumptions |
+| --- | --- |
+| **Best case** | High adoption, strong model quality, rapid scale |
+| **Likely case** | Moderate adoption, normal delivery constraints, realistic benefit capture |
+| **Downside case** | Low adoption, higher operating costs or delayed integration |
+
+This prevents overconfident business cases and gives executives a decision with eyes open.
+
+## Case study: financial-services assistant
+
+| Factor | Assessment |
+| --- | --- |
+| Value | High — search time and first-contact resolution |
+| Feasibility | Medium — knowledge is fragmented but exists |
+| Risk | Medium-high — product advice and regulated language |
+| Adoption | High if embedded in the service desk, low if a separate portal |
+
+**Classification.** Strategic bet with a foundation dependency on approved knowledge ingestion, access-controlled retrieval and evaluation.
+
+**Likely-case benefit framing.** Capacity released for advisors (minutes saved × volume × adoption), not headcount cuts on day one.
+
+## Common failure modes
+
+- Ranking by executive enthusiasm instead of evidence
+- Counting 100% of theoretical hours as cash savings
+- Ignoring foundations that make later use cases cheaper
+- Skipping the “rules vs AI” test
+- Single-point estimates without downside scenarios
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Suitability test completed for each candidate
+- [ ] Scores recorded with evidence notes
+- [ ] Quick wins / strategic bets / foundations / defer labelled
+- [ ] Benefits separated by category and certainty
+- [ ] Best / likely / downside scenarios documented
+- [ ] Explicit ask prepared for the decision forum
+
+</div>
+
+## Practical exercise
+
+Score three candidate use cases with the matrix. Force yourself to defer at least one. Write the one-paragraph rationale an executive would need to accept that deferral.

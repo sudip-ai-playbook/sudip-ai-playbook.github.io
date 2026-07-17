@@ -1,0 +1,82 @@
+---
+sidebar_position: 10
+slug: governance
+title: Responsible AI and Governance
+description: Treat AI governance as an operating system—risk classification, lifecycle controls, principles, artefacts and end-to-end traceability.
+---
+
+# Responsible AI and Governance
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 10 of 18</span>
+</div>
+
+## Governance is an operating system
+
+AI governance should determine which use cases are allowed, who may approve them, what evidence is required, which controls must be implemented, how solutions are monitored and when solutions must be stopped.
+
+## AI risk classification
+
+Classify use cases according to impact, autonomy, data sensitivity, regulatory exposure, user population, reversibility and explainability needs.
+
+## Governance lifecycle
+
+1. Intake  
+2. Classification  
+3. Risk assessment  
+4. Design review  
+5. Testing  
+6. Approval  
+7. Deployment  
+8. Monitoring  
+9. Reassessment  
+10. Retirement  
+
+## Responsible AI principles
+
+| Principle | Expectation |
+| --- | --- |
+| **Fairness** | No unjustified differential outcomes |
+| **Reliability and safety** | Behaviour within defined boundaries |
+| **Privacy** | Personal data protected throughout |
+| **Transparency** | Users understand when and how AI is used |
+| **Explainability** | Organisation can explain significant outputs |
+| **Accountability** | Named owner remains accountable |
+| **Human oversight** | Humans retain meaningful control over high-impact decisions |
+
+## AI governance artefacts
+
+Maintain use-case record, risk assessment, model card, data sheet, architecture decision record, evaluation report, DPIA, threat model, approval record, monitoring plan, incident procedure and retirement plan.
+
+## End-to-end traceability
+
+A traceable AI interaction should record user, time, application, model, model version, prompt version, retrieved sources, tool calls, policy decisions, guardrail results, output, human intervention, feedback, cost and latency.
+
+## Case study: financial-services assistant
+
+Classified as medium-high risk due to regulated product language. Artefacts required before production: use-case record, DPIA, threat model, evaluation report, model card, monitoring plan and named product owner. Every answer stores citations and policy decisions for audit.
+
+## Common failure modes
+
+- Governance as paperwork after build
+- No named owner after the pilot
+- Principles without operational controls
+- Missing retirement and reassessment paths
+- Traceability that stops at “model called”
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Risk classification completed and accepted
+- [ ] Lifecycle stage and required artefacts clear
+- [ ] Principles mapped to concrete controls
+- [ ] Trace fields defined in observability design
+- [ ] Incident and retirement procedures drafted
+
+</div>
+
+## Practical exercise
+
+Complete a one-page use-case record for your initiative: purpose, data, autonomy, impact, residual risk, owner and kill criteria.

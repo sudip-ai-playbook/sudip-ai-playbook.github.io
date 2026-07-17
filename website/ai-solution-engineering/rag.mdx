@@ -1,0 +1,95 @@
+---
+sidebar_position: 7
+slug: rag
+title: RAG Engineering
+description: Design retrieval-augmented generation pipelines with ingestion, chunking, hybrid retrieval, access control, citations and evaluation.
+---
+
+# RAG Engineering
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 7 of 18</span>
+</div>
+
+## What RAG solves
+
+Retrieval-augmented generation allows a model to answer using approved enterprise knowledge.
+
+A RAG pipeline typically includes:
+
+1. Ingestion  
+2. Parsing  
+3. Cleaning  
+4. Chunking  
+5. Metadata enrichment  
+6. Embedding  
+7. Indexing  
+8. Query transformation  
+9. Retrieval  
+10. Reranking  
+11. Context assembly  
+12. Generation  
+13. Citation  
+14. Evaluation  
+
+## Ingestion
+
+Support PDFs, Office documents, web pages, wikis, databases, APIs, SharePoint, file stores and knowledge platforms. Prefer systems of record with owners over unmanaged drives.
+
+## Chunking
+
+Chunking affects retrieval quality. Strategies include fixed size, semantic, section-based, paragraph-based, document-aware, table-aware and parent-child.
+
+Avoid splitting content without preserving heading, source, page, section, version and access classification.
+
+## Retrieval strategy
+
+Possible approaches: keyword search, dense vector search, hybrid search, metadata filtering, knowledge graph retrieval, multi-query retrieval and query decomposition.
+
+Hybrid search plus metadata filters is a strong default for enterprise corpora with overlapping terminology.
+
+## Reranking
+
+Reranking improves ordering when many results appear relevant, queries are ambiguous, or documents share similar terminology.
+
+## Access-controlled retrieval
+
+The system must not retrieve content the user cannot access. Security trimming should occur **before** context reaches the model.
+
+## Citations
+
+Every grounded answer should record source document, section, page or paragraph, retrieval score, version and timestamp.
+
+## RAG evaluation
+
+Measure retrieval precision and recall, context relevance, faithfulness, answer relevance, citation accuracy, unsupported-claim rate and no-answer accuracy.
+
+## Case study: financial-services assistant
+
+Ingest only approved product and policy libraries. Chunk by section with product and jurisdiction metadata. Hybrid retrieve, filter by the user’s role and region, rerank, generate with mandatory citations, and refuse when retrieval confidence is low.
+
+## Common failure modes
+
+- Dumping unchunked PDFs into embeddings
+- No access trimming before generation
+- Answers without citations
+- Evaluating only generation quality, not retrieval
+- Ignoring stale or superseded document versions
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Pipeline stages owned end to end
+- [ ] Chunking preserves structure and access metadata
+- [ ] Hybrid retrieval + filters justified
+- [ ] Security trimming verified with negative tests
+- [ ] Citation schema defined
+- [ ] Golden set includes no-answer cases
+
+</div>
+
+## Practical exercise
+
+Build a ten-question golden set for your corpus: five answerable, three ambiguous, two that must refuse. Run them after every chunking or retrieval change.

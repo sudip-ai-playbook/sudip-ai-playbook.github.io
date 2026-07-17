@@ -1,0 +1,87 @@
+---
+sidebar_position: 11
+slug: evaluation-observability
+title: Evaluation and Observability
+description: Evaluate AI quality, safety, cost and adoption beyond uptime—and build observability with traces, metrics, golden datasets and Grafana/Langfuse patterns.
+---
+
+# Evaluation and Observability
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 11 of 18</span>
+</div>
+
+## Why traditional monitoring is not enough
+
+Traditional systems are monitored through availability, latency, throughput and error rate.
+
+AI systems also require monitoring of quality, groundedness, safety, bias, drift, user trust, model behaviour and token consumption.
+
+## Evaluation layers
+
+| Layer | Purpose |
+| --- | --- |
+| **Component** | Retrieval, classification, extraction, tool selection, guardrails, parsing |
+| **End-to-end** | Realistic user journeys |
+| **Offline** | Curated datasets before deployment |
+| **Online** | Production interactions |
+| **Human** | Domain experts for high-risk or subjective tasks |
+
+## Core metrics
+
+**Quality** — accuracy, precision, recall, F1, faithfulness, relevance, completeness.
+
+**Safety** — harmful-output rate, PII-leakage rate, policy-violation rate, injection success rate.
+
+**Operations** — latency, availability, error rate, retry rate, tool failure, timeout rate.
+
+**Cost** — cost per request, cost per successful task, tokens per workflow, retrieval cost, infrastructure cost.
+
+**Adoption** — active users, repeat usage, task completion, acceptance rate, escalation rate, user satisfaction.
+
+## Golden dataset
+
+A golden dataset should contain representative questions, expected answers, acceptable answer criteria, required sources, disallowed content, risk category, edge cases and no-answer cases.
+
+## Observability architecture
+
+A typical architecture may use OpenTelemetry, distributed tracing, centralised logging, metrics store, AI-specific trace platform, dashboards and alerting.
+
+Trace request, retrieval, prompt, model, tool, response and feedback.
+
+### Grafana-based observability
+
+A platform may use Grafana for visualisation, Tempo for traces, Loki for logs, Mimir or Prometheus for metrics, and OpenTelemetry agents and gateways.
+
+AI-specific tools such as Langfuse can provide prompt management, LLM traces, evaluation, cost monitoring and dataset management.
+
+Architectural separation may also be required to address licensing, isolation or operational ownership.
+
+## Case study: financial-services assistant
+
+Offline golden set covers product facts, policy edge cases and must-refuse questions. Online: track citation accuracy, escalation rate and cost per resolved query. Traces link user → retrieval hits → prompt version → model → guardrail → feedback.
+
+## Common failure modes
+
+- Shipping on demo vibes without a golden set
+- Dashboards for latency only
+- No ownership of evaluation datasets
+- Tracing prompts without redaction
+- Ignoring no-answer and refusal quality
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Evaluation layers defined for the release
+- [ ] Metrics cover quality, safety, ops, cost, adoption
+- [ ] Golden set includes edge and no-answer cases
+- [ ] Trace schema agrees with governance needs
+- [ ] Alerts mapped to human response procedures
+
+</div>
+
+## Practical exercise
+
+Create twelve golden items: eight factual, two adversarial, two must-refuse. Define pass/fail criteria before you look at model output.

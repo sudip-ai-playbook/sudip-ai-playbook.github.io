@@ -1,0 +1,95 @@
+---
+sidebar_position: 5
+slug: data-knowledge
+title: Data and Knowledge Engineering
+description: Assess data readiness, minimise sensitive data, apply PII controls, and design metadata that makes enterprise knowledge retrievable and governable.
+---
+
+# Data and Knowledge Engineering
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 5 of 18</span>
+</div>
+
+## Data is a product dependency
+
+AI quality is constrained by the quality, accessibility and governance of the data. An AI Solution Engineer must assess source, ownership, quality, freshness, completeness, sensitivity, permissions, licensing, residency, lineage and retention.
+
+## Data categories
+
+| Category | Examples |
+| --- | --- |
+| **Structured** | Customer records, transactions, product data, financials, operational metrics |
+| **Unstructured** | Documents, emails, policies, reports, contracts, images, audio, video |
+| **Streaming** | Events, sensors, application logs, real-time transactions |
+| **Knowledge assets** | Policies, procedures, FAQs, manuals, regulatory guidance, historical decisions |
+
+## Data readiness assessment
+
+Evaluate:
+
+- Is the relevant data available?
+- Is it accessible through an approved method?
+- Is it accurate and complete enough?
+- Does it represent the target population?
+- Is it labelled where required?
+- Can it be processed within the legal basis?
+- Is the data current?
+- Is the owner willing to support the solution?
+
+## Data minimisation
+
+Only collect and process data required for the defined purpose. Apply minimisation at collection, storage, prompt construction, retrieval, model invocation, logging, analytics and retention.
+
+## PII detection and masking
+
+A privacy pipeline can include:
+
+1. Input received
+2. PII detection
+3. Entity classification
+4. Masking or pseudonymisation
+5. Model processing
+6. Controlled rehydration where authorised
+7. Secure logging
+
+Microsoft Presidio can support detection and anonymisation of names, emails, phone numbers, addresses, account numbers, national identifiers and payment details.
+
+Presidio is not a complete privacy solution. It requires custom recognisers, domain testing, false-positive and false-negative monitoring, context-aware rules, and human review for high-risk workflows.
+
+## Metadata strategy
+
+Each knowledge item should include metadata such as source, owner, version, effective date, expiry date, classification, region, product, audience, approval status and access level.
+
+Metadata improves retrieval, filtering, access control, explainability and lifecycle management.
+
+## Case study: financial-services assistant
+
+Knowledge sources include product PDFs, policy SharePoint libraries, approved FAQ sheets and servicing playbooks. Customer account data is **not** embedded into the corpus; it is fetched only when authorised tools allow, after identity checks.
+
+Metadata fields that matter here: product family, jurisdiction, effective dating, approval status and audience (advisor vs public).
+
+## Common failure modes
+
+- Treating “we have documents” as data readiness
+- Dumping ungoverned file shares into a vector index
+- Logging raw prompts that contain PII
+- No owner for knowledge freshness
+- Masking tools deployed without domain testing
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Data categories mapped for the use case
+- [ ] Readiness questions answered with evidence
+- [ ] Minimisation applied at prompt, retrieval and log layers
+- [ ] PII pipeline designed with monitoring for errors
+- [ ] Metadata schema agreed with knowledge owners
+
+</div>
+
+## Practical exercise
+
+Pick ten documents from a candidate corpus. Tag each with owner, version, classification and access level. Count how many would be unsafe to retrieve for a junior user. That count is your access-control backlog.

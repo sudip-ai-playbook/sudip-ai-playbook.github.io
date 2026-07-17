@@ -1,0 +1,89 @@
+---
+sidebar_position: 6
+slug: ai-patterns
+title: AI Patterns and Model Strategy
+description: Select the right AI solution pattern before the model, and combine deterministic controls with generative components.
+---
+
+# AI Patterns and Model Strategy
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 6 of 18</span>
+</div>
+
+## Select the pattern before the model
+
+The first question should not be:
+
+> Which model should we use?
+
+The first question should be:
+
+> What solution pattern is appropriate?
+
+## Common AI patterns
+
+| Pattern | Typical uses |
+| --- | --- |
+| **Classification** | Ticket routing, risk categorisation, intent detection, document classification |
+| **Extraction** | Invoices, contracts, forms, entity recognition |
+| **Summarisation** | Case notes, meetings, research, interactions, reports |
+| **Retrieval / QA** | Answers grounded in enterprise knowledge |
+| **Recommendation** | Next-best action, products, content, decision support |
+| **Forecasting** | Demand, revenue, capacity, failure, markets |
+| **Optimisation** | Scheduling, routing, allocation, pricing, networks |
+| **Agentic workflow** | Plan, select tools, execute, evaluate, multi-step tasks |
+
+## Model selection criteria
+
+Evaluate models across quality, latency, cost, context length, tool use, structured output, multimodal capability, region availability, security, data-use policy, deployment model, fine-tuning support and operational maturity.
+
+## Large models versus small models
+
+Use **larger models** for complex reasoning, ambiguous instructions, multi-document synthesis and advanced tool use.
+
+Use **smaller models** for classification, routing, extraction, repetitive structured tasks, high-volume workloads and edge deployment.
+
+## Deterministic and generative components
+
+Enterprise AI should combine deterministic controls with probabilistic models:
+
+- Schema validation
+- Business rules
+- Permission checks
+- Confidence thresholds
+- Approved tool lists
+- Workflow states
+- Human approval
+- Transaction validation
+
+The model should not control everything.
+
+## Case study: financial-services assistant
+
+Primary pattern: **retrieval and question answering**, with classification for intent and risk routing, and deterministic policy checks before any write action.
+
+Model strategy: small model for intent and routing; stronger model for grounded synthesis; never the largest model for every greeting.
+
+## Common failure modes
+
+- Model shopping before pattern clarity
+- Generative answers where extraction or search would suffice
+- No deterministic envelope around the model
+- One model for routing, reasoning and high-volume classification
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Pattern chosen and justified against alternatives
+- [ ] Model criteria scored for shortlisted options
+- [ ] Large vs small routing rules drafted
+- [ ] Deterministic controls listed beside generative steps
+
+</div>
+
+## Practical exercise
+
+Rewrite a “chatbot” request as a pattern statement: “This is retrieval-augmented QA with classification-based escalation, not an open-ended agent.” Share it with the sponsor and confirm they agree.

@@ -1,0 +1,85 @@
+---
+sidebar_position: 9
+slug: security-privacy
+title: Security and Privacy
+description: Threat-model enterprise AI, mitigate prompt injection and data leakage, and design identity, network and GDPR controls from discovery onward.
+---
+
+# Security and Privacy
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 9 of 18</span>
+</div>
+
+## Security by design
+
+Security should be embedded from discovery onward. Do not wait until production review.
+
+## AI threat model
+
+Assess user, model, prompt, data, retrieval, tool, API, infrastructure, supply chain and output.
+
+## Prompt injection
+
+Prompt injection occurs when malicious content attempts to alter system behaviour.
+
+Controls include separating instructions from content, input classification, tool allowlists, content sanitisation, permission checks, retrieval filtering, output validation, human approval and restricted tool scope.
+
+## Sensitive data leakage
+
+Leakage may occur through prompts, retrieved documents, model outputs, logs, traces, analytics, support tools and training datasets.
+
+Controls include PII masking, data minimisation, encryption, restricted logging, access control, retention limits, tenant isolation and regional processing.
+
+## Identity and access
+
+Implement SSO, MFA, RBAC, ABAC, least privilege, workload identity, service-to-service authentication, just-in-time access and privileged-access monitoring.
+
+## Network security
+
+Consider private endpoints, VPC or VNet integration, firewall rules, egress restrictions, API gateways, WAF, DDoS protection and network segmentation.
+
+## Secrets
+
+Never store credentials in source code, prompts, logs, configuration files or notebook outputs. Use managed secret stores and workload identities.
+
+## GDPR design questions
+
+- What is the processing purpose?
+- What is the lawful basis?
+- Is personal data required?
+- Is special-category data involved?
+- Where will the data be processed?
+- How long will it be retained?
+- Can the data subject request access or deletion?
+- Is automated decision-making involved?
+- Is a DPIA required?
+
+## Case study: financial-services assistant
+
+Threats include malicious documents in retrieval, agents pasting account numbers into free-text prompts, and over-broad SharePoint permissions leaking into context. Mitigations: security-trimmed retrieval, Presidio before model calls, redacted logs, no training on customer prompts, and DPIA before production.
+
+## Common failure modes
+
+- Security as a late gate rather than a design input
+- Logging full prompts “for debugging”
+- Trusting the model to refuse unsafe tool use
+- Ignoring retrieval as an injection path
+- Secrets in notebooks and CI logs
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Threat model covers prompt, retrieval, tools and output
+- [ ] Injection tests included in evaluation
+- [ ] PII path defined for input, context and logs
+- [ ] Identity model mapped to retrieval and tools
+- [ ] GDPR questions answered with legal input where needed
+
+</div>
+
+## Practical exercise
+
+Write three red-team prompts: one instruction override, one retrieval poison snippet, one social-engineering request for account data. Define the expected safe behaviour for each before build starts.

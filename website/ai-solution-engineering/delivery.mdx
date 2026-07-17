@@ -1,0 +1,76 @@
+---
+sidebar_position: 13
+slug: delivery
+title: Delivery and Operating Model
+description: Move from qualification to scale with clear phases, prototype vs production standards, team shape, RACI, registers and definition of done.
+---
+
+# Delivery and Operating Model
+
+<div className="ase-series-meta">
+  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
+  <span>Page 13 of 18</span>
+</div>
+
+## Delivery phases
+
+| Phase | Intent |
+| --- | --- |
+| **1. Qualification** | Decide whether the opportunity should proceed |
+| **2. Discovery** | Understand problem, users, workflow, data, constraints |
+| **3. Assessment** | Evaluate feasibility, value, risk, readiness |
+| **4. Solution design** | Define architecture, controls, operating model |
+| **5. Prototype** | Validate the highest-risk assumptions |
+| **6. Production delivery** | Build, integrate, test, deploy |
+| **7. Scale** | Extend adoption and functionality |
+| **8. Optimisation** | Improve quality, cost, reliability, value |
+
+## Prototype versus production
+
+A prototype proves an assumption.
+
+A production system requires security, reliability, scalability, support, monitoring, documentation, recovery, governance, cost control and ownership.
+
+## Delivery team
+
+A typical team may include product owner, AI Solution Engineer, enterprise architect, AI engineer, data engineer, cloud engineer, software engineer, UX designer, security specialist, responsible AI lead, business analyst, change lead and domain expert.
+
+## RACI
+
+Define who is Responsible, Accountable, Consulted and Informed for requirements, architecture, data approval, security, model selection, evaluation, release, monitoring and incident response.
+
+## Core project registers
+
+Maintain action, decision, assumption, risk, issue, dependency, stakeholder, change and document registers.
+
+## Definition of done
+
+A feature is not complete until it meets functional, security, privacy and evaluation thresholds, observability and documentation requirements, operational handover and product-owner approval.
+
+## Case study: financial-services assistant
+
+Prototype validates retrieval quality and citation trust with ten power users. Production definition of done adds SSO, security trimming, DPIA sign-off, golden-set thresholds, on-call runbook and named ops owner in the service organisation.
+
+## Common failure modes
+
+- Calling a demo “production”
+- No RACI for model and data decisions
+- Registers that nobody updates
+- Done = “merged to main”
+- No handover to an operating team
+
+## Solution Engineer checklist
+
+<div className="ase-checklist">
+
+- [ ] Current phase and exit criteria explicit
+- [ ] Prototype assumptions listed and testable
+- [ ] RACI agreed for high-risk decisions
+- [ ] Registers live and reviewed
+- [ ] Definition of done includes trust and ops
+
+</div>
+
+## Practical exercise
+
+Write a one-page definition of done for your next release. Include the evaluation threshold that would force a stop.
