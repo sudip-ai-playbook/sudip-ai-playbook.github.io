@@ -3,8 +3,9 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'AI Playbook Blog',
-  tagline: 'Notes on cross-cloud AI architecture and ConsultAI OS',
+  title: 'AI Solution Engineering Playbook',
+  tagline:
+    'Turn ambiguous business problems into valuable, feasible and trusted AI solutions',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -59,9 +60,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'AI Playbook Blog',
+      title: 'AI Solution Engineering',
       logo: {
-        alt: 'AI Playbook Blog',
+        alt: 'AI Solution Engineering Playbook',
         src: 'img/logo.svg',
       },
       items: [
@@ -71,6 +72,11 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Guides',
+        },
+        {
+          to: '/docs/ai-solution-engineering/8d-framework',
+          label: '8D Framework',
+          position: 'left',
         },
         {
           href: 'https://sudip-ai-playbook.github.io/',
@@ -98,6 +104,14 @@ const config: Config = {
               label: 'Guides',
               to: '/docs/intro',
             },
+            {
+              label: '8D Framework',
+              to: '/docs/ai-solution-engineering/8d-framework',
+            },
+            {
+              label: 'VALUE gate',
+              to: '/docs/ai-solution-engineering/value-gate',
+            },
           ],
         },
         {
@@ -123,7 +137,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Sudip AI Playbook. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} AI Solution Engineering Playbook. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

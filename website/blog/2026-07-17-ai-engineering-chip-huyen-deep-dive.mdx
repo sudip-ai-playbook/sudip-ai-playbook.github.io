@@ -1,0 +1,415 @@
+---
+slug: ai-engineering-chip-huyen-deep-dive
+title: AI Engineering deep dive — building products with foundation models
+description: A structured walkthrough of AI Engineering (inspired by Chip Huyen’s book)—from demos to production, foundation models, evaluation, prompts, RAG, agents, and guardrails, with practitioner takeaways.
+authors: [sudip]
+tags: [ai-engineering, architecture, solution-engineering]
+keywords:
+  - AI Engineering
+  - Chip Huyen
+  - foundation models
+  - RAG
+  - LLM evaluation
+  - agents
+image: /img/docusaurus-social-card.jpg
+---
+
+AI engineering is one of the most in-demand skills in 2026. One of the best books on the topic is **[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)** by **Chip Huyen**—all about building applications with foundation models.
+
+{/* truncate */}
+
+This post is my structured take on the core ideas: theory, examples, and how they map to real product work. Grab a coffee—we go deep.
+
+> **Note:** This is commentary and synthesis for practitioners, not a substitute for reading the book. Buy and support the author if the topic matters to your work.
+
+---
+
+## Section 1 — The big picture
+
+### The big idea
+
+**AI engineering turns foundation models into useful, safe, fast, and reliable products.**
+
+By *foundation models* we mean the general-purpose models you already use every day—ChatGPT, Gemini, Claude, Llama, and peers. Language models at the centre; often multimodal in practice.
+
+Four things we obsess over:
+
+| Pillar | Question |
+| --- | --- |
+| **Quality** | Is the output accurate and useful? |
+| **Safety** | Is it harmful or risky? Is data private and secure? |
+| **Speed & cost** | Can we respond quickly without burning the budget? (They trade off—faster often costs more.) |
+| **Feedback** | Do we learn and improve over time? |
+
+The book is about moving from a **cool demo** to a **real product**. That gap *is* AI engineering.
+
+### Why AI engineering exists now
+
+Three forces collided:
+
+1. **Better model capability** — Modern models write, reason, summarise, code, and work across tasks. Agents can collaborate on work that used to need a small team.
+2. **Easy access** — APIs, tools, MCP-style integrations: external capabilities are a call away.
+3. **Lower time to build** — Scaffolding apps with modern AI tooling is insanely fast. Imperfect, but the barrier to *starting* collapsed.
+
+**More demand + lower barrier to entry = a new engineering discipline.**
+
+### Demo vs production
+
+| Demo | Production |
+| --- | --- |
+| One prompt | System design |
+| Manual testing | Evaluation pipelines |
+| One model call | Context, tools, routing across models |
+| Low stakes | Guardrails and reliability |
+| No monitoring | Monitoring and feedback loops |
+| Looks cool on your laptop | Sustains users, latency, cost, debugging |
+
+Demos are necessary. They are not sufficient.
+
+### The AI engineering lifecycle (simple)
+
+1. **Use case** — What problem are we solving? No problem → no system.
+2. **Model choice** — OpenAI, Claude, Gemini, open weights… which models, for which jobs?
+3. **Evaluation** — What success metric are we optimising? How do we *know* it worked?
+4. **Quality levers** — Prompts, RAG, agents, fine-tuning (the part many people jump to first).
+5. **Production architecture** — Reliable and usable at scale.
+6. **Monitoring** — Failures, cost, latency (the MLOps muscle for LLM apps).
+7. **Feedback loop** — Never “done.” Models change; products must adapt.
+
+**My take:** Steps 1–3 are where most teams under-invest. Jumping straight to agents without a use case and an eval set is how you ship expensive theatre.
+
+---
+
+## Section 2 — Foundation models
+
+### What is a foundation model?
+
+A **foundation model** is a general-purpose model that can be adapted to many tasks—answer questions, research, code, analyse images, and more.
+
+- **Multimodal** means it can take (and often produce) text, audio, images, video, and similar modalities.
+- **Adaptable** via context injection (RAG), fine-tuning, tools, and product UX—not only via training from scratch.
+
+Examples: GPT, Claude, Gemini, Llama, and the broader open/closed ecosystem.
+
+### From language models to applications
+
+| Stage | Idea |
+| --- | --- |
+| **Language models** | Learn patterns from text |
+| **Large language models** | Same idea at scale—data, compute, parameters (7B vs 70B+ matters for nuance and cost) |
+| **Foundation models** | General-purpose, often multimodal |
+| **AI applications** | Your product: adapt the model to a real business use case |
+
+Scale + post-training + better input interfaces made modern AI apps possible.
+
+### Tokens and self-supervision
+
+- **Tokens** are the units the model reads and predicts (words or sub-word pieces).
+- **Self-supervision** (next-token prediction) is the core training game: predict the next token from massive unlabeled text.
+- Models are **probabilistic**, not deterministic. Same prompt → different valid answers is normal.
+
+### Why outputs change
+
+Sampling and decoding knobs (and system load) drive variation:
+
+| Control | Role |
+| --- | --- |
+| **Temperature** | Near 0 → more factual/stable; toward 1 → more creative/random |
+| **Top-p** | Sample from the smallest set of tokens whose cumulative probability ≥ p |
+| **Top-k** | Limit to the top *k* tokens |
+| **Presence / frequency penalties** | Reduce repetition |
+
+Different vendors were trained differently—so “Claude for coding, GPT for X” debates are often *distribution* debates, not magic.
+
+If you need hard determinism, write code. If you use foundation models, design for **probabilistic** behaviour.
+
+### Hallucinations
+
+**Hallucination** = the model invents content and sounds confident.
+
+Classic failure mode: ask “Who won the 2024 Mars Cup?” and get a thrilling invented final. No such event exists.
+
+**Why it happens:**
+
+- **Knowledge gap** — Training cut-off; without search/tools/RAG, the model may still try to answer.
+- **Pattern completion** — Most likely next tokens ≠ true facts.
+- **Weak grounding** — Without strong context, answers drift.
+
+**Reduce hallucinations with better context, evaluation, and guardrails**—not vibes.
+
+---
+
+## Section 3 — Evaluation (measure what matters)
+
+### Why evaluation is the core skill
+
+You cannot improve what you do not measure. Evaluation turns AI development from **guesswork** into **engineering**.
+
+Good evaluation helps you:
+
+- Measure progress  
+- Compare models and approaches  
+- Catch regressions early  
+- Align with business goals  
+- Build user trust  
+
+Without it, you are flying blind on quality, latency, and cost.
+
+### Why AI evaluation is hard
+
+Unlike classic ML with clean labels, LLM outputs are:
+
+- **Open-ended** — Many valid answers  
+- **Subjective** — Helpfulness, clarity, safety are hard to score automatically  
+- **Context-dependent** — Task, intent, and domain matter  
+- **Multidimensional** — Quality × safety × cost × latency  
+
+**AI quality is not a single metric.**
+
+### Exact vs subjective evaluation
+
+| Family | What it is | Examples | Goal |
+| --- | --- | --- | --- |
+| **Exact / objective** | Deterministic or verifiable | Code tests, math answers, schema validation | Correctness and functional performance |
+| **Subjective** | Human or AI judge | Helpfulness, tone, creativity, explanation quality | UX and nuanced quality |
+
+### LLM-as-a-judge
+
+One model evaluates another’s output with a **rubric** or side-by-side comparison.
+
+**Flow:** define rubric → generate candidates → judge scores/ranks → aggregate → decide.
+
+Useful—and **biased**. Watch for inconsistencies and model-specific preferences. Treat judges as instruments you calibrate, not oracles.
+
+### Evaluation system design
+
+```text
+Test data (questions / tasks)
+        ↓
+Model / system under test
+        ↓
+Evaluator (human or LLM judge)
+        ↓
+Scores & metrics
+        ↓
+Ship or improve  ←── iterate
+```
+
+### Model selection is not leaderboards
+
+Public leaderboards help, but they rarely match *your* domain, language, cost, latency, or UX.
+
+**Do this instead:**
+
+1. Define use case and success criteria  
+2. Build a **private** evaluation set  
+3. Run side-by-side benchmarks  
+4. Score quality, safety, cost, and latency  
+5. Make data-driven decisions  
+
+### Production evaluation pipeline
+
+1. **Test set** — Tasks, prompts, edge cases  
+2. **System version** — Model + prompt + tools + RAG  
+3. **Evaluator** — Human and/or LLM judge  
+4. **Scores** — Quality, safety, cost, latency  
+5. **Decision** — Ship / hold / improve  
+6. **Monitoring** — Track drift in production  
+
+Re-evaluate after **prompt**, **model**, **data**, and **tool** changes. Every change is a potential regression.
+
+**My take:** A 50-example private set you actually run beats a screenshot of someone else’s leaderboard.
+
+---
+
+## Section 4 — Improving quality: prompts, context, and guardrails
+
+### Prompt engineering is the first lever
+
+Fastest way to change behaviour **without** changing the model.
+
+- Fast to iterate  
+- Cheap vs fine-tuning  
+- Great for format, tone, and instructions  
+- Best first step before RAG, agents, or fine-tuning  
+
+**Tip:** Version your prompts. Keep history so you can revert and compare.
+
+**Order of operations:** prompts → RAG → agents or fine-tuning if needed.
+
+### Anatomy of a strong prompt
+
+1. **Role / system** — Behaviour and rules  
+2. **Task** — Exactly what to do  
+3. **Context** — Facts and background  
+4. **Examples** — Show the pattern (few-shot)  
+5. **Output format** — JSON, Markdown, HTML—be explicit  
+
+Example skeleton:
+
+> You are an expert assistant. Summarise the report using the notes below. Return three bullets and one action item.
+
+**Clarity beats cleverness.**
+
+### Prompting in production (not a text box)
+
+```text
+User input
+  + system prompt
+  + retrieved context
+  + few-shot examples
+        ↓
+  Prompt builder
+        ↓
+  Foundation model
+        ↓
+  Output parser / validator
+        ↓
+  Response
+```
+
+Production prompting needs **structure, testing, and output control**.
+
+### Prompt attacks and injection
+
+Untrusted inputs can override intended behaviour:
+
+- “Ignore previous instructions”  
+- Reveal the hidden system prompt  
+- Malicious content in retrieved docs  
+- Tricking the model into unsafe tool use  
+
+**Defences:**
+
+- Clear instruction hierarchy  
+- Treat retrieved content as **untrusted**  
+- Restrict tools with allow lists and permissions  
+- Validate outputs before they reach users  
+
+Injection enters through user input, files, web pages, and retrieved context.
+
+### Guardrail system design
+
+Guardrails sit **before, during, and after** generation:
+
+| Layer | Example checks |
+| --- | --- |
+| Input | Policy filters, injection checks |
+| Retrieved context | Usability / trust of sources |
+| Tools | Permissions, allow lists |
+| Output | Schema validation, safety filters |
+| Escalation | Human review or LLM judge when uncertain |
+
+### Context: why so many systems fail
+
+Without the right information: generic answers, hallucinations, weak personalisation, missing current/domain facts.
+
+With strong context: relevance, grounding, domain performance, better UX.
+
+Context sources: retrieved documents, user data, tools, structured systems, conversation state, and prompts.
+
+### Basic RAG (retrieval-augmented generation)
+
+```text
+User query → Retriever → Relevant chunks
+                ↓
+     Prompt + context → LLM → Grounded answer
+```
+
+**Offline indexing:** sources → clean/parse → chunk → embed → vector index  
+**Online query:** query → retrieve → (re-rank/filter) → inject context → generate  
+
+RAG helps when the model needs facts it did not memorise—or that change over time (especially private enterprise data).
+
+### Retrieval methods
+
+| Method | Strength |
+| --- | --- |
+| **Keyword (e.g. BM25)** | Exact terms, rare IDs, simple baselines |
+| **Semantic (embeddings)** | Paraphrase and meaning |
+| **Hybrid** | Often best recall/precision in practice |
+
+Start simple. Then **test BM25, semantic, and hybrid on your own data**.
+
+### Improving RAG quality
+
+Most gains come from retrieval and context quality—not a fancier generator alone:
+
+- Better **chunking** (method depends on the corpus)  
+- **Query rewriting** for vague questions  
+- **Metadata** filters (author, date, country, product…)  
+- **Re-ranking**  
+- **Evaluation loops** that measure what actually helps  
+
+Treat RAG as a system to optimise, not a vector DB checkbox.
+
+### RAG failure modes
+
+1. Missing documents  
+2. Bad chunks (too large/small/split)  
+3. Weak retrieval  
+4. Poor ranking  
+5. Stale knowledge  
+6. Unsupported answers (model says more than the context supports)  
+
+RAG reduces hallucination **only when retrieval and grounding are strong**.
+
+### RAG vs agents
+
+| | RAG | Agents |
+| --- | --- | --- |
+| Core loop | Retrieve → generate | Plan → act (tools) → observe → iterate |
+| Best for | Grounded Q&A | Multi-step tasks and actions |
+
+Agents extend RAG with planning and tool use. Do **not** default to agents for every problem. If you only need grounded answers, ship RAG first.
+
+### Agent system design
+
+```text
+User goal
+  → plan / reason
+  → select tools
+  → call tools (e.g. via MCP)
+  → observe
+  → update memory
+  → next action or final answer
+  (+ human-in-the-loop when needed)
+```
+
+Think **workflows with feedback**, not one model call.
+
+### Tools, permissions, and memory
+
+- **Tools** make agents useful (search, DB, code, APIs).  
+- **Permissions** keep them safe (allow lists, scope, rate limits, approvals, audit logs).  
+- Prefer **least privilege** and specialised agents over one mega-agent with 25 tools.
+
+**Memory types:** short-term context, task state, long-term preferences/facts, interaction history.
+
+**Risks:** stale memory, privacy leaks, exploding context cost. Store what helps; forget what does not. Refresh aggressively.
+
+---
+
+## Closing takeaways
+
+1. AI engineering is **demo → product**: quality, safety, speed/cost, feedback.  
+2. Foundation models are **probabilistic**; design for variance and hallucination.  
+3. **Evaluation** is the core skill—private sets beat public leaderboards for *your* app.  
+4. Improve quality in order: **prompts → context/RAG → agents/fine-tuning**.  
+5. Guardrails and permissions are product features, not afterthoughts.  
+
+### How this maps to this playbook
+
+| AI Engineering idea | In the AI Solution Engineering Playbook |
+| --- | --- |
+| Use case first | [8D Define / Diagnose](/docs/ai-solution-engineering/8d-framework) |
+| Evaluation & trust | [VALUE gate](/docs/ai-solution-engineering/value-gate) |
+| Architecture & model choice | [Architecture Map](https://sudip-ai-playbook.github.io/map), [Compare](https://sudip-ai-playbook.github.io/compare) |
+| Cost / latency trade-offs | [LLM FinOps](https://sudip-ai-playbook.github.io/finops) |
+| Workshops & decisions | [ConsultAI OS](https://sudip-ai-playbook.github.io/consult) |
+
+If you want the full depth, read Chip Huyen’s book—and use this post as a working outline for your next system design review.
+
+---
+
+*Next up (if useful): a follow-on post with a private eval checklist and a one-page RAG failure-mode scorecard you can paste into workshops.*

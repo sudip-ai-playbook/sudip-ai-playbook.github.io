@@ -1,7 +1,17 @@
+ai-engineering:
+  label: AI Engineering
+  permalink: /ai-engineering
+  description: Building applications with foundation models—evaluation, RAG, agents, and production
+
+solution-engineering:
+  label: Solution Engineering
+  permalink: /solution-engineering
+  description: AI Solution Engineering practice, 8D methodology, and VALUE gates
+
 playbook:
   label: Playbook
   permalink: /playbook
-  description: Posts about the Sudip AI Playbook product and practice
+  description: Posts about the AI Solution Engineering Playbook product and practice
 
 architecture:
   label: Architecture
