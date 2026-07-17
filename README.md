@@ -4,6 +4,14 @@ Cross-cloud AI architecture playbook for comparing AWS, Azure, and Google Cloud 
 
 **Live:** https://sudip-ai-playbook.github.io
 
+## Product specification (8D target)
+
+Target product docs for the **AI Solution Engineering Playbook** (8D primary journey; existing 20-stage content mapped underneath):
+
+- [docs/product/README.md](docs/product/README.md)
+- [Sitemap and page specification](docs/product/sitemap-and-page-specification.md)
+- [Conceptual data model](docs/product/conceptual-data-model.md)
+
 ## Enter
 
 Password: `sudipaiplaybook`
@@ -21,6 +29,7 @@ Password: `sudipaiplaybook`
 | LLM FinOps | Model costs, alternatives, monthly estimates |
 | Architecture Canvas | Compose a stack + [Excalidraw](https://excalidraw.com/) whiteboard |
 | AI Platform | Foundry / Bedrock / Vertex + governance |
+| **Playbook Blog** | Docusaurus notes & guides at [/blog/](https://sudip-ai-playbook.github.io/blog/) |
 
 ## ConsultAI OS
 
@@ -75,6 +84,16 @@ npm install
 npm run dev
 ```
 
+Playbook blog (Docusaurus):
+
+```bash
+cd website
+npm install
+npm start
+```
+
+Blog preview: http://localhost:3000/blog/
+
 ## Quality
 
 ```bash
@@ -82,10 +101,14 @@ cd app
 npm run lint
 npm run test:coverage
 npm run build
+
+cd ../website
+npm run build
+npm run typecheck
 ```
 
 ## Deploy (GitHub Pages)
 
 Push to `main` on `sudip-ai-playbook/sudip-ai-playbook.github.io`.
 
-GitHub Actions publishes to https://sudip-ai-playbook.github.io
+GitHub Actions builds the Vite playbook and the Docusaurus blog, merges blog output into `app/dist/blog/`, and publishes to https://sudip-ai-playbook.github.io (blog at `/blog/`).

@@ -4,6 +4,7 @@ export const PLAYBOOK_PASSWORD = 'sudipaiplaybook'
 
 export const APP_NAME = 'Sudip AI Playbook'
 export const APP_TAGLINE = 'Compare. Decide. Architect.'
+export const BLOG_BASE_PATH = '/blog/'
 
 export const DEFAULT_CRITERIA_WEIGHTS = {
   capabilityDepth: 0.25,

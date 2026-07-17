@@ -1,0 +1,19 @@
+playbook:
+  label: Playbook
+  permalink: /playbook
+  description: Posts about the Sudip AI Playbook product and practice
+
+architecture:
+  label: Architecture
+  permalink: /architecture
+  description: Cross-cloud AI architecture decisions and patterns
+
+consulting:
+  label: Consulting
+  permalink: /consulting
+  description: ConsultAI OS lifecycle, workshops, and delivery
+
+finops:
+  label: FinOps
+  permalink: /finops
+  description: LLM cost, alternatives, and commercial trade-offs

@@ -12,33 +12,90 @@ import {
   Compass,
   FileCheck,
   Briefcase,
+  BookOpen,
+  type LucideIcon,
 } from 'lucide-react'
+import { BLOG_BASE_PATH } from '../../constants/playbook'
 import { isFrameComplete } from '../journey/project.logic'
 import { useProject } from '../journey/useProject'
 
-const PLANES = [
+type PlaneAccent = 'blue' | 'amber' | 'orange' | 'red'
+
+type PlaneLink = {
+  title: string
+  desc: string
+  icon: LucideIcon
+  accent: PlaneAccent
+} & ({ to: string; href?: never } | { href: string; to?: never })
+
+const PLANES: PlaneLink[] = [
   {
     to: '/consult',
     title: 'ConsultAI OS',
     desc: 'Full consulting OS: home, workspaces, journey, centres & copilot',
     icon: Briefcase,
-    accent: 'blue' as const,
+    accent: 'blue',
   },
-  { to: '/map', title: 'Architecture Map', desc: 'Locate the layer', icon: Map, accent: 'blue' as const },
-  { to: '/picks', title: 'Quick Picks', desc: 'Scenario defaults', icon: Zap, accent: 'orange' as const },
-  { to: '/compare', title: 'Service Compare', desc: '268 scored capabilities', icon: GitCompare, accent: 'amber' as const },
-  { to: '/decide', title: 'Decision Assistant', desc: 'Weighted trade-offs', icon: Scale, accent: 'blue' as const },
-  { to: '/finops', title: 'LLM FinOps', desc: 'Model cost & alternatives', icon: DollarSign, accent: 'amber' as const },
-  { to: '/canvas', title: 'Build Canvas', desc: 'Assemble the stack', icon: PenTool, accent: 'orange' as const },
-  { to: '/ai', title: 'AI Platform', desc: 'Governance deep dive', icon: Brain, accent: 'red' as const },
-  { to: '/summary', title: 'Record', desc: 'Export decision brief', icon: FileCheck, accent: 'blue' as const },
+  { to: '/map', title: 'Architecture Map', desc: 'Locate the layer', icon: Map, accent: 'blue' },
+  { to: '/picks', title: 'Quick Picks', desc: 'Scenario defaults', icon: Zap, accent: 'orange' },
+  {
+    to: '/compare',
+    title: 'Service Compare',
+    desc: '268 scored capabilities',
+    icon: GitCompare,
+    accent: 'amber',
+  },
+  { to: '/decide', title: 'Decision Assistant', desc: 'Weighted trade-offs', icon: Scale, accent: 'blue' },
+  { to: '/finops', title: 'LLM FinOps', desc: 'Model cost & alternatives', icon: DollarSign, accent: 'amber' },
+  { to: '/canvas', title: 'Build Canvas', desc: 'Assemble the stack', icon: PenTool, accent: 'orange' },
+  { to: '/ai', title: 'AI Platform', desc: 'Governance deep dive', icon: Brain, accent: 'red' },
+  { to: '/summary', title: 'Record', desc: 'Export decision brief', icon: FileCheck, accent: 'blue' },
+  {
+    href: BLOG_BASE_PATH,
+    title: 'Playbook Blog',
+    desc: 'Architecture notes & ConsultAI OS posts',
+    icon: BookOpen,
+    accent: 'blue',
+  },
 ]
 
-const ACCENT_CLASS = {
+const ACCENT_CLASS: Record<PlaneAccent, string> = {
   blue: 'glass-card-accent-blue',
   amber: 'glass-card-accent-amber',
   orange: 'glass-card-accent-orange',
   red: 'glass-card-accent-red',
+}
+
+function planeTestId(plane: PlaneLink): string {
+  if (plane.href !== undefined) {
+    return 'plane-blog'
+  }
+  return `plane-${plane.to.replace('/', '')}`
+}
+
+function PlaneCard({ plane }: { plane: PlaneLink }) {
+  const className = `glass-card ${ACCENT_CLASS[plane.accent]} block h-full p-4 hover:-translate-y-0.5`
+  const content = (
+    <>
+      <plane.icon className="mb-2 h-5 w-5 text-slate-blue" />
+      <h3 className="text-sm font-bold text-ink">{plane.title}</h3>
+      <p className="mt-1 text-xs text-ink-secondary">{plane.desc}</p>
+    </>
+  )
+
+  if (plane.href !== undefined) {
+    return (
+      <a href={plane.href} data-testid={planeTestId(plane)} className={className}>
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link to={plane.to} data-testid={planeTestId(plane)} className={className}>
+      {content}
+    </Link>
+  )
 }
 
 export function HubView() {
@@ -70,6 +127,10 @@ export function HubView() {
             <Compass className="h-4 w-4" />
             {framed ? 'Continue architecture journey' : 'Start architecture journey'}
           </Link>
+          <a href={BLOG_BASE_PATH} className="btn btn-ghost" data-testid="open-blog">
+            <BookOpen className="h-4 w-4" />
+            Open playbook blog
+          </a>
           <Link to="/picks" className="btn btn-ghost" data-testid="jump-picks">
             Jump to Quick Picks
           </Link>
@@ -85,26 +146,21 @@ export function HubView() {
         <div className="mb-4 flex items-end justify-between gap-4">
           <h2 className="font-[family-name:var(--font-display)] text-xl font-700">Or jump to a tool</h2>
           <p className="text-xs text-ink-muted">
-            Stack {project.stack.length} · {project.preferredProvider === 'undecided' ? 'provider TBD' : project.preferredProvider.toUpperCase()}
+            Stack {project.stack.length} ·{' '}
+            {project.preferredProvider === 'undecided'
+              ? 'provider TBD'
+              : project.preferredProvider.toUpperCase()}
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PLANES.map((plane, index) => (
             <motion.div
-              key={plane.to}
+              key={plane.href ?? plane.to}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.04 }}
             >
-              <Link
-                to={plane.to}
-                data-testid={`plane-${plane.to.replace('/', '')}`}
-                className={`glass-card ${ACCENT_CLASS[plane.accent]} block h-full p-4 hover:-translate-y-0.5`}
-              >
-                <plane.icon className="mb-2 h-5 w-5 text-slate-blue" />
-                <h3 className="text-sm font-bold text-ink">{plane.title}</h3>
-                <p className="mt-1 text-xs text-ink-secondary">{plane.desc}</p>
-              </Link>
+              <PlaneCard plane={plane} />
             </motion.div>
           ))}
         </div>

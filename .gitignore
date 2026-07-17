@@ -8,3 +8,6 @@ coverage
 .env.*
 app/dist
 app/coverage
+website/build
+website/.docusaurus
+website/.cache-loader

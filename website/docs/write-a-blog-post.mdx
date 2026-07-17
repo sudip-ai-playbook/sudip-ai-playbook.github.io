@@ -1,0 +1,29 @@
+---
+sidebar_position: 2
+slug: write-a-blog-post
+title: Write a blog post
+---
+
+# Write a blog post
+
+1. Create a file in `website/blog/` named `YYYY-MM-DD-your-slug.mdx`.
+2. Add front matter:
+
+```mdx
+---
+slug: your-slug
+title: Your title
+authors: [sudip]
+tags: [playbook]
+---
+
+Lead paragraph shown on the listing.
+
+{/* truncate */}
+
+Body of the post…
+```
+
+3. Register new tags in `website/blog/tags.yml` when needed.
+4. Preview locally with `npm start` inside `website/`.
+5. Merge to `main` — GitHub Actions publishes to `/blog/`.
