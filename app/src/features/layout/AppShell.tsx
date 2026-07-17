@@ -1,17 +1,11 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { LogOut } from 'lucide-react'
-import { APP_NAME, NAV_ITEMS } from '../../constants/playbook'
-import { useAuth } from '../auth/useAuth'
+import { BookOpen } from 'lucide-react'
+import { APP_NAME, BLOG_BASE_PATH, NAV_ITEMS } from '../../constants/playbook'
 import { JourneyRail } from '../journey/JourneyRail'
 import { useProject } from '../journey/useProject'
 
 export function AppShell() {
-  const { lock } = useAuth()
   const { project } = useProject()
-
-  function handleLock(): void {
-    lock()
-  }
 
   return (
     <div className="playbook-bg min-h-screen" data-testid="app-shell">
@@ -46,15 +40,14 @@ export function AppShell() {
                 {item.label}
               </NavLink>
             ))}
-            <button
-              type="button"
-              data-testid="lock-button"
-              onClick={handleLock}
-              className="btn btn-ghost ml-1 px-2 py-1.5"
-              aria-label="Lock playbook"
+            <a
+              href={BLOG_BASE_PATH}
+              data-testid="nav-blog"
+              className="ml-1 inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-ink-secondary transition hover:bg-white/70 hover:text-ink sm:text-sm"
             >
-              <LogOut className="h-4 w-4" />
-            </button>
+              <BookOpen className="h-3.5 w-3.5" aria-hidden />
+              Blog
+            </a>
           </nav>
         </div>
       </header>

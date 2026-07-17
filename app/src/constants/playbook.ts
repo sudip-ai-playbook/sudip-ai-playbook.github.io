@@ -1,10 +1,24 @@
-export const AUTH_STORAGE_KEY = 'sudip-ai-playbook-auth'
-export const AUTH_TOKEN = 'unlocked'
-export const PLAYBOOK_PASSWORD = 'sudipaiplaybook'
-
 export const APP_NAME = 'Sudip AI Playbook'
 export const APP_TAGLINE = 'Compare. Decide. Architect.'
 export const BLOG_BASE_PATH = '/blog/'
+
+export const BLOG_FEATURED_LINKS = [
+  {
+    href: `${BLOG_BASE_PATH}what-is-ai-solution-engineering/`,
+    title: 'What is AI Solution Engineering?',
+    desc: '8D spine, VALUE gates, and how the playbook fits together',
+  },
+  {
+    href: `${BLOG_BASE_PATH}ai-engineering-chip-huyen-deep-dive/`,
+    title: 'AI Engineering deep dive',
+    desc: 'Foundation models, evaluation, RAG, agents — practitioner take',
+  },
+  {
+    href: `${BLOG_BASE_PATH}docs/ai-solution-engineering/8d-framework/`,
+    title: '8D framework guide',
+    desc: 'Define → Deliver with stage gates and legacy mapping',
+  },
+] as const
 
 export const DEFAULT_CRITERIA_WEIGHTS = {
   capabilityDepth: 0.25,

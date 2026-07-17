@@ -2,8 +2,8 @@ import { describe, expect, it, beforeEach } from 'vitest'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
-import { PLAYBOOK_PASSWORD, AUTH_STORAGE_KEY, AUTH_TOKEN } from './constants/playbook'
 import { PROJECT_STORAGE_KEY } from './constants/journey'
+import { BLOG_BASE_PATH } from './constants/playbook'
 
 const framedProject = {
   outcome: 'Grounded GenAI assistant for claims handlers',
@@ -22,7 +22,6 @@ const framedProject = {
 
 describe('End-to-end journey smoke', () => {
   beforeEach(() => {
-    sessionStorage.setItem(AUTH_STORAGE_KEY, AUTH_TOKEN)
     localStorage.removeItem(PROJECT_STORAGE_KEY)
     window.location.hash = '#/'
   })
@@ -100,22 +99,12 @@ describe('End-to-end journey smoke', () => {
     expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 20 of 20')
   })
 
-  it('locks the shell and continues a framed journey from hub', async () => {
-    const user = userEvent.setup()
+  it('continues a framed journey from hub and links to the blog', async () => {
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
     expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue architecture journey')
-    await user.click(screen.getByTestId('lock-button'))
-    expect(await screen.findByTestId('password-gate')).toBeInTheDocument()
-  })
-
-  it('still unlocks with password', async () => {
-    const user = userEvent.setup()
-    sessionStorage.clear()
-    window.location.hash = '#/'
-    render(<App />)
-    await user.type(screen.getByTestId('password-input'), PLAYBOOK_PASSWORD)
-    await user.click(screen.getByTestId('password-submit'))
-    expect(await screen.findByTestId('hub-view')).toBeInTheDocument()
+    expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
+    expect(screen.getByTestId('hub-blog-featured')).toBeInTheDocument()
+    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
   })
 })

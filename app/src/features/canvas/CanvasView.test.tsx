@@ -6,7 +6,6 @@ import { CanvasView } from './CanvasView'
 import { EXCALIDRAW_LABELS } from './excalidraw.constants'
 import { ProjectProvider } from '../journey/ProjectProvider'
 import { PROJECT_STORAGE_KEY } from '../../constants/journey'
-import { AUTH_STORAGE_KEY, AUTH_TOKEN } from '../../constants/playbook'
 
 vi.mock('./ExcalidrawBoard', () => ({
   ExcalidrawBoard: function ExcalidrawBoardMock() {
@@ -50,7 +49,6 @@ function renderCanvas(): void {
 
 describe('CanvasView', () => {
   beforeEach(() => {
-    sessionStorage.setItem(AUTH_STORAGE_KEY, AUTH_TOKEN)
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(seededProject))
   })
 
