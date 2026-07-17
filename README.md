@@ -2,7 +2,7 @@
 
 Cross-cloud AI architecture playbook for comparing AWS, Azure, and Google Cloud services end to end — with FinOps LLM costing, an architecture canvas, and an **ConsultAI OS** consulting lifecycle playbook.
 
-**Live:** https://sudip-ai-playbook.github.io · **Blog:** https://sudip-ai-playbook.github.io/blog/
+**Live:** https://sudip-ai-playbook.github.io · **Learn:** https://sudip-ai-playbook.github.io/blog/
 
 ## Product specification (8D target)
 
@@ -12,20 +12,14 @@ Target product docs for the **AI Solution Engineering Playbook** (8D primary jou
 - [Sitemap and page specification](docs/product/sitemap-and-page-specification.md)
 - [Conceptual data model](docs/product/conceptual-data-model.md)
 
-## Planes
+## How to navigate
 
-| Plane | Purpose |
+| Path | Purpose |
 | --- | --- |
-| Hub | Entry map to all planes |
-| **ConsultAI OS** | End-to-end AI consulting lifecycle (stages 0–19), situation filters, HTML/Excel export |
-| Architecture Map | 10-layer decision map from the workbook |
-| Service Compare | Filter 268 scored capabilities |
-| Quick Picks | Scenario defaults across clouds |
-| Decision Assistant | Weighted scoring with ecosystem context |
-| LLM FinOps | Model costs, alternatives, monthly estimates |
-| Architecture Canvas | Compose a stack + [Excalidraw](https://excalidraw.com/) whiteboard |
-| AI Platform | Foundry / Bedrock / Vertex + governance |
-| **Playbook Blog** | Docusaurus notes & guides at [/blog/](https://sudip-ai-playbook.github.io/blog/) |
+| **Home (app)** | Choose: learn the method, run ConsultAI, or start an architecture journey |
+| **ConsultAI OS** | End-to-end AI consulting lifecycle (stages 0–19), workshops, HTML/Excel export |
+| **Architecture journey** | Frame → Map → Picks → Compare → Decide → FinOps → Canvas → Record |
+| **Learn site** | Home, 18-part Guide, 8D/VALUE Framework, Articles at [/blog/](https://sudip-ai-playbook.github.io/blog/) |
 
 ## ConsultAI OS
 

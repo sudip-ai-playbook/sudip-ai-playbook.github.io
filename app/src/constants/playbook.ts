@@ -1,21 +1,24 @@
-export const APP_NAME = 'Sudip AI Playbook'
-export const APP_TAGLINE = 'Compare. Decide. Architect.'
+export const APP_NAME = 'AI Solution Engineering Playbook'
+export const APP_TAGLINE = 'Learn. Decide. Deliver.'
 export const BLOG_BASE_PATH = '/blog/'
+export const ARTICLES_PATH = `${BLOG_BASE_PATH}articles/`
+export const GUIDE_OVERVIEW_PATH = `${BLOG_BASE_PATH}ai-solution-engineering/overview/`
+export const FRAMEWORK_8D_PATH = `${BLOG_BASE_PATH}docs/ai-solution-engineering/8d-framework/`
 
 export const BLOG_FEATURED_LINKS = [
   {
-    href: `${BLOG_BASE_PATH}what-is-ai-solution-engineering/`,
+    href: `${ARTICLES_PATH}what-is-ai-solution-engineering/`,
     title: 'What is AI Solution Engineering?',
     desc: '8D spine, VALUE gates, and how the playbook fits together',
   },
   {
-    href: `${BLOG_BASE_PATH}ai-engineering-chip-huyen-deep-dive/`,
-    title: 'AI Engineering deep dive',
-    desc: 'Foundation models, evaluation, RAG, agents — practitioner take',
+    href: GUIDE_OVERVIEW_PATH,
+    title: 'Guide overview',
+    desc: '18-part curriculum from discovery through adoption',
   },
   {
-    href: `${BLOG_BASE_PATH}docs/ai-solution-engineering/8d-framework/`,
-    title: '8D framework guide',
+    href: FRAMEWORK_8D_PATH,
+    title: '8D framework',
     desc: 'Define → Deliver with stage gates and legacy mapping',
   },
 ] as const

@@ -1,0 +1,125 @@
+.callout {
+  margin: 1.35rem 0 1.75rem;
+  padding: 1rem 1.15rem 1.05rem;
+  border: 1px solid var(--ase-rule);
+  border-left-width: 4px;
+  border-radius: 10px;
+  background: var(--ase-paper-deep);
+  font-family: var(--ifm-font-family-base);
+}
+
+.label {
+  margin: 0 0 0.45rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.body {
+  color: var(--ase-ink);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.body > :first-child {
+  margin-top: 0;
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+.body p,
+.body li {
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.98rem;
+}
+
+.exec {
+  border-left-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+}
+
+.when {
+  border-left-color: #3b6ea5;
+}
+
+.decision {
+  border-left-color: #b45309;
+  background: rgba(180, 83, 9, 0.08);
+}
+
+.risk {
+  border-left-color: #b42318;
+  background: rgba(180, 35, 24, 0.07);
+}
+
+.control {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ase-rule);
+}
+
+.controlLabel {
+  margin: 0 0 0.35rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.deliverable {
+  border-left-color: #0f6e56;
+}
+
+.role {
+  border-left-color: #5b4b8a;
+}
+
+.takeaways {
+  border-left-color: var(--ifm-color-primary);
+}
+
+.next {
+  border-left-color: #0f6e56;
+  background: var(--ase-accent-soft);
+}
+
+.audienceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.35rem 0 1.75rem;
+}
+
+.audience {
+  margin: 0;
+  height: 100%;
+}
+
+.audienceTitle {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .audienceGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+[data-theme='dark'] .decision {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+[data-theme='dark'] .risk {
+  background: rgba(248, 113, 113, 0.1);
+}
+
+[data-theme='dark'] .when {
+  border-left-color: #7eb6e8;
+}

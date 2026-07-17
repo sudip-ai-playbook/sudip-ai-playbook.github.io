@@ -9,7 +9,7 @@ export function JourneyRail() {
   const hashPath = location.pathname
   const activeIndex = getJourneyIndex(hashPath)
 
-  if (activeIndex < 0 && hashPath !== '/') {
+  if (activeIndex < 0) {
     return null
   }
 

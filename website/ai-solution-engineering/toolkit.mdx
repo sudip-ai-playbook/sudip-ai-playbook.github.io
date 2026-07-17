@@ -7,10 +7,45 @@ description: A practical workspace layout, opportunity folders and reusable temp
 
 # AI Solution Engineering Toolkit
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 17 of 18</span>
-</div>
+<SeriesMeta page={17} trail="Overview → … → Toolkit" />
+
+<ExecSummary>
+A shared workspace and opportunity folder keep artefacts recoverable when people rotate. Use templates when needed, maintain a live README and registers as the system of record, and prepare handover before production—so context does not die in slides and chat.
+</ExecSummary>
+
+<WhenToUse>
+- Use when starting any engagement or opportunity.
+- Use to standardise artefacts across a practice or team.
+- Pair with [Delivery](./delivery) registers and [Career roadmap](./career-roadmap) personal development folders.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Require a single source of truth per opportunity: README, stage, next action and decision log—not email archaeology.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Is the engagement folder the system of record for decisions and risks?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Clone templates only when needed; keep registers live; structure handover before go-live.
+      </p>
+      <p>
+        Separate reusable patterns, demos and archive so active work stays findable.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Engagement lead / AI Solution Engineer"
+  contributors="Delivery team, knowledge manager, commercial lead"
+/>
 
 ## Recommended workspace
 
@@ -75,9 +110,17 @@ Create reusable templates for:
 
 Each active opportunity should record client, industry, problem, sponsor, stage, expected value, key stakeholders, next action, risks, decisions, documents, completed work and upcoming work.
 
+<DecisionBox>
+Every active opportunity must have a README with stage, sponsor, next action and links to registers—before artefacts scatter across slides and chat.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 The opportunity README tracks stage (**Assessment → Design**), sponsor (Head of Service), next action (approve prototype charter), and links to DPIA draft, threat model and golden-set v0.1. Registers live in `10-Registers/` so decisions are not buried in email.
+
+<DeliverableBox>
+Workspace folders, opportunity README, selective templates, live registers as system of record, and a handover folder ready before production.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -88,7 +131,7 @@ The opportunity README tracks stage (**Assessment → Design**), sponsor (Head o
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Workspace folders created
 - [ ] Active opportunity has a README
@@ -96,8 +139,25 @@ The opportunity README tracks stage (**Assessment → Design**), sponsor (Head o
 - [ ] Registers are the system of record for decisions and risks
 - [ ] Handover folder ready before production
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Create the opportunity folder structure for your current engagement and fill the README in fifteen minutes. If you cannot, the engagement lacks a single source of truth.
+
+<KeyTakeaways>
+
+- Workspace layout makes opportunities recoverable.
+- README + registers beat email as system of record.
+- Clone templates only when needed.
+- Prepare handover before production.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Career and capability roadmap](./career-roadmap).
+2. Return to [Overview](./overview) for the series map.
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) for live workshops.
+
+</NextSteps>

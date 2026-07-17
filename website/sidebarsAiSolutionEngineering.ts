@@ -2,34 +2,47 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   aiSolutionEngineeringSidebar: [
+    'overview',
     {
       type: 'category',
-      label: 'AI Solution Engineering',
+      label: '1. Discover & prioritise',
       collapsed: false,
-      link: {
-        type: 'doc',
-        id: 'overview',
-      },
+      items: ['discovery', 'business-case'],
+    },
+    {
+      type: 'category',
+      label: '2. Design the solution',
+      collapsed: false,
       items: [
-        'overview',
-        'discovery',
-        'business-case',
         'architecture',
         'data-knowledge',
         'ai-patterns',
         'rag',
         'agentic-ai',
+      ],
+    },
+    {
+      type: 'category',
+      label: '3. Trust & operate',
+      collapsed: true,
+      items: [
         'security-privacy',
         'governance',
         'evaluation-observability',
         'finops-commercial',
-        'delivery',
-        'adoption',
-        'industries',
-        'consulting',
-        'toolkit',
-        'career-roadmap',
       ],
+    },
+    {
+      type: 'category',
+      label: '4. Deliver & scale',
+      collapsed: true,
+      items: ['delivery', 'adoption', 'industries'],
+    },
+    {
+      type: 'category',
+      label: '5. Practice & growth',
+      collapsed: true,
+      items: ['consulting', 'toolkit', 'career-roadmap'],
     },
   ],
 };

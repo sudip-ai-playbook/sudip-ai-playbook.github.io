@@ -46,7 +46,7 @@ export function AppShell() {
               className="ml-1 inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-ink-secondary transition hover:bg-white/70 hover:text-ink sm:text-sm"
             >
               <BookOpen className="h-3.5 w-3.5" aria-hidden />
-              Blog
+              Learn
             </a>
           </nav>
         </div>

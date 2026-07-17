@@ -7,10 +7,45 @@ description: Evaluate AI quality, safety, cost and adoption beyond uptime—and 
 
 # Evaluation and Observability
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 11 of 18</span>
-</div>
+<SeriesMeta page={11} trail="Overview → … → Evaluation & observability" />
+
+<ExecSummary>
+Traditional uptime metrics are not enough for AI. Evaluate quality, groundedness, safety, cost and adoption across component, end-to-end, offline, online and human layers—and instrument traces so governance and ops can act on evidence.
+</ExecSummary>
+
+<WhenToUse>
+- Use before prototype exit and every production release.
+- Use when designing dashboards, alerts and golden datasets.
+- Pair with [Governance](./governance) for required evidence and kill criteria.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Require golden-set thresholds and adoption metrics—not demo vibes—before scale funding.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Go / modify / stop based on evaluation evidence?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Cover quality, safety, ops, cost and adoption metrics; include edge and no-answer cases in golden sets.
+      </p>
+      <p>
+        Align OpenTelemetry / Langfuse-style traces with governance fields; redact prompts before logging.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Evaluation / MLOps owner with AI Solution Engineer"
+  contributors="Domain SMEs, SRE, product, responsible AI, AI engineering"
+/>
 
 ## Why traditional monitoring is not enough
 
@@ -58,9 +93,17 @@ AI-specific tools such as Langfuse can provide prompt management, LLM traces, ev
 
 Architectural separation may also be required to address licensing, isolation or operational ownership.
 
+<DecisionBox>
+Do not ship without a golden set that includes edge and no-answer cases, and alerts mapped to human response procedures.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Offline golden set covers product facts, policy edge cases and must-refuse questions. Online: track citation accuracy, escalation rate and cost per resolved query. Traces link user → retrieval hits → prompt version → model → guardrail → feedback.
+
+<DeliverableBox>
+Evaluation layers for the release, metric set across quality/safety/ops/cost/adoption, golden set with pass/fail criteria, trace schema aligned to governance, and alert-to-response mapping.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -72,7 +115,7 @@ Offline golden set covers product facts, policy edge cases and must-refuse quest
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Evaluation layers defined for the release
 - [ ] Metrics cover quality, safety, ops, cost, adoption
@@ -80,8 +123,25 @@ Offline golden set covers product facts, policy edge cases and must-refuse quest
 - [ ] Trace schema agrees with governance needs
 - [ ] Alerts mapped to human response procedures
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Create twelve golden items: eight factual, two adversarial, two must-refuse. Define pass/fail criteria before you look at model output.
+
+<KeyTakeaways>
+
+- AI needs quality, safety, cost and adoption metrics—not only uptime.
+- Golden sets with refuse cases are release gates.
+- Traces must cover retrieval, tools, prompts and feedback.
+- Redact before you debug with logs.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [AI FinOps and commercial design](./finops-commercial).
+2. Connect alerts to [Delivery and operating model](./delivery) on-call ownership.
+3. Feed adoption signals into [Adoption and change](./adoption).
+
+</NextSteps>

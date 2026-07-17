@@ -7,10 +7,45 @@ description: Design production agentic systems with planners, tools, state, huma
 
 # Agentic AI Systems
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 8 of 18</span>
-</div>
+<SeriesMeta page={8} trail="Overview → … → Agentic AI" />
+
+<ExecSummary>
+Agentic systems plan, select tools, execute and update state toward an objective. Design for minimum necessary autonomy: tool allowlists, durable state, human approval on high-impact actions, and loop/cost controls—prefer RAG Q&A until tool use is justified.
+</ExecSummary>
+
+<WhenToUse>
+- Use when multi-step tool use is required beyond grounded Q&A.
+- Use after a simpler pattern has been ruled out in [AI patterns](./ai-patterns).
+- Defer multi-agent designs until single-agent tool use is stable and observable.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Autonomy is a risk decision. Approve write tools and irreversible actions only with clear owners and approval gates.
+      </p>
+      <p>
+        <strong>Decision required:</strong> What is the minimum autonomy that still creates value?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Include planner, tool registry, policy layer, state store, guardrails, human approval and observability.
+      </p>
+      <p>
+        Test loop limits, duplicate-action controls, recovery and tenant isolation before production write access.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="AI Solution Engineer / agentic platform lead"
+  contributors="Security, product owner, domain SME, SRE, AI engineering, responsible AI"
+/>
 
 ## What makes a system agentic?
 
@@ -46,9 +81,17 @@ Common risks: infinite loops, tool misuse, incorrect planning, prompt injection,
 
 > Give an agent the minimum autonomy required to create value.
 
+<DecisionBox>
+Justify autonomy against a simpler pattern. Irreversible tools proceed only with human approval in V1; multi-agent complexity waits until single-agent reliability is proven.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Default mode is **not** fully agentic. Start with RAG Q&A. Introduce tools only for authorised CRM lookups. Any customer-record update requires human approval. Multi-agent designs are deferred until single-agent tool use is stable and observable.
+
+<DeliverableBox>
+Autonomy justification, tool allowlist with permissions, approval map by impact, state store and recovery design, and loop/cost/duplicate-action controls.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -60,7 +103,7 @@ Default mode is **not** fully agentic. Start with RAG Q&A. Introduce tools only 
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Autonomy justified against a simpler pattern
 - [ ] Tool allowlist and permissions documented
@@ -68,8 +111,25 @@ Default mode is **not** fully agentic. Start with RAG Q&A. Introduce tools only 
 - [ ] State store and recovery tested
 - [ ] Loop, cost and duplicate-action controls in place
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 List every tool an agent might call. Label each read-only, reversible write, or irreversible. Only irreversible tools may proceed with human approval in V1.
+
+<KeyTakeaways>
+
+- Minimum autonomy: do not add agents for novelty.
+- Durable, auditable state—not chat history alone.
+- Human approval for high-impact and irreversible actions.
+- Control loops, cost and duplicate actions before scale.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Security and privacy](./security-privacy).
+2. Align oversight with [Responsible AI and governance](./governance).
+3. Instrument agents in [Evaluation and observability](./evaluation-observability).
+
+</NextSteps>

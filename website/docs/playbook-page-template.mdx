@@ -1,0 +1,83 @@
+---
+sidebar_position: 2
+slug: playbook-page-template
+title: Playbook page template
+description: Reusable structure for Guide and Framework pages — executive summary, decisions, risks, deliverables and next steps.
+---
+
+# Playbook page template
+
+Use this structure on every Guide and Framework page so readers always know where they are, what to do, and what to produce.
+
+## Required sections
+
+1. **Series meta** — page number and trail
+2. **Executive summary** — business value in a few sentences
+3. **When to use** — when this page applies
+4. **Audience split** — executive vs technical (optional but preferred)
+5. **Method / content** — the main teaching body
+6. **Decision / risk / role / deliverable boxes** — as needed
+7. **Checklist** — scannable go/no-go items
+8. **Key takeaways**
+9. **What to do next** — one clear next page or action
+
+## MDX components
+
+These are available in every MDX page:
+
+```mdx
+<SeriesMeta page={2} trail={<><a href="./overview">Overview</a> → Discovery</>} />
+
+<ExecSummary>
+Business value in one short paragraph.
+</ExecSummary>
+
+<WhenToUse>
+- Use when …
+- Skip when …
+</WhenToUse>
+
+<AudienceSplit
+  executive={<>Risk, cost, ROI and decision required.</>}
+  technical={<>Architecture, data flow, controls and tests.</>}
+/>
+
+<DecisionBox>
+Should customer data be processed through a managed API or a private deployment?
+</DecisionBox>
+
+<RiskBox control={<>Mask identifiers before model processing.</>}>
+Sensitive financial information may appear in prompts.
+</RiskBox>
+
+<RoleBox
+  owner="AI Solution Architect"
+  contributors="Security, Legal, Data Engineering, Product, Finance"
+/>
+
+<DeliverableBox>
+Approved discovery brief and opportunity shortlist.
+</DeliverableBox>
+
+<Checklist>
+- [ ] Problem stated without naming a vendor
+- [ ] Decision owner named
+</Checklist>
+
+<KeyTakeaways>
+- Point one
+- Point two
+</KeyTakeaways>
+
+<NextSteps>
+Continue with [Business case](./business-case).
+</NextSteps>
+```
+
+## Writing rules
+
+- One primary H1
+- Front-load the important sentence
+- Prefer outcome-labelled links (“Read the architecture guide”) over “Learn more”
+- Keep body line length readable; put tables and diagrams full-width when needed
+- Label Fact / Assumption / Hypothesis when making claims

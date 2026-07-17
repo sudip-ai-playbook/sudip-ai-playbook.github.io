@@ -7,10 +7,45 @@ description: Move from qualification to scale with clear phases, prototype vs pr
 
 # Delivery and Operating Model
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 13 of 18</span>
-</div>
+<SeriesMeta page={13} trail="Overview → … → Delivery" />
+
+<ExecSummary>
+Delivery moves from qualification through discovery, design, prototype, production, scale and optimisation. A prototype proves assumptions; production requires security, ops ownership, monitoring and a definition of done that includes trust—not “merged to main.”
+</ExecSummary>
+
+<WhenToUse>
+- Use when mobilising a team or defining phase exit criteria.
+- Use to separate prototype standards from production definition of done.
+- Pair with [Governance](./governance) artefacts and [Adoption](./adoption) handover.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Refuse to call demos production. Require RACI for high-risk decisions and a named operating owner before go-live.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Exit criteria for the current phase—and who owns the service after launch?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Keep action, decision, assumption, risk and dependency registers live; define done with evaluation thresholds and handover.
+      </p>
+      <p>
+        Staff product, architecture, AI, data, security, change and domain expertise—not only model builders.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Delivery / engagement lead with product owner"
+  contributors="AI Solution Engineer, architects, engineers, security, change, domain experts, ops"
+/>
 
 ## Delivery phases
 
@@ -47,9 +82,17 @@ Maintain action, decision, assumption, risk, issue, dependency, stakeholder, cha
 
 A feature is not complete until it meets functional, security, privacy and evaluation thresholds, observability and documentation requirements, operational handover and product-owner approval.
 
+<DecisionBox>
+Current phase and exit criteria must be explicit; prototype assumptions must be testable; definition of done must include trust and ops handover.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Prototype validates retrieval quality and citation trust with ten power users. Production definition of done adds SSO, security trimming, DPIA sign-off, golden-set thresholds, on-call runbook and named ops owner in the service organisation.
+
+<DeliverableBox>
+Phase plan with exit criteria, prototype assumption list, RACI for high-risk decisions, live registers, and a definition of done that includes evaluation thresholds and operational handover.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -61,7 +104,7 @@ Prototype validates retrieval quality and citation trust with ten power users. P
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Current phase and exit criteria explicit
 - [ ] Prototype assumptions listed and testable
@@ -69,8 +112,25 @@ Prototype validates retrieval quality and citation trust with ten power users. P
 - [ ] Registers live and reviewed
 - [ ] Definition of done includes trust and ops
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Write a one-page definition of done for your next release. Include the evaluation threshold that would force a stop.
+
+<KeyTakeaways>
+
+- Phases need exit criteria; demos are not production.
+- RACI and registers keep decisions recoverable.
+- Done includes security, evaluation, docs and ops handover.
+- Name an operating owner before go-live.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Adoption and change management](./adoption).
+2. Align runbooks with [Evaluation and observability](./evaluation-observability).
+3. Use [8D Deliver](/docs/ai-solution-engineering/8d-framework) for roadmap and benefits ownership.
+
+</NextSteps>

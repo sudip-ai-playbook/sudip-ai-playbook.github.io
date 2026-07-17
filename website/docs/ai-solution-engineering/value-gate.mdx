@@ -7,6 +7,44 @@ description: Apply V-A-L-U-E to every artefact before stage advance or executive
 
 # VALUE quality gate
 
+<ExecSummary>
+Apply **VALUE** (Valuable, Actionable, Logical, Understandable, Executable) to every artefact before you advance an 8D stage or send material to an executive. Score **Trust** on a separate axis—privacy, security, fairness, transparency, oversight, auditability and reliability.
+</ExecSummary>
+
+<WhenToUse>
+- Use before every stage advance and every executive send.
+- Use when rewriting slides or memos that fail U or E.
+- Pair with [8D framework](./8d-framework) gates and evidence labels on discovery/diagnosis.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Reject artefacts that fail any VALUE letter—especially Understandable and Executable—regardless of how polished the deck looks.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Does this artefact pass VALUE and Trust, or must it be improved first?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Label claims as Fact, Assumption, Hypothesis or Unknown; do not invent unknowns.
+      </p>
+      <p>
+        A clear plan can still fail Trust if it ignores residency, oversight or auditability.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Author of the artefact (reviewed by engagement lead)"
+  contributors="Sponsor audience, risk/trust reviewers, SMEs for evidence"
+/>
+
 Apply **VALUE** to every artefact before you advance an 8D stage or send material to an executive.
 
 ## The five checks
@@ -21,6 +59,10 @@ Apply **VALUE** to every artefact before you advance an 8D stage or send materia
 
 If any letter fails, improve the artefact—do not advance the gate.
 
+<DecisionBox>
+If any VALUE letter fails, improve the artefact—do not advance the stage or send to executives.
+</DecisionBox>
+
 ## Trust score (separate)
 
 VALUE is about communication quality and executability. **Trust** is scored on its own axis:
@@ -34,6 +76,10 @@ VALUE is about communication quality and executability. **Trust** is scored on i
 - Reliability  
 
 An artefact can pass VALUE and still fail trust (for example, a clear plan that ignores data residency).
+
+<RiskBox control="Score Trust separately; do not treat a clear narrative as proof of privacy, security or oversight.">
+Passing VALUE while ignoring residency, fairness or auditability creates false confidence at stage gates.
+</RiskBox>
 
 ## Evidence labels
 
@@ -52,8 +98,40 @@ On discovery and diagnosis surfaces, label claims:
 2. Score each VALUE letter pass/fail in one sentence.  
 3. Rewrite the bottom line so **U** and **E** pass before you touch tooling.
 
+<DeliverableBox>
+Pass/fail score per VALUE letter, separate Trust review, evidence labels on claims, and a rewritten bottom line that clears U and E.
+</DeliverableBox>
+
+<Checklist title="VALUE gate checklist">
+
+- [ ] V — material business need stated
+- [ ] A — specific enough to execute
+- [ ] L — structured and evidence-backed
+- [ ] U — audience can grasp without unnecessary effort
+- [ ] E — ownership, constraints, risks and next steps clear
+- [ ] Trust scored separately (privacy, security, fairness, transparency, oversight, auditability, reliability)
+
+</Checklist>
+
 ## Related
 
 - [8D framework](./8d-framework)
-- Blog: [What is AI Solution Engineering?](/what-is-ai-solution-engineering)
+- Article: [What is AI Solution Engineering?](/articles/what-is-ai-solution-engineering)
 - Live workshops: [ConsultAI OS](https://sudip-ai-playbook.github.io/consult)
+
+<KeyTakeaways>
+
+- VALUE gates communication and executability before stage advance or exec send.
+- Trust is a separate score—do not conflate clarity with control.
+- Label Fact / Assumption / Hypothesis / Unknown; never invent gaps.
+- Fix U and E before tooling polish.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Return to [8D framework](./8d-framework) and check the current stage gate.
+2. Apply VALUE to the next executive artefact before send.
+3. Continue the guide at [AI Solution Engineering Overview](/ai-solution-engineering/overview).
+
+</NextSteps>

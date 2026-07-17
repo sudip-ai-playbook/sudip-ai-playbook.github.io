@@ -7,10 +7,45 @@ description: Adapt AI solution engineering to industry language, processes, regu
 
 # Industry Solution Engineering
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 15 of 18</span>
-</div>
+<SeriesMeta page={15} trail="Overview → … → Industries" />
+
+<ExecSummary>
+AI solutions must reflect industry language, processes, regulations and economics. Generic patterns fail when vocabulary, risk appetite and operating models differ. Use a structured learning framework and size controls to industry risk—not generic AI risk.
+</ExecSummary>
+
+<WhenToUse>
+- Use when entering a new industry or regulated domain.
+- Use to stress-test whether a pattern from another sector under-governs the context.
+- Pair with [Security](./security-privacy), [Governance](./governance) and domain SMEs.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Budget for domain SMEs, audit and model-risk overhead in regulated industries—do not copy retail chatbot economics into FS or healthcare.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Which industry constraints most change architecture and residual risk?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Complete the ten-point learning framework at draft depth; match evaluation language to industry terms.
+      </p>
+      <p>
+        Engage domain SMEs early; list regulations and risk themes before freezing the pattern.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="AI Solution Engineer with industry SME"
+  contributors="Compliance, risk, domain experts, product, legal, architecture"
+/>
 
 ## Why domain knowledge matters
 
@@ -61,9 +96,17 @@ For each industry, study:
 9. AI use cases  
 10. Key performance indicators  
 
+<RiskBox control="Size controls to industry risk; engage domain SMEs early; put industry vocabulary into evaluation sets.">
+Copy-pasting patterns across regulated industries underestimates audit and model-risk overhead.
+</RiskBox>
+
 ## Case study: financial-services assistant
 
 Industry specifics that change design: approved product wording, jurisdiction filters, model-risk expectations, segregation between advice and execution, and audit-ready citations. A retail FAQ bot pattern would under-govern this context.
+
+<DeliverableBox>
+Draft industry learning framework, regulations and risk themes list, SME engagement plan, and evaluation language matched to industry terms.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -74,7 +117,7 @@ Industry specifics that change design: approved product wording, jurisdiction fi
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Industry learning framework completed at draft depth
 - [ ] Regulations and risk themes listed
@@ -82,8 +125,25 @@ Industry specifics that change design: approved product wording, jurisdiction fi
 - [ ] Evaluation language matches industry terms
 - [ ] Controls sized to industry risk, not generic AI risk
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Fill the ten-point learning framework for your client’s industry in two pages. Highlight the three items that most constrain architecture.
+
+<KeyTakeaways>
+
+- Industry context changes architecture and controls.
+- Use a structured learning framework every engagement.
+- Domain SMEs and vocabulary belong in evaluation.
+- Size governance to industry risk, not generic AI risk.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Consulting and executive communication](./consulting).
+2. Organise artefacts with the [Toolkit](./toolkit).
+3. Revisit [Governance](./governance) for industry-specific risk class.
+
+</NextSteps>

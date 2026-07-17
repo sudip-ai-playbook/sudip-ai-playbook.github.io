@@ -7,10 +7,45 @@ description: Control AI unit economics, cost drivers and TCO, and design commerc
 
 # AI FinOps and Commercial Design
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 12 of 18</span>
-</div>
+<SeriesMeta page={12} trail="Overview → … → FinOps & commercial" />
+
+<ExecSummary>
+AI introduces variable costs from tokens, retrieval, agent loops and human review. Track unit economics tied to business value, control drivers before scale-out, and design commercial models and TCO that include ops, governance and change—not only model price.
+</ExecSummary>
+
+<WhenToUse>
+- Use when sizing investment, run-cost or commercial proposals.
+- Use before scale-out and when choosing pricing models.
+- Pair with [Business case](./business-case) and [Evaluation](./evaluation-observability) cost metrics.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Agree a unit metric (for example cost per resolved case) and require downside cost scenarios before consumption pricing.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Which commercial model matches uncertainty—and who owns run-cost?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Rank cost drivers for this architecture; implement routing, caching, quotas and loop limits before traffic grows.
+      </p>
+      <p>
+        Include discovery, integration, evaluation, support and change in TCO—not cloud invoices alone.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Finance partner with AI Solution Engineer / commercial lead"
+  contributors="Product owner, architecture, cloud FinOps, delivery lead, procurement"
+/>
 
 ## Why AI economics matter
 
@@ -47,9 +82,17 @@ Include discovery, development, cloud, models, data engineering, integration, se
 
 Avoid measuring only technical usage. Measure business outcome, adoption, quality, cost, risk and time to value.
 
+<RiskBox control="Agree a unit economic metric and implement cost controls before scale-out; avoid outcome-based pricing without measurement infrastructure.">
+Optimising model price while ignoring retrieval and human review—or launching without budget alerts—creates consumption surprises after success.
+</RiskBox>
+
 ## Case study: financial-services assistant
 
 Unit metric: **cost per resolved query**. Controls: small model for routing, cache frequent FAQs, truncate context to top reranked chunks, budget alerts on agent tool loops (disabled in V1). Commercial framing: discovery fixed-price, delivery milestones, managed run-cost shared with the business owner.
+
+<DeliverableBox>
+Agreed unit metric, ranked cost drivers, pre-scale controls, TCO including ops/governance/change, and a commercial model matched to uncertainty.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -61,7 +104,7 @@ Unit metric: **cost per resolved query**. Controls: small model for routing, cac
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Unit economic metric agreed with the sponsor
 - [ ] Cost drivers ranked for this architecture
@@ -69,8 +112,25 @@ Unit metric: **cost per resolved query**. Controls: small model for routing, cac
 - [ ] TCO includes ops, governance and change
 - [ ] Commercial model matches uncertainty level
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Estimate likely-case monthly cost at 10k, 100k and 1M queries. Identify which control activates at each threshold.
+
+<KeyTakeaways>
+
+- Track cost per business outcome, not tokens alone.
+- Control drivers before scale-out.
+- TCO includes change, support and governance.
+- Match commercial model to measurement maturity.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Delivery and operating model](./delivery).
+2. Align run-cost ownership with [Adoption and change](./adoption).
+3. Revisit [Business case](./business-case) scenarios with FinOps numbers.
+
+</NextSteps>

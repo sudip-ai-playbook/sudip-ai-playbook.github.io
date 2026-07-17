@@ -1,0 +1,194 @@
+.hero {
+  padding: 4rem 0 3.5rem;
+  border-bottom: 1px solid var(--ase-rule);
+  background:
+    radial-gradient(ellipse 70% 60% at 0% 0%, var(--ase-accent-soft), transparent 55%),
+    var(--ase-paper);
+}
+
+.heroInner {
+  max-width: 46rem;
+}
+
+.heroEyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.heroSubtitle {
+  margin: 1.1rem 0 0;
+  max-width: 40rem;
+  color: var(--ase-muted);
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.section {
+  padding: 3.5rem 0;
+}
+
+.sectionMuted {
+  background: var(--ase-paper-deep);
+  border-top: 1px solid var(--ase-rule);
+  border-bottom: 1px solid var(--ase-rule);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.65rem;
+  letter-spacing: -0.025em;
+}
+
+.sectionLead {
+  margin: 0.65rem 0 0;
+  max-width: 36rem;
+  color: var(--ase-muted);
+  font-size: 1.05rem;
+}
+
+.pathGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.pathCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.35rem 1.4rem 1.5rem;
+  border: 1px solid var(--ase-rule);
+  border-radius: 12px;
+  background: var(--ase-paper);
+}
+
+.pathEyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pathTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.pathDescription {
+  flex: 1;
+  margin: 0.65rem 0 1.25rem;
+  color: var(--ase-muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.pathActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.pathSecondary {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.phaseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.phaseCard {
+  display: block;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--ase-rule);
+  border-radius: 12px;
+  background: var(--ase-paper);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.phaseCard:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+  text-decoration: none;
+  color: inherit;
+}
+
+.phaseTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.phaseDescription {
+  margin: 0.45rem 0 0.85rem;
+  color: var(--ase-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.phaseCta {
+  color: var(--ifm-color-primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.nextPanel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.75rem 1.85rem;
+  border: 1px solid var(--ase-rule);
+  border-radius: 14px;
+  background: var(--ase-accent-soft);
+}
+
+.nextActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 996px) {
+  .hero {
+    padding: 3rem 0 2.5rem;
+  }
+
+  .pathGrid,
+  .phaseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .nextPanel {
+    align-items: stretch;
+  }
+}

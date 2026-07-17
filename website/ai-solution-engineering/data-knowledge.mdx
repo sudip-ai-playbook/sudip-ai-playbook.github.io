@@ -7,10 +7,45 @@ description: Assess data readiness, minimise sensitive data, apply PII controls,
 
 # Data and Knowledge Engineering
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 5 of 18</span>
-</div>
+<SeriesMeta page={5} trail="Overview → … → Data & knowledge" />
+
+<ExecSummary>
+AI quality is constrained by data quality, accessibility and governance. Assess readiness, minimise sensitive data, design PII controls and metadata so knowledge is retrievable, access-controlled and owned—not dumped from ungoverned file shares.
+</ExecSummary>
+
+<WhenToUse>
+- Use when evaluating whether knowledge and data can support a use case.
+- Use before RAG ingestion or embedding design.
+- Pair with [RAG engineering](./rag) once readiness and metadata are agreed.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Treat data ownership, freshness and legal basis as investment risks—not IT chores.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Who owns knowledge freshness and is the corpus approved for AI use?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Map structured, unstructured, streaming and knowledge assets; answer readiness questions with evidence.
+      </p>
+      <p>
+        Apply minimisation at prompt, retrieval and log layers; test PII pipelines for domain false positives/negatives.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Data / knowledge owner with AI Solution Engineer"
+  contributors="Privacy, security, legal, data engineering, content owners, compliance"
+/>
 
 ## Data is a product dependency
 
@@ -58,6 +93,10 @@ Microsoft Presidio can support detection and anonymisation of names, emails, pho
 
 Presidio is not a complete privacy solution. It requires custom recognisers, domain testing, false-positive and false-negative monitoring, context-aware rules, and human review for high-risk workflows.
 
+<RiskBox control="Design PII detection with domain testing, monitoring for false positives/negatives, and human review for high-risk workflows—do not treat a tool alone as the privacy solution.">
+Logging raw prompts that contain PII, or dumping ungoverned shares into a vector index, creates leakage and compliance exposure.
+</RiskBox>
+
 ## Metadata strategy
 
 Each knowledge item should include metadata such as source, owner, version, effective date, expiry date, classification, region, product, audience, approval status and access level.
@@ -70,6 +109,10 @@ Knowledge sources include product PDFs, policy SharePoint libraries, approved FA
 
 Metadata fields that matter here: product family, jurisdiction, effective dating, approval status and audience (advisor vs public).
 
+<DeliverableBox>
+Data-category map, readiness assessment with evidence, minimisation and PII pipeline design, and an agreed metadata schema with knowledge owners.
+</DeliverableBox>
+
 ## Common failure modes
 
 - Treating “we have documents” as data readiness
@@ -80,7 +123,7 @@ Metadata fields that matter here: product family, jurisdiction, effective dating
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Data categories mapped for the use case
 - [ ] Readiness questions answered with evidence
@@ -88,8 +131,25 @@ Metadata fields that matter here: product family, jurisdiction, effective dating
 - [ ] PII pipeline designed with monitoring for errors
 - [ ] Metadata schema agreed with knowledge owners
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Pick ten documents from a candidate corpus. Tag each with owner, version, classification and access level. Count how many would be unsafe to retrieve for a junior user. That count is your access-control backlog.
+
+<KeyTakeaways>
+
+- Data readiness is a product dependency, not a side task.
+- Minimise sensitive data at collection, prompt, retrieval and logs.
+- Metadata enables retrieval, access control and lifecycle management.
+- Tooling like Presidio needs domain testing and monitoring.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [AI patterns and model strategy](./ai-patterns).
+2. Design the retrieval pipeline in [RAG engineering](./rag).
+3. Align privacy controls with [Security and privacy](./security-privacy).
+
+</NextSteps>

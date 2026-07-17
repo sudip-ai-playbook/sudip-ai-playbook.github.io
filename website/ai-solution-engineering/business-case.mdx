@@ -7,10 +7,45 @@ description: Qualify AI use cases, score value, feasibility, risk and adoption, 
 
 # Business Case and Prioritisation
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 3 of 18</span>
-</div>
+<SeriesMeta page={3} trail="Overview → Discovery → Business case" />
+
+<ExecSummary>
+Not every opportunity should progress to delivery. Qualify use cases for suitability, score value, feasibility, risk and adoption, and build honest business cases with best / likely / downside scenarios—protecting scarce capacity from impressive systems nobody adopts.
+</ExecSummary>
+
+<WhenToUse>
+- Use after discovery artefacts exist and candidates need ranking.
+- Use before funding architecture or prototype work.
+- Return to [Discovery](./discovery) if problem statement or baselines are still missing.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Demand transparent scoring, scenario ranges and benefits separated by certainty—not a single optimistic number.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Fund, defer, or invest in foundations first?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Complete the rules-vs-AI suitability test and evidence notes behind each score.
+      </p>
+      <p>
+        Label quick wins, strategic bets, foundations and deferrals so architecture work targets the right portfolio.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Business sponsor with AI Solution Engineer support"
+  contributors="Finance, product, architecture, risk, change, delivery lead"
+/>
 
 Not every opportunity should progress to delivery. Prioritisation protects scarce engineering capacity and reduces the risk of building impressive systems that nobody adopts.
 
@@ -40,6 +75,10 @@ Then ask:
 - Is AI materially better than the alternatives?
 
 If the answer is “rules would do,” choose rules. AI is a means, not a goal.
+
+<DecisionBox>
+If rules, workflow redesign or traditional automation would solve the problem safely, do not fund an AI build—record the deferral rationale.
+</DecisionBox>
 
 ## Use-case prioritisation matrix
 
@@ -99,6 +138,10 @@ Avoid presenting theoretical savings as guaranteed cash savings. Separate:
 - Revenue uplift
 - Risk-adjusted benefit
 
+<RiskBox control="Require best / likely / downside scenarios and label benefit certainty before executive approval.">
+Single-point estimates and counting 100% of theoretical hours as cash savings create overconfident cases that fail after launch.
+</RiskBox>
+
 ## Scenario planning
 
 Develop three scenarios.
@@ -124,6 +167,10 @@ This prevents overconfident business cases and gives executives a decision with 
 
 **Likely-case benefit framing.** Capacity released for advisors (minutes saved × volume × adoption), not headcount cuts on day one.
 
+<DeliverableBox>
+Qualified use-case scores with evidence, category labels (quick win / strategic bet / foundations / defer), business case with benefit categories, and best / likely / downside scenarios plus an explicit ask for the decision forum.
+</DeliverableBox>
+
 ## Common failure modes
 
 - Ranking by executive enthusiasm instead of evidence
@@ -134,7 +181,7 @@ This prevents overconfident business cases and gives executives a decision with 
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Suitability test completed for each candidate
 - [ ] Scores recorded with evidence notes
@@ -143,8 +190,25 @@ This prevents overconfident business cases and gives executives a decision with 
 - [ ] Best / likely / downside scenarios documented
 - [ ] Explicit ask prepared for the decision forum
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Score three candidate use cases with the matrix. Force yourself to defer at least one. Write the one-paragraph rationale an executive would need to accept that deferral.
+
+<KeyTakeaways>
+
+- Prioritisation protects capacity; not every opportunity should proceed.
+- Score value, feasibility, risk and adoption with transparent evidence.
+- Separate benefit types and certainty; always show downside scenarios.
+- Foundations often unlock more value than isolated demos.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Enterprise AI architecture](./architecture).
+2. Frame the executive ask using [Consulting and executive communication](./consulting).
+3. Apply [VALUE quality gate](/docs/ai-solution-engineering/value-gate) before sending the case.
+
+</NextSteps>

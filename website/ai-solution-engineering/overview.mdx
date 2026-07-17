@@ -7,35 +7,50 @@ description: What AI Solution Engineering is, the full lifecycle, seven design d
 
 # AI Solution Engineering Overview
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 1 of 18</span>
-  <span>Reading order starts here</span>
-</div>
+<SeriesMeta page={1} trail="Reading order starts here" />
 
-AI prototypes are easy to demonstrate. Enterprise AI solutions are significantly harder to design, secure, govern, integrate and scale.
+<ExecSummary>
+AI prototypes are easy to demonstrate. Enterprise AI solutions are harder: they must be valuable, feasible, secure, governed and operable. AI Solution Engineering turns an uncertain business problem into a production capability—not just a model.
+</ExecSummary>
 
-**AI Solution Engineering** is the discipline of turning an uncertain business problem into a secure, commercially valuable, technically feasible and operationally sustainable AI capability.
+<WhenToUse>
+- Use this page to orient stakeholders and set the reading path for an engagement.
+- Skip ahead to [Opportunity discovery](./discovery) if the problem statement is already agreed.
+</WhenToUse>
 
-It is broader than model development.
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Focus on measurable outcomes, risk, cost and the decision to fund discovery. Do not start with a vendor or model choice.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Is there a business problem valuable enough to enter structured discovery?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Work across business, data, architecture, security, governance and operations. Use the seven design dimensions on every candidate solution.
+      </p>
+      <p>
+        The lifecycle is Discover → Define → Prioritise → Design → Validate → Deliver → Operate → Scale.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="AI Solution Architect / engagement lead"
+  contributors="Business owner, Security, Legal, Data Engineering, Product, Finance, Operations"
+/>
 
 ## What AI Solution Engineering is
 
 AI solution engineering connects business needs with production-grade AI capabilities.
 
-The role sits between:
-
-- Business executives
-- Product teams
-- AI engineers
-- Data engineers
-- Cloud architects
-- Security teams
-- Legal and privacy teams
-- Risk and compliance teams
-- Finance and procurement teams
-- End users
-- Delivery and operations teams
+The role sits between business executives, product teams, AI and data engineers, cloud architects, security, legal and privacy, risk and compliance, finance, end users, and delivery/operations teams.
 
 The core objective is:
 
@@ -54,13 +69,7 @@ A model can perform well in a notebook and still fail as an enterprise solution 
 - The architecture cannot support production-scale demand
 - The organisation cannot prove compliance
 
-An AI Solution Engineer must therefore work across business strategy, consulting, architecture, data, AI engineering, security, governance, commercial design, delivery and adoption.
-
 ## The AI Solution Engineering lifecycle
-
-A complete lifecycle can be represented as:
-
-**Discover → Define → Prioritise → Design → Validate → Deliver → Operate → Scale**
 
 | Stage | Purpose |
 | --- | --- |
@@ -73,66 +82,49 @@ A complete lifecycle can be represented as:
 | **Operate** | Monitor quality, reliability, cost, risk and user adoption |
 | **Scale** | Extend across additional users, regions, workflows and business units |
 
-This series walks each stage with decision frameworks, checklists and a shared financial-services case study.
-
 ## The seven design dimensions
 
 Every AI solution must be evaluated across seven dimensions.
 
 ### 1. Business value
 
-What measurable outcome should improve?
-
-Examples: revenue growth, reduced operating cost, faster processing, lower compliance risk, better customer experience, improved employee productivity, faster decision-making, new digital products, better service availability.
+What measurable outcome should improve? Examples: revenue, operating cost, processing time, compliance risk, customer experience, employee productivity.
 
 ### 2. User and workflow
 
-Where does the problem occur in the current process?
-
-Ask: Who performs the task? What triggers the process? What information is required? What decisions are made? Where do delays occur? Which tasks require judgement? What happens when the process fails?
+Where does the problem occur? Who performs the task, what triggers it, where do delays and exceptions happen?
 
 ### 3. Data and knowledge
 
-What information does the solution require?
-
-Assess availability, accuracy, completeness, ownership, sensitivity, access rights, timeliness, data residency, retention and lineage.
+What information is required? Assess availability, accuracy, ownership, sensitivity, residency and lineage.
 
 ### 4. AI capability
 
-What capability is genuinely required?
-
-Possible capabilities include classification, extraction, summarisation, search, recommendation, forecasting, optimisation, anomaly detection, conversational interaction, document intelligence, computer vision and agentic orchestration.
+What capability is genuinely required—classification, extraction, search, forecasting, agents, and so on?
 
 ### 5. Enterprise architecture
 
-How will the solution integrate with the existing environment?
-
-Consider cloud platform, identity, APIs, networking, databases, enterprise applications, observability, deployment, disaster recovery and scalability.
+How will the solution integrate with identity, APIs, data platforms, observability and disaster recovery?
 
 ### 6. Trust and governance
 
-What controls are required?
-
-Examples: role-based access, human approval, data masking, audit trails, model evaluation, content filtering, output validation, explainability and retention controls.
+What controls are required—access, human approval, masking, audit, evaluation, content filtering?
 
 ### 7. Adoption and operations
 
-How will the solution be embedded into the organisation?
+Who owns the service after go-live? Training, support, monitoring and continuous improvement.
 
-Consider training, user support, change management, product ownership, incident management, feedback loops, performance monitoring and continuous improvement.
+<DecisionBox>
+Do not select a model or cloud AI product until the problem, outcomes and constraints are written down without naming a technology.
+</DecisionBox>
+
+<RiskBox control="Keep security, privacy and operating ownership visible from discovery—not as a late gate.">
+Starting with “how do we use generative AI?” produces demos that fail procurement, trust or operations.
+</RiskBox>
 
 ## Core competencies
 
-A senior AI Solution Engineer should be competent in business discovery, architecture, cloud platforms, data engineering, generative AI, machine learning, security, privacy, responsible AI, commercial modelling, consulting, delivery leadership, stakeholder management, and change and adoption.
-
-The role is not about becoming the deepest specialist in every discipline. It is about understanding each area well enough to:
-
-- Make sound design decisions
-- Identify risks
-- Challenge assumptions
-- Coordinate specialists
-- Explain trade-offs
-- Lead the solution toward measurable value
+A senior AI Solution Engineer should be competent enough across discovery, architecture, cloud, data, generative AI, security, privacy, commercial modelling and delivery to make sound decisions, challenge assumptions and coordinate specialists.
 
 ## Running case study
 
@@ -142,19 +134,19 @@ Throughout this series we use one continuous example: an **enterprise financial-
 
 **Proposed direction.** A secure assistant that retrieves approved knowledge, masks personal information, cites sources, enforces role-based access, records traces, escalates high-risk queries, and integrates with the service desk.
 
-Each later page advances this solution from discovery through production.
+<DeliverableBox>
+From this page: problem statement draft, stakeholder map outline, success measures, assumption log, and an agreed reading path for the engagement.
+</DeliverableBox>
 
 ## Common failure modes
 
-- Starting with “how do we use generative AI?” instead of a business problem
+- Starting with technology instead of a business problem
 - Treating the notebook model as the solution
 - Skipping workflow fit and user trust
 - Leaving security and governance to the end
 - Shipping a pilot with no operating owner
 
-## Solution Engineer checklist
-
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Problem stated without naming a model or vendor
 - [ ] Outcome metrics and baseline identified
@@ -162,32 +154,25 @@ Each later page advances this solution from discovery through production.
 - [ ] Stakeholders mapped across business, tech and control functions
 - [ ] Next lifecycle stage and decision owner are explicit
 
-</div>
-
-## Required artefacts
-
-- Problem statement
-- Stakeholder map
-- Initial success measures
-- Assumption log
-- Recommended reading path for the engagement
+</Checklist>
 
 ## Practical exercise
 
-Take one ambiguous request from a stakeholder (“we need an AI chatbot”). Rewrite it as a problem statement that names users, workflow pain, measurable outcomes and constraints — without naming a model.
+Take one ambiguous request (“we need an AI chatbot”). Rewrite it as a problem statement that names users, workflow pain, measurable outcomes and constraints — without naming a model.
 
-## Suggested reading order
+<KeyTakeaways>
 
-1. Understand the role (this page)
-2. [Opportunity discovery](./discovery)
-3. [Business case and prioritisation](./business-case)
-4. [Enterprise AI architecture](./architecture)
-5. [Data and knowledge](./data-knowledge)
-6. [AI patterns](./ai-patterns)
-7. [RAG](./rag) or [agentic systems](./agentic-ai)
-8. [Security and privacy](./security-privacy)
-9. [Governance](./governance)
-10. [Evaluation and observability](./evaluation-observability)
-11. [FinOps](./finops-commercial)
-12. [Delivery](./delivery) and [adoption](./adoption)
-13. [Industries](./industries), [consulting](./consulting), [toolkit](./toolkit), [career roadmap](./career-roadmap)
+- AI Solution Engineering is broader than model development.
+- Evaluate every opportunity across seven design dimensions.
+- Use the lifecycle stages to sequence work and decisions.
+- The financial-services assistant is the running case for later pages.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Opportunity discovery](./discovery).
+2. Keep [8D Framework](/docs/ai-solution-engineering/8d-framework) open as the methodology spine.
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) when you need workshops or architecture tools.
+
+</NextSteps>

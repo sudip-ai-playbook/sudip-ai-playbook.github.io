@@ -1,10 +1,11 @@
 /**
- * Minimal reading aesthetic for the AI Solution Engineering blog & guides.
+ * Design tokens and reading experience for the AI Solution Engineering Playbook site.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap');
 
 :root {
+  /* Brand */
   --ifm-color-primary: #0f6e56;
   --ifm-color-primary-dark: #0d634d;
   --ifm-color-primary-darker: #0c5d49;
@@ -12,6 +13,26 @@
   --ifm-color-primary-light: #11795f;
   --ifm-color-primary-lighter: #127f63;
   --ifm-color-primary-lightest: #158f70;
+
+  /* Semantic status */
+  --ase-color-info: #3b6ea5;
+  --ase-color-warning: #b45309;
+  --ase-color-danger: #b42318;
+  --ase-color-success: #0f6e56;
+
+  /* Spacing scale (8pt) */
+  --ase-space-1: 0.25rem;
+  --ase-space-2: 0.5rem;
+  --ase-space-3: 0.75rem;
+  --ase-space-4: 1rem;
+  --ase-space-5: 1.5rem;
+  --ase-space-6: 2rem;
+  --ase-space-7: 3rem;
+  --ase-space-8: 4rem;
+
+  /* Content widths */
+  --ase-content-width: 42rem;
+  --ase-page-max: 72rem;
 
   --ifm-font-family-base: 'Instrument Sans', system-ui, sans-serif;
   --ifm-heading-font-family: 'Instrument Sans', system-ui, sans-serif;
@@ -31,6 +52,7 @@
   --ase-rule: rgba(20, 32, 27, 0.1);
   --ase-accent-soft: rgba(15, 110, 86, 0.08);
   --ase-quote: #0f6e56;
+  --ase-focus: #0f6e56;
 
   --ifm-background-color: var(--ase-paper);
   --ifm-navbar-background-color: rgba(247, 246, 242, 0.86);
@@ -56,6 +78,11 @@
   --ifm-color-primary-lighter: #6cd3b8;
   --ifm-color-primary-lightest: #86dbc5;
 
+  --ase-color-info: #7eb6e8;
+  --ase-color-warning: #f59e0b;
+  --ase-color-danger: #f87171;
+  --ase-color-success: #4ec9a8;
+
   --ase-ink: #e8eee9;
   --ase-muted: #9aaba3;
   --ase-paper: #101613;
@@ -63,6 +90,7 @@
   --ase-rule: rgba(232, 238, 233, 0.12);
   --ase-accent-soft: rgba(78, 201, 168, 0.12);
   --ase-quote: #4ec9a8;
+  --ase-focus: #4ec9a8;
 
   --ifm-background-color: var(--ase-paper);
   --ifm-navbar-background-color: rgba(16, 22, 19, 0.88);
@@ -74,6 +102,20 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
@@ -91,6 +133,11 @@ body {
     var(--ase-paper);
 }
 
+:focus-visible {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
+}
+
 .navbar {
   border-bottom: 1px solid var(--ase-rule);
   backdrop-filter: blur(12px);
@@ -106,6 +153,10 @@ body {
   font-weight: 500;
 }
 
+.navbar__link--active {
+  color: var(--ifm-color-primary);
+}
+
 .footer {
   border-top: 1px solid var(--ase-rule);
 }
@@ -117,7 +168,7 @@ body {
   font-size: 0.75rem;
 }
 
-/* Blog list */
+/* Blog / articles list */
 .blog-list-page article {
   margin-bottom: 2.75rem;
   padding-bottom: 2.25rem;
@@ -146,7 +197,7 @@ body {
 
 /* Reading column */
 .markdown {
-  max-width: 42rem;
+  max-width: var(--ase-content-width);
 }
 
 article .markdown > h1:first-child,
@@ -206,8 +257,10 @@ article .markdown > h1:first-child,
 }
 
 .markdown table {
-  display: table;
+  display: block;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   font-size: 0.92rem;
   border-collapse: collapse;
 }
@@ -228,13 +281,17 @@ article .markdown > h1:first-child,
   padding: 0.1rem 0.35rem;
 }
 
+.markdown pre {
+  border: 1px solid var(--ase-rule);
+  border-radius: 10px;
+}
+
 .markdown hr {
   border: none;
   border-top: 1px solid var(--ase-rule);
   margin: 2.5rem 0;
 }
 
-/* Soft callout boxes via admonitions */
 .alert {
   border-radius: 10px;
   box-shadow: none;
@@ -253,6 +310,20 @@ article .markdown > h1:first-child,
   background: var(--ase-accent-soft);
 }
 
+/* Sticky TOC polish */
+.table-of-contents {
+  font-size: 0.85rem;
+}
+
+.table-of-contents__link {
+  color: var(--ase-muted);
+}
+
+.table-of-contents__link--active,
+.table-of-contents__link:hover {
+  color: var(--ifm-color-primary);
+}
+
 .pagination-nav__link {
   border: 1px solid var(--ase-rule);
   border-radius: 10px;
@@ -268,6 +339,11 @@ article .markdown > h1:first-child,
 .blog-post-page footer {
   border-top: 1px solid var(--ase-rule);
   padding-top: 1.5rem;
+}
+
+.theme-last-updated {
+  color: var(--ase-muted);
+  font-size: 0.85rem;
 }
 
 .tag {
@@ -313,6 +389,12 @@ article .markdown > h1:first-child,
 .ase-checklist h3,
 .ase-checklist h4 {
   margin-top: 0;
+  font-size: 1rem;
+}
+
+/* Search bar alignment with brand */
+.navbar__search-input {
+  border-radius: 8px;
 }
 
 @media (max-width: 996px) {

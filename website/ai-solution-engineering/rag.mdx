@@ -7,10 +7,45 @@ description: Design retrieval-augmented generation pipelines with ingestion, chu
 
 # RAG Engineering
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 7 of 18</span>
-</div>
+<SeriesMeta page={7} trail="Overview → … → RAG" />
+
+<ExecSummary>
+RAG lets models answer from approved enterprise knowledge. Design the full pipeline—from ingestion and chunking through hybrid retrieval, security trimming, citations and evaluation—so answers are grounded, access-controlled and measurable.
+</ExecSummary>
+
+<WhenToUse>
+- Use when the agreed pattern is retrieval-augmented QA or grounded generation.
+- Use after [Data and knowledge](./data-knowledge) readiness and metadata are clear.
+- Prefer simpler search or extraction if generation is not required.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Fund corpus governance, access control and evaluation—not only embeddings and a chat UI.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Which approved sources may be retrieved, and what is the refuse threshold?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Own pipeline stages end to end; preserve structure and access metadata in chunks; verify security trimming with negative tests.
+      </p>
+      <p>
+        Evaluate retrieval and citation accuracy, not generation quality alone; include no-answer cases in the golden set.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="AI Solution Engineer / RAG lead"
+  contributors="Knowledge owners, data engineering, security, evaluation owner, AI engineering"
+/>
 
 ## What RAG solves
 
@@ -61,6 +96,10 @@ The system must not retrieve content the user cannot access. Security trimming s
 
 Every grounded answer should record source document, section, page or paragraph, retrieval score, version and timestamp.
 
+<RiskBox control="Enforce security trimming before context reaches the model, and require citations plus refuse behaviour when retrieval confidence is low.">
+Answers without citations, untrimmed retrieval, or evaluating only generation quality create trust and compliance failures.
+</RiskBox>
+
 ## RAG evaluation
 
 Measure retrieval precision and recall, context relevance, faithfulness, answer relevance, citation accuracy, unsupported-claim rate and no-answer accuracy.
@@ -68,6 +107,10 @@ Measure retrieval precision and recall, context relevance, faithfulness, answer 
 ## Case study: financial-services assistant
 
 Ingest only approved product and policy libraries. Chunk by section with product and jurisdiction metadata. Hybrid retrieve, filter by the user’s role and region, rerank, generate with mandatory citations, and refuse when retrieval confidence is low.
+
+<DeliverableBox>
+End-to-end pipeline design with owned stages, chunking and citation schemas, hybrid retrieval + filter justification, security-trimming test plan, and a golden set including no-answer cases.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -79,7 +122,7 @@ Ingest only approved product and policy libraries. Chunk by section with product
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Pipeline stages owned end to end
 - [ ] Chunking preserves structure and access metadata
@@ -88,8 +131,25 @@ Ingest only approved product and policy libraries. Chunk by section with product
 - [ ] Citation schema defined
 - [ ] Golden set includes no-answer cases
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Build a ten-question golden set for your corpus: five answerable, three ambiguous, two that must refuse. Run them after every chunking or retrieval change.
+
+<KeyTakeaways>
+
+- RAG quality depends on ingestion, chunking, retrieval and evaluation—not only the model.
+- Security trimming must happen before generation.
+- Citations and refuse behaviour are product requirements.
+- Evaluate retrieval and no-answer cases, not demos alone.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Agentic AI systems](./agentic-ai) only if tool use beyond retrieval is needed.
+2. Otherwise proceed to [Security and privacy](./security-privacy).
+3. Align metrics with [Evaluation and observability](./evaluation-observability).
+
+</NextSteps>

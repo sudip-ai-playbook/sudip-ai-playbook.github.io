@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { PROJECT_STORAGE_KEY } from './constants/journey'
-import { BLOG_BASE_PATH } from './constants/playbook'
+import { BLOG_BASE_PATH, GUIDE_OVERVIEW_PATH } from './constants/playbook'
 
 const framedProject = {
   outcome: 'Grounded GenAI assistant for claims handlers',
@@ -46,7 +46,7 @@ describe('End-to-end journey smoke', () => {
     expect(screen.getByTestId('step-nav')).toBeInTheDocument()
   })
 
-  it('walks picks, compare, decide, finops, canvas, ai, and summary', async () => {
+  it('walks picks, compare, decide, finops, canvas, and summary via journey rail', async () => {
     const user = userEvent.setup()
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     window.location.hash = '#/picks'
@@ -58,31 +58,27 @@ describe('End-to-end journey smoke', () => {
     await user.click(pickButtons[0])
     await user.click(screen.getByTestId('picks-use'))
 
-    await user.click(screen.getByTestId('nav-compare'))
+    await user.click(screen.getByTestId('journey-step-compare'))
     expect(await screen.findByTestId('compare-view')).toBeInTheDocument()
     await user.type(screen.getByTestId('compare-search'), 'foundation')
     await user.click(screen.getByTestId('compare-add-best'))
 
-    await user.click(screen.getByTestId('nav-decide'))
+    await user.click(screen.getByTestId('journey-step-decide'))
     expect(await screen.findByTestId('decide-view')).toBeInTheDocument()
     await user.selectOptions(screen.getByTestId('decide-ecosystem'), 'Azure-centric')
     await user.click(screen.getByTestId('decide-apply'))
 
-    await user.click(screen.getByTestId('nav-finops'))
+    await user.click(screen.getByTestId('journey-step-finops'))
     expect(await screen.findByTestId('finops-view')).toBeInTheDocument()
     await user.click(screen.getByTestId('finops-provider-aws'))
 
-    await user.click(screen.getByTestId('nav-canvas'))
+    await user.click(screen.getByTestId('journey-step-canvas'))
     expect(await screen.findByTestId('canvas-view')).toBeInTheDocument()
     expect(within(screen.getByTestId('canvas-stack')).getAllByRole('listitem').length).toBeGreaterThan(0)
     await user.click(screen.getByTestId('canvas-embed-toggle'))
     expect(screen.getByTestId('canvas-embed')).toBeInTheDocument()
 
-    await user.click(screen.getByTestId('nav-ai'))
-    expect(await screen.findByTestId('ai-view')).toBeInTheDocument()
-    await user.click(screen.getByTestId('ai-tab-governance'))
-
-    await user.click(screen.getByTestId('nav-summary'))
+    await user.click(screen.getByTestId('journey-step-summary'))
     expect(await screen.findByTestId('summary-view')).toBeInTheDocument()
     expect(screen.getByTestId('summary-stack')).toBeInTheDocument()
     await user.type(screen.getByTestId('summary-notes'), 'Validate residency before go-live')
@@ -99,12 +95,12 @@ describe('End-to-end journey smoke', () => {
     expect(screen.getByTestId('consulting-result-count')).toHaveTextContent('Showing 20 of 20')
   })
 
-  it('continues a framed journey from hub and links to the blog', async () => {
+  it('continues a framed journey from hub and links to learning content', async () => {
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
     expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue architecture journey')
     expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
     expect(screen.getByTestId('hub-blog-featured')).toBeInTheDocument()
-    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
+    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', GUIDE_OVERVIEW_PATH)
   })
 })

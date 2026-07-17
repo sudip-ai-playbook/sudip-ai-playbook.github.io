@@ -7,10 +7,45 @@ description: Select the right AI solution pattern before the model, and combine 
 
 # AI Patterns and Model Strategy
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 6 of 18</span>
-</div>
+<SeriesMeta page={6} trail="Overview → … → AI patterns" />
+
+<ExecSummary>
+Choose the solution pattern before the model. Match classification, extraction, RAG, forecasting or agents to the job, route large vs small models deliberately, and wrap generative steps in deterministic controls so the model does not control everything.
+</ExecSummary>
+
+<WhenToUse>
+- Use when the problem is clear but the AI approach is not.
+- Use before RAG or agentic design deep-dives.
+- Skip to [RAG](./rag) or [Agentic AI](./agentic-ai) once the primary pattern is agreed.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Insist on pattern clarity and “rules vs AI” before model shopping or vendor demos.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Which pattern creates value—and is a simpler non-AI approach better?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Score models on quality, latency, cost, security and ops maturity; draft large vs small routing rules.
+      </p>
+      <p>
+        List deterministic controls (schema, permissions, thresholds, approvals) beside every generative step.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="AI Solution Engineer"
+  contributors="AI engineering, architecture, product, domain SME, security"
+/>
 
 ## Select the pattern before the model
 
@@ -60,11 +95,19 @@ Enterprise AI should combine deterministic controls with probabilistic models:
 
 The model should not control everything.
 
+<DecisionBox>
+Justify the chosen pattern against alternatives, and do not proceed to model selection until the pattern statement is agreed with the sponsor.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Primary pattern: **retrieval and question answering**, with classification for intent and risk routing, and deterministic policy checks before any write action.
 
 Model strategy: small model for intent and routing; stronger model for grounded synthesis; never the largest model for every greeting.
+
+<DeliverableBox>
+Pattern statement with justification, model criteria scores for shortlisted options, large vs small routing rules, and a list of deterministic controls beside generative steps.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -75,15 +118,32 @@ Model strategy: small model for intent and routing; stronger model for grounded 
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Pattern chosen and justified against alternatives
 - [ ] Model criteria scored for shortlisted options
 - [ ] Large vs small routing rules drafted
 - [ ] Deterministic controls listed beside generative steps
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Rewrite a “chatbot” request as a pattern statement: “This is retrieval-augmented QA with classification-based escalation, not an open-ended agent.” Share it with the sponsor and confirm they agree.
+
+<KeyTakeaways>
+
+- Pattern before model; AI is a means, not a goal.
+- Route large and small models by task economics and risk.
+- Wrap generative steps in deterministic controls.
+- Prefer simpler patterns until autonomy is justified.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [RAG engineering](./rag) when retrieval/QA is the pattern.
+2. Continue with [Agentic AI systems](./agentic-ai) only when autonomy is justified.
+3. Revisit [Architecture](./architecture) for multi-model routing fit.
+
+</NextSteps>

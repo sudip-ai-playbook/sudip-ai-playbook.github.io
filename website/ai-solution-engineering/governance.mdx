@@ -7,10 +7,45 @@ description: Treat AI governance as an operating system—risk classification, l
 
 # Responsible AI and Governance
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 10 of 18</span>
-</div>
+<SeriesMeta page={10} trail="Overview → … → Governance" />
+
+<ExecSummary>
+AI governance is an operating system: which use cases are allowed, who approves them, what evidence is required, which controls apply, how solutions are monitored and when they must stop. Classify risk, run a lifecycle, map principles to controls, and demand end-to-end traceability.
+</ExecSummary>
+
+<WhenToUse>
+- Use for every production-bound AI use case.
+- Use when classifying risk and assembling approval artefacts.
+- Pair with [Security and privacy](./security-privacy) and [Evaluation](./evaluation-observability).
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Name an accountable owner, accept residual risk explicitly, and require kill criteria—not principles on a poster.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Approve, constrain or stop based on classification and evidence?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Maintain use-case record, risk assessment, model card, evaluation report, DPIA, threat model and monitoring plan.
+      </p>
+      <p>
+        Design traces for user, model version, retrieval, tools, guardrails, human intervention, cost and latency.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Named product / use-case owner"
+  contributors="Responsible AI, legal, risk, security, AI Solution Engineer, audit, operations"
+/>
 
 ## Governance is an operating system
 
@@ -53,9 +88,17 @@ Maintain use-case record, risk assessment, model card, data sheet, architecture 
 
 A traceable AI interaction should record user, time, application, model, model version, prompt version, retrieved sources, tool calls, policy decisions, guardrail results, output, human intervention, feedback, cost and latency.
 
+<DecisionBox>
+Do not approve production without risk classification, required artefacts for that class, a named owner, and kill / retirement criteria.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Classified as medium-high risk due to regulated product language. Artefacts required before production: use-case record, DPIA, threat model, evaluation report, model card, monitoring plan and named product owner. Every answer stores citations and policy decisions for audit.
+
+<DeliverableBox>
+Risk classification, lifecycle stage with required artefacts, principles mapped to controls, trace-field schema, and incident plus retirement procedures.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -67,7 +110,7 @@ Classified as medium-high risk due to regulated product language. Artefacts requ
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Risk classification completed and accepted
 - [ ] Lifecycle stage and required artefacts clear
@@ -75,8 +118,25 @@ Classified as medium-high risk due to regulated product language. Artefacts requ
 - [ ] Trace fields defined in observability design
 - [ ] Incident and retirement procedures drafted
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Complete a one-page use-case record for your initiative: purpose, data, autonomy, impact, residual risk, owner and kill criteria.
+
+<KeyTakeaways>
+
+- Governance decides allow, approve, control, monitor and stop.
+- Classify risk before design freezes.
+- Artefacts and named owners beat principle posters.
+- Traceability must cover retrieval, tools, guardrails and humans.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Evaluation and observability](./evaluation-observability).
+2. Align commercial risk with [AI FinOps and commercial design](./finops-commercial).
+3. Use [8D De-risk / Decide](/docs/ai-solution-engineering/8d-framework) for stage gates.
+
+</NextSteps>

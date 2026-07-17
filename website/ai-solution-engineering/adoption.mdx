@@ -7,10 +7,45 @@ description: Design for trust, workflow fit and lasting adoption—because unuse
 
 # Adoption and Change Management
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 14 of 18</span>
-</div>
+<SeriesMeta page={14} trail="Overview → … → Adoption" />
+
+<ExecSummary>
+Unused AI creates no enterprise value. Adoption depends on relevance, trust, workflow fit, leadership, training, incentives and feedback. Design trust affordances into the product and measure repeat usage—not launches.
+</ExecSummary>
+
+<WhenToUse>
+- Use from design onward—not only at go-live.
+- Use when embedding AI into existing workflows and change networks.
+- Pair with [Delivery](./delivery) handover and [Evaluation](./evaluation-observability) adoption metrics.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Sponsor a change network and insist on workflow fit (for example in-desk UI)—not a portal nobody opens.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Who champions adoption, and which metrics prove value after week one?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Surface sources, confidence, limitations and escalation in the UI; train on verification for high-risk answers.
+      </p>
+      <p>
+        Put adoption metrics on the same dashboard as quality; act on override and escalation signals.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Product owner / change lead"
+  contributors="Business champions, L&D, support, AI Solution Engineer, UX, executives"
+/>
 
 ## Adoption is part of the architecture
 
@@ -38,9 +73,17 @@ Training should cover purpose, approved use, limitations, prompting, data handli
 
 Track active users, repeat usage, task completion, time saved, acceptance rate, override rate, escalation rate, user satisfaction and business benefit.
 
+<DecisionBox>
+Ship inside the existing workflow where possible, with visible trust affordances and a named change network—before measuring “launch success.”
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Ship inside the existing service-desk UI, not a separate portal. Show citations by default. Train on “verify before send” for regulated product answers. Champions in each contact-centre pod; weekly feedback forum for false or stale answers.
+
+<DeliverableBox>
+User segments and journeys, trust affordances in UI, named change network, training covering limits and verification, and adoption metrics on the quality dashboard.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -52,7 +95,7 @@ Ship inside the existing service-desk UI, not a separate portal. Show citations 
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Segments and journeys defined
 - [ ] Trust affordances visible in the UI
@@ -60,8 +103,25 @@ Ship inside the existing service-desk UI, not a separate portal. Show citations 
 - [ ] Training covers limits and verification
 - [ ] Adoption metrics on the same dashboard as quality
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Interview five target users. Ask what would make them ignore the tool after week one. Convert each answer into a design or change action.
+
+<KeyTakeaways>
+
+- Adoption is architecture: workflow fit and trust affordances.
+- Name sponsors, champions and escalation paths.
+- Train on limits and verification, not only features.
+- Measure repeat usage and overrides, not launches.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Industry solution engineering](./industries).
+2. Practice the ask in [Consulting and executive communication](./consulting).
+3. Revisit [Evaluation](./evaluation-observability) for adoption metrics.
+
+</NextSteps>

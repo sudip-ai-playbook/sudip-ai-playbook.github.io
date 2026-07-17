@@ -7,10 +7,45 @@ description: Reference architecture layers, principles and key decisions for mod
 
 # Enterprise AI Architecture
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 4 of 18</span>
-</div>
+<SeriesMeta page={4} trail="Overview → … → Architecture" />
+
+<ExecSummary>
+Enterprise AI architecture is the structure that lets a capability survive identity systems, legacy apps, audit requirements and production load. Design across ten layers and decide centralisation, sync vs async, state and multi-model routing before locking a vendor stack.
+</ExecSummary>
+
+<WhenToUse>
+- Use when a funded use case needs a target architecture.
+- Use before detailed RAG, agent or platform build choices.
+- Return to [Business case](./business-case) if foundations vs solution scope is still unclear.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Focus on platform vs domain ownership, resilience and whether shared services justify investment.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Central, federated or hybrid platform model—and who owns each layer?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Walk all ten layers even if some are N/A with rationale. Define sync/async paths, state stores and multi-model routing.
+      </p>
+      <p>
+        Design for failure, observability and governability—not only happy-path demos.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Enterprise / AI Solution Architect"
+  contributors="Security, data platform, platform engineering, AI engineering, SRE, business architect"
+/>
 
 Enterprise AI architecture is the structure that lets a capability survive contact with identity systems, legacy apps, audit requirements and production load.
 
@@ -91,6 +126,10 @@ State may include user session, conversation history, workflow checkpoint, appro
 
 Route requests based on complexity, sensitivity, cost, latency, modality, region and availability. Do not use the most powerful model for every task.
 
+<DecisionBox>
+Record central/federated/hybrid ownership, sync vs async paths, named state stores with retention, and multi-model routing criteria before vendor lock-in.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Target components:
@@ -105,6 +144,10 @@ Target components:
 | Observability | OpenTelemetry + LLM trace store |
 | Processing | Sync for Q&A; async for bulk document packs |
 
+<DeliverableBox>
+Target architecture across ten layers, decision records for platform model / sync-async / state / multi-model routing, and failure/fallback behaviour described.
+</DeliverableBox>
+
 ## Common failure modes
 
 - Point solutions glued together with no identity story
@@ -115,7 +158,7 @@ Target components:
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Ten layers considered, even if some are “N/A with rationale”
 - [ ] Central / federated / hybrid decision recorded
@@ -124,8 +167,25 @@ Target components:
 - [ ] Multi-model routing criteria drafted
 - [ ] Failure and fallback behaviour described
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Draw the ten layers for your organisation as they exist today. Mark gaps in red. Those gaps become architecture foundations in the prioritisation matrix.
+
+<KeyTakeaways>
+
+- Architecture must survive identity, legacy, audit and load—not only demos.
+- Cover ten layers; gaps become foundation investments.
+- Decide platform ownership, sync/async, state and multi-model routing early.
+- Design for failure, observability and governance from the start.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Data and knowledge engineering](./data-knowledge).
+2. Then select patterns in [AI patterns and model strategy](./ai-patterns).
+3. Align controls with [Security and privacy](./security-privacy).
+
+</NextSteps>

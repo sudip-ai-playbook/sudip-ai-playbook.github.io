@@ -7,10 +7,45 @@ description: Communicate AI recommendations in decision structure—situation, c
 
 # Consulting and Executive Communication
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 16 of 18</span>
-</div>
+<SeriesMeta page={16} trail="Overview → … → Consulting" />
+
+<ExecSummary>
+Senior stakeholders need decision structure: what is happening, why it matters, options, recommendation, the ask and what happens next. Lead with SCRID (situation, complication, recommendation, impact, decision); keep architecture depth in the appendix until the decision is framed.
+</ExecSummary>
+
+<WhenToUse>
+- Use for executive updates, investment asks and go/modify/stop recommendations.
+- Use whenever a status update risks becoming a technology tour.
+- Pair with [Business case](./business-case) and [VALUE gate](/docs/ai-solution-engineering/value-gate).
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Demand an explicit ask, visible trade-offs and labelled uncertainty—not confidence theatre.
+      </p>
+      <p>
+        <strong>Decision required:</strong> What must you approve, defer or stop—and by when?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Put architecture and model detail in the appendix; front page holds the decision narrative.
+      </p>
+      <p>
+        Name next steps and owners; label assumptions that still need validation.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Engagement / AI Solution lead presenting the ask"
+  contributors="Sponsor, finance, risk, delivery lead, SMEs for appendix depth"
+/>
 
 ## Communicate in decision structure
 
@@ -83,9 +118,17 @@ Do not hide uncertainty. Use language such as:
 - The decision is reversible if…
 - The downside scenario is…
 
+<DecisionBox>
+Every executive update must end with an explicit ask, named owners for next steps, and labelled uncertainty—not a technology tour.
+</DecisionBox>
+
 ## Case study: financial-services assistant
 
 Executive ask is not “approve generative AI.” It is “approve a six-week discovery and prototype with defined evaluation gates, DPIA start, and a go/modify/stop decision.” Architecture and model details stay in the appendix until the decision is framed.
+
+<DeliverableBox>
+SCRID memo or briefing, options and trade-offs, labelled uncertainty, next steps with owners, and appendix depth separated from the decision page.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -97,7 +140,7 @@ Executive ask is not “approve generative AI.” It is “approve a six-week di
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Update follows situation → complication → recommendation → impact → ask
 - [ ] Options and trade-offs visible
@@ -105,8 +148,25 @@ Executive ask is not “approve generative AI.” It is “approve a six-week di
 - [ ] Next steps and owners named
 - [ ] Appendix holds depth; front page holds the decision
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Rewrite your last status email as a half-page SCRID memo. Delete every sentence that does not help the decision.
+
+<KeyTakeaways>
+
+- Decision structure beats technology tours.
+- Make the ask explicit; name owners and next steps.
+- Label uncertainty and trade-offs.
+- Keep depth in the appendix until the decision is framed.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with the [AI Solution Engineering toolkit](./toolkit).
+2. Apply [VALUE quality gate](/docs/ai-solution-engineering/value-gate) before sending.
+3. Align the ask with [Business case](./business-case) scenarios.
+
+</NextSteps>

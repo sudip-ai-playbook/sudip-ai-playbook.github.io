@@ -33,14 +33,16 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: false,
         },
         blog: {
-          routeBasePath: '/',
+          routeBasePath: 'articles',
           showReadingTime: true,
-          blogTitle: 'AI Solution Engineering Blog',
+          blogTitle: 'Articles',
           blogDescription:
             'Practical notes on designing, governing and scaling production AI systems.',
-          blogSidebarTitle: 'Recent posts',
+          blogSidebarTitle: 'Recent articles',
           blogSidebarCount: 8,
           feedOptions: {
             type: ['rss', 'atom'],
@@ -59,6 +61,24 @@ const config: Config = {
     ],
   ],
 
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        indexDocs: true,
+        indexBlog: true,
+        indexPages: true,
+        docsRouteBasePath: ['docs', 'ai-solution-engineering'],
+        blogRouteBasePath: 'articles',
+        explicitSearchResultPath: true,
+        searchBarShortcutHint: true,
+        searchResultLimits: 12,
+      },
+    ],
+  ],
+
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
@@ -69,7 +89,8 @@ const config: Config = {
         sidebarPath: './sidebarsAiSolutionEngineering.ts',
         editUrl:
           'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
-        showLastUpdateTime: false,
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
       },
     ],
   ],
@@ -85,14 +106,18 @@ const config: Config = {
         autoCollapseCategories: true,
       },
     },
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 3,
+    },
     navbar: {
-      title: 'AI Solution Engineering',
+      title: 'AI Playbook',
       logo: {
         alt: 'AI Solution Engineering Playbook',
         src: 'img/logo.svg',
       },
       items: [
-        {to: '/', label: 'Blog', position: 'left'},
+        {to: '/', label: 'Home', position: 'left'},
         {
           type: 'docSidebar',
           sidebarId: 'aiSolutionEngineeringSidebar',
@@ -104,11 +129,12 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Playbook docs',
+          label: 'Framework',
         },
+        {to: '/articles', label: 'Articles', position: 'left'},
         {
           href: 'https://sudip-ai-playbook.github.io/',
-          label: 'Playbook app',
+          label: 'Open app',
           position: 'right',
         },
         {
@@ -122,14 +148,14 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Read',
+          title: 'Start here',
           items: [
             {
-              label: 'Blog',
+              label: 'Home',
               to: '/',
             },
             {
-              label: 'AI Solution Engineering guide',
+              label: 'Guide overview',
               to: '/ai-solution-engineering/overview',
             },
             {
@@ -143,36 +169,44 @@ const config: Config = {
           ],
         },
         {
-          title: 'Series',
+          title: 'Guide phases',
           items: [
             {
-              label: 'Opportunity discovery',
+              label: 'Discover & prioritise',
               to: '/ai-solution-engineering/discovery',
             },
             {
-              label: 'Enterprise architecture',
+              label: 'Design the solution',
               to: '/ai-solution-engineering/architecture',
             },
             {
-              label: 'RAG engineering',
-              to: '/ai-solution-engineering/rag',
+              label: 'Trust & operate',
+              to: '/ai-solution-engineering/security-privacy',
             },
             {
-              label: 'Security and privacy',
-              to: '/ai-solution-engineering/security-privacy',
+              label: 'Deliver & scale',
+              to: '/ai-solution-engineering/delivery',
             },
           ],
         },
         {
-          title: 'Playbook',
+          title: 'Tools',
           items: [
             {
-              label: 'Open interactive playbook',
+              label: 'Interactive playbook',
               href: 'https://sudip-ai-playbook.github.io/',
             },
             {
               label: 'ConsultAI OS',
               href: 'https://sudip-ai-playbook.github.io/consult',
+            },
+            {
+              label: 'Articles',
+              to: '/articles',
+            },
+            {
+              label: 'Page template',
+              to: '/docs/playbook-page-template',
             },
             {
               label: 'GitHub',
@@ -181,7 +215,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} AI Solution Engineering Playbook. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} AI Solution Engineering Playbook.`,
     },
     prism: {
       theme: prismThemes.github,

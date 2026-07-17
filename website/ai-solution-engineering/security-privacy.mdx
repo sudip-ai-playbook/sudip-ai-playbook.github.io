@@ -7,10 +7,45 @@ description: Threat-model enterprise AI, mitigate prompt injection and data leak
 
 # Security and Privacy
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 9 of 18</span>
-</div>
+<SeriesMeta page={9} trail="Overview → … → Security & privacy" />
+
+<ExecSummary>
+Security belongs in discovery, not as a late gate. Threat-model user, model, prompt, retrieval, tools and output; mitigate injection and leakage; design identity, network, secrets and GDPR controls so production review is evidence of design—not a surprise.
+</ExecSummary>
+
+<WhenToUse>
+- Use from discovery onward for any AI solution with enterprise data or tools.
+- Use before production approval and alongside [Governance](./governance).
+- Revisit when adding retrieval corpora, agent tools or new regions.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Require threat models, DPIA where needed, and named residual risk—do not accept “the model will refuse” as a control.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Is residual risk acceptable for the proposed autonomy and data scope?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Cover prompt injection, retrieval poisoning, tool misuse and log leakage in the threat model and evaluation suite.
+      </p>
+      <p>
+        Map identity to retrieval and tools; never store secrets in code, prompts, logs or notebooks.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="Security lead with AI Solution Engineer"
+  contributors="Privacy, legal, architecture, AI engineering, platform, responsible AI"
+/>
 
 ## Security by design
 
@@ -56,9 +91,17 @@ Never store credentials in source code, prompts, logs, configuration files or no
 - Is automated decision-making involved?
 - Is a DPIA required?
 
+<RiskBox control="Include injection tests in evaluation; define PII paths for input, context and logs; answer GDPR questions with legal input where needed.">
+Trusting the model to refuse unsafe tool use, or logging full prompts “for debugging,” creates preventable incidents.
+</RiskBox>
+
 ## Case study: financial-services assistant
 
 Threats include malicious documents in retrieval, agents pasting account numbers into free-text prompts, and over-broad SharePoint permissions leaking into context. Mitigations: security-trimmed retrieval, Presidio before model calls, redacted logs, no training on customer prompts, and DPIA before production.
+
+<DeliverableBox>
+Threat model covering prompt, retrieval, tools and output; injection test cases; PII path design; identity mapping; and GDPR answers with legal input where required.
+</DeliverableBox>
 
 ## Common failure modes
 
@@ -70,7 +113,7 @@ Threats include malicious documents in retrieval, agents pasting account numbers
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Threat model covers prompt, retrieval, tools and output
 - [ ] Injection tests included in evaluation
@@ -78,8 +121,25 @@ Threats include malicious documents in retrieval, agents pasting account numbers
 - [ ] Identity model mapped to retrieval and tools
 - [ ] GDPR questions answered with legal input where needed
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Write three red-team prompts: one instruction override, one retrieval poison snippet, one social-engineering request for account data. Define the expected safe behaviour for each before build starts.
+
+<KeyTakeaways>
+
+- Security by design from discovery—not a late gate.
+- Threat-model prompt, retrieval, tools and output.
+- Identity, minimisation and redacted logs are core controls.
+- Models are not a substitute for allowlists and permissions.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Responsible AI and governance](./governance).
+2. Wire evidence into [Evaluation and observability](./evaluation-observability).
+3. Revisit [Data and knowledge](./data-knowledge) for PII and metadata controls.
+
+</NextSteps>

@@ -7,11 +7,45 @@ description: How to discover valuable AI opportunities by understanding business
 
 # Opportunity Discovery
 
-<div className="ase-series-meta">
-  <span><strong>Series</strong> · Enterprise AI Solution Engineering</span>
-  <span>Page 2 of 18</span>
-  <span><a href="./overview">Overview</a> → Discovery</span>
-</div>
+<SeriesMeta page={2} trail="Overview → Discovery" />
+
+<ExecSummary>
+Discovery turns “how can we use generative AI?” into a clear problem: which business issue is worth solving, what blocks it today, and what outcomes matter. Collect context, map stakeholders and workflows, and leave with artefacts—not workshop theatre.
+</ExecSummary>
+
+<WhenToUse>
+- Use when the problem is still ambiguous or technology-led.
+- Use before architecture, model choice or vendor selection.
+- Skip ahead to [Business case](./business-case) if discovery artefacts already exist and only prioritisation remains.
+</WhenToUse>
+
+<AudienceSplit
+  executive={
+    <>
+      <p>
+        Fund discovery that produces a problem statement, success measures and a prioritised next decision—not a demo.
+      </p>
+      <p>
+        <strong>Decision required:</strong> Is the opportunity clear enough to enter structured prioritisation?
+      </p>
+    </>
+  }
+  technical={
+    <>
+      <p>
+        Map current-state process, data readiness and control-function constraints before naming patterns or platforms.
+      </p>
+      <p>
+        Capture assumption and constraint logs; missing process maps and metrics are discovery findings.
+      </p>
+    </>
+  }
+/>
+
+<RoleBox
+  owner="AI Solution Engineer / discovery lead"
+  contributors="Business owner, end users, architecture, data, security, legal, compliance, finance, change"
+/>
 
 ## Why discovery matters
 
@@ -82,6 +116,10 @@ Budget, deadlines, legacy systems, data limitations, security rules, regulatory 
 
 Generate potential interventions without prematurely choosing a technology.
 
+<DecisionBox>
+Do not leave discovery until a problem statement exists without naming a model, vendor or product—and a prioritised next decision is explicit.
+</DecisionBox>
+
 ## Discovery question bank
 
 ### Business
@@ -142,6 +180,10 @@ At the end of discovery, produce:
 - Success measures
 - Recommended next steps
 
+<DeliverableBox>
+Problem statement, current-state process, stakeholder map, use-case inventory, assumption and constraint logs, data-readiness assessment, initial risk register, success measures and recommended next steps.
+</DeliverableBox>
+
 ## Case study: financial-services assistant
 
 **Discovery finding.** Advisors and contact-centre agents average several minutes searching SharePoint, product PDFs, policy wikis and CRM notes for each complex query. Answers vary by tenure. Compliance has flagged inconsistent product explanations.
@@ -160,7 +202,7 @@ At the end of discovery, produce:
 
 ## Solution Engineer checklist
 
-<div className="ase-checklist">
+<Checklist title="Solution Engineer checklist">
 
 - [ ] Pre-read pack assembled or gaps logged
 - [ ] Six stakeholder groups represented or explicitly deferred
@@ -169,8 +211,25 @@ At the end of discovery, produce:
 - [ ] Use-case inventory separated from technology choices
 - [ ] Assumption and constraint logs started
 
-</div>
+</Checklist>
 
 ## Practical exercise
 
 Shadow one user for a single painful task. Record trigger, systems touched, decisions made, time spent searching, and what “good” would look like. Convert the notes into a one-page problem statement.
+
+<KeyTakeaways>
+
+- Start from the business problem and blockers, not generative AI.
+- Cover six stakeholder groups—including control functions and end users.
+- End discovery with artefacts and an explicit next decision.
+- Keep technology choices out of the problem statement.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Business case and prioritisation](./business-case).
+2. Keep [VALUE quality gate](/docs/ai-solution-engineering/value-gate) open when scoring discovery artefacts.
+3. Use [8D Framework](/docs/ai-solution-engineering/8d-framework) Define / Discover stages for stage gates.
+
+</NextSteps>
