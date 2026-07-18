@@ -35,6 +35,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          sidebarCollapsed: true,
           editUrl:
             'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
           showLastUpdateTime: true,
@@ -97,6 +98,7 @@ const config: Config = {
         path: 'ai-solution-engineering',
         routeBasePath: 'ai-solution-engineering',
         sidebarPath: './sidebarsAiSolutionEngineering.ts',
+        sidebarCollapsed: true,
         editUrl:
           'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
@@ -110,6 +112,7 @@ const config: Config = {
         path: 'learning-map',
         routeBasePath: 'learning-map',
         sidebarPath: './sidebarsLearningMap.ts',
+        sidebarCollapsed: true,
         editUrl:
           'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
@@ -123,6 +126,7 @@ const config: Config = {
         path: 'roadmaps',
         routeBasePath: 'roadmaps',
         sidebarPath: './sidebarsRoadmaps.ts',
+        sidebarCollapsed: true,
         editUrl:
           'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
@@ -136,6 +140,7 @@ const config: Config = {
         path: 'startup-entrepreneurship',
         routeBasePath: 'startup-entrepreneurship',
         sidebarPath: './sidebarsStartupEntrepreneurship.ts',
+        sidebarCollapsed: true,
         editUrl:
           'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,

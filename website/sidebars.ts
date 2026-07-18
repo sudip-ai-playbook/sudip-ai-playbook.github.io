@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Framework catalogue',
-      collapsed: false,
+      collapsed: true,
       items: [
         'frameworks/mobilisation',
         'frameworks/strategy',
@@ -25,7 +25,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '8D Methodology',
-      collapsed: false,
+      collapsed: true,
       items: [
         'ai-solution-engineering/8d-framework',
         'ai-solution-engineering/value-gate',

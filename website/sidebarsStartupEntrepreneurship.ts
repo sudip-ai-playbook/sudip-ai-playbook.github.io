@@ -6,13 +6,13 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Decide and learn',
-      collapsed: false,
+      collapsed: true,
       items: ['why-start-a-startup', 'counterintuitive-advice'],
     },
     {
       type: 'category',
       label: 'The four levers',
-      collapsed: false,
+      collapsed: true,
       items: [
         'great-ideas',
         'great-products',
@@ -23,7 +23,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Grow and compete',
-      collapsed: false,
+      collapsed: true,
       items: [
         'growth-and-distribution',
         'do-things-that-dont-scale',
@@ -34,7 +34,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Organisation and capital',
-      collapsed: false,
+      collapsed: true,
       items: [
         'culture',
         'fundraising',

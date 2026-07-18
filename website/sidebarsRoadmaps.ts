@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Engineering roadmaps',
-      collapsed: false,
+      collapsed: true,
       items: [
         'ai-solution-engineering',
         'ai-engineer',
@@ -21,13 +21,13 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Product roadmaps',
-      collapsed: false,
+      collapsed: true,
       items: ['ai-product-management'],
     },
     {
       type: 'category',
       label: 'Security roadmaps',
-      collapsed: false,
+      collapsed: true,
       items: [
         'devsecops',
         'api-security-engineering',
@@ -38,7 +38,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Platform roadmaps',
-      collapsed: false,
+      collapsed: true,
       items: ['aws', 'azure', 'gcp', 'model-finops'],
     },
   ],

@@ -6,13 +6,13 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '1. Discover & prioritise',
-      collapsed: false,
+      collapsed: true,
       items: ['discovery', 'business-case'],
     },
     {
       type: 'category',
       label: '2. Design the solution',
-      collapsed: false,
+      collapsed: true,
       items: [
         'architecture',
         'data-knowledge',

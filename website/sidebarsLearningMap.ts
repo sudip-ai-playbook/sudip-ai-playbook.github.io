@@ -7,7 +7,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Learning stages',
-      collapsed: false,
+      collapsed: true,
       items: [
         'stage-1-business-consulting',
         'stage-2-ai-data',
@@ -20,7 +20,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Business Learning',
-      collapsed: false,
+      collapsed: true,
       link: {
         type: 'doc',
         id: 'business-learning/overview',
