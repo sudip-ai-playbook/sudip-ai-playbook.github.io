@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
         'business-learning/business-briefing',
         'business-learning/business-keywords',
         'business-learning/business-power-words',
+        'business-learning/business-communication',
         'business-learning/domain-knowledge-gathering',
         'business-learning/domain-knowledge-workbook',
       ],
