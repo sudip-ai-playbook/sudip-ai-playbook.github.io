@@ -1,0 +1,3927 @@
+---
+slug: azure-roadmap
+title: "The Complete Microsoft Azure Roadmap: Cloud Architecture, AI Engineering, Security and Governance"
+description: An enterprise Azure learning programme from cloud fundamentals and landing zones through identity, networking, compute, data, containers, Microsoft Foundry, AI security, governance, compliance, FinOps and a governed AI capstone.
+authors: [sudip]
+tags: [roadmaps, architecture, cloud, playbook, finops, governance, security]
+keywords:
+  - Azure roadmap
+  - Microsoft Foundry
+  - Azure landing zones
+  - Entra ID
+  - Azure Well-Architected Framework
+  - enterprise AI on Azure
+  - AI governance
+  - ISO 42001
+  - EU AI Act
+  - AI Solution Engineering
+---
+
+The [AWS Learning Roadmap](/roadmaps/aws) follows a sensible progression: learn cloud fundamentals, identity, networking and compute first; then add storage, databases, containers, serverless and operational services. This Azure roadmap follows the same learning philosophy but expands it into an enterprise-grade programme covering cloud architecture, application delivery, AI engineering, cybersecurity, Responsible AI, regulatory compliance and operating-model design.
+
+> **Terminology note:** Microsoft’s current documentation refers to its unified enterprise AI development platform as **Microsoft Foundry**. You may still encounter the previous “Azure AI Foundry” name in existing projects, articles and interfaces. Microsoft Foundry brings together models, agents, development tooling and production AI operations as an Azure platform service. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry))
+
+{/* truncate */}
+
+<ExecSummary>
+Do not memorise every Azure service. For each stage: understand the business requirement, learn the concepts, create a small version manually, deploy with Azure CLI, recreate with Bicep or Terraform, secure it with identity, networking and encryption, add monitoring, recovery and cost controls, document architectural decisions, assess against the Azure Well-Architected Framework, and demonstrate the system. Complete the 24-week plan and governed financial-services AI capstone.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building personal or team Azure platform and enterprise AI capability from foundations through security, governance and compliance.
+- Pair with the [Azure Learning Roadmap](/roadmaps/azure), [AWS Learning Roadmap](/roadmaps/aws), [Google Cloud Learning Roadmap](/roadmaps/gcp) and [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Treat the 24-week plan, reference architecture and completion checklist as your working system.
+</WhenToUse>
+
+The condensed [Azure Learning Roadmap](/roadmaps/azure) covers stages from cloud fundamentals through the governed AI capstone. This article is the full implementation guide.
+
+---
+
+# 1. How to use this roadmap
+
+Do not try to memorise every Azure service.
+
+For each stage, follow this cycle:
+
+1. Understand the business requirement.
+2. Learn the service concepts.
+3. Create a small version manually.
+4. Deploy it using Azure CLI.
+5. Recreate it using Bicep or Terraform.
+6. Secure it using identity, networking and encryption.
+7. Add monitoring, recovery and cost controls.
+8. Document the architectural decisions.
+9. Assess it against the Azure Well-Architected Framework.
+10. Demonstrate the system to a technical and non-technical audience.
+
+The aim is not to become someone who recognises Azure product names. The aim is to become someone who can turn an ambiguous business requirement into a secure, scalable, governed and commercially viable Azure solution.
+
+---
+
+# 2. Complete roadmap at a glance
+
+| Stage | Focus | Outcome |
+| --- | --- | --- |
+| 0 | Cloud fundamentals | Understand cloud models and shared responsibility |
+| 1 | Azure foundations | Understand tenants, subscriptions, resources and Regions |
+| 2 | Landing zones | Build an enterprise Azure foundation |
+| 3 | Identity | Secure users, applications and workloads |
+| 4 | Networking | Design public, private and hybrid connectivity |
+| 5 | Compute | Deploy applications using virtual machines |
+| 6 | Application platforms | Use App Service and managed application hosting |
+| 7 | Storage | Design secure object, file, queue and disk storage |
+| 8 | Data | Use Azure SQL, Cosmos DB and managed caching |
+| 9 | Integration | Build APIs, messages, events and workflows |
+| 10 | Containers | Use ACR, Container Apps and AKS |
+| 11 | Serverless | Build event-driven systems using Azure Functions |
+| 12 | Observability | Implement logs, metrics, tracing and alerting |
+| 13 | Reliability | Design backup, resilience and disaster recovery |
+| 14 | Infrastructure as code | Automate Azure environments |
+| 15 | DevSecOps | Secure software and AI delivery pipelines |
+| 16 | Cloud security | Apply Zero Trust and defence in depth |
+| 17 | AI foundations | Understand machine learning, generative AI and agents |
+| 18 | Microsoft Foundry | Build and operate enterprise AI applications |
+| 19 | AI security | Secure models, data, prompts, RAG and agents |
+| 20 | AI governance | Implement policies, accountability and lifecycle controls |
+| 21 | AI compliance | Apply ISO 42001, NIST AI RMF, GDPR and the EU AI Act |
+| 22 | FinOps | Control infrastructure and token consumption |
+| 23 | Capstone | Deliver a governed enterprise AI platform |
+
+---
+
+# 3. AWS-to-Azure service mapping
+
+This is not a perfect one-to-one mapping, but it provides a practical mental model.
+
+| AWS | Azure equivalent or closest service |
+| --- | --- |
+| AWS account | Azure subscription |
+| AWS Organizations | Management groups and subscriptions |
+| IAM | Microsoft Entra ID and Azure RBAC |
+| IAM role | Managed identity, service principal or Azure role assignment |
+| VPC | Azure Virtual Network |
+| Security group | Network Security Group |
+| EC2 | Azure Virtual Machines |
+| Auto Scaling Group | Virtual Machine Scale Sets |
+| Elastic Load Balancer | Azure Load Balancer or Application Gateway |
+| CloudFront | Azure Front Door |
+| Route 53 | Azure DNS and Traffic Manager |
+| S3 | Azure Blob Storage |
+| EBS | Azure Managed Disks |
+| RDS | Azure SQL Database or Azure Database services |
+| DynamoDB | Azure Cosmos DB |
+| ElastiCache | Azure Managed Redis |
+| ECR | Azure Container Registry |
+| ECS/Fargate | Azure Container Apps |
+| EKS | Azure Kubernetes Service |
+| Lambda | Azure Functions |
+| API Gateway | Azure API Management |
+| EventBridge | Azure Event Grid |
+| SQS/SNS | Azure Service Bus and Event Grid |
+| CloudWatch | Azure Monitor, Log Analytics and Application Insights |
+| CloudTrail | Azure Activity Log |
+| Secrets Manager/KMS | Azure Key Vault and Managed HSM |
+| CloudFormation | ARM templates or Bicep |
+| Bedrock/SageMaker | Microsoft Foundry and Azure Machine Learning |
+
+Azure Container Apps provides serverless container hosting and event-driven scaling, while AKS provides managed Kubernetes. Azure Functions provides event-driven serverless compute; Azure API Management provides managed API and AI gateway capabilities; and Azure Monitor provides the central monitoring platform. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/container-apps/overview))
+
+---
+
+# Part One: Azure and Cloud Foundations
+
+## 4. Understand cloud computing
+
+Before learning Azure services, understand the delivery models.
+
+### Infrastructure as a Service
+
+You manage:
+
+* Operating systems.
+* Applications.
+* Runtime configuration.
+* Patching of guest systems.
+* Network configuration.
+* Identity permissions.
+* Data.
+
+Azure manages the physical infrastructure.
+
+Examples:
+
+* Azure Virtual Machines.
+* Managed Disks.
+* Virtual Networks.
+* Azure Load Balancer.
+
+### Platform as a Service
+
+Azure manages more of the operating system and platform.
+
+Examples:
+
+* Azure App Service.
+* Azure SQL Database.
+* Azure Functions.
+* Azure Container Apps.
+* Microsoft Foundry.
+
+You remain responsible for:
+
+* Application code.
+* Identities and permissions.
+* Data.
+* Configuration.
+* Business logic.
+* Security decisions.
+* Compliance.
+
+### Software as a Service
+
+A complete application is supplied to users.
+
+Examples include Microsoft 365, Dynamics 365 and other hosted business applications.
+
+The shared-responsibility boundary changes according to whether the service is IaaS, PaaS or SaaS, but customers remain responsible for their data, identities, access decisions and the cloud components they configure. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility))
+
+---
+
+## 5. Understand Azure global infrastructure
+
+### Regions
+
+An Azure Region is a geographic area containing one or more datacentres.
+
+Region selection should consider:
+
+* Customer location.
+* Data residency.
+* Regulatory requirements.
+* Service availability.
+* Latency.
+* Cost.
+* Availability Zone support.
+* Disaster-recovery options.
+* Model availability for AI workloads.
+* Capacity and quota availability.
+
+### Availability Zones
+
+Availability Zones are separated groups of datacentres within a Region. Not every service or Region supports the same zoning model, so availability must be verified before finalising an architecture. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview))
+
+### Region pairs and multi-region architecture
+
+Some Azure Regions have paired-region relationships, while others do not. Do not assume that a paired Region automatically provides application disaster recovery. You must configure replication, traffic routing, backups and recovery procedures for the services you use. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/reliability/regions-overview))
+
+### Practical exercise
+
+Create a Region-selection decision record containing:
+
+| Criterion | Question |
+| --- | --- |
+| Users | Where are the primary users located? |
+| Data | Where may personal or regulated data be stored? |
+| Latency | What response-time objective exists? |
+| Availability | Does the workload require zone redundancy? |
+| AI | Are the required model and deployment types available? |
+| Recovery | Which secondary Region will be used? |
+| Cost | How do compute, networking and data-egress costs compare? |
+| Compliance | Which jurisdictional requirements apply? |
+
+---
+
+# Part Two: Azure Resource Organisation and Landing Zones
+
+## 6. Understand the Azure resource hierarchy
+
+A common Azure hierarchy is:
+
+```text
+Microsoft Entra tenant
+└── Root management group
+    ├── Platform management group
+    │   ├── Identity subscription
+    │   ├── Connectivity subscription
+    │   └── Management subscription
+    ├── Landing zones
+    │   ├── Production subscription
+    │   ├── Non-production subscription
+    │   └── AI platform subscription
+    └── Sandbox
+        └── Experimentation subscription
+```
+
+### Tenant
+
+The Microsoft Entra tenant is the primary identity and directory boundary.
+
+### Management group
+
+Management groups provide a scope above subscriptions. Policies and role assignments applied at a management-group level can be inherited by subscriptions underneath it. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/management-groups/overview))
+
+### Subscription
+
+A subscription provides:
+
+* Billing scope.
+* Quota boundary.
+* Access-management scope.
+* Deployment boundary.
+* Policy scope.
+* Resource organisation boundary.
+
+Separate subscriptions can be used for:
+
+* Production.
+* Development.
+* Security.
+* Connectivity.
+* Shared services.
+* AI experimentation.
+* Regulated workloads.
+* Business units.
+
+### Resource group
+
+A resource group is a logical container for related Azure resources.
+
+A resource group should usually represent a workload or meaningful lifecycle boundary—not simply a random collection of resources.
+
+### Resource
+
+A resource is an individual Azure service instance, such as:
+
+* Virtual network.
+* Storage account.
+* Key Vault.
+* Container App.
+* SQL database.
+* Foundry resource.
+
+Azure Resource Manager is the management and deployment layer through which Azure resources are created and controlled. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview))
+
+---
+
+## 7. Build an Azure landing zone
+
+An Azure landing zone is the governed foundation into which workloads are deployed.
+
+Microsoft currently describes an Azure landing-zone environment as one platform landing zone and one or more application landing zones. The platform area commonly provides central identity, connectivity, management and policy capabilities, while application landing zones host individual workloads. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/))
+
+### Landing-zone design areas
+
+Your landing-zone design should cover:
+
+1. Tenant and management-group organisation.
+2. Subscription strategy.
+3. Identity and access.
+4. Network topology and connectivity.
+5. Security.
+6. Management and monitoring.
+7. Governance.
+8. Platform automation.
+9. Business continuity.
+10. Cost management.
+
+### Platform landing zone
+
+A platform landing zone commonly contains:
+
+* Hub networking.
+* Azure Firewall.
+* DNS services.
+* ExpressRoute or VPN connectivity.
+* Log Analytics workspaces.
+* Microsoft Sentinel.
+* Defender for Cloud configuration.
+* Shared Key Vaults.
+* Policy assignments.
+* Central automation.
+
+### Application landing zone
+
+An application landing zone contains:
+
+* Application resources.
+* Workload-specific VNets.
+* Data services.
+* Application identities.
+* Workload monitoring.
+* Backup and recovery configuration.
+* AI resources where applicable.
+
+### Landing-zone practical project
+
+Create a small organisation containing:
+
+```text
+Root
+├── Platform
+│   ├── Connectivity
+│   ├── Identity
+│   └── Management
+├── Landing-Zones
+│   ├── Corp
+│   └── Online
+└── Sandbox
+```
+
+Then apply policies that:
+
+* Restrict deployment Regions.
+* Require tags.
+* Prevent public storage access.
+* Require diagnostic settings.
+* Require secure transport.
+* Audit resources without private endpoints.
+* Restrict unapproved AI models or resource types.
+* Deny production resources without named owners.
+
+Azure Policy can enforce organisational standards and assess compliance at scale, including resource consistency, security, regulatory compliance and cost controls. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/governance/policy/overview))
+
+---
+
+# Part Three: Identity and Access Management
+
+## 8. Understand Microsoft Entra ID
+
+Microsoft Entra ID provides identity capabilities for:
+
+* Human users.
+* Groups.
+* Applications.
+* Service principals.
+* Managed identities.
+* Devices.
+* Workload identities.
+* Enterprise applications.
+
+The first security objective is to avoid permanent, excessive and shared access.
+
+---
+
+## 9. Separate Entra roles from Azure RBAC
+
+These are related but different.
+
+### Microsoft Entra roles
+
+Entra roles control directory-level activities such as:
+
+* User management.
+* Application registration.
+* Conditional Access.
+* Identity governance.
+* Directory administration.
+
+### Azure RBAC
+
+Azure role-based access control determines what a principal may do against Azure resources.
+
+Examples include:
+
+* Reader.
+* Contributor.
+* Owner.
+* Storage Blob Data Reader.
+* Key Vault Secrets User.
+* Cognitive Services OpenAI User.
+* Custom workload roles.
+
+Use the narrowest role at the narrowest practical scope.
+
+```text
+Management group
+    ↓
+Subscription
+    ↓
+Resource group
+    ↓
+Individual resource
+```
+
+Microsoft Entra RBAC manages access to directory resources, while Azure RBAC manages permissions against Azure resources. Entra Privileged Identity Management can provide time-limited activation for privileged roles. ([Microsoft Learn](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/custom-overview))
+
+---
+
+## 10. Managed identities
+
+A managed identity gives an Azure resource an automatically managed identity in Microsoft Entra ID.
+
+Use managed identities for:
+
+* App Service to Key Vault.
+* Container Apps to Azure OpenAI or Foundry.
+* Functions to Storage.
+* AKS workloads to Cosmos DB.
+* Virtual machines to Key Vault.
+* API Management to model endpoints.
+* AI agents to authorised tools.
+
+This removes the need to embed passwords or API keys in source code. Managed identities obtain Entra-issued tokens for services that support Entra authentication. ([Microsoft Learn](https://learn.microsoft.com/en-us/entra/architecture/service-accounts-managed-identities))
+
+### System-assigned identity
+
+The identity belongs to one Azure resource and is removed with it.
+
+### User-assigned identity
+
+The identity is created independently and can be attached to multiple resources.
+
+Use user-assigned identities where:
+
+* Multiple resources require one controlled identity.
+* Identity lifecycle must be separate from compute lifecycle.
+* A predictable identity is needed before application deployment.
+* Blue-green deployments need consistent permissions.
+
+---
+
+## 11. Conditional Access and privileged access
+
+Conditional Access can evaluate signals such as:
+
+* User.
+* Workload identity.
+* Application.
+* Device state.
+* Location.
+* Sign-in risk.
+* User risk.
+* Authentication strength.
+
+Use it to require:
+
+* Multifactor authentication.
+* Compliant devices.
+* Approved locations.
+* Strong authentication for administrators.
+* Restrictions on legacy authentication.
+* Additional controls for sensitive applications.
+
+Conditional Access acts as a Zero Trust policy engine, while PIM supports just-in-time activation of privileged roles. ([Microsoft Learn](https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview))
+
+### Identity completion project
+
+Implement:
+
+* Separate administrative accounts.
+* MFA.
+* Emergency-access accounts.
+* PIM for privileged roles.
+* Conditional Access.
+* Managed identities for workloads.
+* No stored cloud credentials in source code.
+* Quarterly access review.
+* Joiner, mover and leaver process.
+* AI-agent identity inventory.
+* Separation between model administration and application usage.
+
+---
+
+# Part Four: Azure Networking
+
+## 12. Understand Azure Virtual Network
+
+An Azure Virtual Network provides a private networking boundary for Azure resources.
+
+Learn:
+
+* Address spaces.
+* CIDR ranges.
+* Subnets.
+* Network interfaces.
+* Private IP addresses.
+* Network Security Groups.
+* Route tables.
+* NAT Gateway.
+* Private Link.
+* Private endpoints.
+* VNet peering.
+* DNS.
+* VPN Gateway.
+* ExpressRoute.
+* Azure Firewall.
+* DDoS protection.
+* Bastion.
+
+Azure VNets use customer-defined address spaces and subnets, while NSGs filter traffic at subnet or network-interface level. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/virtual-network/concepts-and-best-practices))
+
+---
+
+## 13. Design the address space
+
+Example:
+
+```text
+10.20.0.0/16       Production VNet
+
+10.20.0.0/24       Azure Firewall
+10.20.1.0/24       Application Gateway
+10.20.10.0/24      Application services
+10.20.20.0/24      Data services
+10.20.30.0/24      Private endpoints
+10.20.40.0/24      AKS system nodes
+10.20.50.0/24      AKS workloads
+10.20.60.0/24      AI platform
+10.20.70.0/24      Management
+```
+
+Reserve addresses for:
+
+* Growth.
+* Private endpoints.
+* Container platforms.
+* Hybrid connectivity.
+* Future Regions.
+* Acquisitions.
+* Multi-cloud connectivity.
+
+Avoid overlapping address ranges where networks may later be connected through peering, VPN or ExpressRoute. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/networking/design-guide/vnets-subnets))
+
+---
+
+## 14. Network Security Groups
+
+An NSG contains inbound and outbound traffic rules.
+
+Example structure:
+
+### Application Gateway NSG
+
+Allow:
+
+* Required public HTTPS traffic.
+* Azure platform health probes.
+* Outbound traffic to application services.
+
+### Application NSG
+
+Allow:
+
+* Traffic only from Application Gateway.
+* Database traffic only to the data tier.
+* Required monitoring and management traffic.
+
+### Data NSG
+
+Allow:
+
+* Database connections only from approved workloads.
+* No direct internet access.
+* Backup and monitoring communication.
+
+Use service tags and application security groups where appropriate rather than hard-coding large collections of IP addresses. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/networking/design-guide/network-application-security-groups))
+
+---
+
+## 15. Private endpoints and Private Link
+
+A private endpoint gives a supported platform service a private IP address inside your VNet.
+
+Use private endpoints for:
+
+* Storage.
+* Key Vault.
+* Azure SQL.
+* Cosmos DB.
+* Container Registry.
+* Microsoft Foundry.
+* Azure OpenAI model endpoints.
+* Azure AI Search.
+* App Service where supported.
+* Other sensitive PaaS resources.
+
+A private endpoint does not automatically solve:
+
+* DNS resolution.
+* Identity permissions.
+* Data-plane authorisation.
+* Route configuration.
+* Application authentication.
+* Exfiltration control.
+
+These must be designed separately.
+
+---
+
+## 16. Outbound connectivity
+
+Use explicit outbound connectivity through:
+
+* Azure NAT Gateway.
+* Azure Firewall.
+* Network Virtual Appliance.
+* Controlled proxy.
+* Approved private endpoints.
+
+Azure NAT Gateway provides scalable outbound SNAT using static public IP addresses or prefixes. Current Azure networking guidance increasingly emphasises explicit outbound connectivity rather than relying on default outbound access. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/nat-gateway/nat-overview))
+
+For AI workloads, outbound access should be restricted to:
+
+* Approved model endpoints.
+* Approved package repositories.
+* Approved external APIs.
+* Security update services.
+* Audited tool endpoints.
+* Authorised MCP servers.
+
+---
+
+## 17. Hub-and-spoke networking
+
+A common enterprise topology is:
+
+```text
+On-premises
+    ↓
+ExpressRoute / VPN
+    ↓
+Hub VNet
+├── Azure Firewall
+├── DNS
+├── Bastion
+├── Shared monitoring
+└── Gateway
+    ↓
+VNet peering
+    ├── Production spoke
+    ├── Development spoke
+    ├── Data platform spoke
+    └── AI platform spoke
+```
+
+The hub provides central connectivity and security services. Spokes isolate workloads and business domains.
+
+### Networking completion project
+
+Deploy:
+
+* Hub-and-spoke topology.
+* Production and non-production spokes.
+* Azure Firewall.
+* NAT Gateway.
+* Private DNS zones.
+* Private endpoints for Storage, Key Vault and SQL.
+* Network Watcher.
+* NSG flow visibility.
+* Documented inbound and outbound flows.
+* AI-specific egress allowlist.
+
+---
+
+# Part Five: Virtual Machines and Compute
+
+## 18. Azure Virtual Machines
+
+Azure Virtual Machines provide IaaS compute for Linux and Windows workloads.
+
+Use VMs when you require:
+
+* Operating-system control.
+* Legacy applications.
+* Custom agents.
+* Specialist drivers.
+* Unsupported runtimes.
+* Lift-and-shift migration.
+* Host-level configuration.
+* Special hardware requirements.
+
+Understand:
+
+* VM sizes.
+* CPU and memory.
+* Temporary disks.
+* Managed Disks.
+* Availability Zones.
+* Availability sets.
+* Images.
+* Extensions.
+* Managed identities.
+* Boot diagnostics.
+* Update management.
+* Backup.
+* Azure Bastion.
+* Just-in-time access.
+
+Azure recommends VM Scale Sets with flexible orchestration for many high-availability VM scenarios because scale sets support central management, configuration, updates and automatic scaling. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview))
+
+---
+
+## 19. Managed Disks
+
+Learn the main design dimensions:
+
+* Disk type.
+* Capacity.
+* IOPS.
+* Throughput.
+* Caching.
+* Encryption.
+* Redundancy.
+* Snapshots.
+* Backup.
+* Shared-disk requirements.
+
+Azure offers multiple managed-disk types for different performance and cost requirements. Zone-redundant managed disks can synchronously replicate data across Availability Zones in supported scenarios. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types))
+
+---
+
+## 20. Virtual Machine Scale Sets
+
+A VM Scale Set manages a group of virtual machines.
+
+Learn:
+
+* Scaling profile.
+* Minimum and maximum capacity.
+* Metric-based scaling.
+* Schedule-based scaling.
+* Predictive scaling where appropriate.
+* Health probes.
+* Upgrade policies.
+* Image versioning.
+* Zone distribution.
+* Rolling replacement.
+* Load-balancer integration.
+
+Scale Sets can increase or decrease instance count manually, on a schedule or according to metric-based rules. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview))
+
+### VM project
+
+Deploy:
+
+```text
+Azure Front Door
+      ↓
+Application Gateway
+      ↓
+VM Scale Set
+      ↓
+Azure SQL Database
+```
+
+Add:
+
+* Private VM instances.
+* Managed identity.
+* Key Vault integration.
+* Autoscaling.
+* Log Analytics.
+* Application Insights.
+* Azure Backup.
+* Availability Zone distribution.
+* Patch-management process.
+
+---
+
+# Part Six: Azure Application Platforms
+
+## 21. Azure App Service
+
+App Service is a managed application platform for:
+
+* Web applications.
+* APIs.
+* Mobile back ends.
+* Windows and Linux workloads.
+* Supported language runtimes.
+* Custom containers.
+
+App Service manages much of the underlying hosting infrastructure, allowing teams to focus on application delivery. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/overview))
+
+### Concepts to learn
+
+* App Service plan.
+* Web App.
+* Deployment slots.
+* Scaling up and scaling out.
+* Managed identity.
+* VNet integration.
+* Private endpoints.
+* Access restrictions.
+* Custom domains.
+* TLS certificates.
+* Configuration settings.
+* Key Vault references.
+* Health checks.
+* Backups.
+* Application Insights.
+
+### Deployment slots
+
+Use slots for:
+
+* Staging.
+* Pre-production verification.
+* Blue-green deployment.
+* Controlled production swaps.
+* Rapid rollback.
+
+### App Service project
+
+Deploy an API with:
+
+* Private back-end connectivity.
+* Managed identity.
+* Key Vault.
+* Azure SQL.
+* Deployment slot.
+* Application Insights.
+* Autoscaling.
+* Front Door.
+* Web Application Firewall.
+* CI/CD pipeline.
+
+---
+
+# Part Seven: Storage
+
+## 22. Understand Azure Storage
+
+An Azure Storage account can provide several data services.
+
+### Blob Storage
+
+Use for:
+
+* Documents.
+* Images.
+* Audio.
+* Video.
+* Backups.
+* Logs.
+* Data lakes.
+* AI training data.
+* RAG documents.
+* Model artefacts.
+
+### Azure Files
+
+Use for managed file shares accessed over supported file protocols.
+
+### Queue Storage
+
+Use for basic asynchronous message queues.
+
+### Table Storage
+
+Use for key-value or simple NoSQL workloads where its model fits.
+
+### Managed Disks
+
+Use as block storage for virtual machines.
+
+---
+
+## 23. Blob access tiers
+
+Select tiers according to access frequency, retrieval requirements and retention periods.
+
+Typical categories include:
+
+* Hot.
+* Cool.
+* Cold where available.
+* Archive.
+
+Lifecycle-management rules can transition blobs into lower-cost tiers or delete them at the end of the required retention period. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-policy-structure))
+
+### Storage security
+
+Implement:
+
+* Entra authentication.
+* RBAC.
+* Managed identities.
+* Private endpoints.
+* Public-access restrictions.
+* Secure transfer.
+* Encryption.
+* Customer-managed keys where justified.
+* Versioning.
+* Soft delete.
+* Immutable storage where required.
+* Malware protection where appropriate.
+* Data-classification labels.
+* Diagnostic logs.
+
+### AI-data zones
+
+For an enterprise AI platform, separate storage into:
+
+```text
+Raw
+├── Original source documents
+├── Restricted data
+└── Quarantine
+
+Curated
+├── Validated documents
+├── Cleaned data
+└── PII-controlled datasets
+
+AI-ready
+├── Chunked documents
+├── Embedding inputs
+└── Approved training datasets
+
+Evidence
+├── Evaluation results
+├── Model cards
+├── Prompt versions
+└── Governance evidence
+```
+
+Do not let the AI indexing pipeline read every container by default.
+
+---
+
+# Part Eight: Databases and Caching
+
+## 24. Azure SQL Database
+
+Use Azure SQL Database when you require:
+
+* Relational modelling.
+* SQL.
+* Transactions.
+* Constraints.
+* Joins.
+* Strong consistency.
+* Established SQL Server compatibility.
+
+Learn:
+
+* Single databases.
+* Elastic pools.
+* Provisioned and serverless options.
+* Backup and point-in-time restore.
+* Zone redundancy.
+* Geo-replication.
+* Failover groups.
+* Entra authentication.
+* Transparent Data Encryption.
+* Auditing.
+* Threat detection.
+* Private endpoints.
+* Row-level security.
+* Dynamic data masking.
+* Connection pooling.
+
+Azure SQL Database is a managed relational database platform and supports common SQL Server application capabilities. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview?view=azuresql-db))
+
+---
+
+## 25. Cosmos DB
+
+Cosmos DB is appropriate for workloads requiring combinations of:
+
+* Flexible JSON schemas.
+* Horizontal scale.
+* Globally distributed data.
+* Predictable low latency.
+* Automatic indexing.
+* Multiple consistency options.
+* Vector search.
+* High-volume application data.
+
+Cosmos DB scales through logical and physical partitioning, making partition-key design one of the most important architectural decisions. ([Microsoft Learn](https://learn.microsoft.com/en-us/cosmos-db/overview))
+
+### Concepts to learn
+
+* Account.
+* Database.
+* Container.
+* Item.
+* Partition key.
+* Request units.
+* Indexing policy.
+* Consistency levels.
+* Change feed.
+* Time to live.
+* Multi-region replication.
+* Backup.
+* Private endpoints.
+
+### AI use cases
+
+Cosmos DB may store:
+
+* Conversation state.
+* Agent state.
+* User preferences.
+* Workflow checkpoints.
+* Evaluation records.
+* Feedback.
+* Tool-call history.
+* Application metadata.
+
+Do not automatically use Cosmos DB as a vector database merely because the application uses AI. Choose it according to access patterns and operational requirements.
+
+---
+
+## 26. Azure Managed Redis
+
+Use managed Redis for:
+
+* Application caching.
+* Session state.
+* Rate limiting.
+* Distributed locks.
+* Agent short-term memory.
+* Semantic caches.
+* Idempotency keys.
+* Fast counters.
+* Leaderboards.
+
+Azure Cache for Redis has an announced retirement path, so new architecture decisions should evaluate Azure Managed Redis rather than treating the older service as the default. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview))
+
+### AI cache warning
+
+Never cache model responses without considering:
+
+* User identity.
+* Tenant boundary.
+* Data sensitivity.
+* Prompt parameters.
+* Model version.
+* Guardrail version.
+* Authorisation context.
+* Freshness.
+* Right-to-erasure obligations.
+
+A cache key that excludes the user or tenant can expose one customer’s generated result to another.
+
+---
+
+# Part Nine: APIs, Events and Integration
+
+## 27. Azure API Management
+
+API Management provides a managed gateway for APIs and, increasingly, AI endpoints and MCP servers.
+
+Use it for:
+
+* Authentication.
+* Authorisation.
+* Rate limiting.
+* Quotas.
+* Request validation.
+* Response transformation.
+* Versioning.
+* Caching.
+* Developer onboarding.
+* Analytics.
+* Network isolation.
+* Central policy enforcement.
+
+API Management can publish and protect APIs hosted in Azure, on premises or elsewhere. Its AI gateway capabilities can use managed identities, moderate prompts through Azure AI Content Safety and manage access to model or MCP endpoints. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/api-management/))
+
+### AI gateway policies
+
+A production AI gateway should control:
+
+* Which models may be called.
+* Which applications may call them.
+* Per-user and per-application quotas.
+* Token limits.
+* Input size.
+* Prompt injection screening.
+* PII handling.
+* Content moderation.
+* Regional routing.
+* Model fallback.
+* Logging and correlation.
+* Response filtering.
+* Cost attribution.
+* Abuse detection.
+
+---
+
+## 28. Service Bus
+
+Azure Service Bus is an enterprise message broker supporting queues and publish-subscribe topics.
+
+Use it when you need:
+
+* Reliable business messaging.
+* Competing consumers.
+* Delivery guarantees.
+* Dead-letter queues.
+* Scheduled messages.
+* Message sessions.
+* Transactions.
+* Workload decoupling.
+
+Service Bus supports queues and topics and is designed for reliable transfer of business data and decoupled application processing. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview))
+
+### AI use cases
+
+* Long-running document processing.
+* Batch embedding creation.
+* Human-review queues.
+* Asynchronous agent jobs.
+* Evaluation processing.
+* Notifications.
+* Retry and dead-letter handling.
+
+---
+
+## 29. Event Grid
+
+Event Grid is designed for event distribution and reactive architectures.
+
+Use it when:
+
+* A blob is uploaded.
+* A resource changes.
+* A model deployment completes.
+* An evaluation is published.
+* A business event should be routed.
+* Multiple subscribers need notifications.
+
+Event Grid is a managed publish-subscribe event distribution service. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/event-grid/overview))
+
+---
+
+## 30. Event Hubs
+
+Use Event Hubs for high-throughput streaming and telemetry scenarios.
+
+Typical use cases include:
+
+* Device events.
+* Application telemetry.
+* Clickstreams.
+* Security events.
+* Model interaction streams.
+* Large-scale audit event ingestion.
+
+A practical distinction is:
+
+| Service | Best suited for |
+| --- | --- |
+| Service Bus | Reliable business commands and messages |
+| Event Grid | Reactive event notification and routing |
+| Event Hubs | High-volume event streaming |
+
+Microsoft’s messaging guidance distinguishes the services according to transactional messaging, reactive event routing and high-throughput streaming. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services))
+
+---
+
+# Part Ten: Containers
+
+## 31. Azure Container Registry
+
+Azure Container Registry stores and manages:
+
+* Container images.
+* OCI artefacts.
+* Helm-related artefacts.
+* Versioned application packages.
+
+Learn:
+
+* Registries.
+* Repositories.
+* Tags.
+* Digests.
+* Immutable image references.
+* Retention.
+* Geo-replication.
+* Private Link.
+* Managed identity authentication.
+* Image scanning.
+* Signing and provenance.
+* Base-image updates.
+
+ACR is a private registry for storing and distributing container images and OCI artefacts. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/container-registry/))
+
+### Secure image workflow
+
+```text
+Source commit
+    ↓
+Static analysis
+    ↓
+Dependency and secret scanning
+    ↓
+Build container
+    ↓
+Generate SBOM
+    ↓
+Scan image
+    ↓
+Sign image
+    ↓
+Push immutable digest to ACR
+    ↓
+Admission-policy verification
+    ↓
+Deploy
+```
+
+---
+
+## 32. Azure Container Apps
+
+Container Apps provides serverless container hosting without requiring teams to manage Kubernetes infrastructure.
+
+It supports:
+
+* HTTP applications.
+* APIs.
+* Background workers.
+* Scheduled jobs.
+* Event-driven workloads.
+* Microservices.
+* Multiple revisions.
+* Traffic splitting.
+* KEDA-based scaling.
+* Scale to zero for applicable workloads.
+* Internal ingress.
+* Dapr integration.
+* Managed identities.
+
+Container Apps is often a strong choice for teams that need containers and autoscaling but do not need full Kubernetes control. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/container-apps/overview))
+
+### AI uses
+
+* RAG API.
+* PII-redaction service.
+* Agent orchestrator.
+* Evaluation worker.
+* Embedding pipeline.
+* Guardrail service.
+* Tool gateway.
+* Model proxy.
+* Document-ingestion worker.
+
+---
+
+## 33. Azure Kubernetes Service
+
+AKS is a managed Kubernetes platform.
+
+Current AKS offerings include:
+
+* **AKS Automatic:** More infrastructure, scaling, security and upgrade management handled by Azure.
+* **AKS Standard:** Greater control over cluster and node-pool configuration.
+
+Microsoft currently recommends AKS Automatic for many teams and workloads seeking a production-ready Kubernetes experience with reduced operational overhead. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/aks/what-is-aks))
+
+### Learn before adopting AKS
+
+You should understand:
+
+* Pods.
+* Deployments.
+* StatefulSets.
+* Services.
+* Ingress.
+* Gateway API.
+* ConfigMaps.
+* Secrets.
+* Namespaces.
+* Kubernetes RBAC.
+* Network policies.
+* Persistent volumes.
+* Resource requests and limits.
+* Horizontal Pod Autoscaling.
+* Node autoscaling.
+* Workload identity.
+* Pod security.
+* Admission policies.
+* Service mesh.
+* Cluster upgrades.
+* Backup and recovery.
+
+### Choose AKS when
+
+* Kubernetes portability is required.
+* Multiple complex services share a platform.
+* Kubernetes-native tooling is required.
+* Advanced network or workload scheduling is needed.
+* Platform engineers can operate Kubernetes safely.
+* GPU or specialised node pools are required.
+* The organisation has a justified Kubernetes strategy.
+
+Do not choose AKS merely because it appears more advanced.
+
+---
+
+# Part Eleven: Serverless
+
+## 34. Azure Functions
+
+Azure Functions runs event-driven code without requiring you to provision traditional servers.
+
+Typical triggers include:
+
+* HTTP.
+* Timer.
+* Service Bus.
+* Event Grid.
+* Event Hubs.
+* Storage.
+* Database events.
+* Custom integrations.
+
+Azure Functions supports event-driven application patterns, scheduled compute, automatic scaling and integration with Azure services. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview))
+
+### Concepts to learn
+
+* Function App.
+* Functions.
+* Triggers.
+* Input and output bindings.
+* Hosting plans.
+* Managed identity.
+* VNet integration.
+* Durable Functions.
+* Retry policy.
+* Idempotency.
+* Dead-letter handling.
+* Concurrency.
+* Cold starts.
+* Application Insights.
+
+### AI serverless patterns
+
+```text
+Blob uploaded
+    ↓
+Event Grid
+    ↓
+Azure Function
+    ↓
+PII scanning
+    ↓
+Document extraction
+    ↓
+Chunking and validation
+    ↓
+Embedding generation
+    ↓
+Search index update
+```
+
+Functions are useful for short, event-driven units of work. Long-running, complex workflows may require Durable Functions, Container Apps jobs or another orchestration model.
+
+---
+
+# Part Twelve: Front-End Delivery and Traffic Management
+
+## 35. Azure Front Door
+
+Azure Front Door is a global edge and content-delivery service for static and dynamic web applications.
+
+It supports:
+
+* Global routing.
+* Content delivery.
+* Edge caching.
+* Origin health checking.
+* TLS termination.
+* Web Application Firewall.
+* Rate limiting.
+* Bot protection.
+* Multi-region failover.
+
+Front Door is designed to improve global performance, scalability, availability and security for internet-facing applications. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/frontdoor/))
+
+---
+
+## 36. Application Gateway
+
+Application Gateway provides regional Layer 7 web traffic management.
+
+Use it for:
+
+* HTTP and HTTPS routing.
+* Path-based routing.
+* Host-based routing.
+* TLS termination.
+* Web Application Firewall.
+* Regional application ingress.
+* Integration with private back ends.
+
+Application Gateway is a regional web traffic load balancer, whereas Front Door provides global edge routing. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/application-gateway/overview))
+
+### Typical enterprise architecture
+
+```text
+Users
+  ↓
+Azure Front Door + WAF
+  ↓
+Application Gateway
+  ↓
+App Service / Container Apps / AKS
+  ↓
+Private data and AI services
+```
+
+---
+
+# Part Thirteen: Monitoring and Observability
+
+## 37. Azure Monitor
+
+Azure Monitor is the central monitoring platform for Azure and connected workloads.
+
+Its main components include:
+
+* Metrics.
+* Logs.
+* Alerts.
+* Workbooks.
+* Dashboards.
+* Application Insights.
+* Log Analytics.
+* Activity Logs.
+* Data collection rules.
+* Azure Monitor Agent.
+
+A Log Analytics workspace stores log data from Azure and non-Azure resources and integrates with services such as Sentinel and Defender for Cloud. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-workspace-overview))
+
+---
+
+## 38. Application Insights
+
+Application Insights provides application performance monitoring.
+
+Track:
+
+* Requests.
+* Dependencies.
+* Exceptions.
+* Response time.
+* Availability.
+* User journeys.
+* Distributed traces.
+* Application maps.
+* Custom events.
+* Business metrics.
+
+Application Map can visualise dependencies and highlight bottlenecks and failures across components. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-map))
+
+### AI-specific observability
+
+For each AI request, record a correlation identifier covering:
+
+```text
+User request
+→ Gateway policy
+→ Sanitisation decision
+→ Prompt template version
+→ Model deployment
+→ Retrieval query
+→ Retrieved document IDs
+→ Guardrail result
+→ Tool calls
+→ Agent decisions
+→ Final response
+→ User feedback
+```
+
+Avoid storing complete prompts and responses indiscriminately. Logging policy must consider:
+
+* Personal data.
+* Confidential information.
+* Credentials.
+* Legal privilege.
+* Retention.
+* Data residency.
+* Access restrictions.
+* Right-to-erasure requirements.
+
+### AI metrics
+
+Monitor:
+
+| Category | Example metrics |
+| --- | --- |
+| Quality | Groundedness, relevance, completeness |
+| Safety | Harmful-content rate, jailbreak rate |
+| Security | Injection attempts, blocked tool calls |
+| Reliability | Error rate, fallback rate, timeout rate |
+| Performance | End-to-end latency, retrieval latency |
+| Cost | Tokens, cost per request, cache savings |
+| Adoption | Active users, task completion |
+| Business | Revenue, time saved, deflection |
+| Governance | Unreviewed models, overdue approvals |
+| Human oversight | Escalation and override rates |
+
+---
+
+# Part Fourteen: Reliability and Business Continuity
+
+## 39. Azure Well-Architected Framework
+
+The Azure Well-Architected Framework currently has five pillars:
+
+1. Reliability.
+2. Security.
+3. Cost optimisation.
+4. Operational excellence.
+5. Performance efficiency.
+
+It provides architectural principles, decision guidance and review tools for Azure workloads. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/well-architected/))
+
+### Reliability questions
+
+* What happens when one instance fails?
+* What happens when one zone fails?
+* What happens when a Region fails?
+* What happens when a model endpoint reaches quota?
+* What happens when the vector store is unavailable?
+* What happens when the guardrail service fails?
+* Can the system fail closed?
+* Can users recover their work?
+* What is the RPO?
+* What is the RTO?
+
+---
+
+## 40. Backup and disaster recovery
+
+Azure Backup provides managed backup services for Azure and on-premises workloads. Azure Site Recovery supports replication and disaster-recovery scenarios. Azure Business Continuity Center is now the recommended central experience for broader backup and disaster-recovery management at scale. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/backup/backup-center-overview))
+
+### Protect more than the application
+
+Back up or reproduce:
+
+* Databases.
+* Blob containers.
+* Key configuration.
+* Infrastructure code.
+* Container images.
+* Prompt templates.
+* Evaluation datasets.
+* Search indexes or source data needed to rebuild them.
+* Model deployment configuration.
+* Policy definitions.
+* Agent tool definitions.
+* Governance evidence.
+
+### AI recovery planning
+
+A complete AI recovery procedure should explain:
+
+1. How model endpoints are restored or recreated.
+2. How search indexes are rebuilt.
+3. How embeddings are reproduced.
+4. Which model version is the approved fallback.
+5. What happens if a model is withdrawn.
+6. How prompt versions are recovered.
+7. How agent memory is restored safely.
+8. How governance approval is preserved after restoration.
+
+---
+
+# Part Fifteen: Infrastructure as Code
+
+## 41. Learn Bicep
+
+Bicep is Azure’s declarative infrastructure-as-code language. It compiles into Azure Resource Manager templates and supports reusable modules and consistent deployment. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview))
+
+Example:
+
+```bicep
+param location string = resourceGroup().location
+param environment string
+
+resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
+  name: 'st${environment}${uniqueString(resourceGroup().id)}'
+  location: location
+  sku: {
+    name: 'Standard_ZRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    allowBlobPublicAccess: false
+    supportsHttpsTrafficOnly: true
+    minimumTlsVersion: 'TLS1_2'
+    publicNetworkAccess: 'Disabled'
+  }
+}
+```
+
+### Infrastructure-as-code requirements
+
+Your platform code should support:
+
+* Repeatable deployment.
+* Environment separation.
+* Modular components.
+* Parameter validation.
+* Policy testing.
+* Drift detection.
+* Deployment previews.
+* Rollback.
+* Secrets separation.
+* Automated documentation.
+* Versioned modules.
+
+### Recommended repository
+
+```text
+azure-platform/
+├── modules/
+│   ├── networking/
+│   ├── identity/
+│   ├── monitoring/
+│   ├── key-vault/
+│   ├── container-apps/
+│   ├── foundry/
+│   └── private-endpoints/
+├── environments/
+│   ├── dev/
+│   ├── test/
+│   └── prod/
+├── policies/
+├── pipelines/
+├── tests/
+└── docs/
+```
+
+---
+
+# Part Sixteen: DevSecOps
+
+## 42. Build a secure delivery pipeline
+
+A production pipeline should resemble:
+
+```text
+Commit
+  ↓
+Code quality
+  ↓
+Unit tests
+  ↓
+Secret scanning
+  ↓
+Dependency scanning
+  ↓
+SAST
+  ↓
+IaC scanning
+  ↓
+Container scanning
+  ↓
+SBOM generation
+  ↓
+Build and sign
+  ↓
+Deploy to development
+  ↓
+Integration and security tests
+  ↓
+AI evaluations
+  ↓
+Approval
+  ↓
+Production deployment
+  ↓
+Post-deployment verification
+```
+
+Azure Pipelines supports continuous integration, testing and delivery for applications deployed to Azure and other environments. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines?view=azure-devops))
+
+### Use workload federation
+
+Avoid storing long-lived cloud credentials in GitHub or pipeline tools.
+
+Prefer:
+
+* Federated credentials.
+* Managed identities.
+* Short-lived tokens.
+* Environment approvals.
+* Limited deployment scopes.
+* Separate production identity.
+* Protected branches.
+* Signed release artefacts.
+
+### AI pipeline additions
+
+Add:
+
+* Prompt regression testing.
+* Model evaluation.
+* Groundedness testing.
+* Safety evaluation.
+* Prompt-injection testing.
+* Bias and cohort testing.
+* Data-leakage testing.
+* Tool-authorisation testing.
+* Token and cost thresholds.
+* Human approval for high-risk changes.
+* Model and prompt version registration.
+
+---
+
+# Part Seventeen: Core Azure Security
+
+## 43. Apply Zero Trust
+
+Use three principles:
+
+1. Verify explicitly.
+2. Use least privilege.
+3. Assume breach.
+
+Apply them across:
+
+* Human identities.
+* Workload identities.
+* AI-agent identities.
+* Devices.
+* Networks.
+* Data.
+* Applications.
+* Model endpoints.
+* Tools.
+* Third-party integrations.
+
+---
+
+## 44. Azure Key Vault
+
+Key Vault manages:
+
+* Secrets.
+* Cryptographic keys.
+* Certificates.
+
+Managed HSM provides a dedicated managed hardware-security-module capability for higher-assurance key requirements. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/key-vault/general/))
+
+### Key Vault controls
+
+Implement:
+
+* Entra authentication.
+* Azure RBAC.
+* Managed identities.
+* Private endpoints.
+* Soft delete.
+* Purge protection.
+* Rotation.
+* Audit logging.
+* Separate administration and secret usage.
+* No secret values in pipelines or prompts.
+
+Microsoft recommends managed identities for application access to Key Vault so applications do not require hard-coded credentials. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/key-vault/general/secure-key-vault))
+
+---
+
+## 45. Defender for Cloud
+
+Microsoft Defender for Cloud provides:
+
+* Cloud security posture management.
+* Secure-score recommendations.
+* Regulatory-compliance views.
+* Workload threat protection.
+* Attack-path analysis.
+* DevOps security integration.
+* Multi-cloud visibility.
+* AI workload visibility and protection.
+
+Its Cloud Security Posture Management capabilities continuously assess cloud resources and provide recommendations based on security standards such as the Microsoft Cloud Security Benchmark. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management))
+
+---
+
+## 46. Microsoft Sentinel
+
+Use Sentinel as the security information and event management and security orchestration layer.
+
+Ingest:
+
+* Entra logs.
+* Azure Activity Logs.
+* Firewall logs.
+* WAF logs.
+* Key Vault logs.
+* API Management logs.
+* AI gateway events.
+* Foundry events.
+* Defender alerts.
+* Application security events.
+* Agent tool-call alerts.
+
+Develop:
+
+* Detection rules.
+* Workbooks.
+* Incident playbooks.
+* Automated enrichment.
+* Containment actions.
+* Threat-hunting queries.
+
+---
+
+# Part Eighteen: AI Foundations
+
+## 47. Learn the AI system layers
+
+An enterprise AI application is more than a model.
+
+Think in the following layers:
+
+```text
+Business outcome
+↓
+User experience
+↓
+Application and workflow
+↓
+Agent or orchestration layer
+↓
+Prompt and context management
+↓
+Retrieval and knowledge
+↓
+Models
+↓
+Data
+↓
+Compute and platform
+↓
+Security and governance
+↓
+Operations and value measurement
+```
+
+You should understand each layer before designing the architecture.
+
+---
+
+## 48. AI categories
+
+### Predictive machine learning
+
+Use cases:
+
+* Fraud detection.
+* Churn prediction.
+* Demand forecasting.
+* Credit risk.
+* Classification.
+* Anomaly detection.
+
+### Generative AI
+
+Use cases:
+
+* Content generation.
+* Summarisation.
+* Question answering.
+* Code generation.
+* Document analysis.
+* Conversational applications.
+
+### Retrieval-augmented generation
+
+RAG combines a model with controlled enterprise knowledge retrieval.
+
+### AI agents
+
+An agent may:
+
+* Interpret an objective.
+* Build a plan.
+* Retrieve information.
+* Call tools.
+* Update state.
+* Ask for human approval.
+* Execute actions.
+* Observe results.
+
+The more authority an agent receives, the more important deterministic policy enforcement becomes.
+
+---
+
+# Part Nineteen: Microsoft Foundry and Azure AI Engineering
+
+## 49. Microsoft Foundry
+
+Microsoft Foundry provides capabilities for:
+
+* Model discovery and deployment.
+* Enterprise AI application development.
+* Evaluation.
+* Agent development.
+* Model operations.
+* Guardrails.
+* Connections to enterprise data.
+* Production hosting.
+
+Foundry Agent Service is a managed platform for building, deploying and scaling AI agents using supported models and frameworks. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry))
+
+### Core areas to learn
+
+1. Foundry resources and projects.
+2. Model catalogue.
+3. Model deployment types.
+4. Azure OpenAI models.
+5. Open and third-party models.
+6. Agent Service.
+7. Evaluations.
+8. Connections.
+9. Networking.
+10. Identity and RBAC.
+11. Monitoring.
+12. Guardrails.
+13. Quotas.
+14. Cost management.
+15. Lifecycle and retirement.
+
+### Current workflow warning
+
+Prompt flow remains present in some existing environments, but Microsoft documentation states that Prompt flow in Foundry and Azure Machine Learning is scheduled for retirement on 20 April 2027 and is no longer recommended for new development. New architectures should verify Microsoft’s recommended Agent Framework path rather than creating a long-term dependency on Prompt flow. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/foundry-classic/concepts/prompt-flow))
+
+---
+
+## 50. Model-selection framework
+
+Evaluate models across:
+
+| Dimension | Questions |
+| --- | --- |
+| Quality | Does it perform the required task accurately? |
+| Safety | How does it behave under misuse and adversarial input? |
+| Latency | Can it meet the user-experience target? |
+| Cost | What is the cost per task and user? |
+| Context | Is the context window sufficient? |
+| Region | Is deployment available in the required Region? |
+| Privacy | What processing and retention conditions apply? |
+| Control | Can it be privately networked and identity controlled? |
+| Modality | Does it support text, image, audio or video needs? |
+| Tool use | Does it reliably create valid structured calls? |
+| Explainability | Can outputs and limitations be communicated? |
+| Portability | How difficult is model substitution? |
+
+Do not select a model using a public benchmark alone. Test it on representative business tasks, user groups, languages, failure cases and security scenarios.
+
+---
+
+## 51. Enterprise RAG architecture
+
+```text
+User
+  ↓
+Azure Front Door + WAF
+  ↓
+API Management AI gateway
+  ↓
+Application / Agent orchestrator
+  ↓
+Identity and authorisation check
+  ↓
+PII and secret detection
+  ↓
+Query transformation
+  ↓
+Azure AI Search
+  ↓
+Authorised document retrieval
+  ↓
+Model inference
+  ↓
+Groundedness and output checks
+  ↓
+Response with citations
+```
+
+### RAG components
+
+* Source-system connectors.
+* Document extraction.
+* Malware scanning.
+* PII classification.
+* Access-control extraction.
+* Chunking.
+* Metadata.
+* Embeddings.
+* Indexing.
+* Hybrid search.
+* Semantic ranking.
+* Retrieval filtering.
+* Reranking.
+* Prompt construction.
+* Model call.
+* Citation generation.
+* Evaluation.
+* Feedback.
+* Re-indexing.
+
+### RAG security
+
+Every retrieved item should be filtered by:
+
+* Tenant.
+* User.
+* Role.
+* Data classification.
+* Legal boundary.
+* Geographic boundary.
+* Document status.
+* Retention state.
+
+Do not rely on the model to enforce access control. Retrieval authorisation must happen in deterministic application and data layers.
+
+---
+
+## 52. Agent architecture
+
+```text
+User request
+   ↓
+Authentication
+   ↓
+Policy engine
+   ↓
+Agent planner
+   ↓
+Tool-selection policy
+   ↓
+Authorisation for requested action
+   ↓
+Human approval when required
+   ↓
+Tool execution
+   ↓
+Result validation
+   ↓
+Audit record
+   ↓
+User response
+```
+
+### Agent tool classes
+
+| Risk | Example | Control |
+| --- | --- | --- |
+| Read-only | Search policy documents | User-scoped retrieval |
+| Low-impact write | Create a draft | Confirmation and audit |
+| Medium-impact | Update CRM record | Role check and preview |
+| High-impact | Transfer funds | Strong authentication and approval |
+| Irreversible | Delete records | Dual control or prohibition |
+| External communication | Send email | Recipient validation and confirmation |
+
+The model should propose actions. Deterministic software should decide whether the action is allowed.
+
+---
+
+# Part Twenty: AI Security
+
+## 53. AI security is broader than prompt filtering
+
+AI security covers:
+
+1. Governance and asset discovery.
+2. Identity and access.
+3. Infrastructure.
+4. Networks.
+5. Data.
+6. Model supply chain.
+7. Training and fine-tuning.
+8. Prompts.
+9. RAG.
+10. Agents and tools.
+11. Application security.
+12. APIs.
+13. Runtime monitoring.
+14. Human behaviour.
+15. Third-party risk.
+16. Incident response.
+17. Business continuity.
+18. Cost and resource abuse.
+
+Microsoft’s AI shared-responsibility guidance emphasises that responsibilities change according to the AI service model, but customers still own major responsibilities for data, identities, application configuration, access and safe use. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility-ai))
+
+---
+
+## 54. AI threat taxonomy
+
+### Data threats
+
+* Sensitive-data disclosure.
+* Unauthorised training data.
+* Excessive data collection.
+* Data poisoning.
+* Embedding poisoning.
+* RAG source manipulation.
+* Membership inference.
+* Model inversion.
+* Cross-tenant exposure.
+* Improper retention.
+* PII in logs.
+* Unauthorised secondary use.
+
+### Model threats
+
+* Model theft.
+* Model extraction.
+* Backdoored models.
+* Malicious model files.
+* Adversarial examples.
+* Unsafe fine-tuning.
+* Unverified model provenance.
+* Model drift.
+* Hidden behaviour changes.
+* Dependency compromise.
+
+### Prompt and application threats
+
+* Direct prompt injection.
+* Indirect prompt injection.
+* Jailbreaking.
+* System-prompt leakage.
+* Improper output handling.
+* Insecure structured output.
+* Hallucination.
+* Overreliance.
+* Denial of wallet.
+* Resource exhaustion.
+* Context-window attacks.
+
+### Agent threats
+
+* Excessive agency.
+* Tool misuse.
+* Privilege escalation.
+* Confused deputy attacks.
+* Memory poisoning.
+* Malicious tool descriptions.
+* MCP server compromise.
+* Cross-agent trust failure.
+* Unauthorised transactions.
+* Infinite loops.
+* Social engineering by retrieved content.
+
+The OWASP Top 10 for LLM Applications includes risks such as prompt injection, sensitive-information disclosure, supply-chain weaknesses, data and model poisoning, improper output handling, excessive agency and system-prompt leakage. MITRE ATLAS provides a living knowledge base of adversarial tactics and techniques targeting AI systems. ([OWASP Gen AI Security Project](https://genai.owasp.org/llm-top-10/))
+
+---
+
+## 55. Secure the AI platform
+
+Implement:
+
+* Separate development and production projects.
+* Entra authentication.
+* Managed identities.
+* Least-privilege RBAC.
+* Private endpoints.
+* Public network disabled where practical.
+* Controlled outbound access.
+* Key Vault.
+* Approved model catalogue.
+* Deployment quotas.
+* Diagnostic settings.
+* Central logs.
+* Defender for Cloud.
+* Policy enforcement.
+* Separate administrative and inference roles.
+* Tested recovery procedures.
+
+Microsoft’s Azure AI security guidance recommends network isolation, managed virtual networks or private connectivity, strong access control, model governance and visibility of AI workloads. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/security/fundamentals/ai-security-best-practices))
+
+---
+
+## 56. Secure prompts
+
+A system prompt is not a security boundary.
+
+Do not include:
+
+* Passwords.
+* API keys.
+* Database credentials.
+* Internal IP addresses.
+* Sensitive permission mappings.
+* Confidential control logic.
+* Unnecessary personal data.
+
+OWASP recommends separating sensitive information from prompts and not relying on system prompts as the sole means of enforcing strict security behaviour. ([OWASP Gen AI Security Project](https://genai.owasp.org/llmrisk/llm07-insecure-plugin-design/))
+
+### Prompt controls
+
+* Store prompts in version control.
+* Assign owners.
+* Review changes.
+* Test regressions.
+* Separate policy instructions from secrets.
+* Define trusted and untrusted content.
+* Mark retrieved content as data, not instructions.
+* Test multilingual attacks.
+* Test encoded and obfuscated instructions.
+* Limit context.
+* Record prompt version in traces.
+
+---
+
+## 57. Prompt injection defence
+
+There is no single perfect prompt-injection detector.
+
+Use defence in depth:
+
+```text
+Input validation
++
+Prompt Shields
++
+Trust-boundary separation
++
+Retrieval filtering
++
+Tool allowlists
++
+Least privilege
++
+Human approval
++
+Output validation
++
+Runtime monitoring
+```
+
+Azure AI Content Safety can evaluate harmful text and images, while Prompt Shields is intended to help detect direct and indirect prompt attacks. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview))
+
+### For indirect prompt injection
+
+Treat all external content as untrusted:
+
+* Documents.
+* Web pages.
+* Emails.
+* Images.
+* PDFs.
+* Search results.
+* Tool responses.
+* MCP metadata.
+* Database content.
+* User-generated files.
+
+Do not permit retrieved text to alter:
+
+* System authority.
+* Tool permissions.
+* Identity.
+* Authorisation.
+* Payment limits.
+* Data-access scope.
+* Audit logging.
+
+---
+
+## 58. Secure model outputs
+
+Model output must be treated as untrusted input.
+
+Before using output in another system:
+
+* Parse using a strict schema.
+* Validate data types.
+* Validate allowed values.
+* Escape content.
+* Scan URLs.
+* Disallow executable code where unnecessary.
+* Enforce database parameterisation.
+* Enforce recipient and amount limits.
+* Apply business rules.
+* Require approval for sensitive actions.
+
+Never directly place unrestricted model output into:
+
+* SQL.
+* Shell commands.
+* HTML.
+* Infrastructure templates.
+* Email recipients.
+* Payment APIs.
+* Privileged tool arguments.
+
+Improper output handling is a major LLM application risk because unsafe output may be passed into downstream systems without adequate validation or sanitisation. ([OWASP Gen AI Security Project](https://genai.owasp.org/llm-top-10/))
+
+---
+
+## 59. PII and sensitive-data protection
+
+Use a layered process:
+
+```text
+Data classification
+    ↓
+Lawful-purpose check
+    ↓
+Data minimisation
+    ↓
+PII and secret detection
+    ↓
+Redaction, masking or pseudonymisation
+    ↓
+Authorised model processing
+    ↓
+Output inspection
+    ↓
+Controlled logging and retention
+```
+
+### Presidio
+
+Microsoft Presidio is an open-source framework for detecting and de-identifying personal information across text, images and structured data. It supports custom recognisers and multiple anonymisation operators. Its documentation also warns that automated detection cannot guarantee that every sensitive item will be found. ([Microsoft GitHub](https://microsoft.github.io/presidio/))
+
+Therefore:
+
+* Benchmark Presidio on your domain.
+* Add custom recognisers.
+* Test names and addresses from relevant countries.
+* Measure precision and recall.
+* Combine patterns and NLP.
+* Use human review for high-risk datasets.
+* Never describe automated redaction as infallible.
+* Test logs as well as prompts.
+* Maintain reversible pseudonymisation only where necessary and securely controlled.
+
+Azure AI Language also provides PII detection and redaction capabilities for text, and newer document-oriented capabilities can operate on supported document formats. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/personally-identifiable-information/text-pii-overview))
+
+---
+
+## 60. Secure AI agents
+
+Apply the following controls:
+
+### Least privilege
+
+Every tool should receive the minimum permission required.
+
+### Per-user authorisation
+
+The agent must not inherit broad platform permissions that exceed the user’s authority.
+
+### Tool allowlisting
+
+Only approved tools may be invoked.
+
+### Argument validation
+
+Validate:
+
+* User ID.
+* Account ID.
+* Amount.
+* Recipient.
+* Date range.
+* File path.
+* Query scope.
+* Allowed operation.
+
+### Human approval
+
+Require confirmation for:
+
+* Payments.
+* Deletion.
+* External communication.
+* HR decisions.
+* Changes to customer records.
+* Regulatory submissions.
+* Infrastructure changes.
+* Privileged operations.
+
+### Transaction limits
+
+Enforce:
+
+* Monetary thresholds.
+* Rate limits.
+* Allowed recipients.
+* Allowed time windows.
+* Approval chains.
+
+### Memory controls
+
+* Separate memory by user and tenant.
+* Do not store secrets.
+* Expire temporary state.
+* Validate memory before reuse.
+* Protect against malicious memory insertion.
+* Provide deletion mechanisms.
+
+Excessive agency occurs when an AI system is granted powers that allow harmful actions to be performed after unexpected or manipulated model behaviour. ([OWASP Gen AI Security Project](https://genai.owasp.org/llmrisk/llm06-sensitive-information-disclosure/))
+
+---
+
+## 61. AI supply-chain security
+
+Track:
+
+* Model provider.
+* Model version.
+* Model licence.
+* Model hash.
+* Dataset source.
+* Dataset licence.
+* Container images.
+* Python packages.
+* Prompt libraries.
+* Embedding models.
+* Evaluation tools.
+* Orchestration frameworks.
+* MCP servers.
+* Plugins.
+* Fine-tuning jobs.
+* Deployment configuration.
+
+Produce:
+
+* Software Bill of Materials.
+* AI Bill of Materials.
+* Model card.
+* Dataset documentation.
+* Provenance record.
+* Vulnerability report.
+* Supplier assessment.
+* Approval record.
+
+Defender for Cloud can discover AI workloads and provide an AI Bill of Materials view, posture recommendations and attack-path analysis. It can also identify risks in AI libraries and artefacts before deployment. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/defender-for-cloud/explore-ai-risk))
+
+---
+
+## 62. AI runtime protection
+
+Monitor for:
+
+* Jailbreak attempts.
+* Prompt injection.
+* Data leakage.
+* Unusual model use.
+* Credential theft.
+* Abnormal tool invocation.
+* Sudden cost increases.
+* High-volume requests.
+* Suspicious source addresses.
+* Unexpected model changes.
+* Unsafe response patterns.
+* Cross-tenant anomalies.
+* Data poisoning indicators.
+
+Microsoft Defender for Cloud’s AI threat protection is designed to detect threats such as data leakage, poisoning, jailbreak attempts and credential theft, with integration into Defender XDR for investigation. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-threat-protection))
+
+---
+
+# Part Twenty-One: AI Governance
+
+## 63. Governance is not a final approval gate
+
+AI governance should operate throughout the lifecycle.
+
+A practical lifecycle is:
+
+```text
+Business idea
+→ Intake
+→ Risk classification
+→ Feasibility
+→ Data approval
+→ Architecture
+→ Build
+→ Security testing
+→ Responsible AI evaluation
+→ Deployment approval
+→ Monitoring
+→ Change control
+→ Retirement
+```
+
+---
+
+## 64. AI governance operating model
+
+### Board or executive committee
+
+Owns:
+
+* AI risk appetite.
+* Strategic priorities.
+* Funding.
+* High-risk exceptions.
+* Accountability.
+
+### AI governance council
+
+Owns:
+
+* Policies.
+* Standards.
+* Risk classification.
+* Portfolio oversight.
+* Escalation.
+* Cross-functional decisions.
+
+### Responsible AI committee
+
+Reviews:
+
+* Fairness.
+* Transparency.
+* Human impact.
+* Safety.
+* Inclusiveness.
+* High-impact use cases.
+
+### Information security
+
+Owns:
+
+* Threat modelling.
+* Security requirements.
+* Testing.
+* Monitoring.
+* Incident response.
+
+### Data protection and legal
+
+Owns:
+
+* Lawful basis.
+* DPIA.
+* Privacy notices.
+* Data-subject rights.
+* Contracts.
+* Regulatory interpretation.
+
+### Data governance
+
+Owns:
+
+* Data classification.
+* Quality.
+* Lineage.
+* Ownership.
+* Retention.
+* Access.
+
+### Platform engineering
+
+Owns:
+
+* Landing zone.
+* Shared AI platform.
+* Guardrails.
+* Deployment patterns.
+* Observability.
+* Resilience.
+
+### Product owner
+
+Owns:
+
+* Business outcome.
+* User experience.
+* Benefits.
+* User communications.
+* Operational adoption.
+
+### Model owner
+
+Owns:
+
+* Model performance.
+* Evaluation.
+* Model limitations.
+* Change management.
+* Retirement.
+
+### Internal audit
+
+Provides independent assurance that controls operate as designed.
+
+---
+
+## 65. AI use-case intake
+
+Every AI initiative should begin with an intake form containing:
+
+* Use-case name.
+* Business owner.
+* Technical owner.
+* Users.
+* People affected.
+* Decision or action supported.
+* Data used.
+* Model type.
+* Deployment Region.
+* Third parties.
+* Expected benefit.
+* Failure impact.
+* Human oversight.
+* Automated actions.
+* Regulatory scope.
+* Reversibility.
+* Risk classification.
+
+### Disqualifying or escalation questions
+
+* Does the use case manipulate vulnerable users?
+* Does it make or materially influence employment decisions?
+* Does it influence credit, insurance or essential services?
+* Does it use biometric data?
+* Does it perform emotion inference?
+* Does it make decisions about children?
+* Does it process special-category data?
+* Can it execute financial transactions?
+* Can it change infrastructure?
+* Can it communicate externally?
+* Can it cause physical or safety harm?
+
+---
+
+## 66. Risk classification
+
+A practical internal model can use four levels.
+
+### Tier 1: Low
+
+Examples:
+
+* Internal text summarisation.
+* Draft generation.
+* Non-sensitive knowledge search.
+
+Controls:
+
+* Standard security.
+* Basic evaluation.
+* User notice.
+* Monitoring.
+
+### Tier 2: Moderate
+
+Examples:
+
+* Customer-service assistant.
+* Employee productivity agent.
+* Marketing-content generation.
+
+Controls:
+
+* Formal owner.
+* Data review.
+* Security testing.
+* Human escalation.
+* Quality and safety metrics.
+
+### Tier 3: High
+
+Examples:
+
+* Fraud recommendations.
+* Credit support.
+* Medical assistance.
+* Recruitment screening.
+* Significant financial workflows.
+
+Controls:
+
+* AI impact assessment.
+* DPIA where required.
+* Independent validation.
+* Human oversight.
+* Extensive testing.
+* Formal deployment approval.
+* Continuous monitoring.
+
+### Tier 4: Prohibited or unacceptable
+
+Systems that violate applicable law, policy or organisational values must not proceed.
+
+---
+
+## 67. Governance artefacts
+
+Maintain:
+
+| Artefact | Purpose |
+| --- | --- |
+| AI inventory | Register all AI systems |
+| AI use-case record | Describe purpose and ownership |
+| Risk classification | Determine control intensity |
+| AI impact assessment | Assess individuals and society |
+| DPIA | Assess personal-data risks |
+| Threat model | Identify security threats |
+| Model card | Describe model capability and limitations |
+| Data sheet | Record source, quality and permitted use |
+| Evaluation report | Demonstrate performance and safety |
+| Red-team report | Demonstrate adversarial testing |
+| Human-oversight plan | Define intervention and escalation |
+| Supplier assessment | Review third-party risk |
+| Architecture record | Explain design decisions |
+| Monitoring plan | Define indicators and thresholds |
+| Incident plan | Define response and notification |
+| Change record | Track model, prompt and data changes |
+| Retirement plan | Safely decommission the system |
+
+---
+
+## 68. Model and prompt change control
+
+Changes requiring re-evaluation may include:
+
+* Model provider change.
+* Model version change.
+* Deployment type change.
+* System-prompt change.
+* Retrieval-source change.
+* Chunking change.
+* Embedding-model change.
+* New tool.
+* Expanded agent permissions.
+* New user group.
+* New country.
+* New personal-data category.
+* New automated action.
+* New fine-tuning dataset.
+* New content-safety threshold.
+
+Create a change matrix that determines:
+
+* Whether regression tests are sufficient.
+* Whether security review is required.
+* Whether DPIA review is required.
+* Whether full governance approval is required.
+* Whether users must be notified.
+
+---
+
+# Part Twenty-Two: Governance Frameworks and Regulation
+
+## 69. NIST AI Risk Management Framework
+
+NIST AI RMF is organised into four functions:
+
+1. **Govern**
+2. **Map**
+3. **Measure**
+4. **Manage**
+
+The Generative AI Profile extends the framework for risks associated with generative AI. ([NIST](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence))
+
+### Govern
+
+Establish:
+
+* Accountability.
+* Policies.
+* Roles.
+* Risk appetite.
+* Training.
+* Third-party governance.
+* Documentation.
+* Culture.
+
+### Map
+
+Understand:
+
+* Context.
+* Users.
+* People affected.
+* Data.
+* Intended use.
+* Misuse.
+* Dependencies.
+* Failure impact.
+
+### Measure
+
+Assess:
+
+* Accuracy.
+* Reliability.
+* Fairness.
+* Privacy.
+* Security.
+* Explainability.
+* Safety.
+* Robustness.
+* Human factors.
+
+### Manage
+
+Prioritise and respond through:
+
+* Mitigation.
+* Monitoring.
+* Acceptance.
+* Transfer.
+* Avoidance.
+* Incident response.
+* Retirement.
+
+---
+
+## 70. ISO/IEC 42001
+
+ISO/IEC 42001 defines requirements for establishing, implementing, maintaining and continually improving an AI management system.
+
+It covers areas such as:
+
+* Organisational context.
+* Leadership.
+* AI policy.
+* Planning.
+* Support.
+* Operational controls.
+* Performance evaluation.
+* Internal audit.
+* Management review.
+* Continual improvement.
+
+ISO describes the AI management system as the organisational policies, objectives and processes used to manage responsible development, provision and use of AI systems. ([ISO](https://www.iso.org/standard/42001))
+
+### Practical implementation
+
+```text
+Plan
+├── Define scope
+├── Identify stakeholders
+├── Assess AI risks
+├── Set policy and objectives
+└── Assign accountability
+
+Do
+├── Implement lifecycle controls
+├── Train staff
+├── Manage suppliers
+├── Control data and models
+└── Maintain documentation
+
+Check
+├── Monitor performance
+├── Review incidents
+├── Conduct internal audits
+└── Review objectives
+
+Act
+├── Correct nonconformities
+├── Improve controls
+├── Update risk assessments
+└── Complete management review
+```
+
+---
+
+## 71. EU AI Act
+
+The EU AI Act follows a risk-based regulatory model covering prohibited practices, high-risk systems, transparency obligations and general-purpose AI models.
+
+Most provisions are scheduled to apply from 2 August 2026, while some provisions—including prohibited practices, definitions and AI-literacy obligations—began earlier. GPAI and governance-related provisions also entered application in stages. ([EUR-Lex](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng))
+
+### Internal classification
+
+Assess whether the organisation is acting as:
+
+* Provider.
+* Deployer.
+* Importer.
+* Distributor.
+* Authorised representative.
+* General-purpose AI model provider.
+
+### High-risk control areas
+
+Prepare for:
+
+* Risk-management system.
+* Data governance.
+* Technical documentation.
+* Record keeping.
+* Instructions for use.
+* Human oversight.
+* Accuracy.
+* Robustness.
+* Cybersecurity.
+* Post-market monitoring.
+* Incident reporting.
+* Quality-management system.
+
+Do not assume that using a third-party model transfers all legal responsibility to the model provider.
+
+---
+
+## 72. GDPR and UK data protection
+
+AI processing involving personal data must consider:
+
+* Lawfulness.
+* Fairness.
+* Transparency.
+* Purpose limitation.
+* Data minimisation.
+* Accuracy.
+* Storage limitation.
+* Security.
+* Accountability.
+* Data-subject rights.
+* Automated decision-making.
+* Profiling.
+* International transfers.
+
+The ICO’s AI guidance explains how data-protection law applies when personal data is used to train, test or operate AI systems and provides a toolkit for assessing risks to individuals’ rights and freedoms. ([ICO](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/))
+
+### DPIA triggers to examine
+
+A DPIA may be particularly important when:
+
+* Processing is large scale.
+* Special-category data is used.
+* Vulnerable people are affected.
+* Automated decisions have significant effects.
+* Novel technology creates uncertain risks.
+* Data from multiple sources is combined.
+* Behaviour is monitored.
+* Biometric data is used.
+
+---
+
+## 73. Microsoft Responsible AI principles
+
+Microsoft identifies six Responsible AI principles:
+
+1. Fairness.
+2. Reliability and safety.
+3. Privacy and security.
+4. Inclusiveness.
+5. Transparency.
+6. Accountability. ([Microsoft](https://www.microsoft.com/en-us/ai/responsible-ai))
+
+Use these as engineering questions rather than slogans.
+
+### Fairness
+
+* Which groups may experience lower performance?
+* What is the acceptable disparity?
+* Which data imbalances exist?
+* Can users challenge the result?
+
+### Reliability and safety
+
+* How does the system fail?
+* What fallback exists?
+* How is unsafe behaviour detected?
+* Can actions be reversed?
+
+### Privacy and security
+
+* Is all collected data necessary?
+* Where is it stored?
+* Who can access it?
+* How can it be deleted?
+
+### Inclusiveness
+
+* Is the system accessible?
+* Does it work across languages and abilities?
+* Are vulnerable users considered?
+
+### Transparency
+
+* Do users know they are interacting with AI?
+* Are limitations communicated?
+* Can decisions be explained appropriately?
+
+### Accountability
+
+* Who approves the system?
+* Who monitors it?
+* Who responds when harm occurs?
+* Who can stop it?
+
+---
+
+# Part Twenty-Three: Microsoft AI Governance and Security Services
+
+## 74. Microsoft Purview
+
+Microsoft Purview provides data-governance, data-security and compliance capabilities.
+
+Relevant areas include:
+
+* Data Map.
+* Unified Catalog.
+* Data lineage.
+* Classification.
+* Sensitivity labels.
+* Data Loss Prevention.
+* Insider Risk.
+* Audit.
+* Records management.
+* Data Security Posture Management for AI.
+
+Purview is positioned as a portfolio for governing, protecting and managing data across enterprise and AI environments. ([Microsoft Learn](https://learn.microsoft.com/en-us/purview/purview))
+
+### Purview for AI
+
+Use it to:
+
+* Discover sensitive information.
+* Apply classifications.
+* Trace data lineage.
+* Identify overshared content.
+* Monitor AI data use.
+* Apply DLP controls.
+* Govern Copilots and other AI applications.
+* Support evidence for regulatory reviews.
+
+Purview DSPM for AI provides a central location for understanding and reducing data risks associated with AI applications, Copilots and agents. ([Microsoft Learn](https://learn.microsoft.com/en-us/purview/dspm-for-ai))
+
+---
+
+## 75. Defender for Cloud AI posture management
+
+Defender for Cloud can support:
+
+* AI workload discovery.
+* AI Bill of Materials.
+* Security recommendations.
+* Internet-exposure identification.
+* Attack-path analysis.
+* Vulnerability detection in AI artefacts.
+* Pre-deployment risk analysis.
+* Runtime threat protection.
+
+Its Data and AI security dashboard provides a central view of AI and data resources, sensitive-data insights, critical risks and protection status. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-aware-security-dashboard-overview))
+
+---
+
+## 76. Azure AI Content Safety
+
+Azure AI Content Safety can analyse harmful content in text and images.
+
+Use it for:
+
+* Input moderation.
+* Output moderation.
+* Harm-category evaluation.
+* Prompt Shields.
+* Custom blocklists.
+* Safety testing.
+* Abuse reduction.
+
+It should not replace:
+
+* Business-policy enforcement.
+* Access control.
+* Prompt-injection threat modelling.
+* Human oversight.
+* Regulatory review.
+* Secure output handling.
+
+Content filtering is one defence layer, not the entire AI-security architecture. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview))
+
+---
+
+## 77. Azure Machine Learning Responsible AI dashboard
+
+For traditional machine-learning models, the Responsible AI dashboard can support:
+
+* Error analysis.
+* Model interpretability.
+* Fairness analysis.
+* Data exploration.
+* Causal analysis.
+* Counterfactual analysis.
+
+The dashboard and related scorecards help technical teams analyse model behaviour and communicate model and data insights to stakeholders. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai-dashboard?view=azureml-api-2))
+
+Tooling does not replace governance judgement. A dashboard can reveal disparities, but the organisation must decide:
+
+* Which cohorts matter.
+* Which thresholds are acceptable.
+* What remediation is required.
+* Who approves residual risk.
+* Whether the use case should proceed.
+
+---
+
+# Part Twenty-Four: Secure Enterprise AI Reference Architecture
+
+## 78. Architecture
+
+```text
+Users
+  ↓
+Microsoft Entra ID
+  ↓
+Azure Front Door + WAF
+  ↓
+API Management AI gateway
+  ├── Authentication
+  ├── Rate limiting
+  ├── Token quotas
+  ├── Input validation
+  ├── PII screening
+  ├── Content Safety
+  └── Correlation ID
+        ↓
+Container Apps / AKS / App Service
+  ├── Orchestrator
+  ├── Policy engine
+  ├── RAG service
+  ├── Agent runtime
+  └── Output validator
+        ↓
+Managed identities
+  ├── Microsoft Foundry model
+  ├── Azure AI Search
+  ├── Storage
+  ├── Cosmos DB
+  ├── Managed Redis
+  └── Key Vault
+        ↓
+Azure Monitor + Application Insights
+        ↓
+Defender for Cloud + Sentinel + Purview
+```
+
+### Security decisions
+
+* No public model endpoint unless explicitly justified.
+* Managed identities instead of keys.
+* Private endpoints for sensitive PaaS services.
+* Tenant-aware retrieval.
+* PII controls before model invocation.
+* Content marked as trusted or untrusted.
+* Tool allowlists.
+* Deterministic authorisation.
+* Human approval for consequential actions.
+* Full correlation without uncontrolled sensitive logging.
+* Prompt, model and policy versioning.
+* Central security alerts.
+* Auditable evidence.
+
+---
+
+# Part Twenty-Five: AI Testing and Evaluation
+
+## 79. Evaluation categories
+
+### Functional
+
+* Task success.
+* Correct format.
+* Instruction following.
+* Tool selection.
+* Retrieval success.
+
+### Quality
+
+* Relevance.
+* Completeness.
+* Groundedness.
+* Factuality.
+* Coherence.
+* Citation correctness.
+
+### Safety
+
+* Harmful content.
+* Self-harm content.
+* Sexual content.
+* Violence.
+* Hate.
+* Illegal instructions.
+* Unsafe professional advice.
+
+### Security
+
+* Direct injection.
+* Indirect injection.
+* Prompt extraction.
+* Secret extraction.
+* Data exfiltration.
+* Tool abuse.
+* Privilege escalation.
+* Cross-tenant leakage.
+* Malicious file handling.
+
+### Responsible AI
+
+* Fairness.
+* Language performance.
+* Accessibility.
+* Explainability.
+* Human oversight.
+* User transparency.
+
+### Operational
+
+* Latency.
+* Throughput.
+* Availability.
+* Retry behaviour.
+* Fallback behaviour.
+* Cost.
+* Token usage.
+
+### Agentic
+
+* Plan correctness.
+* Tool-call validity.
+* Authorisation.
+* Action reversibility.
+* Approval compliance.
+* Loop prevention.
+* Memory isolation.
+
+---
+
+## 80. Release gates
+
+A system should not enter production until:
+
+* An accountable owner exists.
+* The use case is registered.
+* Risk classification is complete.
+* Architecture is approved.
+* Data is approved.
+* Threat modelling is complete.
+* Privacy assessment is complete.
+* Quality thresholds pass.
+* Safety thresholds pass.
+* Security tests pass.
+* Human-oversight procedures are tested.
+* Monitoring is configured.
+* Incident runbooks exist.
+* Rollback is tested.
+* Cost limits exist.
+* Support teams are trained.
+* User disclosures are ready.
+* Retirement conditions are defined.
+
+---
+
+# Part Twenty-Six: AI Incident Response
+
+## 81. AI incident categories
+
+Create specific categories for:
+
+* Sensitive-data disclosure.
+* Prompt injection.
+* Unauthorised tool execution.
+* Harmful output.
+* Discriminatory outcome.
+* Hallucination causing material impact.
+* Model compromise.
+* Data poisoning.
+* Supplier incident.
+* Copyright complaint.
+* Excessive cost.
+* Model outage.
+* Cross-tenant leakage.
+* Unauthorised shadow AI.
+* Agent identity compromise.
+
+### Incident response process
+
+```text
+Detect
+→ Triage
+→ Contain
+→ Preserve evidence
+→ Assess harm
+→ Notify stakeholders
+→ Remediate
+→ Validate
+→ Restore
+→ Review
+→ Improve controls
+```
+
+### Containment actions
+
+* Disable model deployment.
+* Revoke managed identity.
+* Disable a tool.
+* Block a user or application.
+* Rotate secrets.
+* Remove affected documents from retrieval.
+* Roll back prompt version.
+* Switch to fallback model.
+* Disable external communication.
+* Reduce agent permissions.
+* Route all requests to human review.
+
+---
+
+# Part Twenty-Seven: FinOps for Azure and AI
+
+## 82. Azure cost management
+
+Microsoft Cost Management provides tools for analysing, monitoring and optimising cloud spending, including budgets and alerts. ([Microsoft Learn](https://learn.microsoft.com/en-us/azure/cost-management-billing/))
+
+Track:
+
+* Subscription cost.
+* Resource-group cost.
+* Application cost.
+* Environment cost.
+* Team cost.
+* Region cost.
+* Unit cost.
+* Idle cost.
+
+### Tagging standard
+
+```text
+Application       = finance-assistant
+Environment       = production
+BusinessOwner     = finance-transformation
+TechnicalOwner    = ai-platform
+CostCentre        = CC-401
+DataClassification = confidential
+RiskTier         = high
+ManagedBy         = bicep
+```
+
+---
+
+## 83. AI FinOps
+
+Track:
+
+* Input tokens.
+* Output tokens.
+* Embedding tokens.
+* Model choice.
+* Requests per user.
+* Cost per task.
+* Cost per customer.
+* Retrieval cost.
+* Search cost.
+* Vector-storage cost.
+* Cache hit rate.
+* Evaluation cost.
+* Guardrail cost.
+* Agent tool cost.
+* Failed-request cost.
+
+### Optimisation techniques
+
+* Select the smallest model that meets quality requirements.
+* Route simple and complex requests differently.
+* Limit context size.
+* Improve retrieval precision.
+* Summarise long histories.
+* Cache only safe and appropriate results.
+* Batch embeddings.
+* Remove duplicate documents.
+* Apply user quotas.
+* Stop infinite agent loops.
+* Use asynchronous processing.
+* Define model fallback.
+* Set budget alerts.
+* Attribute consumption to business units.
+
+An AI solution is not commercially successful merely because it works technically. It must demonstrate acceptable unit economics.
+
+---
+
+# Part Twenty-Eight: Enterprise Capstone Project
+
+## 84. Scenario: governed financial-services AI assistant
+
+Build an internal finance assistant that can:
+
+* Answer questions from approved policies.
+* Analyse invoices.
+* Summarise financial documents.
+* Draft reports.
+* Retrieve authorised customer information.
+* Create case-management drafts.
+* Escalate uncertain answers.
+* Generate evidence-backed responses.
+* Never transfer money autonomously.
+
+### Functional requirements
+
+* Entra authentication.
+* Role-based document access.
+* Source citations.
+* PII redaction.
+* Human escalation.
+* Conversation history.
+* Feedback.
+* Administrative dashboard.
+
+### Non-functional requirements
+
+* UK GDPR alignment.
+* AI risk assessment.
+* Private networking.
+* Zone resilience.
+* Central monitoring.
+* Full traceability.
+* Defined RTO and RPO.
+* Cost limits.
+* Secure CI/CD.
+* Model portability.
+
+---
+
+## 85. Capstone architecture
+
+```text
+Employee
+  ↓
+Entra ID
+  ↓
+Front Door + WAF
+  ↓
+API Management
+  ↓
+Container Apps
+  ├── Authorisation service
+  ├── Presidio PII service
+  ├── RAG orchestrator
+  ├── Agent runtime
+  └── Output validator
+        ↓
+Microsoft Foundry
+        ↓
+Azure AI Search
+        ↓
+Blob Storage
+        ↓
+Cosmos DB / Azure SQL
+```
+
+Supporting services:
+
+* Key Vault.
+* Managed identities.
+* Private endpoints.
+* Purview.
+* Defender for Cloud.
+* Azure Monitor.
+* Application Insights.
+* Sentinel.
+* Service Bus.
+* Event Grid.
+* Azure Policy.
+* Azure Cost Management.
+* Bicep.
+* Azure DevOps or GitHub Actions.
+
+---
+
+## 86. Capstone delivery phases
+
+### Phase 1: Discovery
+
+Produce:
+
+* Problem statement.
+* Stakeholder map.
+* Current-state process.
+* Expected benefits.
+* Baseline metrics.
+* Risk classification.
+
+### Phase 2: Governance
+
+Produce:
+
+* AI use-case record.
+* DPIA screening.
+* AI impact assessment.
+* Regulatory assessment.
+* Responsible AI plan.
+
+### Phase 3: Architecture
+
+Produce:
+
+* Context diagram.
+* Container diagram.
+* Data-flow diagram.
+* Trust-boundary diagram.
+* Identity model.
+* Network model.
+* Threat model.
+
+### Phase 4: Prototype
+
+Test:
+
+* Model quality.
+* Retrieval.
+* Citations.
+* PII controls.
+* User experience.
+* Cost assumptions.
+
+### Phase 5: Production engineering
+
+Implement:
+
+* Private endpoints.
+* Managed identities.
+* API gateway.
+* Monitoring.
+* Scaling.
+* Backup.
+* CI/CD.
+* Infrastructure as code.
+
+### Phase 6: Validation
+
+Run:
+
+* Functional evaluation.
+* Safety evaluation.
+* Red teaming.
+* Penetration testing.
+* Privacy testing.
+* Performance testing.
+* Recovery testing.
+* User acceptance.
+
+### Phase 7: Deployment
+
+Complete:
+
+* Approval.
+* Runbook.
+* Support model.
+* User training.
+* Communications.
+* Production release.
+* Hypercare.
+
+### Phase 8: Operation
+
+Monitor:
+
+* Quality.
+* Safety.
+* Security.
+* Performance.
+* Adoption.
+* Costs.
+* Risk indicators.
+* User feedback.
+
+---
+
+# Part Twenty-Nine: 24-Week Learning Plan
+
+## Weeks 1–2: Cloud and Azure fundamentals
+
+Learn:
+
+* Cloud service models.
+* Azure Regions and zones.
+* Shared responsibility.
+* Azure Resource Manager.
+* Well-Architected Framework.
+
+Deliver:
+
+* Region decision record.
+* Shared-responsibility matrix.
+* Simple workload architecture.
+
+## Weeks 3–4: Resource governance
+
+Learn:
+
+* Tenants.
+* Management groups.
+* Subscriptions.
+* Resource groups.
+* Azure Policy.
+* Tags.
+* Landing zones.
+
+Deliver:
+
+* Small management-group hierarchy.
+* Policy initiative.
+* Subscription design.
+
+## Weeks 5–6: Identity
+
+Learn:
+
+* Entra ID.
+* Azure RBAC.
+* Managed identities.
+* Conditional Access.
+* PIM.
+
+Deliver:
+
+* Identity matrix.
+* Managed-identity application.
+* Privileged-access process.
+
+## Weeks 7–8: Networking
+
+Learn:
+
+* VNets.
+* Subnets.
+* NSGs.
+* Private endpoints.
+* Firewall.
+* NAT Gateway.
+* Hub and spoke.
+
+Deliver:
+
+* Private application network.
+* Network-flow diagram.
+* DNS design.
+
+## Weeks 9–10: Compute and application platforms
+
+Learn:
+
+* Virtual Machines.
+* Scale Sets.
+* App Service.
+* Front Door.
+* Application Gateway.
+
+Deliver:
+
+* Load-balanced web application.
+* Autoscaling.
+* Private data connection.
+
+## Weeks 11–12: Storage and data
+
+Learn:
+
+* Blob Storage.
+* Lifecycle policies.
+* Azure SQL.
+* Cosmos DB.
+* Managed Redis.
+
+Deliver:
+
+* Secure document platform.
+* Relational and NoSQL comparison.
+* Backup test.
+
+## Weeks 13–14: Containers and serverless
+
+Learn:
+
+* ACR.
+* Container Apps.
+* AKS.
+* Functions.
+
+Deliver:
+
+* Containerised API.
+* Event-driven worker.
+* Container-platform decision record.
+
+## Weeks 15–16: Integration and observability
+
+Learn:
+
+* API Management.
+* Service Bus.
+* Event Grid.
+* Azure Monitor.
+* Application Insights.
+
+Deliver:
+
+* Asynchronous workflow.
+* Operational dashboard.
+* Alerts and runbooks.
+
+## Weeks 17–18: Cloud security
+
+Learn:
+
+* Defender for Cloud.
+* Sentinel.
+* Key Vault.
+* Purview.
+* Zero Trust.
+* Azure Policy.
+
+Deliver:
+
+* Security baseline.
+* Threat model.
+* Sentinel detections.
+* Private-service architecture.
+
+## Weeks 19–20: AI engineering
+
+Learn:
+
+* Microsoft Foundry.
+* Models.
+* RAG.
+* Agents.
+* Search.
+* Evaluation.
+
+Deliver:
+
+* Enterprise RAG prototype.
+* Model-selection report.
+* Evaluation dataset.
+
+## Weeks 21–22: AI security
+
+Learn:
+
+* OWASP LLM risks.
+* MITRE ATLAS.
+* Prompt injection.
+* PII.
+* Agent security.
+* AI runtime monitoring.
+
+Deliver:
+
+* AI threat model.
+* Red-team tests.
+* PII benchmark.
+* Agent permission matrix.
+
+## Weeks 23–24: AI governance
+
+Learn:
+
+* NIST AI RMF.
+* ISO 42001.
+* EU AI Act.
+* GDPR.
+* Responsible AI.
+
+Deliver:
+
+* AI governance framework.
+* AI inventory.
+* Risk-tier model.
+* Lifecycle gates.
+* Final capstone presentation.
+
+---
+
+# Final Completion Checklist
+
+You have completed the roadmap when you can confidently answer the following.
+
+## Azure architecture
+
+* Why did you choose VMs, App Service, Container Apps, AKS or Functions?
+* What is the subscription and landing-zone model?
+* Which services are zone redundant?
+* What happens during regional failure?
+* How is infrastructure recreated?
+
+## Identity
+
+* How do users authenticate?
+* How do applications authenticate?
+* How do agents authenticate?
+* Where are privileged roles controlled?
+* Are permanent credentials stored anywhere?
+
+## Networking
+
+* Which endpoints are public?
+* Which are private?
+* How is outbound traffic controlled?
+* How is DNS configured?
+* Can AI workloads access arbitrary external systems?
+
+## Data
+
+* What data is used?
+* Why is it necessary?
+* Who owns it?
+* How is access controlled?
+* How is it classified?
+* How is it deleted?
+* Is it used for training?
+
+## AI quality
+
+* Which evaluation dataset is used?
+* What are the acceptance thresholds?
+* How does performance vary across groups?
+* How are hallucinations detected?
+* How is user feedback incorporated?
+
+## AI security
+
+* How is prompt injection addressed?
+* How are outputs validated?
+* What permissions do agents hold?
+* How is PII handled?
+* How is the model supply chain verified?
+* What happens during data leakage?
+
+## Governance
+
+* Who is accountable?
+* What is the risk tier?
+* Which approvals are required?
+* Which regulations apply?
+* Which evidence is retained?
+* What changes trigger reassessment?
+
+## Operations
+
+* Which metrics indicate customer impact?
+* Who responds to alerts?
+* How can the model be disabled?
+* What is the fallback?
+* How is recovery tested?
+* How is the system retired?
+
+## Commercial value
+
+* What business outcome is achieved?
+* What is the baseline?
+* What is the unit cost?
+* What happens to cost when usage doubles?
+* Which adoption and benefit metrics are tracked?
+* Does the solution create measurable value after risk and operating cost are considered?
+
+The result should be more than an Azure deployment. It should be a governed operating system for delivering AI: technically feasible, commercially valuable, secure by design, compliant, observable, recoverable and accountable.
+
+<KeyTakeaways>
+- Learn Azure as an enterprise platform for business and AI workloads—landing zones, identity, networking, data, Microsoft Foundry, security and governance together.
+- Prefer managed identities, private endpoints and deterministic policy over keys, public endpoints and prompt-only controls.
+- Progress from cloud foundations through AI engineering to governance and FinOps with the same non-functional bar: security, resilience, evidence and unit economics.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed journey: [Azure Learning Roadmap](/roadmaps/azure).
+- Compare with [AWS Learning Roadmap](/roadmaps/aws) and [Google Cloud Learning Roadmap](/roadmaps/gcp), and practise [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Harden delivery with [DevSecOps](/roadmaps/devsecops), [API Security Engineering](/roadmaps/api-security-engineering) and [AI Red Teaming](/roadmaps/ai-red-teaming).
+- Cross-check [Security & privacy](/ai-solution-engineering/security-privacy) and [Architecture](/ai-solution-engineering/architecture).
+</NextSteps>

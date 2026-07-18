@@ -1,0 +1,5857 @@
+---
+slug: gcp-roadmap
+title: "The Complete Google Cloud Roadmap: Cloud Architecture, Data, AI Engineering, Security and Governance"
+description: An enterprise Google Cloud learning programme from cloud fundamentals and landing zones through IAM, networking, compute, data, Vertex AI, agentic AI, security, governance, compliance, FinOps and a governed AI capstone.
+authors: [sudip]
+tags: [roadmaps, architecture, cloud, playbook, finops, governance, security]
+keywords:
+  - Google Cloud roadmap
+  - GCP roadmap
+  - Vertex AI
+  - Gemini Enterprise Agent Platform
+  - Cloud Run
+  - Google Cloud Well-Architected Framework
+  - enterprise AI on GCP
+  - AI governance
+  - ISO 42001
+  - EU AI Act
+  - AI Solution Engineering
+---
+
+The [AWS Learning Roadmap](/roadmaps/aws) progresses from cloud fundamentals into identity, networking, compute, storage, databases, containers and serverless services. This Google Cloud roadmap follows the same learning sequence, but extends it into enterprise foundations, data engineering, generative AI, agentic AI, cybersecurity, governance, compliance, FinOps and production operations.
+
+> **Terminology note:** Google Cloud’s product naming is evolving, particularly around generative and agentic AI:
+>
+> * **Cloud Functions** capabilities are now presented as **Cloud Run functions**.
+> * **Dataplex Universal Catalog** is now **Knowledge Catalog**.
+> * Current Vertex AI Agent Engine documentation redirects to the **Gemini Enterprise Agent Platform**, which includes Agent Runtime, Sessions, Memory Bank, Sandbox, Agent Gateway, evaluation and governance capabilities.
+> * **Vertex AI** continues to provide broader machine-learning capabilities such as model development, training, tuning, model management and deployment. ([Google Cloud Documentation](https://docs.cloud.google.com/run/docs/function-triggers))
+
+{/* truncate */}
+
+<ExecSummary>
+Do not memorise the complete Google Cloud product catalogue. For every learning stage: understand the business problem, learn the architectural concepts, create the resource manually through the console, repeat it using the `gcloud` CLI, automate it with Terraform, add IAM, networking and encryption, add logging, monitoring and alerting, test failure and recovery, calculate expected operating cost, and document the decision and its trade-offs. Complete the 26-week plan and governed financial-services AI capstone.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building personal or team Google Cloud platform and enterprise AI capability from foundations through security, governance and compliance.
+- Pair with the [Google Cloud Learning Roadmap](/roadmaps/gcp), [AWS Learning Roadmap](/roadmaps/aws), [Azure Learning Roadmap](/roadmaps/azure) and [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Treat the 26-week plan, reference architecture and completion checklist as your working system.
+</WhenToUse>
+
+The condensed [Google Cloud Learning Roadmap](/roadmaps/gcp) covers stages from cloud fundamentals through the governed AI capstone. This article is the full implementation guide.
+
+---
+
+# 1. How to use this roadmap
+
+Do not attempt to memorise the complete Google Cloud product catalogue.
+
+For every learning stage:
+
+1. Understand the business problem.
+2. Learn the architectural concepts.
+3. Create the resource manually through the console.
+4. Repeat it using the `gcloud` CLI.
+5. Automate it with Terraform.
+6. Add IAM, networking and encryption.
+7. Add logging, monitoring and alerting.
+8. Test failure and recovery.
+9. Calculate expected operating cost.
+10. Document the decision and its trade-offs.
+
+The final objective is not simply to deploy resources. It is to build systems that are:
+
+* Commercially valuable.
+* Technically feasible.
+* Secure by design.
+* Governed.
+* Observable.
+* Resilient.
+* Cost-controlled.
+* Reproducible.
+* Supportable by another team.
+
+---
+
+# 2. Complete GCP roadmap at a glance
+
+| Stage | Area | Practical outcome |
+| --- | --- | --- |
+| 0 | Cloud fundamentals | Understand cloud service and deployment models |
+| 1 | Google Cloud foundations | Understand organizations, folders, projects and billing |
+| 2 | Enterprise foundation | Design a landing zone and project structure |
+| 3 | IAM | Secure workforce, workloads and service accounts |
+| 4 | Networking | Build global VPC and regional subnet architecture |
+| 5 | Compute | Operate virtual machines and managed instance groups |
+| 6 | Application platforms | Deploy applications through Cloud Run and App Engine |
+| 7 | Storage | Design secure object and block storage |
+| 8 | Databases | Choose Cloud SQL, Spanner, Firestore or Memorystore |
+| 9 | Data and analytics | Build BigQuery and data-processing platforms |
+| 10 | Messaging and integration | Use Pub/Sub, Eventarc, Workflows and Cloud Tasks |
+| 11 | APIs and edge | Use API Gateway, Apigee, load balancing and CDN |
+| 12 | Containers | Use Artifact Registry and GKE |
+| 13 | Serverless | Use Cloud Run services, jobs and functions |
+| 14 | Observability | Implement logs, metrics, traces, SLOs and alerts |
+| 15 | Reliability | Design high availability and disaster recovery |
+| 16 | Infrastructure as code | Automate environments with Terraform |
+| 17 | DevSecOps | Secure source, builds, artefacts and deployments |
+| 18 | Cloud security | Implement Zero Trust and data perimeters |
+| 19 | Data governance | Discover, classify, protect and govern data |
+| 20 | Vertex AI | Build predictive and generative AI systems |
+| 21 | RAG | Build secure enterprise knowledge applications |
+| 22 | Agentic AI | Build governed agents using Google’s agent platform |
+| 23 | AI security | Protect prompts, models, data, retrieval and tools |
+| 24 | AI governance | Apply accountability and lifecycle controls |
+| 25 | AI compliance | Map controls to NIST, ISO, GDPR and the EU AI Act |
+| 26 | FinOps | Govern cloud, model and agent consumption |
+| 27 | Capstone | Deliver a production-grade governed AI application |
+
+---
+
+# 3. AWS, Azure and Google Cloud service mapping
+
+The mapping is approximate because cloud services do not always have identical operating models.
+
+| Capability | AWS | Azure | Google Cloud |
+| --- | --- | --- |
+| Enterprise root | AWS Organizations | Entra tenant and management groups | Google Cloud organization |
+| Workload boundary | AWS account | Subscription | Project |
+| Grouping hierarchy | Organizational units | Management groups | Folders |
+| Identity control | IAM | Entra ID and Azure RBAC | Cloud IAM |
+| Workload identity | IAM role | Managed identity | Service account and Workload Identity |
+| Virtual network | VPC | Virtual Network | VPC network |
+| Subnet | Subnet | Subnet | Regional subnet |
+| Firewall rules | Security groups | NSGs | VPC firewall policies and rules |
+| Virtual machine | EC2 | Azure VM | Compute Engine |
+| VM scaling | Auto Scaling Groups | VM Scale Sets | Managed Instance Groups |
+| Object storage | S3 | Blob Storage | Cloud Storage |
+| Block storage | EBS | Managed Disks | Persistent Disk and Hyperdisk |
+| Relational database | RDS | Azure SQL/Database services | Cloud SQL |
+| Globally scalable relational DB | Aurora/other patterns | Cosmos DB relational options | Spanner |
+| Document database | DynamoDB | Cosmos DB | Firestore |
+| Cache | ElastiCache | Azure Managed Redis | Memorystore |
+| Data warehouse | Redshift | Fabric/Synapse | BigQuery |
+| Container registry | ECR | ACR | Artifact Registry |
+| Serverless containers | ECS Fargate | Container Apps | Cloud Run |
+| Kubernetes | EKS | AKS | GKE |
+| Functions | Lambda | Azure Functions | Cloud Run functions |
+| Messaging | SNS/SQS | Service Bus/Event Grid | Pub/Sub |
+| Event routing | EventBridge | Event Grid | Eventarc |
+| API gateway | API Gateway | API Management | API Gateway or Apigee |
+| Monitoring | CloudWatch | Azure Monitor | Cloud Monitoring and Logging |
+| Audit activity | CloudTrail | Azure Activity Log | Cloud Audit Logs |
+| Secrets | Secrets Manager | Key Vault | Secret Manager |
+| Key management | KMS | Key Vault/Managed HSM | Cloud KMS |
+| IaC | CloudFormation/CDK | Bicep | Terraform/Infrastructure Manager |
+| AI platform | SageMaker/Bedrock | Foundry/Azure ML | Vertex AI and Gemini Enterprise Agent Platform |
+
+Google Cloud projects are the central workload, quota, billing and access-control units beneath organizations and optional folders. Its VPC networks are global resources, while their subnets are regional. ([Google Cloud Documentation](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy))
+
+---
+
+# Part One: Cloud and Google Cloud Foundations
+
+## 4. Understand cloud computing
+
+### Infrastructure as a Service
+
+You manage most of the operating environment.
+
+Google Cloud examples include:
+
+* Compute Engine.
+* Persistent Disk.
+* VPC networks.
+* Cloud Load Balancing.
+
+You are normally responsible for:
+
+* Guest operating-system configuration.
+* Application runtime.
+* Patching the guest operating system.
+* Application security.
+* Identity permissions.
+* Data.
+* Network configuration.
+
+### Platform as a Service
+
+Google manages more of the platform.
+
+Examples include:
+
+* Cloud Run.
+* Cloud SQL.
+* BigQuery.
+* Firestore.
+* Vertex AI.
+* Cloud Run functions.
+
+You still remain responsible for:
+
+* Application logic.
+* Identity.
+* Access permissions.
+* Data classification.
+* Configuration.
+* Business controls.
+* Secure use of the service.
+
+### Software as a Service
+
+The customer consumes a finished application. Google Workspace is an example of the wider model, although it is separate from most Google Cloud application architectures.
+
+Google describes cloud security as a shared responsibility: Google secures the underlying cloud infrastructure, while the customer remains responsible for data, identities, access, workload configuration and secure service use. Google also uses the idea of **shared fate**, where the provider supplies secure defaults, guidance and capabilities intended to help customers achieve stronger outcomes. ([Google Cloud Documentation](https://docs.cloud.google.com/architecture/framework/security/shared-responsibility-shared-fate))
+
+---
+
+## 5. Understand regions and zones
+
+### Region
+
+A Region is an independent geographic deployment area containing one or more zones.
+
+Region selection should consider:
+
+* User location.
+* Latency.
+* Data residency.
+* Regulatory requirements.
+* Service availability.
+* GPU and TPU availability.
+* Business-continuity requirements.
+* Cost.
+* Quotas.
+* Carbon impact.
+* Integration with existing systems.
+
+### Zone
+
+A zone is a failure domain inside a Region.
+
+Some resources are:
+
+* **Zonal**, such as many virtual-machine instances.
+* **Regional**, such as regional managed instance groups.
+* **Global**, such as VPC networks and certain load-balancing resources.
+
+Distributing resources across zones reduces dependence on a single physical failure domain. Multi-region architecture provides a higher level of failure independence but requires explicit decisions around replication, consistency, routing and recovery. ([Google Cloud Documentation](https://docs.cloud.google.com/compute/docs/regions-zones))
+
+### Region-selection exercise
+
+Create a decision table for a financial-services AI system.
+
+| Criterion | Decision question |
+| --- | --- |
+| Users | Where are customers and employees located? |
+| Personal data | In which jurisdiction may data be processed? |
+| Models | Are the required Gemini or partner models available? |
+| Accelerators | Are the required GPUs or TPUs available? |
+| Latency | What is the maximum acceptable response time? |
+| Resilience | Is zone-level or region-level recovery required? |
+| Data services | Are all required database services available? |
+| Cost | What are compute, storage and network costs? |
+| Regulation | What financial, privacy and AI obligations apply? |
+
+---
+
+## 6. Use the Google Cloud Well-Architected Framework
+
+The Google Cloud Well-Architected Framework provides architectural guidance across:
+
+* Operational excellence.
+* Security, privacy and compliance.
+* Reliability.
+* Cost optimisation.
+* Performance optimisation.
+* Sustainability.
+
+It also encourages teams to simplify designs, use managed services where appropriate, document architecture and design systems to accommodate change. ([Google Cloud Documentation](https://docs.cloud.google.com/architecture/framework))
+
+### Questions to ask for every workload
+
+#### Operational excellence
+
+* Can the environment be recreated?
+* Are deployment and rollback automated?
+* Does the team have runbooks?
+* Are operational responsibilities clear?
+
+#### Security, privacy and compliance
+
+* Who can access the workload?
+* Which data is sensitive?
+* Are data flows documented?
+* Are audit logs enabled?
+* Are legal requirements translated into technical controls?
+
+#### Reliability
+
+* What happens when one instance fails?
+* What happens when a zone fails?
+* What happens when a Region becomes unavailable?
+* How is data restored?
+
+#### Cost optimisation
+
+* What are the main cost drivers?
+* Are idle resources removed?
+* Is serverless scaling suitable?
+* Are storage and retention policies appropriate?
+
+#### Performance
+
+* What latency and throughput are required?
+* Is the database appropriate for the access pattern?
+* Are caching and load balancing needed?
+* Are quotas understood?
+
+#### Sustainability
+
+* Can managed or serverless services improve utilisation?
+* Can resources scale to zero?
+* Are unused datasets and model endpoints removed?
+* Can batch work be scheduled more efficiently?
+
+---
+
+# Part Two: Resource Hierarchy and Enterprise Foundation
+
+## 7. Understand the Google Cloud resource hierarchy
+
+A mature hierarchy might look like:
+
+```text
+Organization
+├── Platform
+│   ├── Networking
+│   ├── Security
+│   ├── Logging
+│   └── Shared Services
+├── Production
+│   ├── Customer Platform
+│   ├── Data Platform
+│   └── AI Platform
+├── Non-Production
+│   ├── Development
+│   ├── Testing
+│   └── Pre-Production
+├── Sandbox
+└── Decommissioned
+```
+
+### Organization
+
+The organization resource is the root of the hierarchy.
+
+It supports organisation-wide:
+
+* IAM.
+* Organization Policy.
+* Asset inventory.
+* Security Command Center.
+* Logging.
+* VPC Service Controls.
+* Billing governance.
+
+### Folder
+
+Folders provide optional hierarchical grouping.
+
+Folders may represent:
+
+* Environments.
+* Business units.
+* Jurisdictions.
+* Platforms.
+* Risk levels.
+* Subsidiaries.
+* Workload classes.
+
+### Project
+
+A project is a major isolation and management boundary.
+
+Projects contain service resources such as:
+
+* Compute Engine instances.
+* Cloud Storage buckets.
+* Pub/Sub topics.
+* Cloud Run services.
+* Vertex AI resources.
+
+IAM and Organization Policy settings applied higher in the hierarchy can be inherited by child resources. ([Google Cloud Documentation](https://docs.cloud.google.com/docs/get-started/organize-resources))
+
+---
+
+## 8. Design a project strategy
+
+Avoid placing every enterprise workload in one large project.
+
+Consider separate projects for:
+
+* Shared VPC hosts.
+* Central logging.
+* Security tooling.
+* Artifact Registry.
+* Production applications.
+* Non-production applications.
+* Data engineering.
+* AI experimentation.
+* Production model serving.
+* Agent platforms.
+* Sensitive workloads.
+* Sandbox activity.
+
+### Useful separation dimensions
+
+| Dimension | Example |
+| --- | --- |
+| Environment | Development, test and production |
+| Risk | Standard and high-risk AI |
+| Billing | Separate cost centres |
+| Data | Public, internal and confidential |
+| Operations | Platform-managed and team-managed |
+| Jurisdiction | United Kingdom, EU and United States |
+| Lifecycle | Active and decommissioned |
+| Quota | Separate model and compute quotas |
+
+### Project design principle
+
+A project should normally have:
+
+* A clear owner.
+* A defined purpose.
+* A billing association.
+* A lifecycle.
+* A data classification.
+* An environment classification.
+* A support model.
+* A deletion and archival process.
+
+---
+
+## 9. Build a Google Cloud landing zone
+
+Google Cloud commonly describes the initial enterprise setup through resource hierarchy, identity, billing, networking, security and logging foundations. A structured hierarchy lets organisations apply access and policy according to organisational responsibilities. ([Google Cloud Documentation](https://docs.cloud.google.com/docs/enterprise/cloud-setup))
+
+### Foundation components
+
+| Foundation area | Required capability |
+| --- | --- |
+| Organization | Central ownership and governance |
+| Folders | Workload and environment grouping |
+| Projects | Isolation and billing boundaries |
+| Billing | Billing accounts and cost attribution |
+| Identity | Federated workforce access |
+| Networking | Shared VPC and hybrid connectivity |
+| DNS | Central internal and external DNS |
+| Logging | Central log collection and retention |
+| Security | SCC, key management and policy |
+| Data protection | Service perimeters and classification |
+| Automation | Terraform-based provisioning |
+| Operations | Monitoring, alerting and incident response |
+
+### Example foundation
+
+```text
+Organization
+├── Bootstrap
+├── Common
+│   ├── Billing
+│   ├── Security
+│   └── Audit
+├── Platform
+│   ├── Networking
+│   ├── Observability
+│   ├── CI-CD
+│   └── Artifact Management
+├── Workloads
+│   ├── Production
+│   └── Non-Production
+└── Sandbox
+```
+
+---
+
+## 10. Organization Policy
+
+Organization Policy provides centrally managed constraints that can be inherited through the resource hierarchy.
+
+Use policies to:
+
+* Restrict resource locations.
+* Restrict external IP addresses.
+* Prevent service-account key creation.
+* Restrict public bucket access.
+* Restrict domain sharing.
+* Require approved services.
+* Restrict model deployments.
+* Limit allowed machine types.
+* Enforce uniform bucket-level access.
+* Control which projects may use sensitive APIs.
+* Require specific security configurations.
+
+Organization-policy constraints inherit from folders or organizations to descendant resources unless the inheritance behaviour is deliberately changed. ([Google Cloud Documentation](https://docs.cloud.google.com/docs/quotas/custom-constraints))
+
+### Policy modes
+
+Use different modes deliberately:
+
+| Mode | Purpose |
+| --- | --- |
+| Audit | Identify non-compliance |
+| Dry run | Understand expected impact |
+| Enforce | Prevent or constrain deployment |
+| Exception | Approve a documented deviation |
+| Remediation | Correct existing non-compliance |
+
+Do not start by denying everything. First inventory the environment, test policies, assess impact and create an exception process.
+
+---
+
+# Part Three: Identity and Access Management
+
+## 11. Understand IAM
+
+Google Cloud IAM determines:
+
+> Which principal can perform which action on which resource under which conditions?
+
+The core components are:
+
+* Principal.
+* Role.
+* Permission.
+* Allow policy.
+* Deny policy.
+* Resource.
+* Condition.
+
+### Principals
+
+A principal may be:
+
+* Google account.
+* Google group.
+* Cloud Identity user.
+* Service account.
+* Workforce identity.
+* Workload identity.
+* Domain.
+* Principal set.
+
+### Roles
+
+#### Basic roles
+
+* Owner.
+* Editor.
+* Viewer.
+
+Avoid using broad basic roles for normal enterprise access.
+
+#### Predefined roles
+
+These are service-specific roles such as:
+
+* Storage Object Viewer.
+* Cloud Run Invoker.
+* BigQuery Data Viewer.
+* Vertex AI User.
+* Secret Manager Secret Accessor.
+
+#### Custom roles
+
+Use a custom role where predefined roles grant significantly more access than required.
+
+---
+
+## 12. Understand policy inheritance
+
+An IAM role granted at:
+
+* Organization level can affect all descendant resources.
+* Folder level can affect projects and resources beneath it.
+* Project level can affect supported resources in that project.
+* Resource level applies only to the specified resource.
+
+```text
+Organization
+   ↓
+Folder
+   ↓
+Project
+   ↓
+Service resource
+```
+
+A convenient high-level grant may create widespread privilege. Use higher-level bindings for genuine enterprise responsibilities, not as a substitute for designing access.
+
+---
+
+## 13. Service accounts
+
+A service account represents a workload or machine identity.
+
+Use separate service accounts for:
+
+* Application runtime.
+* Build pipeline.
+* Deployment pipeline.
+* Data processing.
+* Model inference.
+* Model administration.
+* Agent runtime.
+* Monitoring.
+* Backup.
+* Security automation.
+
+### Bad design
+
+```text
+one-enterprise-service-account
+```
+
+used by:
+
+* Cloud Run.
+* GKE.
+* BigQuery.
+* Vertex AI.
+* CI/CD.
+* Administrators.
+
+### Better design
+
+```text
+finance-api-runtime
+finance-rag-indexer
+finance-agent-runtime
+finance-build
+finance-deployer
+finance-evaluation-runner
+finance-monitoring
+```
+
+Each identity should have:
+
+* A defined purpose.
+* Minimum required roles.
+* Named owner.
+* Review date.
+* No unnecessary keys.
+* Audit visibility.
+* Deletion process.
+
+Google recommends federated and short-lived credentials instead of long-lived service-account keys where possible. ([Google Cloud Documentation](https://docs.cloud.google.com/iam/docs/workload-identity-federation))
+
+---
+
+## 14. Workload Identity Federation
+
+Workload Identity Federation allows workloads outside Google Cloud to authenticate using identities from external platforms rather than downloading a service-account key.
+
+It can be used with:
+
+* GitHub Actions.
+* GitLab.
+* AWS.
+* Azure.
+* On-premises systems.
+* External Kubernetes clusters.
+* Other OpenID Connect providers.
+
+The external credential is exchanged for short-lived Google Cloud credentials. ([Google Cloud Documentation](https://docs.cloud.google.com/iam/docs/workload-identity-federation))
+
+### CI/CD authentication pattern
+
+```text
+GitHub Actions identity
+       ↓
+OIDC token
+       ↓
+Workload Identity Pool
+       ↓
+Attribute condition
+       ↓
+Short-lived Google Cloud credentials
+       ↓
+Deployment permissions
+```
+
+This is preferable to storing a permanent service-account key in a CI/CD secret store.
+
+---
+
+## 15. Workforce Identity Federation
+
+Workforce Identity Federation allows employees, contractors and partners from an external identity provider to use single sign-on when accessing Google Cloud resources.
+
+The external IdP may be:
+
+* Microsoft Entra ID.
+* Okta.
+* Ping Identity.
+* Another standards-based IdP.
+
+Google Cloud IAM roles are then assigned to the federated workforce principals. ([Google Cloud Documentation](https://docs.cloud.google.com/iam/docs/workforce-identity-federation))
+
+---
+
+## 16. IAM conditions and deny policies
+
+### IAM Conditions
+
+Conditions can restrict access according to attributes such as:
+
+* Resource name.
+* Resource type.
+* Date and time.
+* Request context.
+* Principal attributes.
+
+Examples:
+
+* Give a contractor access until a specific date.
+* Permit access only to resources with an approved naming pattern.
+* Allow deployment only into non-production resources.
+
+### Deny policies
+
+Deny policies can prohibit sensitive actions even when another policy grants permission.
+
+Potential uses include preventing:
+
+* Production deletion.
+* Service-account key creation.
+* Logging disablement.
+* Audit-log bucket deletion.
+* Security-policy modification by workload teams.
+
+Deny policies should be designed carefully because an incorrect denial at a high scope can affect many workloads.
+
+---
+
+## 17. Privileged-access operating model
+
+A mature model should include:
+
+* Separate administrative accounts.
+* Strong multifactor authentication.
+* Group-based role assignment.
+* Time-limited elevated access.
+* Approval for high-risk roles.
+* Periodic access reviews.
+* Emergency-access procedures.
+* Separate production administration.
+* Audit of impersonation activity.
+* Immediate leaver removal.
+* Service-account inventory.
+* Prohibition of shared human accounts.
+
+### Identity completion project
+
+Build:
+
+1. A workforce federation design.
+2. Developer, platform, security and auditor groups.
+3. Separate runtime service accounts.
+4. Workload Identity Federation for CI/CD.
+5. Conditional access to a test resource.
+6. A service-account key prohibition.
+7. A quarterly access-review workbook.
+8. A break-glass procedure.
+
+---
+
+# Part Four: Google Cloud Networking
+
+## 18. Understand the global VPC model
+
+A Google Cloud VPC network is a global resource. Subnets within it are regional resources with their own IP ranges. ([Google Cloud Documentation](https://docs.cloud.google.com/vpc/docs/subnets))
+
+This differs from AWS, where a VPC is regional.
+
+Example:
+
+```text
+Global VPC: finance-production
+
+├── europe-west2
+│   ├── application-subnet
+│   ├── data-subnet
+│   └── private-service-subnet
+│
+├── europe-west1
+│   ├── application-subnet
+│   └── recovery-subnet
+│
+└── us-central1
+    └── analytics-subnet
+```
+
+The global nature of the VPC does not mean that every service or data resource automatically becomes globally resilient. Individual services retain their own zonal, regional or global availability models.
+
+---
+
+## 19. CIDR and IP planning
+
+Example:
+
+```text
+10.20.0.0/16     Production VPC
+
+10.20.0.0/20     Application workloads
+10.20.16.0/20    Data workloads
+10.20.32.0/20    GKE nodes
+10.20.48.0/20    GKE Pod secondary range
+10.20.64.0/20    GKE Service secondary range
+10.20.80.0/24    Private Service Connect
+10.20.81.0/24    Load-balancing proxies
+10.20.82.0/24    Management
+```
+
+Reserve space for:
+
+* Additional Regions.
+* GKE Pods.
+* GKE Services.
+* Private Service Connect.
+* Hybrid connectivity.
+* Acquisitions.
+* Testing.
+* Disaster recovery.
+
+Overlapping addresses complicate:
+
+* VPC peering.
+* VPN.
+* Cloud Interconnect.
+* Multi-cloud connectivity.
+* Network migration.
+
+---
+
+## 20. Shared VPC
+
+Shared VPC allows an organisation to centralise a VPC network in a host project while approved service projects deploy workloads into its subnets.
+
+```text
+Shared VPC host project
+├── VPC
+├── Subnets
+├── Routes
+├── Firewalls
+└── DNS
+
+Service projects
+├── Finance application
+├── Data platform
+├── AI platform
+└── Operations
+```
+
+### Benefits
+
+* Central networking control.
+* Separation between network and application teams.
+* Consistent firewall policies.
+* Central IP management.
+* Shared hybrid connectivity.
+* Reduced duplicated network infrastructure.
+
+### Risks
+
+* Excessively centralised operations may slow product teams.
+* Incorrect subnet-level permissions may permit unauthorised deployment.
+* Poor project ownership can create unclear support boundaries.
+* Network teams can become a bottleneck.
+
+Create automated, pre-approved deployment patterns rather than requiring manual network tickets for every resource.
+
+---
+
+## 21. Firewall policies and rules
+
+Google Cloud firewall controls can be applied through hierarchical and VPC-level policies.
+
+A useful rule structure might be:
+
+### Internet ingress
+
+Allow only:
+
+* HTTPS to an external Application Load Balancer.
+* Approved health checks.
+* Explicitly approved administrative access.
+
+### Application tier
+
+Allow:
+
+* Traffic from the load-balancing tier.
+* Internal service-to-service traffic on approved ports.
+* Egress to authorised data and AI services.
+
+### Data tier
+
+Allow:
+
+* Only approved workload identities and network paths.
+* No direct internet exposure.
+* Required backup and monitoring traffic.
+
+### Administrative access
+
+Prefer managed access patterns such as:
+
+* Identity-Aware Proxy.
+* OS Login.
+* Bastion patterns only where justified.
+* Just-in-time privilege.
+* Central audit.
+
+Network location must not replace authentication or authorisation.
+
+---
+
+## 22. Cloud NAT
+
+Cloud NAT provides outbound connectivity for eligible private workloads without assigning each workload a public external IP.
+
+Example:
+
+```text
+Private VM or GKE node
+        ↓
+Regional Cloud Router
+        ↓
+Cloud NAT
+        ↓
+Approved internet destination
+```
+
+Use it for:
+
+* Software updates.
+* Approved third-party APIs.
+* External dependency retrieval.
+* Controlled internet egress.
+
+Cloud NAT does not inspect application content. For deeper egress controls, combine network routing with firewalls, proxies, DNS controls and application-level allowlists.
+
+---
+
+## 23. Private Google Access
+
+Private Google Access allows eligible resources without external IP addresses to reach supported Google APIs and services through Google’s network.
+
+It is useful for private workloads accessing:
+
+* Cloud Storage.
+* BigQuery.
+* Pub/Sub.
+* Vertex AI endpoints.
+* Other supported Google APIs.
+
+Private Google Access should be combined with:
+
+* IAM.
+* Restricted or private API endpoints.
+* VPC Service Controls where required.
+* DNS design.
+* Egress policy.
+
+---
+
+## 24. Private Service Connect
+
+Private Service Connect allows a consumer VPC to access supported managed or producer services through private internal addressing.
+
+Use cases include:
+
+* Private access to Cloud SQL.
+* Private access to published internal services.
+* Private model and vector-search connectivity.
+* Consumer-producer isolation.
+* Service exposure across project boundaries.
+
+Private Service Connect lets a consumer access managed services without exposing traffic through public endpoints. ([Google Cloud Documentation](https://docs.cloud.google.com/vpc/docs/private-service-connect))
+
+### Private connectivity checklist
+
+A private endpoint is not sufficient by itself. Confirm:
+
+* DNS resolution.
+* IAM.
+* Service-level authorisation.
+* Route behaviour.
+* Firewall rules.
+* Egress controls.
+* Logging.
+* Cross-region behaviour.
+* Failover behaviour.
+* Quotas.
+
+---
+
+## 25. VPC peering and Network Connectivity Center
+
+### VPC Network Peering
+
+Peering connects two VPC networks privately.
+
+Important considerations include:
+
+* Routes are not automatically transitive.
+* Firewall rules remain independently managed.
+* Address ranges must not conflict.
+* Central governance can become difficult at large scale.
+
+### Network Connectivity Center
+
+For larger network estates, use Network Connectivity Center to design hub-and-spoke connectivity across:
+
+* VPC networks.
+* Branch locations.
+* On-premises networks.
+* Multi-cloud networks.
+* Network appliances.
+
+---
+
+## 26. Hybrid connectivity
+
+### Cloud VPN
+
+Use for:
+
+* Encrypted connectivity over the public internet.
+* Initial hybrid connections.
+* Backup connectivity.
+* Lower-throughput requirements.
+
+### Cloud Interconnect
+
+Use when organisations require:
+
+* Dedicated connectivity.
+* Higher throughput.
+* Predictable hybrid networking.
+* Private enterprise connectivity.
+
+Hybrid design must include:
+
+* Routing.
+* Redundancy.
+* DNS.
+* Encryption requirements.
+* Failover.
+* Capacity.
+* Monitoring.
+* Responsibility boundaries.
+
+---
+
+## 27. Cloud DNS
+
+Cloud DNS provides managed authoritative DNS.
+
+Learn:
+
+* Public zones.
+* Private zones.
+* Forwarding zones.
+* Peering zones.
+* DNS policies.
+* A, AAAA, CNAME, MX and TXT records.
+* Internal DNS.
+* Hybrid DNS.
+* DNSSEC.
+* Split-horizon DNS.
+
+Cloud DNS supports managed zones and IAM-based control over DNS administration. ([Google Cloud Documentation](https://docs.cloud.google.com/dns/docs/overview))
+
+---
+
+## 28. Networking practical project
+
+Build:
+
+```text
+On-premises simulation
+       ↓
+VPN
+       ↓
+Shared VPC host project
+├── Central firewall policy
+├── Private DNS
+├── NAT
+│
+├── Application project
+│   └── Cloud Run or GKE
+│
+├── Data project
+│   └── Cloud SQL and Storage
+│
+└── AI project
+    └── Gemini/Vertex AI integration
+```
+
+Document:
+
+* Every ingress flow.
+* Every egress flow.
+* DNS resolution.
+* Identity used.
+* Firewall decision.
+* Data classification.
+* Failure behaviour.
+* Logging location.
+* Cost owner.
+
+
+---
+
+# Part Five: Compute Engine
+
+## 29. Understand Compute Engine
+
+Compute Engine provides virtual machines.
+
+Use it when you require:
+
+* Operating-system control.
+* Legacy software.
+* Custom kernel or drivers.
+* Specialist network software.
+* Lift-and-shift migration.
+* Specific licensing.
+* Dedicated or sole-tenant infrastructure.
+* Custom machine configurations.
+* GPUs or TPUs requiring VM-level control.
+
+Understand:
+
+* Images.
+* Machine families.
+* Machine types.
+* Boot disks.
+* Persistent Disk.
+* Hyperdisk.
+* Local SSD.
+* Network interfaces.
+* Service accounts.
+* Metadata.
+* Startup scripts.
+* Shielded VM.
+* Confidential VM.
+* Spot VMs.
+* Reservations.
+* Sole-tenancy.
+
+---
+
+## 30. Machine families
+
+Choose machine types according to measured workload characteristics.
+
+### General-purpose
+
+Suitable for:
+
+* Web applications.
+* Enterprise applications.
+* Development.
+* Standard application servers.
+
+### Compute-optimised
+
+Suitable for:
+
+* High-performance computing.
+* Gaming servers.
+* CPU-intensive analytics.
+* Media processing.
+
+### Memory-optimised
+
+Suitable for:
+
+* Large in-memory databases.
+* SAP workloads.
+* Memory-heavy analytics.
+* Large caches.
+
+### Accelerator-optimised
+
+Suitable for:
+
+* Model training.
+* AI inference.
+* Graphics.
+* Scientific computation.
+
+### Custom machine types
+
+Google Cloud permits custom combinations for supported families, which can reduce over-provisioning where standard sizes do not fit the workload.
+
+---
+
+## 31. Images and instance templates
+
+### Image
+
+An image contains a reusable virtual-machine boot-disk configuration.
+
+Create governed images containing:
+
+* Approved operating system.
+* Security hardening.
+* Monitoring agents.
+* Vulnerability-management agents.
+* Required runtimes.
+* Standard configuration.
+* Version metadata.
+
+### Instance template
+
+An instance template defines reusable VM settings such as:
+
+* Machine type.
+* Image.
+* Disks.
+* Network.
+* Service account.
+* Metadata.
+* Labels.
+* Startup script.
+* Shielded VM settings.
+
+Treat templates as immutable release artefacts wherever possible.
+
+---
+
+## 32. Startup scripts
+
+A basic startup script might install a web server:
+
+```bash
+#!/bin/bash
+apt-get update
+apt-get install -y nginx
+systemctl enable nginx
+systemctl start nginx
+echo "Google Cloud roadmap application" \
+  > /var/www/html/index.nginx-debian.html
+```
+
+For production:
+
+* Keep startup scripts short.
+* Store source in version control.
+* Log execution.
+* Avoid embedded secrets.
+* Use approved images.
+* Fail clearly.
+* Validate dependencies.
+* Consider configuration-management tooling.
+
+---
+
+## 33. Persistent Disk, Hyperdisk and Local SSD
+
+### Persistent Disk
+
+Managed network block storage for virtual machines.
+
+Consider:
+
+* Type.
+* Size.
+* IOPS.
+* Throughput.
+* Snapshot policy.
+* Encryption.
+* Regional replication.
+* Recovery.
+
+### Hyperdisk
+
+Use for workloads requiring more configurable performance characteristics.
+
+### Local SSD
+
+Provides high local performance but is tied more closely to VM lifecycle and host placement.
+
+Do not store irreplaceable application state solely on ephemeral local storage.
+
+---
+
+## 34. Spot VMs
+
+Spot VMs can be interrupted and are suitable for workloads that can tolerate termination.
+
+Good uses include:
+
+* Batch processing.
+* Distributed rendering.
+* Model evaluation.
+* Stateless workers.
+* Fault-tolerant pipelines.
+* Flexible training tasks.
+
+Poor uses include:
+
+* A single production database.
+* A non-replicated stateful service.
+* Work that cannot checkpoint.
+* An application without interruption handling.
+
+---
+
+## 35. Managed Instance Groups
+
+Managed Instance Groups maintain groups of similarly configured VMs using an instance template.
+
+They support:
+
+* Autoscaling.
+* Health-based repair.
+* Rolling updates.
+* Multi-zone distribution.
+* Load-balancer integration.
+* Scheduled scaling.
+* CPU-based scaling.
+* Monitoring-metric scaling.
+* Queue-based scaling in supported patterns.
+
+Only managed, rather than unmanaged, instance groups support autoscaling. Regional MIGs can distribute instances across zones to improve availability. ([Google Cloud Documentation](https://docs.cloud.google.com/compute/docs/autoscaler))
+
+### Example
+
+```text
+Cloud DNS
+    ↓
+Global Application Load Balancer
+    ↓
+Regional Managed Instance Group
+├── Zone A instances
+├── Zone B instances
+└── Zone C instances
+    ↓
+Cloud SQL
+```
+
+---
+
+## 36. Autoscaling signals
+
+Possible signals include:
+
+* CPU utilisation.
+* Load-balancing serving capacity.
+* Cloud Monitoring metrics.
+* Schedule.
+* Queue size.
+* Request demand.
+
+Do not scale solely from CPU if the real constraint is:
+
+* Database connections.
+* API quota.
+* Memory.
+* GPU capacity.
+* External supplier rate limits.
+* Model inference quota.
+
+Autoscaling must account for downstream capacity.
+
+---
+
+## 37. Compute Engine project
+
+Deploy an application using:
+
+* Regional MIG.
+* Global external Application Load Balancer.
+* Private VM instances.
+* Cloud NAT.
+* Dedicated runtime service account.
+* Cloud Logging.
+* Cloud Monitoring.
+* Managed instance autohealing.
+* Rolling update.
+* Cloud SQL.
+* Secret Manager.
+* Backup policy.
+* Terraform.
+
+Test:
+
+1. VM failure.
+2. Zone loss simulation.
+3. Scaling.
+4. Bad-image rollback.
+5. Secret rotation.
+6. Database recovery.
+7. Budget alert.
+8. Access revocation.
+
+---
+
+# Part Six: Application Hosting and Serverless Compute
+
+## 38. Cloud Run
+
+Cloud Run is a fully managed application platform for running containers, source-deployed applications and functions. It abstracts infrastructure management and can serve request-driven or event-driven workloads. ([Google Cloud Documentation](https://docs.cloud.google.com/run/docs))
+
+Use Cloud Run for:
+
+* Web applications.
+* APIs.
+* Microservices.
+* RAG services.
+* Agent orchestration.
+* Background workers.
+* Event consumers.
+* Data-processing jobs.
+* Scheduled jobs.
+* AI inference with supported GPU configurations.
+
+---
+
+## 39. Cloud Run services
+
+A service listens for requests.
+
+Key concepts include:
+
+* Revisions.
+* Traffic splitting.
+* Min and max instances.
+* Concurrency.
+* CPU allocation.
+* Memory.
+* Request timeout.
+* Service identity.
+* Ingress.
+* Authentication.
+* VPC connectivity.
+* Environment variables.
+* Secret injection.
+* Health probes.
+* Domain mapping.
+* Logging and monitoring.
+
+### Revision model
+
+Every deployment creates a revision.
+
+Example:
+
+```text
+finance-api-00015
+finance-api-00016
+finance-api-00017
+```
+
+Traffic can be:
+
+* Sent entirely to one revision.
+* Divided between revisions.
+* Shifted gradually.
+* Rolled back to a previous revision.
+
+### Secure Cloud Run configuration
+
+Use:
+
+* Authentication required by default.
+* Dedicated service account.
+* Least privilege.
+* Secret Manager.
+* Restricted ingress.
+* VPC egress configuration.
+* Cloud Armor through a supported load-balancing architecture.
+* Maximum-instance controls.
+* Cloud Audit Logs.
+* Binary Authorization where appropriate.
+
+---
+
+## 40. Cloud Run jobs
+
+A Cloud Run job runs tasks and exits rather than listening for incoming requests. ([Google Cloud Documentation](https://docs.cloud.google.com/run/docs/create-jobs))
+
+Use jobs for:
+
+* Batch document ingestion.
+* Embedding creation.
+* Model evaluation.
+* Scheduled reports.
+* Database migration.
+* Large file conversion.
+* Data reconciliation.
+* Agent-quality analysis.
+* Security scanning.
+
+Design jobs for:
+
+* Idempotency.
+* Retry.
+* Partial failure.
+* Checkpointing.
+* Parallelism.
+* Timeout.
+* Cost limits.
+* Dead-letter handling.
+
+---
+
+## 41. Cloud Run functions
+
+Cloud Run functions lets developers deploy event-driven functions using supported language runtimes and trigger types. Current documentation describes functions as source-deployed Cloud Run services with HTTP or event triggers. ([Google Cloud Documentation](https://docs.cloud.google.com/run/docs/function-triggers))
+
+Use functions for:
+
+* Storage-event processing.
+* Pub/Sub consumers.
+* Lightweight APIs.
+* Scheduled automation.
+* Event transformation.
+* Security-response actions.
+* Small integration components.
+
+### Example
+
+```text
+Cloud Storage object created
+        ↓
+Eventarc
+        ↓
+Cloud Run function
+        ↓
+Sensitive Data Protection inspection
+        ↓
+Approved processing queue
+```
+
+---
+
+## 42. Cloud Run scaling considerations
+
+Cloud Run can scale automatically, but downstream services may not.
+
+Control:
+
+* Maximum instances.
+* Concurrency.
+* Database connection pools.
+* Pub/Sub flow control.
+* Third-party API limits.
+* Model quotas.
+* Token budgets.
+* Retry behaviour.
+
+Example:
+
+```text
+Cloud Run scales to 1,000 instances
+        ↓
+Each opens 10 DB connections
+        ↓
+10,000 database connections
+        ↓
+Database failure
+```
+
+Automatic scaling must be governed by system-wide capacity.
+
+---
+
+## 43. App Engine
+
+App Engine remains a managed application-hosting option with standard and flexible environment approaches.
+
+Understand it for:
+
+* Existing App Engine applications.
+* Migration assessment.
+* Supported framework-based hosting.
+
+For new architectures, compare App Engine carefully with Cloud Run based on:
+
+* Portability.
+* Runtime constraints.
+* Deployment model.
+* Networking.
+* Scaling.
+* Operational control.
+* Existing organisational standards.
+
+---
+
+# Part Seven: Cloud Storage
+
+## 44. Understand Cloud Storage
+
+Cloud Storage stores objects inside buckets.
+
+Use it for:
+
+* Documents.
+* Images.
+* Video.
+* Backups.
+* Application uploads.
+* Logs.
+* Data lakes.
+* Model artefacts.
+* RAG documents.
+* Training datasets.
+* Evaluation datasets.
+* Software packages.
+
+Cloud Storage supports different storage classes and location types according to availability, access frequency and cost requirements. ([Google Cloud Documentation](https://docs.cloud.google.com/storage/docs/storage-classes))
+
+---
+
+## 45. Bucket and object concepts
+
+### Bucket
+
+A bucket defines:
+
+* Name.
+* Location.
+* Default storage class.
+* IAM.
+* Retention controls.
+* Lifecycle.
+* Encryption settings.
+* Logging.
+* Public-access configuration.
+
+### Object
+
+An object includes:
+
+* Binary data.
+* Object name.
+* Generation.
+* Metadata.
+* Content type.
+* Checksums.
+* Custom metadata.
+
+Cloud Storage is object storage, not a traditional shared file system.
+
+---
+
+## 46. Location types
+
+Choose between supported location models based on:
+
+* Availability.
+* Latency.
+* Data residency.
+* Egress.
+* Recovery requirements.
+* Service integration.
+* Cost.
+
+Avoid placing sensitive source data in a multi-region solely for convenience. Confirm whether the broader location meets legal and contractual obligations.
+
+---
+
+## 47. Storage classes
+
+Typical storage classes include:
+
+* Standard.
+* Nearline.
+* Coldline.
+* Archive.
+
+The correct class depends on:
+
+* Expected access frequency.
+* Retention period.
+* Retrieval urgency.
+* Minimum-storage-duration considerations.
+* Retrieval and operation cost.
+
+### Autoclass
+
+Autoclass can automatically change object storage classes according to access patterns. ([Google Cloud Documentation](https://docs.cloud.google.com/storage/docs/autoclass))
+
+### Object Lifecycle Management
+
+Lifecycle rules can:
+
+* Change storage class.
+* Delete old objects.
+* Remove non-current versions.
+* Enforce data-retention workflows.
+
+Cloud Storage applies lifecycle actions when rule conditions are met. ([Google Cloud Documentation](https://docs.cloud.google.com/storage/docs/lifecycle))
+
+---
+
+## 48. Storage security
+
+Implement:
+
+* Public access prevention.
+* Uniform bucket-level access.
+* IAM rather than broad ACLs.
+* Dedicated service accounts.
+* Customer-managed encryption keys where justified.
+* Retention policies.
+* Object holds.
+* Versioning.
+* Soft-delete controls where applicable.
+* Audit logging.
+* VPC Service Controls.
+* Sensitive-data discovery.
+* Malware-scanning pipeline.
+* Signed URLs for temporary access.
+
+### Object versioning
+
+Object Versioning preserves non-current generations when objects are replaced or deleted, enabling recovery of specific object versions. ([Google Cloud Documentation](https://docs.cloud.google.com/storage/docs/object-versioning))
+
+---
+
+## 49. AI data zones
+
+Create separate buckets or projects for:
+
+```text
+01-landing
+├── Original uploads
+├── External documents
+└── Quarantine
+
+02-classified
+├── Public
+├── Internal
+├── Confidential
+└── Restricted
+
+03-curated
+├── Validated documents
+├── Normalised documents
+└── PII-controlled data
+
+04-ai-ready
+├── Chunks
+├── Embedding source
+├── Evaluation datasets
+└── Approved fine-tuning data
+
+05-evidence
+├── Model cards
+├── Evaluation results
+├── Prompt versions
+├── Risk assessments
+└── Approval evidence
+```
+
+The indexing pipeline should not automatically ingest every available document.
+
+---
+
+# Part Eight: Databases
+
+## 50. Choose the database from access patterns
+
+Start with questions:
+
+* Is the model relational, document, key-value or wide-column?
+* Are ACID transactions required?
+* Is global consistency required?
+* What latency is needed?
+* What is the expected scale?
+* Is offline mobile access needed?
+* Is horizontal scaling required?
+* What are recovery requirements?
+* What operational expertise exists?
+* What is the expected unit cost?
+
+---
+
+## 51. Cloud SQL
+
+Cloud SQL is a managed relational database service supporting MySQL, PostgreSQL and SQL Server.
+
+It manages areas such as:
+
+* Backups.
+* High availability.
+* Failover.
+* Maintenance.
+* Monitoring.
+* Logging.
+* Network connectivity.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/sql/docs/introduction))
+
+### Use Cloud SQL when
+
+* Relational modelling is appropriate.
+* SQL compatibility matters.
+* The workload fits supported scale characteristics.
+* The organisation wants a managed traditional database.
+* Application migration requires MySQL, PostgreSQL or SQL Server.
+
+### Learn
+
+* Instances.
+* Databases.
+* Users.
+* IAM database authentication where supported.
+* Private IP.
+* Private Service Connect.
+* Backups.
+* Point-in-time recovery.
+* Read replicas.
+* High availability.
+* Maintenance windows.
+* Query Insights.
+* Connection pooling.
+* Cloud SQL Auth Proxy and connectors.
+* CMEK.
+* Audit logs.
+
+### High availability
+
+A high-availability configuration can maintain a standby in another zone. The application must still:
+
+* Retry connections.
+* Avoid relying on in-memory database sessions.
+* Handle failover.
+* Test recovery.
+* Monitor availability.
+
+### Cloud SQL project
+
+Create:
+
+* Private PostgreSQL instance.
+* High-availability configuration.
+* Automated backup.
+* Point-in-time recovery.
+* Dedicated application service account.
+* Secret Manager integration.
+* Connection pool.
+* Monitoring dashboard.
+* Tested restore.
+* Deletion protection.
+
+---
+
+## 52. Spanner
+
+Spanner is a managed mission-critical database that combines relational, key-value, graph, search and globally scalable transactional capabilities. It supports transactional consistency and synchronous replication, with GoogleSQL and PostgreSQL dialect options. ([Google Cloud Documentation](https://docs.cloud.google.com/spanner/docs))
+
+### Use Spanner when
+
+* The workload requires relational transactions at very high scale.
+* Multi-region availability is required.
+* Horizontal scalability is a core requirement.
+* Strong consistency is required across large distributed datasets.
+* A standard single-instance relational database would become a scaling constraint.
+
+### Do not use Spanner simply because
+
+* It sounds more advanced.
+* The workload may grow someday.
+* The application uses several tables.
+* The team does not want to estimate capacity.
+
+Spanner requires thoughtful:
+
+* Primary-key design.
+* Data distribution.
+* Interleaving and relationship design.
+* Indexing.
+* Hotspot avoidance.
+* Multi-region configuration.
+* Cost modelling.
+* Transaction design.
+
+### Example uses
+
+* Global payment ledger.
+* Large-scale inventory platform.
+* Telecommunications subscriber platform.
+* Global financial position service.
+* High-scale multi-tenant SaaS core.
+
+---
+
+## 53. Firestore
+
+Firestore is a scalable document database for mobile, web and server applications. It uses documents and collections and supports real-time listeners and offline capabilities for supported clients. ([Google Cloud Documentation](https://docs.cloud.google.com/firestore/native/docs/overview))
+
+### Use Firestore for
+
+* Mobile applications.
+* Web applications.
+* User profiles.
+* Application configuration.
+* Collaboration.
+* Conversation state.
+* Agent workflow state.
+* Content management.
+* Real-time UI updates.
+
+### Learn
+
+* Collections.
+* Documents.
+* Subcollections.
+* Queries.
+* Indexes.
+* Transactions.
+* Security Rules for applicable client patterns.
+* IAM.
+* Location.
+* Backup and export.
+* Quotas.
+* Hotspot avoidance.
+* Multi-tenancy.
+
+### AI uses
+
+Firestore can store:
+
+* Conversation sessions.
+* Agent checkpoints.
+* User preferences.
+* Feedback.
+* Workflow status.
+* Draft artefacts.
+
+Do not use it as unrestricted long-term agent memory without defining:
+
+* Consent.
+* Retention.
+* Tenant isolation.
+* Access control.
+* Right to deletion.
+* Memory-quality validation.
+
+---
+
+## 54. Memorystore
+
+Memorystore provides managed caching technologies including Valkey and Redis options. Memorystore for Memcached is marked as deprecated in current documentation. ([Google Cloud Documentation](https://docs.cloud.google.com/memorystore/docs))
+
+Use Memorystore for:
+
+* Application cache.
+* Session data.
+* Rate limits.
+* Distributed locks.
+* Idempotency keys.
+* Counters.
+* Semantic cache.
+* Short-term agent state.
+* Frequently accessed reference data.
+
+### Cache-aside pattern
+
+```text
+Application
+    ↓
+Check Memorystore
+├── Hit → Return cached result
+└── Miss
+     ↓
+   Query database
+     ↓
+   Store result
+     ↓
+   Return response
+```
+
+### AI cache key design
+
+Include appropriate context such as:
+
+```text
+tenant
+user authorisation class
+model version
+prompt version
+guardrail version
+retrieval corpus
+language
+request parameters
+```
+
+A cross-tenant cache collision can become a serious data breach.
+
+---
+
+## 55. Database selection table
+
+| Requirement | Preferred starting point |
+| --- | --- |
+| Standard relational workload | Cloud SQL |
+| Global relational transactions | Spanner |
+| Mobile and document application | Firestore |
+| Large analytical queries | BigQuery |
+| High-scale wide-column data | Bigtable |
+| Cache or low-latency state | Memorystore |
+| Vector retrieval | Vertex/Agent retrieval, AlloyDB, Spanner or another justified vector service |
+| PostgreSQL-compatible advanced workload | Cloud SQL or AlloyDB, depending on requirements |
+
+No database should be selected solely because it has a vector-search feature.
+
+---
+
+# Part Nine: Data and Analytics
+
+## 56. BigQuery
+
+BigQuery is a fully managed, serverless, AI-ready data platform supporting SQL, Python, analytics, machine learning, search, geospatial analysis and business intelligence. It can work with structured and unstructured data and supports open-table integrations. ([Google Cloud Documentation](https://docs.cloud.google.com/bigquery/docs/introduction))
+
+Use BigQuery for:
+
+* Enterprise analytics.
+* Data warehousing.
+* Financial reporting.
+* Telemetry analysis.
+* Security analytics.
+* Customer analytics.
+* AI evaluation results.
+* Feature engineering.
+* Model monitoring.
+* Cloud cost analysis.
+* Large-scale log analysis.
+
+---
+
+## 57. BigQuery resource model
+
+```text
+Project
+└── Dataset
+    ├── Table
+    ├── View
+    ├── Materialized view
+    ├── Model
+    └── Routine
+```
+
+A dataset is a location-bound container for tables and views. Its location must be selected deliberately because it affects residency and data-processing architecture. ([Google Cloud Documentation](https://docs.cloud.google.com/bigquery/docs/datasets-intro))
+
+### Learn
+
+* Datasets.
+* Tables.
+* Partitioning.
+* Clustering.
+* Views.
+* Materialised views.
+* Reservations.
+* Slots.
+* On-demand pricing.
+* Row-level security.
+* Column-level security.
+* Policy tags.
+* Data masking.
+* Authorized views.
+* Data lineage.
+* Audit logs.
+* Query optimisation.
+* Cost controls.
+* Data clean rooms.
+* BigQuery ML.
+
+---
+
+## 58. BigQuery cost control
+
+Common cost risks include:
+
+* Scanning entire large tables.
+* Missing partition filters.
+* Repeated exploratory queries.
+* Uncontrolled dashboards.
+* Duplicate datasets.
+* Excessive streaming.
+* Poorly designed transformations.
+* Unbounded AI-agent query generation.
+
+Implement:
+
+* Partitioning.
+* Clustering.
+* Query maximum-byte limits.
+* Reservations where justified.
+* Approved views.
+* Query templates.
+* Labels.
+* Billing exports.
+* Budgets.
+* Agent SQL validation.
+* Read-only agent roles.
+* Query allowlists for sensitive domains.
+
+Never allow an LLM-generated query to execute with unrestricted production permissions.
+
+---
+
+## 59. Dataflow
+
+Dataflow is commonly used for managed batch and streaming data processing using Apache Beam.
+
+Use it for:
+
+* Pub/Sub streaming pipelines.
+* ETL and ELT.
+* Event enrichment.
+* Data quality.
+* Log processing.
+* Real-time fraud features.
+* Document-processing pipelines.
+* Large-scale AI-data preparation.
+
+A pipeline should include:
+
+* Schema management.
+* Dead-letter handling.
+* Idempotency.
+* Replay strategy.
+* Data-quality checks.
+* PII handling.
+* Monitoring.
+* Cost controls.
+* Recovery.
+
+---
+
+## 60. Knowledge Catalog
+
+Knowledge Catalog, formerly Dataplex Universal Catalog, provides discovery, inventory and governance for distributed data and AI assets. Current Google documentation positions it as an AI-powered governance and business-context layer. ([Google Cloud Documentation](https://docs.cloud.google.com/dataplex/docs))
+
+Use it for:
+
+* Data discovery.
+* Business glossary.
+* Metadata.
+* Ownership.
+* Lineage.
+* Data products.
+* Quality context.
+* Search.
+* Classification context.
+* AI grounding context.
+* Data and AI asset inventory.
+
+### Governance artefacts
+
+Attach:
+
+* Business definition.
+* Data owner.
+* Technical steward.
+* Sensitivity.
+* Retention.
+* Approved use.
+* Quality score.
+* Source system.
+* Geographic restrictions.
+* AI training permission.
+* RAG permission.
+* Legal basis.
+* Contract restrictions.
+
+Knowledge Catalog should help the AI platform determine not only what data exists, but whether that data is appropriate for a particular AI use.
+
+---
+
+# Part Ten: Messaging, Events and Orchestration
+
+## 61. Pub/Sub
+
+Pub/Sub is an asynchronous, scalable messaging service that separates event producers from consumers. It supports event distribution, streaming ingestion and queue-like processing patterns. ([Google Cloud Documentation](https://docs.cloud.google.com/pubsub/docs/overview))
+
+### Core concepts
+
+* Topic.
+* Publisher.
+* Subscription.
+* Subscriber.
+* Acknowledgement.
+* Redelivery.
+* Dead-letter topic.
+* Ordering key.
+* Retention.
+* Push and pull delivery.
+* Exactly-once delivery options for supported patterns.
+
+### Use cases
+
+* Order events.
+* Document ingestion.
+* Notifications.
+* Security findings.
+* Model evaluation tasks.
+* Agent jobs.
+* Usage metering.
+* Audit-event distribution.
+* Streaming analytics.
+
+### Delivery design
+
+Assume messages may be delivered again.
+
+Consumers should be:
+
+* Idempotent.
+* Retry aware.
+* Order aware where required.
+* Able to handle poison messages.
+* Monitored for backlog.
+* Protected from unbounded scaling.
+
+---
+
+## 62. Eventarc
+
+Eventarc routes events from Google Cloud, custom applications, SaaS providers and other sources to supported destinations while handling delivery, authentication, observability and error-handling capabilities. ([Google Cloud Documentation](https://docs.cloud.google.com/eventarc/standard/docs/overview))
+
+Use it for:
+
+```text
+Storage upload
+→ Eventarc
+→ Cloud Run
+
+Audit log event
+→ Eventarc
+→ Security automation
+
+Pub/Sub event
+→ Eventarc
+→ Workflow
+```
+
+### Eventarc Standard
+
+Suitable for standard event routing.
+
+### Eventarc Advanced
+
+Useful where organisations require more complex eventing, routing and governance across many event sources and destinations.
+
+---
+
+## 63. Cloud Tasks
+
+Cloud Tasks is appropriate when an application needs controlled asynchronous task execution against an HTTP target.
+
+Use it for:
+
+* Deferred API work.
+* Controlled retries.
+* Per-task scheduling.
+* Rate-controlled processing.
+* Background work.
+* Webhook delivery.
+
+Cloud Tasks is usually better than Pub/Sub where each message represents an explicitly managed task directed at a particular handler.
+
+---
+
+## 64. Workflows
+
+Workflows orchestrates service calls and business processes.
+
+Use it for:
+
+* Multi-step application operations.
+* Calling Cloud Run services.
+* Calling Google APIs.
+* Conditional branches.
+* Retries.
+* Long-running coordination.
+* Human-approval integration.
+* AI document-processing sequences.
+
+Example:
+
+```text
+Receive document
+    ↓
+Validate metadata
+    ↓
+Scan for malware
+    ↓
+Inspect sensitive data
+    ↓
+Extract document
+    ↓
+Human review if high risk
+    ↓
+Create embeddings
+    ↓
+Update retrieval index
+    ↓
+Publish completion event
+```
+
+Cloud Run documentation demonstrates Workflows connecting functions, HTTP services and private services into coordinated serverless processes. ([Google Cloud Documentation](https://docs.cloud.google.com/run/docs/tutorials/workflows))
+
+---
+
+# Part Eleven: APIs, Edge and Traffic Management
+
+## 65. Cloud Load Balancing
+
+Cloud Load Balancing can place workloads behind a single internal or externally accessible IP address.
+
+It provides:
+
+* Application Load Balancers.
+* Network Load Balancers.
+* Global and regional options.
+* Internal and external options.
+* Health checks.
+* Multi-region routing.
+* Integration with Cloud CDN.
+* Integration with Cloud Armor.
+
+Google’s global external Application Load Balancer can distribute traffic across backends in multiple Regions behind a single anycast IP. ([Google Cloud Documentation](https://docs.cloud.google.com/load-balancing/docs))
+
+### Choose an Application Load Balancer for
+
+* HTTP.
+* HTTPS.
+* Layer 7 routing.
+* Host routing.
+* Path routing.
+* Cloud Run.
+* GKE.
+* VM backends.
+* Multi-region web applications.
+
+### Choose a Network Load Balancer for
+
+* TCP.
+* UDP.
+* Other supported Layer 4 protocols.
+* Source-IP preservation requirements.
+* Proxy or passthrough patterns.
+
+---
+
+## 66. Cloud CDN
+
+Cloud CDN uses Google’s global edge network to cache content closer to users. ([Google Cloud Documentation](https://docs.cloud.google.com/cdn/docs/overview))
+
+Use it for:
+
+* Static assets.
+* Images.
+* Videos.
+* Downloadable files.
+* Cacheable API content.
+* Global web delivery.
+
+Learn:
+
+* Origins.
+* Cache keys.
+* Cache modes.
+* TTL.
+* Invalidation.
+* Signed URLs.
+* Signed cookies.
+* Negative caching.
+* Cache poisoning protection.
+
+Version static artefacts rather than invalidating everything on every deployment.
+
+---
+
+## 67. Cloud Armor
+
+Cloud Armor applies security policies to protected applications behind supported load balancers.
+
+It helps address:
+
+* DDoS attacks.
+* Web attacks.
+* IP filtering.
+* Geo controls.
+* Rate limiting.
+* Preconfigured WAF rules.
+* Bot and abuse scenarios.
+* Custom security rules.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/armor/docs/cloud-armor-overview))
+
+### AI gateway protections
+
+Use Cloud Armor for:
+
+* Request-rate control.
+* IP reputation.
+* Geographic restrictions.
+* Large-payload constraints.
+* Abuse detection.
+* Denial-of-wallet reduction.
+* Bot mitigation.
+
+Cloud Armor cannot understand the full semantic meaning of an AI prompt. Combine it with application and AI-specific security controls.
+
+---
+
+## 68. API Gateway
+
+API Gateway provides traffic management, authorisation and monitoring for managed APIs integrated with Google Cloud. ([Google Cloud Documentation](https://docs.cloud.google.com/api-gateway/docs/about-api-gateway))
+
+Use it for:
+
+* Smaller API programmes.
+* Serverless API exposure.
+* OpenAPI-defined services.
+* Cloud Run back ends.
+* Authentication.
+* Quotas.
+* Monitoring.
+
+---
+
+## 69. Apigee
+
+Apigee is Google Cloud’s enterprise API-management platform for building, managing and securing APIs across environments and at scale. ([Google Cloud Documentation](https://docs.cloud.google.com/apigee/docs/api-platform/get-started/what-apigee))
+
+Use Apigee when you need:
+
+* Enterprise API lifecycle management.
+* Advanced API policies.
+* Developer portals.
+* API products.
+* Analytics.
+* Monetisation.
+* Hybrid API management.
+* Partner onboarding.
+* Complex transformations.
+* Multi-environment governance.
+* Central API inventory.
+
+### API platform selection
+
+| Requirement | Starting option |
+| --- | --- |
+| Simple managed API gateway | API Gateway |
+| Enterprise API programme | Apigee |
+| Cloud Run service-to-service | IAM-authenticated service calls |
+| Kubernetes service mesh | GKE/service-mesh patterns |
+| Agent tool governance | Agent Gateway plus API controls |
+
+---
+
+# Part Twelve: Containers and Kubernetes
+
+## 70. Artifact Registry
+
+Artifact Registry stores software artefacts and dependencies, including container images and supported package formats. Access is controlled through IAM. ([Google Cloud Documentation](https://docs.cloud.google.com/artifact-registry/docs/overview))
+
+Use repositories for:
+
+* Container images.
+* Python packages.
+* npm packages.
+* Maven artefacts.
+* Helm artefacts.
+* Internal dependencies.
+
+### Secure artefact lifecycle
+
+```text
+Source commit
+    ↓
+Static testing
+    ↓
+Dependency and secret scanning
+    ↓
+Build
+    ↓
+Generate SBOM and provenance
+    ↓
+Vulnerability scanning
+    ↓
+Sign or attest
+    ↓
+Artifact Registry
+    ↓
+Binary Authorization
+    ↓
+Deployment
+```
+
+### Repository design
+
+Consider separation by:
+
+* Environment.
+* Region.
+* Trust level.
+* Business unit.
+* Artefact format.
+* Retention.
+* Promotion stage.
+
+Avoid deploying mutable `latest` tags as the sole production reference. Prefer immutable digests.
+
+---
+
+## 71. Google Kubernetes Engine
+
+GKE provides managed Kubernetes.
+
+Current modes include:
+
+* **Autopilot**, where Google manages the control plane, nodes and more of the cluster operating model.
+* **Standard**, where the customer has greater node and cluster configuration control.
+
+Google describes Autopilot as a managed GKE mode with reduced operational overhead, while Standard offers greater configurability. ([Google Cloud Documentation](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview))
+
+---
+
+## 72. Learn Kubernetes before GKE
+
+Understand:
+
+* Pods.
+* Deployments.
+* StatefulSets.
+* DaemonSets.
+* Services.
+* Ingress and Gateway API.
+* ConfigMaps.
+* Secrets.
+* Namespaces.
+* Kubernetes RBAC.
+* Network policies.
+* Resource requests.
+* Resource limits.
+* Horizontal Pod Autoscaling.
+* Cluster autoscaling.
+* Persistent volumes.
+* Jobs and CronJobs.
+* Pod disruption budgets.
+* Health probes.
+* Admission control.
+* Release channels.
+* Upgrade processes.
+
+---
+
+## 73. GKE Autopilot
+
+Choose Autopilot where:
+
+* The team wants Kubernetes but reduced node management.
+* Standard workload patterns fit.
+* Secure managed defaults are valuable.
+* Operational simplicity is important.
+* Fine-grained host control is not required.
+
+Google manages the nodes and control plane in Autopilot, reducing infrastructure-management responsibility. ([Google Cloud Documentation](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview))
+
+---
+
+## 74. GKE Standard
+
+Choose Standard where you require:
+
+* Detailed node-pool control.
+* Specialised hardware.
+* Custom node configuration.
+* Specific daemon workloads.
+* Greater scheduling flexibility.
+* Advanced network or storage configuration.
+* Existing platform-engineering maturity.
+
+Standard increases customer responsibility for:
+
+* Nodes.
+* Node images.
+* Capacity planning.
+* Upgrades.
+* Autoscaling configuration.
+* Host-level controls.
+* Cluster cost efficiency.
+
+---
+
+## 75. GKE security
+
+Implement:
+
+* Private clusters.
+* Workload Identity Federation for GKE.
+* Namespace isolation.
+* Kubernetes RBAC.
+* Network policies.
+* Pod Security Standards.
+* Binary Authorization.
+* Shielded nodes.
+* Release channels.
+* Vulnerability scanning.
+* Secret Manager integration.
+* Audit logging.
+* Runtime threat detection.
+* Admission policies.
+* Image allowlists.
+* Resource limits.
+
+### Workload identity pattern
+
+```text
+Kubernetes ServiceAccount
+        ↓
+Workload Identity
+        ↓
+Google Cloud service account or direct principal
+        ↓
+Specific Google Cloud resource
+```
+
+Avoid exposing broad node-level credentials to every Pod.
+
+---
+
+## 76. GKE or Cloud Run?
+
+| Requirement | Cloud Run | GKE |
+| --- | --- | --- |
+| Simple API | Strong choice | Usually unnecessary |
+| Scale to zero | Native pattern | Additional design |
+| Kubernetes portability | No | Yes |
+| Host-level control | Limited | Standard mode |
+| Operational overhead | Lower | Higher |
+| Complex platform ecosystem | Limited | Strong |
+| Service mesh | Simpler patterns | Full Kubernetes ecosystem |
+| Specialised scheduling | Limited | Strong |
+| Small team | Usually preferable | Adopt cautiously |
+| Existing Kubernetes platform | Possible | Often appropriate |
+
+Do not adopt GKE only because Kubernetes appears more sophisticated.
+
+
+---
+
+# Part Thirteen: Observability and SRE
+
+## 77. Google Cloud Observability
+
+Google Cloud’s observability capabilities include:
+
+* Cloud Monitoring.
+* Cloud Logging.
+* Cloud Trace.
+* Error Reporting.
+* Profiler.
+* Managed Service for Prometheus.
+* OpenTelemetry integration.
+
+Cloud Monitoring supports platform and custom metrics, log-based metrics, dashboards and alerting. ([Google Cloud Documentation](https://docs.cloud.google.com/monitoring/docs/monitoring-overview))
+
+---
+
+## 78. Cloud Logging
+
+Use structured logs containing:
+
+* Timestamp.
+* Severity.
+* Service.
+* Version.
+* Environment.
+* Correlation ID.
+* User or tenant reference where lawful.
+* Request outcome.
+* Error code.
+* Operation name.
+
+Avoid logging:
+
+* Passwords.
+* Tokens.
+* API keys.
+* Full personal records.
+* Raw payment information.
+* Unredacted prompts by default.
+* Sensitive retrieved documents.
+* Agent memory contents without justification.
+
+### Logging architecture
+
+```text
+Workload projects
+      ↓
+Log sinks
+      ↓
+Central logging project
+├── Operational logs
+├── Security logs
+├── Audit logs
+└── Long-term archive
+```
+
+Use separate retention and access controls for:
+
+* Developer logs.
+* Security evidence.
+* Regulatory records.
+* Highly sensitive AI traces.
+
+---
+
+## 79. Cloud Monitoring
+
+Monitor:
+
+### Infrastructure
+
+* CPU.
+* Memory.
+* Disk.
+* Network.
+* Instance health.
+* Container restarts.
+
+### Application
+
+* Request rate.
+* Error rate.
+* Latency.
+* Dependency failure.
+* Queue backlog.
+* Saturation.
+
+### Business
+
+* Successful transactions.
+* Documents processed.
+* Support cases resolved.
+* Revenue.
+* Customer completion.
+* Time saved.
+
+### AI
+
+* Model latency.
+* Token use.
+* Groundedness.
+* Retrieval success.
+* Hallucination rate.
+* Safety blocks.
+* Injection detections.
+* Tool failures.
+* Human escalation.
+* Cost per completed task.
+
+---
+
+## 80. SLI, SLO and error budget
+
+### Service-level indicator
+
+A measured indicator such as:
+
+* Successful request ratio.
+* P95 latency.
+* Valid model-response ratio.
+* Correctly cited response ratio.
+
+### Service-level objective
+
+A target such as:
+
+```text
+99.9% of eligible requests complete successfully each month.
+```
+
+### Error budget
+
+The tolerated unreliability within the objective.
+
+Use error budgets to decide whether a team should:
+
+* Continue feature delivery.
+* Focus on reliability.
+* Stop risky releases.
+* Improve fallback.
+* Reduce agent autonomy.
+
+---
+
+## 81. Distributed tracing
+
+A production AI trace could cover:
+
+```text
+User request
+→ Load balancer
+→ API gateway
+→ Authentication
+→ Model Armor
+→ Orchestrator
+→ Retrieval query
+→ Retrieved document IDs
+→ Model request
+→ Tool calls
+→ Output validation
+→ Final response
+→ Feedback
+```
+
+Capture:
+
+* Trace ID.
+* Span timing.
+* Model and prompt version.
+* Retrieval source identifiers.
+* Guardrail decision.
+* Tool execution.
+* Error state.
+* Policy decision.
+
+Do not automatically place confidential prompt and response content inside every trace.
+
+---
+
+# Part Fourteen: Reliability and Disaster Recovery
+
+## 82. Reliability model
+
+Define the workload’s failure units:
+
+* Process.
+* Container.
+* VM.
+* Node.
+* Zone.
+* Region.
+* Identity provider.
+* Database.
+* Model endpoint.
+* Search service.
+* External API.
+* Security service.
+* Network connection.
+
+For each dependency, define:
+
+* Detection.
+* Timeout.
+* Retry.
+* Circuit breaker.
+* Fallback.
+* Recovery.
+* Owner.
+
+---
+
+## 83. Recovery objectives
+
+### Recovery Time Objective
+
+How quickly must the service be restored?
+
+### Recovery Point Objective
+
+How much data loss is acceptable?
+
+Example:
+
+| Component | RTO | RPO |
+| --- | ---: | ---: |
+| Customer API | 30 minutes | Not applicable |
+| Transaction DB | 1 hour | 5 minutes |
+| RAG index | 4 hours | 24 hours |
+| Prompt registry | 1 hour | 0 |
+| Evaluation results | 24 hours | 24 hours |
+| Agent memory | 4 hours | 1 hour |
+
+---
+
+## 84. Backup strategy
+
+Protect:
+
+* Databases.
+* Cloud Storage.
+* VM disks.
+* Kubernetes objects.
+* Infrastructure state.
+* Terraform code.
+* Container images.
+* Prompts.
+* Evaluation datasets.
+* Model configuration.
+* Agent definitions.
+* Policy definitions.
+* Governance evidence.
+* Search-index source data.
+* Encryption-key recovery procedures.
+
+A derived vector index may be rebuilt from source data, but only if:
+
+* The source is retained.
+* Chunking code is versioned.
+* Embedding model is known.
+* Metadata mappings are preserved.
+* Access-control metadata is available.
+
+---
+
+## 85. AI-specific recovery
+
+Document:
+
+1. Which model is the approved fallback?
+2. What happens if a model is retired?
+3. Can the application use a smaller model?
+4. Can the service enter read-only mode?
+5. Can agents be disabled while search remains available?
+6. How is an index rebuilt?
+7. How are sessions recovered?
+8. How is long-term memory restored?
+9. How are unsafe memories removed?
+10. How are approvals preserved after recovery?
+
+---
+
+## 86. Chaos and recovery testing
+
+Test:
+
+* VM termination.
+* Container failure.
+* Zone unavailability.
+* Database failover.
+* Pub/Sub backlog.
+* Model quota exhaustion.
+* Search timeout.
+* Secret revocation.
+* Invalid model release.
+* Prompt injection surge.
+* Third-party tool outage.
+* Agent infinite loop.
+* Logging failure.
+* Region failover.
+
+Do not wait for a real incident to discover that the recovery plan is incomplete.
+
+---
+
+# Part Fifteen: Infrastructure as Code
+
+## 87. Terraform on Google Cloud
+
+Terraform is the principal infrastructure-as-code approach across many Google Cloud enterprise patterns. Google Cloud’s Infrastructure Manager provides a managed deployment service for Terraform configurations. ([Google Cloud Documentation](https://docs.cloud.google.com/infrastructure-manager/docs))
+
+### Terraform lifecycle
+
+```text
+Write configuration
+      ↓
+Format and validate
+      ↓
+Security and policy tests
+      ↓
+Plan
+      ↓
+Review
+      ↓
+Apply
+      ↓
+Verify
+      ↓
+Monitor drift
+```
+
+---
+
+## 88. Infrastructure Manager
+
+Infrastructure Manager can:
+
+* Deploy Terraform configurations.
+* Create deployment previews.
+* Store revision information.
+* Manage deployment lifecycle.
+* Integrate with Cloud Build.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/infrastructure-manager/docs/overview))
+
+### Suggested repository
+
+```text
+gcp-platform/
+├── bootstrap/
+├── modules/
+│   ├── project/
+│   ├── iam/
+│   ├── shared-vpc/
+│   ├── logging/
+│   ├── cloud-run/
+│   ├── gke/
+│   ├── cloud-sql/
+│   ├── storage/
+│   ├── vertex-ai/
+│   └── security/
+├── environments/
+│   ├── dev/
+│   ├── test/
+│   └── prod/
+├── policies/
+├── tests/
+├── pipelines/
+└── documentation/
+```
+
+---
+
+## 89. Infrastructure testing
+
+Test:
+
+* Terraform formatting.
+* Validation.
+* Naming.
+* Labels.
+* Region restrictions.
+* Public-exposure controls.
+* IAM privilege.
+* Encryption.
+* Logging.
+* Backup.
+* VPC Service Controls.
+* Budget configuration.
+* Required monitoring.
+
+Infrastructure code should be treated as production software.
+
+---
+
+# Part Sixteen: DevSecOps and Software Supply Chain
+
+## 90. Cloud Build
+
+Cloud Build executes builds on Google Cloud infrastructure and can build, test and package application artefacts. It can integrate with Artifact Registry and Binary Authorization. ([Google Cloud Documentation](https://docs.cloud.google.com/build/docs/overview))
+
+A secure pipeline should include:
+
+```text
+Commit
+  ↓
+Secret scanning
+  ↓
+Static analysis
+  ↓
+Dependency scanning
+  ↓
+Unit testing
+  ↓
+IaC scanning
+  ↓
+Container build
+  ↓
+SBOM and provenance
+  ↓
+Vulnerability scanning
+  ↓
+Attestation
+  ↓
+Artifact Registry
+  ↓
+Deployment approval
+  ↓
+Binary Authorization
+  ↓
+Production
+```
+
+---
+
+## 91. Cloud Deploy
+
+Cloud Deploy supports delivery pipelines for supported deployment targets.
+
+Use it for:
+
+* Environment progression.
+* Release management.
+* Approvals.
+* Rollouts.
+* Rollback.
+* Delivery audit.
+
+Separate:
+
+* Build identity.
+* Release identity.
+* Deployment identity.
+* Runtime identity.
+
+The identity that builds software should not automatically have unrestricted production administration.
+
+---
+
+## 92. Binary Authorization
+
+Binary Authorization applies software-supply-chain policy to supported container deployments on GKE and Cloud Run.
+
+It can monitor or enforce whether images comply with a defined deployment policy. ([Google Cloud Documentation](https://docs.cloud.google.com/binary-authorization/docs/overview))
+
+Possible rules:
+
+* Image must come from an approved repository.
+* Image must have a vulnerability assessment.
+* Image must have a trusted attestation.
+* Production requires two approvals.
+* Unsigned images cannot deploy.
+* Emergency images require a logged exception.
+
+---
+
+## 93. AI pipeline gates
+
+Add AI-specific controls to the software pipeline:
+
+* Prompt regression tests.
+* Retrieval tests.
+* Groundedness evaluation.
+* Safety evaluation.
+* Bias and cohort testing.
+* Prompt-injection tests.
+* Data-leakage tests.
+* Tool-authorisation tests.
+* Agent loop tests.
+* Cost thresholds.
+* Latency thresholds.
+* Human approval.
+* Model and prompt registration.
+* Model licence check.
+* Dataset approval.
+
+A technically successful container build does not prove that an AI release is safe or useful.
+
+---
+
+# Part Seventeen: Google Cloud Security
+
+## 94. Apply Zero Trust
+
+Use three practical principles:
+
+1. Verify every request.
+2. Grant minimum necessary privilege.
+3. Assume compromise is possible.
+
+Apply them to:
+
+* Workforce users.
+* Administrators.
+* Service accounts.
+* CI/CD.
+* GKE workloads.
+* Cloud Run services.
+* Data.
+* Models.
+* Agents.
+* Tools.
+* External APIs.
+* Supplier integrations.
+
+---
+
+## 95. Cloud KMS
+
+Cloud KMS provides key-management services and integrates with supported Google Cloud services through customer-managed encryption keys.
+
+Options include:
+
+* Software keys.
+* Cloud HSM.
+* Cloud External Key Manager.
+* CMEK integrations.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/kms/docs))
+
+Understand:
+
+* Key rings.
+* Keys.
+* Key versions.
+* Rotation.
+* Destruction.
+* IAM.
+* Separation of duties.
+* Location.
+* Audit logging.
+* External-key availability.
+* Crypto-shredding implications.
+
+### Separation example
+
+| Role | Responsibility |
+| --- | --- |
+| Key administrator | Creates and rotates keys |
+| Key user | Uses key for encryption |
+| Security auditor | Reviews key activity |
+| Data owner | Approves protected data |
+| Platform operator | Operates consuming service |
+
+Avoid giving the same administrator unrestricted control over encrypted data and the keys protecting it.
+
+---
+
+## 96. Secret Manager
+
+Secret Manager stores and manages secret values separately from application code and configuration.
+
+It should be used for:
+
+* API credentials.
+* Database passwords.
+* Third-party tokens.
+* Certificates.
+* Webhook secrets.
+* Legacy credentials that cannot use identity federation.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/secret-manager/docs/overview))
+
+Prefer identity-based authentication over secrets when the target service supports it.
+
+Do not place secrets in:
+
+* Source code.
+* Terraform files.
+* Container images.
+* Prompt templates.
+* Model context.
+* Application logs.
+* Cloud Build configuration.
+* Agent memory.
+
+---
+
+## 97. Security Command Center
+
+Security Command Center is Google Cloud’s central risk, vulnerability and threat-management service.
+
+It supports areas including:
+
+* Asset discovery.
+* Misconfiguration detection.
+* Vulnerability findings.
+* Threat findings.
+* Compliance monitoring.
+* Attack-path analysis.
+* Security posture management.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/security-command-center/docs))
+
+### Operating model
+
+```text
+Security Command Center finding
+        ↓
+Severity and asset context
+        ↓
+Security triage
+        ↓
+Owner assignment
+        ↓
+Containment or remediation
+        ↓
+Validation
+        ↓
+Closure and control improvement
+```
+
+Define SLAs such as:
+
+| Severity | Example response target |
+| --- | --- |
+| Critical | Immediate triage |
+| High | Same business day |
+| Medium | Planned remediation |
+| Low | Backlog or accepted risk |
+
+---
+
+## 98. VPC Service Controls
+
+VPC Service Controls creates service perimeters around supported Google-managed services to reduce data-exfiltration risk.
+
+It is independent of IAM and should be used with IAM as defence in depth. ([Google Cloud Documentation](https://docs.cloud.google.com/vpc-service-controls/docs/overview))
+
+Use it to:
+
+* Protect BigQuery.
+* Protect Cloud Storage.
+* Protect supported Vertex AI services.
+* Restrict access from untrusted networks.
+* Control data movement across perimeters.
+* Define ingress and egress rules.
+* Protect regulated projects.
+
+### Important distinction
+
+IAM answers:
+
+> Who may access the resource?
+
+VPC Service Controls helps answer:
+
+> From which context may data be accessed, and where may it move?
+
+### Example
+
+```text
+High-risk AI perimeter
+├── Approved data project
+├── Vertex/agent project
+├── Evaluation project
+└── Evidence project
+
+Permitted egress
+├── Approved logging
+├── Approved model service
+└── Approved reporting project
+```
+
+Review supported services and limitations before designing a perimeter. ([Google Cloud Documentation](https://docs.cloud.google.com/vpc-service-controls/docs/supported-products))
+
+---
+
+## 99. Sensitive Data Protection
+
+Sensitive Data Protection provides inspection, classification and de-identification capabilities.
+
+It includes:
+
+* Built-in sensitive-data detectors.
+* Custom detectors.
+* Redaction.
+* Masking.
+* Format-preserving encryption.
+* Date shifting.
+* Risk analysis.
+* Discovery across organizations, folders and projects.
+* Inspection of text, structured data, files and images.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/sensitive-data-protection/docs))
+
+### AI data-protection flow
+
+```text
+Input
+ ↓
+Data classification
+ ↓
+Sensitive Data Protection
+ ↓
+Redact, mask or tokenize
+ ↓
+Approved model processing
+ ↓
+Output inspection
+ ↓
+Controlled logging
+```
+
+No automated PII detector should be described as perfect. Test custom data, languages, addresses, financial identifiers and organisation-specific formats.
+
+---
+
+## 100. Cloud Audit Logs
+
+Use audit logs to answer:
+
+* Who changed the IAM policy?
+* Who accessed sensitive data?
+* Which service account called the model?
+* Who deleted the bucket?
+* Which administrator changed the firewall?
+* Which deployment modified production?
+* Which principal impersonated a service account?
+
+Centralise and protect relevant audit logs. Separate audit-log administration from the teams whose activity is being audited.
+
+---
+
+## 101. Identity-Aware Proxy
+
+Identity-Aware Proxy can protect access to supported web applications and administrative resources based on identity and context.
+
+Use it for:
+
+* Internal administrative interfaces.
+* Private applications.
+* Controlled VM access.
+* Developer access.
+* Support consoles.
+
+It is generally preferable to exposing an administrative interface directly to the public internet and relying only on application passwords.
+
+---
+
+## 102. Cloud Armor, SCC and VPC-SC together
+
+These services solve different problems.
+
+| Control | Main purpose |
+| --- | --- |
+| Cloud Armor | Protect internet-facing application traffic |
+| IAM | Control principal permissions |
+| VPC firewall | Control network flows |
+| VPC Service Controls | Reduce data exfiltration from supported services |
+| SCC | Discover risk, vulnerabilities and threats |
+| KMS | Manage encryption keys |
+| Secret Manager | Store secrets |
+| Sensitive Data Protection | Discover and de-identify sensitive data |
+| Audit Logs | Record administrative and data activity |
+
+Do not treat one service as a replacement for all the others.
+
+---
+
+# Part Eighteen: Data Governance
+
+## 103. Data governance lifecycle
+
+```text
+Create or acquire data
+        ↓
+Classify
+        ↓
+Assign ownership
+        ↓
+Define lawful and permitted use
+        ↓
+Control access
+        ↓
+Measure quality
+        ↓
+Use in analytics or AI
+        ↓
+Monitor
+        ↓
+Retain or delete
+```
+
+### Governance questions
+
+* Who owns the data?
+* Who is the steward?
+* What does it mean?
+* How was it collected?
+* Is it accurate?
+* Is it personal?
+* Can it be used for AI?
+* Can it be used for fine-tuning?
+* Can it be indexed for RAG?
+* Can it leave the jurisdiction?
+* When must it be deleted?
+
+---
+
+## 104. Data classification
+
+Example:
+
+| Classification | Example | Expected controls |
+| --- | --- | --- |
+| Public | Published product information | Integrity and availability |
+| Internal | Internal procedures | Workforce access |
+| Confidential | Customer records | Strong access and monitoring |
+| Restricted | Payment, health or identity data | Dedicated controls and approvals |
+| Regulated | Legally controlled data | Regulatory control mapping |
+
+Classification should drive:
+
+* Project location.
+* IAM.
+* VPC Service Controls.
+* Encryption.
+* Logging.
+* Retention.
+* Model selection.
+* Human review.
+* Supplier use.
+
+---
+
+## 105. Data lineage
+
+Track lineage from:
+
+```text
+Source system
+→ Ingestion
+→ Transformation
+→ Curated dataset
+→ AI-ready dataset
+→ Embeddings
+→ Search index
+→ Prompt context
+→ Model response
+```
+
+Without lineage, the organisation may not be able to explain:
+
+* Which source affected an output.
+* Whether deleted data remains in an index.
+* Which transformation created an error.
+* Which model used a restricted dataset.
+* Which downstream assets need remediation.
+
+Knowledge Catalog can inventory and search data and AI assets while attaching governance context. ([Google Cloud Documentation](https://docs.cloud.google.com/dataplex/docs/catalog-overview))
+
+---
+
+# Part Nineteen: Vertex AI and Machine Learning
+
+## 106. Understand the AI platform layers
+
+```text
+Business outcome
+       ↓
+User experience
+       ↓
+Application workflow
+       ↓
+Agent or orchestration
+       ↓
+Prompt and context
+       ↓
+Retrieval
+       ↓
+Model
+       ↓
+Data
+       ↓
+Compute
+       ↓
+Security, governance and operations
+```
+
+A model is only one component of the full AI solution.
+
+---
+
+## 107. Vertex AI
+
+Vertex AI is Google Cloud’s managed AI and machine-learning platform.
+
+It supports areas including:
+
+* Data preparation.
+* Custom training.
+* AutoML.
+* Model registry.
+* Model deployment.
+* Online prediction.
+* Batch prediction.
+* Pipelines.
+* Experiments.
+* Feature management.
+* Model monitoring.
+* Generative models.
+* Model Garden.
+
+Vertex AI documentation describes Model Garden as a place to discover, test, customise and deploy Google and selected open models. ([Google Cloud](https://cloud.google.com/vertex-ai/docs))
+
+---
+
+## 108. Predictive ML roadmap
+
+Learn:
+
+1. Problem definition.
+2. Data collection.
+3. Data quality.
+4. Feature engineering.
+5. Baseline creation.
+6. Model selection.
+7. Training.
+8. Validation.
+9. Fairness evaluation.
+10. Deployment.
+11. Monitoring.
+12. Retraining.
+13. Retirement.
+
+### Predictive use cases
+
+* Fraud detection.
+* Demand forecasting.
+* Churn prediction.
+* Credit-risk support.
+* Anomaly detection.
+* Classification.
+* Recommendation.
+* Predictive maintenance.
+
+---
+
+## 109. Vertex AI Pipelines
+
+Use pipelines to automate:
+
+* Data extraction.
+* Validation.
+* Feature engineering.
+* Training.
+* Evaluation.
+* Model registration.
+* Deployment.
+* Monitoring setup.
+
+A pipeline should record:
+
+* Data version.
+* Code version.
+* Parameters.
+* Metrics.
+* Model artefact.
+* Approval result.
+* Deployment target.
+* Runtime identity.
+
+---
+
+## 110. Model Registry
+
+Use a model registry to track:
+
+* Model name.
+* Version.
+* Framework.
+* Training dataset.
+* Evaluation metrics.
+* Owner.
+* Licence.
+* Intended use.
+* Limitations.
+* Approval status.
+* Deployment history.
+* Retirement date.
+
+A model endpoint should not be the only record of which model is in production.
+
+---
+
+# Part Twenty: Generative AI on Google Cloud
+
+## 111. Gemini and Model Garden
+
+Model Garden provides access to Google models and selected partner or open models. It supports discovering, evaluating, customising and deploying models through the Google Cloud AI platform. ([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-garden/explore-models))
+
+Model-selection dimensions should include:
+
+| Dimension | Question |
+| --- | --- |
+| Task quality | Does it solve the target task? |
+| Safety | How does it behave under misuse? |
+| Grounding | Can it use approved sources reliably? |
+| Latency | Does it meet the user target? |
+| Cost | What is the cost per completed task? |
+| Context | Is the context window sufficient? |
+| Region | Is deployment available where required? |
+| Data policy | Is processing permitted? |
+| Modality | Is text, image, audio or video needed? |
+| Tool use | Does it generate valid tool calls? |
+| Portability | Can another model replace it? |
+| Governance | Is it approved for this risk tier? |
+
+Do not choose a model using a public benchmark alone.
+
+---
+
+## 112. Prompt engineering lifecycle
+
+```text
+Business task
+    ↓
+Prompt design
+    ↓
+Representative examples
+    ↓
+Structured output
+    ↓
+Evaluation dataset
+    ↓
+Security testing
+    ↓
+Version control
+    ↓
+Approval
+    ↓
+Deployment
+    ↓
+Monitoring
+```
+
+Treat prompts as versioned software artefacts.
+
+Store:
+
+* Prompt ID.
+* Version.
+* Owner.
+* Intended model.
+* Intended use.
+* Inputs.
+* Output schema.
+* Safety rules.
+* Evaluation result.
+* Approval.
+* Change history.
+
+---
+
+## 113. Model evaluation
+
+Google Cloud provides generative-AI evaluation capabilities that can compare model responses using defined datasets and metrics. Current documentation exposes model and agent evaluation through the Gemini Enterprise Agent Platform. ([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/evaluation-overview))
+
+Evaluate:
+
+### Quality
+
+* Relevance.
+* Completeness.
+* Accuracy.
+* Groundedness.
+* Citation correctness.
+* Instruction following.
+* Coherence.
+
+### Safety
+
+* Harmful content.
+* Illegal assistance.
+* Hate.
+* Harassment.
+* Sexual content.
+* Dangerous guidance.
+* Self-harm content.
+
+### Security
+
+* Prompt injection.
+* System-prompt extraction.
+* Secret extraction.
+* Data leakage.
+* Tool abuse.
+* Cross-tenant exposure.
+
+### Operational
+
+* Latency.
+* Availability.
+* Timeout.
+* Quota exhaustion.
+* Token usage.
+* Cost.
+
+---
+
+# Part Twenty-One: Retrieval-Augmented Generation
+
+## 114. Enterprise RAG architecture
+
+```text
+User
+ ↓
+Cloud Load Balancer + Cloud Armor
+ ↓
+API Gateway or Apigee
+ ↓
+Authentication and authorisation
+ ↓
+Model Armor
+ ↓
+Cloud Run or GKE orchestrator
+ ↓
+Query classification
+ ↓
+User and tenant access filter
+ ↓
+Retrieval service
+ ↓
+Authorised documents
+ ↓
+Gemini model
+ ↓
+Groundedness and output validation
+ ↓
+Response with citations
+```
+
+---
+
+## 115. RAG ingestion pipeline
+
+```text
+Source systems
+    ↓
+Connector
+    ↓
+Malware scan
+    ↓
+Sensitive-data inspection
+    ↓
+Document extraction
+    ↓
+Access metadata extraction
+    ↓
+Chunking
+    ↓
+Quality validation
+    ↓
+Embedding
+    ↓
+Index
+    ↓
+Evaluation
+```
+
+### Record for every chunk
+
+* Source document ID.
+* Source system.
+* Owner.
+* Tenant.
+* Classification.
+* Access groups.
+* Effective date.
+* Expiration date.
+* Jurisdiction.
+* Document status.
+* Chunking version.
+* Embedding model.
+* Hash.
+* Deletion status.
+
+---
+
+## 116. Retrieval options
+
+Depending on the architecture, Google Cloud options may include:
+
+* Gemini Enterprise Agent Platform RAG capabilities.
+* Agent Retrieval.
+* Vertex AI Vector Search.
+* BigQuery vector search.
+* Spanner.
+* AlloyDB.
+* Third-party vector databases.
+* Search-based products.
+
+Current agent-platform documentation exposes RAG Engine, Agent Retrieval and Vector Search options with metadata filtering and private-connectivity patterns. ([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview))
+
+Select from:
+
+* Scale.
+* Latency.
+* Hybrid search.
+* Metadata filtering.
+* Tenant isolation.
+* Networking.
+* Consistency.
+* Operational complexity.
+* Cost.
+* Data residency.
+* Portability.
+
+---
+
+## 117. RAG authorisation
+
+Do not ask the model to decide whether a user may view a document.
+
+Authorisation should happen before context reaches the model.
+
+```text
+Authenticated user
+       ↓
+Resolve tenant and groups
+       ↓
+Create deterministic retrieval filter
+       ↓
+Retrieve permitted content only
+       ↓
+Send permitted context to model
+```
+
+Controls may include:
+
+* Tenant ID.
+* Group.
+* Role.
+* Data classification.
+* Region.
+* Legal entity.
+* Document lifecycle state.
+* User entitlement.
+* Case assignment.
+
+---
+
+## 118. RAG evaluation
+
+Evaluate retrieval and generation separately.
+
+### Retrieval metrics
+
+* Recall.
+* Precision.
+* Mean reciprocal rank.
+* Relevant-document rate.
+* Access-filter correctness.
+* Stale-document rate.
+* Empty-retrieval rate.
+
+### Generation metrics
+
+* Groundedness.
+* Citation support.
+* Completeness.
+* Contradiction.
+* Hallucination.
+* Correct refusal.
+* Tone.
+* Task completion.
+
+A poor final answer might be caused by:
+
+* Missing source content.
+* Bad chunking.
+* Poor retrieval.
+* Incorrect permissions.
+* Weak prompt.
+* Model limitations.
+* Stale information.
+
+---
+
+# Part Twenty-Two: Agentic AI
+
+## 119. Current Google Cloud agent platform
+
+Current Google Cloud documentation presents the managed agent environment as the **Gemini Enterprise Agent Platform**.
+
+It includes capabilities such as:
+
+* Agent Runtime.
+* Agent Development Kit.
+* Sessions.
+* Memory Bank.
+* Sandbox.
+* Code execution.
+* Computer use.
+* Agent Gateway.
+* Agent identity.
+* Agent registry.
+* Semantic governance policies.
+* Evaluation.
+* Tracing.
+* Logging.
+* Monitoring.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview))
+
+---
+
+## 120. Agent Development Kit
+
+The Agent Development Kit provides a development framework for creating agents that can then run through Google Cloud’s managed agent environment. Current platform documentation also describes support for frameworks and protocols such as ADK, Agent2Agent, LangChain, LangGraph and custom agents. ([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview))
+
+Use a framework only after defining:
+
+* Business objective.
+* Allowed actions.
+* Identity.
+* Tool permissions.
+* Human oversight.
+* Memory policy.
+* Evaluation criteria.
+* Incident process.
+
+---
+
+## 121. Agent Runtime
+
+Agent Runtime provides managed execution and scaling for deployed agents.
+
+Current capabilities include:
+
+* Revision management.
+* Traffic management.
+* Logging.
+* Monitoring.
+* Tracing.
+* Agent access controls.
+* Agent identity.
+* Private Service Connect integration.
+* Agent Gateway routing.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview))
+
+### Agent deployment stages
+
+```text
+Local agent
+    ↓
+Development runtime
+    ↓
+Offline evaluation
+    ↓
+Security testing
+    ↓
+Governance approval
+    ↓
+Staging runtime
+    ↓
+Limited production traffic
+    ↓
+Continuous evaluation
+    ↓
+Full production
+```
+
+---
+
+## 122. Agent identity
+
+An agent needs a clear identity model.
+
+Possible identities include:
+
+* Agent platform service identity.
+* Workload service account.
+* End-user delegated identity.
+* Tool-specific OAuth identity.
+* Short-lived capability token.
+
+### Identity propagation
+
+For consequential actions, the tool must understand:
+
+* Which human initiated the request?
+* Which agent proposed the action?
+* Which service executed it?
+* Which authorisation was evaluated?
+* Which policy allowed it?
+* Which approval was obtained?
+
+Google’s recent SAIF implementation guidance emphasises identity propagation for secure agentic AI. ([Google Cloud](https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-practical-guidance-building-with-SAIF))
+
+---
+
+## 123. Agent Gateway
+
+Agent Gateway provides governed connectivity between agent runtimes and external or internal tools.
+
+Current platform documentation includes:
+
+* Delegated authorisation.
+* Gateway monitoring.
+* VPC connectivity.
+* Routing.
+* Model Armor integration.
+* MCP server connectivity.
+
+([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview))
+
+### Use the gateway to control
+
+* Which tools are approved.
+* Which agents may call a tool.
+* Which user permissions are propagated.
+* Which arguments are valid.
+* Which destinations are allowed.
+* Which requests need approval.
+* Which calls are logged.
+* Which calls are blocked.
+
+---
+
+## 124. Sessions and Memory Bank
+
+### Sessions
+
+Sessions maintain short-term conversational state.
+
+### Memory Bank
+
+Memory Bank supports persistent long-term memories such as user preferences and relevant facts. Current documentation includes access control through IAM Conditions and memory revisions. ([Google Cloud Documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview))
+
+### Memory governance
+
+Define:
+
+* What may be remembered.
+* What must not be remembered.
+* Consent.
+* Retention.
+* Tenant isolation.
+* User access.
+* Correction.
+* Deletion.
+* Confidence.
+* Source.
+* Expiration.
+* Revision history.
+
+Never allow an agent to write arbitrary unvalidated content into permanent memory.
+
+---
+
+## 125. Agent sandbox and code execution
+
+Sandboxed execution can support:
+
+* Code execution.
+* Data transformation.
+* File processing.
+* Computer-use tasks.
+* Temporary calculations.
+
+Controls should include:
+
+* Network restrictions.
+* Filesystem isolation.
+* Time limits.
+* CPU and memory limits.
+* Package allowlists.
+* No production credentials.
+* Output inspection.
+* Malware scanning.
+* Full audit.
+* Destruction after execution.
+
+A sandbox reduces risk but does not make arbitrary agent-generated code inherently safe.
+
+---
+
+## 126. Agent tool risk classification
+
+| Tool type | Example | Minimum control |
+| --- | --- | --- |
+| Read-only | Search policy | User-scoped access |
+| Draft-only | Draft email | Review before sending |
+| Reversible write | Create case note | Preview and audit |
+| External communication | Send message | Recipient confirmation |
+| Financial | Create payment | Strong approval and limits |
+| Privileged IT | Change firewall | Dual authorisation |
+| Destructive | Delete data | Usually prohibit or dual control |
+| Physical | Control machinery | Safety-certified deterministic layer |
+
+The model may propose the action. Deterministic software should decide whether it is allowed.
+
+
+---
+
+# Part Twenty-Three: AI Security
+
+## 127. Google Secure AI Framework
+
+Google’s Secure AI Framework, or SAIF, provides a framework for securing AI systems through their lifecycle. Google has published risk maps, assessments and control guidance for applying AI security systematically. ([Google Cloud](https://cloud.google.com/use-cases/secure-ai-framework))
+
+SAIF can be operationalised across:
+
+1. AI asset inventory.
+2. Threat modelling.
+3. Data protection.
+4. Model supply chain.
+5. Access control.
+6. Runtime protection.
+7. Detection and response.
+8. Governance.
+9. Security automation.
+10. Continuous assurance.
+
+---
+
+## 128. AI asset inventory
+
+Inventory:
+
+* AI applications.
+* Models.
+* Model versions.
+* Model providers.
+* Prompts.
+* Agents.
+* Tools.
+* MCP servers.
+* RAG indexes.
+* Embedding models.
+* Fine-tuning datasets.
+* Evaluation datasets.
+* Runtime service accounts.
+* External APIs.
+* Memory stores.
+* Sandboxes.
+* Safety controls.
+
+Each asset should have:
+
+* Owner.
+* Environment.
+* Risk tier.
+* Data classification.
+* Region.
+* Approval status.
+* Last assessment.
+* End-of-life date.
+
+---
+
+## 129. AI threat areas
+
+### Data threats
+
+* Unauthorised training data.
+* Data poisoning.
+* Retrieval poisoning.
+* Embedding poisoning.
+* Personal-data leakage.
+* Cross-tenant leakage.
+* Membership inference.
+* Model inversion.
+* Uncontrolled retention.
+* Sensitive logs.
+
+### Model threats
+
+* Model extraction.
+* Model theft.
+* Backdoored models.
+* Malicious model files.
+* Unsafe fine-tuning.
+* Adversarial input.
+* Model drift.
+* Unapproved model substitution.
+* Supplier compromise.
+
+### Prompt threats
+
+* Direct prompt injection.
+* Indirect prompt injection.
+* Jailbreaking.
+* System-prompt extraction.
+* Secret extraction.
+* Context manipulation.
+* Encoding and obfuscation attacks.
+
+### Agent threats
+
+* Excessive agency.
+* Tool abuse.
+* Privilege escalation.
+* Memory poisoning.
+* Confused-deputy attacks.
+* Malicious MCP server.
+* Identity-propagation failure.
+* Infinite loops.
+* Unauthorised transactions.
+* Social engineering through retrieved content.
+
+---
+
+## 130. Model Armor
+
+Model Armor provides runtime protections for generative and agentic AI interactions.
+
+Google describes capabilities including:
+
+* Prompt-injection detection.
+* Jailbreak detection.
+* Sensitive-data leakage controls.
+* Harmful-content controls.
+* Malicious URL detection.
+* Malware detection.
+* Prompt and response screening.
+* Model-agnostic REST integration.
+* Agent-platform integration.
+
+([Google Cloud](https://cloud.google.com/security/products/model-armor))
+
+### Placement
+
+```text
+User input
+    ↓
+Model Armor
+    ↓
+Application policy
+    ↓
+Model or agent
+    ↓
+Model Armor
+    ↓
+Output validation
+    ↓
+User
+```
+
+Model Armor is one control layer. It does not replace:
+
+* IAM.
+* Retrieval authorisation.
+* Tool authorisation.
+* Business rules.
+* Human approval.
+* Secure output handling.
+* Threat monitoring.
+
+---
+
+## 131. Prompt injection defence
+
+Use defence in depth:
+
+```text
+Input limits
++
+Authentication
++
+Model Armor
++
+Trusted/untrusted-content separation
++
+RAG access filtering
++
+Tool allowlists
++
+Least privilege
++
+Argument validation
++
+Human approval
++
+Output validation
++
+Runtime monitoring
+```
+
+### Indirect prompt injection
+
+Treat the following as untrusted:
+
+* PDFs.
+* Websites.
+* Emails.
+* Images.
+* Search results.
+* Database text.
+* Tool output.
+* MCP descriptions.
+* User-uploaded files.
+* Agent memory.
+
+Untrusted content must not be allowed to redefine:
+
+* System authority.
+* User identity.
+* Tool permissions.
+* Financial limits.
+* Data access.
+* Logging.
+* Approval requirements.
+
+---
+
+## 132. Protect system prompts
+
+System prompts are instructions, not secure secret stores.
+
+Do not include:
+
+* Passwords.
+* API keys.
+* Database credentials.
+* Encryption keys.
+* Confidential network details.
+* Full access-control matrices.
+* Unnecessary personal data.
+
+Store system prompts in:
+
+* Version control.
+* Controlled configuration.
+* Approved prompt registry.
+* Environment-specific release process.
+
+Test whether the system reveals or reconstructs prompt content under adversarial requests.
+
+---
+
+## 133. Secure model output
+
+Treat model output as untrusted data.
+
+Before using it downstream:
+
+* Parse a strict schema.
+* Validate types.
+* Validate allowed values.
+* Enforce length.
+* Escape HTML.
+* Parameterise database queries.
+* Validate URLs.
+* Validate file paths.
+* Restrict shell commands.
+* Validate recipients.
+* Validate financial amounts.
+* Apply business policy.
+* Require approval for consequential actions.
+
+Never directly execute unrestricted model output as:
+
+* SQL.
+* Shell.
+* Python.
+* Terraform.
+* Kubernetes YAML.
+* Payment instructions.
+* Email recipients.
+* IAM changes.
+
+---
+
+## 134. Secure RAG
+
+Controls include:
+
+* Source allowlisting.
+* Malware scanning.
+* Sensitive-data discovery.
+* Provenance.
+* Access metadata.
+* Tenant filters.
+* Freshness controls.
+* Document approval.
+* Injection scanning.
+* Output citations.
+* Deletion propagation.
+* Index integrity monitoring.
+
+### Poisoning detection
+
+Monitor:
+
+* Sudden source changes.
+* Unusual instruction-like text.
+* Hidden text.
+* Encoded instructions.
+* Metadata modification.
+* New external links.
+* Unsupported document owners.
+* High retrieval frequency from one suspicious source.
+
+---
+
+## 135. Secure agents
+
+Implement:
+
+### Least privilege
+
+Every agent and tool gets only required permissions.
+
+### User-scoped authorisation
+
+Agent permissions must not silently exceed the initiating user’s permissions.
+
+### Action confirmation
+
+Require confirmation for:
+
+* External communication.
+* Data modification.
+* Deletion.
+* Payments.
+* Regulatory submissions.
+* Infrastructure changes.
+* Customer decisions.
+
+### Limits
+
+Enforce:
+
+* Monetary limits.
+* Recipient allowlists.
+* Rate limits.
+* Time windows.
+* Geographic limits.
+* Data-scope limits.
+* Maximum tool calls.
+* Maximum execution time.
+* Maximum token consumption.
+
+### Kill switch
+
+Be able to disable:
+
+* One agent.
+* One tool.
+* One model.
+* One user.
+* One project.
+* One memory store.
+* All consequential actions.
+
+---
+
+## 136. AI supply-chain security
+
+Track:
+
+* Model source.
+* Model licence.
+* Model version.
+* Model hash.
+* Training-data source.
+* Fine-tuning data.
+* Embedding model.
+* Container images.
+* Python dependencies.
+* Prompt libraries.
+* Agent framework.
+* MCP servers.
+* Plugins.
+* Evaluation tools.
+
+Produce:
+
+* Software Bill of Materials.
+* AI Bill of Materials.
+* Model card.
+* Dataset documentation.
+* Prompt record.
+* Provenance.
+* Vulnerability report.
+* Supplier assessment.
+* Approval record.
+
+Use Artifact Registry, Cloud Build provenance, vulnerability scanning and Binary Authorization to strengthen the software portion of the AI supply chain. ([Google Cloud Documentation](https://docs.cloud.google.com/binary-authorization/docs/cloud-build))
+
+---
+
+## 137. AI security monitoring
+
+Monitor:
+
+* Prompt-injection attempts.
+* Jailbreak attempts.
+* Sensitive-data blocks.
+* Unusual model calls.
+* Large token spikes.
+* Tool-call anomalies.
+* Agent loops.
+* Cross-tenant access attempts.
+* New model deployment.
+* New agent revision.
+* Memory modification.
+* Service-account impersonation.
+* VPC-SC violations.
+* Model Armor findings.
+* SCC findings.
+
+Create response playbooks for each major event.
+
+---
+
+# Part Twenty-Four: AI Governance
+
+## 138. AI governance lifecycle
+
+```text
+Idea
+ ↓
+Use-case intake
+ ↓
+Risk classification
+ ↓
+Business and technical feasibility
+ ↓
+Data approval
+ ↓
+Architecture and threat modelling
+ ↓
+Build
+ ↓
+Evaluation
+ ↓
+Security and privacy review
+ ↓
+Deployment approval
+ ↓
+Monitoring
+ ↓
+Change control
+ ↓
+Retirement
+```
+
+Governance should not be a single meeting at the end of development.
+
+---
+
+## 139. Governance operating model
+
+### Executive leadership
+
+Owns:
+
+* AI strategy.
+* Risk appetite.
+* Investment.
+* Accountability.
+* High-risk exceptions.
+
+### AI governance council
+
+Owns:
+
+* Policies.
+* Standards.
+* Portfolio oversight.
+* Risk classification.
+* Escalation.
+
+### Responsible AI committee
+
+Reviews:
+
+* Fairness.
+* Transparency.
+* Safety.
+* Human impact.
+* Inclusiveness.
+* High-impact use cases.
+
+### Security
+
+Owns:
+
+* Threat modelling.
+* Security controls.
+* Red teaming.
+* Monitoring.
+* Incident response.
+
+### Privacy and legal
+
+Owns:
+
+* Lawful basis.
+* DPIA.
+* Notices.
+* Contracts.
+* Data-subject rights.
+* Regulatory interpretation.
+
+### Data governance
+
+Owns:
+
+* Classification.
+* Quality.
+* Lineage.
+* Access.
+* Retention.
+* Approved use.
+
+### Platform engineering
+
+Owns:
+
+* GCP foundation.
+* Shared AI platform.
+* Guardrails.
+* Deployment patterns.
+* Reliability.
+* FinOps.
+
+### Product and model owners
+
+Own:
+
+* Business value.
+* Quality.
+* User outcomes.
+* Model performance.
+* Change control.
+* Retirement.
+
+---
+
+## 140. AI use-case intake
+
+Capture:
+
+| Field | Question |
+| --- | --- |
+| Business objective | What measurable outcome is expected? |
+| Owner | Who is accountable? |
+| Users | Who operates the system? |
+| Affected people | Who may be impacted? |
+| Decision | What decision or action does AI influence? |
+| Data | Which data is processed? |
+| Model | Which model class is proposed? |
+| Agent authority | Which actions can it perform? |
+| Human oversight | Where can a human intervene? |
+| Failure impact | What happens if it is wrong? |
+| Regulation | Which obligations apply? |
+| Benefit | How will value be measured? |
+| Reversibility | Can actions and outcomes be reversed? |
+
+---
+
+## 141. Risk classification
+
+### Tier 1: Low risk
+
+Examples:
+
+* Internal drafting.
+* Public-information summarisation.
+* Low-impact productivity assistance.
+
+Controls:
+
+* Named owner.
+* Standard security.
+* Basic quality testing.
+* User disclosure.
+* Monitoring.
+
+### Tier 2: Moderate risk
+
+Examples:
+
+* Customer-service assistant.
+* Internal policy search.
+* Marketing-content generation.
+* Employee productivity agent.
+
+Controls:
+
+* Formal risk review.
+* Data approval.
+* Security testing.
+* Human escalation.
+* Safety evaluation.
+* Monitoring.
+
+### Tier 3: High risk
+
+Examples:
+
+* Credit-decision support.
+* Recruitment screening.
+* Medical assistance.
+* Fraud investigation.
+* Significant financial workflow.
+* Public-service eligibility.
+
+Controls:
+
+* AI impact assessment.
+* DPIA where appropriate.
+* Independent validation.
+* Formal human oversight.
+* Extensive red teaming.
+* Senior approval.
+* Continuous monitoring.
+* Incident reporting.
+
+### Tier 4: Prohibited
+
+The use case must not proceed where it violates:
+
+* Applicable law.
+* Regulatory restrictions.
+* Human-rights commitments.
+* Organisational policy.
+* Risk appetite.
+
+---
+
+## 142. Governance artefacts
+
+Maintain:
+
+| Artefact | Purpose |
+| --- | --- |
+| AI inventory | Register all AI systems |
+| Use-case record | Describe purpose and ownership |
+| Risk assessment | Determine required controls |
+| AI impact assessment | Assess effects on people |
+| DPIA | Assess personal-data risks |
+| Threat model | Identify security threats |
+| Data sheet | Record source and permitted use |
+| Model card | Record model capability and limits |
+| Prompt card | Record prompt and policy configuration |
+| Evaluation report | Demonstrate quality and safety |
+| Red-team report | Demonstrate adversarial testing |
+| Tool register | Record agent tools and permissions |
+| Human-oversight plan | Define intervention |
+| Monitoring plan | Define thresholds |
+| Incident plan | Define response |
+| Change record | Track system changes |
+| Retirement plan | Safely decommission |
+
+---
+
+## 143. Model and agent change control
+
+Reassessment may be required when changing:
+
+* Model provider.
+* Model version.
+* Prompt.
+* Retrieval source.
+* Embedding model.
+* Chunking.
+* Safety threshold.
+* Agent tool.
+* Agent permissions.
+* Memory policy.
+* User population.
+* Country.
+* Data category.
+* Automated action.
+* Fine-tuning dataset.
+* Hosting Region.
+
+### Change levels
+
+| Change | Likely review |
+| --- | --- |
+| Typographical prompt fix | Regression tests |
+| New model version | Quality and security evaluation |
+| New retrieval source | Data, privacy and RAG review |
+| New read-only tool | Tool-security review |
+| New financial action | Full risk and approval cycle |
+| New country | Legal and regulatory reassessment |
+
+---
+
+# Part Twenty-Five: Responsible AI and Compliance
+
+## 144. Google AI Principles
+
+Google publishes AI Principles intended to guide responsible development and use of AI products and services, including human oversight, due diligence and feedback mechanisms. ([Google AI](https://ai.google/responsibility/principles/))
+
+Translate principles into engineering questions:
+
+### Human oversight
+
+* Can a human intervene?
+* Can the system be stopped?
+* Are consequential actions reviewed?
+* Can users challenge outcomes?
+
+### Safety
+
+* What foreseeable harms exist?
+* How is unsafe behaviour measured?
+* What fallback exists?
+* How is misuse monitored?
+
+### Privacy
+
+* Is all data necessary?
+* Is it used for an approved purpose?
+* Can it be deleted?
+* Is it exposed to suppliers?
+
+### Accountability
+
+* Who approves deployment?
+* Who owns quality?
+* Who owns harm?
+* Who responds to incidents?
+
+---
+
+## 145. NIST AI RMF
+
+The NIST AI Risk Management Framework uses four functions:
+
+1. Govern.
+2. Map.
+3. Measure.
+4. Manage.
+
+NIST also provides a Generative AI Profile as a companion resource for risks specific to generative AI. ([NIST](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence))
+
+### Govern
+
+Establish:
+
+* Policies.
+* Accountability.
+* Risk appetite.
+* Roles.
+* Training.
+* Documentation.
+* Supplier governance.
+
+### Map
+
+Understand:
+
+* Context.
+* Users.
+* Affected people.
+* Data.
+* Intended use.
+* Misuse.
+* Dependencies.
+* Failure impact.
+
+### Measure
+
+Assess:
+
+* Accuracy.
+* Reliability.
+* Fairness.
+* Security.
+* Privacy.
+* Explainability.
+* Robustness.
+* Safety.
+
+### Manage
+
+Respond through:
+
+* Mitigation.
+* Avoidance.
+* Acceptance.
+* Transfer.
+* Monitoring.
+* Incident response.
+* Retirement.
+
+---
+
+## 146. ISO/IEC 42001
+
+ISO/IEC 42001 is an AI management-system standard covering the establishment, implementation, maintenance and continual improvement of organisational AI governance. ([ISO](https://www.iso.org/standard/81230.html))
+
+Apply a Plan-Do-Check-Act model:
+
+```text
+Plan
+├── Define scope
+├── Identify stakeholders
+├── Assess risks
+├── Set AI policy
+└── Define objectives
+
+Do
+├── Implement controls
+├── Train people
+├── Manage suppliers
+├── Govern data and models
+└── Maintain evidence
+
+Check
+├── Monitor
+├── Evaluate
+├── Audit
+└── Review performance
+
+Act
+├── Correct issues
+├── Improve controls
+├── Update assessments
+└── Complete management review
+```
+
+---
+
+## 147. EU AI Act
+
+The EU AI Act establishes harmonised rules for developing, placing on the market, putting into service and using AI systems in the European Union. It follows a risk-based approach and includes obligations for high-risk systems and general-purpose AI. ([EUR-Lex](https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en))
+
+Assess whether the organisation acts as:
+
+* Provider.
+* Deployer.
+* Importer.
+* Distributor.
+* Authorised representative.
+* General-purpose model provider.
+
+High-risk control areas can include:
+
+* Risk management.
+* Data governance.
+* Technical documentation.
+* Logging.
+* Human oversight.
+* Accuracy.
+* Robustness.
+* Cybersecurity.
+* Quality management.
+* Post-market monitoring.
+* Incident reporting.
+
+Using Gemini or another third-party model does not automatically transfer all regulatory responsibility to Google.
+
+---
+
+## 148. UK GDPR and data protection
+
+The ICO’s AI guidance explains how data-protection law applies to AI systems processing personal data and describes data-protection-compliant AI practices. ([ICO](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/about-this-guidance/))
+
+Consider:
+
+* Lawfulness.
+* Fairness.
+* Transparency.
+* Purpose limitation.
+* Data minimisation.
+* Accuracy.
+* Storage limitation.
+* Security.
+* Accountability.
+* Individual rights.
+* Automated decision-making.
+* Profiling.
+* International transfers.
+
+### DPIA considerations
+
+A DPIA may be required where AI involves:
+
+* Large-scale personal data.
+* Special-category data.
+* Vulnerable people.
+* Systematic monitoring.
+* Novel technology.
+* Significant automated decisions.
+* Multiple combined datasets.
+* Biometric data.
+* High risk to individuals.
+
+---
+
+# Part Twenty-Six: AI Incident Response
+
+## 149. AI incident categories
+
+Create classifications for:
+
+* Personal-data disclosure.
+* Prompt injection.
+* Unauthorised tool call.
+* Unauthorised payment.
+* Harmful response.
+* Discriminatory outcome.
+* Material hallucination.
+* Cross-tenant leakage.
+* Model compromise.
+* Data poisoning.
+* Memory poisoning.
+* Supplier incident.
+* Excessive cost.
+* Model outage.
+* Agent identity compromise.
+* Shadow AI.
+* Copyright complaint.
+
+---
+
+## 150. Response process
+
+```text
+Detect
+ ↓
+Triage
+ ↓
+Contain
+ ↓
+Preserve evidence
+ ↓
+Assess impact
+ ↓
+Notify
+ ↓
+Remediate
+ ↓
+Validate
+ ↓
+Restore
+ ↓
+Review
+ ↓
+Improve
+```
+
+### Containment actions
+
+* Disable an agent.
+* Remove a tool.
+* Revoke a service account.
+* Block a prompt pattern.
+* Roll back a model.
+* Roll back a prompt.
+* Remove a document from retrieval.
+* Disable memory writes.
+* Switch to human-only processing.
+* Reduce quota.
+* Block egress.
+* Rotate secrets.
+* Activate fallback model.
+
+---
+
+# Part Twenty-Seven: FinOps and AI Economics
+
+## 151. Google Cloud cost management
+
+Google Cloud Billing provides cost reporting, budgets, alerts, billing exports and FinOps capabilities. Budgets can generate programmatic notifications through Pub/Sub for automated cost responses. ([Google Cloud Documentation](https://docs.cloud.google.com/billing/docs/how-to/budgets))
+
+Track cost by:
+
+* Organization.
+* Folder.
+* Project.
+* Service.
+* Environment.
+* Application.
+* Team.
+* Region.
+* Label.
+* Customer.
+* Business capability.
+
+---
+
+## 152. Labelling standard
+
+Example:
+
+```text
+application       = finance-assistant
+environment       = production
+business-owner    = finance-transformation
+technical-owner   = ai-platform
+cost-centre       = cc-401
+data-class        = confidential
+ai-risk-tier      = high
+managed-by        = terraform
+```
+
+Use labels consistently for:
+
+* Cost.
+* Ownership.
+* Automation.
+* Inventory.
+* Incident response.
+* Lifecycle.
+* Compliance.
+
+---
+
+## 153. AI FinOps
+
+Track:
+
+* Input tokens.
+* Output tokens.
+* Cached tokens.
+* Embedding requests.
+* Model.
+* Model version.
+* Agent tool calls.
+* Retrieval cost.
+* Vector-storage cost.
+* Safety-control cost.
+* Evaluation cost.
+* Cost per user.
+* Cost per completed task.
+* Cost per successful outcome.
+* Failed-request cost.
+* Human-review cost.
+
+### Optimisation methods
+
+* Use the smallest model meeting quality requirements.
+* Route requests by complexity.
+* Limit context.
+* Improve retrieval precision.
+* Summarise long conversations.
+* Batch embeddings.
+* Remove duplicates.
+* Cache only where safe.
+* Limit agent iterations.
+* Set per-user quotas.
+* Use budget alerts.
+* Shut down unused endpoints.
+* Delete obsolete indexes.
+* Attribute cost to owners.
+
+---
+
+## 154. AI unit economics
+
+A simplified unit-cost model is:
+
+```text
+Model inference
++ Retrieval
++ Storage
++ Application compute
++ Guardrails
++ Observability
++ Evaluation
++ Human review
++ Support
+= Total cost per task
+```
+
+Compare that against:
+
+* Time saved.
+* Revenue generated.
+* Deflection.
+* Error reduction.
+* Risk reduction.
+* Customer satisfaction.
+* Faster cycle time.
+
+A solution with impressive model output can still be commercially unsuccessful.
+
+---
+
+# Part Twenty-Eight: Enterprise GCP AI Reference Architecture
+
+## 155. Secure reference architecture
+
+```text
+Users
+  ↓
+Cloud DNS
+  ↓
+Global Application Load Balancer
+  ↓
+Cloud Armor
+  ↓
+Apigee or API Gateway
+  ├── Authentication
+  ├── Quotas
+  ├── Rate limits
+  ├── Request validation
+  └── Correlation ID
+        ↓
+Model Armor
+        ↓
+Cloud Run / GKE application
+  ├── Authorisation service
+  ├── Policy engine
+  ├── RAG orchestrator
+  ├── Agent orchestrator
+  └── Output validator
+        ↓
+Dedicated workload identities
+  ├── Gemini/model endpoint
+  ├── Agent Platform
+  ├── Retrieval
+  ├── Cloud Storage
+  ├── Cloud SQL/Spanner/Firestore
+  └── Memorystore
+        ↓
+Cloud Logging and Monitoring
+        ↓
+Security Command Center
+        ↓
+Knowledge Catalog and Sensitive Data Protection
+```
+
+### Platform controls
+
+* Separate production project.
+* Service perimeters.
+* Private connectivity.
+* Dedicated service accounts.
+* No long-lived keys.
+* Model Armor.
+* Tool allowlists.
+* Deterministic authorisation.
+* Human approval.
+* Central tracing.
+* Prompt and model versioning.
+* Budget controls.
+* Kill switch.
+* Tested recovery.
+
+---
+
+# Part Twenty-Nine: Financial-Services AI Capstone
+
+## 156. Scenario
+
+Build an internal finance assistant that can:
+
+* Answer policy questions.
+* Analyse invoices.
+* Summarise financial documents.
+* Draft finance reports.
+* Retrieve authorised customer information.
+* Create case-management drafts.
+* Escalate uncertain cases.
+* Produce source-backed answers.
+* Never transfer funds autonomously.
+
+---
+
+## 157. Functional requirements
+
+The system must provide:
+
+* Workforce SSO.
+* Role-based access.
+* Tenant-aware retrieval.
+* PII detection.
+* Source citations.
+* Human escalation.
+* Conversation history.
+* User feedback.
+* Administrative audit.
+* Agent tool controls.
+* Safe refusal.
+* Accessibility.
+* Multilingual support where required.
+
+---
+
+## 158. Non-functional requirements
+
+Define:
+
+* Availability target.
+* Response-time target.
+* RTO.
+* RPO.
+* GDPR controls.
+* AI risk tier.
+* Data residency.
+* Encryption.
+* Private connectivity.
+* Model fallback.
+* Maximum task cost.
+* Maximum agent iterations.
+* Audit retention.
+* Support ownership.
+* Incident response.
+
+---
+
+## 159. Capstone architecture
+
+```text
+Employee
+  ↓
+Workforce identity
+  ↓
+Cloud Load Balancer + Cloud Armor
+  ↓
+Apigee
+  ↓
+Model Armor
+  ↓
+Cloud Run
+  ├── Authentication context
+  ├── Policy engine
+  ├── Sensitive-data service
+  ├── RAG service
+  ├── Agent service
+  └── Output validator
+       ↓
+Gemini Enterprise Agent Platform
+       ↓
+Authorised retrieval
+       ↓
+Cloud Storage + Knowledge Catalog
+       ↓
+Cloud SQL or Spanner
+       ↓
+Cloud Logging, Monitoring and Trace
+       ↓
+Security Command Center
+```
+
+---
+
+## 160. Capstone delivery stages
+
+### Stage 1: Discovery
+
+Produce:
+
+* Problem statement.
+* Stakeholder map.
+* Current process.
+* Baseline.
+* Expected value.
+* Use-case shortlist.
+* Risk assumptions.
+
+### Stage 2: Assessment
+
+Complete:
+
+* Feasibility.
+* Data assessment.
+* Model assessment.
+* Cost estimate.
+* Risk classification.
+* Regulatory screening.
+* Supplier assessment.
+
+### Stage 3: Governance
+
+Produce:
+
+* AI use-case record.
+* Impact assessment.
+* DPIA screening.
+* Human-oversight plan.
+* Model and tool register.
+* Approval path.
+
+### Stage 4: Architecture
+
+Produce:
+
+* Context diagram.
+* Container diagram.
+* Data-flow diagram.
+* Trust-boundary diagram.
+* IAM matrix.
+* Network design.
+* Threat model.
+* Recovery design.
+
+### Stage 5: Prototype
+
+Validate:
+
+* Model quality.
+* Retrieval quality.
+* Citation quality.
+* PII controls.
+* Prompt injection defence.
+* User experience.
+* Cost.
+
+### Stage 6: Production engineering
+
+Implement:
+
+* Terraform.
+* CI/CD.
+* Binary Authorization.
+* Private connectivity.
+* VPC Service Controls.
+* Central monitoring.
+* Backup.
+* Model Armor.
+* Security Command Center.
+
+### Stage 7: Validation
+
+Run:
+
+* Functional evaluation.
+* Safety evaluation.
+* Security red teaming.
+* Privacy testing.
+* Performance testing.
+* Failover testing.
+* Recovery testing.
+* User acceptance.
+
+### Stage 8: Release
+
+Complete:
+
+* Governance approval.
+* Production deployment.
+* Runbooks.
+* User guidance.
+* Support training.
+* Hypercare.
+
+### Stage 9: Operation
+
+Monitor:
+
+* Quality.
+* Safety.
+* Security.
+* Cost.
+* Adoption.
+* Business benefits.
+* Model drift.
+* Retrieval freshness.
+* Tool use.
+* Human overrides.
+
+---
+
+# Part Thirty: 26-Week Learning Plan
+
+## Weeks 1–2: Cloud fundamentals
+
+Learn:
+
+* Cloud models.
+* Regions and zones.
+* Shared responsibility.
+* Well-Architected Framework.
+
+Deliver:
+
+* Region-selection paper.
+* Responsibility matrix.
+* Initial architecture.
+
+## Weeks 3–4: Resource hierarchy
+
+Learn:
+
+* Organization.
+* Folders.
+* Projects.
+* Billing.
+* Organization Policy.
+
+Deliver:
+
+* Enterprise hierarchy.
+* Project strategy.
+* Policy baseline.
+
+## Weeks 5–6: IAM
+
+Learn:
+
+* Principals.
+* Roles.
+* Service accounts.
+* Workload Identity Federation.
+* Workforce federation.
+
+Deliver:
+
+* IAM matrix.
+* Federated CI/CD.
+* Keyless workload.
+
+## Weeks 7–8: Networking
+
+Learn:
+
+* Global VPC.
+* Regional subnets.
+* Shared VPC.
+* Firewalls.
+* Cloud NAT.
+* Private Service Connect.
+* Hybrid connectivity.
+
+Deliver:
+
+* Shared VPC.
+* Private application.
+* Network-flow document.
+
+## Weeks 9–10: Compute and Cloud Run
+
+Learn:
+
+* Compute Engine.
+* MIGs.
+* Cloud Run.
+* Cloud Run jobs.
+* Cloud Run functions.
+
+Deliver:
+
+* VM application.
+* Serverless container application.
+* Scaling comparison.
+
+## Weeks 11–12: Storage and databases
+
+Learn:
+
+* Cloud Storage.
+* Cloud SQL.
+* Spanner.
+* Firestore.
+* Memorystore.
+
+Deliver:
+
+* Secure document store.
+* Database decision record.
+* Backup-and-restore evidence.
+
+## Weeks 13–14: Data platform
+
+Learn:
+
+* BigQuery.
+* Pub/Sub.
+* Dataflow.
+* Knowledge Catalog.
+
+Deliver:
+
+* Streaming pipeline.
+* Governed BigQuery dataset.
+* Data-lineage model.
+
+## Weeks 15–16: APIs and containers
+
+Learn:
+
+* Load balancing.
+* Cloud CDN.
+* Cloud Armor.
+* API Gateway.
+* Apigee.
+* Artifact Registry.
+* GKE.
+
+Deliver:
+
+* Protected API.
+* Container pipeline.
+* Cloud Run-versus-GKE decision.
+
+## Weeks 17–18: Observability and reliability
+
+Learn:
+
+* Cloud Monitoring.
+* Cloud Logging.
+* Trace.
+* SLOs.
+* Recovery.
+
+Deliver:
+
+* Dashboard.
+* Alerts.
+* Runbooks.
+* Failure test.
+
+## Weeks 19–20: Infrastructure and DevSecOps
+
+Learn:
+
+* Terraform.
+* Infrastructure Manager.
+* Cloud Build.
+* Cloud Deploy.
+* Binary Authorization.
+
+Deliver:
+
+* Automated platform.
+* Secure pipeline.
+* Signed deployment path.
+
+## Weeks 21–22: Cloud security and governance
+
+Learn:
+
+* SCC.
+* KMS.
+* Secret Manager.
+* VPC Service Controls.
+* Sensitive Data Protection.
+* Knowledge Catalog.
+
+Deliver:
+
+* Security baseline.
+* Data perimeter.
+* Threat model.
+* Sensitive-data workflow.
+
+## Weeks 23–24: Generative and agentic AI
+
+Learn:
+
+* Vertex AI.
+* Gemini.
+* Model Garden.
+* RAG.
+* ADK.
+* Agent Runtime.
+* Agent Gateway.
+* Memory.
+
+Deliver:
+
+* Enterprise RAG application.
+* Governed agent.
+* Evaluation dataset.
+
+## Weeks 25–26: AI security and governance
+
+Learn:
+
+* SAIF.
+* Model Armor.
+* NIST AI RMF.
+* ISO 42001.
+* EU AI Act.
+* UK GDPR.
+* AI FinOps.
+
+Deliver:
+
+* AI governance framework.
+* Red-team report.
+* Release-gate checklist.
+* Final capstone presentation.
+
+---
+
+# Final completion checklist
+
+## Cloud architecture
+
+* Why was Cloud Run, GKE or Compute Engine selected?
+* Which resources are global, regional or zonal?
+* What happens during zone failure?
+* What happens during Region failure?
+* Can the environment be recreated?
+
+## Identity
+
+* How do people authenticate?
+* How do workloads authenticate?
+* Are service-account keys used?
+* How does the agent propagate user identity?
+* Who may administer production?
+
+## Network
+
+* Which resources are public?
+* Which resources are private?
+* How is outbound traffic controlled?
+* How does DNS work?
+* Is sensitive data protected by a service perimeter?
+* Can agents access arbitrary internet destinations?
+
+## Data
+
+* What data is used?
+* Who owns it?
+* Why is it necessary?
+* How is it classified?
+* Is it permitted for AI?
+* How is it deleted from indexes and memory?
+* Where is it stored?
+
+## AI quality
+
+* What is the evaluation dataset?
+* What are release thresholds?
+* How is groundedness measured?
+* How are citations validated?
+* How are failures categorised?
+* How does performance vary across user groups?
+
+## AI security
+
+* How is prompt injection addressed?
+* How are outputs validated?
+* Which tools may the agent call?
+* What is the agent’s maximum authority?
+* How is sensitive data protected?
+* How is the AI supply chain verified?
+* Is Model Armor used appropriately?
+* Is there a kill switch?
+
+## Governance
+
+* Who is accountable?
+* What is the risk tier?
+* Which approvals are required?
+* Which laws and standards apply?
+* Which evidence is retained?
+* What changes trigger reassessment?
+* How is the system retired?
+
+## Operations
+
+* Which metrics indicate user impact?
+* Who responds to alerts?
+* What is the model fallback?
+* How is recovery tested?
+* How are agent loops detected?
+* How are memories corrected or deleted?
+* How are incidents reported?
+
+## Commercial value
+
+* What business outcome does the system produce?
+* What is the baseline?
+* What is the cost per completed task?
+* What happens when usage doubles?
+* Which human costs remain?
+* How are benefits verified?
+* Does the system generate value after security, governance and operational costs?
+
+The target outcome is not merely a GCP deployment. It is an end-to-end operating model for delivering cloud and AI systems that are valuable, secure, governed, observable, resilient and economically sustainable.
+
+<KeyTakeaways>
+- Learn Google Cloud as an enterprise platform for business and AI workloads—hierarchy, IAM, global VPC, data, Vertex AI, agent platform, security and governance together.
+- Prefer federation, private connectivity, VPC Service Controls and deterministic policy over keys, public endpoints and prompt-only controls.
+- Progress from cloud foundations through AI engineering to governance and FinOps with the same non-functional bar: security, resilience, evidence and unit economics.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed journey: [Google Cloud Learning Roadmap](/roadmaps/gcp).
+- Compare with [AWS](/roadmaps/aws) and [Azure](/roadmaps/azure), and practise [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Harden delivery with [DevSecOps](/roadmaps/devsecops), [API Security Engineering](/roadmaps/api-security-engineering), [AI Red Teaming](/roadmaps/ai-red-teaming) and [Enterprise AI Security](/roadmaps/enterprise-ai-security).
+</NextSteps>

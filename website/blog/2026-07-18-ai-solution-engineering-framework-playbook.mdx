@@ -1,0 +1,3474 @@
+---
+slug: ai-solution-engineering-framework-playbook
+title: "End-to-End AI Solution Engineering Framework Playbook"
+description: A practical sequence from ambiguous business problem to scaled, continuously governed production AI—15 lifecycle steps, framework dictionary, stage gates, artefacts and a 16-week plan.
+authors: [sudip]
+tags: [roadmaps, solution-engineering, consulting, playbook, governance, architecture]
+keywords:
+  - AI solution engineering
+  - AI framework playbook
+  - enterprise AI delivery
+  - AI operating model
+  - Responsible AI
+  - NIST AI RMF
+  - ISO/IEC 42001
+  - MLOps
+  - LLMOps
+  - AI business case
+  - AI stage gates
+---
+This playbook turns strategy, consulting, architecture, governance, security, delivery, commercial and change frameworks into one practical sequence for taking an AI opportunity from an ambiguous business problem to a scaled, continuously governed production capability.
+
+It is written for AI Solution Engineers, AI Architects, AI Product Managers, enterprise consultants, engineering managers, data and AI leaders, security teams, risk teams and transformation leaders.
+
+The central principle is simple:
+
+> Do not begin with a model. Begin with a business outcome, understand the operating context, select the smallest safe intervention that can create measurable value, and build the organisational capability required to sustain it.
+
+{/* truncate */}
+
+<ExecSummary>
+Run a 15-step lifecycle (mobilise through scale) with five cross-cutting workstreams—value, experience/process, technology/data, trust, and delivery/governance. Use the framework dictionary, minimum artefact set, six stage gates and 16-week plan as the operating system for enterprise AI engagements.
+</ExecSummary>
+
+<WhenToUse>
+- Use when leading an AI engagement from problem framing through production scale—not only model selection or a PoC.
+- Pair with the [AI Solution Engineering Framework roadmap](/roadmaps/ai-solution-engineering), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate).
+- Treat charter, use-case cards, business case, HLD, evaluation evidence, control approvals and adoption metrics as mandatory stage-gate artefacts.
+</WhenToUse>
+
+The [AI Solution Engineering Framework roadmap](/roadmaps/ai-solution-engineering) presents the lifecycle, gates and 16-week plan in condensed form. This article is the full playbook: stage-by-stage application, framework dictionary, worked bank example, artefact checklist, stage-gate evidence model and anti-patterns.
+
+## Running real-world example
+
+The main example is a regulated retail bank that wants to improve customer service. Its 1,000 contact-centre agents search across several knowledge systems, average handling time is high, answers are inconsistent, and new-agent training takes months. The organisation is considering a grounded AI knowledge assistant, summarisation, intelligent routing and eventually customer self-service.
+
+The example is intentionally realistic: the solution must handle personal data, comply with financial-services controls, integrate with identity and CRM platforms, produce auditable outputs, support human escalation and demonstrate sustainable unit economics.
+
+---
+
+# Part I — The Complete Lifecycle
+
+| Step | Primary decision | Main framework categories | Principal output | Gate |
+|---|---|---|---|---|
+| 0. Mobilise | Are scope, sponsorship and decisions clear? | Charter, RACI, RAPID, RAID, stakeholder mapping | Engagement charter and governance | Mobilisation approval |
+| 1. Define ambition | Why AI, where, and to what level? | Strategy cascade, Playing to Win, Three Horizons, value-driver tree | AI ambition and investment thesis | Strategic-fit approval |
+| 2. Discover current state | What is really happening today? | Design Thinking, Double Diamond, JTBD, journey mapping, SIPOC, VSM | Evidence-based problem definition | Problem-definition approval |
+| 3. Assess readiness | Can the organisation deliver and sustain this? | AI, data, cloud, MLOps, security and Responsible AI maturity | Capability heatmap and remediation backlog | Readiness approval |
+| 4. Identify and prioritise use cases | Which opportunities deserve funding? | DVF, value-feasibility-risk, RICE, WSJF, weighted scoring | Prioritised AI portfolio | Use-case approval |
+| 5. Define operating model | Who owns, builds, governs and runs AI? | Operating Model Canvas, hub-and-spoke, RACI, RAPID | Target AI operating model | Ownership approval |
+| 6. Build business case | Does the investment make economic sense? | TCO, ROI, NPV, IRR, payback, unit economics, scenarios | Risk-adjusted business case | Investment approval |
+| 7. Design the solution | What complete system should be built? | TOGAF, DDD, Well-Architected, API-first, event-driven, Zero Trust | HLD, LLD, controls and NFRs | Design approval |
+| 8. Prototype and validate | Have the largest uncertainties been reduced? | Hypothesis testing, model-driven experimentation, evaluation framework | Prototype evidence and recommendation | Production-investment approval |
+| 9. Build and industrialise | Is this a production product rather than a demo? | Dual-Track Agile, DevSecOps, MLOps, LLMOps, TDD, SRE | Production-ready AI service | Release-readiness approval |
+| 10. Govern Responsible AI | Is the system lawful, fair, explainable and accountable? | NIST AI RMF, ISO 42001, ISO 23894, ISO 42005, impact assessment | Control evidence and approval record | Risk acceptance |
+| 11. Secure and protect privacy | Are users, data, models, tools and infrastructure protected? | NIST CSF, ISO 27001, STRIDE, MITRE ATLAS, OWASP LLM, Privacy by Design | Threat model, DPIA and security controls | Security/privacy approval |
+| 12. Deploy and drive adoption | Will people use the solution correctly and consistently? | ADKAR, Kotter, 7S, change-impact assessment, champion networks | Rollout, training and adoption plan | Operational deployment approval |
+| 13. Operate and improve | Is value, safety, reliability and cost sustainable? | SRE, FinOps, benefits realisation, continuous improvement | Monitoring and improvement system | Continue, remediate or retire |
+| 14. Scale enterprise capability | Can success be reused across products and domains? | AI factory, platform engineering, capability planning, portfolio management | Reusable enterprise AI capability | Scale approval |
+
+## Cross-cutting workstreams
+
+Five workstreams run through every step:
+
+1. **Value:** business outcomes, baseline, benefits, costs and benefits ownership.
+2. **Experience and process:** user need, workflow redesign, human oversight and adoption.
+3. **Technology and data:** architecture, integration, data quality, model selection and operations.
+4. **Trust:** security, privacy, safety, Responsible AI, legal and regulatory compliance.
+5. **Delivery and governance:** ownership, decisions, roadmap, evidence, stage gates and continuous improvement.
+
+---
+
+# Part II — Stage-by-Stage Application
+
+## Step 0 — Mobilise the Engagement
+
+### Objective
+
+Create sufficient clarity to run the engagement without losing time to unclear sponsorship, changing scope, hidden decision-makers or unavailable evidence.
+
+### Use these frameworks
+
+#### Project Charter
+
+A project charter converts an initial request such as “build us an AI chatbot” into a controlled engagement. It should identify the business problem, desired outcome, scope, exclusions, sponsor, budget authority, deliverables, timeline, assumptions, risks, dependencies and acceptance criteria.
+
+**How to use it**
+
+1. Write the problem as an observable business condition, not a solution.
+2. State measurable outcomes and the baseline that will later be validated.
+3. Define what is explicitly excluded.
+4. Identify the sponsor, product owner, technical owner and risk owner.
+5. Define the decisions that must be made and the evidence required for each.
+6. Agree the first stage gate before detailed discovery begins.
+
+**Bank example**
+
+Weak charter objective: “Implement generative AI in the contact centre.”
+
+Strong objective: “Determine whether a grounded, read-only knowledge assistant can reduce average handling time by at least 10% while maintaining quality scores, preventing unapproved customer actions and meeting bank privacy, security and audit requirements.”
+
+#### RACI
+
+RACI clarifies execution ownership:
+
+- **Responsible:** performs the work.
+- **Accountable:** owns the result and has final accountability.
+- **Consulted:** provides input before the decision or deliverable.
+- **Informed:** receives relevant updates.
+
+Use one accountable owner per material outcome. Multiple accountable owners often mean no real owner.
+
+**Example**
+
+For model-risk approval, the AI Risk Lead may be accountable, the Responsible AI specialist responsible for the assessment, Legal and Compliance consulted, and the Product Owner informed.
+
+#### RAPID
+
+RAPID is better than RACI when the core problem is decision latency.
+
+- **Recommend:** develops the proposed decision.
+- **Agree:** has mandatory sign-off rights.
+- **Perform:** executes the decision.
+- **Input:** supplies evidence or expertise.
+- **Decide:** makes the final choice.
+
+Use RAPID for model-provider selection, residual-risk acceptance, production release and exceptions to enterprise standards.
+
+#### RAID Log
+
+Maintain a single living register for risks, assumptions, issues and dependencies. Each item requires an owner, impact, due date, response and status. An assumption that remains untested for too long should become a risk or issue.
+
+**Example**
+
+Assumption: approved knowledge articles are current and non-conflicting.  
+Validation: sample 200 articles and compare policy ownership, version and effective date.  
+Result: 18% conflict rate.  
+Action: create a knowledge-remediation workstream before scaling retrieval.
+
+#### Stakeholder Influence–Interest Matrix
+
+Map stakeholders by influence and interest:
+
+- High influence/high interest: manage closely.
+- High influence/low interest: keep satisfied with decision-focused communication.
+- Low influence/high interest: involve in research and adoption.
+- Low influence/low interest: monitor.
+
+Do not confuse formal seniority with practical influence. An operations supervisor or data owner can block deployment even without executive status.
+
+### Required outputs
+
+Engagement charter, RACI, RAPID for critical decisions, stakeholder map, RAID log, communication rhythm, decision register, evidence request list, workshop plan and initial stage-gate calendar.
+
+### Decision gate
+
+Proceed only when the problem, sponsor, scope, decision rights, evidence owners and success definition are sufficiently clear.
+
+---
+
+## Step 1 — Define AI Ambition and Strategic Intent
+
+### Objective
+
+Determine the business role AI should play and connect investment to strategic outcomes rather than technology enthusiasm.
+
+### Use these frameworks
+
+#### Corporate Strategy Cascade
+
+Translate enterprise strategy downward:
+
+Enterprise objective → business-unit objective → capability objective → AI outcome → product metric → operational metric.
+
+**Example**
+
+Enterprise objective: improve cost-to-income ratio.  
+Business objective: lower service cost without reducing customer trust.  
+AI outcome: improve agent resolution speed and consistency.  
+Product metric: grounded answer acceptance rate.  
+Operational metric: handling time and first-contact resolution.  
+Control metric: compliance exception rate.
+
+This cascade prevents teams from optimising model accuracy while failing to improve the business.
+
+#### Strategy Choice Cascade / Playing to Win
+
+Answer five linked questions:
+
+1. What is the winning aspiration?
+2. Where will we play?
+3. How will we win?
+4. What capabilities must exist?
+5. What management systems will sustain them?
+
+**Bank example**
+
+- Aspiration: become the easiest trusted bank to deal with.
+- Where to play: high-volume service journeys where policy knowledge is the primary constraint.
+- How to win: faster, consistent and explainable responses with human authority retained.
+- Capabilities: governed knowledge, secure AI orchestration, evaluation, change capability and AI operations.
+- Management systems: product ownership, AI risk governance, benefits tracking and continuous evaluation.
+
+#### Three Horizons
+
+Use Three Horizons to avoid a portfolio made only of short-term copilots or only of speculative transformation.
+
+- **Horizon 1 — Improve:** summarisation, search and drafting.
+- **Horizon 2 — Reshape:** redesign end-to-end service workflows around human-AI collaboration.
+- **Horizon 3 — Invent:** create AI-native advisory or proactive-service products.
+
+Allocate funding, skills and risk appetite separately for each horizon.
+
+#### SWOT
+
+Assess internal strengths and weaknesses alongside external opportunities and threats.
+
+For AI, make the analysis evidence-based:
+
+- Strength: exclusive, high-quality domain data.
+- Weakness: fragmented ownership and poor lineage.
+- Opportunity: underserved digital-service segment.
+- Threat: regulation, new AI-native entrants or model-provider dependency.
+
+Convert each observation into a strategic action. A SWOT list without decisions has little value.
+
+#### PESTLE
+
+Analyse political, economic, social, technological, legal and environmental forces.
+
+**AI-specific prompts**
+
+- Political: public-sector policy, sovereignty, industrial strategy.
+- Economic: cost pressure, interest rates, skills scarcity.
+- Social: trust, accessibility, workforce concerns.
+- Technological: model capability, open-source maturity, cyber threats.
+- Legal: privacy, consumer protection, AI regulation, intellectual property.
+- Environmental: inference energy, data-centre footprint and hardware lifecycle.
+
+Use PESTLE for scenario assumptions, not as a generic background section.
+
+#### Porter’s Five Forces
+
+Assess how AI may alter industry structure:
+
+- Rivalry: can competitors match the capability quickly?
+- New entrants: does AI lower entry barriers?
+- Supplier power: are a few model or cloud vendors dominant?
+- Buyer power: can customers switch easily?
+- Substitutes: can an AI-native alternative replace the current service?
+
+This helps distinguish operational efficiency from sustainable advantage.
+
+#### Value Chain Analysis
+
+Map primary and support activities, then identify where AI changes cost, quality, speed, risk or differentiation.
+
+**Manufacturing example**
+
+AI may improve demand forecasting, supplier-risk analysis, predictive maintenance, quality inspection, service diagnostics and engineering knowledge retrieval. Prioritisation should consider cross-step dependencies rather than isolated value.
+
+#### Business Model Canvas
+
+Use it when AI affects the offering or commercial model. Review customer segments, value propositions, channels, relationships, revenue, activities, resources, partners and costs.
+
+**Example**
+
+An accounting software company shifts from selling workflow software to an AI-assisted close service priced partly by successful reconciliations. AI changes value proposition, operating responsibility, risk, pricing and customer relationship—not merely product functionality.
+
+#### Blue Ocean Strategy
+
+Use the eliminate–reduce–raise–create grid:
+
+- Eliminate low-value process steps.
+- Reduce complexity or service effort.
+- Raise trust, speed or personalisation.
+- Create a capability customers could not previously access.
+
+Useful for AI-native offerings, but test assumptions carefully; “uncontested market space” can conceal weak demand.
+
+#### Scenario Planning
+
+Build plausible futures using the uncertainties that matter most.
+
+**Example axes**
+
+- Regulation becomes stricter vs remains principles-based.
+- Frontier-model costs fall rapidly vs remain expensive.
+- Customer trust increases vs declines after industry incidents.
+
+For each scenario, identify no-regret investments, trigger points and options. This is more useful than pretending to forecast one future.
+
+#### Wardley Mapping
+
+Map user needs and the value chain supporting them, positioning components from genesis to commodity.
+
+Use it to decide what to build, buy or standardise.
+
+**Example**
+
+A bank may treat customer-service policy logic and risk controls as differentiating, while identity, logging and standard model hosting are utility components. This prevents custom-building commodity infrastructure while outsourcing strategic capability.
+
+#### Capability-Based Planning
+
+Start with enduring capabilities rather than projects. Examples include governed enterprise knowledge, model evaluation, AI security testing, data lineage, human oversight and benefits management.
+
+Assess current capability, target capability, gap, dependency, owner and investment. This produces a roadmap that survives individual use-case changes.
+
+#### Value-Driver Tree
+
+Break high-level value into measurable drivers and sub-drivers.
+
+Profitability → revenue and cost → conversion, retention, handling time, rework, loss avoidance → product and operational metrics.
+
+Use the tree to connect executive value to AI metrics. Every model metric should have a credible causal path to a business outcome.
+
+### Outputs
+
+AI ambition statement, strategic choice cascade, Three Horizons portfolio, value-driver tree, capability themes, target outcomes, investment thesis and executive narrative.
+
+### Decision gate
+
+The organisation should be able to explain why AI matters, where it will compete, what outcomes it expects and what capabilities it must build.
+
+---
+
+## Step 2 — Discover the Current State
+
+### Objective
+
+Understand users, workflows, systems, data, controls and root causes before selecting an AI intervention.
+
+### Use these frameworks
+
+#### Design Thinking
+
+Use empathise, define, ideate, prototype and test. In enterprise AI, empathy must include frontline users, customers, reviewers, control functions and operators.
+
+Do not use ideation to skip evidence. The output of empathy should be observable needs, constraints and behaviours.
+
+#### Double Diamond
+
+- Discover broadly.
+- Define the right problem.
+- Develop alternatives.
+- Deliver and learn.
+
+The first diamond reduces the risk of solving a symptom. The second reduces the risk of committing too early to one technology.
+
+#### Jobs to Be Done
+
+Describe progress the user is trying to make in a specific situation.
+
+Template:
+
+“When [situation], I need to [motivation/action], so I can [desired outcome].”
+
+**Example**
+
+“When I receive a complex mortgage-servicing question, I need to find the current policy and required evidence quickly, so I can give an accurate answer without unnecessary transfer or compliance risk.”
+
+Use JTBD to design around outcomes rather than personas alone.
+
+#### Customer Journey Mapping
+
+Map stages, goals, actions, channels, emotions, pain points, evidence, data and potential interventions.
+
+Mark where AI should assist, where it may automate, where disclosure is required and where human escalation must remain.
+
+#### Service Blueprinting
+
+Extend the journey into frontstage interactions, backstage work, systems, policies, support functions and controls.
+
+For AI, add model calls, retrieval, tool permissions, audit events, human review and fallback behaviour. This makes hidden operating dependencies visible.
+
+#### SIPOC
+
+Identify suppliers, inputs, process, outputs and customers. Use it early to bound a process and identify data owners.
+
+**Example**
+
+Supplier: product policy team.  
+Input: approved policy articles.  
+Process: search, interpret and respond.  
+Output: customer answer and case note.  
+Customer: customer, quality assurance and regulator.
+
+#### Value Stream Mapping
+
+Measure processing time, waiting, queue, rework, defect and handoff. AI value often comes from reducing waiting and rework rather than making one task faster.
+
+#### Process Mining
+
+Use event logs to reconstruct actual process paths, variants and bottlenecks. Compare the designed process with real behaviour.
+
+**Insurance example**
+
+Process mining may reveal that claims are repeatedly returned because evidence is incomplete. The right AI intervention may be guided evidence collection, not automated claim adjudication.
+
+#### Business Process Modelling
+
+Use BPMN or an equivalent notation to specify tasks, events, decisions, messages, exceptions and ownership. Create current-state and target-state versions.
+
+Add AI boundaries explicitly: probabilistic recommendation, deterministic rule, human decision, automated action and fail-safe path.
+
+#### Stakeholder Mapping
+
+Map goals, incentives, pain, authority, risk and likely resistance. Use it for both discovery access and future adoption.
+
+#### Voice of the Customer
+
+Combine interviews, surveys, complaints, call transcripts, behavioural data and service metrics. Distinguish stated preference from observed behaviour.
+
+Use AI-assisted analysis only with privacy controls and human validation of themes.
+
+#### Five Whys
+
+Apply iterative causal questioning until the team reaches a controllable root cause. Do not force exactly five iterations; stop when further causes are outside the useful scope or evidence becomes weak.
+
+#### Fishbone Analysis
+
+Group possible causes across people, process, technology, data, policy, environment and measurement. Validate causes with evidence rather than treating workshop opinions as facts.
+
+#### Problem Tree
+
+Place the core problem in the centre, causes below and effects above. Convert the problem tree into an objective tree by restating negative conditions as desired capabilities or outcomes.
+
+### Bank discovery example
+
+Initial request: “We need a chatbot.”
+
+Evidence shows:
+- Knowledge articles conflict.
+- Agents use informal notes.
+- CRM context is incomplete.
+- Simple and complex requests share the same queue.
+- Escalation logic varies by team.
+- Quality metrics are delayed.
+
+The recommended first solution becomes a governed, read-only agent assistant plus knowledge remediation—not an autonomous customer bot.
+
+### Outputs
+
+Research plan, interview evidence, personas, JTBD statements, current-state journeys, service blueprint, process maps, system and data inventory, control inventory, pain-point register, root-cause analysis and baseline metrics.
+
+### Decision gate
+
+Proceed only when the team can demonstrate the user need, root causes, measurable baseline, data sources, system constraints and affected controls.
+
+---
+
+## Step 3 — Assess AI Readiness and Maturity
+
+### Objective
+
+Determine whether the organisation can deliver, govern, operate and realise value from the proposed solution.
+
+### Assessment dimensions
+
+1. Strategy and sponsorship.
+2. Operating model and decision rights.
+3. Product, engineering and domain skills.
+4. Data quality, ownership, lineage and legal use.
+5. Cloud, integration and AI platform.
+6. Delivery and experimentation.
+7. Governance and model-risk management.
+8. Security and privacy.
+9. Change and adoption.
+10. Value management and FinOps.
+
+### How to run the assessment
+
+1. Define a five-level maturity scale with observable evidence.
+2. Interview each capability owner.
+3. Review artefacts rather than relying only on self-scoring.
+4. Score current state and target state by use-case need.
+5. Identify minimum production prerequisites.
+6. Convert gaps into a prioritised remediation backlog.
+7. Assign owners, funding, dependencies and target dates.
+
+### Framework application
+
+#### McKinsey-style transformation dimensions
+
+Use strategy, talent, operating model, technology, data, adoption and scaling as an enterprise capability lens. It is useful for diagnosing why isolated pilots are not producing value.
+
+#### Accenture-style AI maturity
+
+Use it to assess whether AI is embedded across leadership, talent, data, technology, Responsible AI and industrialised delivery. Focus on the ability to repeat and scale outcomes, not the number of experiments.
+
+#### PwC-style AI maturity
+
+Use it to connect business value, trusted AI, governance, data/model controls, operating capability and regulatory readiness. It is particularly useful where value protection and confidence are central.
+
+#### Microsoft Cloud Adoption Framework for AI
+
+Use strategy, plan, ready, adopt, govern and manage. It is valuable when the organisation needs a secure cloud landing zone, shared AI platform, enterprise governance and a Centre of Excellence.
+
+#### IBM AI Ladder
+
+Use Collect → Organise → Analyse → Infuse when fragmented information is the limiting factor. It gives executives a simple explanation of why data accessibility, governance and operational integration precede scalable AI.
+
+#### AI Capability Maturity Model
+
+Create organisation-specific levels: ad hoc, emerging, defined, scaled and AI-native. Each level should include objective practices and evidence.
+
+#### Data Maturity Assessment
+
+Score ownership, quality, metadata, lineage, classification, access, retention, privacy, interoperability and data-product discipline. A high-performing model cannot compensate for untrusted or unlawful data.
+
+#### MLOps Maturity Model
+
+Assess reproducibility, versioning, automated pipelines, registries, deployment, monitoring, rollback, governance and retraining. Add LLM-specific practices where generative AI is used.
+
+#### Responsible AI Maturity Model
+
+Assess policy, inventory, risk tiering, impact assessment, control library, independent review, monitoring, incident management and continual improvement.
+
+#### Cloud Maturity Assessment
+
+Review landing zones, network architecture, identity, policy, observability, resilience, cost management, service ownership and developer experience.
+
+#### Cybersecurity Maturity Assessment
+
+Review governance, asset visibility, identity, secure engineering, detection, response, recovery and third-party risk. Map AI-specific gaps such as model abuse, prompt injection, tool misuse and sensitive-data leakage.
+
+### Bank example
+
+The bank scores well in cloud security and identity but poorly in knowledge ownership, evaluation datasets, prompt/model versioning and AI incident response. Rather than cancelling the use case, the roadmap makes knowledge remediation, evaluation capability and incident playbooks explicit foundations for the pilot.
+
+### Outputs
+
+Maturity heatmap, evidence register, gap analysis, minimum readiness criteria, remediation backlog, target capability roadmap and executive recommendation.
+
+### Decision gate
+
+Identify what must be built or fixed before prototype, before production and before scale.
+
+---
+
+## Step 4 — Identify and Prioritise AI Use Cases
+
+### Objective
+
+Create a rational portfolio based on value, feasibility, risk, data readiness, scalability and strategic alignment.
+
+### Use-case discovery categories
+
+- Assist.
+- Automate.
+- Augment judgement.
+- Predict.
+- Personalise.
+- Optimise.
+- Generate.
+- Orchestrate.
+
+### Standard use-case card
+
+Each candidate should document:
+
+Business owner, user, job to be done, current process, pain, baseline, proposed intervention, AI pattern, data, integrations, affected people, decision impact, human oversight, expected benefit, cost range, dependencies, risk tier, success metrics and next evidence required.
+
+### Framework application
+
+#### Impact-versus-Effort Matrix
+
+Use for initial workshop sorting. It is fast but too simplistic for final investment decisions because it does not explicitly include risk or strategic dependency.
+
+#### Desirability–Viability–Feasibility
+
+- Desirability: users need and will adopt it.
+- Viability: the organisation can create sustainable value.
+- Feasibility: technology, data and operations can deliver it.
+
+For AI, add responsibility and risk as a fourth lens.
+
+#### Value–Feasibility–Risk
+
+A strong default for enterprise AI. Score expected value, delivery feasibility and residual risk. Plot opportunities and set minimum thresholds.
+
+#### RICE
+
+Reach × Impact × Confidence ÷ Effort.
+
+Use for product backlogs where reach can be estimated. Confidence prevents weak assumptions from receiving false precision.
+
+#### WSJF
+
+Weighted Shortest Job First = Cost of Delay ÷ Job Size.
+
+Use when many initiatives compete for constrained delivery capacity. Cost of delay can include lost revenue, operational pain, regulatory exposure or strategic timing.
+
+#### MoSCoW
+
+Classify requirements or use cases as Must, Should, Could and Won’t for this release. Use carefully: stakeholders often label everything “Must.” Define objective criteria.
+
+#### Kano Model
+
+Classify features as basic, performance or delight factors. For AI, accuracy, privacy and safe fallback are often basic expectations; speed and personalisation may be performance factors.
+
+#### ICE
+
+Impact × Confidence × Ease. Useful for rapid early-stage comparison, but less rigorous than weighted scoring.
+
+#### Weighted Scoring Model
+
+Define criteria, weights, scales and evidence. Apply consistently and record assumptions. Run calibration sessions to reduce stakeholder bias.
+
+#### Risk-Adjusted Value
+
+Discount expected value by probability of adoption, technical success and benefit realisation, then subtract risk exposure and control cost.
+
+#### Cost of Delay
+
+Quantify the cost of waiting. Useful for regulatory deadlines, seasonal opportunities, expiring contracts or competitive windows.
+
+#### Strategic Alignment Scoring
+
+Score contribution to strategic objectives, target capabilities and portfolio themes. This prevents a portfolio of attractive but disconnected pilots.
+
+#### Use-Case Portfolio Matrix
+
+Group into quick wins, strategic bets, foundations, experiments and avoid/defer. Manage the portfolio as a system: foundations may have low direct ROI but unlock many valuable products.
+
+### Worked prioritisation example
+
+Candidates:
+
+1. Agent knowledge assistant.
+2. Automated customer complaints decision.
+3. Conversation summarisation.
+4. Intelligent routing.
+5. Fully autonomous customer self-service.
+
+The knowledge assistant ranks first because it has high user value, reusable data foundations, moderate integration complexity, read-only scope and controllable risk. Automated complaint decisions are deferred because decision impact, explainability and process variation are too high.
+
+### Outputs
+
+Use-case catalogue, scorecard, dependency map, portfolio matrix, shortlist, rejection rationale, evidence plan and roadmap.
+
+### Decision gate
+
+Fund only opportunities with a clear owner, evidenced need, credible value path, acceptable risk and a next-stage validation plan.
+
+---
+
+## Step 5 — Define the Target AI Operating Model
+
+### Objective
+
+Clarify who owns business outcomes, products, platforms, data, risk, delivery, operations and benefits.
+
+### Key design choices
+
+- Centralised, decentralised, hub-and-spoke or federated product model.
+- Permanent product funding versus temporary project funding.
+- Platform ownership and service boundaries.
+- Decision rights and escalation.
+- Build, buy and partner responsibilities.
+- AI governance forums.
+- Skills and career pathways.
+- Run and support ownership.
+
+### Frameworks
+
+#### Operating Model Canvas
+
+Design across value delivery, organisation, locations, information, suppliers and management systems. Add AI-specific elements: model ownership, data ownership, evaluation, controls, monitoring, incident response and retirement.
+
+#### Hub-and-Spoke
+
+The central hub provides approved platforms, architecture patterns, risk controls, specialist engineering and governance. Domain spokes own use cases, product decisions, domain data, adoption and benefits.
+
+This is often the most scalable enterprise pattern because it balances consistency with domain ownership.
+
+#### RACI and RAPID
+
+Use RACI for lifecycle responsibilities and RAPID for high-impact decisions. Create separate decision-rights tables for model selection, data approval, risk acceptance, release and incident response.
+
+#### McKinsey 7S as an operating-model test
+
+Check alignment of strategy, structure, systems, shared values, skills, style and staff. A technically strong platform will not scale if incentives, skills and leadership behaviour conflict with the target model.
+
+### Bank example
+
+The bank creates:
+
+- Executive AI Steering Committee for strategy and investment.
+- AI Governance Board for policy and risk tiering.
+- Architecture Review Board for standards.
+- AI Product Team for the service assistant.
+- Central AI Platform Team for model gateway, evaluation, guardrails and observability.
+- Domain knowledge owners responsible for source quality.
+- Operations owner accountable for service levels and incidents.
+- Benefits owner accountable for handling-time and quality outcomes.
+
+### Outputs
+
+Target operating model, governance forums, organisation design, role descriptions, decision-rights matrix, platform service catalogue, funding model, sourcing approach, support model and capability-development plan.
+
+### Decision gate
+
+Every material outcome and risk must have a named accountable owner with authority, capability and funding.
+
+---
+
+## Step 6 — Build the Business Case
+
+### Objective
+
+Prove that value exceeds total cost and risk, and define how benefits will be realised.
+
+### Five-case structure
+
+1. Strategic case.
+2. Economic case.
+3. Commercial case.
+4. Financial case.
+5. Management case.
+
+### Framework application
+
+#### Total Cost of Ownership
+
+Include discovery, data remediation, architecture, engineering, integration, testing, governance, security, change, cloud, model usage, monitoring, support, human review, incident response, vendor switching and retirement.
+
+AI TCO is often underestimated because teams calculate inference cost but omit knowledge maintenance, evaluation and human exception handling.
+
+#### ROI
+
+ROI = (benefits − costs) ÷ costs.
+
+Use annual and cumulative ROI. Clearly distinguish cashable savings, avoided cost, capacity released and non-financial benefit.
+
+#### NPV
+
+Discount future cash flows to today. Useful for multi-year platform investments where upfront foundation cost enables later value.
+
+#### IRR
+
+The discount rate at which NPV becomes zero. Use for comparing investments, but do not let IRR hide absolute value, strategic importance or tail risk.
+
+#### Payback Period
+
+Time required for cumulative benefit to recover cost. Executives often use it as a risk and liquidity indicator.
+
+#### Break-Even Analysis
+
+Calculate the interaction volume, adoption level or productivity gain needed to cover fixed and variable cost.
+
+#### Cost-Benefit Analysis
+
+Compare quantified and qualitative benefits against direct and indirect costs. Include distributional impacts: a solution may save central cost while creating work in another team.
+
+#### Unit Economics
+
+Track cost per interaction, successful resolution, document processed, active user or approved decision. Include inference, retrieval, observability, platform allocation and human review.
+
+#### Sensitivity Analysis
+
+Vary one assumption at a time: adoption, model cost, accuracy, human-review rate or integration delay. Identify the assumptions that most influence value.
+
+#### Scenario Analysis
+
+Model coherent best, likely and worst cases. Include different adoption, quality, cost and rollout outcomes.
+
+#### Real Options
+
+Fund uncertainty in stages. Pay a small amount now to preserve the option to scale after evidence. This is ideal for AI where technical and adoption uncertainty are high.
+
+#### Benefits Dependency Network
+
+Link investment to capability, organisational change, intermediate outcome and final benefit.
+
+Example: governed knowledge + agent training + workflow integration → higher answer acceptance → lower search time → lower handling time.
+
+#### Value-Driver Tree
+
+Use the strategy tree to validate financial assumptions and avoid double-counting benefits.
+
+#### Benefits Realisation Plan
+
+Assign each benefit an owner, baseline, target, measurement method, timing, dependency and corrective action. Benefits do not materialise merely because software is deployed.
+
+### Bank numerical example
+
+Expected annual gross benefit: £2.0 million.  
+Adoption probability: 80%.  
+Technical success probability: 85%.  
+Benefit-realisation probability: 75%.
+
+Risk-adjusted benefit = £2.0m × 0.80 × 0.85 × 0.75 = £1.02m.
+
+If annual run cost is £450k and initial investment is £900k, the team models likely, best and worst cases, identifies the adoption rate required to break even and sets pilot thresholds before full rollout.
+
+### Outputs
+
+Five-case business case, TCO model, benefits register, risk-adjusted value, NPV/ROI/payback, unit-economics model, scenario analysis, commercial options, funding request and assumptions register.
+
+### Decision gate
+
+Approve investment only when assumptions are transparent, risks are priced, benefits are owned and the pilot is designed to validate the most sensitive variables.
+
+---
+
+## Step 7 — Design the Complete AI Solution
+
+### Objective
+
+Translate the selected use case into an integrated business, experience, process, data, AI, application, infrastructure, security and operational design.
+
+### Required design layers
+
+1. Business architecture.
+2. Experience architecture.
+3. Process and decision architecture.
+4. Data and knowledge architecture.
+5. AI/model architecture.
+6. Application and integration architecture.
+7. Infrastructure and cloud architecture.
+8. Security and privacy architecture.
+9. Governance and evidence architecture.
+10. Operations, observability and FinOps.
+
+### Framework application
+
+#### TOGAF
+
+Use Architecture Vision, Business, Data, Application and Technology Architecture, then opportunities, migration, implementation governance and change management.
+
+Do not apply TOGAF as excessive documentation. Use it to maintain traceability from business need to target architecture and migration decisions.
+
+#### ArchiMate
+
+Model stakeholders, capabilities, processes, applications, data, technology and implementation relationships. It is useful for showing how an AI service affects the wider enterprise.
+
+#### Cloud Adoption Frameworks
+
+Use them to align strategy, landing zone, security, governance, migration, operations and organisational readiness. They are especially important when AI teams attempt to bypass enterprise cloud controls.
+
+#### Well-Architected Frameworks
+
+Review operational excellence, security, reliability, performance efficiency, cost optimisation and sustainability. Add AI-specific questions for evaluation, data provenance, guardrails and model/provider dependency.
+
+#### Domain-Driven Design
+
+Use bounded contexts, ubiquitous language, aggregates, domain events and context maps. Keep high-value business rules in domain services rather than hiding them in prompts.
+
+**Example**
+
+“Complaint eligibility,” “customer authentication,” “knowledge retrieval” and “case summarisation” may be separate bounded contexts with different owners and controls.
+
+#### Event-Driven Architecture
+
+Publish domain events such as `InteractionCompleted`, `KnowledgeArticleApproved` or `HighRiskQueryDetected`. Event-driven design supports decoupling, monitoring and asynchronous workflows but introduces ordering, idempotency and observability concerns.
+
+#### API-First Architecture
+
+Define contracts, authentication, schemas, errors, rate limits and versioning before implementation. Keep model providers behind a controlled enterprise interface where appropriate.
+
+#### Zero Trust Architecture
+
+Never trust based on network location. Continuously verify identity, device, workload, context and requested action. Apply least privilege to users, agents, tools, data and service accounts.
+
+#### Data Mesh
+
+Use domain-owned data products with federated governance where data is decentralised. Apply when domains can own quality, access and semantics.
+
+#### Data Fabric
+
+Use metadata, integration, lineage, policy and automation to connect distributed data. It is useful where central visibility and interoperability are more important than organisational decentralisation.
+
+#### Medallion Architecture
+
+Organise raw, validated and curated data layers. For RAG, create equivalent stages for acquired content, parsed content, governed chunks and production retrieval indexes.
+
+#### MLOps
+
+Control datasets, features, training, experiments, models, deployment, monitoring and retraining.
+
+#### LLMOps
+
+Add prompt and chain versioning, model routing, context management, RAG evaluation, guardrails, red teaming, latency and token cost.
+
+#### GenAIOps
+
+Treat the whole generative system—models, prompts, retrieval, tools, policies, evaluation and user feedback—as the managed product.
+
+#### DevSecOps
+
+Embed security checks, policy, secrets, dependency scanning, infrastructure scanning and evidence in delivery pipelines.
+
+#### Platform Engineering
+
+Provide self-service paved roads: approved model access, templates, evaluation, identity, observability, deployment and control patterns. Measure developer experience and platform adoption.
+
+#### FinOps
+
+Create shared accountability for variable cloud and model cost. Use showback/chargeback, budgets, anomaly detection, unit cost and optimisation.
+
+#### Site Reliability Engineering
+
+Define service-level indicators, objectives and error budgets. Treat AI quality and safety alongside availability and latency.
+
+### Model selection
+
+Select the smallest, safest and most economical model that meets task requirements. Evaluate quality, latency, structured output, tool use, context, multimodality, hosting, residency, safety, portability, vendor stability and cost.
+
+### Human oversight
+
+- Human-in-the-loop for high-impact or irreversible decisions.
+- Human-on-the-loop for bounded automation with monitoring.
+- Human-out-of-the-loop only for low-impact, reversible, well-controlled activity.
+
+### Bank target design
+
+Agent desktop → AI application API → orchestration and policy layer → retrieval service → approved knowledge index → enterprise model gateway.
+
+Cross-cutting: identity, customer-data minimisation, prompt-injection defence, citations, human escalation, audit log, evaluation, telemetry, incident detection and cost controls.
+
+### Outputs
+
+Architecture vision, context diagram, HLD, LLD, data-flow diagram, trust-boundary diagram, integration contracts, model decision record, NFRs, human-oversight design, threat model, cost model and migration plan.
+
+### Decision gate
+
+Architecture approval requires evidence that the design is valuable, feasible, secure, compliant, resilient, supportable and financially sustainable.
+
+---
+
+## Step 8 — Prototype and Validate
+
+### Objective
+
+Test the assumptions most likely to invalidate the investment.
+
+### Hypothesis-driven method
+
+1. List critical assumptions.
+2. Rank by uncertainty and impact.
+3. Convert each into a testable hypothesis.
+4. Define baseline, target, sample and failure threshold before testing.
+5. Build only enough to generate reliable evidence.
+6. Record results and decide proceed, proceed with conditions, pivot, pause or stop.
+
+### Validation dimensions
+
+- Desirability.
+- Technical feasibility.
+- Data readiness.
+- Commercial viability.
+- Security, privacy and Responsible AI.
+- Operational supportability.
+
+### Example hypothesis
+
+“A grounded knowledge assistant will reduce average information-search time by at least 20%, achieve at least 90% supported answers on the approved evaluation set and produce no material sensitive-data leakage.”
+
+### Evaluation framework
+
+**Model/system quality:** accuracy, relevance, groundedness, completeness, faithfulness, structured-output validity and hallucination.
+
+**Retrieval:** precision, recall, ranking, chunk quality, source freshness and citation correctness.
+
+**Safety:** prompt injection, jailbreak, toxic output, privacy leakage, policy violations and tool abuse.
+
+**User:** task success, time saved, acceptance, override, trust and satisfaction.
+
+**Operations:** latency, availability, throughput, failure, recovery and cost.
+
+**Business:** handling time, resolution, transfer, quality and risk.
+
+### Prototype discipline
+
+A prototype is not exempt from data and security controls. Use safe data, access restrictions, logging and clear limitations. Do not allow an experimental agent to perform uncontrolled production actions.
+
+### Outputs
+
+Prototype, experiment plan, evaluation set, red-team set, results, user evidence, cost findings, risk findings, recommendation and production backlog.
+
+### Decision gate
+
+Proceed only if the prototype reduces the critical uncertainty enough to justify production investment.
+
+---
+
+## Step 9 — Build and Industrialise
+
+### Objective
+
+Turn validated behaviour into a secure, observable and maintainable production service.
+
+### Delivery approach
+
+Use Dual-Track Agile:
+
+- Discovery continuously validates needs, risks and future features.
+- Delivery builds tested production increments.
+
+### Engineering practices
+
+Infrastructure as Code, environment separation, automated tests, CI/CD, registries, versioning, feature flags, secrets management, policy as code, rollback, disaster recovery and release evidence.
+
+### AI test pyramid
+
+1. Unit tests for deterministic logic and guardrails.
+2. Integration tests for APIs, data, identity and tools.
+3. Model tests for quality, fairness, robustness and drift.
+4. Prompt tests for instruction following, ambiguity and injection.
+5. RAG tests for retrieval and groundedness.
+6. Agent tests for planning, permissions, loops, recovery and escalation.
+7. Non-functional tests for security, resilience, latency, scale, accessibility and cost.
+8. End-to-end business acceptance tests.
+
+### Framework application
+
+#### Agile
+
+Deliver small increments and learn, but retain stage gates for irreversible risk and investment decisions.
+
+#### Scrum
+
+Use a product backlog, sprint goal, review and retrospective where work can be planned in short increments. Include model/data work in the same product backlog rather than treating it as invisible research.
+
+#### Kanban
+
+Visualise work, limit work in progress and manage flow. Useful for platform, operations, data remediation and support teams.
+
+#### SAFe and PI Planning
+
+Use for coordination across many teams and dependencies. Avoid turning planning into a substitute for product learning.
+
+#### Lean
+
+Remove waste, shorten feedback cycles and validate value before scaling.
+
+#### Stage-Gate
+
+Use formal evidence-based gates for strategic fit, investment, design, production and scale. It complements—not replaces—iterative delivery.
+
+#### DevOps and DevSecOps
+
+Create shared ownership across build and run, automated delivery, observability and embedded security.
+
+#### Product Operating Model
+
+Fund persistent teams around outcomes. Maintain product vision, roadmap, discovery, delivery, operations and value ownership throughout the lifecycle.
+
+#### Test-Driven Development
+
+Write deterministic tests before implementation where behaviour is specifiable. For probabilistic components, combine TDD with evaluation-driven development.
+
+#### Model-Driven Experimentation
+
+Track hypotheses, datasets, configurations, outputs, metrics and decisions so experiments are reproducible.
+
+#### Continuous Discovery
+
+Maintain regular user contact, opportunity mapping and assumption testing after launch.
+
+#### Continuous Delivery
+
+Keep software releasable through automation, small batches, feature flags and reliable rollback.
+
+### Definition of Done
+
+A feature is complete only when acceptance criteria, test evidence, privacy/security review, risk controls, monitoring, documentation, runbook, product approval and operational ownership are complete.
+
+### Outputs
+
+Production service, evaluation pipeline, CI/CD, security controls, observability, runbooks, support model, release plan, training and operational readiness evidence.
+
+### Decision gate
+
+Release only when technical quality, controls, operations, user readiness and rollback are demonstrated.
+
+---
+
+## Step 10 — Govern Responsible AI Across the Lifecycle
+
+### Objective
+
+Maintain accountability, fairness, transparency, explainability, privacy, safety, security and human control.
+
+### NIST AI RMF
+
+Use the four functions continuously:
+
+- **Govern:** policies, roles, risk appetite, culture and accountability.
+- **Map:** context, users, impacts, dependencies and risk.
+- **Measure:** evaluate quality, fairness, robustness, explainability and controls.
+- **Manage:** prioritise risk, implement treatment, monitor and respond.
+
+Govern is cross-cutting rather than a final approval step.
+
+### ISO/IEC 42001
+
+Use it to establish an organisation-wide AI management system:
+
+Context → leadership → planning → support → operation → performance evaluation → improvement.
+
+Create scope, policy, objectives, roles, risk and impact processes, documented controls, monitoring, internal audit, management review and continual improvement.
+
+### ISO/IEC 23894
+
+Use it to integrate AI-specific risks into enterprise risk management. Identify sources of risk, affected stakeholders, uncertainty, likelihood, impact, treatment, monitoring and communication.
+
+### ISO/IEC 42005
+
+Use structured AI impact assessment where systems may materially affect individuals, groups or society. Document intended use, affected parties, positive and negative impacts, distribution, severity, mitigations and residual impact.
+
+### EU AI Act Risk Classification
+
+Classify the system and identify provider/deployer responsibilities, prohibited practices, high-risk obligations, transparency requirements and general-purpose AI dependencies. Obtain legal interpretation for the specific use case and deployment context.
+
+### OECD AI Principles
+
+Use as a board-level values lens: inclusive growth, human-centred values, transparency, robustness, security, safety and accountability.
+
+### Model Cards
+
+Document intended use, performance, limitations, data, ethical considerations, evaluation and maintenance for a model.
+
+### Data Cards
+
+Document source, collection, ownership, consent, representation, quality, preprocessing, limitations and permitted use.
+
+### Algorithmic Impact Assessment
+
+Assess the system’s purpose, decision influence, people affected, harms, rights, explainability, oversight, contestability and controls.
+
+### AI System Inventory
+
+Maintain a complete register of use cases, owners, models, providers, data, risk tier, status, approvals, monitoring and retirement.
+
+### Responsible AI Control Library
+
+Create reusable controls mapped to risk tiers and lifecycle stages. Examples: disclosure, restricted data, independent validation, bias testing, human approval, audit logging and incident reporting.
+
+### Human Oversight Framework
+
+Define who reviews, when intervention is required, what evidence is presented, the authority to override, response time, escalation and how reviewer performance is monitored.
+
+### Bank controls
+
+Approved sources only, customer-data minimisation, role-based retrieval, citations, no autonomous financial decisions, human escalation, quality thresholds, monitoring, audit trail and incident playbooks.
+
+### Outputs
+
+System card, model card, data card, impact assessment, AI risk assessment, control matrix, human-oversight plan, approval evidence, monitoring and retirement plan.
+
+---
+
+## Step 11 — Security and Privacy Engineering
+
+### Objective
+
+Protect users, data, models, prompts, tools, applications, infrastructure and business processes.
+
+### NIST Cybersecurity Framework
+
+Use Govern, Identify, Protect, Detect, Respond and Recover. Map each AI asset and threat into this lifecycle.
+
+### ISO/IEC 27001
+
+Integrate AI into the Information Security Management System: scope, risk assessment, risk treatment, policies, control evidence, internal audit and management review.
+
+### Zero Trust
+
+Authenticate and authorise every user, workload and tool action. Use least privilege, short-lived credentials, segmentation and continuous verification.
+
+### STRIDE Threat Modelling
+
+Assess:
+
+- Spoofing.
+- Tampering.
+- Repudiation.
+- Information disclosure.
+- Denial of service.
+- Elevation of privilege.
+
+Apply STRIDE to the application, model gateway, retrieval service, tools, vector store, telemetry and administrative interfaces.
+
+### MITRE ATT&CK
+
+Use it for enterprise adversary behaviour affecting endpoints, identity, cloud and infrastructure.
+
+### MITRE ATLAS
+
+Use it for adversarial threats against AI systems such as model evasion, data poisoning, model theft and abuse.
+
+### OWASP Top 10 for LLM Applications
+
+Use it to structure testing for prompt injection, insecure output handling, sensitive-information disclosure, supply-chain risk, data/model poisoning, excessive agency, system-prompt leakage, vector/embedding weakness, misinformation and resource consumption.
+
+### Privacy by Design
+
+Embed privacy proactively:
+
+- Data minimisation.
+- Purpose limitation.
+- Lawful basis.
+- Access control.
+- Retention.
+- Transparency.
+- User rights.
+- Secure defaults.
+- Privacy-preserving architecture.
+
+### DPIA
+
+Run a Data Protection Impact Assessment when processing is likely to create high privacy risk. Document purpose, necessity, proportionality, data flows, risks, controls, consultation and residual risk.
+
+### Secure Development Lifecycle
+
+Embed security requirements, threat modelling, secure design, code review, testing, release approval and vulnerability management.
+
+### Defence in Depth
+
+Use multiple independent controls: identity, network, application, data, prompt, model, tool, monitoring and human oversight.
+
+### Identity-First Security
+
+Make identity and authorisation central to every retrieval and action. The AI must never broaden a user’s access.
+
+### Least Privilege
+
+Grant agents and tools only the permissions necessary for the current task, ideally with scoped, time-bound tokens.
+
+### Shared Responsibility
+
+Document what the cloud provider, model provider, platform team, product team, data owner and customer organisation each control. Vendor certification does not remove the deployer’s responsibility.
+
+### Example threat
+
+A malicious document contains hidden instructions telling the model to exfiltrate customer data. Controls include ingestion scanning, content trust classification, instruction/data separation, retrieval filtering, tool permissions, output DLP, anomaly detection and red-team tests.
+
+### Outputs
+
+Threat model, security requirements, DPIA, data-flow map, access-control matrix, security test plan, secrets strategy, incident playbook, supplier assessment and residual-risk decision.
+
+---
+
+## Step 12 — Deploy and Drive Adoption
+
+### Objective
+
+Embed the AI capability into real work with correct use, trust, skills and operational support.
+
+### Prosci ADKAR
+
+- Awareness: why change is required.
+- Desire: why individuals should participate.
+- Knowledge: what they need to know.
+- Ability: practice and support.
+- Reinforcement: incentives, metrics and management attention.
+
+### Kotter’s Eight Steps
+
+Create urgency, form a coalition, define vision, enlist participation, remove barriers, produce short-term wins, sustain acceleration and anchor change.
+
+Use Kotter for broad organisational transformation; use ADKAR for individual adoption.
+
+### McKinsey 7S
+
+Check whether strategy, structure, systems, shared values, skills, style and staff support adoption. A new tool may fail because performance measures still reward old behaviour.
+
+### Change-Impact Assessment
+
+Assess changes to roles, decisions, tasks, workload, skills, controls, customer interaction, identity and performance measures.
+
+### Training-Needs Analysis
+
+Map each role’s current capability, required capability, gap, learning method and evidence of competence. Separate awareness, practitioner and approver training.
+
+### Communications Planning
+
+Segment audience, message, sender, channel, timing and response mechanism. Be explicit about limitations, monitoring and job impact.
+
+### Behavioural Nudges
+
+Use defaults, prompts, checklists and feedback to encourage safe behaviour. Example: require users to confirm source evidence before sending a high-impact response.
+
+### Communities of Practice
+
+Create a network for knowledge sharing, reusable patterns, peer review and capability development.
+
+### Champion Networks
+
+Train credible local users to demonstrate, support, collect feedback and surface resistance. Do not use champions as unpaid support without time or recognition.
+
+### Technology Acceptance Model
+
+Assess perceived usefulness and ease of use. Add trust, transparency and organisational support for AI. If users do not see personal usefulness or find the workflow difficult, adoption will remain low despite technical quality.
+
+### RACI/RAPID and Stakeholder Matrix
+
+Use them again to clarify rollout ownership, escalation and local decision-makers.
+
+### Controlled rollout
+
+Alpha → limited beta → controlled pilot → business-unit rollout → geographic rollout → enterprise rollout.
+
+### Adoption metrics
+
+Active use, repeat use, task completion, accepted suggestions, override, escalation, training completion, user confidence, satisfaction, time saved, process compliance and realised benefit.
+
+### Outputs
+
+Change-impact assessment, adoption strategy, communications, training, champion network, support model, rollout plan, feedback backlog and adoption dashboard.
+
+### Decision gate
+
+Deploy only when users, managers, operations and control functions are ready and support capacity exists.
+
+---
+
+## Step 13 — Operate, Monitor and Improve
+
+### Objective
+
+Maintain business value, model quality, reliability, security, compliance and cost after deployment.
+
+### Four monitoring layers
+
+1. Business outcomes.
+2. Model/system quality.
+3. Operational performance.
+4. Risk and control performance.
+
+### SRE
+
+Define SLIs and SLOs for availability, latency, quality, safety and freshness. Use error budgets to balance change speed and reliability.
+
+### FinOps
+
+Track cost per user, transaction and successful outcome. Optimise through routing, caching, smaller models, batching, shorter context, retrieval tuning and reserved capacity where justified.
+
+### Benefits Realisation
+
+Compare actual benefit with baseline and business-case assumptions. Diagnose adoption, process, quality or cost gaps and assign corrective action.
+
+### Continuous improvement loop
+
+Observe → diagnose → prioritise → experiment → release → measure → standardise.
+
+### Incident management
+
+Define severity, detection, containment, investigation, notification, remediation, root cause and control improvement for data leakage, harmful output, incorrect action, bias, prompt injection, tool abuse, cost anomaly, outage and regulatory breach.
+
+### Model and knowledge change
+
+Use controlled change records, evaluation regression, approval, canary release, monitoring and rollback whenever models, prompts, tools, indexes or policies change.
+
+### Retirement
+
+Retire when value declines, risk becomes unacceptable, a provider is deprecated, cost is unsustainable or the capability is replaced. Preserve records and ensure data, credentials and dependencies are removed safely.
+
+### Outputs
+
+Dashboards, service reports, model reports, risk reports, cost reports, incident register, benefits report, improvement backlog, audit evidence and retirement decisions.
+
+---
+
+## Step 14 — Scale AI Across the Enterprise
+
+### Objective
+
+Convert one successful product into reusable organisational capability.
+
+### Scale dimensions
+
+- Platform.
+- Process.
+- Governance.
+- Talent.
+- Portfolio.
+- Vendor and ecosystem.
+- Knowledge and reusable assets.
+- Benefits and FinOps.
+
+### AI Factory
+
+Create a repeatable path:
+
+Demand → intake → assessment → prioritisation → discovery → experiment → product delivery → governance → deployment → monitoring → reuse.
+
+A factory is not a central team that builds everything. It is the combination of standards, platforms, specialist help, product teams, evidence and governance that reduces cycle time without weakening control.
+
+### Platform Engineering
+
+Offer paved roads for identity, model access, RAG, agents, observability, evaluation, security, deployment and cost management.
+
+### Capability-Based Planning
+
+Invest in shared capabilities based on portfolio demand: governed knowledge, evaluation, model gateway, data products, human oversight and AI incident response.
+
+### Portfolio Management
+
+Balance quick wins, strategic bets, foundational investments and experiments. Monitor concentration risk, vendor dependency, resource contention and duplicate capabilities.
+
+### Scale criteria
+
+Scale when value is proven, adoption is strong, risk is controlled, architecture is reusable, unit cost is sustainable, operations are stable and business ownership is clear.
+
+### Outputs
+
+Enterprise AI platform, control library, use-case intake, AI inventory, capability academy, communities of practice, reusable assets, benefits portfolio and multi-year roadmap.
+
+---
+
+# Part III — Complete Framework Dictionary
+
+The following catalogue expands every framework in the supplied framework list. Each entry gives its purpose, a practical method, an example and the artefact it should produce.
+
+## A. Strategy Frameworks
+**Primary lifecycle use:** Steps 1, 4, 6 and 14
+
+Use strategy frameworks to decide why AI matters, where it can create advantage and which capabilities should receive investment.
+
+### Corporate Strategy Cascade
+
+**Purpose.** Connects board-level strategy to business capabilities, AI outcomes and operational metrics.
+
+**How to use it.** Start with the enterprise objective; decompose it into business-unit goals, capability changes, AI-enabled outcomes, product KPIs and frontline measures. Validate every link with an accountable owner.
+
+**Example.** A retailer links margin improvement to lower returns, then to better product guidance, then to a multimodal assistant measured by return-rate reduction rather than chat volume.
+
+**Best output.** A one-page traceability map from strategy to metrics.
+
+### Three Horizons Framework
+
+**Purpose.** Balances current-business improvement, workflow transformation and longer-term AI-native growth.
+
+**How to use it.** Place opportunities into Horizon 1, 2 or 3; define different funding, time horizons and uncertainty tolerance; ensure foundations support more than one horizon.
+
+**Example.** A bank funds summarisation now, redesigns service journeys next, and experiments with proactive financial coaching for future growth.
+
+**Best output.** A horizon-based portfolio and investment roadmap.
+
+### SWOT Analysis
+
+**Purpose.** Identifies internal strengths and weaknesses and external opportunities and threats relevant to AI strategy.
+
+**How to use it.** Gather evidence, distinguish facts from assumptions, prioritise the few factors that alter strategic choice, and convert each into an action or mitigation.
+
+**Example.** A manufacturer has proprietary maintenance data but weak data quality; the action is to remediate asset histories before investing heavily in prediction.
+
+**Best output.** A prioritised SWOT-to-action matrix.
+
+### PESTLE Analysis
+
+**Purpose.** Examines external political, economic, social, technological, legal and environmental forces.
+
+**How to use it.** Select a planning horizon, identify forces with plausible business impact, rate direction and uncertainty, and use them as scenario inputs or design constraints.
+
+**Example.** A healthcare AI programme considers clinician shortages, public trust, medical-device rules, cloud sovereignty and inference energy.
+
+**Best output.** An external-driver register with implications and triggers.
+
+### Porter's Five Forces
+
+**Purpose.** Tests whether AI creates durable advantage or only temporary efficiency.
+
+**How to use it.** Assess rivalry, entrants, supplier power, buyer power and substitutes; identify how AI changes barriers, switching costs, differentiation and vendor dependency.
+
+**Example.** A legal-information provider finds that foundation models lower entry barriers, so it differentiates through proprietary verified content and workflow integration.
+
+**Best output.** An industry-structure assessment and strategic response.
+
+### Value Chain Analysis
+
+**Purpose.** Locates where AI can improve cost, speed, quality, risk or differentiation across end-to-end activities.
+
+**How to use it.** Map primary and support activities; identify pain, data and decision points; estimate value; trace cross-step dependencies.
+
+**Example.** A logistics firm considers forecasting, warehouse slotting, route optimisation, customer communication and maintenance rather than selecting one isolated chatbot.
+
+**Best output.** An AI opportunity map over the enterprise value chain.
+
+### Business Model Canvas
+
+**Purpose.** Explores how AI changes customers, value propositions, channels, relationships, revenue, resources, partners, activities and costs.
+
+**How to use it.** Complete the current canvas, propose the AI-enabled canvas, highlight changed assumptions, and test the riskiest commercial elements.
+
+**Example.** A software vendor moves from licence pricing to outcome-linked pricing for AI-assisted invoice matching.
+
+**Best output.** Current and target business-model canvases.
+
+### Operating Model Canvas
+
+**Purpose.** Designs how strategy is executed through processes, organisation, information, suppliers, locations and management systems.
+
+**How to use it.** Describe each operating-model component, add decision rights and controls, test alignment, and assign transition actions.
+
+**Example.** A global insurer centralises model governance and platforms while keeping claims-product ownership in domain teams.
+
+**Best output.** A target operating-model blueprint.
+
+### Strategy Choice Cascade
+
+**Purpose.** Forces a coherent set of choices about aspiration, market, advantage, capabilities and management systems.
+
+**How to use it.** Answer the five cascade questions in order; test whether each choice supports the previous one; identify what the organisation will not do.
+
+**Example.** A bank chooses to serve complex regulated journeys with trusted agent assistance rather than compete on fully autonomous service.
+
+**Best output.** A concise strategic-choice narrative.
+
+### Playing to Win
+
+**Purpose.** Applies the strategy-choice cascade with an explicit emphasis on competitive advantage and capability systems.
+
+**How to use it.** Frame the winning aspiration, choose where to play and how to win, identify required capabilities, then define management systems and tests for the strategy.
+
+**Example.** An industrial AI provider wins in safety-critical maintenance by combining edge deployment, domain models and auditable recommendations.
+
+**Best output.** A strategy-on-a-page with capability commitments.
+
+### Blue Ocean Strategy
+
+**Purpose.** Searches for new value curves rather than direct feature competition.
+
+**How to use it.** Use the eliminate-reduce-raise-create grid, compare industry value curves, propose a differentiated offering, and validate demand and economics.
+
+**Example.** An education provider eliminates fixed class schedules, reduces generic content, raises tutor oversight and creates adaptive practice with verified progress evidence.
+
+**Best output.** A new value curve and testable market proposition.
+
+### Scenario Planning
+
+**Purpose.** Prepares strategy for multiple plausible futures where key uncertainties cannot be forecast reliably.
+
+**How to use it.** Select critical uncertainties, create distinct scenarios, analyse impact, identify no-regret actions and define leading indicators.
+
+**Example.** A public-sector AI programme prepares for strict procurement rules, rapid open-model progress and different levels of citizen trust.
+
+**Best output.** Scenario narratives, trigger indicators and option roadmap.
+
+### Wardley Mapping
+
+**Purpose.** Shows user needs, value-chain dependencies and component maturity to guide build, buy and evolution decisions.
+
+**How to use it.** Start from user need, map dependent components, place each on the evolution axis, identify constraints, inertia and strategic movement.
+
+**Example.** A firm builds proprietary risk logic but buys commodity identity, logging and container infrastructure.
+
+**Best output.** A Wardley map and sourcing strategy.
+
+### Capability-Based Planning
+
+**Purpose.** Plans investments around enduring organisational abilities instead of temporary projects.
+
+**How to use it.** Define capabilities, score current and target maturity, identify gaps and dependencies, and sequence capability increments against portfolio demand.
+
+**Example.** A company builds reusable evaluation, model gateway and knowledge-governance capabilities that support ten use cases.
+
+**Best output.** A capability heatmap and multi-year capability roadmap.
+
+### Value-Driver Trees
+
+**Purpose.** Decompose enterprise value into measurable operational and AI-related drivers.
+
+**How to use it.** Start from a financial or strategic outcome, break it into mutually understandable drivers, add leading indicators, and assign benefit owners.
+
+**Example.** Customer-service cost is decomposed into volume, handling time, transfer, rework and escalation; the assistant is measured against the relevant branches.
+
+**Best output.** A KPI tree with baselines, targets and ownership.
+
+## B. Discovery Frameworks
+**Primary lifecycle use:** Step 2 and continuous discovery in Steps 8–13
+
+Use discovery frameworks to replace assumptions with evidence about people, processes, systems, data and root causes.
+
+### Design Thinking
+
+**Purpose.** Builds solutions around human needs through empathy, problem definition, ideation, prototyping and testing.
+
+**How to use it.** Research users in context, synthesise needs, define the problem, create alternatives, prototype cheaply and test behaviour.
+
+**Example.** Warehouse staff reveal that voice interaction is more useful than a desktop chatbot because their hands are occupied.
+
+**Best output.** Research evidence, problem statement and tested concept.
+
+### Double Diamond
+
+**Purpose.** Separates divergent and convergent thinking across problem and solution spaces.
+
+**How to use it.** Discover broadly, define the evidence-backed problem, develop multiple concepts and deliver the strongest through iterative testing.
+
+**Example.** A team explores complaints data before narrowing from 'automate complaints' to 'improve evidence completeness before review.'
+
+**Best output.** A documented problem-to-solution decision trail.
+
+### Jobs to Be Done
+
+**Purpose.** Defines the progress a user seeks in a specific situation.
+
+**How to use it.** Interview around triggering situations, desired progress, obstacles and alternatives; write job statements; design and measure around the job.
+
+**Example.** A finance analyst needs to explain a variance quickly enough for a board meeting, not merely 'use a reporting tool.'
+
+**Best output.** Prioritised job statements and outcome measures.
+
+### Customer Journey Mapping
+
+**Purpose.** Visualises the customer’s end-to-end experience, actions, emotions, channels and pain points.
+
+**How to use it.** Choose a persona and journey, map stages and evidence, identify moments of truth, and mark AI opportunities and risks.
+
+**Example.** A bank maps account-opening abandonment and finds document clarification, not identity verification, is the largest pain.
+
+**Best output.** Current and target journey maps.
+
+### Service Blueprinting
+
+**Purpose.** Connects frontstage experience with backstage processes, systems, data and ownership.
+
+**How to use it.** Extend the journey below the line of visibility; add systems, policies, handoffs, controls and failure recovery.
+
+**Example.** A customer answer depends on knowledge approval, CRM data, authentication, model routing and quality review.
+
+**Best output.** An end-to-end service blueprint.
+
+### Value Stream Mapping
+
+**Purpose.** Identifies waiting, rework, queues and non-value-adding activity across a process.
+
+**How to use it.** Map material and information flow, record cycle and wait time, identify waste, design a future state and improvement plan.
+
+**Example.** An underwriting process spends two days waiting for missing evidence although model analysis takes seconds.
+
+**Best output.** Current/future value-stream maps and waste backlog.
+
+### SIPOC
+
+**Purpose.** Provides a high-level boundary for a process and its suppliers, inputs, outputs and customers.
+
+**How to use it.** Define process start/end, list outputs and customers, identify inputs and suppliers, then validate ownership and quality.
+
+**Example.** Product teams supply approved policies used by agents to produce compliant customer responses.
+
+**Best output.** A scoped SIPOC table.
+
+### Process Mining
+
+**Purpose.** Uses event logs to discover actual process variants and bottlenecks.
+
+**How to use it.** Select a process and case identifier, prepare event data, visualise paths, compare variants, investigate causes and quantify opportunity.
+
+**Example.** Claims logs show that one missing-document loop creates most delay.
+
+**Best output.** Evidence-based process model and conformance report.
+
+### Business Process Modelling
+
+**Purpose.** Represents tasks, events, decisions, roles and exceptions in a standard form such as BPMN.
+
+**How to use it.** Model the current process, validate it, design the target process, distinguish deterministic and probabilistic decisions, and define exceptions.
+
+**Example.** An AI recommendation is represented separately from the human approval that creates the legal decision.
+
+**Best output.** Validated current and target BPMN models.
+
+### Stakeholder Mapping
+
+**Purpose.** Identifies stakeholders, interests, influence, incentives and likely resistance.
+
+**How to use it.** List affected and decision-making parties, assess influence/interest, document needs and risks, and create an engagement approach.
+
+**Example.** A data owner with low seniority has high practical influence because access cannot proceed without them.
+
+**Best output.** Stakeholder map and engagement plan.
+
+### Voice of the Customer
+
+**Purpose.** Converts customer feedback and behaviour into prioritised needs.
+
+**How to use it.** Combine qualitative and quantitative sources, code themes, quantify frequency and impact, and translate findings into requirements.
+
+**Example.** Call transcripts and complaints show customers value explanation and certainty more than maximum response speed.
+
+**Best output.** VOC themes linked to requirements and metrics.
+
+### Five Whys
+
+**Purpose.** Finds deeper causal factors behind an observed problem.
+
+**How to use it.** State the problem precisely, ask why using evidence, continue until a controllable root cause is reached, and validate the causal chain.
+
+**Example.** Slow answers trace back to fragmented knowledge ownership rather than agent effort.
+
+**Best output.** A validated root-cause chain.
+
+### Fishbone Analysis
+
+**Purpose.** Structures potential causes across categories such as people, process, technology, data, policy and environment.
+
+**How to use it.** Define the effect, brainstorm causes by category, test with evidence, rank causes and assign investigations.
+
+**Example.** Poor model answers may result from stale content, weak chunking, access filters, ambiguous prompts or user training.
+
+**Best output.** A cause map and evidence plan.
+
+### Problem Trees
+
+**Purpose.** Maps a central problem, its causes and its consequences.
+
+**How to use it.** Define the core problem, build cause and effect branches, validate relationships, then convert into an objective tree.
+
+**Example.** High complaint volume is linked to unclear communication, inconsistent decisions and slow resolution.
+
+**Best output.** Problem and objective trees.
+
+## C. AI Readiness and Maturity Frameworks
+**Primary lifecycle use:** Step 3
+
+Use maturity frameworks to establish whether the organisation has the minimum capability required for prototype, production and scale.
+
+### McKinsey AI Transformation Dimensions
+
+**Purpose.** Assesses whether strategy, talent, operating model, technology, data, adoption and scaling capabilities work as a system.
+
+**How to use it.** Define evidence for each dimension, score current and target capability, identify bottlenecks and prioritise cross-functional remediation.
+
+**Example.** A company with strong models but no domain product owners is rated unready to scale.
+
+**Best output.** Transformation heatmap and capability roadmap.
+
+### Accenture AI Maturity Models
+
+**Purpose.** Assess organisational capacity to move from experimentation to industrialised, responsible AI reinvention.
+
+**How to use it.** Evaluate leadership, talent, data, technology, delivery, Responsible AI and value; compare maturity with strategic ambition.
+
+**Example.** An enterprise moves from isolated pilots to reusable platforms and federated product teams.
+
+**Best output.** Maturity profile and scaled-delivery recommendations.
+
+### PwC AI Maturity Frameworks
+
+**Purpose.** Connect business value, trust, governance, data/model controls, talent and enterprise enablement.
+
+**How to use it.** Assess maturity by evidence, identify value at risk and capability gaps, and define target-state governance and delivery.
+
+**Example.** A regulated firm adds model inventory, risk classification and benefits ownership before enterprise rollout.
+
+**Best output.** Trusted-AI maturity heatmap.
+
+### Microsoft Cloud Adoption Framework for AI
+
+**Purpose.** Structures cloud and AI adoption around strategy, planning, readiness, adoption, governance and management.
+
+**How to use it.** Create a cloud/AI strategy, prepare landing zones and operating model, adopt workloads through repeatable patterns, and govern/manage continuously.
+
+**Example.** An Azure organisation establishes approved model access and an AI Centre of Excellence before multiple agent projects.
+
+**Best output.** Cloud AI adoption plan and landing-zone backlog.
+
+### IBM AI Ladder
+
+**Purpose.** Explains the journey from fragmented data to AI embedded in workflows through Collect, Organise, Analyse and Infuse.
+
+**How to use it.** Assess each rung, remove data and governance blockers, prove analytics/AI value, then integrate into operational decisions.
+
+**Example.** A utility cannot scale outage prediction until asset data is collected and governed consistently.
+
+**Best output.** Data-to-AI capability roadmap.
+
+### AI Capability Maturity Models
+
+**Purpose.** Provide an organisation-specific progression from ad hoc experimentation to AI-native operation.
+
+**How to use it.** Define levels and evidence across people, process, data, technology, governance and value; assess and set target maturity by use case.
+
+**Example.** A business targets Level 3 governance for internal copilots and Level 4 for credit-risk systems.
+
+**Best output.** Tailored maturity model and improvement plan.
+
+### Data Maturity Assessments
+
+**Purpose.** Evaluate whether data is owned, accessible, high-quality, lawful, interoperable and traceable.
+
+**How to use it.** Score governance, quality, metadata, lineage, access, privacy, retention and data-product practices using sampled evidence.
+
+**Example.** A RAG assistant is delayed because policy documents lack effective dates and ownership.
+
+**Best output.** Data-readiness score and remediation backlog.
+
+### MLOps Maturity Models
+
+**Purpose.** Assess reproducibility and control of model development, deployment and monitoring.
+
+**How to use it.** Evaluate versioning, pipelines, registries, testing, deployment, monitoring, rollback and retraining; set minimum maturity for production.
+
+**Example.** A prediction model moves from notebook deployment to automated, monitored releases.
+
+**Best output.** MLOps target state and engineering backlog.
+
+### Responsible AI Maturity Models
+
+**Purpose.** Assess how consistently AI risk is identified, controlled, approved and monitored.
+
+**How to use it.** Review policy, inventory, tiering, impact assessment, controls, validation, incidents and continual improvement.
+
+**Example.** A company replaces voluntary checklists with mandatory tier-based approvals and control evidence.
+
+**Best output.** Responsible AI maturity heatmap.
+
+### Cloud Maturity Assessments
+
+**Purpose.** Evaluate whether cloud foundations can support secure, resilient and cost-controlled AI workloads.
+
+**How to use it.** Review landing zones, network, identity, policy, observability, resilience, FinOps and service ownership.
+
+**Example.** A pilot cannot scale because production connectivity and private endpoints are not standardised.
+
+**Best output.** Cloud gap assessment and platform roadmap.
+
+### Cybersecurity Maturity Assessments
+
+**Purpose.** Evaluate governance, protection, detection, response and recovery capability, including AI-specific threats.
+
+**How to use it.** Assess controls and evidence, test incident response, identify threat gaps and map remediation to risk.
+
+**Example.** The organisation can block malware but cannot investigate prompt injection or agent tool misuse.
+
+**Best output.** Cyber maturity profile and risk treatment plan.
+
+## D. Use-Case Prioritisation Frameworks
+**Primary lifecycle use:** Step 4
+
+Use prioritisation frameworks to choose what to fund, what to validate, what foundation to build and what to reject.
+
+### Impact-versus-Effort Matrix
+
+**Purpose.** Rapidly sorts opportunities by expected impact and implementation effort.
+
+**How to use it.** Define comparable scales, score collaboratively, challenge optimism and use the result only as an initial filter.
+
+**Example.** Conversation summarisation is high impact/low effort; autonomous complaint decisions are high impact/high effort.
+
+**Best output.** A four-quadrant opportunity map.
+
+### Desirability, Viability and Feasibility
+
+**Purpose.** Tests user need, sustainable business value and delivery practicality.
+
+**How to use it.** Define evidence for each lens, identify the weakest assumption and run targeted validation.
+
+**Example.** A personalised coach is technically feasible but not viable if human oversight makes unit cost excessive.
+
+**Best output.** A DVF score and evidence gaps.
+
+### Value, Feasibility and Risk
+
+**Purpose.** Balances economic and strategic value against technical feasibility and residual risk.
+
+**How to use it.** Score each dimension using common criteria, apply risk thresholds, and plot candidates for portfolio decisions.
+
+**Example.** A read-only compliance assistant scores better than an autonomous approval agent.
+
+**Best output.** A value-feasibility-risk portfolio.
+
+### RICE
+
+**Purpose.** Prioritises by reach, impact, confidence and effort.
+
+**How to use it.** Estimate each component over a fixed time window, document evidence, calculate consistently and review sensitivity.
+
+**Example.** A tool reaching 800 agents with moderate impact may outrank a high-impact feature used by 20 specialists.
+
+**Best output.** A ranked RICE backlog.
+
+### WSJF
+
+**Purpose.** Prioritises work by cost of delay relative to job size.
+
+**How to use it.** Estimate user/business value, time criticality and risk reduction, divide by job size, and sequence highest scores.
+
+**Example.** A regulatory reporting change outranks a feature enhancement because delay creates compliance exposure.
+
+**Best output.** A WSJF-ranked programme backlog.
+
+### MoSCoW
+
+**Purpose.** Creates release-level priority categories: Must, Should, Could and Won’t.
+
+**How to use it.** Define objective rules, cap the proportion of Must items, negotiate trade-offs and time-box the classification.
+
+**Example.** Source citations and access control are Must; custom avatars are Won’t for the pilot.
+
+**Best output.** A scoped release requirement set.
+
+### Kano Model
+
+**Purpose.** Distinguishes basic expectations, performance drivers and delight features.
+
+**How to use it.** Research user response to presence and absence, classify features and prioritise basics before differentiators.
+
+**Example.** Accurate sources are basic; faster response improves satisfaction; proactive explanations may delight.
+
+**Best output.** A Kano feature map.
+
+### ICE Scoring
+
+**Purpose.** Ranks ideas through impact, confidence and ease.
+
+**How to use it.** Set scales, score quickly, use confidence to expose speculation and validate top candidates.
+
+**Example.** A meeting-summary feature scores higher than a complex multi-agent workflow for an early release.
+
+**Best output.** A fast opportunity ranking.
+
+### Weighted Scoring Model
+
+**Purpose.** Combines multiple criteria using explicit weights.
+
+**How to use it.** Agree criteria and weights, define scoring anchors, collect evidence, score independently, calibrate and run sensitivity.
+
+**Example.** A bank weights business value 35%, feasibility 20%, strategic alignment 15%, data 15%, scale 15%, then applies a risk penalty.
+
+**Best output.** An auditable prioritisation scorecard.
+
+### Risk-Adjusted Value Scoring
+
+**Purpose.** Discounts expected value for uncertainty and risk.
+
+**How to use it.** Estimate expected benefit, probabilities of adoption/technical success/realisation, control cost and residual exposure.
+
+**Example.** A £2m benefit becomes £1.02m after probability adjustment.
+
+**Best output.** A risk-adjusted portfolio value model.
+
+### Cost-of-Delay Analysis
+
+**Purpose.** Quantifies the economic or strategic cost of waiting.
+
+**How to use it.** Define the delay period, model lost value or risk, identify time-critical triggers and compare with delivery cost.
+
+**Example.** Delaying fraud detection by six months exposes avoidable losses that exceed implementation cost.
+
+**Best output.** A cost-of-delay estimate and timing decision.
+
+### Strategic Alignment Scoring
+
+**Purpose.** Measures contribution to agreed strategic objectives and capability themes.
+
+**How to use it.** Map each use case to strategy, assign evidence-based scores, reject weakly aligned ideas and balance the portfolio.
+
+**Example.** A generic writing assistant ranks below a service-quality use case tied to the bank’s core strategy.
+
+**Best output.** A strategy-linked portfolio score.
+
+### Use-Case Portfolio Matrix
+
+**Purpose.** Balances quick wins, strategic bets, foundations, experiments and deferred work.
+
+**How to use it.** Classify opportunities, map dependencies, allocate funding by category and review risk concentration.
+
+**Example.** Knowledge governance is a foundation; agent assistance is a quick win; autonomous service is a strategic bet.
+
+**Best output.** A balanced portfolio and roadmap.
+
+## E. Commercial and Value Frameworks
+**Primary lifecycle use:** Step 6 and Step 13
+
+Use commercial frameworks to make costs, benefits, uncertainty and ownership explicit.
+
+### Total Cost of Ownership
+
+**Purpose.** Captures initial, recurring, hidden and retirement costs over the solution lifecycle.
+
+**How to use it.** Choose a time horizon, enumerate cost drivers, separate fixed/variable cost, model scale and include risk/change/operations.
+
+**Example.** A RAG assistant includes knowledge curation and evaluation cost, not only tokens.
+
+**Best output.** A multi-year TCO model.
+
+### Return on Investment
+
+**Purpose.** Expresses net benefit relative to cost.
+
+**How to use it.** Define benefits and costs consistently, avoid double counting, distinguish cashable and non-cash benefits, and calculate by scenario.
+
+**Example.** A £1.5m net benefit on £1m cost produces 150% ROI.
+
+**Best output.** An ROI summary with assumptions.
+
+### Net Present Value
+
+**Purpose.** Values future cash flows in today’s terms.
+
+**How to use it.** Set horizon and discount rate, forecast cash flows, calculate present values and test sensitivity.
+
+**Example.** A platform has negative Year 1 cash flow but positive NPV because it enables multiple products.
+
+**Best output.** An NPV model.
+
+### Internal Rate of Return
+
+**Purpose.** Finds the discount rate at which project NPV equals zero.
+
+**How to use it.** Model cash flows, calculate IRR, compare with hurdle rate and interpret alongside NPV and risk.
+
+**Example.** Two AI investments have similar ROI, but one has faster cash generation and higher IRR.
+
+**Best output.** IRR comparison with caveats.
+
+### Payback Period
+
+**Purpose.** Measures how quickly cumulative benefit recovers investment.
+
+**How to use it.** Forecast monthly or quarterly net cash flow, identify break-even date and compare against risk appetite.
+
+**Example.** A contact-centre assistant pays back in 18 months in the likely case.
+
+**Best output.** Payback chart.
+
+### Break-Even Analysis
+
+**Purpose.** Identifies the adoption, volume, price or productivity threshold required to cover cost.
+
+**How to use it.** Separate fixed and variable cost, define contribution per unit and solve for break-even volume.
+
+**Example.** The service needs 350,000 successful interactions per year to cover platform and model cost.
+
+**Best output.** A break-even curve.
+
+### Cost-Benefit Analysis
+
+**Purpose.** Compares all material benefits and costs, including qualitative impacts.
+
+**How to use it.** List stakeholders, quantify where credible, score qualitative impacts, analyse distribution and document uncertainty.
+
+**Example.** Central savings are offset by increased review workload in compliance.
+
+**Best output.** A transparent cost-benefit ledger.
+
+### Unit Economics
+
+**Purpose.** Tests economic sustainability at the level of a user, transaction or outcome.
+
+**How to use it.** Choose the correct unit, allocate direct and shared cost, measure success-adjusted cost and model scale.
+
+**Example.** Cost per answer is misleading; the bank measures cost per compliant first-contact resolution.
+
+**Best output.** A unit-economics dashboard.
+
+### Sensitivity Analysis
+
+**Purpose.** Shows which individual assumptions most affect results.
+
+**How to use it.** Vary one input over a realistic range, recalculate outcomes and rank sensitivity.
+
+**Example.** Adoption and human-review rate matter more than token price.
+
+**Best output.** A tornado chart or sensitivity table.
+
+### Scenario Analysis
+
+**Purpose.** Models internally consistent best, likely and worst outcomes.
+
+**How to use it.** Define scenario assumptions together, calculate financial/operational outcomes and specify responses.
+
+**Example.** The worst case combines low adoption, high review, delayed integration and expensive inference.
+
+**Best output.** A scenario comparison.
+
+### Real-Options Analysis
+
+**Purpose.** Values staged investment and the right, not obligation, to scale.
+
+**How to use it.** Define option stages, cost to learn, trigger criteria, upside and abandonment value.
+
+**Example.** Fund an eight-week pilot to preserve the option to expand only if quality and adoption thresholds are met.
+
+**Best output.** A staged funding and option decision.
+
+### Benefits Dependency Network
+
+**Purpose.** Shows how enabling changes cause intermediate outcomes and final benefits.
+
+**How to use it.** Link technology, process, people changes, outcomes and benefits; identify owners and critical dependencies.
+
+**Example.** A model alone does not reduce cost without integrated workflow and agent adoption.
+
+**Best output.** A benefits dependency map.
+
+### Value-Driver Tree
+
+**Purpose.** Links financial outcomes to operational drivers and AI performance.
+
+**How to use it.** Use mutually exclusive branches where possible, assign baselines and validate causal assumptions.
+
+**Example.** Reduced handling time depends on search time, answer acceptance and escalation.
+
+**Best output.** A financial-to-operational KPI tree.
+
+### Benefits Realisation Plan
+
+**Purpose.** Defines how benefits will be delivered, measured, owned and corrected.
+
+**How to use it.** For each benefit record owner, baseline, target, method, timing, dependencies and corrective actions.
+
+**Example.** The operations director owns handling-time benefit rather than the engineering team.
+
+**Best output.** A benefits register and review cadence.
+
+## F. Architecture and Engineering Frameworks
+**Primary lifecycle use:** Steps 7, 9, 13 and 14
+
+Use architecture and engineering frameworks to design a coherent system and make it reproducible, secure, reliable and economical.
+
+### TOGAF
+
+**Purpose.** Provides a disciplined enterprise architecture method from vision through migration and governance.
+
+**How to use it.** Tailor the ADM, maintain traceability across business/data/application/technology layers, and use decision records instead of unnecessary documentation.
+
+**Example.** A bank aligns the AI assistant with CRM, identity, data and operating architecture.
+
+**Best output.** Architecture vision, target states and migration roadmap.
+
+### ArchiMate
+
+**Purpose.** Provides a visual language for enterprise relationships across strategy, business, application and technology.
+
+**How to use it.** Model only the viewpoints needed by stakeholders and connect motivation, capabilities, processes, services, data and technology.
+
+**Example.** A diagram shows how the AI service supports customer-service capability and depends on knowledge and identity services.
+
+**Best output.** Stakeholder-specific architecture views.
+
+### Cloud Adoption Frameworks
+
+**Purpose.** Guide strategy, landing zones, governance, migration, operations and organisational readiness in cloud.
+
+**How to use it.** Use provider guidance as a baseline, tailor to enterprise policies and create reusable landing-zone patterns.
+
+**Example.** An AWS or Azure AI platform inherits private networking, identity, logging and policy controls.
+
+**Best output.** Cloud adoption and landing-zone plan.
+
+### Well-Architected Frameworks
+
+**Purpose.** Review architecture against operational excellence, security, reliability, performance, cost and sustainability.
+
+**How to use it.** Run structured reviews at design and production gates, record risks and remediation, and revisit after major change.
+
+**Example.** The team identifies a single-region vector store as a resilience risk.
+
+**Best output.** Well-architected review report.
+
+### Domain-Driven Design
+
+**Purpose.** Aligns software boundaries and language with business domains.
+
+**How to use it.** Discover domain language, define bounded contexts and ownership, model aggregates/events and integrate through explicit contracts.
+
+**Example.** Complaint handling and product policy are separate domains with different rules and data.
+
+**Best output.** Domain model and context map.
+
+### Event-Driven Architecture
+
+**Purpose.** Uses events to decouple systems and coordinate asynchronous workflows.
+
+**How to use it.** Define domain events, schemas, producers/consumers, delivery guarantees, idempotency and observability.
+
+**Example.** A completed call triggers summarisation, QA analysis and analytics without tightly coupling services.
+
+**Best output.** Event catalogue and integration design.
+
+### API-First Architecture
+
+**Purpose.** Treats interfaces as products and contracts before implementation.
+
+**How to use it.** Design schemas, security, versioning, errors and SLAs; mock and test contracts; govern lifecycle.
+
+**Example.** A model gateway provides a stable enterprise API across providers.
+
+**Best output.** API specifications and service contracts.
+
+### Zero Trust Architecture
+
+**Purpose.** Assumes no implicit trust and verifies every access request.
+
+**How to use it.** Identify resources, identities and flows; enforce least privilege, continuous verification, segmentation and telemetry.
+
+**Example.** An agent receives a scoped token only for the customer record currently being handled.
+
+**Best output.** Zero Trust access and trust-boundary design.
+
+### Data Mesh
+
+**Purpose.** Distributes data-product ownership to domains under federated governance.
+
+**How to use it.** Identify domains, assign product owners, define interoperability and quality standards, and provide self-service infrastructure.
+
+**Example.** Claims and policy domains publish governed data products for multiple AI applications.
+
+**Best output.** Domain data-product map.
+
+### Data Fabric
+
+**Purpose.** Connects distributed data using metadata, integration, lineage and policy automation.
+
+**How to use it.** Create an active metadata layer, standard connectors, policy enforcement and semantic discovery.
+
+**Example.** A group retrieves governed data across legacy and cloud systems without a single migration.
+
+**Best output.** Data-fabric architecture.
+
+### Medallion Architecture
+
+**Purpose.** Progressively refines raw data into validated and curated layers.
+
+**How to use it.** Define raw, clean and serving contracts, quality checks and lineage; adapt the pattern to documents and embeddings.
+
+**Example.** Raw PDFs become parsed documents, governed chunks and production retrieval indexes.
+
+**Best output.** Layered data pipeline design.
+
+### MLOps
+
+**Purpose.** Industrialises the machine-learning lifecycle.
+
+**How to use it.** Version data/code/models, automate pipelines and tests, control releases, monitor and retrain with governance.
+
+**Example.** A churn model is reproduced and rolled back through a registry and pipeline.
+
+**Best output.** MLOps platform and lifecycle controls.
+
+### LLMOps
+
+**Purpose.** Manages prompts, models, RAG, evaluations, routing, safety and cost for LLM systems.
+
+**How to use it.** Version all components, build evaluation sets, automate regression, monitor quality/cost and manage provider change.
+
+**Example.** A prompt update cannot deploy until groundedness and injection tests pass.
+
+**Best output.** LLMOps pipeline and registries.
+
+### GenAIOps
+
+**Purpose.** Operates the whole generative AI system rather than the model endpoint alone.
+
+**How to use it.** Manage content ingestion, retrieval, prompts, agents, tools, policies, user feedback, evaluation and incidents as one product.
+
+**Example.** An assistant’s quality dashboard combines retrieval freshness, model output, tool success and user acceptance.
+
+**Best output.** End-to-end GenAI operational model.
+
+### DevSecOps
+
+**Purpose.** Integrates security into planning, coding, build, test, release and operations.
+
+**How to use it.** Automate code/dependency/IaC scanning, secrets control, policy checks and evidence; maintain shared accountability.
+
+**Example.** A release is blocked when an agent tool requests excessive permissions.
+
+**Best output.** Secure CI/CD controls and evidence.
+
+### Platform Engineering
+
+**Purpose.** Creates reusable self-service capabilities and paved roads for product teams.
+
+**How to use it.** Treat the platform as a product, identify developer journeys, provide templates/services and measure adoption and friction.
+
+**Example.** Teams can provision approved model access, evaluation and observability in hours.
+
+**Best output.** AI platform service catalogue.
+
+### FinOps
+
+**Purpose.** Creates shared accountability for variable cloud and AI spend.
+
+**How to use it.** Allocate cost, define budgets and unit metrics, detect anomalies, optimise and incorporate cost into architecture decisions.
+
+**Example.** Routing simple requests to smaller models reduces cost per successful answer.
+
+**Best output.** FinOps dashboard and optimisation backlog.
+
+### Site Reliability Engineering
+
+**Purpose.** Applies measurable reliability objectives and error budgets to production services.
+
+**How to use it.** Define SLIs/SLOs, error budgets, alerting, incident practices and toil reduction; include AI quality and safety indicators.
+
+**Example.** The service has an SLO for supported-answer rate as well as uptime.
+
+**Best output.** SLOs, error budgets and reliability plan.
+
+## G. Responsible AI and Governance Frameworks
+**Primary lifecycle use:** Cross-cutting, with formal gates in Steps 4, 7, 8, 9 and 13
+
+Use governance frameworks to make AI accountability, impact, control and evidence systematic rather than ad hoc.
+
+### NIST AI Risk Management Framework
+
+**Purpose.** Structures AI risk work through Govern, Map, Measure and Manage.
+
+**How to use it.** Establish governance, map context and impacts, measure risk and controls, then manage treatment and monitoring continuously.
+
+**Example.** A bank maps customer harm, evaluates groundedness and bias, and establishes thresholds and escalation.
+
+**Best output.** AI risk register and lifecycle control plan.
+
+### ISO/IEC 42001
+
+**Purpose.** Defines requirements for an organisation-wide AI management system.
+
+**How to use it.** Set scope, policy, objectives, roles, risk/impact processes, operational controls, performance evaluation and continual improvement.
+
+**Example.** A group standardises AI inventory, approvals, evidence and management review across business units.
+
+**Best output.** AI management system and audit evidence.
+
+### ISO/IEC 23894
+
+**Purpose.** Guides integration of AI-specific risk into organisational risk management.
+
+**How to use it.** Identify context, risk sources, consequences, likelihood, treatment and communication, and connect with enterprise risk processes.
+
+**Example.** Model drift and automation bias are added to the corporate risk taxonomy.
+
+**Best output.** AI risk methodology and treatment records.
+
+### ISO/IEC 42005
+
+**Purpose.** Guides impact assessment for effects on individuals, groups and society.
+
+**How to use it.** Define intended use, affected parties, positive/negative impacts, severity, distribution, mitigations and residual impact.
+
+**Example.** An employee-screening system is assessed for exclusion, contestability and unequal outcomes.
+
+**Best output.** AI impact assessment report.
+
+### EU AI Act Risk Classification
+
+**Purpose.** Determines legal risk category and obligations based on the system’s purpose and use.
+
+**How to use it.** Classify the use case, identify provider/deployer roles, map obligations, collect evidence and obtain legal review.
+
+**Example.** A low-risk internal summariser requires different controls from an employment decision system.
+
+**Best output.** Regulatory classification and compliance plan.
+
+### OECD AI Principles
+
+**Purpose.** Provides high-level principles for human-centred, transparent, robust and accountable AI.
+
+**How to use it.** Translate each principle into organisational policy, design questions and measurable controls.
+
+**Example.** A public body uses transparency, accountability and inclusive-growth principles in procurement.
+
+**Best output.** Principle-to-control mapping.
+
+### Model Cards
+
+**Purpose.** Document a model’s intended use, performance, limitations and maintenance.
+
+**How to use it.** Record model/version, tasks, data, evaluation, subgroup results, risks, prohibited uses and owner.
+
+**Example.** A classification model card warns that performance is weaker for rare complaint types.
+
+**Best output.** Versioned model card.
+
+### Data Cards
+
+**Purpose.** Document dataset provenance, composition, processing, quality, limitations and permitted use.
+
+**How to use it.** Record collection, consent, ownership, representation, transformations, access, retention and known gaps.
+
+**Example.** A support dataset excludes vulnerable-customer notes from training and explains why.
+
+**Best output.** Versioned data card.
+
+### Algorithmic Impact Assessments
+
+**Purpose.** Assess potential harms, rights impacts and accountability before deployment.
+
+**How to use it.** Describe system and decision role, identify affected groups, assess severity/likelihood, define controls and consult stakeholders.
+
+**Example.** A fraud triage model is evaluated for false positives and appeal routes.
+
+**Best output.** Impact assessment and mitigation plan.
+
+### AI System Inventories
+
+**Purpose.** Create enterprise visibility of all AI systems and their status.
+
+**How to use it.** Register owner, purpose, models, data, provider, risk tier, approvals, monitoring, incidents and retirement.
+
+**Example.** Shadow copilots are identified and moved to approved services or retired.
+
+**Best output.** Authoritative AI inventory.
+
+### Responsible AI Control Libraries
+
+**Purpose.** Provide reusable controls mapped to risk, lifecycle and evidence.
+
+**How to use it.** Define control objective, implementation pattern, owner, test method and evidence; map to tiers and standards.
+
+**Example.** High-risk systems require independent validation and human decision authority.
+
+**Best output.** Control catalogue and assurance mapping.
+
+### Human Oversight Frameworks
+
+**Purpose.** Define meaningful human review and intervention.
+
+**How to use it.** Specify trigger, reviewer, information, authority, time, escalation, override recording and quality monitoring.
+
+**Example.** A credit analyst receives recommendation factors and must record an independent decision.
+
+**Best output.** Human-oversight plan and metrics.
+
+## H. Security and Privacy Frameworks
+**Primary lifecycle use:** Cross-cutting, with formal design and release gates
+
+Use security and privacy frameworks to protect the entire sociotechnical system, including models, users, data, tools and suppliers.
+
+### NIST Cybersecurity Framework
+
+**Purpose.** Structures cyber risk through Govern, Identify, Protect, Detect, Respond and Recover.
+
+**How to use it.** Map AI assets and threats, assess controls, define target profile and monitor improvement.
+
+**Example.** The AI platform adds prompt-abuse detection and recovery procedures to its CSF profile.
+
+**Best output.** Current/target cyber profile.
+
+### ISO/IEC 27001
+
+**Purpose.** Establishes an auditable information security management system.
+
+**How to use it.** Define scope, assess risk, select controls, operate, audit, review and improve; include AI assets and suppliers.
+
+**Example.** Model endpoints, vector stores and prompt logs are added to the ISMS scope.
+
+**Best output.** ISMS risk treatment and evidence.
+
+### Zero Trust
+
+**Purpose.** Requires explicit verification and least privilege for every access.
+
+**How to use it.** Map identities and resources, enforce contextual access, segment, monitor and continuously reassess.
+
+**Example.** An AI tool cannot retrieve records outside the authenticated user’s permissions.
+
+**Best output.** Zero Trust policy and architecture.
+
+### STRIDE
+
+**Purpose.** Identifies spoofing, tampering, repudiation, disclosure, denial and privilege threats.
+
+**How to use it.** Decompose the system, mark trust boundaries, enumerate STRIDE threats, prioritise and assign controls.
+
+**Example.** Attackers tamper with retrieved documents or spoof a tool endpoint.
+
+**Best output.** Threat model and mitigation backlog.
+
+### MITRE ATT&CK
+
+**Purpose.** Provides a knowledge base of adversary tactics and techniques across enterprise systems.
+
+**How to use it.** Map likely adversaries and attack paths, test detection coverage and improve response.
+
+**Example.** A compromised developer account is used to alter production prompts.
+
+**Best output.** ATT&CK coverage matrix.
+
+### MITRE ATLAS
+
+**Purpose.** Provides tactics and techniques specific to attacks on AI systems.
+
+**How to use it.** Map AI assets, select relevant techniques, red-team controls and improve detection.
+
+**Example.** A team tests data poisoning and model extraction scenarios.
+
+**Best output.** AI adversary emulation plan.
+
+### OWASP Top 10 for LLM Applications
+
+**Purpose.** Highlights common application risks in LLM systems.
+
+**How to use it.** Map each risk to architecture, preventive controls, tests, monitoring and residual risk.
+
+**Example.** Prompt injection is controlled with source trust, tool restrictions and output validation.
+
+**Best output.** OWASP LLM control checklist and test evidence.
+
+### Privacy by Design
+
+**Purpose.** Builds privacy into purpose, architecture and default behaviour.
+
+**How to use it.** Minimise data, limit purpose, use secure defaults, define retention, support rights and validate necessity.
+
+**Example.** The assistant masks identifiers before model processing and stores only required audit fields.
+
+**Best output.** Privacy design decisions.
+
+### Data Protection Impact Assessment
+
+**Purpose.** Assesses high-risk personal-data processing and mitigations.
+
+**How to use it.** Map data and purpose, assess necessity/proportionality, identify risks, consult stakeholders and approve residual risk.
+
+**Example.** A customer-service assistant processes conversation text and requires retention and access controls.
+
+**Best output.** Approved DPIA.
+
+### Threat Modelling
+
+**Purpose.** Systematically anticipates misuse and attack paths before implementation.
+
+**How to use it.** Define assets, actors, boundaries, threats, controls and validation tests; revisit after major change.
+
+**Example.** An agent could misuse a payment tool if permissions and confirmation are weak.
+
+**Best output.** Threat model and security requirements.
+
+### Secure Development Lifecycle
+
+**Purpose.** Embeds security from requirements through retirement.
+
+**How to use it.** Set security requirements, design review, secure coding, testing, release gates, monitoring and vulnerability response.
+
+**Example.** Every agent tool undergoes permission and misuse testing before release.
+
+**Best output.** SDL evidence pack.
+
+### Defence in Depth
+
+**Purpose.** Uses layered controls so one failure does not create catastrophe.
+
+**How to use it.** Layer identity, network, application, data, model, tool, output and human controls; test combined scenarios.
+
+**Example.** If prompt filtering fails, tool scope and output DLP still prevent exfiltration.
+
+**Best output.** Layered control architecture.
+
+### Identity-First Security
+
+**Purpose.** Makes verified identity and authorisation the basis of all access and action.
+
+**How to use it.** Integrate enterprise identity, propagate user context, use workload identities and audit each decision.
+
+**Example.** Retrieval applies the same document entitlements as the source system.
+
+**Best output.** Identity and authorisation design.
+
+### Least Privilege
+
+**Purpose.** Restricts permissions to the minimum necessary.
+
+**How to use it.** Enumerate actions, scope permissions, use just-in-time credentials and review usage.
+
+**Example.** An onboarding agent may create a draft ticket but cannot approve access.
+
+**Best output.** Permission matrix.
+
+### Shared Responsibility Model
+
+**Purpose.** Clarifies security and operational responsibilities across providers and customers.
+
+**How to use it.** List lifecycle controls, assign responsibility, verify supplier evidence and close gaps contractually or technically.
+
+**Example.** The model provider secures infrastructure; the bank remains responsible for prompts, data, access and use.
+
+**Best output.** Responsibility matrix and supplier controls.
+
+## I. Delivery Frameworks
+**Primary lifecycle use:** Steps 8, 9, 12 and 13
+
+Use delivery frameworks to organise learning, execution, governance and production change.
+
+### Agile
+
+**Purpose.** Uses iterative delivery and feedback to reduce uncertainty.
+
+**How to use it.** Organise around outcomes, deliver small increments, review evidence and adapt while preserving necessary governance gates.
+
+**Example.** A knowledge assistant expands one product area at a time.
+
+**Best output.** Outcome roadmap and iterative backlog.
+
+### Scrum
+
+**Purpose.** Provides roles, events and artefacts for time-boxed product delivery.
+
+**How to use it.** Maintain a product goal/backlog, plan sprint goals, inspect increments and improve through retrospectives.
+
+**Example.** A cross-functional AI team delivers ingestion, retrieval and UI slices together.
+
+**Best output.** Sprint increments and transparent backlog.
+
+### Kanban
+
+**Purpose.** Optimises flow by visualising work and limiting work in progress.
+
+**How to use it.** Map workflow, set WIP limits, measure lead time, manage blockers and improve policies.
+
+**Example.** A data-remediation team controls queues of document owners and approvals.
+
+**Best output.** Flow board and service metrics.
+
+### SAFe
+
+**Purpose.** Coordinates strategy, portfolios and many delivery teams at enterprise scale.
+
+**How to use it.** Use only the necessary portfolio/program/team elements, align around value streams and preserve product learning.
+
+**Example.** Multiple bank teams coordinate platform, data, service and compliance dependencies.
+
+**Best output.** Portfolio and programme coordination model.
+
+### Lean
+
+**Purpose.** Maximises value while reducing waste and delay.
+
+**How to use it.** Define value, map flow, remove waste, create pull and improve continuously.
+
+**Example.** The team removes duplicate manual review rather than automating it twice.
+
+**Best output.** Lean improvement backlog.
+
+### Stage-Gate
+
+**Purpose.** Prevents weak initiatives from consuming escalating investment without evidence.
+
+**How to use it.** Define gates, required evidence, decision rights and outcomes; allow stop, pivot or conditional proceed.
+
+**Example.** A prototype cannot enter production without risk, operational and adoption evidence.
+
+**Best output.** Stage-gate governance model.
+
+### Dual-Track Agile
+
+**Purpose.** Runs continuous discovery alongside delivery.
+
+**How to use it.** Maintain linked discovery and delivery backlogs, validate ahead of build and use evidence to shape increments.
+
+**Example.** Researchers test escalation design while engineers build the retrieval service.
+
+**Best output.** Opportunity and delivery backlogs.
+
+### DevOps
+
+**Purpose.** Creates shared build-and-run ownership with automation and feedback.
+
+**How to use it.** Automate integration/deployment, monitor production, shorten feedback and reduce handoff.
+
+**Example.** The product team owns service alerts rather than handing off to an uninformed operations team.
+
+**Best output.** CI/CD and operational ownership.
+
+### DevSecOps
+
+**Purpose.** Integrates security controls and evidence into delivery.
+
+**How to use it.** Threat-model early, automate checks, manage vulnerabilities and make security a team responsibility.
+
+**Example.** Infrastructure policy blocks public model endpoints.
+
+**Best output.** Secure delivery pipeline.
+
+### Product Operating Model
+
+**Purpose.** Uses persistent cross-functional teams accountable for outcomes across the lifecycle.
+
+**How to use it.** Define product mission, owner, measures, team, funding, discovery, delivery and operations.
+
+**Example.** The AI assistant remains a funded product after launch rather than an abandoned project.
+
+**Best output.** Product charter and operating cadence.
+
+### Programme Increment Planning
+
+**Purpose.** Aligns multiple teams around a fixed planning horizon and dependencies.
+
+**How to use it.** Prepare priorities, plan team objectives, expose dependencies/risks, agree capacity and review outcomes.
+
+**Example.** Platform and contact-centre teams coordinate API and rollout dates.
+
+**Best output.** PI objectives and dependency board.
+
+### Test-Driven Development
+
+**Purpose.** Specifies deterministic behaviour through tests before code.
+
+**How to use it.** Write a failing test, implement minimal code, refactor and keep tests automated.
+
+**Example.** A policy engine cannot execute an action without required approval fields.
+
+**Best output.** Automated unit-test suite.
+
+### Model-Driven Experimentation
+
+**Purpose.** Makes AI experiments reproducible and decision-oriented.
+
+**How to use it.** Register hypothesis, data, model, prompt, configuration, metrics and conclusion.
+
+**Example.** Several embedding models are compared on the same labelled retrieval set.
+
+**Best output.** Experiment registry and decision record.
+
+### Continuous Discovery
+
+**Purpose.** Maintains ongoing contact with users and continuous assumption testing.
+
+**How to use it.** Run weekly research, maintain an opportunity tree, test assumptions and feed evidence into roadmap decisions.
+
+**Example.** Agents report new failure patterns after policy changes.
+
+**Best output.** Continuous discovery cadence and evidence repository.
+
+### Continuous Delivery
+
+**Purpose.** Keeps software in a releasable state through automation and small changes.
+
+**How to use it.** Automate build/test/deploy, use feature flags, canaries and rollback, and minimise batch size.
+
+**Example.** A prompt update is canary-released to 5% of agents.
+
+**Best output.** Reliable release pipeline.
+
+## J. Change and Adoption Frameworks
+**Primary lifecycle use:** Step 12 and Step 13
+
+Use change frameworks to redesign work, build trust and sustain correct use.
+
+### Prosci ADKAR
+
+**Purpose.** Manages individual adoption through Awareness, Desire, Knowledge, Ability and Reinforcement.
+
+**How to use it.** Assess each audience, design interventions for the weakest ADKAR element and measure progression.
+
+**Example.** Agents understand the reason for AI but need practice and coaching to gain ability.
+
+**Best output.** Audience-specific adoption plan.
+
+### Kotter's Eight-Step Model
+
+**Purpose.** Leads organisation-wide transformation through urgency, coalition, vision, action, wins and institutionalisation.
+
+**How to use it.** Build sponsorship and coalition, communicate vision, remove barriers, demonstrate wins and anchor new practices.
+
+**Example.** A bank uses visible pilot outcomes to build momentum for service redesign.
+
+**Best output.** Enterprise change roadmap.
+
+### McKinsey 7S
+
+**Purpose.** Tests alignment of strategy, structure, systems, shared values, skills, style and staff.
+
+**How to use it.** Describe current and target state for each S, identify misalignments and sequence changes.
+
+**Example.** AI strategy conflicts with performance systems that reward call volume over resolution quality.
+
+**Best output.** 7S alignment assessment.
+
+### Stakeholder Influence-Interest Matrix
+
+**Purpose.** Segments stakeholders for appropriate engagement.
+
+**How to use it.** Assess influence and interest, validate informally, design communication and revisit as the programme changes.
+
+**Example.** Risk executives need concise control evidence; agents need hands-on workflow design.
+
+**Best output.** Stakeholder engagement plan.
+
+### RACI
+
+**Purpose.** Clarifies responsibility and accountability during change and operations.
+
+**How to use it.** Map deliverables and activities, assign one accountable owner, resolve gaps and publish.
+
+**Example.** Managers are accountable for team adoption while champions support training.
+
+**Best output.** Change RACI.
+
+### RAPID
+
+**Purpose.** Clarifies who recommends, agrees, performs, inputs and decides.
+
+**How to use it.** Use for rollout, exception and policy decisions where speed matters.
+
+**Example.** The product lead recommends rollout; risk agrees; operations performs; the steering committee decides.
+
+**Best output.** Decision-rights table.
+
+### Change Impact Assessment
+
+**Purpose.** Identifies how roles, tasks, controls, skills and workload change.
+
+**How to use it.** Map current/target work by audience, rate impact and risk, and define mitigation.
+
+**Example.** Summarisation removes manual notes but adds review and exception responsibilities.
+
+**Best output.** Change-impact matrix.
+
+### Training-Needs Analysis
+
+**Purpose.** Determines capability gaps and appropriate learning interventions.
+
+**How to use it.** Define role competencies, assess current skill, design training/practice and evaluate competence.
+
+**Example.** Risk reviewers need evaluation interpretation; agents need safe-use scenarios.
+
+**Best output.** Role-based curriculum.
+
+### Communications Planning
+
+**Purpose.** Delivers the right message through credible senders and channels.
+
+**How to use it.** Segment audiences, define objective/message/sender/timing/channel and create feedback mechanisms.
+
+**Example.** The executive sponsor explains purpose and job impact before pilot invitations.
+
+**Best output.** Communication calendar and content.
+
+### Behavioural Nudges
+
+**Purpose.** Shapes behaviour through choice architecture and timely prompts.
+
+**How to use it.** Identify desired action and friction, design ethical nudges, test and monitor unintended effects.
+
+**Example.** The UI shows cited evidence beside the proposed answer and prompts review for sensitive topics.
+
+**Best output.** Nudge design and test results.
+
+### Communities of Practice
+
+**Purpose.** Develop shared learning, standards and peer support.
+
+**How to use it.** Define scope, cadence, facilitators, repositories and contribution incentives.
+
+**Example.** AI practitioners share evaluation datasets and architecture patterns across domains.
+
+**Best output.** Community charter and knowledge base.
+
+### Champion Networks
+
+**Purpose.** Use trusted local advocates to support rollout and feedback.
+
+**How to use it.** Select representative champions, train them, give time and escalation routes, and recognise contribution.
+
+**Example.** Thirty contact-centre champions support the first rollout and capture workflow issues.
+
+**Best output.** Champion plan and feedback loop.
+
+### Technology Acceptance Model
+
+**Purpose.** Explains adoption through perceived usefulness and ease of use.
+
+**How to use it.** Measure usefulness and ease, diagnose barriers and improve workflow, performance and support; add trust for AI.
+
+**Example.** Users reject an accurate assistant because opening it requires leaving the CRM.
+
+**Best output.** Acceptance survey and usability backlog.
+
+# Part IV — Worked Example: Regulated Financial-Services Customer-Service AI
+
+## Business situation
+
+A UK retail bank operates a 1,000-agent contact centre. Average handling time is ten minutes, transfer rates are high, product and policy knowledge is distributed across several repositories, and quality assurance identifies inconsistent explanations. The bank wants to use generative AI but cannot allow the system to create unapproved financial decisions, disclose personal information or provide unsupported answers.
+
+## Step-by-step application
+
+### 0. Mobilise
+
+The sponsor is the Customer Operations Director. The product owner is the Head of Service Transformation. The AI Platform Lead owns shared technology, the Data Protection Officer owns privacy oversight, and the Model Risk Lead owns AI-risk approval.
+
+The charter limits the first release to read-only agent assistance for two product lines. Customer-facing autonomy, transactions and personalised financial advice are outside scope.
+
+### 1. Define ambition
+
+The Strategy Choice Cascade establishes:
+
+- Winning aspiration: trusted, easy-to-use service.
+- Where to play: high-volume journeys where knowledge search causes delay.
+- How to win: cited, approved and context-aware assistance with human authority.
+- Capabilities: governed knowledge, secure model gateway, evaluation, monitoring and change.
+- Management systems: product ownership, risk gates, benefits reviews and incident management.
+
+Three Horizons defines:
+
+- H1: summarisation and knowledge assistance.
+- H2: integrated service workflow and intelligent routing.
+- H3: proactive, AI-native financial guidance where regulation and trust permit.
+
+### 2. Discover
+
+Design research includes agents, customers, team leaders, complaints, QA, technology operations, knowledge owners and risk teams.
+
+Journey and blueprint analysis finds:
+
+- Agents open four systems during common enquiries.
+- 18% of sampled knowledge articles have ownership or version problems.
+- CRM customer context is inconsistently structured.
+- Transfer logic varies by team.
+- Agents use private notes because official content is difficult to search.
+
+The root problem is therefore a combination of knowledge governance, system fragmentation and workflow design.
+
+### 3. Assess readiness
+
+The bank is strong in identity, network security and cloud operations. It is weak in:
+
+- Curated AI evaluation datasets.
+- Knowledge ownership.
+- LLM prompt/version governance.
+- AI incident classification.
+- Benefits measurement.
+- Agent-specific training.
+
+These gaps become prerequisites or parallel workstreams.
+
+### 4. Prioritise use cases
+
+The portfolio includes:
+
+1. Grounded agent knowledge assistant.
+2. Conversation summarisation.
+3. Intelligent routing.
+4. Next-best-action recommendation.
+5. Customer self-service.
+6. Automated complaints decision.
+
+A weighted value-feasibility-risk model selects the knowledge assistant first. It creates reusable knowledge and evaluation foundations while retaining human decision authority.
+
+### 5. Design operating model
+
+A hub-and-spoke model is selected.
+
+Central hub:
+- AI platform.
+- Architecture patterns.
+- Security and Responsible AI controls.
+- Evaluation tooling.
+- Model gateway.
+- Observability.
+
+Domain spoke:
+- Customer-service product owner.
+- Knowledge owners.
+- Domain experts.
+- Agent experience and adoption.
+- Benefits ownership.
+- Operational support.
+
+### 6. Build business case
+
+Benefits:
+- 15% handling-time reduction.
+- 10% transfer reduction.
+- 20% training-time reduction.
+- Better answer consistency.
+- Fewer quality exceptions.
+
+Costs:
+- Discovery and architecture.
+- Knowledge remediation.
+- Product engineering.
+- Integration.
+- Model and retrieval usage.
+- Evaluation and red teaming.
+- Change and training.
+- Monitoring and support.
+- Ongoing content ownership.
+
+The likely-case model uses probability-adjusted benefit and includes adoption sensitivity. The investment is staged: prototype, controlled pilot, then scale.
+
+### 7. Design solution
+
+Architecture:
+
+1. Agent desktop embedded interface.
+2. API and session service.
+3. AI orchestration and policy layer.
+4. Retrieval service with access-aware filters.
+5. Governed document processing and index.
+6. Enterprise model gateway.
+7. Evaluation, telemetry and audit.
+8. Human escalation and feedback.
+
+Controls:
+
+- Enterprise identity and RBAC.
+- Data minimisation and PII masking where appropriate.
+- Approved-source allow-list.
+- Source citations.
+- Prompt-injection controls.
+- Restricted tools.
+- No autonomous account actions.
+- Output validation.
+- Audit log.
+- Evaluation regression before release.
+- FinOps budget and routing.
+
+### 8. Prototype
+
+Hypotheses:
+
+- At least 90% of answers are supported by approved sources on the evaluation set.
+- Median response latency remains within the agreed user threshold.
+- No material sensitive-data leakage occurs.
+- Agents complete selected tasks at least 10% faster.
+- Quality-assurance scores do not decline.
+- At least 80% of pilot agents rate the tool useful.
+
+The team uses 30 champion agents, safe test data and a defined failure protocol.
+
+### 9. Industrialise
+
+The production build includes:
+
+- Infrastructure as Code.
+- CI/CD.
+- Prompt and model registry.
+- Versioned evaluation datasets.
+- Automated RAG regression.
+- Security scanning.
+- Feature flags.
+- Canary release.
+- Monitoring.
+- Runbooks.
+- Disaster recovery.
+- Support escalation.
+
+### 10–11. Govern and secure
+
+The system is risk-tiered, entered into the AI inventory and supported by an impact assessment, DPIA, threat model, data/model/system cards and control evidence.
+
+Red-team tests cover prompt injection, hidden instructions in documents, attempts to access other customers, unsupported advice, system-prompt extraction, denial-of-wallet and tool misuse.
+
+### 12. Deploy and adopt
+
+Phase 1: 30 champions, two product areas, read-only assistance.  
+Phase 2: 200 agents, wider knowledge and CRM context.  
+Phase 3: enterprise rollout with stronger automation only after new risk assessment.
+
+ADKAR interventions include leadership communication, agent co-design, role-based training, supervised practice, local champions and manager dashboards.
+
+### 13. Operate
+
+The bank monitors:
+
+- Average handling time.
+- First-contact resolution.
+- Transfer and escalation.
+- Answer acceptance.
+- Supported-answer rate.
+- Quality score.
+- Customer and agent satisfaction.
+- Prompt attacks and blocked leakage.
+- Cost per compliant resolution.
+- Incident and override patterns.
+- Knowledge freshness.
+
+### 14. Scale
+
+Reusable services—model gateway, ingestion, evaluation, guardrails, observability and control evidence—are made available to other domains. New use cases reuse the same intake, risk tiering, architecture and deployment gates.
+
+---
+
+# Part V — Framework Selection by Decision
+
+| Decision | Recommended primary frameworks | Supporting frameworks |
+|---|---|---|
+| Why should we invest? | Strategy Choice Cascade, Playing to Win, value-driver tree | SWOT, PESTLE, Five Forces, scenario planning |
+| Where is AI valuable? | Value Chain, JTBD, journey mapping, process mining | Service blueprint, SIPOC, VSM |
+| Are we ready? | AI capability maturity, data maturity, cloud maturity | MLOps, Responsible AI and cybersecurity maturity |
+| Which use case first? | Value-feasibility-risk, weighted scoring | RICE, WSJF, cost of delay, portfolio matrix |
+| Is it economically viable? | TCO, risk-adjusted value, unit economics | ROI, NPV, payback, sensitivity, scenarios |
+| Who owns AI? | Operating Model Canvas, hub-and-spoke | RACI, RAPID, 7S |
+| What architecture? | TOGAF, DDD, API-first, Well-Architected | Event-driven, Zero Trust, data mesh/fabric |
+| How do we control AI risk? | NIST AI RMF, ISO 42001, ISO 23894/42005 | system/model/data cards, control library |
+| How do we secure it? | NIST CSF, STRIDE, OWASP LLM, Privacy by Design | MITRE ATLAS, ISO 27001, DPIA |
+| How do we deliver? | Dual-Track Agile, product operating model, DevSecOps | Scrum, Kanban, Stage-Gate, TDD |
+| How do we drive adoption? | ADKAR, change-impact assessment | Kotter, 7S, champions, TAM |
+| How do we sustain value? | SRE, FinOps, benefits realisation | continuous discovery/delivery, incident management |
+| How do we scale? | AI factory, platform engineering, capability planning | portfolio management, communities of practice |
+
+---
+
+# Part VI — Minimum Artefact Set by Stage
+
+## Mobilisation
+
+- Engagement charter.
+- Scope and exclusions.
+- Stakeholder map.
+- RACI and RAPID.
+- RAID log.
+- Decision and assumption registers.
+- Evidence request list.
+- Stage-gate calendar.
+
+## Strategy
+
+- AI ambition statement.
+- Strategy Choice Cascade.
+- Three Horizons portfolio.
+- Value-driver tree.
+- Capability themes.
+- Investment thesis.
+
+## Discovery
+
+- Research plan and evidence.
+- Jobs to Be Done.
+- Journey and service blueprint.
+- SIPOC and process map.
+- Data, application and control inventories.
+- Baseline metrics.
+- Root-cause analysis.
+
+## Readiness
+
+- Maturity heatmap.
+- Evidence register.
+- Capability gaps.
+- Minimum production prerequisites.
+- Remediation backlog.
+- Target maturity roadmap.
+
+## Use-case portfolio
+
+- Use-case cards.
+- Scoring model.
+- Portfolio matrix.
+- Dependency map.
+- Prioritised roadmap.
+- Rejection/defer rationale.
+
+## Operating model
+
+- Governance forums.
+- Decision rights.
+- Role descriptions.
+- Platform ownership.
+- Funding model.
+- Sourcing approach.
+- Support model.
+
+## Commercial
+
+- Five-case business case.
+- TCO.
+- ROI/NPV/payback.
+- Unit economics.
+- Risk-adjusted benefits.
+- Sensitivity and scenarios.
+- Benefits register.
+
+## Architecture
+
+- Context diagram.
+- HLD and LLD.
+- Data-flow and trust-boundary diagrams.
+- Integration/API contracts.
+- Model selection.
+- NFRs.
+- ADRs.
+- Migration plan.
+
+## Responsible AI, security and privacy
+
+- AI inventory entry.
+- Risk classification.
+- AI impact assessment.
+- DPIA.
+- Threat model.
+- Model/data/system cards.
+- Human oversight plan.
+- Control matrix.
+- Approval record.
+- Incident and retirement plans.
+
+## Prototype and validation
+
+- Hypothesis register.
+- Experiment plan.
+- Evaluation and red-team datasets.
+- Results and limitations.
+- User findings.
+- Cost and risk findings.
+- Proceed/pivot/stop recommendation.
+
+## Production delivery
+
+- Product roadmap and backlog.
+- Test strategy and evidence.
+- CI/CD and registries.
+- Monitoring dashboards.
+- Runbooks.
+- Support model.
+- Release and rollback plan.
+- Operational-readiness evidence.
+
+## Adoption
+
+- Change-impact assessment.
+- Stakeholder plan.
+- Communications.
+- Training-needs analysis.
+- Champion network.
+- Rollout plan.
+- Adoption metrics and feedback backlog.
+
+## Operations and scale
+
+- SLOs and operational dashboards.
+- Model, risk and benefits reports.
+- FinOps dashboard.
+- Incident register.
+- Improvement backlog.
+- Reusable platform patterns.
+- Enterprise control library.
+- Capability academy and community.
+
+---
+
+# Part VII — Stage-Gate Evidence Model
+
+## Gate 1 — Strategic Fit
+
+Required evidence:
+
+- Defined business problem.
+- Sponsor and benefit owner.
+- Strategic alignment.
+- Target outcome and baseline.
+- Initial risk context.
+
+Possible decision: proceed, reframe or stop.
+
+## Gate 2 — Use-Case Approval
+
+Required evidence:
+
+- User need.
+- Process/root-cause evidence.
+- Initial value and feasibility.
+- Data availability.
+- Risk tier.
+- Use-case card and next test.
+
+Possible decision: fund discovery/prototype, defer or reject.
+
+## Gate 3 — Investment Approval
+
+Required evidence:
+
+- TCO and financial case.
+- Risk-adjusted value.
+- Operating ownership.
+- Delivery and capability plan.
+- Commercial approach.
+- Benefits ownership.
+
+Possible decision: approve staged funding, request conditions or stop.
+
+## Gate 4 — Design Approval
+
+Required evidence:
+
+- HLD and data flows.
+- Model selection.
+- Security and privacy architecture.
+- Responsible AI assessment.
+- Human oversight.
+- NFRs and operational model.
+- Cost architecture.
+
+Possible decision: approve build, remediate or redesign.
+
+## Gate 5 — Production Approval
+
+Required evidence:
+
+- Functional and AI evaluation.
+- Security/red-team evidence.
+- Privacy and risk approval.
+- Monitoring and alerts.
+- Runbooks and support.
+- Training and rollout readiness.
+- Rollback and incident plans.
+
+Possible decision: controlled release, conditional release or reject.
+
+## Gate 6 — Scale Approval
+
+Required evidence:
+
+- Proven business value.
+- Stable adoption.
+- Controlled risk.
+- Reliable operation.
+- Sustainable unit economics.
+- Reusable architecture.
+- Clear ownership and capacity.
+
+Possible decision: scale, optimise first, contain or retire.
+
+---
+
+# Part VIII — Common Anti-Patterns and Corrections
+
+## Starting with a model
+
+**Anti-pattern:** “We have access to a new model; where can we use it?”
+
+**Correction:** Start with constrained outcomes, users, process and data. Use model selection only after requirements and risk are clear.
+
+## Confusing prototype and product
+
+**Anti-pattern:** A demo is treated as production-ready because outputs look impressive.
+
+**Correction:** Require ownership, integration, controls, tests, observability, runbooks, economics and adoption evidence.
+
+## Automating a broken process
+
+**Anti-pattern:** AI makes a poor process faster without removing unnecessary work.
+
+**Correction:** Use journey, service blueprint, VSM and root-cause tools before automation.
+
+## Measuring AI activity rather than value
+
+**Anti-pattern:** Number of prompts, pilots or trained users is treated as success.
+
+**Correction:** Connect leading product metrics to customer, financial, operational and risk outcomes through a value-driver tree.
+
+## Treating governance as a final checklist
+
+**Anti-pattern:** Security, privacy and Responsible AI review happens immediately before release.
+
+**Correction:** Run classification, impact, threat and control design from intake through operation.
+
+## Overestimating autonomy
+
+**Anti-pattern:** The first release is expected to complete high-impact actions with minimal oversight.
+
+**Correction:** Begin with assistive/read-only patterns, collect evidence and expand agency only where risk, reversibility and monitoring support it.
+
+## Underestimating knowledge and data work
+
+**Anti-pattern:** The team assumes documents can simply be embedded.
+
+**Correction:** Establish ownership, quality, effective dates, permissions, lineage, retention and update processes.
+
+## Ignoring variable cost
+
+**Anti-pattern:** Model quality is optimised without cost per successful outcome.
+
+**Correction:** Apply FinOps, model routing, context control and unit economics from prototype onward.
+
+## Fragmented ownership
+
+**Anti-pattern:** Technology owns delivery but no one owns workflow, knowledge, risk or benefits.
+
+**Correction:** Define a product operating model and one accountable owner for each result.
+
+## No retirement plan
+
+**Anti-pattern:** Deprecated prompts, indexes and models remain active indefinitely.
+
+**Correction:** Define lifecycle status, review periods, decommission criteria and evidence retention.
+
+---
+
+# Part IX — A Practical 16-Week Solution-Engineering Plan
+
+## Weeks 1–2: Mobilise and align
+
+- Charter, scope, sponsor and decision rights.
+- Strategic cascade and AI ambition.
+- Initial value drivers.
+- Discovery and evidence plan.
+
+## Weeks 3–5: Discover
+
+- User and stakeholder research.
+- Current-state journey, service blueprint and process.
+- Data/application/control inventories.
+- Baseline and root-cause analysis.
+
+## Weeks 5–6: Assess readiness
+
+- AI, data, cloud, governance and security maturity.
+- Production prerequisites.
+- Capability remediation backlog.
+
+## Weeks 6–8: Prioritise and justify
+
+- Use-case catalogue and cards.
+- Weighted scoring and risk classification.
+- Portfolio decision.
+- TCO, risk-adjusted benefit and staged business case.
+
+## Weeks 8–10: Design
+
+- Target operating model.
+- HLD, data flow and trust boundaries.
+- Model and sourcing decision.
+- Human oversight, NFRs and controls.
+
+## Weeks 10–13: Prototype and validate
+
+- Hypotheses and evaluation datasets.
+- Prototype and user testing.
+- Security and Responsible AI testing.
+- Cost and operational validation.
+- Proceed/pivot/stop decision.
+
+## Weeks 13–16: Production plan
+
+- Product backlog and roadmap.
+- Industrialisation architecture.
+- Delivery, test and release strategy.
+- Change, training and rollout.
+- Monitoring, benefits and operations.
+- Investment and production-gate evidence.
+
+---
+
+# Conclusion
+
+End-to-end AI Solution Engineering is not a linear technology build. It is a managed chain of business decisions:
+
+1. Define the outcome.
+2. Understand the real problem.
+3. assess organisational readiness.
+4. select the right use case.
+5. create ownership and decision rights.
+6. prove economic value.
+7. design the whole sociotechnical system.
+8. validate uncertainty.
+9. industrialise delivery.
+10. govern and secure continuously.
+11. drive adoption.
+12. operate for value, safety and reliability.
+13. reuse capabilities and scale deliberately.
+
+Frameworks are useful only when they improve a decision, expose an assumption, create reusable evidence or clarify accountability. The strongest AI Solution Engineer does not apply every framework mechanically. They select the minimum set that creates sufficient confidence for the next decision gate, while maintaining traceability from strategy and user need through architecture, controls, operations and realised business value.
+
+<KeyTakeaways>
+- Begin with business outcome and operating context—not model selection.
+- Run fifteen lifecycle steps with five cross-cutting workstreams and six evidence-based gates.
+- Select the minimum frameworks that improve the next decision; keep traceability from strategy to realised value.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed path: [AI Solution Engineering Framework roadmap](/roadmaps/ai-solution-engineering).
+- Apply [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate) on every artefact.
+- Deepen adjacent journeys: [Forward-Deployed Engineer](/roadmaps/forward-deployed-engineer), [AI Product Builder](/roadmaps/ai-product-builder), [Enterprise AI Security](/roadmaps/enterprise-ai-security).
+- Cross-check practice in the [AI Solution Engineering guide](/ai-solution-engineering/overview) and [Consulting and problem solving](/learning-map/04-consulting-problem-solving).
+</NextSteps>

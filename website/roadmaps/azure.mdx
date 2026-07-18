@@ -1,0 +1,239 @@
+---
+sidebar_position: 10
+slug: azure
+title: Azure Learning Roadmap
+description: A practical path from Azure foundations to enterprise cloud architecture, AI engineering, security, governance and a governed financial-services AI capstone.
+---
+
+# Azure Learning Roadmap
+
+The AWS roadmap follows a sensible progression: cloud fundamentals, identity, networking and compute first; then storage, databases, containers, serverless and operations. This Azure roadmap follows the same learning philosophy and expands it into an enterprise-grade programme covering cloud architecture, application delivery, AI engineering, cybersecurity, Responsible AI, regulatory compliance and operating-model design.
+
+> **Terminology note:** Microsoft’s current documentation refers to its unified enterprise AI development platform as **Microsoft Foundry**. You may still encounter the previous “Azure AI Foundry” name in existing projects and interfaces.
+
+<ExecSummary>
+Do not memorise every Azure service. For each stage: understand the business requirement, learn the concepts, create a small version manually, deploy with Azure CLI, recreate with Bicep or Terraform, secure it, add monitoring and cost controls, document decisions and assess against the Well-Architected Framework. Complete the 24-week plan and governed AI capstone before claiming enterprise readiness.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building Azure platform and enterprise AI capability from foundations through security, governance and compliance.
+- Pair with the full guide: [The Complete Microsoft Azure Roadmap](/articles/azure-roadmap).
+- Cross-check with [AWS](./aws), [Google Cloud](./gcp), [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering), [DevSecOps](./devsecops) and [AI Red Teaming](./ai-red-teaming).
+</WhenToUse>
+
+## Capability map
+
+1. Cloud fundamentals and Azure global infrastructure
+2. Resource hierarchy, landing zones and Azure Policy
+3. Microsoft Entra ID, Azure RBAC and managed identities
+4. Virtual networks, private endpoints and hub-and-spoke
+5. Virtual machines, App Service and traffic management
+6. Storage, Azure SQL, Cosmos DB and Managed Redis
+7. API Management, Service Bus, Event Grid and Event Hubs
+8. ACR, Container Apps, AKS and Azure Functions
+9. Observability, reliability, Bicep and DevSecOps
+10. Zero Trust, Key Vault, Defender for Cloud and Sentinel
+11. Microsoft Foundry, RAG, agents and AI security
+12. AI governance, NIST AI RMF, ISO 42001, EU AI Act and GDPR
+13. Purview, FinOps and the governed AI capstone
+
+## Learning cycle
+
+```text
+Business requirement
+→ Concepts
+→ Manual create
+→ Azure CLI
+→ Bicep / Terraform
+→ Secure (identity, network, encryption)
+→ Monitor, recover, cost
+→ Document decisions
+→ Well-Architected review
+→ Demonstrate
+```
+
+The aim is not to recognise Azure product names. The aim is to turn an ambiguous business requirement into a secure, scalable, governed and commercially viable Azure solution.
+
+## Roadmap at a glance
+
+| Stage | Focus | Outcome |
+| --- | --- | --- |
+| 0 | Cloud fundamentals | Understand cloud models and shared responsibility |
+| 1 | Azure foundations | Understand tenants, subscriptions, resources and Regions |
+| 2 | Landing zones | Build an enterprise Azure foundation |
+| 3 | Identity | Secure users, applications and workloads |
+| 4 | Networking | Design public, private and hybrid connectivity |
+| 5 | Compute | Deploy applications using virtual machines |
+| 6 | Application platforms | Use App Service and managed application hosting |
+| 7 | Storage | Design secure object, file, queue and disk storage |
+| 8 | Data | Use Azure SQL, Cosmos DB and managed caching |
+| 9 | Integration | Build APIs, messages, events and workflows |
+| 10 | Containers | Use ACR, Container Apps and AKS |
+| 11 | Serverless | Build event-driven systems using Azure Functions |
+| 12 | Observability | Implement logs, metrics, tracing and alerting |
+| 13 | Reliability | Design backup, resilience and disaster recovery |
+| 14 | Infrastructure as code | Automate Azure environments |
+| 15 | DevSecOps | Secure software and AI delivery pipelines |
+| 16 | Cloud security | Apply Zero Trust and defence in depth |
+| 17 | AI foundations | Understand machine learning, generative AI and agents |
+| 18 | Microsoft Foundry | Build and operate enterprise AI applications |
+| 19 | AI security | Secure models, data, prompts, RAG and agents |
+| 20 | AI governance | Implement policies, accountability and lifecycle controls |
+| 21 | AI compliance | Apply ISO 42001, NIST AI RMF, GDPR and the EU AI Act |
+| 22 | FinOps | Control infrastructure and token consumption |
+| 23 | Capstone | Deliver a governed enterprise AI platform |
+
+## AWS-to-Azure mental model
+
+| AWS | Azure equivalent or closest service |
+| --- | --- |
+| AWS account | Azure subscription |
+| IAM | Microsoft Entra ID and Azure RBAC |
+| VPC | Azure Virtual Network |
+| EC2 | Azure Virtual Machines |
+| S3 | Azure Blob Storage |
+| RDS / DynamoDB | Azure SQL Database / Cosmos DB |
+| ECS/Fargate / EKS | Azure Container Apps / AKS |
+| Lambda | Azure Functions |
+| API Gateway | Azure API Management |
+| CloudWatch | Azure Monitor, Log Analytics and Application Insights |
+| Bedrock/SageMaker | Microsoft Foundry and Azure Machine Learning |
+
+## Stage journey (condensed)
+
+### Stages 0–2 — Foundations and landing zones
+
+Learn IaaS/PaaS/SaaS and shared responsibility; Regions, Availability Zones and region selection; then tenants, management groups, subscriptions, resource groups and landing-zone design areas (identity, connectivity, management, policy).
+
+**Build:** Region-selection decision record, shared-responsibility matrix, small management-group hierarchy and policy initiative (Regions, tags, public storage, diagnostics, AI resource restrictions).
+
+### Stages 3–4 — Identity and networking
+
+Separate Entra directory roles from Azure RBAC. Prefer managed identities over keys. Apply Conditional Access and PIM. Design VNets, NSGs, private endpoints, NAT Gateway, Firewall and hub-and-spoke topology.
+
+**Build:** identity matrix with managed-identity app access; hub-and-spoke with private endpoints for Storage, Key Vault and SQL; AI egress allowlist.
+
+### Stages 5–8 — Compute, apps, storage and data
+
+Use VMs and Scale Sets when you need OS control; App Service for managed hosting; Blob/Files with lifecycle and AI data zones; Azure SQL, Cosmos DB and Managed Redis by access pattern—not by fashion.
+
+**Build:** Front Door → Application Gateway → Scale Set → SQL; App Service API with slots, Key Vault and WAF; secure document platform with Raw/Curated/AI-ready/Evidence zones.
+
+### Stages 9–11 — Integration, containers and serverless
+
+Use API Management as an AI gateway; Service Bus for reliable business messaging; Event Grid for reactive routing; Event Hubs for high-volume streams. Prefer Container Apps unless Kubernetes is justified; use Functions for short event-driven work.
+
+**Build:** AI gateway policies (quotas, content safety, correlation); containerised RAG API; blob → Event Grid → Function ingestion pipeline.
+
+### Stages 12–16 — Operations, IaC, DevSecOps and cloud security
+
+Centralise on Azure Monitor and Application Insights (including AI correlation without indiscriminate prompt logging). Automate with Bicep. Secure pipelines with federation, scanning and AI evaluation gates. Apply Zero Trust, Key Vault, Defender for Cloud and Sentinel.
+
+**Build:** ops dashboard with AI metrics; modular Bicep repo; secure CI/CD with AI release gates; private Key Vault and Sentinel detections for AI gateway events.
+
+### Stages 17–21 — AI engineering, security, governance and compliance
+
+Treat enterprise AI as layered systems (UX → orchestration → retrieval → models → data → platform → governance). Build on Microsoft Foundry; secure RAG and agents with deterministic authorisation; operate governance through the full lifecycle; map to NIST AI RMF, ISO/IEC 42001, EU AI Act and GDPR.
+
+**Build:** enterprise RAG prototype; AI threat model and agent permission matrix; use-case intake, risk tiers and governance artefact pack; regulatory role assessment (provider/deployer).
+
+### Stages 22–23 — FinOps and capstone
+
+Track infrastructure and token economics. Deliver a governed financial-services AI assistant that cites sources, redacts PII, escalates uncertainty and never transfers money autonomously.
+
+**Build:** tagging standard and AI unit-cost model; full capstone through discovery, governance, architecture, prototype, production engineering, validation, deployment and operation.
+
+## Capstone architecture
+
+```text
+Employee
+  ↓
+Entra ID
+  ↓
+Front Door + WAF
+  ↓
+API Management
+  ↓
+Container Apps
+  ├── Authorisation
+  ├── Presidio PII
+  ├── RAG orchestrator
+  ├── Agent runtime
+  └── Output validator
+        ↓
+Microsoft Foundry · Azure AI Search · Blob · Cosmos DB / SQL
+```
+
+Supporting services: Key Vault, managed identities, private endpoints, Purview, Defender for Cloud, Monitor, Sentinel, Service Bus, Event Grid, Policy, Cost Management, Bicep and CI/CD.
+
+## 24-week plan (summary)
+
+| Weeks | Focus | Key deliverable |
+| --- | --- | --- |
+| 1–2 | Cloud and Azure fundamentals | Region decision record, responsibility matrix |
+| 3–4 | Resource governance | Management groups, policy initiative, subscription design |
+| 5–6 | Identity | Identity matrix, managed-identity app, PIM process |
+| 7–8 | Networking | Private network, flow diagram, DNS design |
+| 9–10 | Compute and app platforms | Load-balanced app, autoscaling, private data path |
+| 11–12 | Storage and data | Secure documents, SQL vs Cosmos, backup test |
+| 13–14 | Containers and serverless | Container API, event worker, platform ADR |
+| 15–16 | Integration and observability | Async workflow, dashboard, alerts and runbooks |
+| 17–18 | Cloud security | Baseline, threat model, Sentinel detections |
+| 19–20 | AI engineering | RAG prototype, model-selection report, eval set |
+| 21–22 | AI security | Threat model, red-team tests, PII benchmark |
+| 23–24 | AI governance | Framework, inventory, risk tiers, capstone presentation |
+
+## Completion checklist
+
+### Azure architecture
+
+- Explain why you chose VMs, App Service, Container Apps, AKS or Functions
+- Describe subscription and landing-zone model, zone redundancy and regional failure
+- Show how infrastructure is recreated from code
+
+### Identity and networking
+
+- Explain user, application and agent authentication
+- Identify public versus private endpoints and outbound controls
+- Confirm AI workloads cannot reach arbitrary external systems
+
+### Data and AI
+
+- Justify data necessity, ownership, classification, access and deletion
+- State evaluation thresholds, hallucination detection and feedback loops
+- Describe prompt-injection defence, output validation, agent permissions and PII handling
+
+### Governance and operations
+
+- Name accountable owners, risk tier, approvals and retained evidence
+- Know disable/fallback/recovery/retirement paths
+- Show unit cost, adoption metrics and measurable business value
+
+## Common mistakes to avoid
+
+- Memorising services without building systems
+- Choosing AKS because it looks advanced
+- Permanent privileged access and shared credentials
+- Public PaaS endpoints without justification
+- Relying on system prompts as security boundaries
+- Letting models enforce access control over retrieved documents
+- Caching AI responses without tenant and user context
+- Treating Prompt flow as a long-term dependency for new work
+- Logging full prompts and responses without retention policy
+- Shipping AI without evaluation, cost limits or incident runbooks
+
+## Core principle
+
+> The result should be more than an Azure deployment. It should be a governed operating system for delivering AI: technically feasible, commercially valuable, secure by design, compliant, observable, recoverable and accountable.
+
+<KeyTakeaways>
+- Learn Azure as an enterprise platform for business and AI workloads—landing zones, identity, network, data, Foundry, security and governance together.
+- Prefer managed identities, private endpoints and deterministic policy over keys, public endpoints and prompt-only controls.
+- Progress from cloud foundations through AI engineering to governance and FinOps with the same non-functional bar: security, resilience, evidence and unit economics.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete Microsoft Azure Roadmap](/articles/azure-roadmap).
+- Compare with the [AWS Learning Roadmap](./aws) and [Google Cloud Learning Roadmap](./gcp), and practise [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Harden delivery with [DevSecOps](./devsecops), [API Security Engineering](./api-security-engineering) and [AI Red Teaming](./ai-red-teaming).
+</NextSteps>

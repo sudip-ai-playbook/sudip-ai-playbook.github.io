@@ -1,0 +1,1738 @@
+---
+slug: ai-red-teaming-roadmap
+title: "AI Red Teaming Roadmap: A Practical Guide from Fundamentals to Enterprise Security Testing"
+description: A practical learning and delivery programme for AI red teaming—ethics and governance, prompt and model attacks, RAG and agent testing, tools, continuous assessment and enterprise reporting.
+authors: [sudip]
+tags: [roadmaps, security, playbook, solution-engineering]
+keywords:
+  - AI red teaming roadmap
+  - prompt injection
+  - RAG poisoning
+  - LLM security testing
+  - agentic AI security
+  - MITRE ATLAS
+  - OWASP LLM Top 10
+  - PyRIT
+  - garak
+  - Promptfoo
+---
+
+Artificial intelligence systems introduce a new class of security problems. A conventional application may fail because of insecure code, weak authentication or an exposed API. An AI application can suffer from all of those problems **plus** prompt injection, poisoned retrieval data, unsafe tool execution, model extraction, sensitive-data leakage, misleading outputs and autonomous agent behaviour.
+
+AI red teaming is the structured practice of testing these systems from an adversarial perspective. The objective is not simply to make a model produce an inappropriate answer. It is to discover how an attacker, careless user, compromised data source or unexpected interaction could cause the complete AI system to violate its security, safety, privacy or business requirements.
+
+{/* truncate */}
+
+<ExecSummary>
+Red team the full sociotechnical system—not only the model. Establish ethics and governance, build AI and cybersecurity foundations, threat-model trust boundaries, then test prompts, models, data, APIs, infrastructure, RAG and agents. Combine manual and automated testing, continuous release gates and actionable remediation. Use the 24-week plan and capstone as your operating system.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building personal or team AI red-team capability, assessing LLM/RAG/agent systems, or designing continuous AI security testing.
+- Pair with the [AI Red Teaming roadmap](/roadmaps/ai-red-teaming), [DevSecOps](/roadmaps/devsecops), [API Security Engineering](/roadmaps/api-security-engineering) and [Security Engineering](/learning-map/17-security-engineering).
+- Treat authorisation boundaries, severity model, release gates and retest evidence as mandatory delivery artefacts.
+</WhenToUse>
+
+The [AI Red Teaming roadmap](/roadmaps/ai-red-teaming) presents the journey through introduction, foundational AI and cybersecurity knowledge, prompt hacking, model vulnerabilities, system security, testing methodologies, tools, professional development, practical applications and future research. This article converts that high-level diagram into a practical learning and delivery programme. The roadmap’s duplicated “Authentication” box is interpreted here as **authentication and authorization**, because both are required when securing AI applications.
+
+---
+
+## 1. What AI red teaming actually covers
+
+AI red teaming should examine the complete system rather than testing the language model in isolation.
+
+A production AI system may contain:
+
+* A web or mobile interface
+* API gateways
+* Identity and access-management services
+* Prompt templates
+* Large language models
+* Embedding models
+* Vector databases
+* Retrieval pipelines
+* Knowledge bases
+* Agent memory
+* External tools
+* Model Context Protocol servers
+* Business applications
+* Logging and monitoring systems
+* Human approval workflows
+* Cloud infrastructure
+
+A model may refuse a malicious request correctly while the surrounding application still exposes confidential documents through its retrieval system. Similarly, an agent may generate a harmless message but invoke the wrong payment, email or database tool.
+
+Therefore, the unit being red teamed should be:
+
+> **The model, application, data, integrations, infrastructure, users and operational processes working together.**
+
+[MITRE ATLAS](https://atlas.mitre.org/) reflects this system-wide perspective. It is a living knowledge base of adversarial tactics and techniques for predictive AI, generative AI and agentic AI systems, including model access, prompt injection, RAG poisoning, agent tool invocation and data exfiltration.
+
+---
+
+# Part I — Orientation, ethics and governance
+
+## 2. Understand why AI systems need red teaming
+
+Traditional security testing primarily asks:
+
+* Can an attacker access the system?
+* Can they execute unauthorized code?
+* Can they steal or modify data?
+* Can they escalate privileges?
+
+AI red teaming adds several further questions:
+
+* Can instructions embedded in user content override the system policy?
+* Can retrieved documents manipulate model behaviour?
+* Can confidential information be reconstructed or extracted?
+* Can the model be persuaded to use a tool outside the user’s permissions?
+* Can an attacker poison the system’s memory or knowledge base?
+* Can generated code or commands create downstream vulnerabilities?
+* Can the system produce harmful, biased or misleading decisions?
+* Can multiple individually safe components create an unsafe workflow?
+* Can the system be manipulated across several conversational turns?
+* Does it fail safely when uncertain?
+
+The purpose is not to prove that the AI is “bad.” The purpose is to identify realistic failure paths and improve the system before those failures affect customers, employees or the organisation.
+
+---
+
+## 3. Establish ethical and legal boundaries
+
+Before testing, define an explicit authorization boundary.
+
+A professional AI red-team engagement should include:
+
+**Authorisation**
+
+The system owner must approve the assessment. The approval should identify environments, models, APIs, accounts, data sources and tools that may be tested.
+
+**Scope**
+
+Specify what is included and excluded. For example, the customer-service agent may be in scope while the production CRM and payment gateway remain out of scope.
+
+**Data rules**
+
+Use synthetic, anonymised or approved test data wherever possible. Define whether testers are allowed to attempt extraction of system prompts, personal data, credentials or proprietary documents.
+
+**Operational limits**
+
+Set request limits, cost limits, test windows and rules for potentially disruptive tests. Do not perform denial-of-service, destructive tool invocation or uncontrolled data poisoning against production systems.
+
+**Evidence handling**
+
+Red-team evidence may itself contain sensitive prompts, customer records, secrets or exploit details. Store it securely and restrict access.
+
+**Responsible disclosure**
+
+Define how findings will be reported, who receives them, how remediation is tracked and when retesting will occur.
+
+A useful engagement rule is:
+
+> Every test must have a legitimate security objective, documented authorization, a controlled execution method and a clear stopping condition.
+
+---
+
+## 4. Use a governance structure
+
+AI red teaming should be integrated with risk management rather than treated as an isolated hacking exercise.
+
+The NIST AI Risk Management Framework organises AI risk activities into four functions:
+
+* **Govern** — policies, accountability, roles and organisational controls
+* **Map** — system context, users, impacts, assets and risks
+* **Measure** — testing, evaluation, monitoring and evidence
+* **Manage** — prioritisation, treatment, acceptance and continuous improvement
+
+[NIST’s Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) applies these principles specifically to generative AI risks and lifecycle activities.
+
+For organisational management, [ISO/IEC 42001](https://www.iso.org/standard/81230.html) defines requirements for establishing and continually improving an AI management system, while [ISO/IEC 23894](https://www.iso.org/standard/77304.html) provides AI-specific risk-management guidance.
+
+### Practical governance deliverables
+
+Before technical testing begins, create:
+
+| Deliverable | Purpose |
+| --- | --- |
+| AI system inventory | Records models, data, integrations, owners and business purposes |
+| Acceptable-use policy | Defines permitted and prohibited system behaviour |
+| AI risk register | Tracks threats, impacts, controls and owners |
+| Data-flow diagram | Shows how prompts, data and outputs move |
+| Test authorisation | Establishes legal and operational permission |
+| Evaluation policy | Defines required security and safety tests |
+| Severity model | Ensures consistent prioritisation |
+| Incident-response plan | Explains what happens when AI misuse is detected |
+| Retest process | Confirms whether remediation actually works |
+
+**Stage completion criterion:** You can explain who owns the system, what it is allowed to do, what assets matter, what could go wrong and what testing is authorised.
+
+---
+
+# Part II — Foundational knowledge
+
+## 5. Learn the necessary AI and machine-learning fundamentals
+
+An AI red teamer does not need to become a research scientist, but must understand how different model types learn, infer and fail.
+
+### Supervised learning
+
+Supervised models learn from labelled examples.
+
+Study:
+
+* Features and labels
+* Training, validation and test datasets
+* Classification and regression
+* Overfitting and underfitting
+* Class imbalance
+* Accuracy, precision, recall and F1 score
+* Distribution shift
+* Data leakage
+
+Security relevance includes training-data manipulation, adversarial inputs, biased labels and extraction of information about the training set.
+
+### Unsupervised learning
+
+Unsupervised learning identifies structure without labelled outcomes.
+
+Study:
+
+* Clustering
+* Dimensionality reduction
+* Representation learning
+* Anomaly detection
+* Embeddings and similarity search
+
+This knowledge is particularly important for understanding vector databases, embedding attacks and retrieval manipulation.
+
+### Reinforcement learning
+
+Reinforcement-learning systems optimise actions according to rewards.
+
+Study:
+
+* Agents, environments and actions
+* Policies
+* Reward functions
+* Exploration and exploitation
+* Reward hacking
+* Specification gaming
+* Human-feedback-based optimisation
+
+A poorly designed reward may encourage behaviour that technically maximises the score while violating the intended objective.
+
+### Neural networks
+
+Understand:
+
+* Layers, weights and activation functions
+* Forward and backward propagation
+* Loss functions
+* Gradient descent
+* Attention
+* Transformers
+* Fine-tuning
+* Quantisation
+* Model checkpoints
+
+This helps explain adversarial examples, model extraction, poisoned weights and model-behaviour changes following fine-tuning.
+
+### Generative models and large language models
+
+Learn the major components of an LLM application:
+
+* Tokenisation
+* Context windows
+* System and user instructions
+* Temperature and sampling
+* Embeddings
+* Retrieval-augmented generation
+* Fine-tuning
+* Tool and function calling
+* Agent planning
+* Memory
+* Guardrails
+* Output validation
+
+Do not treat the system prompt as a secure access-control boundary. It influences behaviour, but it cannot replace identity controls, permissions or application-level policy enforcement.
+
+### Prompt engineering
+
+Security testers need prompt-engineering knowledge because prompts define part of the application logic.
+
+Study:
+
+* System, developer, user and tool messages
+* Instruction hierarchy
+* Few-shot examples
+* Structured outputs
+* Prompt templates
+* Context construction
+* Retrieval injection
+* Tool descriptions
+* Conversation state
+
+### Practical exercise
+
+Build a small, local or isolated question-answering application using synthetic documents. Add:
+
+1. A system instruction
+2. A retrieval component
+3. A simple tool
+4. Conversation memory
+5. Output validation
+6. Basic audit logging
+
+You will use this application throughout the roadmap as your test target.
+
+**Stage completion criterion:** You can draw the architecture of an LLM application and explain where instructions, data, model outputs and tool calls enter and leave the system.
+
+---
+
+## 6. Build cybersecurity foundations
+
+AI security does not replace traditional cybersecurity. It extends it.
+
+### Confidentiality, integrity and availability
+
+Use the CIA triad to analyse AI systems.
+
+**Confidentiality**
+
+Could the system disclose:
+
+* Customer information
+* Employee records
+* API credentials
+* Proprietary documents
+* System instructions
+* Model weights
+* Conversation history
+* Data belonging to another tenant?
+
+**Integrity**
+
+Could an attacker modify:
+
+* Training data
+* Retrieved documents
+* Embeddings
+* Agent memory
+* Model configuration
+* Prompt templates
+* Evaluation results
+* Tool responses?
+
+**Availability**
+
+Could the system be disrupted through:
+
+* Excessively long inputs
+* Recursive agent loops
+* Unbounded tool calls
+* Expensive model requests
+* Large retrieval workloads
+* Dependency failures
+* Resource exhaustion?
+
+### Identity and access management
+
+Understand the difference between:
+
+* **Authentication:** Who is the user or service?
+* **Authorization:** What is that identity allowed to do?
+* **Entitlement:** Which specific resources may it access?
+* **Delegation:** What may an AI agent do on behalf of the user?
+* **Impersonation:** Can one identity act as another?
+* **Session management:** How is identity maintained across conversations?
+
+Apply least privilege to users, services, agents and tools.
+
+An AI agent should not inherit broad administrator permissions merely because the application backend possesses them. Permissions should be derived from the authenticated user, narrowed for the specific action and checked again at the target system.
+
+### API protection
+
+Study:
+
+* API keys and secret management
+* OAuth and OpenID Connect
+* Rate limiting
+* Input validation
+* Schema validation
+* Request signing
+* Tenant isolation
+* Network segmentation
+* Error handling
+* Logging
+* Abuse prevention
+
+### Secure software foundations
+
+Learn the risks associated with:
+
+* Injection
+* Server-side request forgery
+* Insecure deserialization
+* Remote code execution
+* Broken access control
+* Vulnerable dependencies
+* Excessive permissions
+* Untrusted file processing
+* Unsafe generated code
+* Insufficient logging
+
+AI output should always be treated as untrusted data, particularly when it is passed into a shell, database, browser, template engine, workflow or external API.
+
+**Stage completion criterion:** You can distinguish an AI-specific weakness from a conventional application or infrastructure vulnerability and explain how they can combine.
+
+---
+
+# Part III — Threat modelling
+
+## 7. Model the complete AI attack surface
+
+Threat modelling should happen before attacks are executed.
+
+[Microsoft’s AI/ML threat-modelling guidance](https://learn.microsoft.com/en-us/security/engineering/threat-modeling-aiml) specifically recommends including training datasets, storage systems, dependencies and supporting components within the threat-modelling scope.
+
+### Step 1: Describe the business purpose
+
+Write a one-sentence system purpose:
+
+> The application helps authenticated employees search approved policy documents and draft answers, but it must not expose restricted HR records or take business actions.
+
+This statement establishes what legitimate behaviour looks like.
+
+### Step 2: Identify assets
+
+Typical assets include:
+
+* Personal data
+* Financial data
+* Intellectual property
+* Model weights
+* System prompts
+* Secrets
+* Business records
+* User identities
+* Agent credentials
+* Tool permissions
+* Audit evidence
+* Brand reputation
+* Decision integrity
+
+### Step 3: Identify actors
+
+Consider:
+
+* Anonymous external users
+* Authenticated customers
+* Employees
+* Administrators
+* Developers
+* Data providers
+* Malicious insiders
+* Compromised third parties
+* Automated bots
+* Other AI agents
+
+### Step 4: Draw trust boundaries
+
+Mark boundaries between:
+
+* User device and application
+* Application and model provider
+* Model and vector database
+* Agent and external tools
+* One tenant and another
+* Development and production
+* Internal and third-party services
+* Trusted and untrusted documents
+
+### Step 5: Document data flows
+
+For each flow, record:
+
+* Source
+* Destination
+* Data type
+* Sensitivity
+* Identity
+* Authentication method
+* Authorization check
+* Encryption
+* Validation
+* Logging
+* Retention
+
+### Step 6: Create abuse cases
+
+A normal use case might be:
+
+> An employee asks the assistant to summarise the travel policy.
+
+Its corresponding abuse cases may be:
+
+* The user attempts to retrieve another employee’s travel claims.
+* A document instructs the model to reveal confidential information.
+* The assistant invents a policy that does not exist.
+* The user causes the agent to email the summary externally.
+* The retrieved document contains a malicious external link.
+* The agent uses an administrator credential instead of the user’s identity.
+
+### Step 7: Map threats to frameworks
+
+Use:
+
+* OWASP Top 10 for LLM Applications
+* OWASP Top 10 for Agentic Applications
+* MITRE ATLAS
+* NIST AI RMF
+* Organisational policies
+* Regulatory obligations
+* ISO controls
+
+The [OWASP LLM list](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) covers risks throughout the development, deployment and management lifecycle, while the [2026 Agentic Applications guidance](https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/) addresses risks such as goal hijacking, tool misuse, identity abuse, memory poisoning and cascading failures.
+
+### Threat-register example
+
+| ID | Threat | Asset | Entry point | Likelihood | Impact | Existing control | Planned test |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| AI-01 | Indirect prompt injection | Restricted documents | Retrieved webpage | High | High | Document filtering | Insert benign test instruction into synthetic page |
+| AI-02 | Cross-tenant retrieval | Customer records | Search query | Medium | Critical | Tenant filter | Attempt retrieval using another tenant identifier |
+| AI-03 | Excessive tool privilege | CRM data | Agent tool call | Medium | High | Service account | Ask agent to perform action beyond user role |
+| AI-04 | Memory poisoning | Future conversations | Agent memory | Medium | High | Limited validation | Introduce false persistent instruction |
+| AI-05 | Sensitive output leakage | Personal data | Model response | High | High | Output DLP | Test synthetic identifiers and canary strings |
+
+**Stage completion criterion:** Every important component and data flow has at least one documented abuse case and test hypothesis.
+
+---
+
+# Part IV — Prompt security
+
+## 8. Understand prompt injection, jailbreaks and prompt manipulation
+
+These terms are related but should not be treated as identical.
+
+### Prompt injection
+
+Prompt injection occurs when untrusted content changes the model’s intended behaviour.
+
+**Direct prompt injection** comes directly from the user.
+
+Example objective:
+
+> Determine whether the user can override the assistant’s policy and request restricted information.
+
+**Indirect prompt injection** is embedded in content consumed by the model, such as:
+
+* A webpage
+* A PDF
+* An email
+* A support ticket
+* A retrieved document
+* A tool response
+* Agent memory
+* Code comments
+* Image metadata
+
+Indirect prompt injection is especially important for RAG systems and agents because the malicious instruction may not come from the person currently using the application.
+
+### Jailbreaking
+
+A jailbreak attempts to bypass safety restrictions or policy controls through linguistic or conversational manipulation.
+
+Testing should evaluate:
+
+* Single-turn attempts
+* Multi-turn persuasion
+* Role-play scenarios
+* Encoded or transformed requests
+* Cross-language variation
+* Context manipulation
+* Conflicting instructions
+* Long-context attacks
+
+The objective is not to collect clever prompts. The objective is to determine:
+
+* Which policy failed
+* Under what preconditions
+* How consistently it failed
+* What impact was possible
+* Which control should prevent it
+
+### System-prompt extraction
+
+Test whether users can recover:
+
+* Hidden instructions
+* Tool descriptions
+* Internal policy language
+* Secrets mistakenly placed in prompts
+* Internal routing logic
+
+A system prompt should generally be treated as potentially discoverable. Sensitive credentials and access-control logic must not depend on its confidentiality.
+
+### Prompt-injection countermeasures
+
+No single defence is sufficient. Use layered controls:
+
+1. Separate trusted instructions from untrusted content.
+2. Label retrieved content as data, not authority.
+3. Minimise the amount of untrusted context.
+4. Filter or sanitise retrieved content.
+5. Enforce permissions outside the model.
+6. Restrict accessible tools.
+7. Validate every tool argument.
+8. Require approval for high-impact actions.
+9. Validate outputs against schemas and policies.
+10. Monitor repeated manipulation attempts.
+11. Use canary data to detect leakage.
+12. Test after model, prompt or retrieval changes.
+
+### Practical exercise
+
+Create three synthetic documents:
+
+* A normal policy document
+* A document containing an irrelevant embedded instruction
+* A document containing a request to access a restricted resource
+
+Verify whether the application:
+
+* Treats the documents as information rather than instructions
+* Refuses unauthorized actions
+* Records the event
+* Continues to answer the legitimate question
+* Avoids excessive refusal of harmless content
+
+**Stage completion criterion:** You can test direct and indirect prompt injection without confusing behavioural safety testing with access-control testing.
+
+---
+
+# Part V — Model and data vulnerabilities
+
+## 9. Study model extraction and unauthorized access
+
+### Model extraction
+
+Model extraction attempts to reproduce aspects of a target model through repeated interaction.
+
+Possible targets include:
+
+* Decision boundaries
+* Model behaviour
+* Proprietary fine-tuning
+* Hidden labels
+* Model architecture
+* Training characteristics
+* Model weights
+
+For API-based systems, assess whether controls exist for:
+
+* Rate limiting
+* Usage anomaly detection
+* Query-pattern analysis
+* Output precision
+* Authentication
+* Commercial abuse
+* Account sharing
+* Automated harvesting
+
+### Model-weight security
+
+When model weights are self-hosted, treat them as high-value software and intellectual property.
+
+Controls should include:
+
+* Encrypted storage
+* Restricted repository access
+* Signed artefacts
+* Hash verification
+* Controlled deployment pipelines
+* Audit logging
+* Environment isolation
+* Secure backup
+* Licence compliance
+* Provenance records
+
+### Unauthorized model access
+
+Check whether:
+
+* Development models are exposed publicly
+* Debug endpoints bypass authentication
+* Old model versions remain accessible
+* API keys are embedded in client applications
+* Service accounts are shared
+* Tenant boundaries are missing
+* Fine-tuned models inherit incorrect permissions
+
+---
+
+## 10. Test data poisoning and RAG poisoning
+
+### Training-data poisoning
+
+Training-data poisoning introduces manipulated examples into training or fine-tuning data to change future model behaviour.
+
+Possible effects include:
+
+* Backdoor behaviours
+* Reduced accuracy
+* Targeted misclassification
+* Biased responses
+* Trigger-based outputs
+* Suppressed information
+* Unsafe recommendations
+
+### RAG poisoning
+
+RAG poisoning targets documents, embeddings, metadata or retrieval ranking.
+
+Test whether an attacker could:
+
+* Add a malicious document
+* Replace an approved document
+* Manipulate document metadata
+* Raise the ranking of untrusted content
+* Hide legitimate evidence
+* Insert instructions into retrieved text
+* Exploit stale or conflicting versions
+* Cross tenant or permission boundaries
+
+### Defensive controls
+
+Use:
+
+* Source allowlists
+* Document ownership
+* Approval workflows
+* Digital signatures or checksums
+* Version control
+* Provenance metadata
+* Malware scanning
+* Content classification
+* Permission-aware retrieval
+* Duplicate detection
+* Retrieval-quality monitoring
+* Rollback mechanisms
+
+---
+
+## 11. Understand adversarial examples and model manipulation
+
+Adversarial examples are inputs intentionally modified to cause incorrect model behaviour while appearing valid or nearly unchanged.
+
+Relevant systems include:
+
+* Image recognition
+* Speech recognition
+* Fraud detection
+* Malware classification
+* Biometric verification
+* Autonomous systems
+* Document classification
+
+Testing should measure:
+
+* Baseline performance
+* Robustness under perturbation
+* Sensitivity to format changes
+* Out-of-distribution behaviour
+* Confidence calibration
+* Failure consistency
+* Recovery mechanisms
+
+### Model inversion and privacy attacks
+
+Model inversion attempts to infer sensitive features or reconstruct information associated with model training.
+
+Related privacy assessments include:
+
+* Membership inference
+* Memorisation testing
+* Training-data extraction
+* Attribute inference
+* Cross-user leakage
+* Conversation-history exposure
+
+Use synthetic canary records rather than real personal data wherever possible.
+
+### Defence strategies
+
+Possible defensive measures include:
+
+* Data minimisation
+* Differential privacy where appropriate
+* Deduplication
+* Sensitive-data filtering
+* Regularisation
+* Adversarial training
+* Output limitation
+* Query monitoring
+* Access controls
+* Privacy-preserving evaluation
+* Robust architecture design
+
+**Stage completion criterion:** You can separate attacks against model behaviour, model confidentiality, training data, retrieval data and user data.
+
+---
+
+# Part VI — Application, code and infrastructure security
+
+## 12. Test AI-generated code and tool execution
+
+AI-generated output becomes especially dangerous when another component executes it.
+
+High-risk destinations include:
+
+* Shell commands
+* SQL queries
+* Python interpreters
+* Infrastructure templates
+* Browser automation
+* Email systems
+* Payment systems
+* Customer-record platforms
+* File systems
+* Workflow engines
+
+### Secure execution principles
+
+**Never execute unrestricted model output directly.**
+
+Instead:
+
+* Use strongly typed tool schemas.
+* Allowlist permitted actions.
+* Validate arguments.
+* Restrict file paths and network destinations.
+* Apply user-level permissions.
+* Set execution timeouts.
+* Limit recursion and retries.
+* Isolate execution in a sandbox.
+* Record every action.
+* Require human approval for consequential operations.
+
+### Insecure deserialization
+
+An AI application may accept files, agent state, cached objects or plugin responses. Test whether untrusted serialized data can alter application behaviour or trigger code execution.
+
+Prefer:
+
+* Safe serialization formats
+* Strict schemas
+* Type validation
+* Signature verification
+* Dependency patching
+* Disabled dynamic object loading
+
+### Remote-code execution pathways
+
+Potential pathways include:
+
+* Generated shell commands
+* Unsafe code interpreters
+* Vulnerable file parsers
+* Plugin execution
+* Template injection
+* Deserialization flaws
+* Tool argument injection
+* Dependency vulnerabilities
+
+Red-team testing should demonstrate the vulnerable boundary safely, without executing destructive payloads.
+
+---
+
+## 13. Secure the AI infrastructure
+
+Evaluate:
+
+* Public network exposure
+* Private endpoints
+* Firewall rules
+* Kubernetes security
+* Container permissions
+* Secret storage
+* Model endpoints
+* Vector databases
+* Logging systems
+* Object storage
+* CI/CD pipelines
+* Development environments
+* Third-party model providers
+
+### Minimum infrastructure controls
+
+A mature AI environment should provide:
+
+* Environment separation
+* Central identity management
+* Least-privilege roles
+* Managed secrets
+* Encryption in transit and at rest
+* Network segmentation
+* Signed build artefacts
+* Software composition analysis
+* Container scanning
+* Infrastructure-as-code review
+* Central audit logs
+* Backup and recovery
+* Cost and usage monitoring
+
+### Multi-tenant isolation
+
+For systems serving several customers, test isolation at every layer:
+
+* API
+* Cache
+* Conversation memory
+* Vector index
+* Object storage
+* Database
+* Logs
+* Analytics
+* Model fine-tuning
+* Tool credentials
+
+Never rely solely on the model to decide which tenant’s information can be accessed.
+
+**Stage completion criterion:** You can follow an AI request from the user interface to the model and tools, identifying where conventional security controls must operate.
+
+---
+
+# Part VII — Testing methodologies
+
+## 14. Choose black-box, grey-box or white-box testing
+
+### Black-box testing
+
+The tester has little or no internal knowledge.
+
+Best for:
+
+* Simulating external attackers
+* Testing public interfaces
+* Evaluating information disclosure
+* Assessing production-like behaviour
+
+Limitations include reduced visibility into root causes and coverage.
+
+### White-box testing
+
+The tester can access:
+
+* Architecture
+* Source code
+* Prompts
+* Configuration
+* Data flows
+* Model details
+* Tool definitions
+* Logs
+
+Best for:
+
+* Comprehensive assessments
+* Root-cause analysis
+* Design reviews
+* Control verification
+
+### Grey-box testing
+
+The tester receives limited internal knowledge or a normal user account.
+
+This is often the most realistic enterprise approach because many attackers, customers, contractors and employees possess partial knowledge and legitimate access.
+
+---
+
+## 15. Combine manual and automated testing
+
+### Automated testing is effective for
+
+* Regression testing
+* Large prompt collections
+* Known vulnerability classes
+* Repeated model comparisons
+* Language and formatting variations
+* CI/CD checks
+* Measuring changes over time
+
+### Manual testing is effective for
+
+* Multi-turn manipulation
+* Business-logic abuse
+* Novel attack chains
+* Context-specific risks
+* Social engineering
+* Agent workflow analysis
+* Ambiguous safety failures
+
+Automation provides scale. Human testing provides creativity and contextual judgement.
+
+A mature programme uses both.
+
+---
+
+## 16. Build a repeatable test case
+
+Every test should contain:
+
+```text
+Test ID:
+System/component:
+Business requirement:
+Threat or vulnerability:
+Framework mapping:
+Preconditions:
+User identity and permissions:
+Input or attack method:
+Expected safe behaviour:
+Observed behaviour:
+Evidence:
+Reproducibility:
+Likelihood:
+Impact:
+Severity:
+Recommended remediation:
+Control owner:
+Retest result:
+```
+
+### Example
+
+```text
+Test ID: RAG-PI-004
+Component: Employee-policy assistant
+Threat: Indirect prompt injection
+Precondition: Attacker can submit a document for indexing
+Expected behaviour:
+The assistant should summarise approved content but ignore instructions
+embedded within retrieved documents.
+
+Observed behaviour:
+The assistant attempted to invoke an email tool based on instructions
+inside the retrieved document.
+
+Impact:
+A poisoned knowledge item could influence downstream agent actions.
+
+Recommended remediation:
+Separate retrieval content from executable instructions, restrict the
+email tool, validate recipients and require user confirmation.
+```
+
+---
+
+## 17. Define severity correctly
+
+Do not score a finding solely according to how surprising the model output appears.
+
+Consider:
+
+* Required access
+* Attack complexity
+* Reproducibility
+* Number of affected users
+* Data sensitivity
+* Tool permissions
+* Financial impact
+* Safety impact
+* Regulatory impact
+* Detectability
+* Persistence
+* Ability to chain with other weaknesses
+
+### Suggested severity model
+
+**Critical**
+
+The weakness enables high-impact unauthorized actions, widespread sensitive-data exposure or serious safety consequences with realistic preconditions.
+
+**High**
+
+The weakness causes significant security, privacy or business impact but requires additional access, chaining or specific circumstances.
+
+**Medium**
+
+The weakness has limited impact, narrow exposure or meaningful compensating controls.
+
+**Low**
+
+The weakness has minor impact, is difficult to exploit or primarily represents defence-in-depth improvement.
+
+**Informational**
+
+No direct vulnerability, but the observation may improve architecture, monitoring or operational maturity.
+
+---
+
+# Part VIII — Tools and automation
+
+## 18. Use tools as accelerators, not replacements for judgement
+
+### PyRIT
+
+[Microsoft’s Python Risk Identification Tool](https://learn.microsoft.com/en-us/security/ai-red-team/) is an open-source framework for orchestrating adversarial testing of generative AI systems. It can help organise prompts, attack strategies, targets, scoring and result storage.
+
+Use it when you need:
+
+* Multi-turn attack orchestration
+* Repeatable red-team campaigns
+* Several model targets
+* Automated scoring
+* Custom converters and attack strategies
+
+### Garak
+
+[Garak](https://github.com/NVIDIA/garak) is an open-source LLM vulnerability scanner that uses probes and detectors to examine areas such as prompt injection, data leakage, hallucination, toxicity and jailbreak susceptibility.
+
+Use it for:
+
+* Initial model scanning
+* Baseline weakness discovery
+* Comparing model versions
+* Repeatable probe execution
+* Research experiments
+
+### Promptfoo
+
+[Promptfoo](https://www.promptfoo.dev/docs/red-team/) supports application-specific red teaming for LLM applications, RAG systems and agents, with configurable targets, vulnerability plugins, strategies and CI/CD integration.
+
+Use it for:
+
+* API-level testing
+* RAG testing
+* Agent testing
+* Regression suites
+* Policy assertions
+* Pipeline integration
+
+### Custom testing scripts
+
+Build custom scripts when:
+
+* The application uses proprietary workflows.
+* You need authenticated user journeys.
+* The system contains unusual tools.
+* You need tenant-specific tests.
+* You need business-specific success criteria.
+* Existing scanners cannot understand the application state.
+
+A basic test harness should:
+
+1. Load version-controlled test cases.
+2. Call the target application.
+3. Capture model outputs and tool traces.
+4. Apply deterministic and model-based evaluators.
+5. Store evidence.
+6. Calculate metrics.
+7. Compare against previous releases.
+8. Fail the pipeline when agreed thresholds are exceeded.
+
+---
+
+## 19. Build continuous AI security testing
+
+AI systems change even when application code does not.
+
+Behaviour may shift because of:
+
+* Model-provider updates
+* Prompt changes
+* Knowledge-base updates
+* New tools
+* New agent memory
+* Retrieval configuration
+* Guardrail changes
+* Fine-tuning
+* Dependency updates
+* User behaviour
+* Emerging attack methods
+
+Therefore, test at several stages:
+
+| Stage | Recommended testing |
+| --- | --- |
+| Design | Threat modelling and architecture review |
+| Development | Unit tests, prompt tests and tool permission tests |
+| Pull request | Small deterministic security suite |
+| Pre-release | Full automated and manual red-team campaign |
+| Production | Monitoring, abuse detection and sampled evaluations |
+| Major change | Regression testing and targeted retesting |
+| Periodic review | Broader threat-led assessment |
+
+### Example release gates
+
+A release might require:
+
+* No unresolved critical findings
+* No unresolved high-risk cross-tenant exposure
+* Zero unauthorized high-impact tool executions
+* Required audit events present
+* Prompt-injection success below an agreed threshold
+* Sensitive-data leakage tests passed
+* Human-approval controls verified
+* Safety and security regression within tolerance
+
+---
+
+# Part IX — LLM, RAG and agentic AI testing
+
+## 20. Red team an LLM application
+
+For a standard chatbot, evaluate:
+
+* Prompt injection
+* System-prompt disclosure
+* Sensitive-data disclosure
+* Cross-user conversation leakage
+* Hallucination in high-risk use cases
+* Harmful-content handling
+* Excessive refusal
+* Insecure output rendering
+* Identity and authorization bypass
+* Cost exhaustion
+* Rate-limit bypass
+* Logging and incident detection
+
+Security and safety should be measured separately.
+
+A system may be safe from harmful-content generation but insecure against confidential-data leakage. Conversely, it may protect data correctly while producing biased or dangerous advice.
+
+---
+
+## 21. Red team a RAG system
+
+A RAG assessment should examine five layers.
+
+### 1. Ingestion
+
+Can unauthorized users upload or modify content? Are files scanned, classified and approved?
+
+### 2. Processing
+
+Can parsers, chunking or metadata extraction be manipulated? Are hidden instructions preserved?
+
+### 3. Embeddings and storage
+
+Are vector indexes tenant-separated? Can records be overwritten or queried directly?
+
+### 4. Retrieval
+
+Does retrieval enforce document permissions? Can ranking be manipulated? Are stale documents returned?
+
+### 5. Generation
+
+Does the model distinguish instructions from evidence? Does it cite the correct source? Does it reveal inaccessible document content?
+
+### RAG evaluation metrics
+
+Track:
+
+* Retrieval precision
+* Retrieval recall
+* Groundedness
+* Citation correctness
+* Unauthorized-document retrieval rate
+* Poisoned-document influence rate
+* Sensitive-data leakage rate
+* Unsupported-answer rate
+
+---
+
+## 22. Red team agentic AI systems
+
+Agents introduce risk because they can plan, remember and act.
+
+[OWASP’s agentic-security guidance](https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/) focuses on autonomous systems and risks involving goals, tools, memory, identities and multi-step workflows.
+
+### Agent components to test
+
+**Goals**
+
+Can an attacker replace or subtly redirect the agent’s objective?
+
+**Planning**
+
+Can the agent create an unsafe plan despite receiving a legitimate request?
+
+**Tools**
+
+Can the agent select an inappropriate tool or pass manipulated arguments?
+
+**Permissions**
+
+Does the agent act using broader access than the user possesses?
+
+**Memory**
+
+Can temporary or persistent memory be poisoned?
+
+**External content**
+
+Can webpages, files or messages introduce instructions?
+
+**Inter-agent communication**
+
+Can one compromised agent manipulate another?
+
+**Human approval**
+
+Does the system request meaningful approval, or merely display a vague confirmation?
+
+**Recovery**
+
+Can the agent recognise failed actions, stop safely and avoid recursive loops?
+
+### High-impact action pattern
+
+For consequential operations, apply:
+
+```text
+User intent
+    ↓
+Authenticated identity
+    ↓
+Policy and permission check
+    ↓
+Agent proposes action
+    ↓
+Application validates parameters
+    ↓
+Human reviews exact action
+    ↓
+Short-lived delegated credential
+    ↓
+Tool performs one approved action
+    ↓
+Result recorded in immutable audit log
+```
+
+The approval screen should show the exact recipient, amount, record, command or external destination. A generic “Continue?” prompt is not sufficient.
+
+---
+
+# Part X — Monitoring and defence
+
+## 23. Monitor AI systems in production
+
+Red teaming provides point-in-time evidence. Monitoring identifies what happens after deployment.
+
+Collect:
+
+* User and service identity
+* Model and prompt version
+* Retrieval sources
+* Tool calls
+* Tool arguments
+* Policy decisions
+* Guardrail outcomes
+* Latency and token usage
+* Error states
+* Human approvals
+* Sensitive-data detections
+* Security alerts
+
+Do not indiscriminately log every prompt and response. Logs may contain personal information, secrets and proprietary content. Apply data minimisation, masking, access control, retention limits and encryption.
+
+### Useful detection signals
+
+* Repeated policy-override language
+* High-volume prompt variation
+* Requests for system instructions
+* Attempts to discover tools
+* Cross-tenant identifiers
+* Unusual document-retrieval patterns
+* Repeated denied tool calls
+* Sudden token or cost increases
+* Persistent memory modifications
+* Sensitive-output detections
+* Agent loops
+* Unexpected outbound network destinations
+
+---
+
+## 24. Measure red-team performance
+
+Useful metrics include:
+
+### Attack success rate
+
+The percentage of attack attempts that produce the defined unsafe outcome.
+
+```text
+Attack success rate =
+successful attacks ÷ total valid attack attempts
+```
+
+### Reproducibility
+
+How frequently the same attack succeeds under equivalent conditions.
+
+### Data-leakage rate
+
+The proportion of tests that expose protected information.
+
+### Unauthorized-action rate
+
+The percentage of attempts that cause a tool to execute outside the user’s permission.
+
+### Detection rate
+
+The percentage of attacks identified by monitoring controls.
+
+### Over-refusal rate
+
+The percentage of legitimate requests incorrectly rejected.
+
+### Remediation time
+
+Time between finding confirmation and verified closure.
+
+### Regression rate
+
+The number of previously remediated vulnerabilities that reappear.
+
+Avoid optimising only for a low attack-success rate. A system that refuses every request may appear secure while providing no business value.
+
+---
+
+# Part XI — Reporting, remediation and disclosure
+
+## 25. Write findings that engineering and leadership can act on
+
+A strong finding should contain:
+
+1. **Title** — clear description of the weakness
+2. **Executive summary** — why it matters
+3. **Affected components**
+4. **Preconditions**
+5. **Reproduction steps**
+6. **Observed result**
+7. **Expected result**
+8. **Business impact**
+9. **Technical root cause**
+10. **Evidence**
+11. **Severity**
+12. **Framework mapping**
+13. **Recommended remediation**
+14. **Control owner**
+15. **Retest status**
+
+### Weak title
+
+> The chatbot can be tricked.
+
+### Better title
+
+> Indirect instructions in retrieved documents can initiate unauthorized email-tool calls.
+
+### Weak recommendation
+
+> Improve the prompt.
+
+### Better recommendation
+
+> Treat retrieved content as untrusted data, remove tool-selection authority from retrieved text, validate recipients against the authenticated user’s permissions and require explicit confirmation before external email delivery.
+
+---
+
+## 26. Prioritise root-cause remediation
+
+Prompt changes may reduce some attacks, but do not rely exclusively on stronger wording.
+
+Prioritise controls in this order:
+
+1. Remove unnecessary capability.
+2. Reduce permissions.
+3. Enforce deterministic authorization.
+4. Isolate untrusted content.
+5. Validate inputs and outputs.
+6. Require approval for high-impact actions.
+7. Improve model instructions and guardrails.
+8. Add monitoring and response.
+9. Retest.
+
+The strongest remediation often exists outside the model.
+
+For example, the durable fix for unauthorized database access is not “tell the model not to access other users’ records.” It is to enforce row-level authorization in the database or application service.
+
+---
+
+## 27. Practise responsible disclosure
+
+When discovering a vulnerability in a third-party system:
+
+* Confirm the organisation’s disclosure policy.
+* Minimise interaction with real user data.
+* Avoid unnecessary exploitation.
+* Preserve evidence securely.
+* Report through the approved channel.
+* Allow reasonable remediation time.
+* Coordinate public disclosure.
+* Do not publish operational details that expose users to immediate harm.
+
+**Stage completion criterion:** A developer unfamiliar with the assessment can reproduce the finding, understand its impact, implement the recommended control and verify the fix.
+
+---
+
+# Part XII — A 24-week learning plan
+
+| Weeks | Focus | Practical output |
+| --- | --- | --- |
+| 1–2 | AI security introduction, ethics and governance | Scope document and AI risk register |
+| 3–4 | AI/ML fundamentals | Small LLM application |
+| 5–6 | Cybersecurity principles | Architecture and trust-boundary diagram |
+| 7–8 | Threat modelling | Threat model with at least 20 abuse cases |
+| 9–10 | Prompt injection and jailbreak testing | Manual prompt-security test suite |
+| 11–12 | Model and data vulnerabilities | Poisoning, leakage and privacy test plan |
+| 13–14 | Application and API security | API, identity and tool-permission assessment |
+| 15–16 | Infrastructure security | Cloud and deployment control review |
+| 17–18 | Automated testing tools | PyRIT, garak or Promptfoo test campaign |
+| 19–20 | RAG and agentic AI security | RAG and agent red-team assessment |
+| 21–22 | Monitoring and continuous testing | CI pipeline and production detection design |
+| 23–24 | Reporting and capstone | Executive and technical red-team report |
+
+### Weekly working pattern
+
+Use a repeatable cycle:
+
+**Day 1:** Study the concept
+**Day 2:** Build or configure the target
+**Day 3:** Design tests
+**Day 4:** Execute and capture evidence
+**Day 5:** Analyse, remediate and document lessons
+
+---
+
+# Part XIII — Capstone project
+
+## 28. Build and red team an enterprise knowledge assistant
+
+Create a fictional employee assistant with:
+
+* Authentication
+* Two user roles
+* Two synthetic departments
+* A vector database
+* Ten approved documents
+* Two restricted documents
+* Conversation memory
+* An email-drafting tool
+* An internal search tool
+* Logging
+* Human approval
+
+### Phase 1: Architecture
+
+Document:
+
+* Components
+* Data flows
+* Identities
+* Trust boundaries
+* Secrets
+* Permissions
+* External dependencies
+
+### Phase 2: Threat modelling
+
+Create abuse cases covering:
+
+* Direct prompt injection
+* Indirect prompt injection
+* Cross-role document access
+* RAG poisoning
+* System-prompt extraction
+* Sensitive-data leakage
+* Memory poisoning
+* Unauthorized tool calls
+* Tool-argument manipulation
+* Agent loops
+* Excessive resource consumption
+* Logging failure
+
+### Phase 3: Manual testing
+
+Execute targeted multi-turn tests and document expected versus actual behaviour.
+
+### Phase 4: Automated testing
+
+Build a regression suite covering:
+
+* Policy compliance
+* Access control
+* Data leakage
+* Tool execution
+* Retrieval permissions
+* Adversarial language variations
+
+### Phase 5: Remediation
+
+Implement:
+
+* Permission-aware retrieval
+* Restricted service accounts
+* Tool allowlists
+* Argument validation
+* Explicit approval
+* Memory controls
+* Output filtering
+* Monitoring
+
+### Phase 6: Retesting
+
+Run the original tests unchanged. Then add variations to determine whether the remediation fixed the root cause rather than a single prompt.
+
+### Final deliverables
+
+Produce:
+
+1. Executive report
+2. Technical findings report
+3. Threat model
+4. Risk register
+5. Test-case repository
+6. Evidence folder
+7. Remediation plan
+8. Retest report
+9. Monitoring dashboard design
+10. Lessons-learned document
+
+---
+
+# Part XIV — Professional development
+
+## 29. Build practical experience
+
+Progress through increasingly realistic environments:
+
+### Beginner
+
+* Local model or sandboxed API
+* Synthetic data
+* Single-turn chatbot
+* Manual testing
+
+### Intermediate
+
+* RAG application
+* Authentication
+* Multiple user roles
+* Automated test harness
+* CI/CD integration
+
+### Advanced
+
+* Multi-agent workflow
+* Persistent memory
+* External tools
+* Human approval
+* Cloud deployment
+* Security monitoring
+* Enterprise reporting
+
+Participate only in authorised:
+
+* Capture-the-flag challenges
+* Vulnerable AI labs
+* Open-source security projects
+* Research reproductions
+* Internal red-team simulations
+* Coordinated vulnerability-disclosure programmes
+
+---
+
+## 30. Develop multidisciplinary capability
+
+Effective AI red teamers combine several disciplines:
+
+* Machine learning
+* Application security
+* Cloud security
+* Data privacy
+* Threat intelligence
+* Software engineering
+* Risk management
+* Responsible AI
+* Human factors
+* Technical communication
+
+The role is not limited to discovering failures. A senior practitioner must translate them into:
+
+* Business impact
+* Engineering requirements
+* Governance decisions
+* Measurable controls
+* Release criteria
+* Executive risk language
+
+---
+
+# Part XV — Future direction
+
+## 31. Prepare for emerging AI-security threats
+
+The next generation of red teaming will increasingly focus on:
+
+* Autonomous agents
+* Multi-agent collaboration
+* Agent identity and delegation
+* Persistent memory
+* Tool and plugin ecosystems
+* Model Context Protocol integrations
+* Multimodal attacks
+* Voice and image injection
+* AI supply-chain security
+* Model provenance
+* Synthetic identity and deepfake abuse
+* AI-to-AI social engineering
+* Self-modifying workflows
+* Long-running agent attacks
+* Cross-agent cascading failures
+
+The current [MITRE ATLAS](https://atlas.mitre.org/) matrix already distinguishes predictive, generative and agentic AI platforms, reflecting the expansion of adversarial testing beyond standalone models.
+
+---
+
+# Final roadmap summary
+
+Follow the roadmap in this order:
+
+1. Establish ethical authorization and governance.
+2. Learn AI, machine-learning and LLM fundamentals.
+3. Build core cybersecurity knowledge.
+4. Map the complete AI system and its trust boundaries.
+5. Learn prompt injection and jailbreak testing.
+6. Study model, privacy and data attacks.
+7. Test application code, APIs and infrastructure.
+8. Practise black-box, grey-box and white-box testing.
+9. Combine manual testing with automated tools.
+10. Red team RAG and agentic systems.
+11. Integrate continuous testing and monitoring.
+12. Report findings in business and engineering language.
+13. Remediate root causes and retest.
+14. Build practical experience through controlled projects.
+15. Continue tracking emerging threats and standards.
+
+The most important principle is simple:
+
+> **Do not test only whether the model says something unsafe. Test whether the entire AI system can be manipulated into producing an unauthorized, harmful, misleading or insecure outcome.**
+
+That shift—from testing individual prompts to testing complete sociotechnical systems—is what turns prompt experimentation into professional AI red teaming.
+
+<KeyTakeaways>
+- Authorise, scope and govern before attacking; red team the full system, not the model alone.
+- Separate behavioural safety failures from access-control failures; enforce permissions outside the model.
+- Combine manual creativity with automated regression; remediate root causes and retest continuously.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed path: [AI Red Teaming roadmap](/roadmaps/ai-red-teaming).
+- Expand to the full programme: [Enterprise AI Security](/roadmaps/enterprise-ai-security) · [full guide](/articles/enterprise-ai-security-roadmap).
+- Harden delivery with [DevSecOps](/roadmaps/devsecops) and APIs with [API Security Engineering](/roadmaps/api-security-engineering).
+- Cross-check controls in [Security & privacy](/ai-solution-engineering/security-privacy) and [Security Engineering](/learning-map/17-security-engineering).
+</NextSteps>

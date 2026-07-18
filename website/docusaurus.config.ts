@@ -252,9 +252,24 @@ const config: Config = {
               to: '/roadmaps/devsecops',
             },
             {
+              label: 'AI Red Teaming roadmap',
+              to: '/roadmaps/ai-red-teaming',
+            },
+            {
+              label: 'Enterprise AI Security roadmap',
+              to: '/roadmaps/enterprise-ai-security',
+            },
+            {
               label: 'Software Architect roadmap',
               to: '/roadmaps/software-architect',
             },
+            {label: 'AWS Learning Roadmap', to: '/roadmaps/aws'},
+            {label: 'Azure Learning Roadmap', to: '/roadmaps/azure'},
+            {
+              label: 'Model FinOps roadmap',
+              to: '/roadmaps/model-finops',
+            },
+            {label: 'Google Cloud Learning Roadmap', to: '/roadmaps/gcp'},
             {label: 'Competency test', to: '/learning-map/competency-test'},
             {
               label: 'GitHub',

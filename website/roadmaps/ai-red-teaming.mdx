@@ -1,0 +1,191 @@
+---
+sidebar_position: 8
+slug: ai-red-teaming
+title: AI Red Teaming Roadmap
+description: A practical path from ethics and foundations through prompt, model, RAG and agent testing to continuous AI security assessment and enterprise reporting.
+---
+
+# AI Red Teaming Roadmap
+
+Artificial intelligence systems introduce a new class of security problems. A conventional application may fail because of insecure code, weak authentication or an exposed API. An AI application can suffer from all of those problems **plus** prompt injection, poisoned retrieval data, unsafe tool execution, model extraction, sensitive-data leakage, misleading outputs and autonomous agent behaviour.
+
+AI red teaming is the structured practice of testing these systems from an adversarial perspective—not merely making a model produce an inappropriate answer, but discovering how an attacker, careless user, compromised data source or unexpected interaction could cause the complete AI system to violate security, safety, privacy or business requirements.
+
+<ExecSummary>
+Establish ethics and governance first, then build AI and cybersecurity foundations, threat-model the full stack, and test prompts, models, data, APIs, infrastructure, RAG and agents. Combine manual and automated testing (PyRIT, garak, Promptfoo), continuous gates and actionable reporting. Use the 24-week plan and capstone as your operating system.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building AI red-team capability, assessing LLM/RAG/agent systems, or designing continuous AI security testing.
+- Pair with the full guide: [AI Red Teaming Roadmap: A Practical Guide from Fundamentals to Enterprise Security Testing](/articles/ai-red-teaming-roadmap).
+- Cross-check with [Enterprise AI Security](./enterprise-ai-security), [DevSecOps](./devsecops), [API Security Engineering](./api-security-engineering), [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</WhenToUse>
+
+## Capability map
+
+1. Ethics, authorisation boundaries and AI governance
+2. AI/ML and LLM application fundamentals
+3. Cybersecurity foundations (CIA, identity, APIs, secure software)
+4. System-wide threat modelling and abuse cases
+5. Prompt injection, jailbreaks and system-prompt extraction
+6. Model extraction, poisoning, adversarial examples and privacy attacks
+7. AI-generated code, tool execution and infrastructure security
+8. Black-box, grey-box and white-box testing methods
+9. Manual plus automated testing (PyRIT, garak, Promptfoo)
+10. LLM, RAG and agentic AI assessment
+11. Production monitoring, metrics and continuous testing
+12. Reporting, root-cause remediation and responsible disclosure
+
+## Unit under test
+
+The unit being red teamed is:
+
+> **The model, application, data, integrations, infrastructure, users and operational processes working together.**
+
+A model may refuse a malicious request correctly while the surrounding application still exposes confidential documents through retrieval. An agent may generate a harmless message but invoke the wrong payment, email or database tool.
+
+Map threats using [MITRE ATLAS](https://atlas.mitre.org/), [OWASP Top 10 for LLM Applications](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/), [OWASP Agentic Applications](https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/), NIST AI RMF and organisational policy.
+
+## Fifteen-stage journey
+
+### Stage 1 — Orientation and why AI needs red teaming
+
+Extend traditional questions (access, code execution, data theft, privilege escalation) with AI-specific ones: instruction override, retrieval manipulation, tool misuse, memory poisoning, multi-turn manipulation and fail-safe behaviour under uncertainty.
+
+**Build:** one-page problem statement for a target AI system and the security questions you will answer.
+
+### Stage 2 — Ethics, legal boundaries and governance
+
+Define authorisation, scope, data rules, operational limits, evidence handling and responsible disclosure. Integrate with NIST AI RMF (Govern, Map, Measure, Manage), ISO/IEC 42001 and ISO/IEC 23894.
+
+**Build:** AI system inventory, risk register, data-flow diagram, test authorisation and severity model.
+
+**Exit:** You can explain who owns the system, what it may do, what assets matter, what could go wrong and what testing is authorised.
+
+### Stage 3 — AI and ML fundamentals
+
+Cover supervised, unsupervised and reinforcement learning; neural networks and transformers; LLM components (tokenisation, RAG, tools, memory, guardrails); and prompt engineering. Do not treat the system prompt as an access-control boundary.
+
+**Build:** a small local/isolated Q&A app with system instruction, retrieval, a simple tool, memory, output validation and audit logging—your recurring test target.
+
+### Stage 4 — Cybersecurity foundations
+
+Apply CIA, authentication versus authorisation (and entitlement, delegation, impersonation, session management), API protection and secure software risks. Treat AI output as untrusted when passed to shells, databases, browsers or APIs. Apply least privilege to users, services, agents and tools.
+
+**Build:** architecture diagram with trust boundaries and an identity/permission matrix for human users and agents.
+
+### Stage 5 — Threat modelling
+
+Describe business purpose, assets, actors, trust boundaries, data flows and abuse cases. Map to OWASP LLM/Agentic Top 10, MITRE ATLAS and policy. Maintain a threat register with planned tests.
+
+**Build:** threat model with at least 20 abuse cases and test hypotheses for every important component and data flow.
+
+### Stage 6 — Prompt security
+
+Distinguish direct and indirect prompt injection, jailbreaking and system-prompt extraction. Use layered defences: separate trusted instructions from untrusted content, enforce permissions outside the model, validate tools and outputs, require approval for high-impact actions, and monitor manipulation attempts.
+
+**Build:** three synthetic documents (normal, irrelevant embedded instruction, restricted-resource request) and a manual prompt-security test suite.
+
+### Stage 7 — Model and data vulnerabilities
+
+Assess model extraction and weight security, unauthorized model access, training-data and RAG poisoning, adversarial examples, model inversion and membership inference. Prefer synthetic canary records for privacy tests.
+
+**Build:** poisoning, leakage and privacy test plan covering model behaviour, confidentiality, training data, retrieval data and user data separately.
+
+### Stage 8 — Application, code and infrastructure
+
+Never execute unrestricted model output. Use typed tool schemas, allowlists, argument validation, sandboxes, timeouts and human approval. Secure infrastructure (endpoints, K8s, secrets, vector DBs, CI/CD) and prove multi-tenant isolation at every layer.
+
+**Build:** API, identity and tool-permission assessment plus cloud/deployment control review.
+
+### Stage 9 — Testing methodologies
+
+Choose black-box, grey-box or white-box access. Combine automation (regression, probe coverage, CI) with manual testing (multi-turn, business logic, novel chains). Use a standard test-case template and a severity model based on impact and realism—not surprise alone.
+
+**Build:** version-controlled test-case repository with severity ratings and framework mappings.
+
+### Stage 10 — Tools and continuous testing
+
+Use [PyRIT](https://learn.microsoft.com/en-us/security/ai-red-team/), [garak](https://github.com/NVIDIA/garak) and [Promptfoo](https://www.promptfoo.dev/docs/red-team/) as accelerators—not replacements for judgement. Add custom harnesses for proprietary workflows. Gate releases on critical findings, cross-tenant exposure, unauthorized tools, audit events and leakage tests.
+
+**Build:** automated campaign plus CI security suite with agreed fail thresholds.
+
+### Stage 11 — LLM, RAG and agent assessment
+
+Red team chatbots for injection, leakage, authz bypass and cost abuse. Assess RAG across ingestion, processing, embeddings, retrieval and generation. For agents, test goals, planning, tools, permissions, memory, inter-agent communication, human approval and recovery. High-impact actions need exact-parameter approval and short-lived delegated credentials.
+
+**Build:** RAG and agent red-team assessment with groundedness, unauthorized-retrieval and unauthorized-action metrics.
+
+### Stage 12 — Monitoring and metrics
+
+Collect identity, versions, retrieval sources, tool calls, policy decisions and alerts—with data minimisation. Track attack success rate, reproducibility, leakage, unauthorized actions, detection, over-refusal, remediation time and regression.
+
+**Build:** production detection design and security dashboard for AI-specific signals.
+
+### Stage 13 — Reporting and remediation
+
+Write findings engineering and leadership can act on. Prioritise removing capability, reducing permissions and enforcing deterministic authorisation before prompt wording. Practise responsible disclosure for third-party systems.
+
+**Build:** executive and technical reports with owners, remediations and retest status.
+
+### Stage 14 — Capstone
+
+Build and red team a fictional employee knowledge assistant (roles, departments, vector DB, restricted docs, memory, email tool, approval, logging). Complete architecture, threat model, manual and automated testing, remediation and retesting.
+
+**Build:** full deliverable pack—reports, threat model, risk register, test cases, evidence, remediation, retest, monitoring design and lessons learned.
+
+### Stage 15 — Professional growth and emerging threats
+
+Progress from sandboxed single-turn bots to multi-agent, MCP-integrated, monitored enterprise systems. Track autonomous agents, multimodal injection, supply-chain and provenance, and cascading multi-agent failures.
+
+**Build:** portfolio evidence across beginner → intermediate → advanced environments.
+
+## 24-week plan (summary)
+
+| Weeks | Focus | Practical output |
+| --- | --- | --- |
+| 1–2 | Introduction, ethics and governance | Scope document and AI risk register |
+| 3–4 | AI/ML fundamentals | Small LLM application |
+| 5–6 | Cybersecurity principles | Architecture and trust-boundary diagram |
+| 7–8 | Threat modelling | Threat model with ≥20 abuse cases |
+| 9–10 | Prompt injection and jailbreaks | Manual prompt-security test suite |
+| 11–12 | Model and data vulnerabilities | Poisoning, leakage and privacy test plan |
+| 13–14 | Application and API security | API, identity and tool-permission assessment |
+| 15–16 | Infrastructure security | Cloud and deployment control review |
+| 17–18 | Automated testing tools | PyRIT, garak or Promptfoo campaign |
+| 19–20 | RAG and agentic AI security | RAG and agent red-team assessment |
+| 21–22 | Monitoring and continuous testing | CI pipeline and production detection design |
+| 23–24 | Reporting and capstone | Executive and technical red-team report |
+
+### Weekly working pattern
+
+**Day 1:** Study · **Day 2:** Build/configure target · **Day 3:** Design tests · **Day 4:** Execute and capture evidence · **Day 5:** Analyse, remediate and document.
+
+## Suggested severity model
+
+| Severity | Meaning |
+| --- | --- |
+| **Critical** | High-impact unauthorized actions, widespread sensitive exposure or serious safety impact with realistic preconditions |
+| **High** | Significant impact requiring additional access, chaining or specific circumstances |
+| **Medium** | Limited impact, narrow exposure or meaningful compensating controls |
+| **Low** | Minor impact, difficult exploit or defence-in-depth improvement |
+| **Informational** | No direct vulnerability; improves architecture, monitoring or maturity |
+
+## Core principle
+
+> **Do not test only whether the model says something unsafe. Test whether the entire AI system can be manipulated into producing an unauthorized, harmful, misleading or insecure outcome.**
+
+That shift—from testing individual prompts to testing complete sociotechnical systems—is what turns prompt experimentation into professional AI red teaming.
+
+<KeyTakeaways>
+- Authorise, scope and govern before attacking; red team the full system, not the model alone.
+- Separate behavioural safety failures from access-control failures; enforce permissions outside the model.
+- Combine manual creativity with automated regression; remediate root causes and retest.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [AI Red Teaming Roadmap: A Practical Guide from Fundamentals to Enterprise Security Testing](/articles/ai-red-teaming-roadmap).
+- Expand to the full programme: [Enterprise AI Security](./enterprise-ai-security).
+- Pair with [DevSecOps](./devsecops) and [API Security Engineering](./api-security-engineering).
+- Practise related skills: [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</NextSteps>

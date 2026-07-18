@@ -1,0 +1,258 @@
+---
+sidebar_position: 11
+slug: gcp
+title: Google Cloud Learning Roadmap
+description: A practical path from Google Cloud foundations to enterprise architecture, data engineering, generative and agentic AI, security, governance, FinOps and a governed financial-services AI capstone.
+---
+
+# Google Cloud Learning Roadmap
+
+The original AWS roadmap progresses from cloud fundamentals into identity, networking, compute, storage, databases, containers and serverless services. This Google Cloud roadmap follows the same learning sequence, but extends it into enterprise foundations, data engineering, generative AI, agentic AI, cybersecurity, governance, compliance, FinOps and production operations.
+
+> **Terminology note:** Cloud Functions capabilities are now presented as **Cloud Run functions**. Dataplex Universal Catalog is now **Knowledge Catalog**. Current Vertex AI Agent Engine documentation redirects to the **Gemini Enterprise Agent Platform** (Agent Runtime, Sessions, Memory Bank, Sandbox, Agent Gateway, evaluation and governance). **Vertex AI** continues to provide broader ML capabilities such as model development, training, tuning, management and deployment.
+
+<ExecSummary>
+Do not memorise the complete Google Cloud product catalogue. For every stage: understand the business problem, learn the concepts, create the resource in the console, repeat with `gcloud`, automate with Terraform, add IAM, networking and encryption, add logging and alerting, test failure and recovery, calculate operating cost, and document trade-offs. Complete the 26-week plan and governed AI capstone before claiming enterprise readiness.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building Google Cloud platform and enterprise AI capability from foundations through security, governance and compliance.
+- Pair with the full guide: [The Complete Google Cloud Roadmap](/articles/gcp-roadmap).
+- Cross-check with [AWS](./aws), [Azure](./azure), [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering), [DevSecOps](./devsecops) and [AI Red Teaming](./ai-red-teaming).
+</WhenToUse>
+
+## Capability map
+
+1. Cloud fundamentals, regions, zones and Well-Architected Framework
+2. Resource hierarchy, landing zones and Organization Policy
+3. Cloud IAM, service accounts and identity federation
+4. Global VPC, Shared VPC, private connectivity and hybrid networking
+5. Compute Engine, MIGs, Cloud Run and App Engine
+6. Cloud Storage, Cloud SQL, Spanner, Firestore and Memorystore
+7. BigQuery, Dataflow, Pub/Sub, Eventarc and Knowledge Catalog
+8. Load balancing, Cloud Armor, API Gateway, Apigee, Artifact Registry and GKE
+9. Observability, reliability, Terraform and DevSecOps
+10. Zero Trust, KMS, SCC, VPC Service Controls and Sensitive Data Protection
+11. Vertex AI, Gemini, RAG, agent platform and Model Armor
+12. AI governance, NIST AI RMF, ISO 42001, EU AI Act and UK GDPR
+13. FinOps and the governed financial-services AI capstone
+
+## Learning cycle
+
+```text
+Business problem
+→ Concepts
+→ Console
+→ gcloud CLI
+→ Terraform
+→ IAM, networking, encryption
+→ Logging, monitoring, alerting
+→ Failure and recovery
+→ Operating cost
+→ Decision and trade-offs
+```
+
+The final objective is not simply to deploy resources. It is to build systems that are commercially valuable, technically feasible, secure by design, governed, observable, resilient, cost-controlled, reproducible and supportable by another team.
+
+## Roadmap at a glance
+
+| Stage | Area | Practical outcome |
+| --- | --- | --- |
+| 0 | Cloud fundamentals | Understand cloud service and deployment models |
+| 1 | Google Cloud foundations | Understand organizations, folders, projects and billing |
+| 2 | Enterprise foundation | Design a landing zone and project structure |
+| 3 | IAM | Secure workforce, workloads and service accounts |
+| 4 | Networking | Build global VPC and regional subnet architecture |
+| 5 | Compute | Operate virtual machines and managed instance groups |
+| 6 | Application platforms | Deploy applications through Cloud Run and App Engine |
+| 7 | Storage | Design secure object and block storage |
+| 8 | Databases | Choose Cloud SQL, Spanner, Firestore or Memorystore |
+| 9 | Data and analytics | Build BigQuery and data-processing platforms |
+| 10 | Messaging and integration | Use Pub/Sub, Eventarc, Workflows and Cloud Tasks |
+| 11 | APIs and edge | Use API Gateway, Apigee, load balancing and CDN |
+| 12 | Containers | Use Artifact Registry and GKE |
+| 13 | Serverless | Use Cloud Run services, jobs and functions |
+| 14 | Observability | Implement logs, metrics, traces, SLOs and alerts |
+| 15 | Reliability | Design high availability and disaster recovery |
+| 16 | Infrastructure as code | Automate environments with Terraform |
+| 17 | DevSecOps | Secure source, builds, artefacts and deployments |
+| 18 | Cloud security | Implement Zero Trust and data perimeters |
+| 19 | Data governance | Discover, classify, protect and govern data |
+| 20 | Vertex AI | Build predictive and generative AI systems |
+| 21 | RAG | Build secure enterprise knowledge applications |
+| 22 | Agentic AI | Build governed agents using Google’s agent platform |
+| 23 | AI security | Protect prompts, models, data, retrieval and tools |
+| 24 | AI governance | Apply accountability and lifecycle controls |
+| 25 | AI compliance | Map controls to NIST, ISO, GDPR and the EU AI Act |
+| 26 | FinOps | Govern cloud, model and agent consumption |
+| 27 | Capstone | Deliver a production-grade governed AI application |
+
+## AWS / Azure / Google Cloud mental model
+
+| Capability | AWS | Azure | Google Cloud |
+| --- | --- | --- |
+| Enterprise root | AWS Organizations | Entra tenant and management groups | Google Cloud organization |
+| Workload boundary | AWS account | Subscription | Project |
+| Grouping hierarchy | Organizational units | Management groups | Folders |
+| Identity control | IAM | Entra ID and Azure RBAC | Cloud IAM |
+| Workload identity | IAM role | Managed identity | Service account and Workload Identity |
+| Virtual network | VPC | Virtual Network | VPC network (global; subnets regional) |
+| Virtual machine | EC2 | Azure VM | Compute Engine |
+| Object storage | S3 | Blob Storage | Cloud Storage |
+| Relational database | RDS | Azure SQL | Cloud SQL |
+| Data warehouse | Redshift | Fabric/Synapse | BigQuery |
+| Serverless containers | ECS Fargate | Container Apps | Cloud Run |
+| Kubernetes | EKS | AKS | GKE |
+| Functions | Lambda | Azure Functions | Cloud Run functions |
+| Messaging | SNS/SQS | Service Bus/Event Grid | Pub/Sub |
+| AI platform | SageMaker/Bedrock | Foundry/Azure ML | Vertex AI and Gemini Enterprise Agent Platform |
+
+## Stage journey (condensed)
+
+### Stages 0–2 — Foundations and landing zones
+
+Learn IaaS/PaaS/SaaS, shared responsibility and shared fate; regions and zones; then organizations, folders, projects, billing, Organization Policy and landing-zone foundations (identity, networking, logging, security and automation).
+
+**Build:** Region-selection decision record for a financial-services AI system; enterprise hierarchy; project strategy; policy baseline (locations, external IPs, SA keys, public buckets).
+
+### Stages 3–4 — Identity and networking
+
+Prefer federation and short-lived credentials over service-account keys. Separate runtime, build, deploy and admin identities. Design a global VPC with regional subnets, Shared VPC, Cloud NAT, Private Google Access, Private Service Connect and hybrid connectivity.
+
+**Build:** Workforce and Workload Identity Federation; IAM matrix; keyless CI/CD; Shared VPC with private application, data and AI projects; network-flow document.
+
+### Stages 5–8 — Compute, Cloud Run, storage and databases
+
+Use Compute Engine and MIGs when you need OS control; Cloud Run for containers, jobs and functions; Cloud Storage with AI data zones; Cloud SQL, Spanner, Firestore and Memorystore by access pattern—not by fashion.
+
+**Build:** Regional MIG behind a global Application Load Balancer; Cloud Run API with Secret Manager and VPC egress; secure document zones (landing → classified → curated → AI-ready → evidence); database decision record with tested restore.
+
+### Stages 9–13 — Data, messaging, APIs and containers
+
+Build BigQuery with partitioning, cost controls and governance; Pub/Sub, Eventarc, Workflows and Cloud Tasks for integration; load balancing, CDN, Cloud Armor, API Gateway or Apigee at the edge; Artifact Registry and GKE only when Kubernetes is justified.
+
+**Build:** Streaming pipeline into governed BigQuery; protected API with Cloud Armor; container pipeline with Binary Authorization; Cloud Run-versus-GKE decision record.
+
+### Stages 14–19 — Operations, IaC, DevSecOps, security and data governance
+
+Centralise Cloud Logging and Monitoring with SLOs and AI-specific metrics. Automate with Terraform and Infrastructure Manager. Secure pipelines with Cloud Build, Cloud Deploy and Binary Authorization. Apply Zero Trust with KMS, Secret Manager, SCC, VPC Service Controls and Sensitive Data Protection. Govern data through classification, lineage and Knowledge Catalog.
+
+**Build:** Ops dashboard with AI metrics; modular Terraform platform; secure CI/CD with AI release gates; service perimeter around high-risk AI projects; sensitive-data inspection workflow.
+
+### Stages 20–25 — Vertex AI, RAG, agents, security, governance and compliance
+
+Treat enterprise AI as layered systems. Build on Vertex AI and Gemini; secure RAG with deterministic authorisation before retrieval; operate agents through Gemini Enterprise Agent Platform with Model Armor, Agent Gateway and memory governance; map to SAIF, NIST AI RMF, ISO/IEC 42001, EU AI Act and UK GDPR.
+
+**Build:** Enterprise RAG application; governed agent with tool risk classification; AI threat model and red-team report; use-case intake, risk tiers and governance artefact pack.
+
+### Stages 26–27 — FinOps and capstone
+
+Track infrastructure, token and agent economics. Deliver a governed financial-services AI assistant that cites sources, protects PII, escalates uncertainty and never transfers funds autonomously.
+
+**Build:** Labelling standard and AI unit-cost model; full capstone through discovery, governance, architecture, prototype, production engineering, validation, release and operation.
+
+## Capstone architecture
+
+```text
+Employee
+  ↓
+Workforce identity
+  ↓
+Cloud Load Balancer + Cloud Armor
+  ↓
+Apigee
+  ↓
+Model Armor
+  ↓
+Cloud Run
+  ├── Authentication context
+  ├── Policy engine
+  ├── Sensitive-data service
+  ├── RAG service
+  ├── Agent service
+  └── Output validator
+       ↓
+Gemini Enterprise Agent Platform
+       ↓
+Authorised retrieval
+       ↓
+Cloud Storage + Knowledge Catalog
+       ↓
+Cloud SQL or Spanner
+       ↓
+Cloud Logging, Monitoring and Trace
+       ↓
+Security Command Center
+```
+
+## 26-week plan (summary)
+
+| Weeks | Focus | Key deliverable |
+| --- | --- | --- |
+| 1–2 | Cloud fundamentals | Region decision record, responsibility matrix |
+| 3–4 | Resource hierarchy | Enterprise hierarchy, project strategy, policy baseline |
+| 5–6 | IAM | IAM matrix, federated CI/CD, keyless workload |
+| 7–8 | Networking | Shared VPC, private application, network-flow document |
+| 9–10 | Compute and Cloud Run | VM application, serverless container, scaling comparison |
+| 11–12 | Storage and databases | Secure document store, database ADR, restore evidence |
+| 13–14 | Data platform | Streaming pipeline, governed BigQuery, lineage model |
+| 15–16 | APIs and containers | Protected API, container pipeline, Cloud Run vs GKE ADR |
+| 17–18 | Observability and reliability | Dashboard, alerts, runbooks, failure test |
+| 19–20 | IaC and DevSecOps | Automated platform, secure pipeline, signed deployment |
+| 21–22 | Cloud security and data governance | Security baseline, data perimeter, threat model |
+| 23–24 | Generative and agentic AI | Enterprise RAG, governed agent, evaluation dataset |
+| 25–26 | AI security and governance | Governance framework, red-team report, capstone presentation |
+
+## Completion checklist
+
+### Cloud architecture
+
+- Explain why you chose Cloud Run, GKE or Compute Engine
+- Identify which resources are global, regional or zonal
+- Describe zone failure, Region failure and environment recreation
+
+### Identity and network
+
+- Explain people, workload and agent authentication
+- Confirm whether service-account keys are used
+- Identify public versus private resources, egress controls and service perimeters
+
+### Data and AI
+
+- Justify data necessity, ownership, classification, AI permission and deletion from indexes and memory
+- State evaluation thresholds, groundedness and citation validation
+- Describe prompt-injection defence, output validation, tool authority, Model Armor and kill switch
+
+### Governance and operations
+
+- Name accountable owners, risk tier, approvals, laws and retained evidence
+- Know disable, fallback, recovery and retirement paths
+- Show cost per completed task and measurable business value
+
+## Common mistakes to avoid
+
+- Memorising the product catalogue without building systems
+- Choosing GKE because Kubernetes appears more sophisticated
+- One enterprise service account shared across runtimes and pipelines
+- Long-lived service-account keys in CI/CD
+- Public buckets and unrestricted BigQuery agent queries
+- Letting the model decide document authorisation for RAG
+- Cross-tenant AI cache collisions
+- Treating Model Armor as a replacement for IAM, tool allowlists and human approval
+- Shipping agents without evaluation, cost limits or a kill switch
+
+## Core principle
+
+> The target outcome is not merely a GCP deployment. It is an end-to-end operating model for delivering cloud and AI systems that are valuable, secure, governed, observable, resilient and economically sustainable.
+
+<KeyTakeaways>
+- Learn Google Cloud as an enterprise platform for business and AI workloads—hierarchy, IAM, global VPC, data, Vertex AI, agent platform, security and governance together.
+- Prefer federation, private connectivity and deterministic policy over keys, public endpoints and prompt-only controls.
+- Progress from cloud foundations through AI engineering to governance and FinOps with the same non-functional bar: security, resilience, evidence and unit economics.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete Google Cloud Roadmap](/articles/gcp-roadmap).
+- Compare with the [AWS Learning Roadmap](./aws) and [Azure Learning Roadmap](./azure), and practise [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Harden delivery with [DevSecOps](./devsecops), [API Security Engineering](./api-security-engineering) and [AI Red Teaming](./ai-red-teaming).
+</NextSteps>

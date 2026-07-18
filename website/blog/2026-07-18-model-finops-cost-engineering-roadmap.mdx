@@ -1,0 +1,972 @@
+---
+slug: model-finops-cost-engineering-roadmap
+title: "Model FinOps and AI Cost Engineering: An End-to-End Multi-Cloud Roadmap"
+description: A complete Model FinOps programme for models, embeddings, RAG, agents, training, inference and lifecycle cost management across AWS, Azure, Google Cloud, OCI, IBM and Alibaba—pricing reference 18 July 2026.
+authors: [sudip]
+tags: [roadmaps, finops, architecture, cloud, playbook, solution-engineering]
+keywords:
+  - Model FinOps
+  - AI cost engineering
+  - LLM cost optimisation
+  - RAG FinOps
+  - embedding cost
+  - provisioned throughput
+  - Amazon Bedrock FinOps
+  - Azure PTU
+  - Vertex AI Provisioned Throughput
+  - agent cost control
+  - AI unit economics
+---
+
+Model FinOps is the discipline of understanding, allocating, forecasting, governing and optimising the complete cost of building and operating AI systems. It extends traditional cloud FinOps because AI spending is not driven only by servers, storage and networking—it also depends on tokens, embeddings, retrieval, agents, training, dedicated capacity, evaluation and governance.
+
+The [FinOps Foundation](https://www.finops.org/) frames FinOps for AI as addressing cost complexity, rapid development cycles, unpredictable consumption and the need to connect allocation and optimisation decisions to business value.
+
+The objective is not simply to minimise AI spending. The objective is the best combination of **business value, quality, reliability and security** for an acceptable **total cost, risk and operational complexity**. A cheaper model that produces poor answers or requires extensive human correction may be more expensive overall than a more capable model.
+
+{/* truncate */}
+
+<ExecSummary>
+Build unit economics around cost per secure, reliable and valuable business outcome. Cover the full AI cost stack, model taxonomy, multi-cloud capacity patterns (AWS, Azure, Google Cloud, OCI, IBM, Alibaba), embedding and RAG FinOps, lifecycle stages, agent controls, allocation dashboards and a 12-week operating roadmap. Optimise in order: Business Need → Quality → Architecture → Consumption → Capacity → Commercial Agreement.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing AI cost models, choosing shared versus provisioned capacity, or governing model spend across clouds.
+- Pair with the [Model FinOps roadmap](/roadmaps/model-finops), [AI FinOps and Commercial Design](/ai-solution-engineering/finops-commercial) and [Performance Engineering and AI FinOps](/learning-map/22-performance-finops).
+- Cross-check platform paths: [AWS](/roadmaps/aws), [Azure](/roadmaps/azure), [Google Cloud](/roadmaps/gcp) and agent cost controls in [AI Agents](/roadmaps/ai-agents).
+</WhenToUse>
+
+**Pricing reference date: 18 July 2026.** Insert current rates from the relevant official pricing pages. AWS, Azure and Google each publish model-specific pricing that varies by model, region, modality and capacity type—do not hard-code list prices into architecture assumptions.
+
+The condensed [Model FinOps roadmap](/roadmaps/model-finops) summarises the journey. This article is the full implementation guide.
+
+---
+
+## 1. What is Model FinOps?
+
+Model FinOps covers the complete cost of building and operating AI systems. Beyond classic cloud resources, AI costs can depend on:
+
+* Input, output, cached and reasoning tokens
+* Image, audio and video units
+* Model training hours and fine-tuning jobs
+* Dedicated inference capacity
+* Embedding generation, vector storage, retrieval and reranking
+* Agent tool calls and search queries
+* Guardrail and model evaluations
+* Data preparation and human review
+* Observability, security and compliance
+* Model migration and re-embedding
+
+---
+
+# Part I — Understanding the complete AI cost stack
+
+## 2. The end-to-end AI cost equation
+
+```text
+C_AI = C_discovery + C_data + C_experimentation + C_training
+     + C_evaluation + C_deployment + C_inference + C_retrieval
+     + C_orchestration + C_operations + C_governance
+     + C_people + C_retirement
+```
+
+### 2.1 Discovery costs
+
+Discovery costs include business workshops, use-case qualification, process analysis, data assessment, security and legal review, architecture design, proof-of-concept development, vendor evaluation, procurement and model benchmarking. These costs are frequently excluded from cloud forecasts but must be included in the business case.
+
+### 2.2 Data costs
+
+Data costs include acquisition, licensing, labelling, cleansing, document parsing, OCR, audio transcription, image processing, PII detection and masking, quality validation, storage, backup, replication, transfer, retention and archival, and synthetic data generation.
+
+### 2.3 Experimentation costs
+
+Experimentation may generate significant waste when teams re-run notebooks, duplicate datasets, leave GPU clusters running, test frontier models unnecessarily, use large contexts for small tasks, generate excessive outputs, perform untracked evaluation calls or create duplicate vector indexes.
+
+Every experiment should include: owner, business hypothesis, model used, dataset version, budget limit, success metric, expiry date, result and decision.
+
+### 2.4 Training and customisation costs
+
+Training costs include GPU or accelerator time, CPU preprocessing, distributed training networking, checkpoint and dataset storage, training orchestration, hyperparameter search, failed and evaluation runs, model registry storage, fine-tuned model hosting and engineering time.
+
+### 2.5 Inference costs
+
+Inference is often the largest recurring cost for high-volume applications. A more complete per-request equation is:
+
+```text
+C_request = C_input + C_cached + C_output + C_reasoning
+          + C_embedding + C_retrieval + C_reranking
+          + C_guardrails + C_tools + C_orchestration
+          + C_logging + C_network
+```
+
+For a token-priced model:
+
+```text
+C_input  = (T_input  / 1,000,000) × P_input
+C_output = (T_output / 1,000,000) × P_output
+```
+
+where *T* is tokens consumed and *P* is the provider’s price per million tokens. Output tokens are frequently priced higher than input tokens—controlling response length can be as important as reducing prompt size.
+
+### 2.6 Operational costs
+
+Operational costs include API gateways, load balancers, queues, serverless functions, Kubernetes clusters, container registries, databases, caches, secrets management, monitoring, tracing, evaluation platforms, incident response, support contracts, high availability and disaster recovery.
+
+### 2.7 Governance and compliance costs
+
+Governance costs include model risk assessments, privacy and AI impact assessments, bias and fairness testing, explainability, human oversight, red-team exercises, security testing, audit evidence, data retention, regulatory reporting, model approval boards and third-party assurance. The FinOps Foundation recommends including licensing, audit, regulatory, retention, compliance and sustainability requirements in AI cost planning rather than treating them as external costs.
+
+---
+
+# Part II — Model taxonomy and economics
+
+## 3. Different types of AI models
+
+Model FinOps begins by distinguishing which kind of model is actually required.
+
+### 3.1 Classical machine-learning models
+
+Examples include linear and logistic regression, decision trees, random forests, gradient-boosted trees, clustering, time-series models and recommendation models.
+
+**Best uses:** credit-risk prediction, fraud scoring, churn prediction, demand forecasting, customer segmentation, pricing optimisation and predictive maintenance.
+
+**Benefits:** low inference cost, fast response, easier explainability, small infrastructure footprint, straightforward monitoring and strong performance on structured data.
+
+**Main costs:** feature engineering, data pipelines, training, model monitoring, retraining and feature-store infrastructure.
+
+Do not use an LLM for a task that a deterministic rule, SQL query or classical model can perform accurately.
+
+### 3.2 Small language models
+
+Appropriate for classification, intent detection, entity extraction, summarisation, simple question answering, routing, guardrails and on-device AI.
+
+**Benefits:** lower token cost, lower latency, higher throughput, easier self-hosting, reduced GPU requirements and better suitability for edge devices.
+
+**Limitations:** lower reasoning capability, reduced general knowledge, weaker instruction following and greater dependence on task-specific tuning.
+
+A small model should normally be the default candidate for high-volume, constrained tasks.
+
+### 3.3 General-purpose large language models
+
+Useful for complex document analysis, enterprise knowledge assistants, content generation, software development, research assistance, business analysis, multi-step reasoning and agent planning.
+
+**Benefits:** broad capability, strong zero-shot performance, reduced need for task-specific training, and support for tool calling and structured output.
+
+**Cost risks:** expensive output generation, long prompts, large context windows, uncontrolled agent loops, variable latency and higher evaluation requirements.
+
+### 3.4 Reasoning models
+
+Reasoning models allocate additional computation to solve difficult tasks—complex mathematics, scientific reasoning, code debugging, planning, financial analysis and multi-constraint decision-making.
+
+They should not automatically be used for simple classifications, FAQ responses, basic summarisation, template generation or deterministic data extraction. A routing layer should decide whether a request needs reasoning rather than sending all traffic to the most expensive model.
+
+### 3.5 Embedding models
+
+Embedding models transform text, images or other content into vectors representing semantic meaning. They support semantic search, RAG, recommendation, clustering, duplicate detection, classification, anomaly detection, image-to-text retrieval and similarity matching.
+
+Cohere, for example, offers full and lightweight English and multilingual embedding families with different vector dimensions and performance characteristics. Mistral provides embeddings for text and code. Embedding models do not generate final answers—they help locate, compare or classify information.
+
+### 3.6 Reranking models
+
+A reranker evaluates results returned by initial retrieval and places the most relevant content first. A common RAG pipeline is:
+
+1. User submits a query.
+2. The query is embedded.
+3. Vector or hybrid search returns candidate chunks (for example 30).
+4. A reranker scores the candidates.
+5. The best chunks (for example five) are sent to the LLM.
+6. The LLM produces a grounded answer.
+
+Reranking adds cost, but it can reduce the number of irrelevant tokens sent to the generation model. Cohere, for example, prices generation per token, embeddings by embedded tokens and reranking by search volume.
+
+### 3.7 Multimodal models
+
+Multimodal models process combinations of text, images, audio, video, documents, charts and diagrams. Use cases include insurance-claim analysis, invoice processing, medical-image assistance, video summarisation, call-centre intelligence, manufacturing inspection and visual product search.
+
+Forecast multimodal costs using modality-specific units. Image resolution, video length, frame sampling, audio duration and document page count can materially affect cost.
+
+### 3.8 Speech models
+
+Speech models include speech-to-text, text-to-speech, speaker identification, translation, voice activity detection and real-time conversational voice. Costs may be measured by audio minute, character, token, connection duration, concurrent session or model invocation.
+
+A voice agent normally incurs several simultaneous costs:
+
+```text
+C_voice = C_speech-to-text + C_LLM + C_text-to-speech
+        + C_connection + C_tools + C_telephony
+```
+
+### 3.9 Image and video generation models
+
+These models are normally priced by image size, quality level, number of images, video duration, resolution, frame rate, generation speed and editing operations. Their unit economics differ significantly from text models and should use cost-per-asset rather than cost-per-token.
+
+### 3.10 Fine-tuned models
+
+Fine-tuning adapts a base model using specialised examples. Potential benefits include more consistent formatting, domain-specific language, shorter prompts, improved task performance, reduced reliance on repeated examples and the ability to use a smaller base model.
+
+Costs include training dataset preparation, training tokens or GPU time, evaluation, fine-tuned model storage, dedicated deployment, continued inference and retraining following base-model changes.
+
+Fine-tuning should be considered when prompt engineering and RAG have reached their limits—not as the first solution.
+
+### 3.11 Open-weight and self-hosted models
+
+Open-weight models can be deployed using Kubernetes, managed machine-learning endpoints, GPU virtual machines, serverless GPU platforms, on-premises infrastructure or edge devices. Example families include Meta Llama, Mistral, IBM Granite, Alibaba Qwen, DeepSeek, Google Gemma and community fine-tunes.
+
+**Benefits:** greater deployment control, potential data-residency advantages, model customisation, reduced dependency on a single API and potentially lower cost at high sustained utilisation.
+
+**Cost risks:** GPU idle time, capacity planning, model serving, scaling, patching, security, monitoring, reliability engineering, specialist staffing and model licensing.
+
+```text
+C_self-hosted = C_GPU + C_CPU + C_memory + C_storage
+              + C_network + C_platform + C_operations + C_support
+```
+
+```text
+C_per_1M_served_tokens =
+  (Monthly platform cost / Monthly tokens served) × 1,000,000
+```
+
+Low utilisation can make a seemingly inexpensive open model considerably more expensive than a managed API.
+
+---
+
+# Part III — Model and platform provider landscape
+
+## 4. Provider categories
+
+### 4.1 Proprietary API providers
+
+Common providers include OpenAI, Anthropic, Google, Amazon, Cohere, Mistral and xAI. These usually offer managed inference, token-based billing, rate limits, batch processing, prompt caching, enterprise agreements and different capability and latency tiers.
+
+OpenAI supports standard token pricing, cached input pricing and discounted asynchronous batch processing. Anthropic provides prompt caching and batch processing, with batch requests costing less than standard requests and cache reads billed below ordinary input rates.
+
+### 4.2 Cloud model platforms
+
+Cloud platforms provide access to their own and third-party models with enterprise cloud controls: Amazon Bedrock and SageMaker; Microsoft Foundry and Azure Machine Learning; Google Vertex AI; Oracle OCI Enterprise AI; IBM watsonx.ai; Alibaba Cloud Model Studio; and other regional and sovereign platforms.
+
+### 4.3 Specialist providers
+
+Specialist providers may focus on embeddings, reranking, speech, OCR, image or video generation, code generation, safety models or translation. A specialist model can outperform a general LLM for a narrow task while costing substantially less.
+
+---
+
+# Part IV — Multi-cloud Model FinOps
+
+## 5. AWS Model FinOps
+
+### Primary services
+
+Amazon Bedrock, Amazon SageMaker AI, Amazon EKS, Amazon EC2 GPU instances, Amazon OpenSearch Service, Amazon Aurora and RDS, Amazon S3, AWS Lambda, AWS Step Functions, Amazon CloudWatch, AWS Cost Explorer and AWS Cost and Usage Report.
+
+Amazon Bedrock provides managed access to first-party and third-party foundation models. Inference service tiers include Standard, Flex, Priority and Reserved options, allowing users to trade cost, availability and performance. It also supports batch inference, prompt caching and provisioned capacity for supported models.
+
+### AWS billing patterns
+
+**On-demand inference** — best for prototypes, unpredictable traffic, low-volume applications and new workloads. Cost varies with model, input/output tokens, modality, region and service tier.
+
+**Flex or lower-priority inference** — best for non-urgent workloads, offline enrichment, evaluation, content processing and background tasks.
+
+**Batch inference** — best for document summarisation, dataset classification, offline evaluation, synthetic data generation and large-scale extraction. Bedrock batch inference processes asynchronous input files and writes outputs to Amazon S3.
+
+**Provisioned throughput** — best for stable production demand, predictable throughput, tight service levels, custom models and high sustained utilisation. Do not purchase a provisioned commitment solely because its advertised token rate appears cheaper. Account for utilisation, traffic shape, latency and spillover. Reserved capacity can cost more per actually consumed token when utilisation is low.
+
+### AWS cost allocation
+
+Amazon Bedrock supports application inference profiles, projects, workspaces, IAM principal attribution, resource tags, per-request metadata, Cost Explorer, and CUR and CUR 2.0. Application inference profiles can attribute Bedrock cost by application, team or workload, while request metadata can provide per-call dimensions for model invocation analysis.
+
+### AWS strengths and cost risks
+
+**Strengths:** broad managed-model catalogue, flexible inference tiers, strong integration with AWS security and data services, native application and identity-based cost attribution, and a straightforward path from managed Bedrock models to self-hosting on SageMaker, EKS or EC2.
+
+**Cost risks:** cross-region inference charges, S3 and OpenSearch costs, CloudWatch log volume, NAT Gateway processing, underutilised provisioned throughput, uncontrolled agent calls, duplicate model endpoints, and always-running SageMaker or GPU instances.
+
+## 6. Microsoft Azure Model FinOps
+
+### Primary services
+
+Microsoft Foundry, Azure OpenAI, Azure Machine Learning, Azure Kubernetes Service, Azure AI Search, Azure Cosmos DB, Azure Blob Storage, Azure Functions, Azure API Management, Azure Monitor, Application Insights and Microsoft Cost Management.
+
+Microsoft Foundry includes models sold directly by Azure and models provided through partners and the wider model catalogue. Models sold directly by Azure are hosted by Azure, billed through an Azure subscription and supported by Microsoft.
+
+### Azure deployment categories
+
+Standard consumption; global or regional deployment; data-zone deployment; batch deployment; priority processing; provisioned throughput; and managed compute for open and custom models.
+
+Provisioned throughput reserves dedicated model-processing capacity measured using provisioned throughput units (PTUs). It can use hourly billing for flexible requirements or reservations for sustained workloads.
+
+### Azure billing patterns
+
+**Standard token consumption** — early production, variable demand, low-to-medium volume and multi-model experimentation.
+
+**Batch** — evaluation, bulk document processing, offline content generation and large classification workloads.
+
+**Provisioned throughput units** — predictable workloads, high utilisation, defined throughput requirements and strict latency objectives.
+
+PTU planning must consider tokens per minute, input-to-output ratio, prompt size, generation length, concurrent users, streaming, model version, peak traffic and failover strategy.
+
+Azure distinguishes system throughput from request latency and exposes metrics including processed prompt tokens, generated tokens, cache match rate, tokens per second, provisioned utilisation and model-specific latency measurements.
+
+### Azure prompt caching
+
+Prompt caching can reduce latency and cost when long requests repeatedly contain identical prefixes. Good candidates include stable system instructions, tool definitions, product catalogues, policy documents, repeated few-shot examples and long conversation prefixes. Stable content must appear before dynamic content to improve cache reuse.
+
+### Azure cost allocation
+
+Use subscription boundaries, management groups, resource groups, resource tags, separate Foundry resources, separate model deployments, Azure API Management, Azure Monitor, Cost Management budgets and alerts, and application-level telemetry. Microsoft Foundry documentation recommends estimating costs, monitoring token-based consumption and creating spending alerts.
+
+### Azure strengths and cost risks
+
+**Strengths:** strong OpenAI integration, enterprise Microsoft ecosystem, Azure-native identity and policy controls, multiple regional and data-zone choices, PTU reservation options, and integration with API Management, Purview, Defender and Azure Monitor.
+
+**Cost risks:** PTU underutilisation, separate AI Search costs, API Management tier costs, Log Analytics ingestion, cross-region traffic, duplicate deployments, overprovisioned search replicas and partitions, and large document contexts replacing proper retrieval.
+
+## 7. Google Cloud Model FinOps
+
+### Primary services
+
+Vertex AI, Vertex AI Model Garden, Gemini models, Google Kubernetes Engine, Compute Engine GPUs and TPUs, BigQuery, Cloud Storage, Vertex AI Search, Cloud Run, Cloud Monitoring and Cloud Billing Export.
+
+### Google Cloud capacity patterns
+
+Vertex AI supports pay-as-you-go inference, dynamic shared quota, batch prediction, context caching, Provisioned Throughput, managed endpoints and self-hosted models on GKE or Compute Engine.
+
+Dynamic shared quota distributes available on-demand model capacity across requests. For workloads that require consistent capacity and predictable performance, Google offers Provisioned Throughput, calculated using generative AI scale units (GSUs) and model-specific burndown rates. Google provides an estimator for calculating the required GSUs.
+
+### Google Cloud billing patterns
+
+**Pay-as-you-go** — experiments, variable workloads, interactive applications and early production.
+
+**Batch prediction** — BigQuery or Cloud Storage datasets, evaluation, classification, document processing and offline generation.
+
+**Context caching** — repeated analysis of long documents, policy assistants, contract review, large static system contexts and repeated multimodal analysis.
+
+**Provisioned Throughput** — mission-critical applications, consistent baseload traffic, defined throughput requirements and predictable monthly capacity.
+
+### Google Cloud cost allocation
+
+Use organisations, folders, projects, labels, per-request labels, Cloud Billing export, BigQuery cost analysis, pipeline billing IDs, and budgets and alerts. Google recommends consistent labels such as use case, team, environment, model, dataset and performance requirement. Vertex AI pipeline billing labels can link pipeline-generated resource costs to specific runs in billing exports.
+
+### Google Cloud strengths and cost risks
+
+**Strengths:** strong multimodal model ecosystem, tight BigQuery integration, TPU and GPU options, managed and open models in Model Garden, GSU-based provisioned capacity, and a strong data and analytics ecosystem.
+
+**Cost risks:** dynamic shared-quota variability, provisioned capacity underutilisation, BigQuery scan costs, Cloud Logging volume, cross-region processing, Vertex AI Search query charges, GKE idle resources, and GPU or TPU reservations that are not fully consumed.
+
+## 8. Oracle Cloud Infrastructure Model FinOps
+
+### Primary services
+
+OCI Enterprise AI, OCI Generative AI, OCI Data Science, OCI Kubernetes Engine, OCI Compute GPUs, Oracle Database, Autonomous Database, OCI Object Storage and OCI Search with OpenSearch.
+
+OCI Enterprise AI provides managed models, agent capabilities, vector facilities, governance, observability and enterprise controls.
+
+### OCI billing patterns
+
+On-demand token inference, embedding consumption, dedicated AI clusters, fine-tuning clusters, model-hosting clusters, GPU infrastructure and modality-specific API pricing. Dedicated AI clusters provide dedicated capacity and predictable pricing but include commitment requirements.
+
+**Strengths:** strong integration with Oracle data platforms, dedicated cluster options, enterprise database proximity, suitability for organisations with large Oracle estates, and on-demand plus dedicated deployment choices.
+
+**Cost risks:** dedicated-cluster commitments, low utilisation, data movement from non-Oracle systems, duplication between database and vector platforms, and limited portability of Oracle-specific architecture choices.
+
+## 9. IBM watsonx.ai Model FinOps
+
+### Primary services
+
+IBM watsonx.ai, IBM Granite models, third-party foundation models, IBM Cloud Kubernetes Service, Red Hat OpenShift, watsonx.governance and IBM Cloud Object Storage.
+
+watsonx.ai supports IBM Granite and third-party models, with combinations of per-token inference and hourly deploy-on-demand hosting. It also provides dedicated embedding and reranking pricing.
+
+**Strengths:** governance-oriented enterprise platform, Granite model family, hybrid-cloud and Red Hat integration, suitability for regulated enterprise environments, and per-token plus model-hosting options.
+
+**Cost risks:** hourly endpoint underutilisation, hybrid infrastructure complexity, governance tooling overlap, and integration cost when most enterprise data resides in another cloud.
+
+## 10. Alibaba Cloud Model Studio FinOps
+
+### Primary services
+
+Alibaba Cloud Model Studio, Qwen models, third-party models, Elastic Compute Service, Container Service for Kubernetes, Object Storage Service, and AnalyticDB and vector services.
+
+Alibaba Model Studio provides Qwen and third-party models covering text, image, audio and video. Pricing can include tiered token rates based on the request context, as well as training, deployment and subscription-based plans.
+
+**Strengths:** strong Qwen ecosystem, APAC deployment options, OpenAI-compatible interfaces for selected services, wide multimodal model catalogue and potentially attractive regional economics.
+
+**Cost risks:** tiered pricing for long requests, regional availability differences, data-residency requirements, cross-cloud data transfer, and model and feature differences between international and mainland regions.
+
+## 11. Other cloud and infrastructure providers
+
+The same FinOps framework can be applied to Tencent Cloud, Huawei Cloud, CoreWeave, Nebius, Vultr, DigitalOcean, Scaleway, sovereign cloud platforms, GPU marketplace providers and private OpenShift or Kubernetes environments.
+
+Assess each provider using: model availability, price unit, regional availability, data handling, throughput commitment, burst capacity, GPU types, minimum contract, support, observability, security certifications, data-egress cost, portability and exit cost.
+
+---
+
+# Part V — Embedding and RAG FinOps
+
+## 12. The embedding cost lifecycle
+
+### 12.1 Initial ingestion
+
+```text
+C_initial = (T_corpus / 1,000,000) × P_embedding
+```
+
+### 12.2 Incremental ingestion
+
+Only new or changed content should normally be embedded.
+
+```text
+C_incremental = (T_changed / 1,000,000) × P_embedding
+```
+
+Use document hashes to avoid regenerating embeddings for unchanged chunks.
+
+### 12.3 Query embeddings
+
+```text
+C_query = (Q × T_query / 1,000,000) × P_embedding
+```
+
+where *Q* is the number of searches and *T_query* is the average query-token count.
+
+### 12.4 Re-embedding
+
+Re-embedding may be required when the embedding model changes, vector dimensions change, chunking changes, data quality is corrected, metadata structure changes, multilingual support is introduced or retrieval quality is poor.
+
+For large corpora, migration costs can be significant. Maintain two indexes during migration so production traffic can continue while the replacement index is built.
+
+## 13. Vector storage cost
+
+Raw vector storage can be estimated as:
+
+```text
+S_raw = N × D × B
+```
+
+where *N* is number of vectors, *D* is vector dimensions and *B* is bytes per dimension.
+
+**Example:** for ten million chunks using 1,024-dimension float32 vectors:
+
+```text
+10,000,000 × 1,024 × 4 = 40.96 GB
+```
+
+This is only raw vector storage. The actual database footprint may also include index structures, replicas, metadata, source text, write-ahead logs, backups, snapshots and temporary compaction space.
+
+A 384-dimension model would require approximately 15.36 GB for the raw vectors in the same example. The smaller embedding may reduce storage, memory, network transfer, index build time and query latency—but should be selected only after retrieval-quality testing.
+
+## 14. Chunking and cost
+
+Smaller chunks can improve precision but create more vectors. Larger chunks create fewer vectors but increase retrieved-token volume, include irrelevant content, consume more LLM context and may reduce retrieval precision.
+
+Track chunks per document, average chunk tokens, duplicate-chunk percentage, empty-chunk percentage, retrieved tokens per query, relevant chunks per query, context utilisation and retrieval hit rate.
+
+The optimal chunking strategy minimises:
+
+```text
+C_embedding + C_vector + C_retrieval + C_generation
+```
+
+while preserving answer quality.
+
+## 15. Retrieval cost
+
+Retrieval cost includes vector database compute, vector storage, replication, search operations, hybrid keyword search, reranking, network transfer, source-document retrieval and cache infrastructure.
+
+### Retrieval optimisation sequence
+
+1. Apply metadata filters.
+2. Run hybrid retrieval.
+3. Retrieve a moderate candidate set.
+4. Deduplicate results.
+5. Rerank candidates.
+6. Send only the best evidence to the LLM.
+7. Cache frequently requested retrieval results.
+
+Sending 20 chunks to the LLM when only four are relevant wastes token cost and can reduce answer quality.
+
+## 16. Embedding provider selection
+
+Evaluate embedding providers using retrieval accuracy, multilingual support, domain performance, dimension, maximum input length, batch support, image support, code support, price, latency, data location, model availability, migration risk, quantisation support and licensing.
+
+**Managed embeddings:** OpenAI or Azure-hosted OpenAI embeddings, Amazon Titan embeddings, Google Vertex AI text embeddings, Cohere Embed, Mistral Embed, IBM Granite or Slate embeddings, OCI-hosted Cohere embeddings.
+
+**Open-weight embeddings:** E5, BGE, GTE, Sentence Transformers and domain-specific embedding models.
+
+Managed embeddings are usually operationally simpler. Open-weight embeddings may become economical for very large, stable workloads or strict deployment requirements.
+
+---
+
+# Part VI — Model lifecycle FinOps
+
+## 17. Stage 1: Business qualification
+
+Before selecting a model, define the business problem, user population, current process cost, expected benefit, risk level, required quality and latency, expected request volume, maximum affordable unit cost and compliance requirements.
+
+**Required outputs:** use-case canvas, value hypothesis, cost ceiling, risk classification, initial demand forecast and build-versus-buy decision.
+
+**Gate:** do not begin the proof of concept unless the team can define target cost per successful outcome.
+
+## 18. Stage 2: Demand modelling
+
+Forecast monthly and daily active users, sessions per user, requests per session, average input and output tokens, peak requests per second, peak tokens per minute, growth rate, cache-hit rate, retrieval frequency, tool calls, and failure and retry rate.
+
+```text
+Monthly requests = Active users × Sessions per user × Requests per session
+Monthly input tokens = Monthly requests × Average input tokens
+```
+
+Apply at least three scenarios: best case, expected case and stress case.
+
+## 19. Stage 3: Model benchmarking
+
+Create a model scorecard containing:
+
+| Dimension | Example measurement |
+| --- | --- |
+| Quality | Task success rate |
+| Accuracy | Correct answers / total answers |
+| Groundedness | Claims supported by evidence |
+| Safety | Policy-violation rate |
+| Latency | p50, p95 and p99 |
+| Throughput | Requests or tokens per second |
+| Cost | Cost per successful task |
+| Reliability | Error and timeout rate |
+| Context efficiency | Useful tokens / total tokens |
+| Human effort | Review minutes per result |
+
+The winning model is not necessarily the one with the highest benchmark score.
+
+```text
+Cost per successful task = Total model and platform cost / Number of accepted outcomes
+```
+
+A model costing £0.01 per call with a 50% success rate has the same raw model cost per success as a model costing £0.02 per call with a 100% success rate, before considering rework and customer impact.
+
+## 20. Stage 4: Architecture selection
+
+Compare direct provider API, cloud-managed model API, serverless model endpoint, provisioned throughput, managed custom endpoint, Kubernetes deployment, on-premises deployment and edge deployment.
+
+**Decision criteria:** volume, traffic predictability, latency, security, data residency, model availability, engineering capability, vendor lock-in, contract discounts and operational maturity.
+
+## 21. Stage 5: Build and experiment
+
+Controls should include experiment budgets, automatic resource shutdown, token limits, model allowlists, environment-specific quotas, owner and expiry tags, dataset and prompt versioning, and benchmark result storage.
+
+Every experiment should answer one decision question—for example: does the smaller model achieve at least 95% of the required quality at less than 50% of the current cost?
+
+## 22. Stage 6: Evaluation and approval
+
+Evaluation cost should include golden test datasets, automated model judges, human review, adversarial testing, bias evaluation, hallucination testing, security testing, load testing, regression testing and regulatory evidence.
+
+Use a model cascade for evaluations: (1) deterministic checks, (2) small evaluation model, (3) larger judge model, (4) human review for ambiguous cases. Do not send every output to an expensive judge model.
+
+## 23. Stage 7: Production deployment
+
+Production sizing should include baseline, peak and burst demand, failover, retry traffic, availability zones, region failure, model-provider failure and planned growth. Begin with on-demand capacity unless load testing demonstrates a business or service-level case for reserved capacity.
+
+## 24. Stage 8: Continuous optimisation
+
+Run a monthly optimisation cycle covering model routing, prompt compression, output limits, caching, batch processing, embedding refresh, retrieval tuning, provisioned utilisation, endpoint rightsizing, logging retention, duplicate services, model deprecation and contract discounts.
+
+## 25. Stage 9: Model refresh and migration
+
+Model migration may require new evaluation, prompt and tool-schema changes, safety review, load testing, re-embedding, parallel deployment, user acceptance and rollback capacity. Track migration cost separately from ordinary inference.
+
+## 26. Stage 10: Retirement
+
+Retirement should remove model endpoints, provisioned capacity, GPU instances, vector indexes, duplicate datasets, old checkpoints, temporary logs, unused API keys, network endpoints and monitoring rules. Retain only the evidence required by legal, regulatory and audit policies.
+
+---
+
+# Part VII — Scalability engineering
+
+## 27. Core scalability requirements
+
+For each model endpoint, define peak requests per second, peak tokens per minute, concurrent requests, average and maximum input length, average output length, time to first token, output tokens per second, p95 total latency, timeout rate, availability objective, recovery-time objective and recovery-point objective.
+
+### Concurrency estimation
+
+Using Little’s Law:
+
+```text
+Concurrent requests ≈ Requests per second × Average request duration
+```
+
+If an application receives 20 requests per second and each request takes six seconds:
+
+```text
+20 × 6 = 120
+```
+
+The serving architecture should support approximately 120 concurrent requests before adding safety capacity.
+
+### Throughput estimation
+
+```text
+TPM_required = R_minute × (T_input + T_output)
+```
+
+Maintain a separate calculation for input and output because output generation frequently determines latency.
+
+## 28. Shared versus provisioned capacity
+
+**Choose shared capacity when** traffic is low or highly variable, the workload is new, service-level requirements are flexible, or multi-model experimentation is required.
+
+**Choose provisioned capacity when** baseload is stable, utilisation is high, throughput must be predictable, latency is business-critical, or capacity guarantees are required.
+
+**Hybrid model:** provisioned capacity for predictable baseload, shared capacity for bursts, batch tier for offline jobs, and a smaller fallback model for resilience. This avoids purchasing enough reserved capacity for the absolute peak.
+
+## 29. Provisioned capacity break-even
+
+```text
+C_shared = T_monthly × P_shared
+C_provisioned = C_commitment + C_spillover
+```
+
+Provisioned capacity is financially preferable when `C_provisioned < C_shared`, subject to quality, latency and reliability requirements.
+
+Also calculate:
+
+```text
+Provisioned utilisation = Actual consumed capacity / Purchased capacity
+```
+
+Low utilisation increases the effective cost per token even when the nominal reserved rate is attractive.
+
+---
+
+# Part VIII — Cost optimisation playbook
+
+## 30. Optimisation order
+
+Apply optimisations in this order.
+
+### 30.1 Eliminate unnecessary model calls
+
+Before optimising tokens, determine whether the call is necessary. Use rules, SQL, search, existing cached answers, static templates, classical ML and client-side validation.
+
+### 30.2 Route by task complexity
+
+| Task | Model class |
+| --- | --- |
+| Intent classification | Small model |
+| PII detection | Specialist model or deterministic tool |
+| FAQ answer | Small model with RAG |
+| Document summary | Mid-tier model |
+| Complex financial reasoning | Advanced reasoning model |
+| Safety classification | Dedicated safety model |
+
+### 30.3 Reduce input tokens
+
+Remove repeated instructions and duplicated retrieved content; summarise conversation history; use structured data; retrieve only required fields; limit tool definitions; avoid sending full documents.
+
+### 30.4 Reduce output tokens
+
+Set output-token limits; request structured fields; avoid verbose chain outputs; stop generation when sufficient; generate a summary before a full report; use templates for standard language.
+
+### 30.5 Use caching
+
+Cache prompt prefixes, retrieval results, tool outputs, user permissions, document summaries, embeddings and model responses for deterministic requests. OpenAI, Anthropic, AWS and Azure all provide mechanisms that can reduce costs for repeated prompt content or asynchronous work, although support and pricing vary by model and platform.
+
+### 30.6 Use batch processing
+
+Move non-interactive workloads to batch: evaluations, classification, data enrichment, summarisation, embedding generation, synthetic data and report generation.
+
+### 30.7 Optimise retrieval
+
+Use metadata filtering; deduplicate chunks; tune top-k; introduce reranking; compress retrieved context; cache frequent searches; remove obsolete vectors.
+
+### 30.8 Distil or fine-tune
+
+Distillation can transfer task capability from a larger teacher model to a smaller student model. AWS reports that distilled models can materially improve cost and speed for suitable use cases, but each workload must be independently evaluated.
+
+### 30.9 Optimise infrastructure
+
+For self-hosted models: quantise model weights; use continuous batching and prefix caching; select efficient serving engines; autoscale replicas; consolidate models; use spot capacity for interruptible tasks; schedule non-production shutdown; match GPU memory to model size; monitor accelerator utilisation.
+
+---
+
+# Part IX — Agent FinOps
+
+## 31. Why agents create cost multiplication
+
+A normal chatbot may make one model call. An agent may make planning, retrieval, tool-selection, tool invocation, result interpretation, validation, retry, final response and evaluation calls.
+
+```text
+C_agent_task = Σ C_model_i + Σ C_tool_j + C_orchestration
+```
+
+### Agent cost controls
+
+Maximum steps, maximum tool calls, maximum tokens, maximum execution time, per-session budget, retry limits, loop detection, tool-result caching, model routing, approval before expensive actions and termination criteria.
+
+Track cost per completed agent task, calls per task, tool calls per task, retry rate, loop rate, abandonment rate, human-intervention rate and successful completion rate.
+
+---
+
+# Part X — Cost allocation, dashboards and governance
+
+## 32. Mandatory cost dimensions
+
+Every model call should be attributable to business unit, product, application, use case, environment, team, model provider, model, model version, region, customer or tenant category, feature, experiment, request type, deployment type and cost centre. Avoid putting PII directly into cost tags or telemetry.
+
+## 33. Request-level telemetry
+
+Capture trace ID, request ID, timestamp, application, environment, user category, model, model version, input/cached/output/reasoning tokens, embedding tokens, retrieval count, reranker calls, tool calls, latency, status, retry count, estimated cost, quality score and business outcome.
+
+Reconcile request-level estimates against the cloud invoice because provider billing aggregation, tokenisation and discounts may differ from local calculations.
+
+## 34. Model FinOps dashboard
+
+**Executive dashboard:** total AI spend, spend versus budget, spend by business unit and use case, cost per business outcome, value generated, forecast, top anomalies and risk status.
+
+**Product dashboard:** cost per user, session and successful task; model-call volume; adoption; quality; human escalation; unit-economics trend.
+
+**Engineering dashboard:** input and output tokens, cache-hit rate, latency, error rate, throughput, provisioned and GPU utilisation, retrieval tokens, agent steps, retry rate and model-routing distribution.
+
+**FinOps dashboard:** actual versus forecast, shared versus provisioned cost, commitment utilisation, unallocated cost, cost anomalies, savings delivered, re-embedding cost, training spend and idle resources.
+
+## 35. Important Model FinOps KPIs
+
+### Financial
+
+```text
+Cost per user = Monthly AI cost / Monthly active users
+Cost per successful task = Total cost / Successful tasks
+AI gross margin = (AI revenue − AI variable cost) / AI revenue
+```
+
+### Efficiency
+
+Tokens per successful response; output-to-input token ratio; cached-input percentage; batch-eligible traffic percentage; average agent steps; retrieval-context utilisation; GPU utilisation; provisioned utilisation.
+
+### Quality-adjusted cost and value
+
+```text
+Quality-adjusted cost = Total cost / Accepted outputs
+ROI = (Benefit − Total AI cost) / Total AI cost
+```
+
+---
+
+# Part XI — Governance policies
+
+## 36. Recommended model cost policies
+
+### Policy 1: Approved-model catalogue
+
+Every model must have approved use cases, risk classification, cost band, data classification, region, owner and review date.
+
+### Policy 2: Default-to-smallest-sufficient model
+
+The most capable model should not be the automatic default.
+
+### Policy 3: Production budget enforcement
+
+Set daily application budget, monthly business-unit budget, per-user fair-use limit, per-agent execution limit and per-experiment budget.
+
+### Policy 4: Expiring experiments
+
+All experimental resources should have owner, expiry, budget, environment and deletion policy.
+
+### Policy 5: Provisioned capacity approval
+
+Require load-test evidence, utilisation forecast, shared-tier comparison, commitment term, break-even calculation, burst strategy and exit plan.
+
+### Policy 6: Re-embedding approval
+
+Require retrieval-quality evidence, corpus size, re-embedding cost, migration plan, rollback plan and dual-index duration.
+
+### Policy 7: Model deprecation management
+
+Maintain model inventory, provider retirement date, replacement model, evaluation status, migration owner and migration budget.
+
+---
+
+# Part XII — Worked cost-modelling example
+
+## 37. Enterprise RAG assistant
+
+Assume:
+
+* 100,000 requests per month
+* 1,500 uncached input tokens per request
+* 400 output tokens per request
+* 40% of input becomes cacheable
+* One query embedding per request
+* Average query length of 30 tokens
+* Five retrieved chunks
+* 250 tokens per chunk
+* One reranking request
+* 10% model retry rate
+
+### Monthly calculations
+
+```text
+Monthly input tokens before retries  = 100,000 × 1,500 = 150,000,000
+Monthly output tokens before retries = 100,000 × 400   =  40,000,000
+Cached input   = 150,000,000 × 40% = 60,000,000
+Uncached input = 150,000,000 − 60,000,000 = 90,000,000
+Query embedding tokens = 100,000 × 30 = 3,000,000
+Retrieved context tokens = 100,000 × 5 × 250 = 125,000,000
+```
+
+If retrieval is reduced from five chunks to three without reducing quality:
+
+```text
+100,000 × 3 × 250 = 75,000,000
+```
+
+The application avoids sending 50 million context tokens per month.
+
+Retry multiplier: `1 + 10% = 1.10`. Apply this multiplier to model and orchestration consumption.
+
+### Complete monthly estimate
+
+```text
+C_monthly = C_uncached_input + C_cached_input + C_output
+          + C_embedding + C_vector + C_rerank
+          + C_guardrails + C_retry + C_platform
+```
+
+Insert current provider rates from the relevant official pricing page rather than maintaining hard-coded architecture assumptions.
+
+---
+
+# Part XIII — Model FinOps maturity model
+
+## 38. Level 0: Uncontrolled
+
+Shared API keys; no cost ownership; no budgets; frontier model used everywhere; no token telemetry; no model inventory.
+
+## 39. Level 1: Visible
+
+Cloud invoices monitored; basic budgets; model usage captured; costs separated by environment; initial model inventory.
+
+## 40. Level 2: Allocated
+
+Cost by application and business unit; request-level telemetry; owner tags; showback reporting.
+
+## 41. Level 3: Optimised
+
+Model routing; caching; batch processing; RAG optimisation; provisioned-capacity analysis; cost per successful task.
+
+## 42. Level 4: Governed
+
+Model approval; automated budgets; policy enforcement; risk-adjusted model catalogue; chargeback; capacity governance.
+
+## 43. Level 5: Value optimised
+
+Real-time unit economics; automated routing by cost, quality and latency; dynamic capacity selection; portfolio-level investment decisions; AI spend directly connected to business value.
+
+---
+
+# Part XIV — Twelve-week Model FinOps roadmap
+
+## Weeks 1–2: Foundations and inventory
+
+Learn and implement cloud billing fundamentals, token pricing, GPU economics, model taxonomy, AI cost lifecycle, model inventory and cost-tagging standard.
+
+**Deliverables:** model register, provider register, AI cost taxonomy, tagging standard, current-spend baseline.
+
+## Weeks 3–4: Unit economics and forecasting
+
+Learn and implement token estimation; demand forecasting; best, expected and stress scenarios; cost per request, user and successful task; ROI and gross margin.
+
+**Deliverables:** AI cost calculator, scenario model, monthly forecast, cost ceiling for each use case.
+
+## Weeks 5–6: Embedding and RAG FinOps
+
+Learn and implement embedding providers, vector dimensions, chunking, vector-storage sizing, hybrid retrieval, reranking, re-embedding strategy and retrieval evaluation.
+
+**Deliverables:** embedding benchmark, vector-storage model, retrieval cost dashboard, re-embedding migration plan.
+
+## Weeks 7–8: Multi-cloud capacity engineering
+
+Learn and implement AWS Bedrock tiers; Azure standard, batch and PTU; Google PayGo and GSU-based throughput; OCI dedicated clusters; IBM deploy-on-demand; Alibaba deployment pricing; self-hosted GPU economics.
+
+**Deliverables:** multi-cloud comparison, load-test results, shared-versus-provisioned analysis, failover architecture, break-even calculation.
+
+## Week 9: Inference optimisation
+
+Learn and implement prompt compression, output control, prompt and response caching, batch inference, model routing, distillation and quantisation.
+
+**Deliverables:** optimisation backlog, before-and-after benchmark, savings estimate, quality regression report.
+
+## Week 10: Agent FinOps
+
+Learn and implement agent step budgets, tool-call accounting, loop prevention, retry controls, per-task cost and human approval gates.
+
+**Deliverables:** agent cost policy, execution-budget middleware, agent dashboard, cost-per-completed-task metric.
+
+## Week 11: Governance and allocation
+
+Learn and implement showback, chargeback, cost centres, policy-as-code, budget alerts, model approval and model retirement.
+
+**Deliverables:** Model FinOps policy, RACI, approval workflow, budget and anomaly controls.
+
+## Week 12: Executive operating model
+
+Build executive, product and engineering dashboards; monthly Model FinOps review; quarterly provider review; annual capacity strategy.
+
+### Final capstone
+
+Produce an end-to-end business case comparing:
+
+1. Managed API
+2. Cloud-hosted managed model
+3. Provisioned throughput
+4. Self-hosted open model
+5. Hybrid routing architecture
+
+Compare three-year cost, quality, scalability, security, compliance, reliability, operational effort, vendor risk and exit cost.
+
+---
+
+# Part XV — Final decision framework
+
+## 44. Model selection questions
+
+Before approving a model, answer:
+
+1. Can a deterministic system perform the task?
+2. Can classical ML perform the task?
+3. Can a small model perform the task?
+4. Does the task require multimodality?
+5. Does it require advanced reasoning?
+6. Does it require RAG?
+7. Does it require fine-tuning?
+8. Can it be processed in batch?
+9. Can stable context be cached?
+10. Is traffic predictable enough for provisioned capacity?
+11. Is self-hosting economically and operationally justified?
+12. What is the cost per successful business outcome?
+
+## 45. Cloud selection questions
+
+1. Where does the data already reside?
+2. Which models are approved?
+3. Which region is required?
+4. What capacity guarantees are required?
+5. What is the baseline and peak traffic?
+6. What observability is available?
+7. Can costs be allocated per application?
+8. What commitments are required?
+9. What is the cross-region or egress cost?
+10. How difficult will model migration be?
+
+## 46. Core principle
+
+Model FinOps should optimise in the following order:
+
+```text
+Business Need → Quality → Architecture → Consumption → Capacity → Commercial Agreement
+```
+
+Do not begin by negotiating a lower token rate for an inefficient architecture.
+
+The largest savings frequently come from eliminating unnecessary calls, choosing a smaller model, reducing retrieved context, limiting outputs, caching repeated content, moving suitable work to batch, controlling agent loops, improving successful-task rates and removing idle capacity.
+
+The ultimate Model FinOps metric is not cost per token. It is:
+
+> **Cost per secure, reliable and valuable business outcome.**

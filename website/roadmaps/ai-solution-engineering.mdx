@@ -1,0 +1,161 @@
+---
+sidebar_position: 1
+slug: ai-solution-engineering
+title: AI Solution Engineering Framework Roadmap
+description: An end-to-end path from ambiguous business problem to scaled, continuously governed production AI—strategy, discovery, architecture, delivery, trust and adoption.
+---
+
+# AI Solution Engineering Framework Roadmap
+
+This roadmap turns strategy, consulting, architecture, governance, security, delivery, commercial and change frameworks into one practical sequence: take an AI opportunity from an ambiguous business problem to a scaled, continuously governed production capability.
+
+It is written for AI Solution Engineers, AI Architects, AI Product Managers, enterprise consultants, engineering managers, data and AI leaders, security teams, risk teams and transformation leaders.
+
+The central principle is:
+
+> **Do not begin with a model. Begin with a business outcome, understand the operating context, select the smallest safe intervention that can create measurable value, and build the organisational capability required to sustain it.**
+
+<ExecSummary>
+Run a 15-step lifecycle (mobilise → ambition → discover → readiness → use cases → operating model → business case → design → prototype → industrialise → Responsible AI → security/privacy → adoption → operate → scale) with five cross-cutting workstreams and six stage gates. Use the 16-week plan and minimum artefact set as your delivery operating system.
+</ExecSummary>
+
+<WhenToUse>
+- Use when leading an AI engagement from problem framing through production scale—not only model selection or a PoC.
+- Pair with the full guide: [End-to-End AI Solution Engineering Framework Playbook](/articles/ai-solution-engineering-framework-playbook).
+- Cross-check with [8D Framework](/docs/ai-solution-engineering/8d-framework), [VALUE gate](/docs/ai-solution-engineering/value-gate), [Forward-Deployed Engineer](./forward-deployed-engineer), [AI Product Builder](./ai-product-builder) and [Enterprise AI Security](./enterprise-ai-security).
+</WhenToUse>
+
+## Running example
+
+A regulated retail bank wants to improve customer service: 1,000 contact-centre agents search across several knowledge systems, average handling time is high, answers are inconsistent and new-agent training takes months. The organisation is considering a grounded AI knowledge assistant, summarisation, intelligent routing and eventually customer self-service.
+
+The solution must handle personal data, meet financial-services controls, integrate with identity and CRM, produce auditable outputs, support human escalation and demonstrate sustainable unit economics.
+
+## Fifteen-step lifecycle
+
+| Step | Primary decision | Principal output | Gate |
+| --- | --- | --- | --- |
+| 0. Mobilise | Are scope, sponsorship and decisions clear? | Engagement charter and governance | Mobilisation approval |
+| 1. Define ambition | Why AI, where, and to what level? | AI ambition and investment thesis | Strategic-fit approval |
+| 2. Discover current state | What is really happening today? | Evidence-based problem definition | Problem-definition approval |
+| 3. Assess readiness | Can the organisation deliver and sustain this? | Capability heatmap and remediation backlog | Readiness approval |
+| 4. Prioritise use cases | Which opportunities deserve funding? | Prioritised AI portfolio | Use-case approval |
+| 5. Define operating model | Who owns, builds, governs and runs AI? | Target AI operating model | Ownership approval |
+| 6. Build business case | Does the investment make economic sense? | Risk-adjusted business case | Investment approval |
+| 7. Design the solution | What complete system should be built? | HLD, LLD, controls and NFRs | Design approval |
+| 8. Prototype and validate | Have the largest uncertainties been reduced? | Prototype evidence and recommendation | Production-investment approval |
+| 9. Build and industrialise | Is this a production product rather than a demo? | Production-ready AI service | Release-readiness approval |
+| 10. Govern Responsible AI | Is the system lawful, fair, explainable and accountable? | Control evidence and approval record | Risk acceptance |
+| 11. Secure and protect privacy | Are users, data, models, tools and infrastructure protected? | Threat model, DPIA and security controls | Security/privacy approval |
+| 12. Deploy and drive adoption | Will people use the solution correctly and consistently? | Rollout, training and adoption plan | Operational deployment approval |
+| 13. Operate and improve | Is value, safety, reliability and cost sustainable? | Monitoring and improvement system | Continue, remediate or retire |
+| 14. Scale enterprise capability | Can success be reused across products and domains? | Reusable enterprise AI capability | Scale approval |
+
+## Cross-cutting workstreams
+
+Five workstreams run through every step:
+
+1. **Value** — outcomes, baseline, benefits, costs and benefits ownership
+2. **Experience and process** — user need, workflow redesign, human oversight and adoption
+3. **Technology and data** — architecture, integration, data quality, model selection and operations
+4. **Trust** — security, privacy, safety, Responsible AI, legal and regulatory compliance
+5. **Delivery and governance** — ownership, decisions, roadmap, evidence, stage gates and continuous improvement
+
+## Stage journey (condensed)
+
+### Steps 0–2 — Mobilise, ambition and discovery
+
+Convert “build us a chatbot” into a controlled engagement (charter, RACI, RAPID, RAID, stakeholder map). Cascade strategy (Playing to Win, Three Horizons, value-driver tree). Discover the real current state with Design Thinking, JTBD, journey mapping, SIPOC and VSM—not assumed requirements.
+
+**Build:** engagement charter, ambition statement, evidence-based problem definition and baseline metrics.
+
+**Exit:** sponsor, scope, decision rights and problem definition are clear enough to fund the next gate.
+
+### Steps 3–6 — Readiness, portfolio, ownership and economics
+
+Assess AI, data, cloud, MLOps, security and Responsible AI maturity. Prioritise with DVF / value–feasibility–risk, RICE or WSJF. Define hub-and-spoke (or equivalent) operating model. Prove TCO, ROI/NPV, unit economics and risk-adjusted scenarios.
+
+**Build:** maturity heatmap, prioritised use-case cards, operating-model canvas and five-case business case.
+
+**Exit:** funded use case with clear owners and an investment thesis that survives sensitivity analysis.
+
+### Steps 7–9 — Design, prototype and industrialise
+
+Design the sociotechnical system (TOGAF, DDD, Well-Architected, API-first, Zero Trust)—not only the model. Prototype to reduce the largest uncertainties with evaluation and hypothesis testing. Industrialise with Dual-Track Agile, DevSecOps, MLOps/LLMOps, TDD and SRE.
+
+**Build:** HLD/LLD with trust boundaries, prototype evidence pack and production-ready service with CI/CD, tests and runbooks.
+
+**Exit:** proceed/pivot/stop is evidence-based; release readiness is proven, not demo-based.
+
+### Steps 10–11 — Responsible AI, security and privacy
+
+Apply NIST AI RMF, ISO/IEC 42001 / 23894 / 42005, impact assessment, system/model/data cards. Secure with NIST CSF, ISO 27001, STRIDE, MITRE ATLAS, OWASP LLM and Privacy by Design—plus DPIA where required.
+
+**Build:** risk classification, AI impact assessment, threat model, control matrix and approval record.
+
+**Exit:** residual risk is accepted by named owners with controls that operate continuously—not a pre-release checklist.
+
+### Steps 12–14 — Adoption, operations and scale
+
+Drive change with ADKAR, Kotter, change-impact assessment and champions. Operate with SRE, FinOps and benefits realisation. Scale via AI factory, platform engineering, capability planning and portfolio reuse.
+
+**Build:** rollout/training plan, SLO and FinOps dashboards, reusable platform patterns and scale-gate evidence.
+
+**Exit:** value is realised in production; patterns are reusable; continue, remediate, contain or retire is an explicit decision.
+
+## Six stage gates
+
+| Gate | Decision focus | Required evidence (minimum) |
+| --- | --- | --- |
+| 1. Strategic fit | Proceed, reframe or stop | Problem, sponsor, alignment, outcome, baseline, risk context |
+| 2. Use-case approval | Fund discovery/prototype, defer or reject | User need, process evidence, value/feasibility, data, risk tier |
+| 3. Investment approval | Staged funding, conditions or stop | TCO, risk-adjusted value, ownership, delivery plan, benefits owner |
+| 4. Design approval | Approve build, remediate or redesign | HLD, data flows, model choice, security/privacy, oversight, NFRs |
+| 5. Production approval | Controlled/conditional release or reject | Evaluation, red team, privacy/risk approval, monitoring, runbooks, rollback |
+| 6. Scale approval | Scale, optimise, contain or retire | Proven value, adoption, controlled risk, economics, reusable architecture |
+
+## 16-week solution-engineering plan
+
+| Weeks | Focus | Practical output |
+| --- | --- | --- |
+| 1–2 | Mobilise and align | Charter, cascade, value drivers, discovery plan |
+| 3–5 | Discover | Research, journey/process, inventories, baseline, root cause |
+| 5–6 | Assess readiness | Maturity heatmap, prerequisites, remediation backlog |
+| 6–8 | Prioritise and justify | Use-case cards, scoring, portfolio decision, staged business case |
+| 8–10 | Design | Operating model, HLD, model/sourcing, oversight and controls |
+| 10–13 | Prototype and validate | Hypotheses, evaluation, user/security/cost evidence, proceed/pivot/stop |
+| 13–16 | Production plan | Backlog, industrialisation, change/rollout, ops and gate evidence |
+
+## Common anti-patterns
+
+| Anti-pattern | Correction |
+| --- | --- |
+| Starting with a model | Start with outcomes, users, process and data |
+| Confusing prototype and product | Require ownership, controls, tests, observability and adoption evidence |
+| Automating a broken process | Redesign journey and process before automation |
+| Measuring AI activity, not value | Tie metrics to customer, financial, operational and risk outcomes |
+| Governance as a final checklist | Classify and control from intake through operation |
+| Overestimating autonomy | Begin assistive/read-only; expand agency with evidence |
+| Ignoring knowledge and data work | Own quality, permissions, lineage, retention and updates |
+| Ignoring variable cost | Apply FinOps and unit economics from prototype onward |
+| Fragmented ownership | One accountable owner per material outcome |
+| No retirement plan | Lifecycle status, review periods and decommission criteria |
+
+## Core principle
+
+> **Frameworks are useful only when they improve a decision, expose an assumption, create reusable evidence or clarify accountability.**
+
+Select the minimum set that creates sufficient confidence for the next gate, while maintaining traceability from strategy and user need through architecture, controls, operations and realised business value.
+
+<KeyTakeaways>
+- Begin with business outcome and operating context—not model selection.
+- Run fifteen lifecycle steps with five cross-cutting workstreams and six evidence-based gates.
+- Industrialise, govern, secure and adopt before calling a prototype a product; scale only with proven value and reusable capability.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [End-to-End AI Solution Engineering Framework Playbook](/articles/ai-solution-engineering-framework-playbook).
+- Apply [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate) on every artefact.
+- Deepen adjacent journeys: [Forward-Deployed Engineer](./forward-deployed-engineer), [AI Product Builder](./ai-product-builder), [AI Engineer](./ai-engineer), [Enterprise AI Security](./enterprise-ai-security).
+- Practise related skills: [Consulting and problem solving](/learning-map/04-consulting-problem-solving) and the [AI Solution Engineering guide](/ai-solution-engineering/overview).
+</NextSteps>

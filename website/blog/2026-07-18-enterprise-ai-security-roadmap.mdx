@@ -1,0 +1,2332 @@
+---
+slug: enterprise-ai-security-roadmap
+title: "Enterprise AI Security Roadmap: Security, Governance, Compliance and Assurance for LLM, Multimodal and Agentic Systems"
+description: A complete enterprise AI-security programme—NIST AI RMF, ISO/IEC 42001, EU AI Act, OWASP, MITRE ATLAS and a 48-week path from foundations through continuous compliance.
+authors: [sudip]
+tags: [roadmaps, security, governance, playbook, solution-engineering]
+keywords:
+  - enterprise AI security roadmap
+  - NIST AI RMF
+  - ISO/IEC 42001
+  - EU AI Act
+  - OWASP LLM Top 10
+  - OWASP Agentic Top 10
+  - MITRE ATLAS
+  - AI governance
+  - explainability
+  - auditability
+  - multimodal AI security
+  - agentic AI security
+---
+
+The original [AI Red Teaming roadmap](/roadmaps/ai-red-teaming) focuses on foundational security, prompt hacking, model vulnerabilities, system security, testing methodologies, tools and professional development. This expanded roadmap turns those topics into a complete enterprise AI-security programme covering the entire lifecycle—from use-case approval and data collection to deployment, monitoring, incident response and retirement.
+
+The central principle is:
+
+> **Do not secure only the model. Secure the business decision, data, model, retrieval system, agent, tools, application, cloud platform, users and operating process as one connected system.**
+
+{/* truncate */}
+
+<ExecSummary>
+Operate NIST AI RMF (Govern–Map–Measure–Manage) with ISO/IEC 42001, EU AI Act classification, GDPR/UK GDPR, OWASP Web/LLM/Agentic Top 10 and MITRE ATLAS. Progress through a 48-week path covering governance, data, cloud, model lifecycle, LLM/RAG, multimodal and agentic controls, explainability, traceability, red teaming and continuous compliance. Use the multi-cloud control matrix and mandatory assurance artefacts as the delivery checklist.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing an organisation-wide AI security, governance and assurance programme—not only model testing.
+- Pair with the [Enterprise AI Security roadmap](/roadmaps/enterprise-ai-security), [AI Red Teaming](/roadmaps/ai-red-teaming), [DevSecOps](/roadmaps/devsecops) and [API Security Engineering](/roadmaps/api-security-engineering).
+- Treat inventory, impact assessments, threat models, model/system cards, red-team evidence and residual-risk acceptance as mandatory artefacts.
+</WhenToUse>
+
+[NIST](https://www.nist.gov/trustworthy-and-responsible-ai) describes trustworthy AI through validity and reliability, safety, security and resilience, accountability and transparency, explainability and interpretability, privacy, and fairness with harmful bias managed. These qualities must be balanced according to the system's context and risk.
+
+---
+
+## 1. What this roadmap covers
+
+This roadmap addresses four related architectures.
+
+### 1.1 LLM applications
+
+Systems built around language models, including:
+
+* Enterprise chatbots
+* Document assistants
+* Code-generation systems
+* Customer-service assistants
+* Retrieval-augmented generation
+* Natural-language analytics
+* Content-generation systems
+* Decision-support applications
+
+### 1.2 Multimodal AI
+
+Systems that process or produce more than one modality:
+
+* Text
+* Images
+* Audio
+* Video
+* Documents
+* Tables
+* Sensor data
+* Screen captures
+* Generated media
+
+### 1.3 Multi-model AI
+
+Systems that use several models together:
+
+* Model routing between providers
+* Specialist models for different tasks
+* Small-model and large-model cascades
+* Safety classifiers plus generation models
+* Embedding, reranking and generation models
+* Ensembles and voting systems
+* Primary and fallback models
+* Cloud and on-premises model combinations
+
+### 1.4 Agentic and multi-agent AI
+
+Systems that can:
+
+* Plan a sequence of tasks
+* Select and invoke tools
+* Access organisational data
+* Maintain memory
+* Delegate work to other agents
+* Send messages or emails
+* Modify business records
+* Execute code
+* Trigger workflows
+* Act with delegated authority
+
+OWASP now provides separate guidance for LLM applications and agentic applications. The [2025 LLM Top 10](https://genai.owasp.org/llm-top-10/) covers application and model risks, while the [2026 Agentic Top 10](https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/) focuses on goal hijacking, tool misuse, identity abuse, memory poisoning, insecure agent communication and cascading failures.
+
+---
+
+## 2. The nine disciplines of trustworthy AI
+
+These concepts are related, but they are not interchangeable.
+
+| Discipline | Core question | Practical evidence |
+| --- | --- | --- |
+| AI security | Can the system resist attack, misuse and unauthorised access? | Threat model, penetration test, red-team report, security controls |
+| AI safety | Can the system avoid causing unacceptable harm? | Safety evaluations, guardrail tests, human-oversight design |
+| Compliance | Which laws, regulations, contracts and standards apply? | Compliance matrix, DPIA, control mapping, legal assessment |
+| Governance | Who makes decisions and who is accountable? | AI policy, governance board, RACI, approval gates |
+| Ethics | Should the system be built and used in this way? | Ethical impact assessment, stakeholder analysis, prohibited-use policy |
+| Explainability | Can people understand why an output or decision occurred? | Local/global explanations, evidence, citations, decision rationale |
+| Transparency | Are users told what the system is, what it does and its limitations? | AI notices, system cards, model cards, user disclosures |
+| Traceability | Can an outcome be followed through data, model, prompt, retrieval and tools? | End-to-end traces, lineage records, correlation IDs |
+| Auditability | Can an independent reviewer reconstruct and evaluate what happened? | Immutable logs, approvals, evidence repository, audit reports |
+
+### 2.1 Accountability connects them all
+
+Accountability means that a named person or organisational function owns the consequences of the AI system.
+
+A system is not accountable merely because it produces logs. Accountability requires:
+
+* An accountable executive
+* A business owner
+* A technical owner
+* A data owner
+* A model owner
+* A security owner
+* A privacy or compliance owner
+* Defined escalation authority
+* Formal risk acceptance
+* A mechanism for stopping the system
+
+The [ICO](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/what-are-the-accountability-and-governance-implications-of-ai/) emphasises that organisations remain responsible for demonstrating data-protection compliance and should not delegate accountability solely to data scientists or engineers. It identifies DPIAs as a key mechanism for showing how AI risks have been assessed and controlled.
+
+---
+
+## 3. The enterprise AI assurance framework stack
+
+Do not choose one framework and ignore the rest. Each framework solves a different part of the problem.
+
+### 3.1 NIST AI Risk Management Framework
+
+Use NIST AI RMF as the main operating structure:
+
+#### Govern
+
+Establish:
+
+* Policies
+* Roles
+* Risk appetite
+* Culture
+* Training
+* Supplier requirements
+* Accountability
+* Documentation standards
+
+#### Map
+
+Understand:
+
+* Business context
+* Intended purpose
+* Users
+* Affected individuals
+* Data sources
+* System boundaries
+* Potential benefits
+* Potential harms
+* Legal obligations
+
+#### Measure
+
+Evaluate:
+
+* Accuracy
+* Robustness
+* Security
+* Privacy
+* Bias
+* Explainability
+* Safety
+* Reliability
+* Human oversight
+* Operational performance
+
+#### Manage
+
+Decide whether to:
+
+* Mitigate the risk
+* Transfer the risk
+* Avoid the activity
+* Restrict the use case
+* Add human approval
+* Monitor the risk
+* Accept the residual risk
+* Stop the system
+
+The [NIST Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) supplements AI RMF with GenAI-specific risk-management actions and is intended to help organisations manage generative-AI risks according to their own goals and priorities.
+
+---
+
+### 3.2 ISO/IEC 42001
+
+Use ISO/IEC 42001 to establish an organisational AI Management System.
+
+It applies a Plan–Do–Check–Act approach:
+
+#### Plan
+
+* Define AI policy
+* Identify interested parties
+* Establish AI objectives
+* Assess risks and opportunities
+* Define governance responsibilities
+
+#### Do
+
+* Operate lifecycle processes
+* Apply risk controls
+* Manage suppliers
+* Train employees
+* Maintain documentation
+
+#### Check
+
+* Monitor performance
+* Run internal audits
+* Review incidents
+* Measure control effectiveness
+* Conduct management reviews
+
+#### Act
+
+* Correct weaknesses
+* Improve controls
+* Update policies
+* Adjust objectives
+* Respond to regulatory and technological changes
+
+[ISO/IEC 42001](https://www.iso.org/standard/81230.html) specifies requirements for establishing, implementing, maintaining and continually improving an AI management system. ISO/IEC 23894 provides complementary guidance on AI-specific risk management. [ISO/IEC 42005](https://www.iso.org/standard/42005.html) adds a structured approach to assessing human and societal impacts.
+
+---
+
+### 3.3 EU AI Act
+
+Create an AI Act classification for every use case:
+
+* Prohibited or unacceptable use
+* High-risk use
+* Transparency-regulated use
+* General-purpose AI use
+* Minimal-risk use
+
+The European Commission currently states that the [AI Act](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) entered into force on 1 August 2024. Prohibited-practice and AI-literacy obligations began applying in February 2025, while governance and general-purpose-AI obligations began applying in August 2025. The implementation timeline for some high-risk systems has subsequently been adjusted through the ongoing simplification process, so organisations should maintain a live legal-obligations register rather than rely on a one-time classification.
+
+For each use case, determine whether requirements apply to:
+
+* The model provider
+* The AI-system provider
+* The deployer
+* The importer or distributor
+* The organisation using the output
+* The organisation making a consequential decision
+
+---
+
+### 3.4 GDPR and UK GDPR
+
+Where personal data is processed, examine:
+
+* Lawful basis
+* Purpose limitation
+* Data minimisation
+* Accuracy
+* Storage limitation
+* Security
+* Transparency
+* Individual rights
+* Automated decision-making
+* International transfers
+* Controller and processor responsibilities
+* Special-category data
+* Children's data
+* Data-protection impact assessments
+
+The ICO recommends integrating data-protection risk management into AI governance and treating a DPIA as a practical roadmap for identifying and controlling risks rather than as a box-ticking exercise.
+
+---
+
+### 3.5 OWASP
+
+Use three OWASP perspectives simultaneously:
+
+#### OWASP Top 10 for Web Applications 2025
+
+This covers the surrounding application:
+
+1. Broken Access Control
+2. Security Misconfiguration
+3. Software Supply Chain Failures
+4. Cryptographic Failures
+5. Injection
+6. Insecure Design
+7. Authentication Failures
+8. Software or Data Integrity Failures
+9. Security Logging and Alerting Failures
+10. Mishandling of Exceptional Conditions
+
+See the [OWASP Top 10:2025](https://owasp.org/Top10/2025/).
+
+#### OWASP Top 10 for LLM Applications 2025
+
+This covers model-enabled application risks ([OWASP Gen AI Security Project](https://genai.owasp.org/llm-top-10/)).
+
+#### OWASP Top 10 for Agentic Applications 2026
+
+This covers autonomous systems that plan, use tools, maintain memory and communicate with other agents ([OWASP Agentic Top 10](https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/)).
+
+---
+
+### 3.6 MITRE ATLAS
+
+Use [MITRE ATLAS](https://atlas.mitre.org/) for threat-informed defence.
+
+ATLAS is a living knowledge base of tactics, techniques, mitigations and case studies involving attacks against AI-enabled systems. It should be used to:
+
+* Identify attack paths
+* Design threat scenarios
+* Map red-team tests
+* Develop detections
+* Connect AI risks to incident response
+* Prioritise mitigations based on observed adversarial behaviour
+
+---
+
+## 4. End-to-end AI security architecture
+
+A secure AI platform should be designed as interconnected control layers.
+
+```text
+Users and external systems
+            │
+            ▼
+Web, mobile, API and channel security
+            │
+            ▼
+Authentication, identity and authorisation
+            │
+            ▼
+Input validation and multimodal inspection
+            │
+            ▼
+PII detection, classification and policy enforcement
+            │
+            ▼
+Prompt construction and context isolation
+            │
+            ▼
+Model router and approved-model gateway
+            │
+      ┌─────┴─────┐
+      ▼           ▼
+Model A        Model B
+      │           │
+      └─────┬─────┘
+            ▼
+RAG, knowledge bases, memory and data services
+            │
+            ▼
+Agent planning, tool selection and policy checks
+            │
+            ▼
+Tool argument validation and human approval
+            │
+            ▼
+Output validation, grounding and content safety
+            │
+            ▼
+User response or approved business action
+```
+
+Across every layer:
+
+```text
+Identity │ Encryption │ Policy │ Logging │ Tracing │ Evaluation
+Lineage  │ Monitoring │ Incident response │ Cost controls │ Audit evidence
+```
+
+---
+
+## 5. The detailed 48-week AI-security roadmap
+
+### Roadmap overview
+
+| Stage | Weeks | Outcome |
+| --- | ---: | --- |
+| 1. Foundations | 1–4 | Understand AI, cybersecurity and secure software |
+| 2. Governance and inventory | 5–8 | Establish ownership, policy and AI asset visibility |
+| 3. Compliance and ethical impact | 9–12 | Classify legal, regulatory and societal risks |
+| 4. Data and privacy security | 13–16 | Secure training, RAG, prompts, memory and logs |
+| 5. Cloud and platform security | 17–20 | Build secure landing zones, identity and network controls |
+| 6. Model lifecycle security | 21–24 | Secure models, artefacts, dependencies and suppliers |
+| 7. LLM and RAG security | 25–28 | Address OWASP LLM risks |
+| 8. Multimodal and agentic security | 29–32 | Secure images, audio, tools, memory and agents |
+| 9. Explainability and transparency | 33–36 | Build meaningful explanations and user disclosures |
+| 10. Traceability and auditability | 37–40 | Reconstruct every important AI outcome |
+| 11. Red teaming and assurance | 41–44 | Validate controls adversarially |
+| 12. Operations and continuous compliance | 45–48 | Monitor, respond, audit and improve |
+
+---
+
+## Stage 1 — AI, security and software foundations
+
+### Weeks 1–4
+
+#### Learn AI fundamentals
+
+Study:
+
+* Supervised and unsupervised learning
+* Neural networks and transformers
+* Embeddings
+* Foundation models
+* Fine-tuning
+* Inference
+* Context windows
+* Tokenisation
+* Retrieval-augmented generation
+* Tool calling
+* Agent planning
+* Multimodal models
+* Model routing
+* Evaluation methods
+
+#### Learn security foundations
+
+Study:
+
+* Confidentiality, integrity and availability
+* Authentication and authorisation
+* Least privilege
+* Zero trust
+* Secure software development
+* Threat modelling
+* Cryptography
+* Secrets management
+* API security
+* Network security
+* Vulnerability management
+* Incident response
+* Supply-chain security
+
+#### Build
+
+Create a small AI application containing:
+
+* Authentication
+* A language model
+* A vector store
+* Three synthetic documents
+* A simple business tool
+* Structured outputs
+* Audit logging
+
+#### Deliverables
+
+* Architecture diagram
+* Data-flow diagram
+* Asset inventory
+* Initial threat model
+* Security assumptions register
+* List of external dependencies
+
+#### Exit criteria
+
+You should be able to explain:
+
+* Where user data enters
+* Which service processes it
+* Which model receives it
+* Where it is stored
+* Which identity performs each action
+* Which controls prevent unauthorised access
+* Which logs prove what occurred
+
+---
+
+## Stage 2 — Governance, ownership and AI inventory
+
+### Weeks 5–8
+
+AI governance should start before model selection.
+
+[Microsoft's agent-governance guidance](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization) recommends central governance, an inventory of agents, a distinct identity for each agent, consistent policies and continuous observation of agent activity and tools.
+
+### 2.1 Establish an AI governance structure
+
+Create:
+
+#### AI steering committee
+
+Responsible for:
+
+* Strategy
+* Risk appetite
+* Investment
+* Prohibited uses
+* Escalated approvals
+* Regulatory posture
+
+#### AI risk and assurance forum
+
+Responsible for:
+
+* Risk assessments
+* Model validation
+* Security review
+* Privacy review
+* Ethical review
+* Release approval
+
+#### AI operations forum
+
+Responsible for:
+
+* Production performance
+* Incidents
+* Drift
+* Vulnerabilities
+* Costs
+* Change requests
+
+### 2.2 Create an AI inventory
+
+Record every:
+
+* AI use case
+* Model
+* Model version
+* Agent
+* Tool
+* Prompt template
+* RAG index
+* Dataset
+* Fine-tuning dataset
+* Embedding model
+* Safety model
+* Endpoint
+* Cloud resource
+* External AI service
+
+Minimum inventory fields:
+
+```text
+System ID
+Business owner
+Technical owner
+Risk owner
+Purpose
+Users
+Affected population
+Model provider
+Model and version
+Deployment region
+Data classifications
+Tools and permissions
+Risk classification
+Regulatory classification
+Human oversight
+Last assessment
+Approval status
+Retirement date
+```
+
+### 2.3 Establish policy
+
+Create:
+
+* Acceptable AI-use policy
+* Prohibited-use policy
+* AI procurement policy
+* Model approval policy
+* Data-use policy
+* Human-oversight policy
+* AI-security standard
+* AI incident-response standard
+* AI transparency standard
+* AI evaluation standard
+* Model-retirement policy
+
+#### Exit criteria
+
+No AI system should enter production without:
+
+* A business owner
+* A technical owner
+* A risk classification
+* An inventory entry
+* An approved model
+* An impact assessment
+* A threat model
+* A deployment decision
+
+---
+
+## Stage 3 — Compliance, ethics and impact assessment
+
+### Weeks 9–12
+
+### 3.1 Build an obligations register
+
+For each system, assess:
+
+| Area | Questions |
+| --- | --- |
+| Data protection | Does it process personal or special-category data? |
+| Automated decisions | Does it make or materially support decisions about individuals? |
+| AI Act | Is it prohibited, high-risk, transparency-regulated or GPAI-related? |
+| Sector regulation | Does finance, health, employment, education or public-sector regulation apply? |
+| Intellectual property | Are training, prompt, retrieval and output rights understood? |
+| Consumer law | Could users be misled about AI involvement or capability? |
+| Accessibility | Can affected users access and understand the system? |
+| Records management | What must be retained and for how long? |
+| Cross-border processing | Where are data, models and logs processed? |
+| Contracts | What obligations apply to suppliers and customers? |
+
+### 3.2 Conduct an AI impact assessment
+
+Evaluate impact on:
+
+* Customers
+* Employees
+* Vulnerable groups
+* Society
+* Fundamental rights
+* Competition
+* Environment
+* Accessibility
+* Human autonomy
+* Safety
+* Livelihoods
+* Reputation
+
+[ISO/IEC 42005](https://www.iso.org/standard/42005.html) is specifically designed to complement AI-management and risk standards by focusing on impacts on people and society.
+
+### 3.3 Ethical assessment
+
+Ask:
+
+1. Is the use case necessary?
+2. Is AI the right solution?
+3. Could a simpler deterministic system work?
+4. Who benefits?
+5. Who carries the risk?
+6. Could the system manipulate users?
+7. Could it reduce human autonomy?
+8. Are vulnerable groups affected?
+9. Can affected people appeal?
+10. Can the system be stopped?
+11. Are environmental and cost implications proportionate?
+12. Would the organisation be comfortable publicly explaining the system?
+
+### 3.4 Define human oversight
+
+Human oversight may be:
+
+* **Human-in-the-loop:** approval is required before action.
+* **Human-on-the-loop:** humans supervise and can intervene.
+* **Human-over-the-loop:** humans govern the system, policies and outcomes.
+* **Human-out-of-the-loop:** autonomous execution, appropriate only for sufficiently low-risk and bounded activities.
+
+#### Exit criteria
+
+Produce:
+
+* AI impact assessment
+* DPIA where applicable
+* AI Act classification
+* Ethical assessment
+* Regulatory obligations register
+* Human-oversight design
+* Formal residual-risk decision
+
+---
+
+## Stage 4 — Data governance and privacy security
+
+### Weeks 13–16
+
+Data security must cover more than training data.
+
+### 4.1 Classify all AI data
+
+Include:
+
+* User prompts
+* Uploaded files
+* Images
+* Audio
+* Video
+* Conversation history
+* Retrieved documents
+* Embeddings
+* Vector metadata
+* Fine-tuning data
+* Evaluation datasets
+* Agent memory
+* Tool inputs and outputs
+* Model responses
+* Feedback
+* Logs and traces
+
+### 4.2 Apply data minimisation
+
+For every field, ask:
+
+* Is this data necessary?
+* Can it be excluded?
+* Can it be aggregated?
+* Can it be anonymised?
+* Can it be pseudonymised?
+* Can it be masked before inference?
+* Can it be processed locally?
+* How long must it be retained?
+* Must it enter the model at all?
+
+### 4.3 Build a PII-protection pipeline
+
+```text
+Raw input
+   │
+   ▼
+File and malware scanning
+   │
+   ▼
+Data classification
+   │
+   ▼
+PII and sensitive-data detection
+   │
+   ▼
+Masking, tokenisation or pseudonymisation
+   │
+   ▼
+Policy decision
+   │
+   ▼
+Approved AI processing
+   │
+   ▼
+Output inspection
+   │
+   ▼
+Controlled re-identification where authorised
+```
+
+Presidio or equivalent detection and anonymisation may be used, but it should be supplemented with:
+
+* Organisation-specific recognisers
+* Financial identifiers
+* Customer IDs
+* Secrets and credentials
+* Context-specific sensitive terms
+* False-positive and false-negative testing
+* Human review for high-risk documents
+
+### 4.4 Secure RAG data
+
+Implement:
+
+* Document ownership
+* Source approval
+* Permission-aware retrieval
+* Tenant filtering
+* Document versioning
+* Content provenance
+* Integrity hashes
+* Malware scanning
+* Injection scanning
+* Metadata validation
+* Index-level access controls
+* Deletion propagation
+* Re-indexing controls
+
+### 4.5 Secure memory
+
+Classify memory as:
+
+* Session memory
+* User profile memory
+* Organisational memory
+* Workflow state
+* Agent scratch memory
+* Long-term episodic memory
+
+For each memory type, define:
+
+* Write permissions
+* Read permissions
+* Retention
+* Validation
+* User visibility
+* Correction
+* Deletion
+* Poisoning detection
+
+#### Exit criteria
+
+Every data source has:
+
+* An owner
+* Classification
+* Purpose
+* Lawful basis where required
+* Retention period
+* Access policy
+* Lineage
+* Deletion procedure
+* Quality assessment
+* Security controls
+
+---
+
+## Stage 5 — Cloud, identity, network and platform security
+
+### Weeks 17–20
+
+### 5.1 Identity
+
+Require:
+
+* Single sign-on
+* Multi-factor authentication
+* Role-based or attribute-based access
+* Managed workload identities
+* Short-lived credentials
+* Separate identities for every agent
+* Separation of human and machine accounts
+* Privileged-access management
+* Regular entitlement reviews
+* Emergency-access controls
+
+An agent should never receive a broad administrator credential merely because its backend application possesses one.
+
+### 5.2 Delegated authority
+
+For tool actions:
+
+```text
+Authenticated user
+      │
+      ▼
+User permissions
+      │
+      ▼
+Agent proposes action
+      │
+      ▼
+Policy engine restricts scope
+      │
+      ▼
+Human approval where required
+      │
+      ▼
+Short-lived delegated credential
+      │
+      ▼
+One permitted tool action
+```
+
+### 5.3 Network controls
+
+Use:
+
+* Private endpoints
+* Network segmentation
+* API gateways
+* Egress controls
+* Domain allowlists
+* Web application firewalls
+* DDoS protections
+* Service-to-service authentication
+* TLS
+* Private DNS
+* Separate production and development networks
+
+### 5.4 Encryption and secrets
+
+Apply:
+
+* Encryption at rest
+* Encryption in transit
+* Customer-managed keys where justified
+* Key rotation
+* Secrets vaults
+* Prohibition of secrets in prompts
+* Prohibition of secrets in source code
+* Secret scanning
+* Workload identity instead of static API keys
+
+### 5.5 API security
+
+Enforce:
+
+* Authentication
+* Authorisation
+* Rate limits
+* Quotas
+* Schema validation
+* Request-size limits
+* File-type restrictions
+* Timeout controls
+* Idempotency
+* Replay protection
+* Error sanitisation
+* Abuse detection
+
+---
+
+## Stage 6 — Model lifecycle and supply-chain security
+
+### Weeks 21–24
+
+### 6.1 Model acquisition
+
+Before approving a model, assess:
+
+* Provider
+* Ownership
+* Licence
+* Intended use
+* Prohibited uses
+* Training-data disclosures
+* Data-processing conditions
+* Security documentation
+* Model limitations
+* Known vulnerabilities
+* Region availability
+* Model-update practices
+* Retention practices
+* Evaluation results
+* Supplier incident process
+
+### 6.2 Model provenance
+
+Maintain:
+
+* Model identifier
+* Provider
+* Version
+* Model checksum where applicable
+* Source repository
+* Licence
+* Evaluation date
+* Approved use cases
+* Restricted use cases
+* Deployment locations
+* Safety settings
+* Fine-tuning lineage
+
+### 6.3 Secure AI supply chain
+
+Protect:
+
+* Model registries
+* Dataset repositories
+* Container images
+* Python packages
+* Model weights
+* Prompt libraries
+* MCP servers
+* Agent tools
+* Evaluation code
+* CI/CD pipelines
+* Infrastructure templates
+
+Apply:
+
+* Signed artefacts
+* Software bills of materials
+* Model bills of materials
+* Dependency scanning
+* Container scanning
+* Provenance attestations
+* Approved registries
+* Reproducible builds
+* Deployment approval
+* Rollback capability
+
+### 6.4 Model-change controls
+
+Treat these as material changes:
+
+* Model-version upgrade
+* Provider change
+* Fine-tuning
+* New system prompt
+* New retrieval source
+* New embedding model
+* New tool
+* Changed guardrail
+* Changed model router
+* Changed human-approval rule
+* Changed memory configuration
+
+Every material change should trigger proportionate regression testing.
+
+---
+
+## Stage 7 — OWASP LLM Top 10 implementation
+
+### Weeks 25–28
+
+The [OWASP 2025 LLM risks](https://genai.owasp.org/llm-top-10/) are the minimum baseline for generative-AI application assessments.
+
+### LLM01 — Prompt Injection
+
+#### Risk
+
+Untrusted instructions manipulate model behaviour.
+
+Sources include:
+
+* Direct user input
+* Retrieved files
+* Webpages
+* Emails
+* Images
+* Tool responses
+* Agent messages
+* Hidden document content
+
+#### Controls
+
+* Separate trusted instructions and untrusted content
+* Delimit context clearly
+* Apply input classification
+* Scan retrieved content
+* Restrict tools independently of prompts
+* Apply least privilege
+* Validate every tool call
+* Require confirmation for consequential actions
+* Test direct and indirect injection
+* Monitor repeated attack patterns
+
+AWS documents that [Bedrock Guardrails can detect prompt attacks](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-prompt-attack.html), but correct input tagging is required for particular invocation APIs. This illustrates why guardrail configuration must itself be tested rather than assumed to work.
+
+---
+
+### LLM02 — Sensitive Information Disclosure
+
+#### Risk
+
+The model or application reveals:
+
+* Personal data
+* Credentials
+* Proprietary information
+* Restricted documents
+* Conversation history
+* Cross-tenant information
+* System details
+
+#### Controls
+
+* Data minimisation
+* PII masking
+* Permission-aware retrieval
+* Output DLP
+* Tenant isolation
+* Secret scanning
+* Log redaction
+* Canary data
+* Extraction testing
+* Retention controls
+
+---
+
+### LLM03 — Supply Chain
+
+#### Risk
+
+A compromised:
+
+* Model
+* Dataset
+* Library
+* Container
+* Adapter
+* Plugin
+* MCP server
+* Prompt template
+* Third-party API
+
+may compromise the complete system.
+
+#### Controls
+
+* Approved-component catalogue
+* Supplier assessment
+* Dependency pinning
+* Artefact signing
+* Integrity verification
+* Vulnerability scanning
+* Model provenance
+* Licence review
+* Continuous supplier monitoring
+* Emergency revocation process
+
+---
+
+### LLM04 — Data and Model Poisoning
+
+#### Risk
+
+Manipulated training, fine-tuning, embedding or retrieval data changes behaviour.
+
+#### Controls
+
+* Dataset provenance
+* Approval workflows
+* Integrity checks
+* Source reputation
+* Outlier detection
+* Backdoor testing
+* RAG-content moderation
+* Index-write restrictions
+* Data versioning
+* Rollback
+* Post-training evaluation
+
+---
+
+### LLM05 — Improper Output Handling
+
+#### Risk
+
+Model output is passed unsafely into:
+
+* SQL
+* Shell commands
+* HTML
+* JavaScript
+* Templates
+* Workflow engines
+* APIs
+* File systems
+
+#### Controls
+
+* Treat outputs as untrusted
+* Use structured schemas
+* Escape rendered content
+* Parameterise database queries
+* Allowlist commands
+* Sandbox generated code
+* Validate tool arguments
+* Apply content security policies
+* Separate generation from execution
+
+---
+
+### LLM06 — Excessive Agency
+
+#### Risk
+
+The system has more functionality, permission or autonomy than required.
+
+#### Controls
+
+* Minimise tools
+* Minimise tool permissions
+* Restrict destinations
+* Use short-lived credentials
+* Limit number of steps
+* Require human approval
+* Set transaction limits
+* Use deterministic policy engines
+* Implement kill switches
+* Log every action
+
+---
+
+### LLM07 — System Prompt Leakage
+
+#### Risk
+
+Internal instructions, policies or confidential information are revealed.
+
+#### Controls
+
+* Never place credentials in prompts
+* Assume system prompts may become visible
+* Enforce security outside the prompt
+* Separate policy from secrets
+* Minimise internal implementation details
+* Test prompt-extraction attempts
+* Rotate exposed confidential configuration
+
+---
+
+### LLM08 — Vector and Embedding Weaknesses
+
+#### Risk
+
+Attackers manipulate retrieval, access another tenant's content or poison embeddings.
+
+#### Controls
+
+* Tenant-separated indexes
+* Metadata filters
+* Permission checks after retrieval
+* Source provenance
+* Encryption
+* Index-write controls
+* Embedding version control
+* Retrieval evaluation
+* Nearest-neighbour anomaly analysis
+* Deletion verification
+
+---
+
+### LLM09 — Misinformation
+
+#### Risk
+
+The system provides false, unsupported or misleading information.
+
+#### Controls
+
+* Grounding
+* Citations
+* Retrieval-quality evaluation
+* Source ranking
+* Confidence and uncertainty communication
+* Abstention
+* Deterministic validation
+* Human review
+* Policy verification
+* Domain-specific evaluation
+
+---
+
+### LLM10 — Unbounded Consumption
+
+#### Risk
+
+The application incurs excessive:
+
+* Tokens
+* Compute
+* Tool calls
+* Storage
+* Agent loops
+* Retrieval requests
+* Financial cost
+
+#### Controls
+
+* Token limits
+* Rate limits
+* Budgets
+* Quotas
+* Timeouts
+* Maximum agent steps
+* Concurrency limits
+* Cache controls
+* Loop detection
+* Cost alerts
+* Per-user allowances
+
+---
+
+## Stage 8 — Multimodal, multi-model and agentic security
+
+### Weeks 29–32
+
+### 8.1 Multimodal AI threats
+
+#### Image risks
+
+Test for:
+
+* Hidden or small text instructions
+* Manipulated screenshots
+* QR codes and malicious URLs
+* Misleading diagrams
+* Metadata leakage
+* Sensitive information in backgrounds
+* Adversarial image perturbations
+* Unsafe image generation
+* Identity and deepfake misuse
+
+#### Document risks
+
+Test:
+
+* Hidden PDF layers
+* White text on white backgrounds
+* Embedded links
+* Macros and attachments
+* Prompt injection in footers
+* OCR manipulation
+* Contradictory document sections
+* Malformed document parsers
+* Metadata poisoning
+
+#### Audio risks
+
+Test:
+
+* Hidden spoken commands
+* Background instructions
+* Speaker impersonation
+* Voice cloning
+* Transcription errors
+* Language switching
+* Unsafe audio-generation requests
+* Embedded ultrasonic or transformed signals where relevant
+
+#### Video risks
+
+Test:
+
+* Frame-level hidden content
+* Deepfake impersonation
+* Audio-video disagreement
+* Manipulated subtitles
+* Unsafe generated media
+* Temporal context loss
+* Identity misclassification
+
+[Azure AI Content Safety](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview) documents both text and image APIs for detecting harmful user-generated and AI-generated content, while Amazon Bedrock Guardrails supports combinations of text and image filtering policies. These controls should be integrated into a wider multimodal validation pipeline rather than treated as complete protection.
+
+#### Multimodal inspection pipeline
+
+```text
+Uploaded content
+      │
+      ├── File type validation
+      ├── Malware scanning
+      ├── Metadata extraction
+      ├── OCR or transcription
+      ├── Visual/audio safety analysis
+      ├── PII detection
+      ├── Prompt-injection detection
+      ├── Provenance checks
+      └── Human review where required
+```
+
+---
+
+### 8.2 Multi-model security
+
+Multi-model architectures introduce risks that do not appear in a single-model application.
+
+#### Model-routing manipulation
+
+An attacker may manipulate prompts so the router chooses:
+
+* A less secure model
+* A cheaper but less capable model
+* A model in an unsuitable region
+* A model with weaker safety controls
+
+Controls:
+
+* Deterministic routing rules
+* Approved model matrix
+* Risk-based model selection
+* Signed routing configuration
+* Routing logs
+* Fallback restrictions
+* Regression tests for each route
+
+#### Safety-policy inconsistency
+
+Different models may:
+
+* Refuse different content
+* Interpret the same policy differently
+* Produce incompatible output schemas
+* Use different tool formats
+* Handle personal data differently
+
+Controls:
+
+* Provider-independent policy layer
+* Common input and output controls
+* Cross-model evaluation suite
+* Normalised schemas
+* Central model gateway
+* Consistent logging
+* Per-model safety thresholds
+
+#### Fallback downgrade
+
+A secure primary model may fail and redirect the request to a weaker fallback.
+
+Controls:
+
+* Security-equivalent fallback models
+* Fail closed for high-risk use cases
+* Disclose degraded service
+* Disable tools during fallback
+* Re-run safety checks
+* Record the fallback reason
+
+#### Model disagreement
+
+For consequential decisions:
+
+* Compare model outputs
+* Apply deterministic business rules
+* Escalate substantial disagreement
+* Do not average incompatible decisions blindly
+* Preserve each model's output for review
+
+---
+
+### 8.3 OWASP Agentic Top 10
+
+The [OWASP 2026 Agentic Top 10](https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/) includes the following categories.
+
+| Risk | Primary controls |
+| --- | --- |
+| ASI01 Agent Goal Hijack | Immutable high-level goals, instruction hierarchy, context isolation |
+| ASI02 Tool Misuse | Tool allowlists, argument validation, user confirmation |
+| ASI03 Identity and Privilege Abuse | Unique agent identities, least privilege, delegated credentials |
+| ASI04 Agentic Supply Chain Vulnerabilities | Approved tools, MCP validation, signed components |
+| ASI05 Unexpected Code Execution | Sandboxing, code allowlists, isolated runtimes |
+| ASI06 Memory and Context Poisoning | Validated writes, memory provenance, expiry and rollback |
+| ASI07 Insecure Inter-Agent Communication | Authentication, message signing, schemas, trust policies |
+| ASI08 Cascading Failures | Circuit breakers, bounded delegation, dependency limits |
+| ASI09 Human-Agent Trust Exploitation | Clear approval displays, uncertainty, anti-deception design |
+| ASI10 Rogue Agents | Behaviour monitoring, goal conformance, kill switches |
+
+#### High-impact tool pattern
+
+A payment, deletion, external email or production change should require:
+
+```text
+Exact action proposed
+Exact target displayed
+Exact scope displayed
+Risk warning
+Authenticated approver
+Time-limited approval
+Single-use execution token
+Post-action verification
+Immutable audit event
+```
+
+---
+
+## Stage 9 — Explainability, interpretability and transparency
+
+### Weeks 33–36
+
+### 9.1 Explainability is audience-specific
+
+Different users need different explanations.
+
+#### End users
+
+Need to know:
+
+* That AI is involved
+* What information affected the result
+* Why an outcome was produced
+* Important limitations
+* What they can do if it is wrong
+* How to appeal
+
+#### Operators
+
+Need:
+
+* Source documents
+* Confidence signals
+* Tool actions
+* Policy decisions
+* Warnings
+* Model version
+* Relevant context
+
+#### Engineers
+
+Need:
+
+* Prompt version
+* Retrieval results
+* Model parameters
+* Safety decisions
+* Trace spans
+* Error states
+* Evaluation scores
+
+#### Auditors and regulators
+
+Need:
+
+* Governance evidence
+* Model provenance
+* Data lineage
+* Approval history
+* Control operation
+* Change records
+* Incident history
+* Reproducibility
+
+The [ICO's explanation guidance](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/explaining-decisions-made-with-artificial-intelligence/) recommends selecting explanations according to the domain, use case and impact, collecting data in an explanation-aware way, extracting relevant information, translating technical rationale into understandable reasons and preparing operational staff to communicate explanations.
+
+### 9.2 NIST explainability principles
+
+Use four practical tests derived from [NIST's explainable-AI work](https://nvlpubs.nist.gov/nistpubs/ir/2021/nist.ir.8312.pdf):
+
+1. **Explanation:** Does the system provide reasons or evidence?
+2. **Meaningfulness:** Can the intended audience understand it?
+3. **Explanation accuracy:** Does the explanation faithfully describe the process?
+4. **Knowledge limits:** Does the system recognise when it should not provide a confident answer?
+
+### 9.3 Explainability for traditional ML
+
+Use:
+
+* Global feature importance
+* Local feature importance
+* SHAP values
+* Partial dependence
+* Counterfactual explanations
+* Error analysis
+* Cohort analysis
+* Calibration
+* Fairness analysis
+
+AWS provides [SageMaker Clarify](https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-model-explainability.html) for model explainability and bias analysis, while Azure Machine Learning's Responsible AI dashboard combines interpretability, error analysis, counterfactual analysis and related responsible-AI insights.
+
+### 9.4 Explainability for LLMs
+
+Do not present hidden model reasoning as a guaranteed faithful explanation.
+
+Instead provide:
+
+* Retrieved sources
+* Citations
+* Extracted evidence
+* Business rules applied
+* Tool results
+* Validation outcomes
+* Uncertainty
+* Alternative possibilities
+* Known limitations
+* Human-review status
+
+### 9.5 Transparency artefacts
+
+Produce:
+
+#### Model card
+
+* Model name and version
+* Provider
+* Intended uses
+* Restricted uses
+* Training-information disclosures
+* Evaluation results
+* Limitations
+* Ethical considerations
+* Security considerations
+
+#### System card
+
+* Complete architecture
+* Users
+* Data
+* Models
+* Tools
+* Human oversight
+* Risks
+* Evaluations
+* Monitoring
+* Incident process
+
+#### AI notice
+
+Tell users:
+
+* They are interacting with AI
+* What the system does
+* What data it uses
+* Whether conversations are retained
+* Whether humans review interactions
+* Important limitations
+* How to report a problem
+* How to request human support
+
+The EU AI Act includes transparency obligations relating to AI-generated content, including marking and labelling requirements that become applicable according to the Act's [implementation schedule](https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content).
+
+---
+
+## Stage 10 — Traceability, observability and auditability
+
+### Weeks 37–40
+
+### 10.1 Traceability
+
+Traceability answers:
+
+> How was this output or action produced?
+
+Assign one correlation ID to the full request.
+
+```text
+Correlation ID
+   │
+   ├── User and session
+   ├── Application version
+   ├── Prompt-template version
+   ├── Model and model version
+   ├── Model parameters
+   ├── Retrieval query
+   ├── Retrieved document IDs
+   ├── Guardrail decisions
+   ├── Agent plan
+   ├── Tool calls
+   ├── Human approvals
+   ├── Final output
+   └── Feedback or incident
+```
+
+[OpenTelemetry](https://opentelemetry.io/docs/specs/semconv/) traces represent the path a request takes through an application, while semantic conventions provide common attribute names for traces, metrics and logs. This makes OpenTelemetry a useful vendor-neutral foundation for multi-cloud AI observability.
+
+### 10.2 Recommended AI trace schema
+
+```text
+trace_id
+request_id
+timestamp
+environment
+tenant_id
+user_id_hash
+session_id
+use_case_id
+risk_classification
+model_provider
+model_name
+model_version
+prompt_template_id
+prompt_template_version
+input_classification
+input_token_count
+retrieval_query_hash
+retrieved_document_ids
+retrieval_scores
+guardrail_policy_version
+guardrail_result
+agent_id
+agent_goal
+tool_name
+tool_arguments_hash
+approval_id
+output_classification
+output_token_count
+latency
+cost
+evaluation_scores
+error_code
+incident_reference
+```
+
+Do not automatically store complete prompts or model outputs when they contain sensitive data. Store the minimum evidence required, use masking or hashing where appropriate and apply separate access controls to sensitive audit logs.
+
+### 10.3 Auditability
+
+Auditability requires more than operational logs.
+
+An independent reviewer should be able to determine:
+
+* Who approved the system
+* Which version was deployed
+* Which data was used
+* Which controls were active
+* Which evaluation was passed
+* Who changed a prompt
+* Why a model was selected
+* Which documents supported an answer
+* Which user approved an action
+* Which incidents occurred
+* Whether remediation was completed
+
+### 10.4 Evidence repository
+
+Maintain:
+
+```text
+AI Assurance/
+├── 01-System Inventory/
+├── 02-Impact Assessments/
+├── 03-DPIA-and-Legal/
+├── 04-Threat Models/
+├── 05-Data Lineage/
+├── 06-Model-and-System-Cards/
+├── 07-Evaluation Results/
+├── 08-Red-Team Reports/
+├── 09-Approvals/
+├── 10-Change Records/
+├── 11-Incidents/
+├── 12-Audit Evidence/
+└── 13-Retirement Records/
+```
+
+---
+
+## Stage 11 — Red teaming, testing and assurance
+
+### Weeks 41–44
+
+### 11.1 Testing layers
+
+#### Unit testing
+
+Test:
+
+* Input validators
+* PII detectors
+* Policy functions
+* Output schemas
+* Tool argument validators
+* Permission checks
+
+#### Integration testing
+
+Test:
+
+* Model gateway
+* Retrieval permissions
+* Guardrail integration
+* Agent-tool interactions
+* Audit logging
+* Human approval
+
+#### Security testing
+
+Test:
+
+* Authentication
+* Broken access control
+* Injection
+* File handling
+* API abuse
+* Secret exposure
+* Cloud misconfiguration
+* Supply-chain weaknesses
+
+#### AI red teaming
+
+Test:
+
+* Direct prompt injection
+* Indirect prompt injection
+* Jailbreaks
+* Sensitive-data extraction
+* System-prompt extraction
+* RAG poisoning
+* Cross-tenant retrieval
+* Memory poisoning
+* Model routing
+* Tool misuse
+* Agent goal manipulation
+* Multimodal attacks
+
+#### Responsible-AI evaluation
+
+Test:
+
+* Accuracy
+* Groundedness
+* Fairness
+* Toxicity
+* Harm
+* Stereotyping
+* Accessibility
+* Over-refusal
+* Explanation quality
+* Human-oversight effectiveness
+
+### 11.2 Threat-led testing
+
+Map tests to:
+
+* OWASP LLM Top 10
+* OWASP Agentic Top 10
+* OWASP Web Top 10
+* MITRE ATLAS
+* NIST AI RMF risks
+* Internal abuse cases
+* Regulatory requirements
+
+### 11.3 Release gates
+
+Example production gates:
+
+* No unresolved critical security findings
+* No unauthorised cross-tenant access
+* No unauthorised high-impact tool execution
+* Required DPIA and impact assessment approved
+* Model and system cards completed
+* Safety and security evaluations passed
+* Audit and tracing coverage verified
+* Incident kill switch tested
+* Human approval verified
+* Residual risk formally accepted
+
+---
+
+## Stage 12 — Production monitoring, incident response and continuous compliance
+
+### Weeks 45–48
+
+### 12.1 Monitor five categories
+
+#### Operational
+
+* Availability
+* Latency
+* Errors
+* Token use
+* Cost
+* Tool failures
+* Agent loops
+
+#### Model quality
+
+* Accuracy
+* Relevance
+* Groundedness
+* Hallucination
+* Drift
+* Refusal rate
+* Citation quality
+
+#### Security
+
+* Prompt-injection attempts
+* Policy bypasses
+* Data leakage
+* Tool misuse
+* Credential abuse
+* Unusual access
+* Excessive consumption
+
+#### Responsible AI
+
+* Harmful-content rate
+* Bias
+* Accessibility issues
+* Human overrides
+* Complaints
+* Appeal outcomes
+
+#### Compliance
+
+* Inventory completeness
+* Expired assessments
+* Unapproved models
+* Missing logs
+* Retention violations
+* Data-residency deviations
+* Control exceptions
+
+### 12.2 AI incident categories
+
+Create playbooks for:
+
+* Sensitive-data disclosure
+* Prompt-injection compromise
+* RAG poisoning
+* Unsafe autonomous action
+* Compromised model or dependency
+* Model theft
+* Credential compromise
+* Bias or discriminatory impact
+* Harmful output
+* Deepfake or impersonation misuse
+* Unbounded cost
+* Audit-log failure
+
+### 12.3 Immediate containment options
+
+Your system should support:
+
+* Disable agent
+* Disable tool
+* Revoke credentials
+* Disable model route
+* Remove retrieval source
+* Roll back prompt
+* Roll back model
+* Quarantine memory
+* Block tenant or account
+* Apply stricter guardrails
+* Force human review
+* Preserve forensic evidence
+
+---
+
+## 6. Multi-cloud AI security implementation
+
+The security objective should remain consistent across cloud providers. Cloud services are implementations of controls, not substitutes for governance.
+
+---
+
+### 6.1 AWS implementation
+
+| Control area | AWS implementation examples |
+| --- | --- |
+| Organisation governance | AWS Organizations, SCPs, Control Tower |
+| AI governance evidence | AWS Audit Manager GenAI Best Practices Framework |
+| Identity | IAM, IAM Identity Center, workload roles |
+| Encryption | AWS KMS, Secrets Manager |
+| Private connectivity | VPC endpoints, PrivateLink |
+| Data discovery | Amazon Macie |
+| Foundation models | Amazon Bedrock |
+| Custom ML | Amazon SageMaker AI |
+| Runtime safety | Amazon Bedrock Guardrails |
+| Explainability | SageMaker Clarify |
+| API audit | AWS CloudTrail |
+| Model invocation monitoring | CloudWatch and Bedrock invocation logging |
+| Configuration assurance | AWS Config, Security Hub |
+| Evidence storage | S3 with retention and object controls |
+
+AWS's [Generative AI Best Practices Framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/aws-generative-ai-best-practices.html) groups controls under responsible, safe, fair, sustainable, resilient, private, accurate and secure principles and can collect evidence for Bedrock and SageMaker environments through Audit Manager.
+
+Amazon Bedrock provides model-invocation monitoring through CloudWatch, CloudTrail and invocation logging. [Bedrock Guardrails](https://docs.aws.amazon.com/bedrock/latest/userguide/monitoring.html) can evaluate prompts and responses for harmful content, denied topics, sensitive information, prompt attacks and other configured policies.
+
+#### AWS target pattern
+
+```text
+CloudFront/WAF
+      │
+API Gateway
+      │
+Cognito or enterprise identity
+      │
+Private application service
+      │
+PII and input policy layer
+      │
+Amazon Bedrock model gateway
+      │
+Bedrock Guardrails
+      │
+Permission-aware knowledge base
+      │
+Lambda or Step Functions tools
+      │
+Human approval
+      │
+CloudTrail + CloudWatch + S3 evidence
+```
+
+---
+
+### 6.2 Microsoft Azure implementation
+
+| Control area | Azure implementation examples |
+| --- | --- |
+| Organisation governance | Management Groups, Azure Policy |
+| Compliance management | Microsoft Purview Compliance Manager |
+| Identity | Microsoft Entra ID, managed identities, RBAC |
+| Secrets and keys | Azure Key Vault |
+| Private connectivity | VNet integration, Private Link |
+| API security | Azure API Management, Web Application Firewall |
+| AI platform | Microsoft Foundry and Azure Machine Learning |
+| Content protection | Azure AI Content Safety |
+| Data governance | Microsoft Purview |
+| Explainability | Azure ML Responsible AI dashboard |
+| Observability | Azure Monitor, Application Insights, Log Analytics |
+| Security posture | Microsoft Defender for Cloud |
+| SIEM and response | Microsoft Sentinel |
+| Policy evidence | Azure Policy compliance and diagnostic logs |
+
+Microsoft's [AI security benchmark](https://learn.microsoft.com/en-us/security/benchmark/azure/mcsb-v2-artificial-intelligence-security) recommends approved-model controls, layered input and output filtering, comprehensive logging, red teaming and centralised monitoring. It maps the controls to wider standards such as NIST, ISO 27001, CIS, PCI DSS and SOC 2.
+
+[Microsoft Foundry observability](https://learn.microsoft.com/en-us/azure/foundry/concepts/observability) supports operational, token, latency, error and quality monitoring through integration with Azure Monitor and Application Insights.
+
+#### Azure target pattern
+
+```text
+Front Door/WAF
+      │
+API Management
+      │
+Microsoft Entra ID
+      │
+Private application landing zone
+      │
+Content Safety and PII policy
+      │
+Microsoft Foundry model deployment
+      │
+Azure AI Search with document permissions
+      │
+Managed-identity tools
+      │
+Human approval workflow
+      │
+Azure Monitor + Purview + Sentinel
+```
+
+---
+
+### 6.3 Google Cloud implementation
+
+| Control area | Google Cloud implementation examples |
+| --- | --- |
+| AI security framework | Secure AI Framework |
+| Organisation governance | Organisation Policy and project hierarchy |
+| Identity | Cloud IAM and service accounts |
+| Data perimeter | VPC Service Controls |
+| Encryption | Cloud KMS and Secret Manager |
+| Sensitive data | Sensitive Data Protection |
+| AI platform | Vertex AI |
+| Runtime protection | Model Armor |
+| Explainability | Vertex Explainable AI |
+| Audit evidence | Cloud Audit Logs and Cloud Logging |
+| Security posture | Security Command Center |
+| API management | Apigee |
+| Detection and response | Security Command Center and security operations integrations |
+
+Google's [Secure AI Framework](https://cloud.google.com/security/securing-ai) provides a conceptual approach to integrating security into AI development and deployment. Google Model Armor provides runtime screening for prompts, responses and agent interactions, including prompt injection, sensitive-data leakage, harmful content, malicious URLs and malware-related risks.
+
+[Cloud Audit Logs](https://docs.cloud.google.com/vertex-ai/docs/general/audit-logging) provide records designed to answer who performed an action, what they did, where it occurred and when. Data Access logs may require explicit activation for relevant services, which should be included in deployment checklists.
+
+#### Google Cloud target pattern
+
+```text
+Cloud Load Balancing/Cloud Armor
+      │
+Apigee
+      │
+Cloud IAM
+      │
+Private service runtime
+      │
+Sensitive Data Protection
+      │
+Model Armor
+      │
+Vertex AI model or agent
+      │
+Permission-aware retrieval
+      │
+Scoped service-account tools
+      │
+Human approval
+      │
+Cloud Logging + Audit Logs + SCC
+```
+
+---
+
+## 7. Cloud-independent control matrix
+
+| Security objective | AWS | Azure | Google Cloud |
+| --- | --- | --- | --- |
+| Central AI inventory | Audit Manager/custom registry | Foundry/Purview/custom registry | Vertex/SCC/custom registry |
+| Policy enforcement | SCP, Config | Azure Policy | Organisation Policy |
+| Workload identity | IAM roles | Managed identities | Service accounts |
+| Private model access | VPC endpoints | Private Link | Private Service Connect/VPC controls |
+| PII discovery | Macie/custom | Purview/custom | Sensitive Data Protection |
+| Runtime AI firewall | Bedrock Guardrails | Content Safety/custom gateway | Model Armor |
+| Explainability | SageMaker Clarify | Responsible AI dashboard | Vertex Explainable AI |
+| API audit | CloudTrail | Activity/diagnostic logs | Cloud Audit Logs |
+| Application tracing | CloudWatch/OpenTelemetry | Application Insights/OpenTelemetry | Cloud Trace/Logging/OpenTelemetry |
+| Security posture | Security Hub | Defender for Cloud | Security Command Center |
+| SIEM integration | Security Lake/SIEM | Sentinel | Google security operations integrations |
+
+A mature organisation should define one provider-neutral control catalogue and then map each control to the selected cloud implementation. This prevents the governance model from becoming dependent on vendor product names.
+
+---
+
+## 8. Mandatory AI assurance artefacts
+
+Every medium- or high-risk AI system should maintain:
+
+1. AI use-case record
+2. Business case
+3. AI impact assessment
+4. Ethical assessment
+5. DPIA where applicable
+6. AI Act or regulatory classification
+7. Data-flow diagram
+8. Threat model
+9. Data lineage
+10. Model provenance
+11. Model card
+12. System card
+13. Supplier assessment
+14. Security architecture
+15. Human-oversight design
+16. Evaluation plan
+17. Evaluation report
+18. Red-team report
+19. Residual-risk acceptance
+20. Deployment approval
+21. Monitoring plan
+22. Incident-response plan
+23. Change log
+24. Audit-evidence repository
+25. Retirement plan
+
+---
+
+## 9. AI security metrics
+
+### Governance metrics
+
+* Percentage of AI systems in inventory
+* Percentage with named owners
+* Percentage with current impact assessments
+* Number of unapproved models
+* Number of shadow agents
+* Number of expired risk acceptances
+
+### Security metrics
+
+* Prompt-injection success rate
+* Sensitive-data leakage rate
+* Unauthorised tool-action rate
+* Cross-tenant retrieval rate
+* Mean time to detect AI incidents
+* Mean time to disable compromised agents
+* Critical findings overdue
+* Percentage of tools using least privilege
+
+### Responsible-AI metrics
+
+* Harmful-output rate
+* Unsupported-answer rate
+* Over-refusal rate
+* Fairness disparity
+* Human-override rate
+* Appeal rate
+* Explanation satisfaction
+* Accessibility failures
+
+### Traceability metrics
+
+* Percentage of requests with complete traces
+* Percentage of outputs linked to model version
+* Percentage of RAG responses with source provenance
+* Percentage of tool actions linked to user approval
+* Audit-log completeness
+* Failed-log-delivery events
+
+### Operational metrics
+
+* Latency
+* Availability
+* Token consumption
+* Cost per task
+* Tool failure rate
+* Agent loop rate
+* Retrieval relevance
+* Model fallback rate
+
+---
+
+## 10. Five-level AI-security maturity model
+
+### Level 1 — Experimental
+
+* Individual teams use AI independently
+* No central inventory
+* Minimal documentation
+* Manual security checks
+* Limited monitoring
+
+### Level 2 — Controlled
+
+* Basic inventory
+* Approved model list
+* Data classification
+* Initial threat modelling
+* Basic guardrails
+* Named owners
+
+### Level 3 — Managed
+
+* Formal governance board
+* Risk-based approval
+* DPIA and impact assessments
+* CI/CD security testing
+* Central logging
+* Repeatable red teaming
+* Model and system cards
+
+### Level 4 — Measured
+
+* Continuous evaluations
+* Automated evidence collection
+* Cross-cloud policy enforcement
+* Behaviour and drift monitoring
+* Integrated incident response
+* Quantified residual risk
+
+### Level 5 — Adaptive
+
+* Threat-informed controls
+* Continuous control validation
+* Real-time policy enforcement
+* Automated rollback and containment
+* Organisation-wide agent governance
+* Predictive risk analytics
+* Continuous regulatory mapping
+
+---
+
+## 11. Practical capstone project
+
+Build a regulated financial-services assistant that:
+
+* Accepts text, PDF, image and audio inputs
+* Uses PII masking
+* Searches policy and transaction documents
+* Routes requests between multiple approved models
+* Provides cited answers
+* Maintains short-term memory
+* Uses a tool to prepare—but not automatically execute—a payment instruction
+* Requires human approval
+* Records end-to-end traces
+* Supports AWS, Azure or Google Cloud deployment
+
+### Required security tests
+
+Test:
+
+* Direct prompt injection
+* Hidden PDF instructions
+* Instructions contained in images
+* Cross-customer retrieval
+* PII leakage
+* System-prompt extraction
+* Model fallback downgrade
+* Tool recipient manipulation
+* Payment amount modification
+* Memory poisoning
+* Agent identity abuse
+* Unbounded tool loops
+* Missing audit events
+* Explanation inconsistency
+* Human approval bypass
+
+### Final capstone deliverables
+
+* Architecture
+* Threat model
+* DPIA
+* AI impact assessment
+* OWASP control mapping
+* MITRE ATLAS test mapping
+* Cloud security mapping
+* Model and system cards
+* Evaluation suite
+* Red-team report
+* Production monitoring design
+* Incident playbooks
+* Executive risk report
+
+---
+
+## 12. Recommended learning order
+
+Follow this sequence:
+
+1. Cybersecurity and secure software foundations
+2. AI and machine-learning fundamentals
+3. Cloud identity, networking and data security
+4. NIST AI RMF
+5. ISO/IEC 42001 and AI risk management
+6. GDPR and AI regulatory assessment
+7. OWASP Web Top 10
+8. OWASP LLM Top 10
+9. RAG and vector security
+10. Multimodal AI security
+11. OWASP Agentic Top 10
+12. MITRE ATLAS
+13. Explainability and responsible AI
+14. OpenTelemetry and AI observability
+15. AI red teaming
+16. Audit and continuous compliance
+17. Production incident response
+18. Multi-cloud control engineering
+
+The final capability is not simply knowing each framework. It is being able to take an ambiguous AI use case and produce a system that is:
+
+* Commercially useful
+* Technically reliable
+* Secure by design
+* Privacy-preserving
+* Legally defensible
+* Ethically evaluated
+* Explainable to affected people
+* Transparent about its limitations
+* Traceable from input to outcome
+* Auditable by independent reviewers
+* Controllable when something goes wrong
+
+Track OWASP, NIST, the EU AI Act and AWS, Azure and Google Cloud guidance on a monthly change brief so the programme stays current as standards and cloud controls evolve.
+
+<KeyTakeaways>
+- Secure the connected system—decision, data, model, retrieval, agent, tools, app, cloud and process—not the model alone.
+- Stack NIST AI RMF, ISO/IEC 42001, EU AI Act, GDPR, OWASP and ATLAS; map once to multi-cloud controls.
+- Gate production on owners, assessments, evidence, red-team validation, tracing and a tested kill switch.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed path: [Enterprise AI Security roadmap](/roadmaps/enterprise-ai-security).
+- Deepen adversarial testing with [AI Red Teaming](/roadmaps/ai-red-teaming) and delivery hardening with [DevSecOps](/roadmaps/devsecops).
+- Cross-check controls in [Security & privacy](/ai-solution-engineering/security-privacy), [Responsible AI governance](/learning-map/19-responsible-ai-governance) and [AI Governance: Implementing ISO/IEC 42001](/articles/ai-governance-iso-iec-42001).
+</NextSteps>

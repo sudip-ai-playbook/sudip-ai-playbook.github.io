@@ -1,0 +1,166 @@
+---
+sidebar_position: 12
+slug: model-finops
+title: Model FinOps and AI Cost Engineering
+description: An end-to-end multi-cloud roadmap for models, embeddings, RAG, agents, training, inference and model lifecycle cost management.
+---
+
+# Model FinOps and AI Cost Engineering
+
+Model FinOps is the discipline of understanding, allocating, forecasting, governing and optimising the complete cost of building and operating AI systems. It extends traditional cloud FinOps because AI spending is driven by tokens, embeddings, retrieval, agents, training, dedicated capacity and governance—not only servers, storage and networking.
+
+**Pricing reference date: 18 July 2026.** Insert current rates from official provider pricing pages; do not hard-code list prices into architecture assumptions.
+
+The objective is not simply to minimise AI spending. Optimise for the best combination of business value, quality, reliability and security for an acceptable total cost, risk and operational complexity.
+
+<ExecSummary>
+Build unit economics around cost per secure, reliable and valuable business outcome. Progress through a 12-week path: inventory and tagging, demand forecasting, embedding and RAG FinOps, multi-cloud capacity engineering, inference optimisation, agent controls, allocation and governance, then an executive operating model. Prefer Business Need → Quality → Architecture → Consumption → Capacity → Commercial Agreement.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing AI cost models, choosing shared versus provisioned capacity, or governing model spend across AWS, Azure, Google Cloud, OCI, IBM or Alibaba.
+- Pair with the full guide: [Model FinOps and AI Cost Engineering](/articles/model-finops-cost-engineering-roadmap).
+- Cross-check with [AI FinOps and Commercial Design](/ai-solution-engineering/finops-commercial), [Performance Engineering and AI FinOps](/learning-map/22-performance-finops), [AWS](./aws), [Azure](./azure), [Google Cloud](./gcp) and [AI Agents](./ai-agents).
+</WhenToUse>
+
+## Capability map
+
+1. End-to-end AI cost stack (discovery through retirement)
+2. Model taxonomy and economics (classical ML → SLM → LLM → reasoning → multimodal)
+3. Multi-cloud model FinOps (AWS, Azure, Google, OCI, IBM, Alibaba)
+4. Embedding, vector storage and RAG cost engineering
+5. Ten-stage model lifecycle FinOps
+6. Scalability, shared versus provisioned capacity and break-even
+7. Optimisation playbook and agent FinOps
+8. Allocation, telemetry, dashboards and KPIs
+9. Governance policies and maturity model
+10. Twelve-week operating roadmap and decision framework
+
+## The complete AI cost equation
+
+```text
+C_AI = C_discovery + C_data + C_experimentation + C_training
+     + C_evaluation + C_deployment + C_inference + C_retrieval
+     + C_orchestration + C_operations + C_governance
+     + C_people + C_retirement
+```
+
+Per-request inference often dominates recurring spend:
+
+```text
+C_request = C_input + C_cached + C_output + C_reasoning
+          + C_embedding + C_retrieval + C_reranking
+          + C_guardrails + C_tools + C_orchestration
+          + C_logging + C_network
+```
+
+For token-priced models:
+
+```text
+C_input  = (T_input  / 1,000,000) × P_input
+C_output = (T_output / 1,000,000) × P_output
+```
+
+Output tokens are often priced higher than input tokens—controlling response length matters as much as reducing prompt size.
+
+## Model selection order
+
+Do not use an LLM for a task that a deterministic rule, SQL query or classical model can perform accurately.
+
+| Prefer first | Then consider | Only when justified |
+| --- | --- | --- |
+| Rules, SQL, classical ML | Small language models | General-purpose LLMs |
+| Specialist embeddings / rerankers | Mid-tier generation | Reasoning models |
+| Batch and cached paths | Fine-tuning after RAG limits | Self-hosted at high utilisation |
+
+A cheaper model that produces poor answers or requires extensive human correction may be more expensive overall than a more capable model. Measure **cost per successful task**.
+
+## Multi-cloud capacity patterns
+
+| Pattern | Best for | Watch for |
+| --- | --- | --- |
+| On-demand / pay-as-you-go | Prototypes, variable traffic | Uncontrolled agent loops |
+| Flex / lower-priority | Offline enrichment, evaluation | Latency sensitivity |
+| Batch | Summarisation, classification, evals | Interactive SLAs |
+| Provisioned / PTU / GSU | Stable baseload, tight SLAs | Underutilisation |
+| Dedicated clusters / self-hosted | Data residency, custom models | Idle GPUs, ops overhead |
+
+Hybrid pattern: provisioned for baseload, shared for bursts, batch for offline jobs, smaller fallback for resilience.
+
+## Embedding and RAG FinOps
+
+- Embed only new or changed content (document hashes).
+- Size vector storage as `N × D × B` plus indexes, replicas, metadata and backups.
+- Optimise chunking for total cost of embedding + vector + retrieval + generation—not chunk count alone.
+- Retrieve → deduplicate → rerank → send only the best evidence to the LLM.
+- Treat re-embedding as a governed migration with dual-index cutover.
+
+## Optimisation order
+
+1. Eliminate unnecessary model calls
+2. Route by task complexity
+3. Reduce input tokens
+4. Reduce output tokens
+5. Cache prefixes, retrieval and deterministic responses
+6. Move eligible work to batch
+7. Optimise retrieval and top-k
+8. Distil or fine-tune when prompt/RAG limits are reached
+9. Rightsizing and serving efficiency for self-hosted models
+
+## Agent cost controls
+
+Agents multiply cost through planning, tools, retries and validation. Enforce maximum steps, tool calls, tokens, execution time, per-session budgets, loop detection and approval before expensive actions. Track cost per completed agent task.
+
+## Mandatory cost dimensions
+
+Attribute every model call to business unit, product, application, use case, environment, team, provider, model, version, region, feature, experiment and cost centre—without putting PII in tags.
+
+## Twelve-week roadmap
+
+| Weeks | Focus | Deliverables |
+| --- | --- | --- |
+| 1–2 | Foundations and inventory | Model register, tagging standard, spend baseline |
+| 3–4 | Unit economics and forecasting | Cost calculator, scenarios, cost ceilings |
+| 5–6 | Embedding and RAG FinOps | Embedding benchmark, vector model, migration plan |
+| 7–8 | Multi-cloud capacity | Comparison, load tests, break-even analysis |
+| 9 | Inference optimisation | Optimisation backlog, savings and quality report |
+| 10 | Agent FinOps | Execution budgets, agent dashboard |
+| 11 | Governance and allocation | Policy, RACI, budgets and anomaly controls |
+| 12 | Executive operating model | Dashboards, review cadence, five-option business case |
+
+### Capstone
+
+Compare managed API, cloud-hosted managed model, provisioned throughput, self-hosted open model and hybrid routing across three-year cost, quality, scalability, security, compliance, reliability, operational effort, vendor risk and exit cost.
+
+## Maturity model
+
+| Level | Name | Signal |
+| --- | --- | --- |
+| 0 | Uncontrolled | Shared keys, frontier model everywhere |
+| 1 | Visible | Invoices, basic budgets, inventory |
+| 2 | Allocated | App/BU showback, request telemetry |
+| 3 | Optimised | Routing, caching, batch, cost per success |
+| 4 | Governed | Approval, chargeback, policy enforcement |
+| 5 | Value optimised | Real-time unit economics tied to business value |
+
+## Core principle
+
+```text
+Business Need → Quality → Architecture → Consumption → Capacity → Commercial Agreement
+```
+
+Do not begin by negotiating a lower token rate for an inefficient architecture. The ultimate metric is not cost per token:
+
+> **Cost per secure, reliable and valuable business outcome.**
+
+<KeyTakeaways>
+- Include discovery, data, governance and people—not only inference—in the AI cost stack.
+- Default to the smallest sufficient model; measure cost per successful outcome.
+- Optimise calls, context and agents before buying provisioned capacity or negotiating rates.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [Model FinOps and AI Cost Engineering](/articles/model-finops-cost-engineering-roadmap).
+- Apply commercial framing in [AI FinOps and Commercial Design](/ai-solution-engineering/finops-commercial).
+- Practise with [Performance Engineering and AI FinOps](/learning-map/22-performance-finops) and platform paths [AWS](./aws) / [Azure](./azure).
+</NextSteps>

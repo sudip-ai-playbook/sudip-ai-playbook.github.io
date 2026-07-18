@@ -1,0 +1,194 @@
+---
+sidebar_position: 9
+slug: enterprise-ai-security
+title: Enterprise AI Security Roadmap
+description: A 48-week programme for security, governance, compliance, ethics, explainability, auditability, traceability and transparency across LLM, multimodal, multi-model and agentic AI systems.
+---
+
+# Enterprise AI Security Roadmap
+
+The [AI Red Teaming roadmap](./ai-red-teaming) focuses on adversarial testing—prompt hacking, model vulnerabilities, RAG and agent assessment, tools and professional development. This expanded roadmap turns those topics into a complete **enterprise AI-security programme** covering the full lifecycle: use-case approval, data collection, deployment, monitoring, incident response and retirement.
+
+The central principle is:
+
+> **Do not secure only the model. Secure the business decision, data, model, retrieval system, agent, tools, application, cloud platform, users and operating process as one connected system.**
+
+<ExecSummary>
+Operate NIST AI RMF (Govern–Map–Measure–Manage) with ISO/IEC 42001, EU AI Act classification, GDPR/UK GDPR, OWASP Web/LLM/Agentic Top 10 and MITRE ATLAS. Progress through a 48-week path from foundations and governance through data, cloud, model, LLM/RAG, multimodal and agentic controls, explainability, traceability, red teaming and continuous compliance. Use the multi-cloud control matrix and mandatory assurance artefacts as the delivery checklist.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing an organisation-wide AI security programme—not only model testing.
+- Pair with the full guide: [Enterprise AI Security Roadmap](/articles/enterprise-ai-security-roadmap).
+- Cross-check with [AI Red Teaming](./ai-red-teaming), [DevSecOps](./devsecops), [API Security Engineering](./api-security-engineering), [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</WhenToUse>
+
+## What this roadmap covers
+
+Four related architectures:
+
+| Architecture | Examples |
+| --- | --- |
+| **LLM applications** | Chatbots, document assistants, RAG, NL analytics, decision support |
+| **Multimodal AI** | Text, images, audio, video, documents, screen captures, generated media |
+| **Multi-model AI** | Routing, cascades, safety classifiers, embeddings, fallbacks, hybrid cloud/on-prem |
+| **Agentic / multi-agent** | Planning, tools, memory, delegation, workflows, delegated authority |
+
+[OWASP](https://genai.owasp.org/) separates LLM application risks (2025 Top 10) from agentic risks (2026 Top 10: goal hijack, tool misuse, identity abuse, memory poisoning, insecure agent communication, cascading failures).
+
+## Nine disciplines of trustworthy AI
+
+| Discipline | Core question |
+| --- | --- |
+| AI security | Can the system resist attack, misuse and unauthorised access? |
+| AI safety | Can the system avoid causing unacceptable harm? |
+| Compliance | Which laws, regulations, contracts and standards apply? |
+| Governance | Who makes decisions and who is accountable? |
+| Ethics | Should the system be built and used in this way? |
+| Explainability | Can people understand why an output or decision occurred? |
+| Transparency | Are users told what the system is, what it does and its limitations? |
+| Traceability | Can an outcome be followed through data, model, prompt, retrieval and tools? |
+| Auditability | Can an independent reviewer reconstruct and evaluate what happened? |
+
+**Accountability** connects them: named executive, business, technical, data, model, security and privacy/compliance owners; escalation authority; formal risk acceptance; and a mechanism to stop the system. [NIST](https://www.nist.gov/trustworthy-and-responsible-ai) frames trustworthy AI through validity, safety, security, accountability, explainability, privacy and fairness—balanced by context and risk.
+
+## Assurance framework stack
+
+Do not choose one framework and ignore the rest:
+
+1. **[NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)** — Govern, Map, Measure, Manage (+ Generative AI Profile)
+2. **[ISO/IEC 42001](https://www.iso.org/standard/81230.html)** — AI Management System (Plan–Do–Check–Act); pair with ISO/IEC 23894 and ISO/IEC 42005
+3. **[EU AI Act](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)** — prohibited, high-risk, transparency, GPAI, minimal-risk; maintain a live obligations register
+4. **GDPR / UK GDPR** — lawful basis, minimisation, ADM, DPIA, transfers ([ICO accountability guidance](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/what-are-the-accountability-and-governance-implications-of-ai/))
+5. **OWASP** — Web Top 10 2025, LLM Top 10 2025, Agentic Top 10 2026
+6. **[MITRE ATLAS](https://atlas.mitre.org/)** — threat-informed defence, red-team scenarios, detections
+
+## End-to-end control layers
+
+```text
+Users → channel security → identity → input/multimodal inspection → PII policy
+  → prompt/context isolation → model gateway → RAG/memory → agent/tools/policy
+  → output validation → user response or approved action
+```
+
+Across every layer: identity, encryption, policy, logging, tracing, evaluation, lineage, monitoring, incident response, cost controls and audit evidence.
+
+## Twelve-stage, 48-week journey
+
+| Stage | Weeks | Outcome |
+| --- | ---: | --- |
+| 1. Foundations | 1–4 | Understand AI, cybersecurity and secure software |
+| 2. Governance and inventory | 5–8 | Ownership, policy and AI asset visibility |
+| 3. Compliance and ethical impact | 9–12 | Legal, regulatory and societal risk classification |
+| 4. Data and privacy security | 13–16 | Secure training, RAG, prompts, memory and logs |
+| 5. Cloud and platform security | 17–20 | Landing zones, identity and network controls |
+| 6. Model lifecycle security | 21–24 | Models, artefacts, dependencies and suppliers |
+| 7. LLM and RAG security | 25–28 | OWASP LLM Top 10 controls |
+| 8. Multimodal and agentic security | 29–32 | Images, audio, tools, memory and agents |
+| 9. Explainability and transparency | 33–36 | Explanations and user disclosures |
+| 10. Traceability and auditability | 37–40 | Reconstruct every important AI outcome |
+| 11. Red teaming and assurance | 41–44 | Validate controls adversarially |
+| 12. Operations and continuous compliance | 45–48 | Monitor, respond, audit and improve |
+
+### Stage 1 — Foundations (weeks 1–4)
+
+Study AI fundamentals (transformers, embeddings, RAG, tools, agents, multimodal, routing) and security foundations (CIA, identity, zero trust, threat modelling, cryptography, APIs, supply chain, IR).
+
+**Build:** small AI app with auth, LLM, vector store, three synthetic docs, a business tool, structured outputs and audit logging.
+
+**Exit:** explain where data enters, which services and models process it, where it is stored, which identity acts, which controls block unauthorised access and which logs prove what occurred.
+
+### Stage 2 — Governance, ownership and inventory (weeks 5–8)
+
+Establish AI steering committee, risk/assurance forum and operations forum. Inventory every use case, model, agent, tool, prompt, RAG index, dataset and endpoint. Publish acceptable-use, prohibited-use, procurement, model-approval, data-use, oversight, security, IR, transparency, evaluation and retirement policies.
+
+**Exit:** no production AI without business owner, technical owner, risk class, inventory entry, approved model, impact assessment, threat model and deployment decision.
+
+### Stage 3 — Compliance, ethics and impact (weeks 9–12)
+
+Build an obligations register (data protection, ADM, AI Act, sector rules, IP, consumer law, accessibility, retention, cross-border, contracts). Run AI impact and ethical assessments; define human-in/on/over/out-of-the-loop oversight.
+
+**Exit:** impact assessment, DPIA where needed, AI Act classification, ethical assessment, obligations register, oversight design and residual-risk decision.
+
+### Stage 4 — Data governance and privacy (weeks 13–16)
+
+Classify prompts, files, embeddings, memory, tool I/O, logs and feedback. Minimise before inference. Build a PII pipeline (scan → classify → detect → mask → policy → process → inspect). Secure RAG (permission-aware retrieval, provenance, deletion propagation) and every memory type (write/read, retention, poisoning detection).
+
+**Exit:** every data source has owner, classification, purpose, lawful basis, retention, access policy, lineage, deletion procedure, quality assessment and security controls.
+
+### Stage 5 — Cloud, identity, network and platform (weeks 17–20)
+
+SSO, MFA, RBAC/ABAC, workload identities, separate agent identities, PAM. Delegated authority for tools (policy → approval → short-lived credential → one action). Private endpoints, segmentation, egress allowlists, encryption, secrets vaults, API authz, rate limits and abuse detection.
+
+### Stage 6 — Model lifecycle and supply chain (weeks 21–24)
+
+Assess providers before approval; maintain provenance; protect registries, weights, prompts, MCP servers and CI/CD with signing, SBOM/MBOM and scanning. Treat model upgrades, new tools, prompts, retrieval sources and guardrail changes as material changes requiring regression tests.
+
+### Stage 7 — OWASP LLM Top 10 (weeks 25–28)
+
+Implement controls for prompt injection, sensitive disclosure, supply chain, poisoning, improper output handling, excessive agency, system-prompt leakage, vector/embedding weaknesses, misinformation and unbounded consumption. Test guardrail configuration—do not assume it works.
+
+### Stage 8 — Multimodal, multi-model and agentic (weeks 29–32)
+
+Inspect images, documents, audio and video for hidden instructions and adversarial content. Harden model routing, policy consistency and security-equivalent fallbacks. Apply OWASP Agentic Top 10 (ASI01–ASI10). High-impact tools require exact action display, authenticated approval, time-limited single-use tokens and immutable audit events.
+
+### Stage 9 — Explainability and transparency (weeks 33–36)
+
+Audience-specific explanations (users, operators, engineers, auditors). Prefer citations, evidence, business rules and uncertainty over claiming faithful hidden reasoning. Produce model cards, system cards and AI notices.
+
+### Stage 10 — Traceability and auditability (weeks 37–40)
+
+One correlation ID across user, prompt version, model, retrieval, guardrails, tools, approvals and output. Use OpenTelemetry-friendly schemas; minimise sensitive content in logs. Maintain an AI Assurance evidence repository (inventory, assessments, threat models, cards, evaluations, red-team reports, approvals, incidents, retirement).
+
+### Stage 11 — Red teaming and assurance (weeks 41–44)
+
+Unit, integration, security, AI red-team and responsible-AI evaluation layers. Map to OWASP, ATLAS, NIST and policy. Gate releases on critical findings, cross-tenant access, high-impact tools, DPIA, cards, evaluations, tracing, kill switch, human approval and residual-risk acceptance.
+
+### Stage 12 — Operations and continuous compliance (weeks 45–48)
+
+Monitor operational, quality, security, responsible-AI and compliance signals. Maintain playbooks for leakage, injection, poisoning, unsafe autonomy, supply-chain compromise, bias, deepfakes, cost abuse and audit-log failure. Support disable-agent/tool, revoke credentials, quarantine memory, rollback and forensic preservation.
+
+## Multi-cloud control matrix (summary)
+
+| Objective | AWS | Azure | Google Cloud |
+| --- | --- | --- | --- |
+| Runtime AI firewall | Bedrock Guardrails | Content Safety / gateway | Model Armor |
+| PII discovery | Macie / custom | Purview / custom | Sensitive Data Protection |
+| Explainability | SageMaker Clarify | Responsible AI dashboard | Vertex Explainable AI |
+| API audit | CloudTrail | Activity / diagnostic logs | Cloud Audit Logs |
+| Security posture | Security Hub | Defender for Cloud | Security Command Center |
+| SIEM | Security Lake / SIEM | Sentinel | Security operations |
+
+Define one provider-neutral control catalogue, then map to cloud implementations.
+
+## Mandatory assurance artefacts
+
+Medium- or high-risk systems should maintain use-case record, business case, impact and ethical assessments, DPIA, regulatory classification, DFDs, threat model, lineage, model provenance, model/system cards, supplier assessment, security architecture, oversight design, evaluation plan/report, red-team report, residual-risk acceptance, deployment approval, monitoring and IR plans, change log, audit evidence and retirement plan.
+
+## Five-level maturity
+
+1. **Experimental** — ad hoc use, minimal docs  
+2. **Controlled** — inventory, approved models, basic guardrails  
+3. **Managed** — formal governance, DPIA, CI security, red teaming, cards  
+4. **Measured** — continuous evals, automated evidence, quantified residual risk  
+5. **Adaptive** — threat-informed controls, real-time policy, automated containment  
+
+## Capstone
+
+Build a regulated financial-services assistant: multimodal inputs, PII masking, cited RAG, multi-model routing, short-term memory, payment-prep tool with human approval, end-to-end traces, deployable on AWS, Azure or Google Cloud. Test injection (text/PDF/image), cross-customer retrieval, PII leakage, fallback downgrade, tool manipulation, memory poisoning, approval bypass and missing audit events.
+
+## Core principle
+
+> The final capability is not knowing each framework in isolation. It is taking an ambiguous AI use case and producing a system that is commercially useful, technically reliable, secure by design, privacy-preserving, legally defensible, ethically evaluated, explainable, transparent, traceable, auditable and controllable when something goes wrong.
+
+<KeyTakeaways>
+- Secure the connected system—decision, data, model, retrieval, agent, tools, app, cloud and process—not the model alone.
+- Stack NIST AI RMF, ISO/IEC 42001, EU AI Act, GDPR, OWASP and ATLAS; map once to multi-cloud controls.
+- Gate production on owners, assessments, evidence, red-team validation, tracing and a tested kill switch.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [Enterprise AI Security Roadmap](/articles/enterprise-ai-security-roadmap).
+- Deepen adversarial testing with [AI Red Teaming](./ai-red-teaming) and delivery hardening with [DevSecOps](./devsecops).
+- Practise related skills: [Security Engineering](/learning-map/17-security-engineering), [Responsible AI governance](/learning-map/19-responsible-ai-governance) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</NextSteps>
