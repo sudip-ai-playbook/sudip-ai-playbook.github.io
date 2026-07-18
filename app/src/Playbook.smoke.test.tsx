@@ -96,11 +96,19 @@ describe('End-to-end journey smoke', () => {
   })
 
   it('continues a framed journey from hub and links to learning content', async () => {
+    const user = userEvent.setup()
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
     expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue architecture journey')
     expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
-    expect(screen.getByTestId('hub-blog-featured')).toBeInTheDocument()
     expect(screen.getByTestId('open-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
+    expect(screen.getByTestId('brand-home')).toHaveAttribute('href', '#/')
+    expect(screen.queryByTestId('shell-outcome')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('hub-blog-featured')).not.toBeInTheDocument()
+
+    await user.click(screen.getByTestId('start-journey'))
+    expect(await screen.findByTestId('map-view')).toBeInTheDocument()
+    await user.click(screen.getByTestId('brand-home'))
+    expect(await screen.findByTestId('hub-view')).toBeInTheDocument()
   })
 })

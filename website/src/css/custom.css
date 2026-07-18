@@ -1,5 +1,6 @@
 /**
  * Design tokens and reading experience for the AI Solution Engineering Playbook site.
+ * Shared across home, docs, Learning Map, Guide, and Articles (blog).
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap');
@@ -19,6 +20,7 @@
   --ase-color-warning: #b45309;
   --ase-color-danger: #b42318;
   --ase-color-success: #0f6e56;
+  --ase-color-role: #5b4b8a;
 
   /* Spacing scale (8pt) */
   --ase-space-1: 0.25rem;
@@ -56,12 +58,20 @@
 
   --ifm-background-color: var(--ase-paper);
   --ifm-navbar-background-color: rgba(247, 246, 242, 0.86);
-  --ifm-footer-background-color: #14201b;
+  --ifm-footer-background-color: var(--ase-paper-deep);
+  --ifm-footer-color: var(--ase-muted);
+  --ifm-footer-link-color: var(--ase-ink);
+  --ifm-footer-title-color: var(--ase-ink);
   --ifm-color-content: var(--ase-ink);
   --ifm-color-content-secondary: var(--ase-muted);
   --ifm-heading-color: var(--ase-ink);
   --ifm-link-color: var(--ifm-color-primary);
   --ifm-blockquote-border-color: var(--ifm-color-primary);
+  --ifm-menu-color: var(--ase-ink);
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-toc-border-color: var(--ase-rule);
+  --ifm-hr-background-color: var(--ase-rule);
+  --ifm-card-background-color: var(--ase-paper);
   --docusaurus-highlighted-code-line-bg: rgba(15, 110, 86, 0.08);
 
   --ifm-h1-font-size: 2.35rem;
@@ -82,6 +92,7 @@
   --ase-color-warning: #f59e0b;
   --ase-color-danger: #f87171;
   --ase-color-success: #4ec9a8;
+  --ase-color-role: #b4a5e0;
 
   --ase-ink: #e8eee9;
   --ase-muted: #9aaba3;
@@ -94,14 +105,30 @@
 
   --ifm-background-color: var(--ase-paper);
   --ifm-navbar-background-color: rgba(16, 22, 19, 0.88);
-  --ifm-footer-background-color: #0a0e0c;
+  --ifm-footer-background-color: var(--ase-paper-deep);
+  --ifm-footer-color: var(--ase-muted);
+  --ifm-footer-link-color: var(--ase-ink);
+  --ifm-footer-title-color: var(--ase-ink);
   --ifm-color-content: var(--ase-ink);
+  --ifm-color-content-secondary: var(--ase-muted);
   --ifm-heading-color: var(--ase-ink);
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-blockquote-border-color: var(--ifm-color-primary);
+  --ifm-menu-color: var(--ase-ink);
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-toc-border-color: var(--ase-rule);
+  --ifm-hr-background-color: var(--ase-rule);
+  --ifm-card-background-color: var(--ase-paper);
   --docusaurus-highlighted-code-line-bg: rgba(78, 201, 168, 0.12);
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -138,6 +165,8 @@ body {
   outline-offset: 2px;
 }
 
+/* —— Shared chrome (navbar / footer / toggle) —— */
+
 .navbar {
   border-bottom: 1px solid var(--ase-rule);
   backdrop-filter: blur(12px);
@@ -149,7 +178,6 @@ body {
   font-size: 0.95rem;
 }
 
-/* Text-only brand — no Docusaurus / default logo mark */
 .navbar__logo {
   display: none;
 }
@@ -169,6 +197,8 @@ body {
 
 .footer {
   border-top: 1px solid var(--ase-rule);
+  background-color: var(--ase-paper-deep) !important;
+  color: var(--ase-muted);
 }
 
 .footer__title {
@@ -176,44 +206,34 @@ body {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   font-size: 0.75rem;
-}
-
-/* Blog / articles list */
-.blog-list-page article {
-  margin-bottom: 2.75rem;
-  padding-bottom: 2.25rem;
-  border-bottom: 1px solid var(--ase-rule);
-}
-
-.blog-list-page article header h2 {
-  font-size: 1.65rem;
-  letter-spacing: -0.03em;
-  margin-bottom: 0.35rem;
-}
-
-.blog-list-page article header h2 a {
   color: var(--ase-ink);
-  text-decoration: none;
 }
 
-.blog-list-page article header h2 a:hover {
-  color: var(--ifm-color-primary);
-}
-
-.blog-list-page .avatar__subtitle,
-.blog-list-page .margin-vert--md {
+.footer__link-item {
   color: var(--ase-muted);
 }
 
-/* Reading column */
+.footer__link-item:hover {
+  color: var(--ifm-color-primary);
+}
+
+.footer__copyright {
+  color: var(--ase-muted);
+  font-size: 0.85rem;
+}
+
+/* —— Shared reading column (docs + blog) —— */
+
 .markdown {
   max-width: var(--ase-content-width);
 }
 
 article .markdown > h1:first-child,
-.theme-doc-markdown > h1:first-child {
+.theme-doc-markdown > h1:first-child,
+.blog-post-page header h1 {
   letter-spacing: -0.035em;
   margin-bottom: 0.75rem;
+  color: var(--ase-ink);
 }
 
 .markdown > h2 {
@@ -307,17 +327,65 @@ article .markdown > h1:first-child,
   box-shadow: none;
 }
 
-.theme-doc-sidebar-container {
+/* —— Sidebars (docs + blog recent articles) —— */
+
+.theme-doc-sidebar-container,
+.blog-wrapper .col.col--3 {
   border-right: 1px solid var(--ase-rule) !important;
 }
 
 .menu__link {
   font-size: 0.9rem;
   border-radius: 6px;
+  color: var(--ase-ink);
 }
 
 .menu__link--active:not(.menu__link--sublist) {
   background: var(--ase-accent-soft);
+}
+
+/* Blog sidebar title + links — match docs menu */
+.blog-wrapper .col.col--3 > div > h3,
+.blog-wrapper aside h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ase-muted);
+  margin-bottom: 0.85rem;
+}
+
+.blog-wrapper .col.col--3 ul,
+.blog-wrapper aside ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.blog-wrapper .col.col--3 li a,
+.blog-wrapper aside li a {
+  display: block;
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  color: var(--ase-ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.blog-wrapper .col.col--3 li a:hover,
+.blog-wrapper aside li a:hover {
+  background: var(--ase-accent-soft);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.blog-wrapper .col.col--3 li a[aria-current='page'],
+.blog-wrapper aside li a[aria-current='page'],
+.blog-wrapper .col.col--3 li a[class*='sidebarItemLinkActive'] {
+  background: var(--ase-accent-soft);
+  color: var(--ifm-color-primary);
 }
 
 /* Sticky TOC polish */
@@ -362,11 +430,83 @@ article .markdown > h1:first-child,
   background: transparent;
   font-size: 0.78rem;
   font-weight: 500;
+  color: var(--ase-muted);
 }
 
 .tag:hover {
   border-color: var(--ifm-color-primary);
   background: var(--ase-accent-soft);
+  color: var(--ifm-color-primary);
+}
+
+/* —— Blog / articles — same surface language as docs —— */
+
+.blog-list-page .container,
+.blog-post-page .container,
+.blog-tags-post-list-page .container,
+.blog-tags-list-page .container {
+  max-width: var(--ase-page-max);
+}
+
+.blog-list-page header h1,
+.blog-tags-post-list-page header h1,
+.blog-tags-list-page header h1 {
+  letter-spacing: -0.035em;
+  color: var(--ase-ink);
+}
+
+.blog-list-page header p,
+.blog-list-page .margin-vert--lg > p:first-of-type {
+  color: var(--ase-muted);
+  max-width: 36rem;
+}
+
+.blog-list-page article {
+  margin-bottom: 2.75rem;
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--ase-rule);
+}
+
+.blog-list-page article header h2 {
+  font-size: 1.65rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.blog-list-page article header h2 a {
+  color: var(--ase-ink);
+  text-decoration: none;
+}
+
+.blog-list-page article header h2 a:hover {
+  color: var(--ifm-color-primary);
+}
+
+.blog-list-page .avatar__subtitle,
+.blog-list-page .margin-vert--md,
+.blog-post-page .avatar__subtitle,
+.blog-post-page time,
+.blog-list-page time {
+  color: var(--ase-muted);
+}
+
+.blog-post-page article header {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--ase-rule);
+}
+
+.blog-post-page .markdown {
+  max-width: var(--ase-content-width);
+}
+
+.avatar__name {
+  color: var(--ase-ink);
+  font-weight: 600;
+}
+
+.avatar__intro {
+  color: var(--ase-muted);
 }
 
 /* Series meta strip */
@@ -405,6 +545,13 @@ article .markdown > h1:first-child,
 /* Search bar alignment with brand */
 .navbar__search-input {
   border-radius: 8px;
+  background: var(--ase-paper-deep);
+  border: 1px solid var(--ase-rule);
+  color: var(--ase-ink);
+}
+
+.navbar__search-input::placeholder {
+  color: var(--ase-muted);
 }
 
 @media (max-width: 996px) {
@@ -414,4 +561,9 @@ article .markdown > h1:first-child,
   }
 
   --ifm-h1-font-size: 1.9rem;
+
+  .theme-doc-sidebar-container,
+  .blog-wrapper .col.col--3 {
+    border-right: none !important;
+  }
 }

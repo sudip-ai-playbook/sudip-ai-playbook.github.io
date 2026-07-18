@@ -1,0 +1,147 @@
+---
+sidebar_position: 2
+slug: ai-agents
+title: AI Agents Engineering Roadmap
+description: A six-stage engineering roadmap for designing, building and operating production-grade enterprise AI agents.
+---
+
+# AI Agents Engineering Roadmap
+
+AI agents are moving beyond experimental chatbots into systems that can search enterprise knowledge, call APIs, analyse data, write code, update business systems and coordinate multi-step workflows.
+
+Building a reliable agent is not simply connecting a large language model to a few tools. Production-grade agents require backend engineering, model knowledge, prompt design, tool orchestration, memory, security, evaluation, observability and operational governance.
+
+<ExecSummary>
+Use AI for interpretation and flexible reasoning; keep permissions, policy enforcement, validation and high-impact execution under deterministic control. Follow the six stages below, then complete the production-readiness checklist before release.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing or reviewing an enterprise agent programme.
+- Pair with the full guide: [Building Production-Grade AI Agents](/articles/building-production-grade-ai-agents).
+- Cross-check patterns in [Agentic AI](/ai-solution-engineering/agentic-ai), [RAG](/ai-solution-engineering/rag) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</WhenToUse>
+
+## Capability map
+
+These areas are interdependent rather than isolated topics:
+
+1. Prerequisites (backend, Git, APIs)
+2. LLM fundamentals
+3. Agent loops
+4. Prompt engineering
+5. Tools and MCP
+6. Memory
+7. Architectures
+8. Implementation frameworks
+9. Testing and evaluation
+10. Monitoring and observability
+11. Security, privacy and ethics
+
+## Six-stage learning journey
+
+### Stage 1 — Foundations
+
+Learn Python or TypeScript, backend development, REST APIs, Git, command-line tools, authentication, SQL and Docker.
+
+**Build:** a basic API service, an authenticated database application, and a tool that calls an external API.
+
+### Stage 2 — LLM applications
+
+Learn tokens, context windows, generation controls, model selection, structured output, embeddings, vector databases and RAG.
+
+**Build:** a document Q&A application, a structured extraction pipeline, and a model-routing service.
+
+### Stage 3 — Single-agent systems
+
+Learn agent loops, function calling, tool schemas, retries, workflow state, limits and human approval.
+
+**Build:** a research agent, a database-analysis agent, and a support triage agent.
+
+### Stage 4 — Production engineering
+
+Learn evaluation, distributed tracing, prompt versioning, cost monitoring, secrets management, rate limiting, queues, caching, CI/CD and infrastructure as code.
+
+**Build:** an agent with regression tests, tracing and cost dashboards, and controlled deployment environments.
+
+### Stage 5 — Enterprise security
+
+Learn prompt injection, data-loss prevention, PII redaction, RBAC/ABAC, tool sandboxing, threat modelling, audit requirements and AI governance.
+
+**Build:** a permission-aware agent, a red-team test suite, an approval workflow, and an auditable tool gateway.
+
+### Stage 6 — Advanced architectures
+
+Learn planner–executor systems, DAG workflows, multi-agent patterns, MCP, long-term memory, model routing and event-driven agents.
+
+**Build:** a resumable long-running workflow, an MCP server, a multi-agent system with clear roles, and a workflow with deterministic and agentic stages.
+
+## Production readiness checklist
+
+Before releasing an AI agent, confirm:
+
+### Business
+
+- The business problem is clearly defined
+- The agent has measurable success criteria
+- The expected benefit justifies the complexity
+- A non-agentic alternative has been considered
+
+### Data
+
+- Data sources are approved and access controls are enforced
+- Sensitive data is minimised and retention rules are defined
+- Source freshness is monitored
+
+### Model
+
+- The model has been evaluated on representative tasks
+- Latency and cost are acceptable
+- Fallback behaviour exists and version changes are controlled
+
+### Tools
+
+- Every tool has a strict schema and limited permissions
+- High-risk actions require approval
+- Retries are safe and actions are auditable
+
+### Workflow
+
+- Step limits, timeouts and failure paths exist
+- Workflows can resume safely
+- Duplicate execution is prevented
+
+### Evaluation
+
+- Unit, integration and adversarial tests exist
+- Regression datasets exist
+- Production feedback is captured
+
+### Security
+
+- Prompt-injection risks are tested
+- Tools are sandboxed and secrets are protected
+- PII is handled correctly and tenant isolation is verified
+- Incident-response procedures exist
+
+### Operations
+
+- Logs and traces are available
+- Cost is monitored and alerts are configured
+- Model and prompt versions are recorded
+- Rollback mechanisms exist and ownership is assigned
+
+## Core architectural principle
+
+> The best enterprise agent is not the one with the greatest autonomy. It is the one that completes a valuable business outcome reliably, securely, efficiently and transparently.
+
+<KeyTakeaways>
+- Start with assistive agents that recommend actions before autonomous agents that execute irreversible actions.
+- Treat prompts, schemas and evaluation datasets as version-controlled artefacts.
+- Enforce tool permissions with least privilege and human approval for high-impact actions.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [Building Production-Grade AI Agents](/articles/building-production-grade-ai-agents).
+- Review [Agentic AI Systems](/ai-solution-engineering/agentic-ai) for delivery patterns.
+- Practise related skills in the Learning Map: [Agentic AI & workflow automation](/learning-map/14-agentic-ai-workflow-automation) and [Prompt & context engineering](/learning-map/12-prompt-context-engineering).
+</NextSteps>

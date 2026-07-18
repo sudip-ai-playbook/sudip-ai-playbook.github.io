@@ -43,17 +43,17 @@
 }
 
 .when {
-  border-left-color: #3b6ea5;
+  border-left-color: var(--ase-color-info);
 }
 
 .decision {
-  border-left-color: #b45309;
-  background: rgba(180, 83, 9, 0.08);
+  border-left-color: var(--ase-color-warning);
+  background: color-mix(in srgb, var(--ase-color-warning) 10%, transparent);
 }
 
 .risk {
-  border-left-color: #b42318;
-  background: rgba(180, 35, 24, 0.07);
+  border-left-color: var(--ase-color-danger);
+  background: color-mix(in srgb, var(--ase-color-danger) 9%, transparent);
 }
 
 .control {
@@ -72,11 +72,11 @@
 }
 
 .deliverable {
-  border-left-color: #0f6e56;
+  border-left-color: var(--ase-color-success);
 }
 
 .role {
-  border-left-color: #5b4b8a;
+  border-left-color: var(--ase-color-role);
 }
 
 .takeaways {
@@ -84,7 +84,7 @@
 }
 
 .next {
-  border-left-color: #0f6e56;
+  border-left-color: var(--ase-color-success);
   background: var(--ase-accent-soft);
 }
 
@@ -110,16 +110,4 @@
   .audienceGrid {
     grid-template-columns: 1fr;
   }
-}
-
-[data-theme='dark'] .decision {
-  background: rgba(245, 158, 11, 0.1);
-}
-
-[data-theme='dark'] .risk {
-  background: rgba(248, 113, 113, 0.1);
-}
-
-[data-theme='dark'] .when {
-  border-left-color: #7eb6e8;
 }

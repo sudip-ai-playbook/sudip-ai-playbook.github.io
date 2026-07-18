@@ -3,6 +3,16 @@ ai-engineering:
   permalink: /ai-engineering
   description: Building applications with foundation models—evaluation, RAG, agents, and production
 
+roadmaps:
+  label: Roadmaps
+  permalink: /roadmaps-tag
+  description: Stage-by-stage engineering journeys for production AI capabilities
+
+agents:
+  label: Agents
+  permalink: /agents
+  description: Designing, building and operating production-grade AI agents
+
 solution-engineering:
   label: Solution Engineering
   permalink: /solution-engineering

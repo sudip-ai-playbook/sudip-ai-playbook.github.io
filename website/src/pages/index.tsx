@@ -38,6 +38,16 @@ const PATHS: PathCard[] = [
     secondaryTo: '/docs/ai-solution-engineering/8d-framework',
   },
   {
+    eyebrow: 'Engineering journeys',
+    title: 'Roadmaps',
+    description:
+      'Stage-by-stage paths to production capabilities — starting with enterprise AI agents.',
+    primaryLabel: 'Open roadmaps',
+    primaryTo: '/roadmaps/overview',
+    secondaryLabel: 'AI Agents roadmap',
+    secondaryTo: '/roadmaps/ai-agents',
+  },
+  {
     eyebrow: 'Hands-on',
     title: 'Use the interactive tools',
     description:

@@ -1,0 +1,1911 @@
+---
+slug: ai-governance-nist-eu-ai-act
+title: "AI Governance in the Enterprise Delivery Framework: Applying NIST AI RMF and the EU AI Act in Practice"
+description: Apply NIST AI RMF and the EU AI Act as Step 5 of the AI delivery framework—risk classification, control planning and audit-ready evidence before data or model work begins.
+authors: [sudip]
+tags: [governance, consulting, solution-engineering, playbook]
+keywords:
+  - AI governance
+  - NIST AI RMF
+  - EU AI Act
+  - AI risk classification
+  - Responsible AI
+  - AI Solution Engineering
+---
+
+AI governance should not begin when a solution is ready for production. It must operate as Step 5 of the AI delivery framework—before data engineering, model experimentation, prototyping or architecture implementation begins.
+
+{/* truncate */}
+
+<ExecSummary>
+Use the EU AI Act for regulatory classification and mandatory baselines, and NIST AI RMF to operationalise risk ownership, controls, measurement and continual improvement—before any production or personal data reaches a model.
+</ExecSummary>
+
+<WhenToUse>
+- Use this when designing an enterprise AI governance gate or qualifying a use case before build.
+- Pair with [AI Consulting Strategy, Frameworks and Roadmap](/articles/ai-consulting-strategy-frameworks-roadmap), [ConsultAI OS](https://sudip-ai-playbook.github.io/consult) and [Responsible AI governance](/learning-map/19-responsible-ai-governance).
+- Treat the artefact pack and material-change triggers as the operating checklist for regulated or high-consequence systems.
+</WhenToUse>
+
+## Governance is not the final approval gate
+
+AI governance should not begin when a solution is ready for production.
+
+By that point:
+
+* Data may already have been transferred to a model provider.
+* Sensitive information may have entered prompts, logs or vector databases.
+* An unsuitable model may already have been selected.
+* Teams may have built workflows that cannot provide explanations or audit evidence.
+* A prohibited or high-risk use case may already have received substantial investment.
+* Human oversight may have been added as a superficial interface feature rather than designed into the operating process.
+
+Governance must therefore operate as **Step 5 of the AI delivery framework—before data engineering, model experimentation, prototyping or architecture implementation begins**.
+
+A useful end-to-end sequence is:
+
+| Stage | Delivery focus                                              |
+| ----- | ----------------------------------------------------------- |
+| 1     | Business strategy and problem framing                       |
+| 2     | Opportunity discovery and use-case definition               |
+| 3     | Value, desirability and feasibility assessment              |
+| 4     | Business case, sponsorship and initial prioritisation       |
+| **5** | **AI governance, risk classification and control planning** |
+| 6     | Data readiness and lawful data access                       |
+| 7     | Solution and security architecture                          |
+| 8     | Prototype and model experimentation                         |
+| 9     | Testing, evaluation and assurance                           |
+| 10    | Production deployment                                       |
+| 11    | Adoption, training and change management                    |
+| 12    | Monitoring, incident management and continual improvement   |
+
+Step 5 determines whether the use case should proceed, what level of assurance it requires and what evidence must be produced throughout the remaining lifecycle.
+
+This is not only a compliance exercise. McKinsey’s March 2025 global AI survey found that CEO oversight of AI governance was one of the organisational elements most correlated with higher self-reported bottom-line impact from generative AI. At larger organisations, CEO oversight was the governance element with the strongest association with EBIT attributable to generative AI. The same study found that 47% of respondents said their organisations had experienced at least one negative consequence from generative AI use.
+
+The commercial lesson is straightforward:
+
+> Well-governed AI is more likely to be trusted, adopted, scaled and connected to measurable business value.
+
+---
+
+## 1. The two-layer governance model
+
+Enterprise AI governance should use the NIST AI Risk Management Framework and the EU AI Act for different but complementary purposes.
+
+### 1.1 NIST AI RMF: how the organisation manages AI risk
+
+The NIST AI Risk Management Framework is a voluntary framework for incorporating trustworthiness considerations into the design, development, acquisition, deployment, use and evaluation of AI systems. It organises AI risk management around four functions:
+
+* **Govern**
+* **Map**
+* **Measure**
+* **Manage**
+
+Govern applies across the entire lifecycle, while Map, Measure and Manage are applied iteratively to individual systems and use cases.
+
+NIST provides the organisation with a repeatable management system for answering questions such as:
+
+* Who owns the AI risk?
+* What people or groups could be affected?
+* What could go wrong?
+* How will the risk be measured?
+* Which controls reduce the risk?
+* Who can accept the remaining risk?
+* When should the system be stopped?
+* How will incidents and material changes be handled?
+
+### 1.2 EU AI Act: what legal obligations apply
+
+The EU AI Act is a binding, risk-based legal framework. It classifies AI uses according to their potential impact on safety, health and fundamental rights.
+
+Its four broad risk levels are:
+
+1. **Unacceptable risk**
+2. **High risk**
+3. **Limited or transparency risk**
+4. **Minimal or no risk**
+
+The Act imposes increasingly demanding obligations as the potential impact of the use case increases.
+
+The EU AI Act answers questions such as:
+
+* Is the use prohibited?
+* Is it legally considered high risk?
+* Must people be informed that they are interacting with AI?
+* Is conformity assessment required?
+* What technical documentation, logging or human oversight is required?
+* Is the organisation acting as a provider, deployer, importer, distributor or product manufacturer?
+* Which obligations apply to a general-purpose AI model provider?
+* Which authority may supervise the system?
+
+### 1.3 Do not merge the two frameworks incorrectly
+
+NIST AI RMF is not a legal classification system.
+
+The EU AI Act is not a complete enterprise risk-management methodology.
+
+The practical operating model is:
+
+> **Use the EU AI Act to establish the regulatory classification and mandatory baseline. Use NIST AI RMF to operationalise risk ownership, controls, measurement, monitoring and continual improvement.**
+
+A use case may be minimal risk under the EU AI Act but still present significant:
+
+* Cybersecurity risk
+* Privacy risk
+* Reputational risk
+* Intellectual-property risk
+* Financial risk
+* Operational-resilience risk
+* Vendor concentration risk
+* Misinformation risk
+
+Similarly, satisfying internal NIST-based controls does not automatically prove legal compliance with the EU AI Act.
+
+---
+
+## 2. Step 5: the AI Governance Qualification Gate
+
+Step 5 should be implemented as a formal stage gate called the **AI Governance Qualification Gate**.
+
+No production data, personal data, confidential information or client information should be sent to a model until this gate has been completed.
+
+### 2.1 Entry criteria
+
+A use case may enter Step 5 when the team can provide:
+
+* A named business sponsor
+* A preliminary problem statement
+* The proposed users and affected individuals
+* The intended business outcome
+* A description of the decision or action supported by AI
+* The proposed deployment markets
+* An initial view of the data required
+* An initial view of likely models and vendors
+* The expected level of human involvement
+* A non-AI baseline or alternative
+
+The solution does not yet need a final architecture. However, the organisation must understand enough about the intended use to assess its risk.
+
+### 2.2 Mandatory Step 5 activities
+
+The governance gate should complete eight activities:
+
+1. Determine whether the proposed capability is an AI system.
+2. Identify applicable jurisdictions and organisational roles.
+3. Classify the EU AI Act risk level.
+4. Create the NIST AI RMF use-case profile.
+5. Complete an AI impact and risk assessment.
+6. Define the required control baseline.
+7. Establish evidence and testing requirements.
+8. Make a documented go, redesign, hold or stop decision.
+
+### 2.3 Exit criteria
+
+The use case may proceed to data readiness and architecture only when the following have been approved:
+
+* AI system inventory record
+* EU AI Act classification
+* Provider/deployer role assessment
+* Intended-use statement
+* Prohibited-use and out-of-scope-use statement
+* Preliminary AI impact assessment
+* NIST current and target profile
+* AI risk register
+* Data classification
+* Control requirements
+* Testing and evaluation plan
+* Human-oversight plan
+* Vendor due-diligence requirements
+* Named risk owner
+* Governance decision
+
+The output is not simply “approved”.
+
+It is:
+
+> **Approved to proceed under defined conditions, controls, evidence requirements and risk thresholds.**
+
+---
+
+## 3. The practical governance workflow
+
+### 3.1 Activity 1: define the AI system boundary
+
+Governance cannot classify a vague concept such as “an AI chatbot” or “an intelligent recruitment platform”.
+
+The team must define the complete system boundary.
+
+For example, a customer-service AI system may include:
+
+* Website chat interface
+* Identity and access service
+* Conversation orchestrator
+* Foundation model
+* Embedding model
+* Retrieval pipeline
+* Vector database
+* CRM integration
+* Customer records
+* Policy documents
+* Prompt templates
+* Guardrails
+* Sentiment classifier
+* Ticket-creation workflow
+* Human-agent interface
+* Conversation logs
+* Evaluation service
+* Monitoring platform
+* Model and cloud vendors
+
+The model is only one component.
+
+Risks frequently emerge from the interaction between components. A model may be appropriately secured while the retrieval system exposes another customer’s records. A chatbot may produce safe text while an automated action incorrectly cancels an account.
+
+The governance assessment must therefore examine the **socio-technical system**, not only the model.
+
+#### Required output: AI system card
+
+The initial system card should document:
+
+| Field              | Example                                                          |
+| ------------------ | ---------------------------------------------------------------- |
+| System name        | Customer Resolution Assistant                                    |
+| Business owner     | Director of Customer Operations                                  |
+| Technical owner    | Head of AI Engineering                                           |
+| Purpose            | Answer customer questions and assist with service requests       |
+| Intended users     | Existing customers and contact-centre agents                     |
+| Affected people    | Customers, employees and authorised representatives              |
+| AI capabilities    | Classification, retrieval, summarisation and response generation |
+| Automated actions  | Ticket creation only                                             |
+| Prohibited actions | Account closure, refunds and eligibility decisions               |
+| Human involvement  | Agent approval for consequential actions                         |
+| Deployment region  | United Kingdom and European Union                                |
+| Data categories    | Contact details, support history and account metadata            |
+| External providers | Cloud platform, LLM provider and observability provider          |
+| Lifecycle status   | Governance qualification                                         |
+
+---
+
+### 3.2 Activity 2: determine jurisdiction and organisational role
+
+The EU AI Act can apply to providers placing AI systems or general-purpose AI models on the EU market, deployers established in the EU, and certain providers or deployers outside the EU when system outputs are used in the EU. It also defines responsibilities for importers, distributors, authorised representatives and product manufacturers.
+
+The organisation must determine its role for each component.
+
+#### Provider
+
+An organisation may be a provider when it develops an AI system—or has one developed—and places it on the market or puts it into service under its name or trademark.
+
+An organisation should not assume it is only a deployer because it uses a third-party foundation model. Building a new application around a model, materially modifying a system or branding and supplying the resulting capability may change its responsibilities.
+
+#### Deployer
+
+A deployer uses an AI system under its authority in a professional context.
+
+For example, a bank using a purchased fraud-detection system may be a deployer, while the software company supplying it may be the provider.
+
+#### Multiple roles
+
+A company may simultaneously be:
+
+* A deployer of a foundation-model API
+* A provider of the customer-facing application built around it
+* A customer of cloud infrastructure
+* A supplier to another regulated organisation
+
+This is why governance must map the complete AI value chain.
+
+#### Questions to answer
+
+1. Where will the system be developed?
+2. Where will it be offered or used?
+3. Where are affected people located?
+4. Whose name appears on the system?
+5. Who determines the system’s intended purpose?
+6. Who selects and configures the model?
+7. Who performs material modifications?
+8. Who controls updates?
+9. Who receives and investigates incidents?
+10. Who can withdraw or deactivate the system?
+
+#### Required output: regulatory role map
+
+The output should show every relevant party, its role and its contractual obligations.
+
+---
+
+## 4. EU AI Act risk classification
+
+### 4.1 Tier 1: unacceptable risk
+
+Unacceptable-risk practices are prohibited. The Commission identifies categories including harmful manipulation, exploitation of vulnerabilities, social scoring, certain individual criminal-risk predictions, untargeted scraping for facial-recognition databases, emotion recognition in workplaces and education, certain biometric categorisation and certain real-time remote biometric identification uses. The exact prohibitions include defined conditions and exceptions that require legal interpretation.
+
+#### Governance decision
+
+The normal decision is:
+
+> **Stop. Do not design, procure, pilot, deploy or provide the capability.**
+
+Controls cannot make a legally prohibited intended use acceptable.
+
+#### Practical screening questions
+
+* Does the system intentionally manipulate people in a manner likely to cause significant harm?
+* Does it exploit people due to age, disability or socioeconomic vulnerability?
+* Does it create social scores leading to detrimental treatment?
+* Does it infer emotions in employment or educational settings?
+* Does it categorise people using protected or highly sensitive biometric characteristics?
+* Does it create facial-recognition databases from untargeted image scraping?
+* Does it predict criminal behaviour based solely on profiling or personality characteristics?
+
+A “yes” or uncertain answer should trigger immediate legal review and suspend further development.
+
+---
+
+### 4.2 Tier 2: high risk
+
+High-risk systems are those whose use may significantly affect health, safety or fundamental rights.
+
+Examples identified by the European Commission include systems used in:
+
+* Critical infrastructure
+* Education and vocational training
+* Safety components of regulated products
+* Recruitment and worker management
+* Access to essential private or public services
+* Creditworthiness assessment
+* Certain biometric uses
+* Law enforcement
+* Migration, asylum and border control
+* Administration of justice
+* Democratic processes
+
+A system is not high risk merely because it uses an advanced model. Classification depends primarily on the **intended purpose and context of use**.
+
+A relatively simple scoring model used to rank job applicants may be high risk. A sophisticated generative model used to create internal marketing ideas may not be.
+
+#### High-risk control baseline
+
+High-risk systems are subject to requirements including:
+
+* Risk-management processes
+* Appropriate data and data-governance practices
+* Technical documentation
+* Automatic record keeping and logs
+* Information and instructions for deployers
+* Human oversight
+* Accuracy, robustness and cybersecurity
+* Quality-management processes
+* Conformity assessment where applicable
+* Registration obligations
+* Post-market monitoring
+* Corrective action and serious-incident processes
+
+#### Governance decision
+
+High risk does not automatically mean “do not proceed”.
+
+It means:
+
+> **Proceed only with formal legal ownership, stronger technical assurance, documented human oversight, traceability and lifecycle monitoring.**
+
+---
+
+### 4.3 Tier 3: limited or transparency risk
+
+Some systems require transparency because people need to understand that they are interacting with AI or viewing AI-generated content.
+
+A typical customer-service chatbot falls into this category when it:
+
+* Clearly identifies itself as AI
+* Provides information rather than making high-impact decisions
+* Allows human escalation
+* Does not misrepresent itself as a person
+* Does not covertly manipulate users
+* Does not infer prohibited sensitive characteristics
+
+The EU AI Act includes transparency requirements for interactive AI systems and certain synthetic or manipulated content. The Commission states that users of chatbots should be informed that they are interacting with a machine, and certain deepfakes or public-interest AI-generated text must be labelled.
+
+#### Governance decision
+
+The usual decision is:
+
+> **Proceed with transparency, safety, privacy, accessibility and operational controls.**
+
+Limited risk does not mean no governance.
+
+A customer-service chatbot may still cause:
+
+* Financial loss
+* Incorrect advice
+* Exposure of personal data
+* Discrimination
+* Customer distress
+* Regulatory complaints
+* Brand damage
+* Contractual breaches
+* Unauthorised transactions
+
+---
+
+### 4.4 Tier 4: minimal or no risk
+
+Examples may include:
+
+* Spam filtering
+* Basic document categorisation
+* Internal idea generation
+* Non-consequential recommendation tools
+* AI-enabled video-game functionality
+* Low-impact productivity assistance
+
+These systems may not be subject to specific high-risk obligations under the AI Act, but other laws and organisational policies still apply.
+
+A minimal-risk system may still need:
+
+* GDPR compliance
+* Confidentiality controls
+* Copyright controls
+* Vendor assessment
+* Cybersecurity testing
+* Records retention
+* Model-use policies
+* Human review
+* AI literacy and user training
+
+#### Governance decision
+
+The normal decision is:
+
+> **Proceed under the organisation’s standard AI control baseline, with proportionate monitoring.**
+
+---
+
+## 5. A practical EU AI Act classification decision tree
+
+Use the following sequence for every use case.
+
+### Question 1: Is it within the scope of the AI Act?
+
+Consider:
+
+* Is it an AI system under the Act’s definition?
+* Is it placed on the EU market?
+* Is it used by an EU-based deployer?
+* Is its output used in the EU?
+* Does an exclusion apply?
+* Is it purely personal, non-professional use?
+* Is it exclusively for military, defence or national-security purposes?
+* Is it pre-market research, or has real-world deployment started?
+
+Document the answer and the reasoning.
+
+### Question 2: Does the intended use fall within a prohibited practice?
+
+If yes, stop and escalate to legal counsel.
+
+### Question 3: Is it a safety component of a regulated product?
+
+Determine whether the system is covered by relevant product-safety legislation and requires third-party conformity assessment.
+
+### Question 4: Does the intended purpose fall within a high-risk use category?
+
+Check areas such as:
+
+* Employment
+* Education
+* Essential services
+* Credit
+* Critical infrastructure
+* Law enforcement
+* Migration
+* Justice
+* Biometrics
+
+### Question 5: Does an exception to high-risk classification apply?
+
+Some systems associated with a high-risk area may not create a significant risk to health, safety or fundamental rights because they perform narrow procedural or preparatory tasks. This assessment must be documented and reviewed by qualified legal and risk specialists.
+
+### Question 6: Do transparency obligations apply?
+
+Ask whether the system:
+
+* Interacts directly with people
+* Generates or manipulates images, audio, video or text
+* Produces deepfakes
+* Performs emotion recognition
+* Performs biometric categorisation
+* Generates public-interest content
+
+### Question 7: Is a general-purpose AI model involved?
+
+The use-case risk classification and the obligations applying to the underlying general-purpose model are related but separate.
+
+A customer-facing application built using a general-purpose model must be classified based on the application’s intended purpose. Separate obligations may apply to the provider of the general-purpose model, particularly where the model presents systemic risk.
+
+### Question 8: What other legal regimes apply?
+
+AI governance should identify intersecting requirements, including:
+
+* Data protection
+* Consumer protection
+* Employment law
+* Equality and anti-discrimination law
+* Financial-services regulation
+* Medical-device regulation
+* Product safety
+* Cybersecurity
+* Intellectual property
+* Accessibility
+* Records management
+* Sector-specific professional duties
+
+The AI Act does not replace GDPR or other applicable law. The Regulation expressly preserves the application of EU data-protection and privacy law to personal data processed in connection with AI systems.
+
+---
+
+## 6. Applying NIST AI RMF in practice
+
+### 6.1 Govern: establish accountability before technical work begins
+
+Govern is the organisation-wide foundation.
+
+NIST describes Govern as a cross-cutting function that establishes risk culture, processes, organisational structures, accountability, policies and lifecycle practices. It should connect technical decisions to organisational values and legal requirements and should address third-party technology and data.
+
+#### Practical Govern activities
+
+##### Establish the AI governance policy
+
+The policy should define:
+
+* AI principles
+* Risk appetite
+* Prohibited uses
+* Approval thresholds
+* Roles and accountabilities
+* Required assessments
+* Model and vendor rules
+* Data-use rules
+* Human-oversight expectations
+* Testing expectations
+* Monitoring requirements
+* Incident-escalation routes
+* Documentation retention
+* Change-management requirements
+* Decommissioning procedures
+
+##### Create the AI inventory
+
+Every AI system should receive:
+
+* Unique system ID
+* Business owner
+* Technical owner
+* Risk owner
+* Lifecycle status
+* EU AI Act classification
+* Data classification
+* Vendor list
+* Model list and versions
+* Deployment locations
+* User groups
+* Review date
+* Material-change history
+
+##### Define the risk appetite
+
+Risk appetite should be explicit.
+
+For example:
+
+| Risk area                | Example appetite                                        |
+| ------------------------ | ------------------------------------------------------- |
+| Personal-data leakage    | Zero tolerance for confirmed cross-customer disclosure  |
+| Harmful discrimination   | Zero tolerance for unlawful discriminatory treatment    |
+| Hallucination            | Low tolerance in customer-facing factual responses      |
+| Internal drafting errors | Moderate tolerance where mandatory human review exists  |
+| Service availability     | Defined recovery time and availability target           |
+| Financial actions        | No fully autonomous high-value transactions             |
+| Vendor concentration     | Limited dependence without tested fallback arrangements |
+
+##### Establish accountability
+
+Every system needs named accountability for:
+
+* Business outcome
+* Technical quality
+* Information security
+* Privacy
+* Legal compliance
+* Model risk
+* Operational resilience
+* Human oversight
+* Incident response
+* Final residual-risk acceptance
+
+A committee may review a system, but a committee should not become a substitute for named ownership.
+
+##### Govern third parties
+
+Third-party governance should examine:
+
+* Training-data representations
+* Data retention
+* Data residency
+* Subprocessors
+* Model-update policy
+* Security certifications
+* Incident notification
+* Service availability
+* Intellectual-property terms
+* Output ownership
+* Model monitoring
+* Audit rights
+* Exit and portability
+* End-of-contract deletion
+* Restrictions on provider use of prompts and outputs
+
+#### Govern outputs
+
+* AI policy
+* AI inventory
+* Governance charter
+* Risk taxonomy
+* Risk-appetite statement
+* Approval matrix
+* RACI
+* Vendor standard
+* AI literacy programme
+* Incident-management procedure
+* Change-control procedure
+* Decommissioning procedure
+
+---
+
+### 6.2 Map: understand context, people, decisions and potential impacts
+
+NIST’s Map function establishes the context needed to identify and frame risk. It includes the intended purpose, users, affected groups, system limitations, human oversight, third-party components, expected benefits and potential impacts. NIST states that Map should provide enough contextual knowledge to support an initial go/no-go decision.
+
+#### Practical Map activities
+
+##### Define the intended purpose
+
+Use a narrow, testable statement.
+
+Weak statement:
+
+> Use AI to improve recruitment.
+
+Stronger statement:
+
+> Assist trained recruiters by summarising candidate-provided CV information against published role criteria. The system will not automatically reject applicants, infer personality, use protected characteristics or make final selection decisions.
+
+The narrower statement allows the organisation to design controls and test whether the system remains within scope.
+
+##### Define prohibited and reasonably foreseeable misuse
+
+Document both intentional misuse and predictable accidental misuse.
+
+For a customer chatbot:
+
+* Asking for medical or legal advice
+* Attempting to obtain another customer’s information
+* Prompt injection
+* Uploading confidential corporate documents
+* Treating the chatbot as a human adviser
+* Requesting refunds outside policy
+* Using generated text as evidence of contractual commitments
+* Circumventing identity verification
+* Using the tool to harass employees
+
+##### Map affected stakeholders
+
+Include more than direct users.
+
+Stakeholders may include:
+
+* Customers
+* Employees
+* Job applicants
+* Contractors
+* Children
+* Vulnerable users
+* People with disabilities
+* Regulators
+* Works councils
+* Customer-service agents
+* Data subjects whose information appears in source documents
+* People incorrectly referenced in generated output
+
+##### Map the decision impact
+
+Ask:
+
+* Does the system provide information?
+* Does it recommend an action?
+* Does it rank people?
+* Does it determine eligibility?
+* Does it trigger an automated workflow?
+* Can a human meaningfully override it?
+* Can the decision be appealed?
+* How reversible is the consequence?
+* What happens when the system is wrong?
+
+The greater the consequence and lower the reversibility, the stronger the control baseline should be.
+
+##### Map the data lifecycle
+
+Document:
+
+1. Data source
+2. Legal and contractual basis
+3. Data owner
+4. Collection method
+5. Quality controls
+6. Preprocessing
+7. PII handling
+8. Storage
+9. Model access
+10. Logging
+11. Retention
+12. Deletion
+13. Data-subject rights
+14. Cross-border transfers
+15. Reuse for evaluation or fine-tuning
+
+##### Map the model and supplier chain
+
+For each model or component, record:
+
+* Provider
+* Model version
+* Hosting arrangement
+* Region
+* Context-window limits
+* Known limitations
+* Safety controls
+* Update behaviour
+* Evaluation evidence
+* Data-use terms
+* Fallback model
+* Exit strategy
+
+#### Map outputs
+
+* Intended-use statement
+* Misuse analysis
+* Stakeholder map
+* Decision-impact assessment
+* Process map
+* Data-flow diagram
+* Model and supplier map
+* Fundamental-rights impact analysis
+* Assumptions register
+* Constraints register
+* Initial risk register
+
+---
+
+### 6.3 Measure: turn principles into testable evidence
+
+NIST’s Measure function applies quantitative, qualitative or mixed methods to assess, benchmark and monitor risk. It expects testing before deployment and during operation, with documented methods, uncertainty, benchmarks and independent review where appropriate.
+
+Statements such as “the chatbot is safe”, “the model is fair” or “hallucinations are low” are not evidence.
+
+Each claim must be connected to:
+
+* A metric
+* A test dataset
+* A test procedure
+* An acceptance threshold
+* An accountable reviewer
+* A record of the result
+
+#### Practical measurement categories
+
+##### Validity and reliability
+
+Measure:
+
+* Task success rate
+* Grounded-answer rate
+* Citation correctness
+* Retrieval precision and recall
+* Classification accuracy
+* False-positive and false-negative rates
+* Consistency across repeated runs
+* Performance across languages
+* Performance under missing or ambiguous information
+
+##### Safety
+
+Measure:
+
+* Harmful-content generation
+* Dangerous recommendations
+* Failure to escalate
+* Unsafe autonomous actions
+* Policy-violation rate
+* Boundary-compliance rate
+* Performance under adversarial inputs
+
+##### Security and resilience
+
+Test:
+
+* Prompt injection
+* Indirect prompt injection
+* Data exfiltration
+* Cross-tenant leakage
+* Model denial of service
+* Tool misuse
+* Privilege escalation
+* Insecure output handling
+* Poisoned documents
+* Adversarial examples
+* Fallback and recovery
+* Dependency failure
+
+The EU AI Act specifically recognises AI-related cybersecurity risks such as data poisoning, model poisoning, adversarial examples, model evasion and confidentiality attacks in the context of high-risk systems.
+
+##### Privacy
+
+Measure:
+
+* PII detection recall
+* PII redaction effectiveness
+* Sensitive-data leakage
+* Memorisation
+* Log exposure
+* Retention compliance
+* Cross-user disclosure
+* Data-deletion effectiveness
+* Access-control violations
+
+##### Fairness
+
+Evaluate performance across relevant groups, where lawful and appropriate.
+
+Measurements may include:
+
+* Selection-rate differences
+* Error-rate differences
+* False-positive disparities
+* False-negative disparities
+* Quality-of-service disparities
+* Language or dialect performance
+* Accessibility outcomes
+* Escalation-rate differences
+
+Fairness should be assessed in context. A single statistical metric does not prove that a system is fair.
+
+##### Explainability and transparency
+
+Assess whether:
+
+* Users know AI is involved
+* Operators understand system limitations
+* Decision reasons are meaningful
+* Source evidence is available
+* Confidence and uncertainty are communicated appropriately
+* Human reviewers can reconstruct what happened
+* Logs support investigation
+* Explanations are useful rather than technically decorative
+
+##### Human oversight
+
+Measure:
+
+* Override rate
+* Escalation rate
+* Human response time
+* Automation-bias indicators
+* Reviewer disagreement
+* Percentage of consequential outputs reviewed
+* Appeal outcomes
+* Operator comprehension
+* Frequency of ignored alerts
+
+##### Business and operational value
+
+Governance should measure benefits as well as risk:
+
+* Resolution time
+* Cost per interaction
+* Conversion rate
+* Deflection rate
+* First-contact resolution
+* Employee productivity
+* Error-rework rate
+* Customer satisfaction
+* Adoption rate
+* Revenue impact
+* Cost avoidance
+
+#### Example acceptance criteria for a customer-service chatbot
+
+| Test                        | Example acceptance threshold                    |
+| --------------------------- | ----------------------------------------------- |
+| Grounded response rate      | At least 95% on approved policy questions       |
+| Unsupported factual claims  | Below 2% in controlled evaluation               |
+| Cross-customer data leakage | 0 confirmed cases                               |
+| Prompt-injection resistance | All critical test cases blocked or contained    |
+| PII redaction               | At least 99% recall on defined sensitive fields |
+| Harmful response rate       | Below approved risk threshold                   |
+| Escalation success          | At least 98% for defined high-risk intents      |
+| Citation correctness        | At least 95%                                    |
+| Accessibility               | Meets defined WCAG acceptance criteria          |
+| Availability                | Meets agreed service-level objective            |
+| Human handoff time          | Within operational target                       |
+
+Thresholds must be based on context and consequence. They should not be copied blindly between use cases.
+
+#### Measure outputs
+
+* Evaluation strategy
+* Risk-to-test traceability matrix
+* Test datasets
+* Red-team plan
+* Benchmark report
+* Bias and fairness assessment
+* Privacy test report
+* Security test report
+* Human-oversight test
+* Model card
+* System card
+* Independent assurance report
+* Residual-risk calculation
+
+---
+
+### 6.4 Manage: treat risk and control the production lifecycle
+
+NIST’s Manage function prioritises mapped and measured risks and defines how the organisation will mitigate, avoid, transfer or accept them. It also covers monitoring, incident response, recovery, change management, deactivation and decommissioning.
+
+#### Four risk-treatment options
+
+##### Avoid
+
+Do not proceed with the risky activity.
+
+Examples:
+
+* Do not allow the chatbot to provide medical diagnoses.
+* Do not use emotion recognition for employee performance management.
+* Do not allow autonomous rejection of job applicants.
+
+##### Mitigate
+
+Reduce likelihood or impact.
+
+Examples:
+
+* Retrieval-augmented generation
+* Input and output filtering
+* PII masking
+* Human approval
+* Restricted tools
+* Transaction limits
+* Source citations
+* Tenant isolation
+* Access controls
+* Model fallback
+* Rate limiting
+* Continuous evaluation
+
+##### Transfer or share
+
+Use:
+
+* Contractual indemnities
+* Insurance
+* Managed-service agreements
+* Vendor service commitments
+
+Transfer does not remove accountability or regulatory responsibility.
+
+##### Accept
+
+Residual risk may be accepted when:
+
+* It falls within risk appetite.
+* Controls are implemented.
+* The decision is documented.
+* The correct authority approves it.
+* Monitoring and review are in place.
+
+#### Production monitoring
+
+Monitoring should cover four layers.
+
+##### Model performance
+
+* Accuracy
+* Groundedness
+* Hallucination rate
+* Refusal behaviour
+* Drift
+* Bias indicators
+* Safety violations
+
+##### Application performance
+
+* Failed workflows
+* Tool-call errors
+* Latency
+* Availability
+* Escalation failures
+* Integration errors
+
+##### Risk and compliance
+
+* PII leakage
+* Access violations
+* Complaints
+* Overrides
+* Appeals
+* Policy breaches
+* Unauthorised use cases
+* Missing disclosures
+* Vendor changes
+
+##### Business outcomes
+
+* Adoption
+* Productivity
+* Customer satisfaction
+* Cost reduction
+* Revenue
+* Rework
+* Abandonment
+* Human workload
+
+#### Kill-switch conditions
+
+Every material AI system should have predetermined suspension conditions.
+
+Examples:
+
+* Confirmed cross-customer data disclosure
+* Uncontrolled execution of financial transactions
+* Critical prompt-injection vulnerability
+* Material discriminatory outcome
+* Loss of required audit logs
+* Model update invalidating assurance evidence
+* Vendor security incident
+* Performance falling below minimum safety threshold
+* Regulatory direction
+* Repeated failure of human escalation
+
+#### Manage outputs
+
+* Risk-treatment plan
+* Residual-risk acceptance
+* Production-monitoring plan
+* Incident playbook
+* Rollback plan
+* Model fallback plan
+* Business-continuity plan
+* User appeal process
+* Change-control record
+* Decommissioning plan
+
+---
+
+## 7. Mapping NIST AI RMF to the EU AI Act
+
+The following crosswalk converts legal requirements into operating practices.
+
+| EU AI Act requirement         | NIST function                | Practical implementation                                 | Evidence                                  |
+| ----------------------------- | ---------------------------- | -------------------------------------------------------- | ----------------------------------------- |
+| Risk-management system        | Govern, Map, Measure, Manage | Lifecycle AI risk process                                | Risk register, treatment plan             |
+| Data and data governance      | Govern, Map, Measure         | Data quality, provenance and representativeness controls | Data sheet, lineage, quality report       |
+| Technical documentation       | Govern, Map                  | Standard documentation structure                         | System card, architecture, design records |
+| Record keeping                | Measure, Manage              | Tamper-resistant logging and traceability                | Logs, retention records                   |
+| Transparency and instructions | Govern, Map                  | User notices, operating instructions and limitations     | UI disclosure, user guide                 |
+| Human oversight               | Map, Measure, Manage         | Defined review, override, escalation and appeal          | Oversight plan, training, test evidence   |
+| Accuracy                      | Measure                      | Context-specific performance testing                     | Evaluation report                         |
+| Robustness                    | Measure, Manage              | Stress testing, fallback and recovery                    | Resilience test                           |
+| Cybersecurity                 | Govern, Measure, Manage      | Threat modelling, red teaming and monitoring             | Security assessment                       |
+| Quality-management system     | Govern                       | Documented policies, procedures and accountability       | QMS records                               |
+| Conformity assessment         | Measure, Manage              | Formal evidence review before release                    | Assessment package                        |
+| Post-market monitoring        | Measure, Manage              | Production monitoring and feedback                       | Monitoring dashboard                      |
+| Serious-incident reporting    | Govern, Manage               | Detection, escalation and regulatory process             | Incident records                          |
+| Corrective action             | Manage                       | Patch, rollback, restriction or withdrawal               | Corrective-action report                  |
+
+The crosswalk should be maintained as a **control-to-obligation traceability matrix**.
+
+Each legal obligation should map to:
+
+1. A policy
+2. A control
+3. A control owner
+4. Technical implementation
+5. Test method
+6. Evidence location
+7. Review frequency
+8. Current compliance status
+
+---
+
+## 8. Designing governance into the architecture
+
+Governance should become a set of architecture requirements.
+
+### 8.1 Identity and access
+
+Implement:
+
+* Role-based access control
+* Least privilege
+* Separation of duties
+* Privileged-access management
+* Multi-factor authentication
+* Service identities
+* Tenant isolation
+* Periodic access reviews
+
+### 8.2 Data protection
+
+Implement:
+
+* Data classification
+* Purpose limitation
+* Data minimisation
+* PII detection and masking
+* Encryption in transit and at rest
+* Regional data controls
+* Retention policies
+* Deletion workflows
+* DLP monitoring
+* Secrets management
+* Synthetic or de-identified evaluation data where appropriate
+
+### 8.3 Model controls
+
+Implement:
+
+* Approved-model registry
+* Model-version pinning
+* Deployment approval
+* Model cards
+* Fallback models
+* Restricted fine-tuning
+* Model-update assessment
+* Performance baselines
+* Safety configuration
+* Cost and token limits
+
+### 8.4 Prompt and orchestration controls
+
+Implement:
+
+* Version-controlled system prompts
+* Approved prompt templates
+* Input validation
+* Output validation
+* Tool allowlists
+* Parameter constraints
+* Workflow state controls
+* Prompt-injection defences
+* Context isolation
+* Deterministic rules for high-consequence actions
+
+### 8.5 Retrieval controls
+
+Implement:
+
+* Document-level permissions
+* Metadata filtering
+* Source provenance
+* Document approval status
+* Expiry dates
+* Retrieval evaluation
+* Tenant-aware indexes
+* Poisoning detection
+* Citation generation
+* Source-access logging
+
+### 8.6 Human-oversight controls
+
+Implement:
+
+* Approval queues
+* Confidence-based escalation
+* Mandatory review for defined decisions
+* Human-readable evidence
+* Override controls
+* Appeal mechanisms
+* Reason capture
+* Reviewer training
+* Workload monitoring
+
+Human oversight must be meaningful. A person who lacks time, authority, information or competence to challenge an AI output is not an effective control.
+
+### 8.7 Observability and audit
+
+Capture:
+
+* User identity or approved pseudonymous ID
+* System and model version
+* Prompt-template version
+* Retrieval sources
+* Tool calls
+* Policy decisions
+* Guardrail events
+* Human approvals
+* Overrides
+* Final outputs
+* Latency
+* Cost
+* Errors
+* Feedback
+* Incident correlation IDs
+
+Avoid logging sensitive content by default. Traceability and privacy must be balanced through masking, restricted access and controlled retention.
+
+---
+
+## 9. Practical example: governing a customer-service AI assistant
+
+Consider an enterprise chatbot that answers customer questions, retrieves account information and creates support tickets.
+
+### 9.1 Intended use
+
+The system may:
+
+* Answer questions from approved content
+* Summarise account information for authenticated users
+* Create draft tickets
+* Recommend the next support step
+* Transfer conversations to a human agent
+
+The system may not:
+
+* Approve refunds
+* Cancel accounts
+* Change contractual terms
+* Make credit or eligibility decisions
+* Give regulated financial, legal or medical advice
+* Reveal another person’s information
+* Represent itself as a human
+
+### 9.2 EU AI Act classification
+
+The conversational interface is likely to attract transparency obligations because users interact directly with AI.
+
+It may remain limited risk when it provides information and operational assistance without making consequential decisions.
+
+Its classification could change if it is expanded to:
+
+* Determine access to an essential service
+* Assess creditworthiness
+* Rank employees
+* Make recruitment decisions
+* Perform prohibited emotion recognition
+* Autonomously make decisions with significant legal or comparable effects
+
+Classification must be repeated whenever the intended purpose changes.
+
+### 9.3 NIST Map assessment
+
+#### Stakeholders
+
+* Customers
+* Customer-service agents
+* Supervisors
+* Vulnerable customers
+* Data-protection team
+* Information-security team
+* Product team
+* Model and cloud vendors
+
+#### Key risks
+
+| Risk            | Example event                                    | Potential impact                  |
+| --------------- | ------------------------------------------------ | --------------------------------- |
+| Inaccuracy      | Incorrect cancellation-policy answer             | Complaint, loss or legal dispute  |
+| Privacy         | Another customer’s record retrieved              | Data breach                       |
+| Security        | Prompt injection triggers unauthorised tool call | System compromise                 |
+| Automation bias | Agent accepts incorrect summary                  | Poor customer outcome             |
+| Transparency    | User believes chatbot is human                   | Deception and loss of trust       |
+| Accessibility   | Interface fails for assistive-technology users   | Exclusion                         |
+| Vendor change   | Model behaviour changes without testing          | Control failure                   |
+| Over-automation | Chatbot refuses human transfer                   | Customer harm                     |
+| Record keeping  | Logs cannot reconstruct interaction              | Failed investigation              |
+| Hallucination   | Invented product or policy information           | Financial and reputational damage |
+
+### 9.4 Measure plan
+
+Test:
+
+* 1,000 representative customer questions
+* Policy edge cases
+* Multilingual interactions
+* Ambiguous requests
+* Adversarial prompts
+* Indirect prompt injection in retrieved documents
+* PII leakage attempts
+* Cross-tenant retrieval
+* Human-escalation scenarios
+* Vulnerable-customer scenarios
+* Tool-call authorisation
+* Source-citation correctness
+* Model and dependency failures
+
+### 9.5 Manage controls
+
+Introduce:
+
+* Mandatory AI disclosure
+* Authentication before account retrieval
+* Document-level access control
+* PII masking
+* Grounded responses
+* Source citations
+* Human approval for consequential actions
+* Transaction restrictions
+* Prompt and tool allowlists
+* Real-time security monitoring
+* Feedback collection
+* Escalation path
+* Model rollback
+* Monthly risk review
+* Quarterly red-team testing
+
+### 9.6 Governance decision
+
+The approval might state:
+
+> Approved for controlled production use as an informational and ticketing assistant. The system must not approve refunds, modify contracts, cancel accounts, make eligibility decisions or provide regulated advice. Customer-facing AI disclosure, human escalation, tenant-isolated retrieval, PII controls, audit logging and continuous performance monitoring are mandatory. Expansion beyond these boundaries requires a new governance assessment.
+
+This is more useful than a generic “governance approved” statement because it defines the operating boundary.
+
+---
+
+## 10. Practical high-risk example: AI-assisted recruitment
+
+Consider a system that ranks applicants based on CVs and assessment responses.
+
+Employment-related AI used for recruitment, candidate filtering or worker management may fall into a high-risk category under the EU AI Act.
+
+### Governance requirements
+
+#### Intended-purpose limitation
+
+Define whether the system:
+
+* Summarises information
+* Matches explicit skills
+* Ranks candidates
+* Recommends rejection
+* Makes final decisions
+
+The risk increases significantly when the system moves from administrative assistance to ranking or decision-making.
+
+#### Data governance
+
+Assess:
+
+* Historical-bias contamination
+* Representativeness
+* Missing-data patterns
+* Proxy variables
+* Label quality
+* Protected-characteristic leakage
+* CV formatting effects
+* Language and disability impacts
+
+#### Human oversight
+
+Recruiters must be able to:
+
+* Understand the recommendation
+* Review the source evidence
+* Challenge the result
+* Override the result
+* Record reasons
+* Avoid over-reliance
+* Escalate anomalies
+
+#### Measurement
+
+Evaluate:
+
+* Selection rates
+* False-positive and false-negative differences
+* Ranking stability
+* Performance by role
+* Performance across relevant groups
+* Proxy discrimination
+* Explanation quality
+* Override patterns
+* Applicant complaints
+* Accessibility
+
+#### Manage decision
+
+The system may be restricted to:
+
+* Summarising candidate-provided information
+* Matching objective, published criteria
+* Highlighting missing evidence
+* Supporting—not replacing—trained recruiters
+
+Fully autonomous rejection may be prohibited by organisational policy even where a narrower legal interpretation might permit some automation.
+
+Governance should set a higher internal standard when the consequence is significant.
+
+---
+
+## 11. The AI governance operating model
+
+### 11.1 Three lines of accountability
+
+#### First line: business and delivery teams
+
+Responsible for:
+
+* Defining intended use
+* Identifying risk
+* Implementing controls
+* Producing evidence
+* Monitoring the system
+* Reporting incidents
+
+Typical members:
+
+* Business owner
+* Product manager
+* AI solution engineer
+* Data scientist
+* ML engineer
+* Security architect
+* Data engineer
+* UX designer
+* Operations lead
+
+#### Second line: risk and oversight
+
+Provides challenge and standards.
+
+Typical functions:
+
+* AI governance
+* Legal
+* Privacy
+* Information security
+* Model risk
+* Compliance
+* Operational resilience
+* Responsible AI
+* Enterprise architecture
+
+#### Third line: independent assurance
+
+Provides independent assessment.
+
+Typical functions:
+
+* Internal audit
+* External assurance
+* Regulatory examination
+* Independent model validation
+
+### 11.2 Governance forums
+
+#### AI governance council
+
+Sets:
+
+* Policy
+* Risk appetite
+* Strategic priorities
+* Enterprise standards
+* Escalation decisions
+
+#### AI design authority
+
+Reviews:
+
+* Architecture
+* Model choice
+* Integration
+* Security
+* Data flows
+* Reuse patterns
+
+#### AI risk review board
+
+Reviews:
+
+* Classification
+* Impact assessment
+* Control evidence
+* Residual risk
+* Release decisions
+
+#### Model and change review
+
+Reviews:
+
+* Model upgrades
+* Prompt changes
+* Retrieval changes
+* New data sources
+* New user groups
+* New markets
+* New autonomous actions
+
+### 11.3 Example RACI
+
+| Activity                 | Business owner | AI solution engineer | Risk/legal | Security/privacy | Independent assurance |
+| ------------------------ | -------------- | -------------------- | ---------- | ---------------- | --------------------- |
+| Define intended use      | A              | R                    | C          | C                | I                     |
+| EU AI Act classification | C              | R                    | A          | C                | I                     |
+| Risk assessment          | A              | R                    | C          | C                | I                     |
+| Control design           | C              | R                    | C          | A/R              | I                     |
+| Testing                  | C              | R                    | C          | C                | A/C                   |
+| Residual-risk acceptance | A              | C                    | C          | C                | I                     |
+| Production monitoring    | A              | R                    | C          | C                | I                     |
+| Incident response        | A              | R                    | C          | R                | I                     |
+| Independent audit        | I              | C                    | C          | C                | A/R                   |
+
+R = Responsible  
+A = Accountable  
+C = Consulted  
+I = Informed
+
+---
+
+## 12. The minimum governance artefact pack
+
+Every material AI use case should maintain a version-controlled evidence pack.
+
+### Core documents
+
+1. Use-case charter
+2. Intended-use statement
+3. AI system card
+4. EU AI Act classification
+5. Provider/deployer role assessment
+6. AI impact assessment
+7. NIST AI RMF current profile
+8. NIST AI RMF target profile
+9. AI risk register
+10. Data-protection assessment
+11. Data sheet and lineage
+12. Model card
+13. Architecture and data-flow diagrams
+14. Threat model
+15. Human-oversight plan
+16. Evaluation strategy
+17. Test reports
+18. Vendor due-diligence assessment
+19. Control-to-obligation traceability matrix
+20. Residual-risk acceptance
+21. Release approval
+22. Monitoring plan
+23. Incident-response plan
+24. Change history
+25. Decommissioning plan
+
+### Risk-register structure
+
+| Field                 | Purpose                              |
+| --------------------- | ------------------------------------ |
+| Risk ID               | Unique reference                     |
+| Risk statement        | Cause, event and impact              |
+| Affected stakeholders | People or organisations exposed      |
+| NIST characteristic   | Trustworthiness area                 |
+| EU obligation         | Relevant legal requirement           |
+| Inherent likelihood   | Before controls                      |
+| Inherent impact       | Before controls                      |
+| Existing controls     | Current treatment                    |
+| Control owner         | Accountable person                   |
+| Test method           | How effectiveness is verified        |
+| Residual likelihood   | After controls                       |
+| Residual impact       | After controls                       |
+| Risk decision         | Avoid, mitigate, transfer or accept  |
+| Approval authority    | Risk acceptor                        |
+| Monitoring indicator  | Ongoing signal                       |
+| Review date           | Next assessment                      |
+| Status                | Open, controlled, accepted or closed |
+
+#### Example risk statement
+
+> Because retrieved documents may contain malicious embedded instructions, an indirect prompt-injection attack could cause the model to ignore system policies and invoke unauthorised tools, resulting in information disclosure or unauthorised account actions.
+
+This is stronger than writing only “prompt-injection risk” because it explains the cause, event and consequence.
+
+---
+
+## 13. Governance metrics for executives
+
+A governance dashboard should not report only the number of assessments completed.
+
+It should show whether the organisation is controlling risk while creating value.
+
+### Portfolio metrics
+
+* Number of AI systems
+* Systems by risk tier
+* Systems by lifecycle stage
+* Systems without named owners
+* Systems awaiting assessment
+* Unapproved AI tools detected
+* Third-party models in use
+* High-risk systems by jurisdiction
+
+### Control metrics
+
+* Percentage with completed impact assessments
+* Percentage with current model cards
+* Percentage with tested human oversight
+* Percentage with incident plans
+* Percentage with completed vendor reviews
+* Overdue control actions
+* Failed control tests
+* Systems with missing audit evidence
+
+### Production-risk metrics
+
+* Confirmed AI incidents
+* Near misses
+* Hallucination rate
+* Privacy violations
+* Security events
+* Bias indicators
+* Human override rate
+* Appeal rate
+* Customer complaints
+* Kill-switch activations
+* Model drift
+* Unplanned vendor changes
+
+### Value metrics
+
+* Adoption
+* Revenue contribution
+* Cost reduction
+* Productivity improvement
+* Customer satisfaction
+* Cycle-time improvement
+* Error reduction
+* Percentage of benefits realised
+
+### Executive decision metrics
+
+Executives should be able to see:
+
+* Which AI risks exceed appetite
+* Which systems require investment
+* Which systems should be restricted
+* Which systems should be retired
+* Which controls delay scaling
+* Where standardised platforms could reduce risk and cost
+* Whether value is being created within approved risk boundaries
+
+---
+
+## 14. A 90-day implementation roadmap
+
+### Days 1–30: establish the governance foundation
+
+Create:
+
+* AI policy
+* AI definition and scope
+* Risk taxonomy
+* EU classification questionnaire
+* AI inventory
+* Governance forums
+* Approval matrix
+* Initial prohibited-use policy
+* Interim vendor rules
+* AI incident route
+* Executive sponsor
+
+Prioritise discovery of existing “shadow AI” systems.
+
+### Days 31–60: operationalise the framework
+
+Develop:
+
+* NIST AI RMF profile template
+* AI impact-assessment template
+* System-card template
+* Model-card template
+* Risk register
+* Control library
+* Human-oversight standard
+* Evaluation standard
+* Vendor questionnaire
+* Evidence repository
+* Governance workflow in the delivery lifecycle
+
+Select two or three real use cases and test the process.
+
+### Days 61–90: automate and scale
+
+Implement:
+
+* Workflow automation
+* Inventory dashboard
+* Control evidence tracking
+* Model registry integration
+* CI/CD governance checks
+* Automated security testing
+* Evaluation pipelines
+* Production monitoring
+* Incident dashboards
+* Executive reporting
+* Role-based AI literacy
+
+The objective is not to automate governance decisions completely.
+
+It is to automate evidence collection, routine checks, reminders and traceability so that specialists can focus on meaningful judgement.
+
+---
+
+## 15. Common governance failures
+
+### Governance begins after the prototype
+
+By then, architecture and vendor choices may be expensive to reverse.
+
+**Correction:** introduce the qualification gate before data and model access.
+
+### Classification focuses only on the model
+
+The same model may support minimal-risk marketing content or high-risk employment decisions.
+
+**Correction:** classify the intended purpose and complete system.
+
+### Every AI system receives the same control set
+
+This wastes effort on low-risk systems and under-controls consequential systems.
+
+**Correction:** apply a tiered control baseline.
+
+### Human oversight is only a button
+
+A reviewer may lack time, context, authority or understanding.
+
+**Correction:** test the human operating process, not only the interface.
+
+### Governance produces documents but no technical controls
+
+Policies cannot prevent data leakage, prompt injection or unauthorised tool calls.
+
+**Correction:** translate each obligation into architecture, code, tests and monitoring.
+
+### Testing is limited to model accuracy
+
+Accuracy does not cover privacy, security, fairness, resilience or human factors.
+
+**Correction:** use multidimensional evaluation.
+
+### Risk acceptance has no named owner
+
+A committee “notes” the risk, but nobody owns the consequence.
+
+**Correction:** assign explicit residual-risk authority.
+
+### Material changes bypass reassessment
+
+A new model, dataset, market or workflow may alter the legal classification.
+
+**Correction:** define material-change triggers.
+
+### Vendor assurance relies on marketing material
+
+Provider claims are treated as independent evidence.
+
+**Correction:** request contractual, technical and operational evidence and validate it proportionately.
+
+### Governance is separated from value
+
+The process becomes viewed as administrative overhead.
+
+**Correction:** connect governance metrics to adoption, business outcomes, reliability and customer trust.
+
+---
+
+## 16. Material-change triggers
+
+A new governance review should be mandatory when there is a change to:
+
+* Intended purpose
+* User population
+* Affected population
+* Geographic market
+* Decision consequence
+* Level of automation
+* Human-oversight model
+* Foundation model
+* Model version
+* Training or fine-tuning data
+* Retrieval corpus
+* Data category
+* Vendor
+* Hosting region
+* External integration
+* Tool permissions
+* Retention period
+* Output modality
+* Regulatory classification
+
+A model version change should not automatically be treated as a routine software patch.
+
+It may change:
+
+* Behaviour
+* Safety performance
+* Bias
+* Tool use
+* Refusal patterns
+* Latency
+* Cost
+* Data processing
+* Evaluation validity
+
+---
+
+## 17. Current EU implementation note
+
+The AI Act entered into force on 1 August 2024. Prohibited-practice and AI-literacy provisions began applying from 2 February 2025, while governance rules and obligations for providers of general-purpose AI models began applying from 2 August 2025. The Commission’s current implementation material states that major transparency requirements apply from 2 August 2026 and describes revised transition dates for certain high-risk systems following the AI Omnibus process.
+
+Because the implementation timetable, guidelines, standards and national enforcement arrangements continue to evolve, organisations should verify the current legal position before publishing a compliance roadmap or launching a regulated system.
+
+This framework is an operational governance model, not a substitute for jurisdiction-specific legal advice.
+
+---
+
+## Conclusion: governance as a system for confident AI delivery
+
+Strong AI governance does not ask only:
+
+> “Are we compliant?”
+
+It asks:
+
+* Is this the right problem for AI?
+* Is the intended use permissible?
+* Who could be affected?
+* What decisions will the system influence?
+* What evidence demonstrates that it works?
+* What happens when it fails?
+* Can people understand, challenge and override it?
+* Can we monitor it at scale?
+* Can we stop it safely?
+* Is the remaining risk justified by the expected value?
+
+The EU AI Act provides the regulatory classification and mandatory obligations.
+
+NIST AI RMF provides the operating discipline to govern, map, measure and manage the system continuously.
+
+Together, they create a practical delivery pattern:
+
+> **Classify the use. Map the context. Define the controls. Measure performance and harm. Accept only justified residual risk. Monitor the system throughout its lifecycle.**
+
+Governance therefore does not slow responsible AI delivery. Properly designed, it prevents late redesign, strengthens procurement, improves architecture, increases trust and gives executives the confidence to scale solutions that produce measurable value.
+
+
+<KeyTakeaways>
+
+- Run AI governance as Step 5—before data access, model experiments or architecture lock-in.
+- Use the EU AI Act for legal classification and NIST AI RMF for Govern, Map, Measure and Manage.
+- Approve systems under defined conditions, controls, evidence requirements and kill-switch thresholds—not with a blank “approved” stamp.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+- Open [ConsultAI OS](https://sudip-ai-playbook.github.io/consult) and attach governance artefacts to the use-case workspace
+- Read [Implementing ISO/IEC 42001](/articles/ai-governance-iso-iec-42001) for the AIMS management-system backbone
+- Read [AI Consulting Strategy, Frameworks and Roadmap](/articles/ai-consulting-strategy-frameworks-roadmap) for the full delivery lifecycle
+- Pair with [Responsible AI governance](/learning-map/19-responsible-ai-governance) and the [VALUE gate](/docs/ai-solution-engineering/value-gate)
+
+</NextSteps>

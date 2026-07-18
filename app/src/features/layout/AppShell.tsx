@@ -2,25 +2,20 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { BookOpen } from 'lucide-react'
 import { APP_NAME, BLOG_BASE_PATH, NAV_ITEMS } from '../../constants/playbook'
 import { JourneyRail } from '../journey/JourneyRail'
-import { useProject } from '../journey/useProject'
 
 export function AppShell() {
-  const { project } = useProject()
-
   return (
     <div className="playbook-bg min-h-screen" data-testid="app-shell">
       <header className="relative z-20 border-b border-slate-blue/15 bg-white/50 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <div>
-            <NavLink to="/" className="font-[family-name:var(--font-display)] text-lg font-700 text-indigo-velvet">
-              {APP_NAME}
-            </NavLink>
-            {project.outcome ? (
-              <p className="max-w-md truncate text-[11px] text-ink-muted" data-testid="shell-outcome">
-                {project.outcome}
-              </p>
-            ) : null}
-          </div>
+          <NavLink
+            to="/"
+            end
+            data-testid="brand-home"
+            className="font-[family-name:var(--font-display)] text-lg font-700 text-indigo-velvet"
+          >
+            {APP_NAME}
+          </NavLink>
           <nav className="flex flex-wrap items-center gap-1" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
               <NavLink

@@ -1,0 +1,1249 @@
+---
+slug: ai-governance-iso-iec-42001
+title: "AI Governance in the Enterprise Delivery Framework: Implementing ISO/IEC 42001 in Practice"
+description: Implement ISO/IEC 42001 as an Artificial Intelligence Management System (AIMS) across the AI delivery lifecycle—scope, clauses 4–10, Annex A controls, evidence pack and a 120-day roadmap.
+authors: [sudip]
+tags: [governance, consulting, solution-engineering, playbook]
+keywords:
+  - ISO/IEC 42001
+  - AI management system
+  - AIMS
+  - AI governance
+  - Statement of Applicability
+  - Responsible AI
+  - AI Solution Engineering
+---
+
+AI governance should not exist as a collection of disconnected reviews. ISO/IEC 42001 establishes an organisation-wide Artificial Intelligence Management System—policies, risk and impact assessment, controls, monitoring, audit and continual improvement—across the full delivery lifecycle.
+
+{/* truncate */}
+
+<ExecSummary>
+Use ISO/IEC 42001 as the management-system backbone for enterprise AI governance: define a defensible AIMS scope, operate Clauses 4–10 and Annex A controls across the delivery lifecycle, and combine it with NIST AI RMF, ISO/IEC 23894, ISO/IEC 42005 and the EU AI Act rather than treating them as alternatives.
+</ExecSummary>
+
+<WhenToUse>
+- Use this when building or certifying an Artificial Intelligence Management System (AIMS).
+- Pair with [AI Governance: NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act), [AI Consulting Strategy, Frameworks and Roadmap](/articles/ai-consulting-strategy-frameworks-roadmap) and [Responsible AI governance](/learning-map/19-responsible-ai-governance).
+- Treat the evidence pack, Statement of Applicability and 120-day roadmap as the operating checklist.
+</WhenToUse>
+
+## Governance is a management system, not a project checkpoint
+
+AI governance should not exist as a collection of disconnected reviews performed by legal, security, data and compliance teams.
+
+An organisation may have:
+
+* An AI ethics policy
+* A model approval committee
+* Security testing
+* Data-protection impact assessments
+* Responsible AI principles
+* Vendor questionnaires
+* Model cards
+* Production monitoring
+
+However, these activities do not automatically form an effective governance system.
+
+The organisation still needs to determine:
+
+* How the activities connect
+* Who owns each decision
+* Which AI systems are in scope
+* How risks are assessed consistently
+* How controls are selected
+* What evidence must be retained
+* Who accepts residual risk
+* How performance is monitored
+* How incidents and nonconformities are corrected
+* How the system continually improves
+
+ISO/IEC 42001 addresses this organisational problem.
+
+ISO/IEC 42001:2023 specifies requirements for establishing, implementing, maintaining and continually improving an **Artificial Intelligence Management System**, commonly called an **AIMS**. It is designed for organisations that develop, provide or use AI systems and is applicable across different sectors and organisation sizes. ISO describes it as the first international AI management-system standard.
+
+An AIMS is not an individual AI application.
+
+It is the organisation-wide system of:
+
+* Policies
+* Objectives
+* Responsibilities
+* Processes
+* Risk-management methods
+* Impact-assessment methods
+* Operational controls
+* Monitoring
+* Auditing
+* Management review
+* Corrective action
+* Continual improvement
+
+The central principle is:
+
+> ISO/IEC 42001 does not merely govern one model. It governs how the organisation makes decisions about all AI systems within the defined scope.
+
+---
+
+## 1. Where ISO/IEC 42001 belongs in the AI delivery framework
+
+ISO/IEC 42001 should not be positioned as the final certification activity after AI systems have already been deployed.
+
+It should operate across the entire delivery lifecycle.
+
+| Delivery stage | ISO/IEC 42001 application |
+| --- | --- |
+| 1. Business strategy | Establish AI governance objectives and risk appetite |
+| 2. Opportunity discovery | Identify intended purpose, stakeholders and possible impacts |
+| 3. Use-case qualification | Determine whether the use case is within the AIMS scope |
+| 4. Value and feasibility | Assess opportunities, constraints and non-AI alternatives |
+| **5. Governance qualification** | **Perform AI risk and impact assessments before sensitive data enters the system** |
+| 6. Data readiness | Apply data quality, provenance, privacy and access controls |
+| 7. Architecture | Translate AIMS controls into technical requirements |
+| 8. Build and prototype | Maintain lifecycle records, version control and evaluation evidence |
+| 9. Testing and assurance | Test performance, safety, security, fairness and oversight |
+| 10. Deployment | Complete approval, residual-risk acceptance and operational readiness |
+| 11. Adoption | Train users and communicate limitations and responsibilities |
+| 12. Production operation | Monitor performance, events, incidents and changes |
+| 13. Improvement | Correct nonconformities and improve the AIMS |
+| 14. Retirement | Decommission models, data, integrations and records safely |
+
+The earlier governance chapter treated governance as Step 5. ISO/IEC 42001 strengthens that step by converting it into part of a repeatable management system.
+
+Step 5 becomes the point at which the organisation determines:
+
+1. Whether the use case is permitted
+2. Whether it falls within the AIMS scope
+3. Which risks and impacts require treatment
+4. Which controls apply
+5. What assurance evidence must be produced
+6. Who must approve the system
+7. What conditions must be satisfied before development continues
+
+Governance then continues through every subsequent stage.
+
+---
+
+## 2. What ISO/IEC 42001 does—and does not do
+
+### 2.1 What it does
+
+ISO/IEC 42001 establishes requirements for managing AI consistently across an organisation.
+
+It covers:
+
+* Organisational context
+* Leadership
+* AI policy
+* Planning
+* Risk assessment
+* Risk treatment
+* AI system impact assessment
+* Resources and competence
+* Operational control
+* Performance evaluation
+* Internal audit
+* Management review
+* Nonconformity
+* Corrective action
+* Continual improvement
+
+It also contains AI-specific reference controls covering areas such as AI policy, organisational responsibilities, resources, impact assessment, lifecycle management, data, stakeholder information, responsible use and supplier relationships.
+
+### 2.2 What it does not do
+
+ISO/IEC 42001 does not:
+
+* Declare a particular AI model legally compliant
+* Replace the EU AI Act
+* Replace GDPR
+* Replace sector-specific regulation
+* Guarantee that an AI system is unbiased
+* Prescribe one risk-scoring methodology
+* Prescribe a specific cloud architecture
+* Require every organisation to implement identical controls
+* Certify an individual AI model’s accuracy
+* Eliminate the need for technical testing
+* Eliminate the need for legal interpretation
+* Replace ISO/IEC 27001 for information security
+* Replace ISO/IEC 23894 for detailed AI risk-management guidance
+* Replace ISO/IEC 42005 for a detailed AI system impact-assessment methodology
+
+ISO states that the standard can support compliance but does not replace applicable laws and regulations.
+
+The distinction is important:
+
+> ISO/IEC 42001 provides the organisational machinery for responsible AI management. Laws determine mandatory legal obligations, while technical standards and engineering methods determine how individual controls are implemented and tested.
+
+---
+
+## 3. ISO/IEC 42001, NIST AI RMF and the EU AI Act
+
+These frameworks should be combined rather than treated as alternatives.
+
+### 3.1 ISO/IEC 42001
+
+Answers:
+
+> How does the organisation establish and operate a repeatable, auditable AI management system?
+
+Its emphasis is on policies, leadership, processes, objectives, responsibilities, risk treatment, documentation, internal audit, management review and improvement.
+
+### 3.2 NIST AI RMF
+
+Answers:
+
+> How should an organisation govern, map, measure and manage AI risks?
+
+Its emphasis is on practical risk management across Govern, Map, Measure and Manage.
+
+### 3.3 EU AI Act
+
+Answers:
+
+> What legal risk classification and mandatory obligations apply to the AI system?
+
+Its emphasis is on prohibited practices, high-risk systems, transparency requirements, general-purpose AI obligations, provider and deployer responsibilities, and conformity requirements.
+
+### 3.4 Combined operating model
+
+| Framework | Primary function |
+| --- | --- |
+| ISO/IEC 42001 | Organisation-wide AI management system |
+| NIST AI RMF | Detailed AI risk-management practice |
+| EU AI Act | Binding legal classification and obligations |
+| ISO/IEC 23894 | AI-specific risk-management guidance |
+| ISO/IEC 42005 | AI system impact-assessment guidance |
+| ISO/IEC 27001 | Information-security management system |
+| ISO/IEC 27701 | Privacy-information management |
+| ISO 9001 | Quality-management system |
+
+A practical enterprise pattern is:
+
+> Use ISO/IEC 42001 as the management-system backbone, NIST AI RMF and ISO/IEC 23894 to strengthen risk practice, ISO/IEC 42005 to structure impact assessment, and the EU AI Act to determine legal obligations.
+
+ISO confirms that ISO/IEC 42005 complements ISO/IEC 42001 by providing detailed guidance for evaluating effects on individuals, groups and society throughout the AI lifecycle. ISO/IEC 23894 provides separate guidance for integrating AI risk management into organisational activities.
+
+---
+
+## 4. Understanding the AIMS scope
+
+The first major implementation decision is not which controls to adopt.
+
+It is:
+
+> What exactly is included within the AI management system?
+
+An organisation does not necessarily need to place every business unit, geography, product and AI experiment within the first certification scope.
+
+The scope should be meaningful, defensible and operationally manageable.
+
+### 4.1 Possible scope models
+
+#### Enterprise-wide scope
+
+Includes all AI development, procurement and professional use across the organisation.
+
+Best suited to mature organisations, centralised AI platforms, highly regulated enterprises, and organisations with strong existing management systems.
+
+#### Business-unit scope
+
+Includes one division, such as retail banking, customer operations, human resources, supply-chain analytics or digital health. This can support phased adoption.
+
+#### Product-based scope
+
+Includes the design, development, operation and support of a named AI product or platform.
+
+For example:
+
+> Design, development, deployment and operation of the organisation’s enterprise customer-service AI platform in the UK and EU.
+
+#### Capability-based scope
+
+Includes a shared AI capability, such as an enterprise generative AI platform, machine-learning development platform, AI model risk-management service or AI product engineering function.
+
+### 4.2 Questions used to determine scope
+
+The organisation should ask:
+
+* Which legal entities are included?
+* Which geographic regions are included?
+* Which business functions are included?
+* Which AI systems are included?
+* Are externally supplied models included?
+* Are internal productivity tools included?
+* Are prototypes included?
+* Are shadow AI tools included?
+* Which lifecycle stages are controlled?
+* Which suppliers and outsourced activities affect the scope?
+* Which supporting platforms are necessary?
+* Which existing management systems interact with the AIMS?
+
+### 4.3 Example scope statement
+
+> The Artificial Intelligence Management System covers the qualification, design, development, procurement, deployment, operation, monitoring and retirement of customer-facing and employee-facing AI systems delivered by the UK Digital AI function, including third-party foundation models, retrieval systems, AI agents and associated data-processing services.
+
+### 4.4 Common scope failure
+
+A weak scope might say:
+
+> All responsible AI activities.
+
+This is difficult to audit because it does not define organisational boundaries, systems, services, locations, responsibilities, interfaces or exclusions.
+
+A useful scope must allow an auditor or executive to determine what is inside and outside the management system.
+
+---
+
+## 5. Clause 4: Context of the organisation
+
+Clause 4 establishes the foundation of the AIMS.
+
+The organisation must understand its context, interested parties, obligations and management-system scope.
+
+### 5.1 Understand internal context
+
+Internal factors may include business strategy, AI ambitions, operating model, risk appetite, existing AI maturity, organisational culture, data maturity, engineering capability, available compute, existing governance processes, internal policies, existing management systems, use of third-party AI, geographic operations, workforce competence and financial constraints.
+
+#### Practical output: internal-context register
+
+| Factor | Relevance to the AIMS | Required response |
+| --- | --- | --- |
+| Rapid generative AI adoption | Shadow AI and data leakage risk | Introduce approved-tool policy |
+| Decentralised product teams | Inconsistent assurance | Establish central control baseline |
+| Existing ISO/IEC 27001 ISMS | Reusable security controls | Create integrated control mapping |
+| Limited AI-risk skills | Weak challenge and oversight | Develop competence programme |
+| Multiple model providers | Supply-chain complexity | Strengthen provider assessment |
+
+### 5.2 Understand external context
+
+External factors may include laws and regulation, customer requirements, industry expectations, technology change, model-provider changes, competitor behaviour, public trust, environmental impact, labour-market conditions, standards, contractual obligations and societal concerns.
+
+A financial institution may identify EU AI Act obligations, UK financial-services regulation, GDPR, Consumer Duty, outsourcing requirements, model-risk expectations, customer accessibility requirements and third-party cloud concentration. These become inputs to the AIMS.
+
+### 5.3 Identify interested parties
+
+Interested parties may include customers, employees, job applicants, regulators, board members, shareholders, suppliers, model providers, cloud providers, business partners, data subjects, auditors, civil-society groups, professional bodies, insurers and works councils.
+
+#### Practical interested-party register
+
+| Interested party | Relevant expectation | How it is addressed |
+| --- | --- | --- |
+| Customers | Accurate and transparent AI interaction | Disclosure, testing and escalation |
+| Employees | Fair treatment and clear accountability | Human oversight and appeal |
+| Regulators | Traceable compliance evidence | Documentation and audit programme |
+| Board | Controlled risk and measurable value | Management review and dashboard |
+| Model provider | Compliance with acceptable-use terms | Technical and contractual controls |
+| Procurement | Clear supplier responsibilities | AI supplier standard |
+
+### 5.4 Define and maintain the AIMS
+
+The organisation must establish the processes needed to operate the management system. These normally include AI inventory management, use-case intake, risk assessment, impact assessment, control selection, approval, lifecycle governance, supplier management, monitoring, incident management, internal audit, management review, corrective action and continual improvement.
+
+---
+
+## 6. Clause 5: Leadership
+
+ISO/IEC 42001 requires active leadership, not passive executive sponsorship.
+
+Leadership must ensure that the AIMS is aligned with the organisation’s strategic direction and integrated into business processes.
+
+### 6.1 Leadership responsibilities
+
+Top management should approve the AIMS scope, set AI governance direction, approve AI policy, define risk appetite, ensure sufficient resources, assign roles and authority, integrate AIMS requirements into delivery, promote responsible use, review performance, support continual improvement and hold owners accountable.
+
+The ISO management-system approach expects responsibility to remain with top management even when activities are delegated.
+
+### 6.2 AI policy
+
+The AI policy should be specific enough to guide decisions. It should address responsible AI principles, permitted and prohibited use, compliance commitments, risk-management expectations, impact assessment, data governance, transparency, human oversight, security and privacy, fairness, performance and quality, supplier management, incident reporting, monitoring and continual improvement.
+
+#### Example policy commitment
+
+> The organisation will design, acquire, deploy and use AI systems in a manner that supports legitimate business objectives, protects affected individuals, satisfies applicable requirements and manages risks throughout the AI lifecycle.
+
+### 6.3 Roles, responsibilities and authority
+
+Roles should cover both enterprise governance and system-level delivery.
+
+**Enterprise roles:** board or executive sponsor, chief AI officer, AIMS manager, AI governance council, legal and compliance lead, privacy lead, information-security lead, model-risk lead, internal audit.
+
+**System-level roles:** business owner, product owner, AI solution architect, data owner, model owner, technical owner, risk owner, human-oversight owner, operations owner, incident owner.
+
+#### Accountability principle
+
+A committee may review a system, but named individuals should remain accountable for business outcome, risk treatment, technical quality, regulatory compliance, production performance and residual-risk acceptance.
+
+---
+
+## 7. Clause 6: Planning
+
+Planning converts organisational commitments into measurable actions.
+
+ISO/IEC 42001 requires organisations to address risks and opportunities, conduct AI risk assessment and treatment, consider system impacts and establish AI objectives.
+
+### 7.1 Risks to the management system
+
+The organisation should consider risks that could prevent the AIMS itself from achieving its objectives—for example AI systems not being registered, teams bypassing governance, inconsistent risk scoring, inadequate competence, missing supplier evidence, unclear accountability, incomplete monitoring, poor document control, management reviews without useful data, or internal audits lacking AI expertise.
+
+These differ from risks created by an individual AI system.
+
+### 7.2 AI system risks
+
+System risks may include incorrect output, hallucination, discrimination, privacy breach, prompt injection, unsafe autonomous action, lack of transparency, model drift, poor data quality, intellectual-property infringement, vendor failure, inadequate human oversight, environmental cost, manipulation and accessibility failure.
+
+### 7.3 AI opportunities
+
+ISO management systems also consider opportunities. AI opportunities may include improved customer service, faster decisions, better accessibility, error reduction, revenue growth, risk detection, knowledge democratisation, employee productivity, more consistent service and improved fraud detection.
+
+Opportunity management should not be separated from risk management.
+
+For example:
+
+> Increasing automation may reduce operating cost but increase the risk of inadequate human review.
+
+Both sides of the decision should be documented.
+
+---
+
+## 8. The AI risk-assessment process
+
+The organisation needs a repeatable risk-assessment methodology.
+
+### 8.1 Establish risk criteria
+
+Define likelihood scale, impact scale, risk categories, risk appetite, escalation thresholds, treatment thresholds, approval authority and review frequency.
+
+### 8.2 Assess inherent risk
+
+Inherent risk is the risk before controls. A practical calculation may be:
+
+> Inherent risk = likelihood × impact
+
+Impact should be assessed across customer harm, fundamental rights, legal and regulatory impact, financial impact, operational impact, reputational impact, security impact, privacy impact, employee impact and societal impact.
+
+### 8.3 Identify controls
+
+Controls may avoid the activity, reduce likelihood, reduce impact, improve detection, enable recovery or transfer part of the exposure.
+
+### 8.4 Assess residual risk
+
+Residual risk is evaluated after the planned controls. It must then be accepted, further treated, transferred, avoided or escalated.
+
+### 8.5 Example AI risk statement
+
+Weak:
+
+> Hallucination risk.
+
+Stronger:
+
+> Because the generative model may produce unsupported policy statements when retrieval evidence is incomplete, customers could receive incorrect contractual information, leading to financial loss, complaints and regulatory exposure.
+
+### 8.6 Risk-register fields
+
+| Field | Description |
+| --- | --- |
+| Risk ID | Unique reference |
+| AI system | Affected system |
+| Risk owner | Accountable individual |
+| Cause | Why the risk may occur |
+| Event | What could happen |
+| Consequence | Resulting harm |
+| Stakeholders | People or groups affected |
+| Inherent likelihood | Before controls |
+| Inherent impact | Before controls |
+| Existing controls | Current protections |
+| Planned controls | Additional treatment |
+| Residual risk | Expected remaining exposure |
+| Acceptance authority | Person approving the risk |
+| Monitoring indicator | Production signal |
+| Review date | Reassessment date |
+
+---
+
+## 9. AI system impact assessment
+
+Risk assessment and impact assessment should not be treated as identical.
+
+**Risk assessment asks:** What uncertain events could affect objectives? What is their likelihood and consequence? How should they be treated?
+
+**Impact assessment asks:** How could the system affect individuals, groups, society and the environment? Who receives the benefits? Who carries the risk? Are impacts intended or unintended? Are impacts direct, indirect, cumulative or delayed? Can affected people challenge the outcome?
+
+ISO/IEC 42005:2025 now provides dedicated guidance for AI system impact assessments and recommends considering impacts throughout design, development, deployment and post-deployment monitoring.
+
+### 9.1 Impact-assessment dimensions
+
+Assess purpose and necessity, affected stakeholders, human rights, fairness, privacy, safety, security, accessibility, human autonomy, employment impact, environmental impact, cultural impact, misinformation, explainability, contestability, distribution of benefits and potential misuse.
+
+### 9.2 Example impact assessment
+
+For an AI recruitment assistant:
+
+**Intended benefit:** faster CV review, more consistent skills extraction, reduced administrative workload.
+
+**Potential adverse impacts:** historical bias reproduced in rankings; disability-related information misinterpreted; certain CV formats scored poorly; applicants unable to challenge recommendations; recruiters over-relying on system output; personal data retained unnecessarily; candidates unaware of AI involvement.
+
+**Treatment:** restrict AI to summarisation and criteria matching; prohibit autonomous rejection; test performance across relevant groups; require recruiter review; provide applicant information; introduce appeal and correction routes; record overrides; monitor selection outcomes.
+
+---
+
+## 10. AI objectives and measurement
+
+The AIMS should have measurable objectives.
+
+Weak objective:
+
+> Improve responsible AI.
+
+Stronger objective:
+
+> By the end of Q4, ensure that 100% of production AI systems within the AIMS scope have named owners, completed risk assessments, approved impact assessments, defined monitoring thresholds and current system documentation.
+
+### 10.1 Example AIMS objectives
+
+| Objective | Measure | Target |
+| --- | --- | --- |
+| Register AI systems | Percentage recorded in inventory | 100% |
+| Complete governance assessments | Production systems assessed | 100% |
+| Improve control effectiveness | Critical control tests passed | At least 98% |
+| Reduce unmanaged AI | Unapproved AI tools detected | Downward trend |
+| Improve competence | Relevant staff completing training | 95% |
+| Improve incident response | Critical AI incidents triaged | Within 30 minutes |
+| Maintain assurance | Overdue high-risk reviews | Zero |
+| Improve documentation | Systems with current cards | 100% |
+| Improve transparency | Applicable interfaces with disclosure | 100% |
+| Improve monitoring | Production systems reporting metrics | 100% |
+
+Objectives should have an owner, a target, a deadline, required resources, a measurement method and a review frequency.
+
+---
+
+## 11. Clause 7: Support
+
+Support ensures that the AIMS has the resources, competence, communication and documentation needed to function.
+
+### 11.1 Resources
+
+AI governance requires more than a policy team. Resources may include skilled personnel, approved datasets, secure cloud infrastructure, evaluation environments, red-team capability, monitoring tools, model registries, documentation repositories, legal support, internal audit competence, budget and compute capacity.
+
+### 11.2 Competence
+
+Competence should be role-specific.
+
+**Executives** need competence in AI opportunity, risk appetite, accountability, regulatory exposure and investment decisions.
+
+**Product owners** need competence in intended purpose, stakeholder impact, acceptance criteria, human oversight and change control.
+
+**Engineers** need competence in secure AI architecture, data governance, evaluation, prompt injection, observability and model limitations.
+
+**Human reviewers** need competence in interpreting AI output, challenging recommendations, avoiding automation bias, escalating uncertainty and recording overrides.
+
+**Internal auditors** need competence in AIMS requirements, AI lifecycle, risk assessment, model and data evidence and control testing.
+
+### 11.3 Awareness
+
+People working under the AIMS should understand the AI policy, their responsibilities, relevant risks, how to report concerns, consequences of bypassing controls and how their work contributes to AIMS objectives.
+
+### 11.4 Communication
+
+The organisation should define what is communicated, why, when, who sends it, who receives it and what evidence is retained. Communication may include user AI disclosures, model limitations, supplier requirements, incident notification, management reporting, regulator engagement, customer instructions and employee guidance.
+
+### 11.5 Documented information
+
+Documents should be approved, version controlled, accessible to authorised users, protected from unauthorised change, retained appropriately, reviewed periodically and linked to systems and controls.
+
+Typical records include policies, procedures, risk assessments, impact assessments, model cards, data sheets, evaluation reports, approval records, logs, audit reports, management-review minutes and corrective-action records.
+
+---
+
+## 12. Clause 8: Operation
+
+Clause 8 is where governance becomes part of everyday AI delivery.
+
+The organisation should plan and control the processes needed to satisfy AIMS requirements and implement its risk and impact treatment.
+
+### 12.1 Operational governance gates
+
+#### Gate 1: use-case qualification
+
+Confirm business purpose, system owner, expected value, affected stakeholders, that use of AI is justified, and initial risk tier.
+
+#### Gate 2: governance classification
+
+Complete legal classification, AI risk assessment, impact assessment, data classification and supplier classification.
+
+#### Gate 3: design approval
+
+Approve architecture, control plan, human oversight, data flows, evaluation plan and logging requirements.
+
+#### Gate 4: pre-production assurance
+
+Verify controls implemented, tests passed, documentation complete, residual risk accepted, operations ready and incident process tested.
+
+#### Gate 5: production release
+
+Confirm approved model version, monitoring enabled, owners available, user information published and rollback plan ready.
+
+#### Gate 6: periodic review
+
+Review performance, incidents, complaints, drift, overrides, supplier changes, regulatory changes and continued business value.
+
+#### Gate 7: retirement
+
+Complete model deactivation, access removal, data deletion or archival, contract closure, record retention and stakeholder communication.
+
+### 12.2 Change control
+
+AI systems require reassessment when there is a material change to intended purpose, user population, affected population, model, model version, prompt, agent tools, data source, retrieval corpus, fine-tuning method, hosting location, provider, geography, level of automation, human oversight or regulatory classification.
+
+A model upgrade should not automatically be treated as a routine software update. It may change accuracy, safety, bias, refusal behaviour, tool-use behaviour, cost, latency, data processing and previous evaluation validity.
+
+---
+
+## 13. Clause 9: Performance evaluation
+
+An AIMS must be measured and reviewed. It is not enough to confirm that procedures exist.
+
+The organisation must determine whether the AIMS is effective, controls are working, objectives are being achieved, risks remain acceptable, systems remain within intended use and improvements are needed.
+
+### 13.1 Monitoring and measurement
+
+Monitor three levels.
+
+**AIMS performance:** inventory completeness, assessment completion, audit findings, training completion, overdue reviews, corrective-action closure, supplier compliance, governance exceptions.
+
+**AI system performance:** accuracy, groundedness, hallucination, bias, drift, security events, privacy events, availability, latency, human override, escalation, complaints.
+
+**Business performance:** adoption, productivity, revenue, cost reduction, customer satisfaction, resolution time, error reduction, benefit realisation.
+
+### 13.2 Internal audit
+
+Internal audit should determine whether the AIMS conforms to organisational requirements, conforms to ISO/IEC 42001 requirements, is effectively implemented and is maintained.
+
+The audit programme should be risk based. High-impact areas may be audited more frequently, such as recruitment, credit, healthcare, customer decision-making, autonomous agents, sensitive personal data and third-party models.
+
+#### Example internal-audit questions
+
+* Is every production AI system registered?
+* Is intended use clearly defined?
+* Are risk and impact assessments current?
+* Are controls linked to identified risks?
+* Are exclusions from the control set justified?
+* Are evaluation thresholds approved?
+* Can decisions be reconstructed from logs?
+* Are human reviewers competent?
+* Are model changes reassessed?
+* Are incidents escalated correctly?
+* Are corrective actions effective?
+
+### 13.3 Management review
+
+Top management should periodically review changes in organisational context, interested-party requirements, AIMS performance, objectives, audit results, incidents, nonconformities, corrective actions, resource adequacy, risk trends, supplier performance and improvement opportunities.
+
+Management-review decisions may include approving additional investment, changing risk appetite, restricting a system, requiring further testing, updating policy, expanding AIMS scope, retiring a system, escalating a supplier issue or improving competence.
+
+---
+
+## 14. Clause 10: Improvement
+
+AI governance must evolve as technology, models, data, risks, laws, user behaviour, incidents and business objectives change.
+
+### 14.1 Nonconformity
+
+A nonconformity is a failure to satisfy a requirement. Examples include a production AI system missing from inventory, risk assessment not completed, required disclosure absent, model changed without approval, monitoring threshold not configured, supplier evidence expired, human oversight not performed, incident not escalated or audit finding not corrected.
+
+### 14.2 Corrective action
+
+Corrective action should address root cause, not only the visible issue.
+
+**Nonconformity:** a new model version entered production without governance approval.
+
+**Immediate correction:** rollback to the approved version.
+
+**Root-cause analysis:** the deployment pipeline did not verify the model registry’s approval state.
+
+**Corrective action:** add an automated release-policy check; restrict production deployment permission; update the change procedure; train release engineers; review previous deployments; test control effectiveness.
+
+### 14.3 Continual improvement
+
+Improvement sources include audit findings, incidents, complaints, near misses, monitoring, red-team results, employee suggestions, customer feedback, regulatory change, supplier updates, new standards and management review.
+
+---
+
+## 15. Annex A: the ISO/IEC 42001 control framework
+
+ISO/IEC 42001 contains 38 reference controls across nine control areas, numbered A.2 to A.10. Annex B provides implementation guidance. These controls are a risk-based starting point: organisations select controls appropriate to their risk environment and may add further controls where necessary.
+
+The nine areas are:
+
+1. Policies related to AI
+2. Internal organisation
+3. Resources for AI systems
+4. Assessing impacts of AI systems
+5. AI system lifecycle
+6. Data for AI systems
+7. Information for interested parties
+8. Use of AI systems
+9. Third-party and customer relationships
+
+The controls should not be implemented as an isolated checklist. They should be selected based on risk assessment, impact assessment, applicable requirements, intended purpose, organisational role, supplier relationships and lifecycle responsibilities.
+
+---
+
+## 16. Annex A.2: policies related to AI
+
+### Practical implementation
+
+Create an AI policy that aligns with business strategy, defines responsible AI principles, sets risk appetite, defines prohibited practices, establishes lifecycle expectations, assigns responsibilities, references legal and regulatory requirements, is reviewed periodically and is communicated to relevant people.
+
+### Evidence
+
+Approved AI policy, policy owner, version history, review record, communication record, employee acknowledgement and supporting procedures.
+
+### Common failure
+
+The organisation publishes high-level ethical principles but does not convert them into operational requirements.
+
+For example, “AI should be fair” should be translated into fairness-risk assessment, data representativeness requirements, group-performance testing, approval thresholds, production monitoring and escalation criteria.
+
+---
+
+## 17. Annex A.3: internal organisation
+
+This area focuses on accountability, roles, reporting and separation of responsibilities.
+
+### Practical implementation
+
+Define AI governance council, system ownership, risk ownership, model ownership, data ownership, approval authority, incident authority, independent challenge, escalation paths and conflict-of-interest controls.
+
+### Evidence
+
+Governance charter, organisation chart, RACI, committee terms of reference, meeting records, approval matrix, role descriptions and escalation procedure.
+
+### Practical principle
+
+The person incentivised to release the AI system should not be the only person deciding whether its risk is acceptable.
+
+---
+
+## 18. Annex A.4: resources for AI systems
+
+AI resources include data, models, software, hardware, compute, tools, documentation, human knowledge, financial resources and suppliers—not only infrastructure.
+
+### Practical implementation
+
+Maintain an AI asset and resource inventory containing AI system, model, model provider, model version, dataset, data owner, compute environment, library, API, prompt, agent tool, vector database, monitoring tool, responsible owner and lifecycle status.
+
+### Special attention to human resources
+
+Document required competencies, availability of reviewers, domain expertise, legal expertise, security expertise, accessibility expertise and independent assurance capability.
+
+### Evidence
+
+Model registry, dataset catalogue, asset inventory, resource plans, competency matrix, capacity plans, architecture diagrams and supplier register.
+
+---
+
+## 19. Annex A.5: assessing impacts of AI systems
+
+This area ensures that impact assessment is systematic rather than optional.
+
+### Practical implementation
+
+Establish impact-assessment methodology, assessment triggers, stakeholder-identification process, impact categories, severity criteria, approval routes, reassessment triggers and documentation requirements.
+
+### Assessment triggers
+
+Require an assessment before initial development, before production, before major changes, before entering a new market, when affected populations change, following a serious incident, and when monitoring identifies unexpected impacts.
+
+### Evidence
+
+Impact-assessment procedure, completed assessments, stakeholder analysis, mitigation plan, approval record, review schedule and change-trigger record.
+
+---
+
+## 20. Annex A.6: AI system lifecycle
+
+Lifecycle governance covers the system from concept to retirement.
+
+### Practical implementation stages
+
+**Requirements:** document intended purpose, users, affected stakeholders, functional requirements, safety requirements, quality requirements, oversight requirements and prohibited uses.
+
+**Design:** define architecture, model choice, data flow, human control, security, privacy, monitoring and fallback.
+
+**Development:** control code, prompts, model configuration, data preparation, training, fine-tuning, dependencies and test environments.
+
+**Verification and validation:** evaluate performance, safety, security, fairness, privacy, robustness, explainability and human oversight.
+
+**Deployment:** confirm approval, documentation, monitoring, incident response, rollback and user information.
+
+**Operation:** monitor performance, drift, events, complaints, overrides and changes.
+
+**Retirement:** control deactivation, data disposition, access removal, contract termination, record retention and stakeholder communication.
+
+### Evidence
+
+Lifecycle procedure, requirements specification, architecture decision records, test results, release approvals, monitoring records, change records and retirement records.
+
+---
+
+## 21. Annex A.7: data for AI systems
+
+Data controls are fundamental because AI performance and impact depend heavily on data quality, provenance, relevance and governance.
+
+### Practical implementation
+
+For each dataset, document source, owner, purpose, legal basis, licence, collection method, population represented, known limitations, labelling method, transformations, quality measures, bias concerns, retention, access, deletion and version.
+
+### Data-quality dimensions
+
+Assess accuracy, completeness, consistency, timeliness, relevance, representativeness, validity, uniqueness and provenance.
+
+### Generative AI considerations
+
+For retrieval-augmented generation: approve source documents; apply document-level permissions; track provenance; record document versions; detect expired content; test retrieval quality; prevent cross-tenant retrieval; detect poisoned documents; preserve citations.
+
+### Evidence
+
+Data sheet, data catalogue, lineage, quality report, bias assessment, licence record, access record, retention schedule and transformation log.
+
+---
+
+## 22. Annex A.8: information for interested parties
+
+People need appropriate information about AI systems. The information required depends on audience, risk, intended purpose, organisational role, applicable law and technical knowledge.
+
+**Information for users** may include that AI is being used, intended purpose, capabilities, limitations, required human review, appropriate use, prohibited use, data handling, escalation process and complaint route.
+
+**Information for customers** may include service responsibilities, performance assumptions, security responsibilities, model dependencies, change notification, incident notification, data processing and support arrangements.
+
+**Information for regulators or auditors** may include risk assessments, impact assessments, technical documentation, logs, test evidence, approval records, monitoring reports and corrective actions.
+
+### Evidence
+
+AI notices, user instructions, product documentation, model cards, system cards, transparency statements, customer contracts and complaint procedure.
+
+---
+
+## 23. Annex A.9: use of AI systems
+
+Organisations using AI supplied by another party still require governance. Buying an AI system does not transfer accountability automatically.
+
+### Practical implementation
+
+**Before use:** define purpose, assess risk, review supplier evidence, confirm data handling, test in the intended context, train users, configure oversight and establish monitoring.
+
+**During use:** prevent use outside approved scope, monitor performance, record material events, review provider changes, report incidents and maintain human oversight.
+
+### Shadow AI controls
+
+Introduce an approved AI tool catalogue, acceptable-use policy, data-classification rules, browser or network controls, discovery monitoring, employee training and an exception process.
+
+### Evidence
+
+Use-case approval, provider assessment, user training, configuration record, usage logs, monitoring reports and exception records.
+
+---
+
+## 24. Annex A.10: third-party and customer relationships
+
+AI systems frequently depend on cloud providers, foundation-model providers, data suppliers, annotation providers, integration partners, consultants, managed services and open-source components.
+
+The organisation must define responsibilities across the value chain.
+
+### Supplier due diligence
+
+Assess security, privacy, data retention, training-data use, subprocessors, data location, model-update policy, evaluation evidence, service availability, incident notification, intellectual property, regulatory support, audit rights and exit arrangements.
+
+### Contractual requirements
+
+Address permitted data, use of prompts and outputs, confidentiality, subprocessors, data residency, security controls, availability, model changes, incident notification, evidence provision, liability, deletion, portability and termination.
+
+### Customer responsibilities
+
+When the organisation supplies an AI system, define intended use, prohibited use, customer configuration duties, data-quality responsibilities, human-oversight requirements, monitoring responsibilities, incident-reporting route and consequences of misuse.
+
+### Evidence
+
+Supplier assessment, contract, data-processing agreement, service-level agreement, responsibility matrix, provider documentation, incident procedure and exit plan.
+
+---
+
+## 25. The Statement of Applicability
+
+The Statement of Applicability, or SoA, is one of the central AIMS documents.
+
+It connects risk assessment, risk treatment, Annex A controls, organisation-specific controls, implementation status and evidence.
+
+### Recommended fields
+
+| Field | Purpose |
+| --- | --- |
+| Control reference | Annex A or custom control |
+| Control title | Control name |
+| Applicable | Yes or no |
+| Justification | Why included or excluded |
+| Related risks | Risks treated |
+| Implementation | How the control operates |
+| Owner | Accountable person |
+| Evidence | Document or system record |
+| Status | Planned, partial or implemented |
+| Test method | How effectiveness is verified |
+| Review date | Next control review |
+
+### Example
+
+| Control area | Applicable | Reason | Implementation |
+| --- | --- | --- | --- |
+| AI system impact assessment | Yes | Customer-facing system affects individuals | Impact assessment required before release |
+| Data provenance | Yes | Responses depend on retrieved policy documents | Versioned source catalogue and lineage |
+| Customer relationship controls | No | System is internal and not supplied externally | Exclusion documented and reviewed |
+| Human oversight | Yes | Incorrect output may cause financial impact | Mandatory agent approval for adjustments |
+
+An exclusion should never be justified only with “Not applicable.” The organisation should explain why it is not necessary within the AIMS scope and risk context.
+
+---
+
+## 26. Translating ISO/IEC 42001 into architecture controls
+
+Management-system requirements must become technical controls.
+
+**Identity:** role-based access, least privilege, multi-factor authentication, service identities, privileged-access control, access reviews.
+
+**Data:** classification, encryption, PII masking, DLP, retention, regional controls, tenant isolation, deletion workflows.
+
+**Models:** approved-model registry, version pinning, evaluation baseline, change approval, fallback models, model cards, restricted fine-tuning.
+
+**Prompts and agents:** version-controlled prompts, input validation, output validation, tool allowlists, transaction limits, human approval, policy enforcement, prompt-injection testing.
+
+**Retrieval:** source provenance, permission filtering, document approval, expiry management, citation generation, retrieval evaluation, poisoning detection.
+
+**Observability:** record system version, model version, prompt version, retrieved sources, tool calls, guardrail decisions, human approvals, overrides, errors, feedback, cost and latency.
+
+The exact conversation content should not automatically be logged without considering privacy, minimisation and access restrictions.
+
+---
+
+## 27. Practical example: customer-service AI assistant
+
+Consider an assistant that answers customer questions, retrieves approved account information, summarises conversations, creates support tickets, recommends next actions and transfers users to human agents.
+
+### 27.1 AIMS scope
+
+The AIMS covers the customer-service AI product team, foundation-model provider, retrieval platform, CRM integration, production monitoring, human escalation, and UK and EU deployment.
+
+### 27.2 Intended use
+
+The assistant may answer approved FAQs, retrieve authenticated information, draft tickets and recommend support steps.
+
+It may not approve refunds, cancel accounts, change contracts, determine eligibility, provide regulated advice or reveal another customer’s information.
+
+### 27.3 Risk assessment
+
+| Risk | Inherent risk | Treatment |
+| --- | --- | --- |
+| Hallucinated policy | High | Grounding, citations, evaluation, escalation |
+| Data leakage | Critical | Tenant isolation, access controls, red testing |
+| Prompt injection | High | Content isolation, tool controls, monitoring |
+| Incorrect transaction | Critical | Human approval and deterministic rules |
+| Misleading interface | Medium | AI disclosure and limitation notice |
+| Failed escalation | High | Tested handoff and operational SLA |
+
+### 27.4 Impact assessment
+
+Affected parties include customers, vulnerable customers, customer agents, supervisors, data subjects and third parties referenced in records.
+
+Potential impacts include incorrect financial information, loss of privacy, reduced access to human support, accessibility barriers, automation bias and customer distress.
+
+### 27.5 Applicable controls
+
+AI policy, defined roles, resource inventory, impact assessment, lifecycle governance, data quality and provenance, user information, responsible use and supplier management.
+
+### 27.6 Evaluation
+
+Measure grounded-answer rate, unsupported-claim rate, retrieval accuracy, data-leakage attempts, prompt-injection resistance, escalation success, accessibility, human override, complaint rate and service availability.
+
+### 27.7 Approval statement
+
+> Approved for controlled production as an informational and ticketing assistant. The system must not execute refunds, account cancellation, eligibility decisions or contractual changes. AI disclosure, authenticated retrieval, tenant isolation, human escalation, monitoring, audit logging and model-change control are mandatory.
+
+---
+
+## 28. AIMS governance RACI
+
+| Activity | Executive sponsor | AIMS manager | Business owner | AI engineer | Risk/legal | Security/privacy | Internal audit |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Define AIMS scope | A | R | C | I | C | C | I |
+| Approve AI policy | A | R | C | I | C | C | I |
+| Register system | I | C | A | R | I | I | I |
+| Risk assessment | I | C | A | R | C | C | I |
+| Impact assessment | I | C | A | R | C | C | I |
+| Select controls | I | A | C | R | C | C | I |
+| Test controls | I | C | C | R | C | A/R | I |
+| Accept residual risk | A | C | R | C | C | C | I |
+| Monitor production | I | C | A | R | C | C | I |
+| Audit AIMS | I | C | I | C | C | C | A/R |
+| Management review | A | R | C | C | C | C | I |
+
+R = Responsible · A = Accountable · C = Consulted · I = Informed
+
+---
+
+## 29. Minimum ISO/IEC 42001 evidence pack
+
+A practical evidence repository should include:
+
+1. AIMS scope
+2. Context register
+3. Interested-party register
+4. Applicable-requirements register
+5. AI policy
+6. Governance charter
+7. Roles and RACI
+8. AI inventory
+9. Risk methodology
+10. AI risk assessments
+11. Risk-treatment plans
+12. Statement of Applicability
+13. Impact-assessment process
+14. Completed impact assessments
+15. AI objectives
+16. Competence records
+17. Awareness records
+18. Communication plan
+19. Document-control procedure
+20. Lifecycle procedure
+21. Data-governance records
+22. Model cards
+23. System cards
+24. Architecture diagrams
+25. Evaluation reports
+26. Approval records
+27. Supplier assessments
+28. Contracts and responsibility matrices
+29. Monitoring reports
+30. Incident records
+31. Internal-audit programme
+32. Internal-audit reports
+33. Management-review records
+34. Nonconformity records
+35. Corrective-action records
+36. Continual-improvement register
+37. Retirement records
+
+Not every document needs to be a separate PDF. Evidence may exist in governance platforms, Git repositories, model registries, ticketing systems, CI/CD tools, monitoring platforms, contract-management systems and data catalogues.
+
+The important requirement is that evidence is controlled, traceable and retrievable.
+
+---
+
+## 30. Certification readiness
+
+ISO/IEC 42001 certification is voluntary. ISO does not certify organisations; independent certification bodies conduct certification, and these bodies may themselves be accredited.
+
+ISO/IEC 42006:2025 now sets AI-specific requirements for organisations that audit and certify AIMS against ISO/IEC 42001, supplementing the broader management-system certification framework.
+
+### Typical preparation sequence
+
+1. **Gap assessment** — review scope, Clauses 4–10, Annex A controls, required evidence, existing processes and missing controls.
+2. **Implementation** — create and operate policies, assessments, controls, monitoring, documentation and governance forums.
+3. **Internal audit** — test conformity, implementation, control effectiveness and record quality.
+4. **Management review** — top management reviews AIMS performance and approves improvement actions.
+5. **Corrective action** — close significant internal findings before external assessment.
+6. **Certification assessment** — the certification body normally reviews management-system design and implementation evidence before assessing operational effectiveness.
+
+### Important principle
+
+Certification should not become the sole objective. An organisation may possess well-organised documents and still operate unsafe AI.
+
+The real objective is:
+
+> A management system that consistently produces responsible, traceable and controlled AI decisions.
+
+---
+
+## 31. Integrated implementation with ISO/IEC 27001
+
+ISO/IEC 42001 follows ISO’s harmonised management-system structure, which makes integration with existing standards easier. Alignment opportunities exist with ISO/IEC 27001, ISO/IEC 27701 and ISO 9001.
+
+### Reusable ISO/IEC 27001 components
+
+An organisation may reuse or extend context assessment, interested-party analysis, risk methodology, document control, internal audit, management review, corrective action, supplier management, access control, incident management, business continuity, asset management and security monitoring.
+
+### AI-specific additions
+
+ISO/IEC 42001 adds stronger focus on AI policy, AI system impacts, model and data lifecycle, AI-specific resources, human oversight, transparency, responsible use, AI supplier roles, AI performance and continual model change.
+
+### Integrated control example
+
+**Information-security objective:** prevent unauthorised access to customer data.
+
+**AI-specific extension:** prevent the generative model, retrieval process or agent workflow from revealing customer data to another user.
+
+**Combined controls:** identity and access management, tenant isolation, retrieval permission filtering, prompt-injection testing, output validation, data-leakage monitoring and incident response.
+
+---
+
+## 32. A 120-day implementation roadmap
+
+### Days 1–30: establish foundations
+
+Complete executive sponsorship, AIMS scope, context analysis, interested-party register, AI inventory, applicable-requirements register, gap assessment, governance structure and initial AI policy.
+
+### Days 31–60: build core processes
+
+Develop risk-assessment method, impact-assessment method, AI lifecycle process, control library, Statement of Applicability, supplier standard, human-oversight standard, data-governance requirements and documentation templates.
+
+### Days 61–90: operationalise
+
+Apply the AIMS to selected systems: complete assessments, implement controls, collect evidence, establish monitoring, train teams, test incident response, run governance gates and create dashboards.
+
+### Days 91–120: assure and improve
+
+Complete internal audit, management review, root-cause analysis, corrective actions, evidence-quality review, certification-readiness assessment and improvement roadmap.
+
+The AIMS should operate long enough to generate real evidence. A newly written policy without operational records will not demonstrate an effective management system.
+
+---
+
+## 33. Common ISO/IEC 42001 implementation failures
+
+### Treating ISO/IEC 42001 as a documentation exercise
+
+The organisation creates templates but delivery teams do not use them.
+
+**Correction:** embed requirements into intake, architecture, CI/CD, procurement and production monitoring.
+
+### Applying the same controls to every AI system
+
+This creates unnecessary bureaucracy for low-risk use cases and insufficient assurance for high-impact systems.
+
+**Correction:** use risk-based control selection.
+
+### Ignoring purchased AI
+
+Teams assume supplier systems are outside organisational responsibility.
+
+**Correction:** govern both developed and externally supplied AI.
+
+### Weak AIMS scope
+
+The scope excludes important lifecycle activities, suppliers or systems.
+
+**Correction:** define organisational and technical boundaries precisely.
+
+### No link between risks and controls
+
+Controls exist, but no evidence shows which risks they treat.
+
+**Correction:** maintain bidirectional traceability from risk to control to test to evidence.
+
+### Human oversight exists only on paper
+
+A reviewer is named but lacks authority, time or information.
+
+**Correction:** test oversight effectiveness and monitor overrides.
+
+### Internal audit lacks AI competence
+
+Auditors check documents but cannot challenge data, model or evaluation evidence.
+
+**Correction:** build multidisciplinary audit teams.
+
+### Management review becomes a status meeting
+
+Executives receive activity counts rather than risk and performance decisions.
+
+**Correction:** present exceptions, trends, incidents, residual risks and value realisation.
+
+### Certification becomes the destination
+
+The organisation focuses on passing an audit rather than improving AI outcomes.
+
+**Correction:** connect AIMS objectives to safety, trust, quality and business performance.
+
+---
+
+## 34. Executive dashboard
+
+### Governance coverage
+
+AI systems in inventory, systems by risk level, systems with named owners, systems with completed assessments, systems with approved controls, systems operating under exceptions.
+
+### Control performance
+
+Failed control tests, overdue corrective actions, missing evidence, expired supplier reviews, unapproved model changes, monitoring coverage.
+
+### Risk indicators
+
+AI incidents, near misses, privacy events, security events, bias indicators, complaints, appeals, human overrides, kill-switch activations.
+
+### Value indicators
+
+Adoption, productivity, revenue, cost reduction, customer satisfaction, error reduction, benefits realised.
+
+Executives should be able to answer:
+
+* Which AI systems exceed risk appetite?
+* Which systems are producing measurable value?
+* Which controls are repeatedly failing?
+* Which suppliers create concentration risk?
+* Where should investment increase?
+* Which systems should be restricted or retired?
+
+---
+
+## Conclusion: ISO/IEC 42001 as the operating system for enterprise AI governance
+
+ISO/IEC 42001 should not be seen as another compliance checklist.
+
+Its purpose is to create a durable organisational system for answering:
+
+* Which AI systems do we operate?
+* Why are we using them?
+* Who is affected?
+* Who is accountable?
+* What could go wrong?
+* Which controls apply?
+* How do we know the controls work?
+* What evidence do we retain?
+* Who accepts the remaining risk?
+* How do we respond to incidents?
+* How do we improve over time?
+
+Its structure can be summarised as:
+
+> **Understand the organisation. Establish leadership. Plan for risk and impact. Support competent delivery. Control AI operations. Measure performance. Audit the system. Correct failures. Continually improve.**
+
+In the wider enterprise AI framework:
+
+* The **EU AI Act** establishes legal classification and obligations.
+* **NIST AI RMF** strengthens practical risk management.
+* **ISO/IEC 23894** supports AI-specific risk practice.
+* **ISO/IEC 42005** strengthens impact assessment.
+* **ISO/IEC 27001** protects information and systems.
+* **ISO/IEC 42001** connects these activities through an auditable management system.
+
+The outcome is not governance for its own sake.
+
+The outcome is an organisation capable of developing, buying, deploying and scaling AI with clear accountability, controlled risk, reliable evidence and continual learning.
+
+
+<KeyTakeaways>
+
+- Treat ISO/IEC 42001 as an organisation-wide AIMS—not a post-deployment certification checklist or a single-model review.
+- Combine it with NIST AI RMF, ISO/IEC 23894, ISO/IEC 42005 and the EU AI Act: management system + risk practice + impact assessment + legal obligations.
+- Make scope, Statement of Applicability, named accountability, operational gates and retrievable evidence the non-negotiables before claiming readiness.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+- Open [ConsultAI OS](https://sudip-ai-playbook.github.io/consult) and attach AIMS artefacts to the use-case workspace
+- Read [AI Governance: NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act) for Step 5 qualification
+- Read [AI Consulting Strategy, Frameworks and Roadmap](/articles/ai-consulting-strategy-frameworks-roadmap) for the full delivery lifecycle
+- Pair with [Responsible AI governance](/learning-map/19-responsible-ai-governance) and the [VALUE gate](/docs/ai-solution-engineering/value-gate)
+
+</NextSteps>

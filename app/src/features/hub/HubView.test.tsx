@@ -3,11 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HubView } from './HubView'
 import { ProjectProvider } from '../journey/ProjectProvider'
-import {
-  ARTICLES_PATH,
-  BLOG_FEATURED_LINKS,
-  LEARNING_MAP_PATH,
-} from '../../constants/playbook'
+import { LEARNING_MAP_PATH } from '../../constants/playbook'
 
 function renderHub() {
   return render(
@@ -20,7 +16,7 @@ function renderHub() {
 }
 
 describe('HubView orientation', () => {
-  it('shows three primary paths and featured reading links', () => {
+  it('shows three primary paths without featured reading or tool grids', () => {
     renderHub()
 
     expect(screen.getByTestId('hub-primary-cta')).toHaveAttribute('href', '/consult')
@@ -29,11 +25,7 @@ describe('HubView orientation', () => {
     expect(screen.getByTestId('start-consulting')).toHaveAttribute('href', '/consult')
     expect(screen.getByTestId('start-journey')).toHaveAttribute('href', '/frame')
 
-    expect(screen.getByTestId('hub-blog-featured')).toBeInTheDocument()
-    expect(screen.getByTestId('hub-blog-all')).toHaveAttribute('href', ARTICLES_PATH)
-
-    for (const post of BLOG_FEATURED_LINKS) {
-      expect(screen.getByTestId(`hub-blog-${post.id}`)).toHaveAttribute('href', post.href)
-    }
+    expect(screen.queryByTestId('hub-blog-featured')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('plane-map')).not.toBeInTheDocument()
   })
 })

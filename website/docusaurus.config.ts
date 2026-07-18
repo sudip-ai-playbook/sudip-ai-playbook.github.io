@@ -70,7 +70,12 @@ const config: Config = {
         indexDocs: true,
         indexBlog: true,
         indexPages: true,
-        docsRouteBasePath: ['docs', 'ai-solution-engineering', 'learning-map'],
+        docsRouteBasePath: [
+          'docs',
+          'ai-solution-engineering',
+          'learning-map',
+          'roadmaps',
+        ],
         blogRouteBasePath: 'articles',
         explicitSearchResultPath: true,
         searchBarShortcutHint: true,
@@ -106,11 +111,26 @@ const config: Config = {
         showLastUpdateAuthor: false,
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'roadmaps',
+        path: 'roadmaps',
+        routeBasePath: 'roadmaps',
+        sidebarPath: './sidebarsRoadmaps.ts',
+        editUrl:
+          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+      },
+    ],
   ],
 
   themeConfig: {
     image: 'img/social-card.svg',
     colorMode: {
+      defaultMode: 'light',
+      disableSwitch: false,
       respectPrefersColorScheme: true,
     },
     docs: {
@@ -143,6 +163,13 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
+          sidebarId: 'roadmapsSidebar',
+          docsPluginId: 'roadmaps',
+          position: 'left',
+          label: 'Roadmaps',
+        },
+        {
+          type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Framework',
@@ -161,7 +188,7 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       logo: undefined,
       links: [
         {
@@ -171,6 +198,7 @@ const config: Config = {
             {label: 'Learning Map', to: '/learning-map/overview'},
             {label: 'How to practise', to: '/learning-map/how-to-use'},
             {label: 'Guide overview', to: '/ai-solution-engineering/overview'},
+            {label: 'Roadmaps', to: '/roadmaps/overview'},
             {label: '8D Framework', to: '/docs/ai-solution-engineering/8d-framework'},
           ],
         },
@@ -197,6 +225,7 @@ const config: Config = {
               href: 'https://sudip-ai-playbook.github.io/consult',
             },
             {label: 'Articles', to: '/articles'},
+            {label: 'AI Agents roadmap', to: '/roadmaps/ai-agents'},
             {label: 'Competency test', to: '/learning-map/competency-test'},
             {
               label: 'GitHub',
