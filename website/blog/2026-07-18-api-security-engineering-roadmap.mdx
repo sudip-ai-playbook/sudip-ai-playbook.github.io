@@ -1,0 +1,1291 @@
+---
+slug: api-security-engineering-roadmap
+title: "API Security Engineering: A Practical End-to-End Roadmap"
+description: How to design, build, test, deploy and operate secure APIs—inventory, threat modelling, identity, authorisation, JWT/OAuth, abuse protection, CI/CD, testing and incident response.
+authors: [sudip]
+tags: [roadmaps, security, solution-engineering, playbook]
+keywords:
+  - API security roadmap
+  - OWASP API Security Top 10
+  - OAuth
+  - JWT
+  - BOLA
+  - API authorization
+  - API rate limiting
+  - API security engineering
+---
+
+APIs connect web applications, mobile apps, cloud services, partners, customers, internal systems and increasingly AI agents. They also expose valuable business capabilities directly: creating payments, changing account details, retrieving customer records, submitting claims, placing orders and triggering operational workflows.
+
+That makes API security much broader than adding authentication to an endpoint.
+
+A secure API must verify:
+
+* Who or what is making the request.
+* Whether that identity is allowed to perform the requested action.
+* Whether it may access the specific object and properties involved.
+* Whether the request is structurally and semantically valid.
+* Whether the operation is being abused at scale.
+* Whether sensitive information is exposed in the response.
+* Whether the service and its dependencies remain secure throughout deployment and operation.
+
+{/* truncate */}
+
+<ExecSummary>
+Use this roadmap as a lifecycle—not a single pre-launch penetration test. For every phase produce a design decision, implementation evidence and an exit criterion. The 12-week plan, payment-API example and definition of done turn OWASP API risks into a repeatable engineering system.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing or hardening public, partner, internal, GraphQL, webhook or AI-facing APIs.
+- Pair with the [API Security Engineering roadmap](/roadmaps/api-security-engineering), [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+- Treat the maturity model and production definition of done as release gates.
+</WhenToUse>
+
+Typical API security programmes group controls into authentication, access control, input, output, monitoring, JWT, OAuth, processing and CI/CD. High-level checklists help, but teams need sequencing, implementation guidance, evidence and release gates. This expanded guide replaces repeated access-control items under “Input” with dedicated validation, parser, upload and injection controls.
+
+The current [OWASP API Security Top 10](https://owasp.org/www-project-api-security/) provides an important risk baseline covering broken object-level authorisation, broken authentication, property-level authorisation, resource consumption, function-level authorisation, sensitive business flows, server-side request forgery, security misconfiguration, inventory management and unsafe consumption of third-party APIs.
+
+---
+
+## 1. How to use this roadmap
+
+Do not treat API security as a single penetration test performed immediately before launch.
+
+Use the roadmap as a lifecycle:
+
+1. Discover and classify the API.
+2. Model threats and abuse cases.
+3. Design identity and authorisation.
+4. Protect transport and network paths.
+5. Validate requests.
+6. Minimise and protect responses.
+7. Secure tokens and delegated access.
+8. Control resource consumption and business abuse.
+9. Secure dependencies and downstream calls.
+10. Build monitoring and incident detection.
+11. Automate controls in CI/CD.
+12. Operate, review and retire the API securely.
+
+For every phase, produce three things:
+
+**A design decision** — What control will be implemented and why?
+
+**Implementation evidence** — Configuration, code, tests, policies or deployment records proving that the control exists.
+
+**An exit criterion** — A measurable condition that must be met before the API progresses.
+
+---
+
+# Part I: Foundation and discovery
+
+## 2. Build an API inventory before applying controls
+
+An organisation cannot secure APIs it does not know exist.
+
+Modern environments often contain:
+
+* Public customer APIs.
+* Partner APIs.
+* Internal microservice APIs.
+* Mobile application backends.
+* GraphQL endpoints.
+* gRPC services.
+* Webhooks.
+* Serverless functions.
+* Legacy SOAP services.
+* AI model endpoints.
+* Temporary development endpoints.
+* Older API versions that were never removed.
+
+OWASP identifies [improper inventory management](https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management/) as a major API risk because old versions, undocumented endpoints and unnecessarily exposed hosts may continue operating without current security controls or patches.
+
+### Information to record
+
+Create an API registry containing:
+
+| Area | Information |
+| --- | --- |
+| Identity | API name, service name and business capability |
+| Ownership | Product owner, engineering owner and security owner |
+| Exposure | Public, partner, internal or private |
+| Environment | Development, test, staging and production |
+| Protocol | REST, GraphQL, gRPC, SOAP, WebSocket or webhook |
+| Data | Public, internal, confidential, personal or regulated |
+| Authentication | OAuth, OIDC, mTLS, workload identity or API key |
+| Authorisation | RBAC, ABAC, ReBAC, scopes or custom policies |
+| Infrastructure | Gateway, ingress, load balancer, cluster and region |
+| Dependencies | Databases, queues, providers and third-party APIs |
+| Version | Current version, supported versions and retirement date |
+| Documentation | OpenAPI specification, runbook and threat model |
+| Monitoring | Logs, metrics, alerts and service dashboard |
+
+### Discovery sources
+
+Do not rely entirely on manually maintained spreadsheets. Reconcile the inventory against:
+
+* API gateway routes.
+* Kubernetes ingress resources.
+* Load balancer configurations.
+* DNS records.
+* Cloud asset inventories.
+* Service mesh traffic.
+* OpenAPI repositories.
+* Source-code route definitions.
+* Network telemetry.
+* Mobile application traffic.
+* Partner integration records.
+
+### Exit criteria
+
+Before production deployment:
+
+* Every production API has a named owner.
+* Every externally exposed endpoint is documented.
+* Data classification has been completed.
+* Authentication and authorisation mechanisms are recorded.
+* Old versions have a retirement decision.
+* Undocumented endpoints are blocked or investigated.
+
+---
+
+## 3. Classify the API by business impact
+
+Not every API requires identical controls.
+
+A weather-information API and a payment-authorisation API have different threat profiles. Classify APIs using business and technical impact.
+
+### Suggested classification
+
+**Tier 1 — Critical**
+
+Examples: payments; identity and access management; healthcare records; financial transactions; privileged administration; production infrastructure control; high-volume personal data.
+
+Typical requirements: strong identity; fine-grained authorisation; mTLS or workload identity; dedicated threat modelling; security testing; real-time monitoring; rapid key revocation; formal incident playbooks.
+
+**Tier 2 — Sensitive**
+
+Examples: customer profiles; orders; employee information; partner integrations; internal analytics.
+
+Typical requirements: central authentication; object-level authorisation; data minimisation; rate limits; central logging; automated security tests.
+
+**Tier 3 — Low sensitivity**
+
+Examples: public product catalogues; public reference data; public status information.
+
+These APIs still require input validation, resource controls, dependency management and protection against abuse.
+
+### Classification questions
+
+Ask:
+
+* Could this API transfer money?
+* Could it expose personal or confidential data?
+* Could it change another person’s account?
+* Could it trigger a physical or operational action?
+* Could an attacker use it to consume expensive infrastructure?
+* Could misuse damage regulatory compliance or customer trust?
+* Does it connect directly to a critical third party?
+
+---
+
+# Part II: Threat modelling and secure design
+
+## 4. Create an API data-flow and trust-boundary diagram
+
+Before selecting products or controls, document how requests move through the system.
+
+A typical flow might be:
+
+```text
+Client
+  ↓
+DNS and CDN
+  ↓
+DDoS protection / WAF
+  ↓
+API gateway
+  ↓
+Identity provider
+  ↓
+Application service
+  ↓
+Database / cache / queue
+  ↓
+Third-party provider
+```
+
+Mark every trust boundary, including:
+
+* Public internet to edge.
+* Edge to gateway.
+* Gateway to service.
+* Service to database.
+* Service to third-party API.
+* One tenant to another tenant.
+* Production to administrative systems.
+* Human user to machine identity.
+
+### Identify assets
+
+Assets may include access tokens, refresh tokens, API keys, personal information, financial records, business rules, signing keys, administrative functions, audit records, model prompts and AI outputs, and provider credentials.
+
+### Develop abuse cases
+
+Traditional user stories describe intended behaviour:
+
+> As a customer, I want to retrieve my order.
+
+An abuse case examines hostile behaviour:
+
+> As an attacker, I change the order ID to retrieve another customer’s order.
+
+Other important abuse cases include:
+
+* Calling an admin endpoint with a standard-user token.
+* Adding undocumented fields to modify protected properties.
+* Replaying a webhook.
+* Submitting thousands of password-reset requests.
+* Using GraphQL batching to bypass per-request limits.
+* Manipulating a callback URL to access an internal service.
+* Uploading an executable file disguised as an image.
+* Requesting unusually large pages to exhaust memory.
+* Exploiting a weaker, older API version.
+* Sending valid requests in a sequence that violates business rules.
+
+### Threat-model output
+
+Produce:
+
+* Data-flow diagram.
+* Threat register.
+* Abuse-case catalogue.
+* Control mapping.
+* Residual-risk assessment.
+* Security testing plan.
+* Named owners and deadlines.
+
+### Exit criteria
+
+High-risk APIs should not enter development until:
+
+* Trust boundaries are understood.
+* Critical abuse cases have controls.
+* Data flows and storage locations are documented.
+* Third-party dependencies are identified.
+* Unresolved critical threats have a risk owner.
+
+---
+
+# Part III: Authentication and identity
+
+## 5. Separate authentication from authorisation
+
+Authentication asks:
+
+> Who is making this request?
+
+Authorisation asks:
+
+> Is that identity permitted to perform this operation on this resource?
+
+They must not be treated as the same control.
+
+A valid token proves that the caller has been authenticated by an accepted issuer. It does not automatically prove that the caller may access every record or function.
+
+### Important roadmap refinement
+
+A JWT is a token format, not a complete authentication mechanism. OAuth 2.0 provides delegated authorisation, while OpenID Connect adds an identity layer for user authentication. ([RFC 7519](https://www.rfc-editor.org/info/rfc7519))
+
+## 6. Choose identity mechanisms by caller type
+
+### Human users
+
+For web and mobile applications, use a central identity provider and an established protocol such as OpenID Connect.
+
+The identity provider should handle login, password security, multifactor authentication, account recovery, session management, identity federation and risk-based authentication.
+
+The API should validate issued access tokens rather than receiving user passwords directly.
+
+### Machine-to-machine callers
+
+For services and automated workloads, consider:
+
+* OAuth client credentials.
+* Cloud workload identities.
+* Short-lived service credentials.
+* Mutual TLS.
+* Signed workload tokens.
+* Service-mesh identity.
+
+Avoid giving multiple services the same long-lived secret. Shared credentials make attribution, rotation and compromise response much harder.
+
+### API keys
+
+API keys can be appropriate for identifying a client application, usage metering, applying quotas and low-risk server-to-server integrations.
+
+However, an API key normally identifies an application rather than a human user. It should not automatically grant unrestricted access to sensitive user data.
+
+Apply a unique key per client and environment; explicit scopes or permissions; expiration and rotation; usage restrictions; immediate revocation; secure storage; rate limits; and audit trails.
+
+Never place keys in URLs because URLs can be stored in browser history, proxy logs, application logs and analytics systems. OWASP similarly recommends keeping passwords, tokens and API keys out of URLs. ([REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html))
+
+## 7. Protect authentication endpoints
+
+Login, token and recovery endpoints are high-value targets.
+
+Protect them with per-account and per-client throttling, progressive delays, temporary lockouts where appropriate, bot and automation detection, generic failure responses, MFA for sensitive accounts, alerts for unusual authentication patterns, protection against credential stuffing, secure password-reset flows, and session and token revocation.
+
+Rate limiting should not depend only on source IP. Attackers may use distributed infrastructure, while legitimate users may share a corporate or mobile-network address.
+
+Combine account identifier, client identifier, device signal, IP reputation, geographic anomalies, request velocity and failed authentication history.
+
+---
+
+# Part IV: Authorisation
+
+## 8. Apply deny-by-default authorisation
+
+Every protected endpoint should require an explicit authorisation decision.
+
+Do not assume an endpoint is safe because:
+
+* It is not linked from the user interface.
+* Its URL is difficult to guess.
+* It is called only by an internal frontend.
+* The object identifier is a UUID.
+* It is behind an API gateway.
+* The user has a valid token.
+
+OWASP places broken object-level, property-level and function-level authorisation among the central API risks. ([OWASP API Top 10](https://owasp.org/API-Security/editions/2023/en/0x11-t10/))
+
+## 9. Perform several authorisation checks
+
+A complete authorisation decision should evaluate:
+
+### Endpoint-level access
+
+Can this caller invoke this route?
+
+```text
+Standard customer → GET /orders
+Administrator     → GET /admin/audit-records
+```
+
+### Function-level access
+
+Can this caller perform the requested action?
+
+```text
+Viewer → read
+Editor → read and update
+Owner  → read, update and delete
+```
+
+### Object-level access
+
+Can the caller access this specific object?
+
+A user allowed to call `GET /orders/{orderId}` must not automatically be allowed to retrieve every order.
+
+### Property-level access
+
+Can the caller read or modify these individual fields?
+
+For example, a customer may update `deliveryAddress` but must not submit `accountTier`, `creditLimit` or `isVerified`.
+
+### Tenant-level access
+
+In multi-tenant platforms, every query and command should be constrained to the authenticated tenant.
+
+Do not trust a client-provided tenant identifier by itself. Derive tenant context from the validated identity and apply it to database access.
+
+### State-based access
+
+Some actions are valid only when the resource is in a particular state—for example, a paid order cannot be edited, a completed refund cannot be submitted again, and an approved claim cannot return to “draft” without privileged approval.
+
+## 10. Centralise policy where practical
+
+Use an appropriate policy model:
+
+* **RBAC:** decisions based on roles.
+* **ABAC:** decisions based on attributes such as department, location, risk or data classification.
+* **ReBAC:** decisions based on relationships such as owner, manager, member or delegate.
+* **Scope-based access:** decisions based on delegated OAuth permissions.
+
+A robust policy may look conceptually like this:
+
+```text
+Allow request when:
+
+identity is authenticated
+AND token issuer is trusted
+AND token audience matches this API
+AND required scope is present
+AND identity belongs to the resource tenant
+AND identity may perform the requested action
+AND requested fields are permitted
+AND resource state allows the transition
+```
+
+### Unsafe pattern
+
+```python
+order = database.get(request.order_id)
+return order
+```
+
+### Safer pattern
+
+```python
+order = database.get(
+    order_id=request.order_id,
+    tenant_id=identity.tenant_id
+)
+
+if order is None:
+    return not_found()
+
+if not policy.can_read(identity, order):
+    return forbidden()
+
+return allowed_order_fields(identity, order)
+```
+
+### Required tests
+
+For each sensitive endpoint, test:
+
+* No token.
+* Invalid token.
+* Expired token.
+* Correct user and correct object.
+* Correct user and another user’s object.
+* Correct user and another tenant’s object.
+* User with insufficient role.
+* User attempting to update protected fields.
+* Administrator using the wrong administrative scope.
+* Resource in an invalid state.
+
+---
+
+# Part V: Transport and network security
+
+## 11. Require encrypted transport
+
+Secure REST services should provide HTTPS endpoints so credentials, tokens and data are protected in transit. OWASP also recommends considering mutually authenticated certificates for highly privileged services. ([REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html))
+
+Apply HTTPS for all external endpoints; TLS for internal service communication where appropriate; valid certificate-chain and hostname verification; automated certificate renewal; modern protocol and cipher configuration; encryption between gateway, service and downstream systems; and mTLS for high-value service-to-service communication.
+
+[RFC 9325](https://www.rfc-editor.org/rfc/rfc9325.html) provides current best-practice recommendations for secure TLS and DTLS deployment.
+
+## 12. Use HSTS correctly
+
+For browser-accessible API domains, HTTP Strict Transport Security can instruct browsers to use HTTPS and avoid insecure HTTP communication after the policy has been received. ([HSTS Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html))
+
+Example:
+
+```http
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+Do not enable `includeSubDomains` or preload behaviour until every relevant subdomain supports HTTPS reliably.
+
+## 13. Treat network controls as defence in depth
+
+IP allowlisting can reduce exposure for private integrations, but it should not replace identity and authorisation.
+
+Prefer combinations such as private network endpoints, VPN or private connectivity, gateway authentication, workload identity, mTLS, least-privilege authorisation, egress restrictions and service segmentation.
+
+Also protect management endpoints separately from normal application APIs.
+
+---
+
+# Part VI: Request and input security
+
+## 14. Validate every request against a schema
+
+Input validation should occur before business processing.
+
+Validate HTTP method, path structure, content type, character encoding, body size, field names, required fields, data types, string lengths, numeric ranges, enumerated values, date formats, array lengths, nested-object depth and allowed additional properties.
+
+OWASP recommends validating data against expected type, format and length; validation reduces attack surface but should be combined with context-specific defences against injection and other vulnerabilities. ([Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html))
+
+Example schema:
+
+```yaml
+type: object
+additionalProperties: false
+required:
+  - productId
+  - quantity
+properties:
+  productId:
+    type: string
+    format: uuid
+  quantity:
+    type: integer
+    minimum: 1
+    maximum: 20
+```
+
+Setting `additionalProperties: false` can help prevent clients from submitting unexpected fields, although compatibility and versioning implications should be considered.
+
+## 15. Validate syntax and business meaning
+
+Syntactic validation asks whether a value is an integer between 1 and 20. Semantic validation asks whether this user is allowed to purchase 20 units, whether the item is available, and whether the transaction is permitted. Both are necessary.
+
+For a payment API, validate supported currency, minimum and maximum amount, customer account status, daily transaction limit, recipient status, duplicate transaction attempts, jurisdiction restrictions and required approvals.
+
+## 16. Prevent injection
+
+Use parameterised database queries, safe ORM operations, escaping appropriate to the output context, allowlisted command parameters, dedicated query builders, safe template engines, strict deserialisation, and no dynamic evaluation of user-controlled data.
+
+Input validation alone should not be treated as the only defence against SQL injection, command injection or similar attacks.
+
+## 17. Secure file uploads
+
+For upload endpoints: restrict file size and count; verify actual file type, not only the extension; generate server-side filenames; store files outside executable paths; scan for malware; strip unnecessary metadata where required; process files in isolated workers; prevent path traversal; apply decompression limits; use signed, short-lived upload URLs; separate upload storage from application servers; and apply retention and deletion rules.
+
+A CDN or object store may help deliver uploaded content, but it does not make the upload safe by itself.
+
+## 18. Protect parsers and serialisers
+
+When supporting XML: disable external entities; disable DTD processing unless explicitly required; prevent entity expansion; and limit document size and nesting.
+
+For YAML and object serialisation: use safe loaders; do not allow arbitrary class construction; avoid deserialising untrusted native objects; and limit recursion and payload complexity.
+
+## 19. Prevent SSRF
+
+Server-side request forgery occurs when an API can be manipulated into sending requests to attacker-selected destinations.
+
+Common entry points include URL preview features, webhook testing, image import, document conversion, remote file download, callback configuration and cloud integration testing.
+
+Controls include allowlisting approved destination domains; restricting protocols to HTTPS where possible; resolving and validating destination addresses; blocking loopback, private, link-local and metadata ranges; applying egress firewall rules; preventing redirects to disallowed destinations; revalidating after DNS resolution; using dedicated outbound proxies; and applying strict timeouts and response-size limits.
+
+## 20. Secure GraphQL APIs
+
+For GraphQL: apply authentication and authorisation at resolver level; limit query depth; limit query complexity or cost; restrict aliases and batching; limit returned records; disable or restrict introspection where justified; persist approved production queries where appropriate; and apply limits to the aggregate operation, not merely the HTTP request.
+
+OWASP illustrates how GraphQL batching can be abused to send numerous authentication attempts inside one HTTP request, bypassing naïve request-count limits. ([API2:2023 Broken Authentication](https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/))
+
+---
+
+# Part VII: Response and output security
+
+## 21. Return only required information
+
+Create explicit response models rather than serialising database entities directly.
+
+Unsafe:
+
+```json
+{
+  "id": "123",
+  "email": "user@example.com",
+  "passwordHash": "...",
+  "internalRiskScore": 82,
+  "adminNotes": "...",
+  "accountTier": "standard"
+}
+```
+
+Safer:
+
+```json
+{
+  "id": "123",
+  "email": "user@example.com",
+  "accountTier": "standard"
+}
+```
+
+Apply field-level authorisation to responses. A field may be safe for an administrator but inappropriate for a customer or partner.
+
+## 22. Use appropriate response headers
+
+Depending on the API and client type, consider:
+
+```http
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+Cache-Control: no-store
+```
+
+For browser-facing content, additional headers such as Content Security Policy and frame restrictions may be relevant. For a pure JSON API that never renders active browser content, those headers may provide less value than they do for an HTML application.
+
+Remove unnecessary fingerprinting headers such as framework or runtime version disclosures.
+
+## 23. Design safe error responses
+
+Errors should be useful to clients without exposing stack traces, database queries, internal hostnames, filesystem paths, secret values, provider credentials, detailed token-validation internals, or whether a particular account exists.
+
+Example:
+
+```json
+{
+  "type": "validation-error",
+  "title": "The request is not valid",
+  "status": 400,
+  "instance": "req-4d72f",
+  "errors": [
+    {
+      "field": "quantity",
+      "message": "Must be between 1 and 20"
+    }
+  ]
+}
+```
+
+[RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html) defines a standard problem-details format for machine-readable HTTP API errors using `application/problem+json`. It also emphasises that problem details should describe the HTTP interface rather than expose internal debugging information.
+
+## 24. Use HTTP status codes consistently
+
+Typical examples:
+
+* `200` — successful retrieval or update.
+* `201` — resource created.
+* `202` — accepted for asynchronous processing.
+* `204` — successful operation with no response body.
+* `400` — malformed or invalid request.
+* `401` — missing or invalid authentication.
+* `403` — authenticated but not authorised.
+* `404` — resource not found or intentionally concealed.
+* `409` — state or version conflict.
+* `413` — payload too large.
+* `415` — unsupported content type.
+* `422` — semantically invalid request, where used by the API.
+* `429` — rate limit exceeded.
+* `500` — unexpected server failure.
+* `503` — service temporarily unavailable.
+
+Do not return `200` with an error hidden inside the response body for every scenario.
+
+---
+
+# Part VIII: JWT security
+
+## 25. Validate JWTs comprehensively
+
+JWT validation should include more than checking whether a signature exists.
+
+Validate cryptographic signature; allowed algorithm; issuer (`iss`); audience (`aud`); expiration (`exp`); not-before time (`nbf`); token type; required scopes or roles; key identifier against trusted keys; application-specific claims; and tenant context where applicable.
+
+[RFC 8725](https://www.rfc-editor.org/info/rfc8725) recommends explicit algorithm verification, appropriate algorithms, validation of cryptographic operations and sufficient key entropy.
+
+## 26. Never trust the algorithm selected by the token
+
+Unsafe logic:
+
+```text
+Read alg from token header
+Use whichever algorithm the token requests
+```
+
+Safer logic:
+
+```text
+API configuration allows RS256
+Token requests RS256
+Key comes from the trusted issuer's configured key set
+Signature, issuer and audience are validated
+```
+
+The accepted algorithm must be configured by the server, not selected freely by untrusted token input.
+
+## 27. Keep access tokens short-lived
+
+Short-lived access tokens reduce the useful lifetime of a stolen token.
+
+Design separately: access-token lifetime; refresh-token lifetime; refresh-token rotation; session revocation; signing-key rotation; compromised-client response; and user logout behaviour.
+
+A short expiry is not enough if refresh tokens are long-lived, reusable and poorly protected.
+
+## 28. Minimise JWT payloads
+
+JWT payloads are encoded, not automatically encrypted.
+
+Do not place unnecessary sensitive data inside them. Avoid passwords, API secrets, full personal profiles, financial details, confidential business information and data likely to become outdated quickly.
+
+Keep tokens small because they may be sent with every request and processed by multiple infrastructure components.
+
+## 29. Prefer asymmetric signing for distributed verification
+
+For systems with many resource servers, asymmetric signing can allow APIs to verify tokens using public keys without distributing a shared signing secret to every service.
+
+Implement trusted JWKS endpoint configuration, key caching, controlled refresh, key-rotation overlap, rejection of unknown issuers and rejection of attacker-supplied key locations.
+
+## 30. Do not confuse ID tokens and access tokens
+
+An OpenID Connect ID token communicates information about an authenticated user to the client application. An access token is intended for authorising access to an API.
+
+The API should validate tokens issued for its audience and purpose rather than accepting any structurally valid JWT.
+
+---
+
+# Part IX: OAuth security
+
+## 31. Use suitable OAuth flows
+
+For user-facing web and mobile applications, use the authorisation code flow with Proof Key for Code Exchange.
+
+PKCE binds the authorisation request and token exchange using a verifier, reducing the risk of a stolen authorisation code being reused by another client. [RFC 9700](https://www.rfc-editor.org/info/rfc9700) recommends PKCE even for confidential clients because it provides protection against authorisation-code injection and misuse. ([RFC 7636](https://www.rfc-editor.org/info/rfc7636))
+
+For machine-to-machine systems, client credentials or workload identity may be appropriate.
+
+Avoid building custom token exchange mechanisms when a mature, standard implementation is available.
+
+## 32. Validate redirect URIs exactly
+
+OAuth redirect URIs should be registered and validated server-side.
+
+Do not use unsafe wildcard matching such as `https://*.example.com/callback` unless the identity platform provides a carefully constrained and understood implementation.
+
+An attacker-controlled redirect URI can expose authorisation codes or tokens.
+
+## 33. Protect the authorisation flow
+
+Apply `state` to bind request and response and protect the client flow; PKCE for authorisation-code protection; `nonce` for relevant OpenID Connect flows; exact redirect-URI validation; secure client registration; client authentication where applicable; short-lived authorisation codes; one-time code use; and secure browser session handling.
+
+[RFC 9700](https://www.rfc-editor.org/info/rfc9700) is the current OAuth 2.0 security Best Current Practice and updates earlier OAuth threat guidance based on operational experience and newer attack patterns.
+
+## 34. Design scopes around business capability
+
+Avoid broad scopes such as `full_access`, `all` or `admin`.
+
+Prefer understandable capabilities:
+
+```text
+orders:read
+orders:create
+orders:cancel
+payments:create
+refunds:approve
+customers:profile:read
+```
+
+Scopes are not a replacement for object-level checks. A token with `orders:read` may read permitted orders, not every order in the platform.
+
+---
+
+# Part X: Resource protection and business-logic abuse
+
+## 35. Apply layered rate limits
+
+Rate limits should exist at several levels: per IP, per client, per user, per tenant, per token, per route, per operation, per business action, per time window and per cost unit.
+
+A request to retrieve a small record is not equivalent to generating a large report or invoking an expensive AI model.
+
+### Example policy
+
+```text
+GET /products
+1,000 requests per minute per client
+
+POST /password-reset
+5 requests per hour per account
+20 requests per hour per IP
+
+POST /reports
+10 concurrent jobs per tenant
+
+POST /ai/generate
+Token and cost budget per user and organisation
+```
+
+Return an appropriate `429 Too Many Requests` response and, where useful, a retry indication.
+
+## 36. Limit resource consumption
+
+Control request-body size, response size, page size, query depth, number of filters, concurrent requests, execution time, database query time, file size, decompression ratio, batch size, queue depth, retry count, AI token usage and downstream-call count.
+
+Apply timeouts throughout the chain. A gateway timeout is not enough if the application continues processing abandoned requests.
+
+## 37. Protect sensitive business flows
+
+Some requests are individually valid but harmful when automated or repeated.
+
+Examples: buying all available limited-stock products; repeatedly requesting OTP codes; scraping customer-facing price data; creating large numbers of trial accounts; testing stolen payment cards; repeatedly reserving appointments without completing booking; applying the same discount through multiple accounts; triggering expensive reports or AI operations.
+
+Controls include velocity rules, behavioural signals, idempotency keys, transaction limits, step-up authentication, device and account reputation, human review for high-risk actions and business-specific anomaly detection.
+
+---
+
+# Part XI: Processing and dependency security
+
+## 38. Secure server-side processing
+
+Production services should run with debug mode disabled; use least-privilege identities; avoid privileged containers; use read-only filesystems where practical; restrict filesystem access and process capabilities; apply memory and CPU limits; patch runtimes and base images; fail safely when dependencies are unavailable; and avoid executing user-controlled content.
+
+Do not rely only on platform-level protections such as non-executable memory. Application-level validation, safe libraries and least privilege remain necessary.
+
+## 39. Protect asynchronous operations
+
+For queues and background jobs: authenticate publishers and consumers; authorise access to topics and queues; validate messages again at consumption time; sign sensitive messages where required; detect replay; use idempotent processing; protect dead-letter queues; encrypt sensitive payloads; limit retries; and avoid storing secrets in message bodies.
+
+A message reaching a trusted queue does not guarantee that its content is safe.
+
+## 40. Secure third-party API consumption
+
+Responses from partner or provider APIs should be treated as untrusted input.
+
+Validate TLS and server identity, response content type, response schema, maximum size, status codes, redirect behaviour, data types and ranges, signature or webhook authenticity, timeouts and retry behaviour.
+
+OWASP includes [unsafe consumption of APIs](https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/) because developers may trust data received from third parties more than data received directly from users, even though a provider or integration may be compromised or return malicious content.
+
+### Reliability controls
+
+Use connection timeouts, request timeouts, bounded retries, exponential backoff, jitter, circuit breakers, bulkheads, fallback behaviour, idempotency and dependency health monitoring.
+
+Be cautious with retries on non-idempotent operations such as payments or order creation.
+
+---
+
+# Part XII: Secrets and cryptographic material
+
+## 41. Centralise secrets management
+
+Store secrets in an approved secrets-management platform rather than source code, Git history, container images, wiki pages, shared chat channels, plaintext configuration files, build logs or client-side applications.
+
+OWASP recommends centralised storage, provisioning, auditing, rotation and management of secrets. ([Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html))
+
+Manage API keys, database credentials, OAuth client secrets, signing keys, encryption keys, TLS private keys, webhook secrets and provider credentials.
+
+## 42. Apply secrets lifecycle management
+
+For every secret define owner, purpose, systems allowed to retrieve it, creation date, rotation frequency, expiration, revocation procedure, emergency rotation process and audit requirements.
+
+Prefer short-lived credentials and workload identity over permanent secrets where platforms support them.
+
+Use separate secrets for development, test, staging, production, different services and different external clients.
+
+A development compromise should not expose production credentials.
+
+---
+
+# Part XIII: Monitoring and detection
+
+## 43. Build security-focused logging
+
+Infrastructure access logs alone are insufficient. Application logs provide the business and authorisation context needed to understand misuse.
+
+OWASP’s logging guidance emphasises application-level security events rather than relying solely on web-server logging. ([Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html))
+
+Record appropriate events such as successful and failed authentication, token-validation failures, authorisation denials, administrative actions, sensitive-data access, role and permission changes, API-key creation and revocation, rate-limit violations, schema-validation failures, webhook signature failures, unusual request volumes, configuration changes, security-control bypass attempts, data export activity and dependency failures.
+
+## 44. Do not log sensitive information
+
+Redact or omit passwords, access tokens, refresh tokens, API keys, session cookies, private keys, full payment-card information, sensitive personal data and confidential request bodies.
+
+Microservice logging guidance similarly recommends filtering and sanitising logs so passwords, API keys and personal data are not sent to central logging systems. ([Microservices Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_Security_Cheat_Sheet.html))
+
+## 45. Use correlation identifiers
+
+Generate a unique request or trace identifier at the edge and propagate it across gateway, application services, queues, background workers, databases where appropriate and third-party calls.
+
+Example:
+
+```http
+X-Request-ID: 7fd70d76-0e8f-4e25-a242-7cedc39ef930
+```
+
+Do not allow an untrusted client to inject arbitrary log content through this identifier. Validate or replace external values.
+
+## 46. Design actionable alerts
+
+An alert should answer what happened; which API and endpoint were involved; which user, client or tenant was involved; what resource was targeted; how severe the event is; whether it is still happening; and what action the responder should take.
+
+Useful detections include high volumes of `401` responses, sequential object-ID enumeration, cross-tenant access attempts, sudden increases in `403` responses, JWTs from unknown issuers, tokens with incorrect audiences, repeated high-cost operations, unusual geographic access, large data exports, use of deprecated API versions, new or undocumented endpoints and unexpected outbound destinations.
+
+---
+
+# Part XIV: CI/CD and software supply chain
+
+## 47. Integrate security into development
+
+Security controls should run throughout the delivery lifecycle.
+
+NIST’s final [SSDF 1.1](https://csrc.nist.gov/pubs/sp/800/218/final) provides a stable secure-development baseline that can be integrated into existing software-development lifecycles. NIST also published SSDF 1.2 as an initial public draft in December 2025, so organisations should distinguish the current final baseline from the newer draft material.
+
+### Pull-request controls
+
+Require peer review, protected branches, no self-approval for sensitive changes, security review for authentication and authorisation changes, automated test success, secrets scanning, dependency scanning, static analysis and infrastructure policy checks.
+
+### Build controls
+
+Apply reproducible builds where practical, approved build images, dependency pinning, software bill of materials, container scanning, artifact signing, provenance records, isolated build environments and restricted access to signing credentials.
+
+### Deployment controls
+
+Use infrastructure as code, configuration scanning, least-privilege deployment identities, approval for high-risk production changes, canary or progressive rollout, health checks, automated rollback criteria, immutable artifacts and environment separation.
+
+## 48. Define security release gates
+
+Example release rules:
+
+| Finding | Release decision |
+| --- | --- |
+| Critical exploitable vulnerability | Block |
+| High authorisation flaw | Block |
+| Exposed secret | Block and rotate |
+| Missing threat model for critical API | Block |
+| Medium issue with compensating control | Formal approval required |
+| Low-risk issue | Track with due date |
+
+Do not define gates only by scanner severity. Consider exploitability, business impact, exposure, data sensitivity and compensating controls.
+
+---
+
+# Part XV: API security testing
+
+## 49. Build several layers of tests
+
+### Unit tests
+
+Test token claim validation, scope evaluation, role evaluation, object-level access rules, tenant filtering, property filtering, input validators and state transitions.
+
+### Integration tests
+
+Test gateway and identity-provider integration, expired and malformed tokens, incorrect audience, incorrect issuer, revoked credentials, cross-service identity propagation, database tenant boundaries and third-party failure behaviour.
+
+### Contract tests
+
+Validate that implementation matches the API specification: supported routes and methods, required authentication, request and response schemas, error formats and deprecated versions.
+
+### Negative security tests
+
+A security test should deliberately attempt to violate assumptions.
+
+Examples:
+
+```text
+Change /users/100/orders to /users/101/orders
+Submit protected fields not shown in the UI
+Call an admin route with a normal-user token
+Reuse an expired token
+Use a token issued for another API
+Send a 200 MB request
+Send deeply nested JSON
+Change Content-Type while keeping the same payload
+Replay a webhook
+Modify a webhook signature
+Bypass rate limits using batching
+Supply an internal URL to an import function
+Call an old API version
+```
+
+### Fuzzing
+
+Fuzz path parameters, query parameters, headers, JSON bodies, GraphQL queries, file parsers, protocol boundaries and content types.
+
+Monitor for crashes, memory spikes, unexpected `500` responses, information leakage, validation bypass and excessive processing time.
+
+---
+
+# Part XVI: Incident response and operations
+
+## 50. Prepare API-specific incident playbooks
+
+Create playbooks for leaked API key, stolen access token, compromised refresh token, signing-key compromise, OAuth client compromise, cross-tenant access, data exfiltration, DDoS attack, third-party provider compromise, malicious API version deployment and undocumented endpoint discovery.
+
+Each playbook should define detection signal, incident owner, immediate containment, credential or key revocation, traffic blocking, customer and regulatory assessment, evidence preservation, recovery and post-incident review.
+
+## 51. Design emergency controls before an incident
+
+Operational teams may need to revoke a client, disable an endpoint, block a tenant or account, reduce rate limits, disable an API version, rotate a signing key, reject all tokens from an issuer, disable a third-party integration, switch a capability into read-only mode or roll back a release.
+
+These controls should be tested. An untested emergency procedure may fail when it is most needed.
+
+## 52. Retire APIs safely
+
+API retirement should include identifying active consumers, communicating deprecation, publishing migration guidance, measuring remaining traffic, setting a final shutdown date, blocking new consumers, removing routes and infrastructure, revoking credentials, archiving required logs, updating the API inventory and confirming DNS and documentation removal.
+
+Leaving old endpoints operational “temporarily” often turns temporary exposure into permanent attack surface.
+
+---
+
+# Part XVII: Practical example — securing a payment API
+
+Consider three endpoints:
+
+```http
+POST /payments
+GET /payments/{paymentId}
+POST /payments/{paymentId}/refunds
+```
+
+## Step 1: Classify the service
+
+Classification: **Tier 1 critical**
+
+Reasons: moves money; processes customer and account information; integrates with an external payment provider; could create financial and regulatory impact.
+
+## Step 2: Identify threats
+
+Key abuse cases:
+
+* A customer retrieves another customer’s payment.
+* A normal user submits a refund.
+* The same payment request is replayed.
+* An attacker changes the amount after approval.
+* A stolen token is used at high velocity.
+* A provider webhook is forged.
+* A provider timeout causes duplicate payment creation.
+
+## Step 3: Authentication
+
+Use OIDC for customer authentication; OAuth access tokens for API access; workload identity or client credentials for internal services; and mTLS for sensitive provider communication where supported.
+
+## Step 4: Authorisation
+
+Example scopes:
+
+```text
+payments:create
+payments:read
+refunds:create
+refunds:approve
+```
+
+Object check: `token.tenant_id` must equal `payment.tenant_id`.
+
+Function check: `refunds:create` does not automatically grant `refunds:approve`.
+
+State check: only settled payments may be refunded; total refunds may not exceed the settled amount.
+
+## Step 5: Request validation
+
+```json
+{
+  "amount": 12500,
+  "currency": "GBP",
+  "paymentMethodId": "pm_7f38...",
+  "idempotencyKey": "4d71..."
+}
+```
+
+Validate amount is a positive integer; currency is supported; payment method belongs to the authenticated customer; amount is within transaction limits; idempotency key is present and unique to the intended operation; unknown fields are rejected; customer and account are active.
+
+## Step 6: Prevent duplicate processing
+
+The API stores the idempotency key with client identity, endpoint, request hash, response and expiration.
+
+A repeated identical request receives the original result. A repeated key with a different body is rejected.
+
+## Step 7: Protect the provider integration
+
+Apply short timeouts, idempotency with the provider, bounded retries, circuit breaker, signed webhook validation, timestamp verification, replay protection, provider response validation and reconciliation jobs.
+
+## Step 8: Minimise responses
+
+Do not return full payment-card data, provider secrets, internal fraud scores, database identifiers not needed by the client or raw provider errors.
+
+## Step 9: Monitor
+
+Alert on numerous failed payment attempts, sudden refund spikes, cross-tenant object access, repeated idempotency conflicts, invalid webhook signatures, unusual transaction amounts, tokens from unknown issuers and administrative refunds outside normal patterns.
+
+## Step 10: Test
+
+The release must prove:
+
+* Another customer cannot retrieve the payment.
+* A standard customer cannot approve a refund.
+* Duplicate requests do not create duplicate payments.
+* Invalid provider webhooks are rejected.
+* Amount and currency limits are enforced.
+* Logs do not contain tokens or card information.
+* Provider failure does not expose internal errors.
+* Emergency provider shutdown works.
+
+---
+
+# Part XVIII: A 12-week learning and implementation roadmap
+
+## Week 1 — Inventory and classification
+
+**Learn:** API types and exposure models; data classification; OWASP API risks.
+
+**Build:** API inventory template; ownership model; criticality model.
+
+**Evidence:** one fully documented example API.
+
+## Week 2 — Architecture and threat modelling
+
+**Learn:** trust boundaries; data-flow diagrams; abuse cases; attack-surface analysis.
+
+**Build:** architecture diagram; threat register; control mapping.
+
+**Evidence:** reviewed threat model.
+
+## Week 3 — Authentication
+
+**Learn:** OAuth; OpenID Connect; workload identity; API-key limitations; MFA and session concepts.
+
+**Build:** central authentication integration; token-validation middleware.
+
+**Evidence:** invalid, expired and incorrectly issued tokens are rejected.
+
+## Week 4 — Authorisation
+
+**Learn:** RBAC; ABAC; ReBAC; scopes; BOLA and property-level access.
+
+**Build:** central authorisation policy; tenant isolation; protected response models.
+
+**Evidence:** cross-user and cross-tenant tests pass.
+
+## Week 5 — Input and output security
+
+**Learn:** schema validation; injection prevention; file-upload controls; safe error handling; data minimisation.
+
+**Build:** OpenAPI request schemas; standard problem responses; explicit response DTOs.
+
+**Evidence:** malformed and unexpected input is rejected consistently.
+
+## Week 6 — JWT and OAuth hardening
+
+**Learn:** JWT claims; signature and algorithm validation; key rotation; PKCE; redirect-URI protection.
+
+**Build:** trusted issuer and audience configuration; JWKS rotation handling; OAuth flow tests.
+
+**Evidence:** wrong algorithm, issuer, audience and expiry are rejected.
+
+## Week 7 — Gateway and abuse protection
+
+**Learn:** rate limiting; quotas; DDoS protection; business-flow abuse; GraphQL cost controls.
+
+**Build:** per-user, per-client and per-operation limits; payload and concurrency controls.
+
+**Evidence:** limits cannot be trivially bypassed through batching or identifier changes.
+
+## Week 8 — Network and secrets
+
+**Learn:** TLS; mTLS; private endpoints; secret rotation; workload identity.
+
+**Build:** central secrets integration; environment separation; service identity.
+
+**Evidence:** no production secret exists in source control or deployment manifests.
+
+## Week 9 — Monitoring and detection
+
+**Learn:** security event logging; correlation; alert design; sensitive-data redaction.
+
+**Build:** API security dashboard; alerts for authentication, authorisation and abuse anomalies.
+
+**Evidence:** simulated attacks generate actionable alerts without logging secrets.
+
+## Week 10 — CI/CD security
+
+**Learn:** SAST; SCA; secret scanning; IaC scanning; container scanning; artifact provenance.
+
+**Build:** automated pipeline; severity-based release gates; rollback workflow.
+
+**Evidence:** a deliberately vulnerable build is blocked.
+
+## Week 11 — Adversarial testing
+
+**Learn:** API penetration-testing techniques; fuzzing; business-logic testing; dependency-failure testing.
+
+**Build:** negative test suite; cross-tenant tests; replay and SSRF tests.
+
+**Evidence:** findings are tracked to remediation.
+
+## Week 12 — Production readiness
+
+**Learn:** incident response; key compromise; API retirement; operational governance.
+
+**Build:** runbook; incident playbooks; emergency kill switch; production readiness review.
+
+**Evidence:** a tabletop exercise demonstrates that the team can detect, contain and recover from an API incident.
+
+---
+
+# Part XIX: API security maturity model
+
+## Level 1 — Ad hoc
+
+Security depends on individual developers. Incomplete inventory. Shared credentials. Manual testing. Limited logging. No formal ownership.
+
+## Level 2 — Baseline
+
+Gateway protection. Central authentication. HTTPS. Basic rate limiting. Dependency scanning. Some API documentation.
+
+## Level 3 — Standardised
+
+Complete API inventory. Common authorisation patterns. Threat modelling for sensitive APIs. Schema validation. Central secrets management. Automated security tests. Standard logging and alerts.
+
+## Level 4 — Measured
+
+Security metrics. Policy-as-code. Continuous API discovery. Behavioural abuse detection. Automated control evidence. Defined remediation targets. Regular incident exercises.
+
+## Level 5 — Adaptive
+
+Real-time risk-based controls. Automated credential containment. Continuous authorisation evaluation. Dynamic rate and cost policies. Organisation-wide API security analytics. Security findings feed directly into architecture standards and engineering patterns.
+
+---
+
+# API security definition of done
+
+An API should not be considered production-ready until:
+
+* The API is registered and has an owner.
+* Data and business impact are classified.
+* The architecture and trust boundaries are documented.
+* Threats and abuse cases have been assessed.
+* Authentication uses an approved mechanism.
+* Issuer, audience, expiry and token type are validated.
+* Every sensitive route has explicit authorisation.
+* Object, property, tenant and function-level access are tested.
+* Request schemas restrict type, size, length and allowed fields.
+* Sensitive responses use explicit output models.
+* Errors do not expose internal information.
+* Rate limits and resource limits are configured.
+* Secrets are centrally managed and rotatable.
+* Third-party responses are validated.
+* Logs exclude credentials and sensitive payloads.
+* Security alerts have owners and runbooks.
+* Dependencies and deployment artifacts are scanned.
+* Critical security tests run in CI/CD.
+* Rollback and emergency-disable procedures exist.
+* Deprecated versions have a retirement date.
+* Residual risks are formally accepted by accountable owners.
+
+## Final principle
+
+API security is not achieved by a gateway, JWT library, penetration test or checklist alone.
+
+It is achieved when identity, authorisation, data handling, business rules, infrastructure, delivery pipelines and operational monitoring work together as one controlled system.
+
+The strongest API programmes therefore follow a continuous loop:
+
+```text
+Discover
+   ↓
+Classify
+   ↓
+Threat-model
+   ↓
+Design controls
+   ↓
+Implement
+   ↓
+Test
+   ↓
+Deploy safely
+   ↓
+Monitor
+   ↓
+Respond and improve
+```
+
+That turns the original roadmap from a collection of security recommendations into an engineering system that teams can apply repeatedly across public APIs, internal microservices, partner integrations, mobile backends and enterprise platforms.
+
+<KeyTakeaways>
+- Treat API security as a lifecycle with design decisions, evidence and exit criteria—not a late penetration test.
+- Authentication proves identity; authorisation must still enforce object, property, tenant and state rules.
+- Production readiness requires inventory, threat modelling, CI/CD gates, monitoring and tested emergency controls.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed [API Security Engineering roadmap](/roadmaps/api-security-engineering) as the working checklist.
+- Cross-check with [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+- Continue into [AI Engineer](/roadmaps/ai-engineer) and [AI Agents](/roadmaps/ai-agents) when securing model and agent APIs.
+</NextSteps>

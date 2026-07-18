@@ -1,0 +1,170 @@
+---
+sidebar_position: 6
+slug: api-security-engineering
+title: API Security Engineering Roadmap
+description: A practical end-to-end roadmap for designing, building, testing, deploying and operating secure APIs—identity, authorisation, input/output controls, JWT/OAuth, abuse protection, CI/CD and operations.
+---
+
+# API Security Engineering Roadmap
+
+APIs connect web apps, mobile clients, partners, internal systems and AI agents—and expose business capabilities directly. API security is therefore broader than adding authentication to an endpoint: identity, authorisation, validation, abuse protection, secrets, monitoring and delivery must work as one controlled system.
+
+<ExecSummary>
+Use this roadmap as a lifecycle, not a pre-launch penetration test. For every phase produce a design decision, implementation evidence and an exit criterion. Follow the 12-week plan and definition of done before calling an API production-ready.
+</ExecSummary>
+
+<WhenToUse>
+- Use when securing public, partner or internal APIs—or hardening AI agent and webhook surfaces.
+- Pair with the full guide: [API Security Engineering: A Practical End-to-End Roadmap](/articles/api-security-engineering-roadmap).
+- Cross-check with [Security Engineering](/learning-map/17-security-engineering), [Security & privacy](/ai-solution-engineering/security-privacy) and the [OWASP API Security Top 10](https://owasp.org/www-project-api-security/).
+</WhenToUse>
+
+## Capability map
+
+1. Inventory and business-impact classification
+2. Threat modelling and trust boundaries
+3. Authentication and identity by caller type
+4. Deny-by-default authorisation (endpoint, object, property, tenant, state)
+5. Transport and network defence in depth
+6. Request validation, injection, upload, SSRF and GraphQL controls
+7. Response minimisation, headers and safe errors
+8. JWT and OAuth hardening
+9. Rate limits, resource budgets and business-flow abuse
+10. Processing, async and third-party consumption security
+11. Secrets lifecycle and cryptographic material
+12. Monitoring, CI/CD gates, testing, incident response and retirement
+
+## Lifecycle
+
+```text
+Discover → Classify → Threat-model → Design → Implement → Test → Deploy → Monitor → Respond → Improve
+```
+
+For every phase produce:
+
+| Artefact | Purpose |
+| --- | --- |
+| **Design decision** | What control will be implemented and why |
+| **Implementation evidence** | Config, code, tests, policies or deployment records |
+| **Exit criterion** | Measurable condition before the API progresses |
+
+## Twelve-phase journey
+
+### Phase 1 — Inventory and classification
+
+Register every API (public, partner, internal, GraphQL, gRPC, webhooks, AI endpoints, legacy versions). Classify Tier 1–3 by business impact.
+
+**Build:** inventory template, ownership model and criticality model for one production API.
+
+### Phase 2 — Threat modelling
+
+Document data flows, trust boundaries, assets and abuse cases. Map controls and residual risk.
+
+**Build:** data-flow diagram, threat register, abuse-case catalogue and security testing plan.
+
+### Phase 3 — Authentication
+
+Separate authentication from authorisation. Choose OIDC for humans, workload identity / client credentials / mTLS for machines, and scoped API keys only where appropriate.
+
+**Build:** central IdP integration and token-validation middleware that rejects invalid, expired and wrongly issued tokens.
+
+### Phase 4 — Authorisation
+
+Deny by default. Enforce endpoint, function, object, property, tenant and state checks. Prefer centralised RBAC / ABAC / ReBAC / scopes.
+
+**Build:** policy layer, tenant isolation and protected response models with cross-user and cross-tenant tests.
+
+### Phase 5 — Input and output
+
+Schema-validate every request; add semantic checks; prevent injection, unsafe uploads, parser abuse and SSRF. Return explicit DTOs and problem-details errors.
+
+**Build:** OpenAPI schemas, response models and consistent rejection of malformed input.
+
+### Phase 6 — JWT and OAuth
+
+Validate signature, algorithm (server-configured), issuer, audience, expiry and claims. Use auth-code + PKCE; exact redirect URIs; capability-scoped tokens.
+
+**Build:** trusted issuer/audience config, JWKS rotation handling and OAuth flow tests.
+
+### Phase 7 — Abuse and resource protection
+
+Layer rate limits by IP, client, user, tenant, route and cost. Protect sensitive business flows with velocity, idempotency and step-up controls.
+
+**Build:** per-route limits that cannot be trivially bypassed via batching or identifier changes.
+
+### Phase 8 — Network and secrets
+
+HTTPS everywhere; mTLS or private endpoints for high value; central secrets management with rotation and environment separation.
+
+**Build:** secrets integration with no production secrets in source or manifests.
+
+### Phase 9 — Monitoring
+
+Log security events with correlation IDs; redact secrets; design alerts that name API, actor, resource and response action.
+
+**Build:** security dashboard and alerts for authn/authz and abuse anomalies.
+
+### Phase 10 — CI/CD
+
+SAST, SCA, secret scanning, container/IaC scanning, signed artifacts and severity-based release gates aligned to business impact.
+
+**Build:** pipeline that blocks a deliberately vulnerable or secret-leaking build.
+
+### Phase 11 — Adversarial testing
+
+Unit, integration, contract, negative and fuzz tests for BOLA, mass assignment, token misuse, SSRF, replay and GraphQL cost abuse.
+
+**Build:** negative suite with findings tracked to remediation.
+
+### Phase 12 — Operations and retirement
+
+Incident playbooks, emergency kill switches, key/client revocation and safe API deprecation.
+
+**Build:** runbooks, tabletop exercise and production readiness review.
+
+## 12-week plan (summary)
+
+| Week | Focus | Evidence |
+| --- | --- | --- |
+| 1 | Inventory and classification | One fully documented example API |
+| 2 | Architecture and threat modelling | Reviewed threat model |
+| 3 | Authentication | Invalid/expired/wrong-issuer tokens rejected |
+| 4 | Authorisation | Cross-user and cross-tenant tests pass |
+| 5 | Input and output | Malformed input rejected consistently |
+| 6 | JWT and OAuth hardening | Wrong alg/issuer/audience/expiry rejected |
+| 7 | Gateway and abuse protection | Limits resist batching and ID changes |
+| 8 | Network and secrets | No production secrets in source or manifests |
+| 9 | Monitoring and detection | Simulated attacks generate actionable alerts |
+| 10 | CI/CD security | Vulnerable build blocked by gates |
+| 11 | Adversarial testing | Findings tracked to remediation |
+| 12 | Production readiness | Tabletop proves detect–contain–recover |
+
+## Maturity model
+
+| Level | Characteristics |
+| --- | --- |
+| **1 Ad hoc** | Individual-dependent; incomplete inventory; shared credentials; manual testing |
+| **2 Baseline** | Gateway, central auth, HTTPS, basic rate limits, some docs |
+| **3 Standardised** | Full inventory, common authz patterns, threat models, schema validation, automated tests |
+| **4 Measured** | Metrics, policy-as-code, continuous discovery, behavioural detection, remediation SLAs |
+| **5 Adaptive** | Real-time risk controls, automated containment, organisation-wide API security analytics |
+
+## Definition of done (abridged)
+
+An API is not production-ready until it is registered and owned, classified, threat-modelled, authenticated with validated tokens, explicitly authorised at object/property/tenant/function level, schema-validated, response-minimised, rate- and resource-limited, secrets-managed, third-party–validated, safely logged and alerted, scanned in CI/CD, and covered by rollback and retirement procedures—with residual risks formally accepted.
+
+## Core principle
+
+> API security is not achieved by a gateway, JWT library, penetration test or checklist alone. It is achieved when identity, authorisation, data handling, business rules, infrastructure, delivery pipelines and operational monitoring work together as one controlled system.
+
+<KeyTakeaways>
+- Treat API security as a continuous lifecycle with design decisions, evidence and exit criteria at every phase.
+- Authentication proves identity; authorisation must still enforce object, property, tenant and state rules.
+- Release only when critical security tests, secrets hygiene and emergency controls are proven—not merely planned.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [API Security Engineering: A Practical End-to-End Roadmap](/articles/api-security-engineering-roadmap).
+- Practise related skills: [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+- Continue into specialised paths: [AI Engineer roadmap](./ai-engineer) and [AI Agents roadmap](./ai-agents).
+</NextSteps>

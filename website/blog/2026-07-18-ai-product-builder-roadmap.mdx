@@ -1,0 +1,2180 @@
+---
+slug: ai-product-builder-roadmap
+title: "The Complete AI Product Builder Roadmap: From Problem Discovery to Production"
+description: A practical system for individual builders and product teams—definition, prototyping, generation, refinement, collaboration, security, deployment and continuous improvement.
+authors: [sudip]
+tags: [roadmaps, ai-engineering, solution-engineering, playbook]
+keywords:
+  - AI product builder roadmap
+  - AI product development
+  - prototyping AI products
+  - AI app builders
+  - production AI deployment
+  - AI evaluation
+  - AI Solution Engineering
+---
+
+The **AI Product Builder roadmap** presents product development as two connected cycles. First, define what should be built by clarifying the problem, application structure, feature scope, technology stack and constraints. Then move through five execution stages: **prototyping, generation, refinement, collaboration and deployment**. The roadmap also connects these stages to AI app builders, AI-assisted coding tools, web-development fundamentals, testing, source control, databases, serverless platforms, PaaS providers and major cloud providers.
+
+This expanded guide turns that visual roadmap into a practical system that an individual builder or product team can follow from idea to production.
+
+{/* truncate */}
+
+<ExecSummary>
+Define the problem with evidence before choosing tools. Prototype to learn, generate in small increments with evaluation and security controls, collaborate through controlled change, and deploy only when product, AI, security and operations gates pass. Keep improving from live metrics.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building an AI product from idea to production as an individual builder or small product team.
+- Pair with the [AI Product Builder roadmap](/roadmaps/ai-product-builder), [Product management](/learning-map/06-product-management), [AI Product Management roadmap](/roadmaps/ai-product-management) and [AI Agents roadmap](/roadmaps/ai-agents).
+- Treat the 12-week plan, production checklist and definition of done as your working system.
+</WhenToUse>
+
+The [AI Product Builder roadmap](/roadmaps/ai-product-builder) groups this journey into definition and scope, prototyping, generation, refinement, collaboration and deployment—alongside safety, testing, CI, databases and continuous improvement.
+
+---
+
+## 1. What is an AI product builder?
+
+An AI product builder is someone who can turn a user problem into a working product using a combination of:
+
+* Product thinking
+* User research
+* AI models and APIs
+* Software engineering
+* AI-assisted development tools
+* Data and database design
+* Testing
+* Security and governance
+* Cloud deployment
+* Product analytics
+* Continuous improvement
+
+You do not need to be an expert in every area before starting. The goal is to learn enough at each stage to make the next responsible decision.
+
+The process is not:
+
+> Idea → ask AI to generate code → deploy immediately.
+
+A reliable process is:
+
+> Problem → evidence → scope → prototype → validate → generate → refine → test → deploy → observe → improve.
+
+---
+
+## 2. The end-to-end AI product creation cycle
+
+The roadmap can be organised into six major phases:
+
+| Phase | Main question | Primary output |
+| --- | --- | --- |
+| Definition and scope | What problem should we solve? | Product brief |
+| Prototyping | Is the idea useful and understandable? | Validated prototype |
+| Generation | Can we create a working product? | Functional application |
+| Refinement | Is the product reliable and usable? | Production candidate |
+| Collaboration | Can a team safely maintain it? | Controlled delivery workflow |
+| Deployment | Can real users access it safely? | Live product |
+
+Each stage should have a clear exit criterion. Do not move forward simply because the product “looks good.”
+
+---
+
+## 3. Phase zero: definition and scope
+
+This phase reduces the risk of building the wrong product.
+
+The roadmap divides definition and scope into four areas:
+
+1. Problem definition
+2. Application anatomy
+3. Feature scoping
+4. Technology stack and constraints
+
+---
+
+### 3.1 Problem definition
+
+A weak problem statement sounds like:
+
+> We want to build an AI chatbot.
+
+A stronger problem statement sounds like:
+
+> Customer-support agents spend approximately 35% of their time searching multiple knowledge sources for approved answers. We want to reduce average information-retrieval time while maintaining answer accuracy, privacy and escalation controls.
+
+The second version identifies:
+
+* The user
+* The current problem
+* The affected activity
+* The expected improvement
+* The important constraints
+
+#### Problem-definition template
+
+Use the following structure:
+
+> **[Target user]** struggles to **[complete a task]** because **[root cause]**. This causes **[business or user impact]**. We believe that **[proposed product capability]** can improve **[measurable outcome]**, provided that **[critical constraints]** are satisfied.
+
+#### Example
+
+> Customer-service agents struggle to find accurate policy information because documents are distributed across SharePoint, PDFs and internal systems. This increases response time and creates inconsistent answers. We believe an AI knowledge assistant can reduce search time by 40%, provided that responses are grounded in approved sources and sensitive information is protected.
+
+#### Questions to answer
+
+Before designing the solution, determine:
+
+* Who experiences the problem?
+* How frequently does it occur?
+* What does the user do today?
+* What is the cost of the current process?
+* Why has the problem not already been solved?
+* Does the problem require AI?
+* What happens when the AI is wrong?
+* What evidence proves that the problem matters?
+
+#### Determine whether AI is necessary
+
+AI is useful when the task involves:
+
+* Natural-language understanding
+* Content generation
+* Classification
+* Summarisation
+* Search across unstructured data
+* Pattern recognition
+* Recommendation
+* Conversational interaction
+* Multimodal processing
+* Handling variable inputs
+
+Traditional software may be better when the task requires:
+
+* Fixed calculations
+* Strict business rules
+* Deterministic workflow
+* Exact database retrieval
+* Simple forms
+* Basic filtering
+* Standard notifications
+* Straightforward CRUD operations
+
+Many successful products combine both.
+
+For example:
+
+* A rules engine determines eligibility.
+* AI explains the eligibility result.
+* A database stores the official decision.
+* A workflow engine sends the next action.
+* A human reviews high-risk cases.
+
+---
+
+### 3.2 Define the desired outcome
+
+Separate product output from business outcome.
+
+#### Output
+
+> The system generates a support response.
+
+#### Outcome
+
+> The system reduces handling time while maintaining customer satisfaction and policy compliance.
+
+Define outcomes using measurable indicators.
+
+| Outcome category | Example metric |
+| --- | --- |
+| User experience | Task-completion rate |
+| Efficiency | Average handling time |
+| Quality | Answer-correctness rate |
+| Adoption | Weekly active users |
+| Financial | Cost per resolved request |
+| Risk | Unsafe-answer rate |
+| Reliability | Successful-request rate |
+| Performance | Response latency |
+
+Create a baseline before building. Without a baseline, improvement cannot be demonstrated.
+
+---
+
+### 3.3 Identify users and stakeholders
+
+Most AI products have more stakeholders than the visible end user.
+
+For an enterprise AI assistant, stakeholders may include:
+
+* End users
+* Product owner
+* Business sponsor
+* Subject-matter experts
+* Engineering
+* Data team
+* Cybersecurity
+* Legal
+* Privacy
+* Risk and compliance
+* Operations
+* Customer support
+* Procurement
+* Finance
+* AI governance team
+
+Create a stakeholder map containing:
+
+| Stakeholder | Interest | Influence | Concern | Required involvement |
+| --- | --- | --- | --- | --- |
+| End user | Easier workflow | Medium | Accuracy and speed | Research and testing |
+| Business sponsor | Value creation | High | ROI and adoption | Funding and decisions |
+| Security | Safe architecture | High | Data leakage | Design approval |
+| Legal | Regulatory compliance | High | Liability | Risk review |
+| Engineering | Maintainability | High | Technical debt | Build and support |
+
+---
+
+### 3.4 Understand the application anatomy
+
+Before selecting tools, understand the parts of the application.
+
+A typical AI application contains the following layers.
+
+#### User-interface layer
+
+This may include:
+
+* Web application
+* Mobile application
+* Chat interface
+* Admin portal
+* Dashboard
+* Browser extension
+* Messaging integration
+
+#### Application layer
+
+This handles:
+
+* Authentication
+* User sessions
+* Business logic
+* Workflow
+* API requests
+* Permissions
+* Notifications
+* Billing
+
+#### AI orchestration layer
+
+This manages:
+
+* Prompt construction
+* Model routing
+* Tool calling
+* Agent workflows
+* Retrieval
+* Context management
+* Structured outputs
+* Retry logic
+* Guardrails
+
+#### Model layer
+
+This may include:
+
+* Large language models
+* Small language models
+* Embedding models
+* Image models
+* Speech models
+* Classification models
+* Reranking models
+
+#### Data layer
+
+This may contain:
+
+* Relational database
+* Document store
+* Vector database
+* File storage
+* Cache
+* Search index
+* Analytics warehouse
+
+#### Integration layer
+
+This connects the product to:
+
+* CRM systems
+* Email
+* Calendar
+* Payment providers
+* Enterprise databases
+* Identity providers
+* Document platforms
+* External APIs
+
+#### Operations layer
+
+This provides:
+
+* Logging
+* Monitoring
+* Tracing
+* Alerting
+* Cost measurement
+* Incident management
+* Backup and recovery
+
+#### Governance and security layer
+
+This controls:
+
+* Identity and access
+* Data classification
+* Encryption
+* Privacy
+* Retention
+* Model risk
+* Audit evidence
+* Human oversight
+* Content safety
+
+A prototype may simplify these layers, but a production product cannot ignore them.
+
+---
+
+## 4. Feature scoping
+
+Feature scoping protects the team from trying to build everything at once.
+
+---
+
+### 4.1 Separate the product vision from the first release
+
+#### Product vision
+
+> An enterprise platform that automates customer-service knowledge retrieval, response drafting, quality checking, escalation and analytics.
+
+#### First release
+
+> A web interface where authorised agents can ask policy questions and receive answers with citations from approved documents.
+
+The first release should test the most important assumption.
+
+For this product, the main assumption may be:
+
+> Agents will trust and use AI-generated answers when the system provides clear source citations.
+
+The first release does not need:
+
+* Voice integration
+* Multiple agents
+* Twenty system integrations
+* Advanced analytics
+* Automated case closure
+* Personalised recommendations
+* Fully autonomous decisions
+
+Those can be added after the core value is demonstrated.
+
+---
+
+### 4.2 Use the MoSCoW method
+
+Classify features into:
+
+#### Must have
+
+Without these, the product cannot test its core value.
+
+Example:
+
+* User authentication
+* Document upload
+* Question submission
+* Grounded answer generation
+* Source citation
+* Error handling
+
+#### Should have
+
+Important, but the first test can operate without them.
+
+Example:
+
+* Conversation history
+* Feedback buttons
+* Admin dashboard
+* Basic analytics
+
+#### Could have
+
+Useful enhancements.
+
+Example:
+
+* Voice input
+* Theme customisation
+* Multiple languages
+
+#### Will not have yet
+
+Explicitly excluded from the current release.
+
+Example:
+
+* Autonomous case resolution
+* Direct production CRM updates
+* Complex multi-agent orchestration
+
+The “will not have” category is essential because it creates alignment.
+
+---
+
+### 4.3 Create user stories
+
+Use this format:
+
+> As a **[user]**, I want to **[perform an action]**, so that **[receive value]**.
+
+Example:
+
+> As a support agent, I want to ask a natural-language question so that I can quickly find the correct policy.
+
+Add acceptance criteria:
+
+* The user can submit a question.
+* The response is based only on approved documents.
+* At least one source is shown.
+* The user can open the cited source.
+* The system displays a warning when confidence is low.
+* The user can provide feedback.
+* The system does not expose another customer’s data.
+
+---
+
+### 4.4 Define non-functional requirements
+
+Functional requirements describe what the product does.
+
+Non-functional requirements describe how well and under what conditions it operates.
+
+Include requirements for:
+
+* Performance
+* Availability
+* Accessibility
+* Security
+* Privacy
+* Scalability
+* Maintainability
+* Observability
+* Reliability
+* Cost
+* Data residency
+* Recovery
+* Model quality
+
+Example:
+
+| Requirement | Target |
+| --- | --- |
+| Response time | 95% of responses under five seconds |
+| Availability | 99.9% monthly |
+| Access | Authenticated employees only |
+| Data protection | Encryption in transit and at rest |
+| Traceability | Every AI response linked to request and source |
+| Recovery | Service restored within four hours |
+| Accessibility | WCAG-aligned interface |
+| Cost | Average AI cost below agreed request threshold |
+
+---
+
+## 5. Technology stack and constraints
+
+Choose technology after understanding the problem.
+
+Do not start with:
+
+> I want to use React, agents, a vector database and a particular model.
+
+Start with:
+
+> What does this product need to do, who will operate it, and what constraints must it satisfy?
+
+---
+
+### 5.1 Identify constraints
+
+Common constraints include:
+
+* Budget
+* Delivery timeline
+* Team skills
+* Existing cloud environment
+* Approved vendors
+* Data location
+* Security standards
+* Legacy integrations
+* Procurement lead time
+* Expected traffic
+* Offline requirements
+* Model availability
+* Licensing
+* Accessibility
+* Browser or device support
+
+A tool that is technically impressive may still be unsuitable if the organisation cannot approve, operate or fund it.
+
+---
+
+### 5.2 Select an initial stack
+
+A practical web-based prototype might use:
+
+| Layer | Example choice |
+| --- | --- |
+| Front end | React or a generated web interface |
+| Back end | Node.js, Python or serverless functions |
+| Database | PostgreSQL, MySQL, MongoDB or Supabase |
+| Authentication | Managed identity provider |
+| AI model | API-based language model |
+| Hosting | Vercel, Cloudflare, Render, Railway or cloud platform |
+| Source control | GitHub, GitLab or Azure DevOps |
+| Monitoring | Platform logs plus application telemetry |
+
+The original roadmap recommends learning technologies as the need arises, including HTML, CSS, JavaScript, React, Node.js and browser developer tools. This is a strong approach because it connects learning directly to product problems rather than abstract study.
+
+---
+
+## 6. Phase one: prototyping
+
+The goal of prototyping is not to produce perfect software.
+
+The goal is to learn.
+
+A prototype should answer questions such as:
+
+* Do users understand the concept?
+* Does the workflow solve the intended problem?
+* Will users trust the AI output?
+* Is the AI capable enough?
+* What information is missing?
+* Which features are unnecessary?
+* Where does human review need to occur?
+
+---
+
+### 6.1 Choose the prototype fidelity
+
+#### Low-fidelity prototype
+
+Examples:
+
+* Paper sketch
+* Whiteboard workflow
+* Static wireframe
+* Clickable design mock-up
+
+Use it to test:
+
+* Navigation
+* Page structure
+* User journey
+* Terminology
+* Information hierarchy
+
+#### Medium-fidelity prototype
+
+Examples:
+
+* Clickable interface
+* Mocked AI responses
+* Limited working front end
+* Manual back-end process
+
+Use it to test:
+
+* Interaction design
+* User comprehension
+* Trust
+* Feedback behaviour
+
+#### High-fidelity prototype
+
+Examples:
+
+* Working application
+* Real model integration
+* Sample database
+* Basic authentication
+* Limited deployment
+
+Use it to test:
+
+* Model quality
+* Latency
+* Retrieval
+* Cost
+* End-to-end workflow
+
+Choose the lowest fidelity capable of testing the current assumption.
+
+---
+
+### 6.2 Select a prototype tool
+
+The roadmap separates tools into two broad groups.
+
+#### AI application builders
+
+These can help users create interfaces and basic applications quickly. Examples include Lovable, Replit, Claude Design, v0, Hope and Bolt.
+
+They are useful for:
+
+* Interface exploration
+* Landing pages
+* CRUD applications
+* Early dashboards
+* Demonstrations
+* Rapid user-flow testing
+
+#### Technical AI coding tools
+
+The roadmap also highlights options such as Claude Code, Gemini CLI and Codex for more technical workflows.
+
+They are useful when you need:
+
+* Direct repository access
+* Multi-file changes
+* Debugging
+* Test creation
+* Refactoring
+* Command-line workflows
+* Greater architectural control
+
+The decision should depend on:
+
+* Your current technical ability
+* Product complexity
+* Required integrations
+* Security requirements
+* Need for code ownership
+* Expected product lifespan
+
+---
+
+### 6.3 Write a prototype brief
+
+Before prompting a builder, create a short specification.
+
+#### Prototype brief template
+
+**Product name:**
+Support Knowledge Assistant
+
+**Primary user:**
+Customer-service agent
+
+**Problem:**
+Agents cannot quickly locate approved policy answers.
+
+**Core workflow:**
+Sign in → ask question → receive grounded answer → review sources → submit feedback.
+
+**Required screens:**
+
+1. Sign-in screen
+2. Main chat screen
+3. Source panel
+4. Feedback component
+5. Admin document page
+
+**Must-have behaviour:**
+
+* Responses show source references.
+* Low-confidence answers display a warning.
+* Users can mark answers helpful or unhelpful.
+* The interface works on desktop and mobile.
+
+**Excluded from prototype:**
+
+* CRM integration
+* Voice
+* Automated customer replies
+* Advanced analytics
+
+**Success criteria:**
+
+* Eight out of ten test users complete the workflow.
+* Most users understand where the answer came from.
+* Users can identify when human escalation is needed.
+
+This brief produces better results than repeatedly asking an AI tool to “make it better.”
+
+---
+
+### 6.4 Prototype the AI capability separately
+
+Do not judge the AI only through a polished interface.
+
+Create an AI capability test containing:
+
+* Representative questions
+* Difficult questions
+* Ambiguous questions
+* Unsupported questions
+* Sensitive-data examples
+* Adversarial inputs
+* Expected answers
+* Expected source documents
+* Escalation cases
+
+For a retrieval-based assistant, test:
+
+* Document parsing
+* Chunking
+* Embeddings
+* Retrieval quality
+* Reranking
+* Prompt instructions
+* Citation accuracy
+* Hallucination behaviour
+* Access control
+
+A good interface cannot compensate for unreliable model behaviour.
+
+---
+
+### 6.5 Conduct user testing
+
+Use five to eight users from the target group for an early round.
+
+Give them realistic tasks instead of a product demonstration.
+
+Bad testing instruction:
+
+> Here is our AI assistant. Do you like it?
+
+Better task:
+
+> A customer asks whether they can cancel after the standard cancellation period because of a medical emergency. Use the product to determine the appropriate next action.
+
+Observe:
+
+* Where the user clicks first
+* Whether they understand the response
+* Whether they verify the source
+* Where they hesitate
+* Whether they trust the result
+* Whether they know when to escalate
+* How long the task takes
+
+Do not explain the interface during the test unless the participant becomes completely blocked. Confusion is useful evidence.
+
+---
+
+### 6.6 Prototype exit criteria
+
+Move to generation when:
+
+* The problem has been validated.
+* The core user journey is understandable.
+* The AI capability is technically plausible.
+* Major risks are documented.
+* The first-release scope is agreed.
+* Success metrics are defined.
+* Stakeholders accept what is excluded.
+* Users show evidence of interest or value.
+
+---
+
+## 7. Phase two: generation
+
+Generation is the process of turning the validated prototype into a functional application.
+
+The roadmap encourages the use of AI app builders and AI-assisted coding tools such as Claude Code, Codex, Cursor and Copilot.
+
+The key principle is:
+
+> Use AI to accelerate engineering, not to remove engineering discipline.
+
+---
+
+### 7.1 Start with a repository
+
+Even when using a visual builder, maintain a source-controlled repository.
+
+The repository should contain:
+
+```text
+ai-product/
+├── README.md
+├── docs/
+│   ├── product-brief.md
+│   ├── architecture.md
+│   ├── decisions.md
+│   └── risk-register.md
+├── frontend/
+├── backend/
+├── tests/
+├── infrastructure/
+├── scripts/
+├── .env.example
+└── package.json
+```
+
+The README should explain:
+
+* What the product does
+* How to run it
+* Required environment variables
+* How to execute tests
+* How deployment works
+* Known limitations
+
+Never store API keys or passwords in the repository.
+
+---
+
+### 7.2 Generate in small increments
+
+Avoid asking an AI tool to generate the entire platform at once.
+
+Use a sequence such as:
+
+1. Generate the application shell.
+2. Add navigation.
+3. Add authentication.
+4. Add the primary input form.
+5. Create the back-end endpoint.
+6. Connect the AI model.
+7. Add structured output validation.
+8. Add database persistence.
+9. Add error handling.
+10. Add tests.
+11. Add logging.
+12. Add deployment configuration.
+
+After each step:
+
+* Run the application.
+* Inspect the changes.
+* Review the generated code.
+* Execute tests.
+* Commit the working state.
+
+This creates reversible progress.
+
+---
+
+### 7.3 Use specification-driven prompting
+
+Weak coding request:
+
+> Build an AI chat page.
+
+Stronger request:
+
+> Create a responsive React chat page with a left navigation panel, central conversation area and expandable source panel. Messages must support user, assistant, error and escalation states. Keep state-management logic separate from presentational components. Do not add external dependencies without explaining why. Include unit tests for message rendering and source-panel behaviour.
+
+A strong coding instruction includes:
+
+* Objective
+* Existing context
+* Constraints
+* Files that may change
+* Files that must not change
+* Required behaviour
+* Error conditions
+* Testing expectations
+* Completion criteria
+
+---
+
+### 7.4 Build the deterministic foundation first
+
+Before advanced agents, implement:
+
+* Authentication
+* Authorisation
+* Database schema
+* Input validation
+* API contracts
+* Error handling
+* Logging
+* Rate limiting
+* Configuration management
+* Basic model call
+* Basic user feedback
+
+Only introduce agentic orchestration when a simpler workflow cannot meet the requirement.
+
+An agent should not be added merely because the product uses AI.
+
+---
+
+### 7.5 Design the AI interaction
+
+A production AI request should normally contain:
+
+1. System instruction
+2. User input
+3. Relevant contextual data
+4. Permitted tools
+5. Output schema
+6. Safety requirements
+7. Timeout and retry behaviour
+8. Trace identifier
+
+Example structured output:
+
+```json
+{
+  "answer": "The customer may request an exception review.",
+  "sources": [
+    {
+      "document_id": "policy-104",
+      "section": "4.2",
+      "title": "Exceptional Circumstances"
+    }
+  ],
+  "confidence": "medium",
+  "requires_human_review": true,
+  "reason": "The policy requires case-by-case assessment."
+}
+```
+
+Structured outputs are easier to validate than unrestricted text.
+
+---
+
+### 7.6 Add AI evaluation early
+
+Create an evaluation dataset before production.
+
+Each test case should include:
+
+| Field | Description |
+| --- | --- |
+| Input | User question |
+| Context | Relevant source content |
+| Expected behaviour | Required response |
+| Prohibited behaviour | What must not happen |
+| Source expectation | Correct citation |
+| Risk level | Low, medium or high |
+| Reviewer | Subject-matter expert |
+| Result | Pass or fail |
+
+Measure:
+
+* Correctness
+* Relevance
+* Groundedness
+* Citation accuracy
+* Completeness
+* Safety
+* Refusal quality
+* Escalation accuracy
+* Latency
+* Cost
+
+Do not rely only on “the answer looks good.”
+
+---
+
+## 8. Phase three: refinement
+
+The roadmap distinguishes between:
+
+* Targeted changes
+* New features or structural changes
+
+This is an important distinction because the two require different approaches.
+
+---
+
+### 8.1 Targeted changes
+
+A targeted change affects a limited area.
+
+Examples:
+
+* Change button wording
+* Correct validation
+* Improve a prompt
+* Fix a mobile layout
+* Add an error message
+* Adjust retrieval count
+* Change timeout configuration
+
+For targeted changes:
+
+1. Reproduce the issue.
+2. Identify the smallest responsible component.
+3. Add or update a test.
+4. Make the smallest safe change.
+5. Run relevant tests.
+6. Check for regression.
+7. Document the result.
+
+---
+
+### 8.2 Structural changes
+
+Structural changes affect the architecture or multiple workflows.
+
+Examples:
+
+* Replacing the database
+* Introducing multi-tenancy
+* Moving from one model provider to several
+* Adding agent orchestration
+* Redesigning authentication
+* Separating a monolith into services
+* Adding a new enterprise integration
+
+For structural changes:
+
+1. Write the reason for the change.
+2. Document the current architecture.
+3. Evaluate alternatives.
+4. Identify affected components.
+5. Create a migration plan.
+6. Define rollback.
+7. Test in a non-production environment.
+8. Release gradually.
+9. Monitor closely.
+
+Do not ask an AI coding tool to perform a major refactor without a written design.
+
+---
+
+### 8.3 Learn by need
+
+The roadmap recommends learning core web technologies as required:
+
+* HTML
+* CSS
+* JavaScript
+* React
+* Browser developer tools
+* Node.js
+
+This is a practical learning sequence.
+
+#### Learn HTML when you need to understand
+
+* Page structure
+* Forms
+* Buttons
+* Accessibility
+* Semantic elements
+
+#### Learn CSS when you need to control
+
+* Layout
+* Spacing
+* Responsive behaviour
+* Typography
+* Visual states
+
+#### Learn JavaScript when you need
+
+* User interaction
+* Data transformation
+* API calls
+* State changes
+* Validation
+
+#### Learn React when the interface requires
+
+* Reusable components
+* State management
+* Dynamic rendering
+* Routing
+* Complex interactions
+
+#### Learn browser developer tools when debugging
+
+* Network requests
+* Console errors
+* Local storage
+* CSS problems
+* Performance
+* Accessibility
+
+#### Learn Node.js when building
+
+* APIs
+* Server-side logic
+* Authentication middleware
+* File processing
+* Integrations
+
+AI can generate code, but understanding these fundamentals allows you to recognise incorrect or insecure output.
+
+---
+
+## 9. Refining the user experience
+
+AI products create unique user-experience challenges.
+
+---
+
+### 9.1 Design for uncertainty
+
+Do not present every AI answer as equally certain.
+
+The interface should support:
+
+* Confidence indicators
+* Source citations
+* Human-review notices
+* Clarification requests
+* “I do not know” responses
+* Escalation paths
+* Alternative suggestions
+* Feedback controls
+
+Avoid fake precision, such as displaying “97.4% confidence” unless the number has a defensible calculation.
+
+---
+
+### 9.2 Design loading states
+
+AI responses may take several seconds.
+
+Display:
+
+* Request submitted
+* Searching sources
+* Generating response
+* Validating output
+* Final answer
+
+For longer workflows, show progress rather than a generic spinner.
+
+---
+
+### 9.3 Design failure states
+
+Plan for:
+
+* Model timeout
+* Provider outage
+* No relevant sources
+* Invalid response format
+* Authentication failure
+* Rate limit
+* Unsafe input
+* File-processing failure
+* Integration failure
+
+A useful error explains:
+
+1. What happened
+2. What the user can do
+3. Whether their work was saved
+4. How to obtain support
+
+---
+
+## 10. AI safety, security and governance
+
+The original visual roadmap focuses primarily on product development. A production AI roadmap should extend it with explicit security and governance activities.
+
+---
+
+### 10.1 Protect user input
+
+Validate and control:
+
+* Input length
+* File type
+* File size
+* Malicious content
+* Prompt-injection attempts
+* Unsupported requests
+* Sensitive-data entry
+* Encoded payloads
+
+Do not assume natural-language input is safe merely because it is not executable code.
+
+---
+
+### 10.2 Protect model context
+
+The model should receive only the information required for the current task.
+
+Apply:
+
+* Data minimisation
+* Access-aware retrieval
+* Tenant isolation
+* Sensitive-data masking
+* Document-level permissions
+* Context-size limits
+* Retention controls
+
+A user who cannot open a source document should not receive its content through an AI answer.
+
+---
+
+### 10.3 Protect model output
+
+Validate output before displaying or executing it.
+
+Controls may include:
+
+* Schema validation
+* Content filtering
+* Citation verification
+* Business-rule validation
+* Allow-listed actions
+* Human approval
+* Output encoding
+* Unsafe-content detection
+
+Never allow unrestricted model output to directly:
+
+* Execute database commands
+* Approve payments
+* Delete records
+* Send external communications
+* Change permissions
+* Make regulated decisions
+
+High-impact actions should use deterministic controls and human approval.
+
+---
+
+### 10.4 Maintain auditability
+
+Record:
+
+* User identifier
+* Timestamp
+* Request identifier
+* Model and version
+* Prompt template version
+* Retrieved sources
+* Tool calls
+* Output
+* Validation result
+* Human override
+* Feedback
+* Cost and latency
+
+Logs must avoid exposing secrets or unnecessary personal data.
+
+---
+
+## 11. Phase four: collaboration
+
+The roadmap connects collaboration with testing, feedback, change management and continuous integration. It highlights GitHub, GitLab, Bit Cloud and Azure DevOps as workflow options.
+
+Collaboration is not simply allowing several people to edit the same code. It requires controlled change.
+
+---
+
+### 11.1 Define roles
+
+A small AI product team may include:
+
+| Role | Responsibility |
+| --- | --- |
+| Product manager | Problem, scope and priorities |
+| UX designer | User journey and interaction |
+| Software engineer | Application development |
+| AI engineer | Model, prompts, retrieval and evaluation |
+| Data engineer | Data pipelines and quality |
+| Security specialist | Threats and controls |
+| Domain expert | Business accuracy |
+| QA engineer | Test strategy |
+| Platform engineer | Deployment and operations |
+| Product analyst | Adoption and outcome measurement |
+
+One person may perform several roles, but the responsibilities must still be covered.
+
+---
+
+### 11.2 Use a controlled Git workflow
+
+A basic workflow:
+
+1. Create a work item.
+2. Create a feature branch.
+3. Make a small change.
+4. Add tests.
+5. Push the branch.
+6. Open a pull request.
+7. Run automated checks.
+8. Request review.
+9. Resolve comments.
+10. Merge after approval.
+11. Deploy to a test environment.
+12. Validate before production.
+
+Suggested branch names:
+
+```text
+feature/source-citations
+fix/mobile-chat-layout
+security/input-rate-limit
+refactor/model-provider-interface
+```
+
+Suggested commit messages:
+
+```text
+feat: add source citation panel
+fix: prevent empty document upload
+test: add retrieval permission tests
+refactor: isolate model provider adapter
+```
+
+---
+
+### 11.3 Maintain key project documents
+
+Keep the following documents close to the code:
+
+* Product brief
+* Architecture diagram
+* API specification
+* Data model
+* AI evaluation plan
+* Risk register
+* Security controls
+* Decision log
+* Release notes
+* Incident runbook
+* Deployment guide
+* Rollback guide
+
+A decision log should record:
+
+| Field | Example |
+| --- | --- |
+| Decision | Use PostgreSQL for transactional data |
+| Date | 18 July |
+| Context | Product requires relational reporting |
+| Alternatives | MongoDB, hosted spreadsheet |
+| Reason | Strong consistency and team experience |
+| Consequence | Schema migrations required |
+| Owner | Technical lead |
+
+---
+
+## 12. Testing and feedback
+
+The roadmap identifies four major forms of testing:
+
+* User testing
+* Unit testing
+* Integration testing
+* End-to-end testing
+
+An AI product needs all four, plus model evaluation and security testing.
+
+---
+
+### 12.1 Unit testing
+
+Unit tests verify small pieces of logic.
+
+Examples:
+
+* Input validation
+* Cost calculation
+* Permission checks
+* Response parsing
+* Prompt-variable construction
+* Citation formatting
+* Retry behaviour
+
+Unit tests should be fast and isolated.
+
+---
+
+### 12.2 Integration testing
+
+Integration tests verify that components work together.
+
+Examples:
+
+* API to database
+* Application to model provider
+* Document upload to storage
+* Retrieval service to vector database
+* Authentication to permission logic
+* Application to CRM
+
+Use controlled test accounts and test data.
+
+---
+
+### 12.3 End-to-end testing
+
+End-to-end tests simulate the complete user journey.
+
+Example:
+
+1. User signs in.
+2. User uploads a document.
+3. Processing completes.
+4. User asks a question.
+5. A grounded answer appears.
+6. The source opens.
+7. User submits feedback.
+8. Feedback appears in the admin dashboard.
+
+These tests are slower but catch workflow-level failures.
+
+---
+
+### 12.4 User acceptance testing
+
+Business users confirm that the product meets agreed requirements.
+
+Create test scenarios based on real work, not only technical functions.
+
+Example:
+
+> Given that an agent is authorised to view Policy A but not Policy B, when they ask a question covered only by Policy B, the system must not reveal Policy B content and must provide an appropriate access message.
+
+---
+
+### 12.5 Security testing
+
+Test:
+
+* Authentication bypass
+* Privilege escalation
+* Insecure direct-object references
+* Cross-tenant data access
+* Prompt injection
+* Sensitive-data leakage
+* Unsafe file upload
+* API abuse
+* Rate-limit bypass
+* Secret exposure
+* Dependency vulnerabilities
+* Malicious model output
+
+---
+
+### 12.6 AI-specific red-teaming
+
+Attempt to make the product:
+
+* Ignore its instructions
+* Reveal hidden prompts
+* Reveal another user’s information
+* Invent sources
+* Execute an unauthorised tool
+* Produce harmful guidance
+* Accept false context
+* Follow instructions embedded in a document
+* Approve an action without human review
+
+Record failures and convert them into regression tests.
+
+---
+
+## 13. Continuous integration
+
+Continuous integration automatically evaluates every proposed change.
+
+A CI pipeline may run:
+
+1. Dependency installation
+2. Code formatting
+3. Linting
+4. Type checking
+5. Unit tests
+6. Integration tests
+7. Security scanning
+8. Secret scanning
+9. Build validation
+10. AI evaluation subset
+11. Deployment preview
+
+A change should not merge when critical checks fail.
+
+For AI products, the CI pipeline should also detect:
+
+* Prompt changes
+* Model configuration changes
+* Evaluation-score regression
+* Significant cost increase
+* Unsafe-output regression
+* Retrieval-quality degradation
+
+---
+
+## 14. Phase five: deployment
+
+The roadmap presents several deployment categories:
+
+* Serverless providers such as Cloudflare, Vercel and Bit Cloud
+* PaaS options such as DigitalOcean, Render and Railway
+* Major cloud providers such as AWS, Azure and GCP
+* Database options including MongoDB Atlas, PostgreSQL, MySQL and Supabase
+
+The best option depends on scale, control, skills, compliance and operational requirements.
+
+---
+
+### 14.1 Serverless deployment
+
+Serverless platforms are often suitable for:
+
+* Prototypes
+* Small applications
+* Event-driven APIs
+* Lightweight front ends
+* Variable traffic
+* Teams wanting minimal infrastructure management
+
+Advantages:
+
+* Fast deployment
+* Automatic scaling
+* Low operational overhead
+* Managed certificates
+* Preview environments
+
+Limitations may include:
+
+* Runtime restrictions
+* Execution time limits
+* Cold starts
+* Provider-specific behaviour
+* Limited infrastructure control
+* Cost unpredictability at high volume
+
+---
+
+### 14.2 Platform as a service
+
+PaaS solutions are useful when you need:
+
+* Long-running services
+* Background workers
+* Managed databases
+* Containers
+* Straightforward deployment
+* More flexibility than basic serverless functions
+
+They often provide a practical middle ground between rapid deployment and infrastructure control.
+
+---
+
+### 14.3 Major cloud providers
+
+AWS, Azure and GCP are appropriate when the product requires:
+
+* Enterprise networking
+* Private connectivity
+* Advanced identity management
+* Regional deployment
+* Detailed security controls
+* Managed AI services
+* High scalability
+* Complex integrations
+* Formal compliance requirements
+* Dedicated platform engineering
+
+The trade-off is additional complexity.
+
+Do not choose a hyperscale cloud architecture for a simple prototype unless organisational constraints require it.
+
+---
+
+## 15. Choosing a database
+
+The roadmap highlights MongoDB or Atlas, PostgreSQL or MySQL, and Supabase.
+
+---
+
+### 15.1 PostgreSQL or MySQL
+
+Use a relational database when the product contains:
+
+* Users
+* Organisations
+* Subscriptions
+* Orders
+* Permissions
+* Structured relationships
+* Transactions
+* Reporting requirements
+
+Example tables:
+
+```text
+users
+organisations
+memberships
+conversations
+messages
+documents
+feedback
+model_requests
+audit_events
+```
+
+---
+
+### 15.2 MongoDB
+
+A document database may be useful when:
+
+* Records vary significantly in structure.
+* The product handles nested JSON.
+* The schema changes frequently.
+* Document-oriented access is natural.
+
+Do not choose it merely because AI responses are JSON. Relational databases can also store JSON while preserving structured relationships.
+
+---
+
+### 15.3 Supabase
+
+A managed platform can be useful for quickly combining:
+
+* PostgreSQL
+* Authentication
+* Storage
+* Real-time capabilities
+* API access
+
+It can reduce the amount of infrastructure needed for an early product.
+
+---
+
+### 15.4 Vector storage
+
+A retrieval-augmented generation product may also need vector search.
+
+Store:
+
+* Embedding vectors
+* Source-document identifiers
+* Chunk text
+* Access-control metadata
+* Version
+* Created date
+* Data classification
+
+Do not treat the vector store as the official source of truth. Maintain a relationship to the original document.
+
+---
+
+## 16. Production readiness checklist
+
+Before launching, verify the following.
+
+### Product
+
+* The problem has been validated.
+* The target user is clearly defined.
+* The core journey has been tested.
+* Success metrics have a baseline.
+* Product ownership is assigned.
+* Support processes exist.
+
+### Engineering
+
+* Code is source controlled.
+* Automated tests pass.
+* Environment configuration is separated.
+* Secrets are securely managed.
+* Error handling is implemented.
+* Dependencies are reviewed.
+* Rollback has been tested.
+
+### AI
+
+* Evaluation cases exist.
+* Model and prompt versions are tracked.
+* Unsupported questions are handled.
+* Source grounding is validated.
+* High-risk outputs require review.
+* Cost and latency are measured.
+* Model-provider failure is handled.
+
+### Security and privacy
+
+* Authentication is enforced.
+* Authorisation is tested.
+* Data is encrypted.
+* Sensitive data is minimised.
+* Retention is defined.
+* Access is logged.
+* Prompt injection has been tested.
+* Tenant separation is verified.
+
+### Operations
+
+* Monitoring is configured.
+* Alerts have owners.
+* Backups exist.
+* Recovery procedures are documented.
+* Production logs are searchable.
+* Incident-response steps are defined.
+* Capacity and rate limits are understood.
+
+---
+
+## 17. Release strategy
+
+Avoid releasing to every user immediately.
+
+Use progressive delivery.
+
+### Stage 1: Internal development
+
+Only the product team has access.
+
+### Stage 2: Internal alpha
+
+A small group of trusted users tests the product.
+
+### Stage 3: Controlled beta
+
+A limited user group receives access with active monitoring.
+
+### Stage 4: General availability
+
+The product is opened to the intended audience.
+
+### Stage 5: Scale optimisation
+
+The team improves cost, reliability, performance and support.
+
+At every stage, define:
+
+* Eligible users
+* Supported use cases
+* Known limitations
+* Feedback method
+* Success threshold
+* Stop condition
+* Rollback plan
+
+---
+
+## 18. Monitoring the live product
+
+Deployment is the start of the learning process, not the end.
+
+Monitor four dimensions.
+
+---
+
+### 18.1 Product metrics
+
+Measure:
+
+* New users
+* Active users
+* Retention
+* Task completion
+* Feature adoption
+* Feedback rate
+* User satisfaction
+* Conversion
+
+---
+
+### 18.2 AI quality metrics
+
+Measure:
+
+* Correct-answer rate
+* Groundedness
+* Hallucination rate
+* Citation accuracy
+* Escalation rate
+* Refusal quality
+* Human override rate
+* Negative feedback
+
+---
+
+### 18.3 Engineering metrics
+
+Measure:
+
+* Availability
+* Error rate
+* Latency
+* Throughput
+* Failed integrations
+* Queue depth
+* Deployment frequency
+* Recovery time
+
+---
+
+### 18.4 Financial metrics
+
+Measure:
+
+* Model cost per request
+* Infrastructure cost
+* Cost per active user
+* Cost per completed task
+* Revenue per user
+* Gross margin
+* Support cost
+* Total cost of ownership
+
+A product may be technically successful but commercially unsustainable.
+
+---
+
+## 19. The continuous improvement loop
+
+The roadmap explicitly states that builders should keep repeating the loop to refine and improve the product.
+
+Use this cycle:
+
+1. Observe behaviour.
+2. Collect feedback.
+3. Identify the highest-value problem.
+4. Form a hypothesis.
+5. Prioritise the change.
+6. Implement a small experiment.
+7. Test the result.
+8. Measure impact.
+9. Keep, modify or remove the change.
+10. Document what was learned.
+
+Not every request should become a feature.
+
+Prioritise using:
+
+> **Value × confidence ÷ effort**
+
+You can also consider:
+
+* Strategic alignment
+* Risk reduction
+* User reach
+* Revenue impact
+* Regulatory urgency
+* Operational savings
+* Technical dependency
+
+---
+
+## 20. A practical 12-week AI product builder learning plan
+
+### Weeks 1–2: Product definition
+
+Learn:
+
+* Problem statements
+* User interviews
+* Personas
+* User journeys
+* Feature prioritisation
+* Success metrics
+
+Deliver:
+
+* Product brief
+* Five user stories
+* First-release scope
+* Risk assumptions
+* Measurement plan
+
+---
+
+### Weeks 3–4: Prototype
+
+Learn:
+
+* Wireframes
+* AI app builders
+* Basic UX principles
+* Prototype testing
+* Prompt fundamentals
+
+Deliver:
+
+* Clickable prototype
+* Core AI experiment
+* User-testing script
+* Testing findings
+* Updated scope
+
+---
+
+### Weeks 5–6: Web foundations
+
+Learn as needed:
+
+* HTML
+* CSS
+* JavaScript
+* React
+* Browser developer tools
+* APIs
+
+Deliver:
+
+* Working interface
+* Form validation
+* API integration
+* Responsive layout
+* Error states
+
+---
+
+### Weeks 7–8: Back end and AI
+
+Learn:
+
+* Node.js or Python back end
+* Databases
+* Authentication
+* Model APIs
+* Retrieval
+* Structured output
+* Logging
+
+Deliver:
+
+* Working back end
+* User accounts
+* Database persistence
+* Model integration
+* Initial evaluation dataset
+
+---
+
+### Weeks 9–10: Quality and collaboration
+
+Learn:
+
+* Git
+* Branching
+* Pull requests
+* Unit testing
+* Integration testing
+* End-to-end testing
+* CI pipelines
+
+Deliver:
+
+* Source-controlled repository
+* Automated tests
+* Pull-request workflow
+* CI configuration
+* Architecture documentation
+
+---
+
+### Weeks 11–12: Deployment and operations
+
+Learn:
+
+* Hosting options
+* Environment configuration
+* Security
+* Monitoring
+* Analytics
+* Cost management
+* Release management
+
+Deliver:
+
+* Test environment
+* Production deployment
+* Monitoring dashboard
+* Incident runbook
+* Release checklist
+* Improvement backlog
+
+---
+
+## 21. Running example: building an AI study assistant
+
+To demonstrate the full roadmap, consider an AI study assistant.
+
+---
+
+### Definition
+
+#### Problem
+
+University students spend significant time searching lecture notes, slides and reading materials, but generic AI tools may answer without using the course material.
+
+#### Proposed solution
+
+A study assistant that answers questions using uploaded course resources and provides citations.
+
+#### Primary user
+
+University student.
+
+#### Core outcome
+
+Reduce the time required to understand and revise course content.
+
+---
+
+### First-release features
+
+#### Must have
+
+* Upload notes
+* Ask questions
+* Receive grounded responses
+* Display citations
+* Generate practice questions
+* Collect feedback
+
+#### Should have
+
+* Conversation history
+* Course folders
+* Difficulty selection
+
+#### Could have
+
+* Voice mode
+* Collaborative study groups
+* Calendar integration
+
+#### Excluded initially
+
+* Automated grading
+* University-system integration
+* Fully autonomous learning plans
+
+---
+
+### Prototype
+
+Create:
+
+* Upload page
+* Course-material dashboard
+* Chat page
+* Citation panel
+* Quiz page
+
+Test with five students using real revision tasks.
+
+---
+
+### Generation
+
+Build:
+
+* React interface
+* Back-end API
+* Document-processing service
+* PostgreSQL database
+* File storage
+* Model integration
+* Retrieval pipeline
+
+---
+
+### Refinement
+
+Improve:
+
+* Citation accuracy
+* Mobile layout
+* Loading state
+* Unsupported-question handling
+* Document deletion
+* Accessibility
+* Retrieval quality
+
+---
+
+### Collaboration
+
+Introduce:
+
+* Git repository
+* Feature branches
+* Pull requests
+* Automated tests
+* Prompt evaluation
+* Release notes
+
+---
+
+### Deployment
+
+Start with a controlled cloud deployment.
+
+Add:
+
+* Authentication
+* Usage limits
+* Monitoring
+* Cost tracking
+* Privacy controls
+* Backups
+* Support process
+
+---
+
+### Success measures
+
+* Weekly active students
+* Questions per active user
+* Citation-open rate
+* Helpful-answer rate
+* Quiz-completion rate
+* Retrieval accuracy
+* Cost per active user
+* Four-week retention
+
+---
+
+## 22. Final definition of done
+
+An AI product is not finished because it can generate an answer.
+
+It is ready when:
+
+* It solves a validated problem.
+* Target users can complete the intended task.
+* The AI output is evaluated systematically.
+* Security and privacy controls are implemented.
+* High-risk decisions include human oversight.
+* The software is tested and maintainable.
+* Changes are source controlled and reviewed.
+* The product can be deployed and rolled back safely.
+* Quality, cost and reliability are observable.
+* Ownership exists for support and improvement.
+* Business value can be measured.
+
+The most effective AI product builders combine the speed of modern AI development tools with disciplined product thinking, software engineering, security, testing and continuous learning. AI can dramatically accelerate product creation, but the builder remains responsible for deciding **what should be built, how it should behave, what risks are acceptable, and whether it creates real value**.
+
+<KeyTakeaways>
+- Validate the problem and first-release assumption before generating a full application.
+- Use AI tools to accelerate engineering; keep evaluation, security, testing and source control as non-negotiable discipline.
+- Ship through progressive delivery and improve from product, AI quality, engineering and financial metrics.
+</KeyTakeaways>
+
+<NextSteps>
+- Follow the staged path in the [AI Product Builder roadmap](/roadmaps/ai-product-builder).
+- Practise [Product management](/learning-map/06-product-management) and [Responsible AI governance](/learning-map/19-responsible-ai-governance).
+- For product leadership depth, see [AI Product Management](/roadmaps/ai-product-management); for agent-heavy products, continue with the [AI Agents roadmap](/roadmaps/ai-agents).
+</NextSteps>

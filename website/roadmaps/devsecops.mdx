@@ -1,0 +1,178 @@
+---
+sidebar_position: 7
+slug: devsecops
+title: DevSecOps Roadmap
+description: A practical path from security foundations to enterprise operations—secure coding, identity, threat modelling, cloud and containers, pipeline hardening, incident response and governance.
+---
+
+# DevSecOps Roadmap
+
+DevSecOps integrates security into every stage of software delivery rather than treating it as a final review before release. The goal is a delivery system in which insecure changes are prevented, detected or corrected as early as possible.
+
+<ExecSummary>
+Build foundations first (programming, scripting, CIA, identity, encryption, networking), then secure coding and testing, threat and vulnerability management, cloud/container/pipeline security, secure architecture, incident response and governance. Use the 24-week plan and maturity model as your operating system.
+</ExecSummary>
+
+<WhenToUse>
+- Use when embedding security into engineering delivery, hardening CI/CD, or building DevSecOps capability across a team.
+- Pair with the full guide: [The Complete DevSecOps Roadmap](/articles/devsecops-roadmap).
+- Cross-check with [API Security Engineering](./api-security-engineering), [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</WhenToUse>
+
+## Capability map
+
+1. Programming and scripting for security automation
+2. CIA triad, authentication, authorisation and least privilege
+3. Encryption, networking, firewalls and segmentation
+4. Secure coding and OWASP risks
+5. Security testing tools, monitoring and SIEM
+6. Threat modelling, attack-surface mapping and vulnerability management
+7. Cloud, container and pipeline security
+8. Supply chain, SBOMs and artefact signing
+9. Defence in depth, Zero Trust and secure API design
+10. Incident response, EDR, SOAR and enterprise playbooks
+11. Frameworks, compliance mapping and risk quantification
+12. Metrics, maturity and continuous improvement
+
+## DevOps versus DevSecOps
+
+| DevOps | DevSecOps |
+| --- | --- |
+| Optimises speed and reliability | Optimises speed, reliability and security |
+| Security may be a separate stage | Security is embedded throughout delivery |
+| Testing focuses on function and performance | Testing includes code, dependency, secret, config and infrastructure security |
+| Production monitoring focuses on availability | Monitoring includes availability, behaviour, threats and abuse |
+
+DevSecOps does not mean every developer becomes a penetration tester. Each participant understands their security responsibilities and has appropriate automated support.
+
+## Twelve-stage journey
+
+### Stage 1 — Programming and scripting
+
+Choose one primary language (Python recommended) plus Bash or PowerShell. Automate log analysis, API calls and remediation scripts without hard-coded credentials.
+
+**Build:** a Python utility that detects failed logins, scores risk and alerts a webhook.
+
+### Stage 2 — Core security principles
+
+Master CIA, authentication versus authorisation, least privilege and encryption (symmetric, asymmetric, hashing, key management).
+
+**Build:** IAM role matrix for developer, platform, security, support, auditor, app service, CI/CD and emergency admin.
+
+### Stage 3 — Networking and web security
+
+Understand IP, DNS, HTTP/HTTPS, TLS, firewalls, ACLs and network zoning.
+
+**Build:** inspect headers, cookies, certificates and CSP with browser tools and `curl`; document exposure.
+
+### Stage 4 — Secure coding
+
+Prevent injection, XSS, CSRF, SSRF, path traversal and related OWASP risks with server-side validation and parameterised queries.
+
+**Build:** deliberately vulnerable app plus a hardened version with a security test suite.
+
+### Stage 5 — Testing and visibility
+
+Use authorised testing with Burp Suite, Nmap and Wireshark. Design SIEM-worthy logs and actionable alerts.
+
+**Build:** local stack lab; five detection rules with investigation steps and owners.
+
+### Stage 6 — Threat and risk management
+
+Apply STRIDE/PASTA, map attack surface and run a full vulnerability-management lifecycle with risk-based prioritisation.
+
+**Build:** threat model, asset inventory and remediation dashboard.
+
+### Stage 7 — Cloud and containers
+
+Apply shared-responsibility controls, CSPM findings, hardened images, Kubernetes RBAC/network policies and scan-at-build/deploy gates.
+
+**Build:** containerised app with non-root image, network policy and least-privilege service account.
+
+### Stage 8 — Pipeline and supply chain
+
+Harden CI/CD (MFA, protected branches, ephemeral runners, workload identity). Add SAST, SCA, secret scanning, IaC scanning, SBOM and signing.
+
+**Build:** end-to-end secure pipeline with risk-based deployment gates.
+
+### Stage 9 — Secure architecture
+
+Design defence in depth, Zero Trust access decisions, secure APIs, DDoS controls, multi-region security continuity and PKI lifecycle.
+
+**Build:** API security contract and certificate monitoring for one critical service.
+
+### Stage 10 — Incident response and operations
+
+Prepare, detect, triage, contain, eradicate, recover and learn. Add EDR coverage and cautious SOAR automation.
+
+**Build:** playbooks for account compromise, key exposure, CI/CD compromise and public storage exposure.
+
+### Stage 11 — Governance and compliance
+
+Map controls to NIST, ISO 27001 and SOC 2; quantify risk in business language; maintain evidence and exception processes.
+
+**Build:** control-mapping matrix and executive risk report.
+
+### Stage 12 — Lifecycle embedding and portfolio
+
+Embed security from requirements through runtime improvement. Prove capability with one enterprise-grade secure application.
+
+**Build:** full portfolio project with threat model, pipeline evidence, detections and compliance mapping.
+
+## Secure pipeline (reference)
+
+```text
+Commit → Secret scan → SAST → SCA → Tests → IaC scan
+  → Container build → Image scan → Sign → Deploy test
+  → DAST → Policy approval → Production → Runtime monitoring
+```
+
+Define which findings block, warn, accept as exceptions, or stay informational.
+
+## 24-week plan (summary)
+
+| Weeks | Focus | Key evidence |
+| --- | --- | --- |
+| 1–4 | Foundations | Log script, authenticated API, traffic lab |
+| 5–8 | Application security | Vulnerable + secure app; security tests |
+| 9–12 | Threats and monitoring | Threat model, inventory, five alerts, vuln dashboard |
+| 13–16 | Cloud and containers | Hardened image, K8s deploy, network policy |
+| 17–20 | Pipeline and supply chain | Secure pipeline, SBOM, signed artefact, gate |
+| 21–24 | Enterprise security | IR playbook, control matrix, architecture, risk report |
+
+## Maturity model
+
+| Level | Characteristics | Priority |
+| --- | --- | --- |
+| **1 Reactive** | Late security; manual; incomplete inventory; improvised IR | Visibility and accountability |
+| **2 Repeatable** | Standard scanning; remediation targets; basic playbooks | Consistent processes |
+| **3 Integrated** | Pipeline checks; threat modelling in design; least privilege | Embed into engineering workflows |
+| **4 Measured** | Risk metrics; control testing; governed exceptions | Effectiveness and less friction |
+| **5 Adaptive** | Threat-responsive controls; simulations; rapid learning loops | Continuously learning security system |
+
+## Metrics that matter
+
+Prefer outcomes over tool activity:
+
+- **Prevention** — secret scanning coverage; managed identities; signed artefacts
+- **Detection** — mean time to detect; alert precision; log coverage on critical assets
+- **Remediation** — mean time to remediate; critical-vulnerability age
+- **Delivery** — findings caught before production; emergency exception count
+- **Resilience** — mean time to contain; backup restoration success
+- **Governance** — access-review completion; control-test pass rate
+
+## Core principle
+
+> DevSecOps is not a single role, certification or product. It is an operating model that answers four questions throughout delivery: What could go wrong? How will we prevent it? How will we detect it? How will we respond when it happens?
+
+<KeyTakeaways>
+- Embed security across the lifecycle; tools alone do not create DevSecOps.
+- Sequence learning from foundations through cloud, pipeline, response and governance.
+- Measure prevention, detection, remediation and resilience—not scan or alert volume.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete DevSecOps Roadmap](/articles/devsecops-roadmap).
+- Deepen API controls with the [API Security Engineering roadmap](./api-security-engineering).
+- Practise related skills: [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</NextSteps>

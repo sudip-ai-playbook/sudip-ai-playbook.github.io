@@ -1,0 +1,154 @@
+---
+sidebar_position: 4
+slug: ai-product-builder
+title: AI Product Builder Roadmap
+description: From problem discovery to a secure, scalable production product—definition, prototyping, generation, refinement, collaboration and deployment.
+---
+
+# AI Product Builder Roadmap
+
+The AI Product Builder roadmap presents product development as two connected cycles. First, define what should be built by clarifying the problem, application structure, feature scope, technology stack and constraints. Then move through five execution stages: **prototyping, generation, refinement, collaboration and deployment**.
+
+This is not “idea → ask AI to generate code → deploy.” A reliable process is:
+
+> Problem → evidence → scope → prototype → validate → generate → refine → test → deploy → observe → improve.
+
+<ExecSummary>
+Define the problem and scope before writing code. Prototype to learn, generate in small increments, refine for reliability, collaborate with controlled change, and deploy only when product, AI, security and operations gates pass. Use the 12-week plan and production checklist as your operating system.
+</ExecSummary>
+
+<WhenToUse>
+- Use when turning a user problem into a working AI product as an individual builder or product team.
+- Pair with the full guide: [The Complete AI Product Builder Roadmap](/articles/ai-product-builder-roadmap).
+- Cross-check with [Product management](/learning-map/06-product-management), [AI Product Management roadmap](/roadmaps/ai-product-management), [AI Agents roadmap](/roadmaps/ai-agents) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</WhenToUse>
+
+## Capability map
+
+The roadmap groups AI product building into interdependent areas:
+
+1. Problem definition and outcomes
+2. Application anatomy
+3. Feature scoping (MoSCoW, user stories, NFRs)
+4. Technology stack and constraints
+5. Prototyping (AI app builders and coding tools)
+6. Generation (repo, incremental build, evaluation)
+7. Refinement (targeted vs structural change, UX for uncertainty)
+8. Safety, security and governance
+9. Collaboration, testing and CI
+10. Deployment, databases and continuous improvement
+
+## End-to-end creation cycle
+
+| Phase | Main question | Primary output |
+| --- | --- | --- |
+| Definition and scope | What problem should we solve? | Product brief |
+| Prototyping | Is the idea useful and understandable? | Validated prototype |
+| Generation | Can we create a working product? | Functional application |
+| Refinement | Is the product reliable and usable? | Production candidate |
+| Collaboration | Can a team safely maintain it? | Controlled delivery workflow |
+| Deployment | Can real users access it safely? | Live product |
+
+Each stage should have a clear exit criterion. Do not move forward simply because the product “looks good.”
+
+## Six-stage builder journey
+
+### Stage 0 — Definition and scope
+
+Clarify the problem, desired outcomes, stakeholders, application layers, MoSCoW scope, non-functional requirements and constraints before choosing tools.
+
+**Build:** a product brief, stakeholder map, first-release scope, success metrics with a baseline, and a risk/assumption list.
+
+### Stage 1 — Prototyping
+
+Choose the lowest fidelity that tests the current assumption. Use AI app builders for interface exploration and AI coding tools when you need repository control. Prototype the AI capability separately from the UI.
+
+**Build:** a prototype brief, clickable or working prototype, AI capability test set, and user-testing findings from five to eight target users.
+
+### Stage 2 — Generation
+
+Turn the validated prototype into a functional application. Maintain a source-controlled repository. Generate in small increments. Build the deterministic foundation (auth, schema, validation, logging) before advanced agents.
+
+**Build:** a working application shell, authenticated flows, model integration with structured outputs, persistence, and an initial evaluation dataset.
+
+### Stage 3 — Refinement
+
+Separate targeted changes from structural changes. Improve UX for uncertainty, loading and failure. Learn HTML, CSS, JavaScript, React, browser tools and Node.js as needed so you can recognise incorrect or insecure AI-generated code.
+
+**Build:** regression-safe fixes, improved retrieval and prompts, clear error and escalation states, and documented structural change plans when architecture shifts.
+
+### Stage 4 — Collaboration
+
+Define roles, use a controlled Git workflow, maintain product and architecture documents, and cover unit, integration, end-to-end, UAT, security and AI red-team testing. Wire continuous integration to block unsafe merges.
+
+**Build:** PR workflow, automated tests, CI pipeline (including AI evaluation subset), decision log and risk register.
+
+### Stage 5 — Deployment and operations
+
+Choose serverless, PaaS or major cloud based on scale, compliance and skills. Select databases deliberately (relational, document, managed platforms, vector storage). Release progressively and monitor product, AI quality, engineering and financial metrics.
+
+**Build:** test and production environments, monitoring and cost dashboards, incident runbook, release checklist and improvement backlog.
+
+## 12-week learning plan (summary)
+
+| Period | Focus | Key deliverables |
+| --- | --- | --- |
+| Weeks 1–2 | Product definition | Product brief, user stories, first-release scope, measurement plan |
+| Weeks 3–4 | Prototype | Clickable prototype, AI experiment, testing findings, updated scope |
+| Weeks 5–6 | Web foundations | Working interface, validation, API integration, error states |
+| Weeks 7–8 | Back end and AI | Auth, database, model integration, evaluation dataset |
+| Weeks 9–10 | Quality and collaboration | Repo, tests, PR workflow, CI, architecture docs |
+| Weeks 11–12 | Deployment and operations | Environments, monitoring, runbook, release checklist, backlog |
+
+## Production readiness checklist
+
+Before launching, confirm most of the following:
+
+### Product
+
+- The problem has been validated and the target user is clear
+- The core journey has been tested; success metrics have a baseline
+- Product ownership and support processes exist
+
+### Engineering
+
+- Code is source controlled; automated tests pass
+- Secrets are managed securely; environments are separated
+- Error handling and rollback have been tested
+
+### AI
+
+- Evaluation cases exist; model and prompt versions are tracked
+- Grounding, unsupported questions and high-risk review paths work
+- Cost, latency and provider failure are handled
+
+### Security and privacy
+
+- Authentication and authorisation are enforced and tested
+- Data is encrypted; sensitive data is minimised; retention is defined
+- Prompt injection and tenant separation have been verified
+
+### Operations
+
+- Monitoring, alerts, backups and recovery procedures exist
+- Incident response is defined; capacity and rate limits are understood
+
+## Definition of done
+
+An AI product is not finished because it can generate an answer. It is ready when it solves a validated problem, users can complete the intended task, AI output is evaluated systematically, security and privacy controls are in place, high-risk decisions include human oversight, software is tested and maintainable, changes are reviewed, deployment and rollback are safe, quality/cost/reliability are observable, ownership exists for support, and business value can be measured.
+
+## Core principle
+
+> AI can dramatically accelerate product creation, but the builder remains responsible for deciding what should be built, how it should behave, what risks are acceptable, and whether it creates real value.
+
+<KeyTakeaways>
+- Validate the problem and scope before generating code; prototype to learn, not to polish.
+- Use AI to accelerate engineering, not to remove engineering discipline, evaluation or security.
+- Ship only when product, AI, security and operations gates pass—and keep improving from live metrics.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete AI Product Builder Roadmap](/articles/ai-product-builder-roadmap).
+- Practise related skills: [Product management](/learning-map/06-product-management) and [Prompt & context engineering](/learning-map/12-prompt-context-engineering).
+- For product leadership depth, see the [AI Product Management roadmap](/roadmaps/ai-product-management); for agent-heavy products, follow the [AI Agents roadmap](/roadmaps/ai-agents).
+</NextSteps>

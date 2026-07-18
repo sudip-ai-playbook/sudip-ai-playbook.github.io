@@ -1,0 +1,2330 @@
+---
+slug: devsecops-roadmap
+title: "The Complete DevSecOps Roadmap: From Security Foundations to Enterprise Operations"
+description: A practical learning and implementation programme for DevSecOps—secure coding, identity, threat modelling, cloud and containers, pipeline hardening, incident response and governance.
+authors: [sudip]
+tags: [roadmaps, security, playbook, solution-engineering]
+keywords:
+  - DevSecOps roadmap
+  - secure software delivery
+  - CI/CD security
+  - threat modelling
+  - cloud security
+  - incident response
+  - AI Solution Engineering
+---
+
+DevSecOps integrates security into every stage of software delivery rather than treating it as a final review before release. This expanded guide turns the visual roadmap into a practical learning and implementation programme that engineers, security professionals and technical leaders can follow—from programming and identity through threat modelling, cloud and container security, incident response, enterprise operations and governance.
+
+{/* truncate */}
+
+<ExecSummary>
+DevSecOps is an operating model, not a tool stack: prevent, detect and correct insecure changes early across requirements, design, build, test, release, runtime and response. Follow the foundations → secure coding → threat management → cloud/pipeline → architecture → incident response → governance sequence, then prove it with the 24-week plan and portfolio project.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building personal or team DevSecOps capability, hardening delivery pipelines, or aligning engineering with security operations and GRC.
+- Pair with the [DevSecOps roadmap](/roadmaps/devsecops), [API Security Engineering roadmap](/roadmaps/api-security-engineering) and [Security Engineering](/learning-map/17-security-engineering).
+- Treat the 24-week plan, portfolio project, metrics and maturity model as your working system.
+</WhenToUse>
+
+The [DevSecOps roadmap](/roadmaps/devsecops) presents a progression from programming, networking, secure coding and identity through threat modelling, cloud and container security, incident response, enterprise operations and governance—supported by SIEM, IAM, vulnerability scanning, PKI, SBOMs, pipeline hardening and compliance mapping.
+
+---
+
+## 1. What DevSecOps Really Means
+
+Traditional software delivery often separates development, operations and security:
+
+* Developers build applications.
+* Operations teams deploy and maintain them.
+* Security teams assess them near the end.
+* Problems are discovered late.
+* Releases are delayed while vulnerabilities are repaired.
+
+DevSecOps changes this model by making security a shared, continuous responsibility.
+
+A mature DevSecOps process integrates security into:
+
+1. Business requirements
+2. Architecture and design
+3. Development
+4. Code review
+5. Continuous integration
+6. Testing
+7. Release approval
+8. Deployment
+9. Runtime monitoring
+10. Incident response
+11. Continuous improvement
+
+The objective is not simply to add more security tools. It is to create a delivery system in which insecure changes are prevented, detected or corrected as early as possible.
+
+### DevOps versus DevSecOps
+
+| DevOps | DevSecOps |
+| --- | --- |
+| Optimises speed and reliability | Optimises speed, reliability and security |
+| Security may be a separate stage | Security is embedded throughout delivery |
+| Developers focus primarily on functionality | Developers also own secure coding and remediation |
+| Testing focuses on functionality and performance | Testing includes code, dependency, secret, configuration and infrastructure security |
+| Security approval may be manual | Risk-based controls are increasingly automated |
+| Production monitoring focuses on availability | Monitoring includes availability, behaviour, threats and abuse |
+| Success is measured by deployment speed | Success balances speed, resilience, risk and compliance |
+
+DevSecOps should not mean that every developer becomes a penetration tester. It means that each participant understands their security responsibilities and has appropriate automated support.
+
+---
+
+# Part I: Learning the Foundations
+
+## 2. Learn a Programming Language
+
+Security professionals who understand software can identify problems more accurately, automate repetitive work and communicate effectively with development teams.
+
+Recommended languages include Python, Go, Rust, Ruby and JavaScript or Node.js.
+
+You do not need to master all of them. Select one primary language and become comfortable reading at least one additional language.
+
+### Recommended starting point: Python
+
+Python is useful for:
+
+* API testing
+* Log analysis
+* Security automation
+* Cloud scripting
+* File processing
+* Vulnerability-management utilities
+* Threat-intelligence enrichment
+* CI/CD automation
+* Incident-response scripts
+
+### Topics to learn
+
+Start with:
+
+* Variables and data types
+* Functions
+* Classes and objects
+* Exception handling
+* File operations
+* HTTP requests
+* JSON and YAML processing
+* Regular expressions
+* Command-line arguments
+* Environment variables
+* Package management
+* Unit testing
+* Logging
+
+Then move into security-relevant topics:
+
+* Secure input handling
+* Cryptographic libraries
+* Secret management
+* Authentication flows
+* API clients
+* Concurrent processing
+* Secure database access
+
+### Practical project
+
+Create a Python security utility that:
+
+1. Reads application logs.
+2. Detects repeated failed logins.
+3. Groups events by IP address.
+4. Assigns a basic risk score.
+5. Exports suspicious activity to JSON.
+6. Sends an alert to a test webhook.
+
+### Completion criteria
+
+You are ready to progress when you can:
+
+* Read unfamiliar code.
+* Call an API securely.
+* Parse JSON and YAML.
+* Handle errors safely.
+* Write automated tests.
+* Avoid hard-coded credentials.
+* Package a small command-line application.
+
+---
+
+## 3. Develop Scripting Knowledge
+
+Scripting is essential because DevSecOps depends heavily on repeatable automation.
+
+### Bash
+
+Learn Bash when working with Linux systems, containers and CI runners.
+
+Important topics include:
+
+* File permissions
+* Pipes and redirection
+* Exit codes
+* Variables
+* Loops
+* Conditional statements
+* Process management
+* `grep`, `awk`, `sed` and `find`
+* `curl`
+* Secure shell usage
+* Environment-variable handling
+
+### PowerShell
+
+PowerShell is particularly useful for Windows, Microsoft 365, Entra ID and Azure environments.
+
+Learn:
+
+* Cmdlets
+* Objects and pipelines
+* Modules
+* Error handling
+* Remoting
+* File and registry operations
+* Identity-management scripts
+* Azure automation
+
+### Editors
+
+You only need sufficient editor knowledge (Vim, Nano or Emacs) to work safely on remote systems.
+
+At minimum, learn how to:
+
+* Open and edit files.
+* Search within a file.
+* Save changes.
+* Exit without saving.
+* Display line numbers.
+* Compare changes before committing them.
+
+### Security principle
+
+A script running with elevated privileges can become an attack path. Therefore:
+
+* Validate arguments.
+* Quote variables.
+* Avoid executing untrusted input.
+* Use least privilege.
+* Fail safely.
+* Log important operations.
+* Never print secrets.
+* Pin dependencies where appropriate.
+
+---
+
+# Part II: Core Security Principles
+
+## 4. Understand the CIA Triad
+
+The CIA triad provides a simple foundation for security analysis.
+
+### Confidentiality
+
+Information should only be accessible to authorised entities.
+
+Typical controls:
+
+* Encryption
+* Access control
+* Data classification
+* Tokenisation
+* Secret management
+* Network segmentation
+
+Example question:
+
+> Could an unauthorised user view another customer's personal information?
+
+### Integrity
+
+Information and systems should not be modified improperly.
+
+Typical controls:
+
+* Digital signatures
+* Cryptographic hashes
+* Database constraints
+* Approval workflows
+* Immutable logging
+* Code signing
+
+Example question:
+
+> Could an attacker alter a payment amount between the application and the payment service?
+
+### Availability
+
+Systems and information should be available when needed.
+
+Typical controls:
+
+* Redundancy
+* Backups
+* Autoscaling
+* Disaster recovery
+* DDoS protection
+* Health monitoring
+* Rate limiting
+
+Example question:
+
+> Could a single service failure make the entire platform unavailable?
+
+### Use the CIA triad in requirements
+
+Every significant feature should have explicit security requirements.
+
+For example, for a document-upload feature:
+
+* Confidentiality: uploaded files must be encrypted.
+* Integrity: file hashes must be recorded.
+* Availability: processing failures must retry safely.
+* Privacy: personal data must be retained only as required.
+* Auditability: access and deletion events must be logged.
+
+---
+
+## 5. Authentication and Authorisation
+
+Authentication answers:
+
+> Who are you?
+
+Authorisation answers:
+
+> What are you allowed to do?
+
+They are related but separate.
+
+### Authentication concepts
+
+Study:
+
+* Password authentication
+* Passwordless login
+* Multi-factor authentication
+* Session management
+* Tokens
+* OAuth 2.0
+* OpenID Connect
+* Single sign-on
+* Federation
+* Service identities
+* Workload identities
+
+### Authorisation models
+
+Common models include:
+
+* Role-based access control
+* Attribute-based access control
+* Policy-based access control
+* Relationship-based access control
+* Mandatory access control
+
+### Secure implementation principles
+
+* Deny access by default.
+* Verify authorisation on the server.
+* Do not rely on hidden interface elements.
+* Check ownership of individual resources.
+* Use short-lived credentials.
+* Revoke sessions when risk changes.
+* Separate human and machine identities.
+* Log privileged actions.
+* Require stronger controls for sensitive operations.
+
+### Common failure: broken object-level authorisation
+
+Suppose an API exposes:
+
+```http
+GET /api/invoices/10025
+```
+
+Changing `10025` to `10026` must not reveal another customer's invoice.
+
+The application must verify that the authenticated identity is authorised to access that specific object.
+
+---
+
+## 6. Least Privilege and Role-Based Access
+
+Least privilege means granting only the minimum access required for a specific responsibility.
+
+Poor practice:
+
+* Every developer is a production administrator.
+* One shared cloud account is used by the entire team.
+* A CI pipeline has permanent credentials.
+* An application database account can create users and delete schemas.
+* Support staff can download all customer data.
+
+Better practice:
+
+* Separate roles for development, deployment and administration.
+* Just-in-time privileged access.
+* Temporary credentials.
+* Approval for high-risk actions.
+* Scoped service accounts.
+* Read-only roles where possible.
+* Regular access reviews.
+* Automatic removal of unused permissions.
+
+### Practical IAM exercise
+
+Design roles for:
+
+* Developer
+* Platform engineer
+* Security engineer
+* Support analyst
+* Auditor
+* Application service
+* CI/CD pipeline
+* Emergency administrator
+
+For every role, define:
+
+1. Permitted actions
+2. Restricted actions
+3. Data scope
+4. Environment scope
+5. Authentication requirement
+6. Approval requirement
+7. Logging requirement
+8. Access-expiry rule
+
+---
+
+## 7. Encryption Fundamentals
+
+### Symmetric encryption
+
+The same secret key encrypts and decrypts data.
+
+Typical use cases:
+
+* Database encryption
+* File encryption
+* Backup encryption
+* High-volume data protection
+
+Key risks:
+
+* Secure key distribution
+* Rotation
+* Exposure of shared keys
+* Excessive key reuse
+
+### Asymmetric encryption
+
+A public and private key pair is used.
+
+Typical use cases:
+
+* Digital signatures
+* Key exchange
+* Certificate-based authentication
+* Secure software signing
+
+### Hashing
+
+Hashing is one-way and should not be confused with encryption.
+
+Use hashing for:
+
+* Integrity checking
+* Digital signatures
+* Content addressing
+* Password verification, when combined with an appropriate password-hashing algorithm
+
+General-purpose hashes such as SHA-256 are useful for integrity checks, but passwords should be protected with password-specific algorithms such as bcrypt, scrypt or Argon2.
+
+### Key-management principles
+
+* Never hard-code keys.
+* Store keys in a managed key-management service or hardware-backed system.
+* Limit who and what can use each key.
+* Rotate keys.
+* Record key usage.
+* Separate encryption keys by environment and purpose.
+* Plan revocation and recovery.
+* Back up key material where required.
+* Test what happens if a key becomes unavailable.
+
+---
+
+# Part III: Networking and Web Security
+
+## 8. Networking Basics
+
+A DevSecOps professional must understand how applications communicate.
+
+Study:
+
+* IP addressing
+* Ports
+* TCP and UDP
+* DNS
+* HTTP and HTTPS
+* TLS
+* Routing
+* Subnets
+* Firewalls
+* Proxies
+* Load balancers
+* Virtual private networks
+* Network address translation
+
+### DNS
+
+Understand:
+
+* Name resolution
+* DNS records
+* Caching
+* Internal versus public DNS
+* Domain validation
+* DNS spoofing risks
+* DNS-based service discovery
+
+### HTTP
+
+Learn:
+
+* Request methods
+* Headers
+* Status codes
+* Cookies
+* Sessions
+* Caching
+* Content types
+* Cross-origin behaviour
+* Authentication headers
+
+### TLS
+
+Understand:
+
+* Certificates
+* Certificate authorities
+* Hostname validation
+* Encryption in transit
+* Protocol negotiation
+* Certificate expiry
+* Mutual TLS
+* Trust stores
+
+### Practical exercise
+
+Use browser developer tools and `curl` to inspect:
+
+1. Request headers
+2. Response headers
+3. Cookies
+4. Authentication tokens
+5. TLS certificate details
+6. Redirects
+7. Caching headers
+8. Content Security Policy
+
+---
+
+## 9. Firewalls, ACLs and Network Segmentation
+
+### Firewalls
+
+Firewalls filter traffic according to defined rules.
+
+Rules should specify:
+
+* Source
+* Destination
+* Port
+* Protocol
+* Direction
+* Purpose
+* Owner
+* Expiration date
+
+Avoid rules such as “allow all from anywhere” unless there is an exceptional and documented requirement.
+
+### Access control lists
+
+ACLs are commonly used to control network, file, storage or resource access.
+
+Review ACLs for:
+
+* Overly broad sources
+* Public exposure
+* Unused entries
+* Conflicting rules
+* Excessive inheritance
+* Missing ownership
+
+### Network segmentation
+
+Segmentation limits the movement of attackers.
+
+A typical enterprise design may separate:
+
+* Public edge
+* Web services
+* Application services
+* Databases
+* Management systems
+* Security tooling
+* Development environments
+* Production environments
+* Backup infrastructure
+* Third-party integrations
+
+### Secure zoning example
+
+```text
+Internet
+   |
+Web Application Firewall
+   |
+Public Load Balancer
+   |
+Application Zone
+   |
+Private Service Zone
+   |
+Database Zone
+```
+
+Administrative access should follow a separate controlled path, not the public application route.
+
+---
+
+## 10. Secure Coding
+
+Secure coding should extend across the full application—not only SQL injection, XSS and input validation.
+
+### Input validation
+
+Validate input according to what is allowed, not only what is forbidden.
+
+Check:
+
+* Type
+* Length
+* Format
+* Range
+* Character set
+* File type
+* File size
+* Business-rule validity
+* Ownership
+* Context
+
+Validation should happen on the server, even when the browser already validates the input.
+
+### SQL injection prevention
+
+Use:
+
+* Parameterised queries
+* Prepared statements
+* Safe ORM features
+* Least-privileged database accounts
+* Input validation
+* Database activity monitoring
+
+Do not construct queries by concatenating user input.
+
+Unsafe:
+
+```python
+query = "SELECT * FROM users WHERE email = '" + email + "'"
+```
+
+Safer:
+
+```python
+cursor.execute(
+    "SELECT * FROM users WHERE email = %s",
+    (email,)
+)
+```
+
+### Cross-site scripting prevention
+
+Prevent XSS using:
+
+* Context-aware output encoding
+* Template engines with escaping enabled
+* Content Security Policy
+* Safe DOM APIs
+* HTML sanitisation where rich content is required
+* Avoidance of unsafe dynamic code execution
+
+### Additional secure-coding areas
+
+Study:
+
+* Cross-site request forgery
+* Server-side request forgery
+* Command injection
+* Path traversal
+* Insecure deserialisation
+* File-upload security
+* Race conditions
+* Memory-safety issues
+* Sensitive-data exposure
+* Authentication bypass
+* Business-logic abuse
+* Rate-limit bypass
+* Improper error handling
+
+### Secure coding checklist
+
+Before merging a feature, ask:
+
+* Is all input validated?
+* Is authorisation enforced server-side?
+* Are database operations parameterised?
+* Are secrets externalised?
+* Are errors safe?
+* Is sensitive data excluded from logs?
+* Are dependencies maintained?
+* Are security tests included?
+* Can the feature be abused at scale?
+* Does the feature introduce new external access?
+
+---
+
+# Part IV: Security Testing and Visibility
+
+## 11. Learn the OWASP Risks
+
+The OWASP Top 10 gives teams a shared vocabulary for common application-security risks.
+
+Do not merely memorise category names. For each risk, understand:
+
+1. What the vulnerability is
+2. How it is introduced
+3. How it is exploited
+4. How it is detected
+5. How it is prevented
+6. How it is tested
+7. How it affects the business
+
+Create an internal reference with:
+
+* Vulnerability description
+* Example
+* Secure-code pattern
+* Testing approach
+* Detection rule
+* Remediation owner
+
+---
+
+## 12. Use Foundational Security Tools
+
+Tools such as Burp Suite, Nmap and Wireshark should only be used on systems you own or are authorised to test.
+
+### Burp Suite
+
+Use it to understand:
+
+* HTTP requests and responses
+* Session cookies
+* Authentication flows
+* API calls
+* Parameter manipulation
+* Input validation
+* Security headers
+
+Begin with a deliberately vulnerable local application.
+
+### Nmap
+
+Use it to learn:
+
+* Host discovery
+* Port scanning
+* Service identification
+* Basic network exposure assessment
+* Differences between expected and actual exposed services
+
+The objective is not simply to scan. It is to compare discovered exposure with the approved architecture.
+
+### Wireshark
+
+Use it to understand:
+
+* Network protocols
+* DNS requests
+* TCP connections
+* TLS handshakes
+* Retransmissions
+* Cleartext traffic
+* Unexpected destinations
+
+### Practical lab
+
+Create a small application stack locally:
+
+* Front end
+* API
+* Database
+* Reverse proxy
+
+Then:
+
+1. Inspect its API with Burp Suite.
+2. Scan its exposed ports with Nmap.
+3. Capture its network traffic with Wireshark.
+4. Document unexpected findings.
+5. Reduce unnecessary exposure.
+6. Retest.
+
+---
+
+## 13. Monitoring, Logging and SIEM
+
+Security monitoring should answer:
+
+* What happened?
+* When did it happen?
+* Which identity was involved?
+* Which system was affected?
+* What was the source?
+* Was the action successful?
+* Was it expected?
+* What should happen next?
+
+### Important log categories
+
+Collect logs from:
+
+* Applications
+* APIs
+* Identity systems
+* Cloud platforms
+* Operating systems
+* Containers
+* Kubernetes
+* Databases
+* Firewalls
+* Web application firewalls
+* Endpoint protection
+* CI/CD platforms
+* Secret-management systems
+
+### Events worth detecting
+
+Examples include:
+
+* Repeated failed authentication
+* Successful login after many failures
+* Privilege escalation
+* New administrator creation
+* Disabled security controls
+* Unusual data downloads
+* Secret access from an unexpected workload
+* Public exposure of cloud storage
+* Production deployment outside normal processes
+* Malware detection
+* Abnormal geographic access
+* Excessive API requests
+* Changes to audit logging
+* Suspicious child processes
+* Container execution using privileged mode
+
+### SIEM alert design
+
+A good alert should include:
+
+* Alert name
+* Risk level
+* Detection logic
+* Data source
+* Threshold
+* Suppression rule
+* Investigation steps
+* Expected false positives
+* Escalation path
+* Response owner
+* Evidence-retention requirement
+
+### Avoid alert fatigue
+
+More alerts do not necessarily mean better security.
+
+Prioritise alerts that are:
+
+* Actionable
+* High-confidence
+* Connected to important assets
+* Enriched with identity and asset context
+* Mapped to a response playbook
+
+---
+
+# Part V: Threat and Risk Management
+
+## 14. Threat Modelling
+
+Threat modelling identifies how a system could be attacked before or while it is built.
+
+### STRIDE
+
+STRIDE examines six threat categories:
+
+* **Spoofing:** impersonating another identity
+* **Tampering:** changing data or code
+* **Repudiation:** denying an action without sufficient evidence
+* **Information disclosure:** exposing sensitive information
+* **Denial of service:** reducing availability
+* **Elevation of privilege:** gaining unauthorised capability
+
+### PASTA
+
+PASTA is more risk-centred and connects technical threats to business impact.
+
+A simplified process is:
+
+1. Define business objectives.
+2. Define the technical scope.
+3. Break down the application.
+4. Analyse threats.
+5. Analyse weaknesses.
+6. Model attacks.
+7. Assess risk and controls.
+
+### Threat-modelling workflow
+
+For each new system:
+
+1. Define scope.
+2. Identify assets.
+3. Identify actors.
+4. Draw data flows.
+5. Mark trust boundaries.
+6. Identify entry points.
+7. Identify threats.
+8. Review existing controls.
+9. Estimate likelihood and impact.
+10. Assign remediation actions.
+11. Record accepted risks.
+12. Reassess after architecture changes.
+
+### Threat-model example: customer-support chatbot
+
+Assets:
+
+* Customer messages
+* Customer identity
+* Internal knowledge documents
+* API credentials
+* Conversation history
+* Support tickets
+
+Threats:
+
+* Prompt injection
+* Data leakage
+* Unauthorised document retrieval
+* Abuse of external tools
+* Excessive data retention
+* Malicious file uploads
+* Account takeover
+* Hallucinated commitments
+* Denial-of-wallet attacks
+
+Controls:
+
+* Strong retrieval authorisation
+* Input and output filtering
+* Tool-level permission controls
+* Human approval for sensitive actions
+* Data minimisation
+* Rate limits
+* Audit trails
+* Secure secret storage
+* Model and prompt evaluation
+* Incident-response procedures
+
+---
+
+## 15. Attack-Surface Mapping
+
+An attack surface includes every possible point through which a system can be accessed or influenced.
+
+Map:
+
+* Domains
+* Subdomains
+* Public IPs
+* APIs
+* Open ports
+* Cloud resources
+* Storage buckets
+* Identity providers
+* CI/CD systems
+* Code repositories
+* Third-party integrations
+* Mobile applications
+* Administrative interfaces
+* Vendor accounts
+* Secrets
+* Certificates
+* Remote-access paths
+
+Maintain an inventory containing:
+
+* Asset owner
+* Business purpose
+* Data classification
+* Internet exposure
+* Environment
+* Criticality
+* Authentication mechanism
+* Last security review
+* Current vulnerabilities
+* Decommissioning status
+
+You cannot secure systems you do not know exist.
+
+---
+
+## 16. Vulnerability Management
+
+Tools discover weaknesses, but vulnerability management is a business process.
+
+### Complete lifecycle
+
+1. Discover assets.
+2. Scan or assess them.
+3. Validate findings.
+4. Remove false positives.
+5. Add business context.
+6. Prioritise risk.
+7. Assign ownership.
+8. Remediate or mitigate.
+9. Verify the fix.
+10. Measure recurrence.
+11. Report exceptions.
+12. Improve preventive controls.
+
+### Risk-based prioritisation
+
+Do not rely only on a severity score.
+
+Consider:
+
+* Internet exposure
+* Exploit availability
+* Active exploitation
+* Asset criticality
+* Data sensitivity
+* Existing controls
+* Reachability
+* Privilege required
+* Business impact
+* Regulatory implications
+
+### Remediation targets
+
+Organisations can define service-level targets such as:
+
+* Critical and actively exploited: immediate emergency action
+* Critical: a few days
+* High: one or two sprints
+* Medium: planned remediation
+* Low: backlog or risk acceptance
+
+The exact targets should reflect organisational risk tolerance.
+
+---
+
+# Part VI: Cloud, Container and Pipeline Security
+
+## 17. Cloud Security
+
+Cloud security requires shared responsibility between the cloud provider and the customer.
+
+Customers usually remain responsible for:
+
+* Identity configuration
+* Data protection
+* Workload security
+* Network configuration
+* Application security
+* Logging
+* Compliance
+* Vulnerability management
+* Secrets
+* Access reviews
+
+### Core cloud-security controls
+
+* Multi-factor authentication
+* Centralised identity
+* Short-lived credentials
+* Separate production accounts or subscriptions
+* Private networking
+* Encryption
+* Secure key management
+* Centralised logs
+* Configuration policies
+* Backup protection
+* Threat detection
+* Resource tagging
+* Budget and anomaly alerts
+
+### Cloud Security Posture Management
+
+CSPM tools identify risky cloud configurations such as:
+
+* Public storage
+* Unencrypted databases
+* Open security groups
+* Disabled logging
+* Overprivileged identities
+* Unmanaged keys
+* Insecure Kubernetes clusters
+* Missing backups
+* Resources outside approved regions
+
+CSPM findings should be integrated with ticketing and ownership systems so that they lead to remediation.
+
+---
+
+## 18. Container Security
+
+Container security includes the image, registry, runtime, host and orchestration platform.
+
+### Docker security
+
+Focus on:
+
+* Minimal base images
+* Trusted image sources
+* Non-root users
+* Read-only filesystems
+* Dropped Linux capabilities
+* Resource limits
+* Secret injection
+* Image signing
+* Dependency scanning
+* No unnecessary packages
+* Regular rebuilding
+
+### Kubernetes security
+
+Study:
+
+* Namespaces
+* Role-based access control
+* Service accounts
+* Network policies
+* Admission controls
+* Pod security settings
+* Secret handling
+* Resource quotas
+* Audit logs
+* Runtime detection
+* Cluster upgrades
+
+### Image scanning
+
+Image scanning should happen:
+
+1. When the image is built
+2. Before it is pushed
+3. When it enters a registry
+4. Before deployment
+5. Continuously after deployment
+
+A previously clean image may later become vulnerable when a new vulnerability is disclosed.
+
+### Container-security pipeline gate
+
+A deployment policy may block:
+
+* Critical exploitable vulnerabilities
+* Images running as root
+* Images without provenance
+* Images containing secrets
+* Unsigned images
+* Unapproved registries
+* Privileged containers
+* Prohibited host mounts
+
+---
+
+## 19. Build-Pipeline Hardening
+
+CI/CD systems often have access to source code, secrets and production environments. Therefore, compromising the pipeline can compromise the organisation.
+
+### Protect the pipeline
+
+* Enforce multi-factor authentication.
+* Use protected branches.
+* Require peer review.
+* Restrict who can modify pipeline definitions.
+* Use ephemeral runners where possible.
+* Use workload identity instead of static keys.
+* Separate build and deployment permissions.
+* Pin third-party actions and plugins.
+* Verify artefact integrity.
+* Sign releases.
+* Isolate untrusted builds.
+* Monitor privileged pipeline activity.
+* Protect build caches.
+* Avoid secrets in logs.
+
+### Example secure pipeline
+
+```text
+Commit
+  ↓
+Secret scanning
+  ↓
+Static application security testing
+  ↓
+Software composition analysis
+  ↓
+Unit and security tests
+  ↓
+Infrastructure-as-code scanning
+  ↓
+Container build
+  ↓
+Image scanning
+  ↓
+Artefact signing
+  ↓
+Deploy to test
+  ↓
+Dynamic security testing
+  ↓
+Policy approval
+  ↓
+Production deployment
+  ↓
+Runtime monitoring
+```
+
+Not every warning should block delivery. Define risk-based policies that distinguish:
+
+* Mandatory blocking controls
+* Warnings requiring review
+* Accepted exceptions
+* Informational findings
+
+---
+
+## 20. Dependency and Supply-Chain Security
+
+Applications depend on open-source packages, container images, build plugins and external services.
+
+### Common supply-chain risks
+
+* Vulnerable dependencies
+* Malicious packages
+* Typosquatting
+* Compromised maintainer accounts
+* Dependency confusion
+* Untrusted build actions
+* Tampered artefacts
+* Exposed signing keys
+* Uncontrolled transitive dependencies
+
+### Dependency-management controls
+
+* Use approved repositories.
+* Lock dependency versions.
+* Review new dependencies.
+* Remove unused packages.
+* Monitor vulnerabilities.
+* Verify package integrity.
+* Restrict package publishing.
+* Protect repository accounts.
+* Maintain ownership information.
+* Create an upgrade process.
+
+### Software Bill of Materials
+
+An SBOM records the components used within a software artefact.
+
+It can include:
+
+* Component name
+* Version
+* Supplier
+* Licence
+* Package identifier
+* Dependency relationship
+* Hash
+* Build information
+
+SBOMs support:
+
+* Vulnerability impact analysis
+* Customer assurance
+* Incident response
+* Licence management
+* Supply-chain transparency
+
+An SBOM is only useful when it is accurate, generated regularly and connected to vulnerability intelligence.
+
+---
+
+# Part VII: Secure Architecture
+
+## 21. Defence in Depth
+
+Defence in depth uses multiple complementary controls so that one failure does not immediately lead to compromise.
+
+For a public API, layers may include:
+
+1. DNS protection
+2. DDoS protection
+3. Web application firewall
+4. API gateway
+5. Authentication
+6. Authorisation
+7. Rate limiting
+8. Input validation
+9. Secure application logic
+10. Network segmentation
+11. Database access controls
+12. Encryption
+13. Monitoring
+14. Incident response
+
+Each layer should reduce risk independently.
+
+---
+
+## 22. Zero Trust
+
+Zero Trust is based on the principle that access should not be trusted merely because it originates from an internal network.
+
+Key ideas include:
+
+* Verify explicitly.
+* Use least privilege.
+* Assume compromise.
+* Evaluate identity, device and context.
+* Continuously reassess access.
+* Segment critical resources.
+* Monitor every significant action.
+
+A Zero Trust architecture does not mean prompting users for a password every few minutes. It means making access decisions using reliable identity and contextual evidence.
+
+---
+
+## 23. Secure API Design
+
+APIs are frequently the primary interface to modern applications.
+
+### Secure API controls
+
+* Strong authentication
+* Object-level authorisation
+* Function-level authorisation
+* Schema validation
+* Rate limiting
+* Request-size limits
+* Safe error messages
+* Idempotency for sensitive operations
+* Secure pagination
+* Input canonicalisation
+* Logging
+* Version management
+* Deprecation controls
+* Abuse detection
+
+### API threat questions
+
+* Can identifiers be guessed?
+* Can users access another user's object?
+* Can parameters be changed to alter prices or roles?
+* Can an operation be repeated?
+* Can a client request excessive data?
+* Can old API versions bypass controls?
+* Can anonymous users trigger expensive processing?
+* Can an external URL be supplied to make the server perform requests?
+
+### API security deliverable
+
+Create a security contract for each important endpoint:
+
+| Area | Requirement |
+| --- | --- |
+| Authentication | Required identity type |
+| Authorisation | Roles and ownership checks |
+| Input | Schema and limits |
+| Output | Sensitive-field restrictions |
+| Rate limit | Requests per identity |
+| Audit | Events to record |
+| Error handling | Permitted detail |
+| Data protection | Encryption and retention |
+| Abuse cases | Known misuse patterns |
+
+---
+
+## 24. DDoS Mitigation
+
+DDoS resilience should be designed at several layers.
+
+Controls may include:
+
+* Content delivery networks
+* Managed DDoS services
+* Rate limits
+* Connection limits
+* Web application firewalls
+* Request validation
+* Caching
+* Autoscaling
+* Queue-based processing
+* Circuit breakers
+* Geographic restrictions where appropriate
+* Upstream provider coordination
+
+Application-level attacks can be more difficult than simple traffic floods because apparently valid requests may trigger expensive work.
+
+Protect costly operations with:
+
+* Authentication
+* Quotas
+* Request-cost limits
+* Timeouts
+* Concurrency limits
+* Caching
+* Human verification for suspicious activity
+
+---
+
+## 25. Multi-Region Security Planning
+
+Multi-region systems increase resilience but also increase complexity.
+
+Plan for:
+
+* Identity replication
+* Key availability
+* Certificate distribution
+* Consistent policies
+* Logging continuity
+* Data residency
+* Replication security
+* Failover access
+* Backup isolation
+* Regional incident containment
+
+Test:
+
+* Regional service failure
+* Identity-provider failure
+* Key-management failure
+* Certificate expiry
+* Compromise of one region
+* Loss of central logging
+* Network partition
+* Recovery from backup
+
+Failover should preserve security controls rather than bypass them.
+
+---
+
+## 26. PKI and Certificate Lifecycle
+
+Public key infrastructure supports trust between systems.
+
+Understand:
+
+* Certificate authorities
+* Root and intermediate certificates
+* Certificate signing requests
+* Trust stores
+* Revocation
+* Certificate chains
+* Mutual TLS
+* Code-signing certificates
+* Rotation
+
+### Certificate lifecycle
+
+1. Request
+2. Approve
+3. Issue
+4. Deploy
+5. Monitor
+6. Renew
+7. Revoke
+8. Replace
+9. Retire
+
+Automate renewal wherever possible and alert well before expiry.
+
+Certificate failures can cause major outages, so monitor:
+
+* Expiry dates
+* Hostname mismatches
+* Weak algorithms
+* Revoked certificates
+* Failed rotations
+* Unauthorised certificate issuance
+
+---
+
+# Part VIII: Incident Response and Enterprise Operations
+
+## 27. Incident-Response Lifecycle
+
+A practical lifecycle is:
+
+1. Preparation
+2. Detection
+3. Triage
+4. Containment
+5. Eradication
+6. Recovery
+7. Communication
+8. Lessons learned
+9. Control improvement
+
+### Preparation
+
+Before an incident:
+
+* Define roles.
+* Create severity levels.
+* Establish communication channels.
+* Maintain contact lists.
+* Prepare playbooks.
+* Confirm evidence retention.
+* Test backups.
+* Run exercises.
+* Clarify legal and regulatory obligations.
+
+### Triage
+
+Determine:
+
+* What happened?
+* Which assets are affected?
+* Is the event ongoing?
+* What is the business impact?
+* What data may be involved?
+* Is privileged access compromised?
+* What evidence must be preserved?
+
+### Containment
+
+Containment may involve:
+
+* Disabling an account
+* Isolating a host
+* Blocking an IP
+* Revoking tokens
+* Rotating credentials
+* Disabling an integration
+* Removing a malicious workload
+* Restricting network access
+
+Containment should reduce damage without unnecessarily destroying evidence.
+
+### Root-cause analysis
+
+Do not stop at “a developer made a mistake.”
+
+Ask:
+
+* Why was the error possible?
+* Why was it not prevented?
+* Why was it not detected earlier?
+* Why did the process allow it?
+* Which systemic control should change?
+
+A strong corrective action improves the system, not merely the individual.
+
+---
+
+## 28. Endpoint Detection and EDR
+
+Endpoint detection and response provides visibility into laptops, servers and other endpoints.
+
+Capabilities may include:
+
+* Process monitoring
+* File monitoring
+* Behavioural detection
+* Network connection visibility
+* Malware detection
+* Host isolation
+* Remote investigation
+* Evidence collection
+
+An EDR strategy should define:
+
+* Coverage expectations
+* Supported systems
+* Alert ownership
+* Investigation procedures
+* Isolation authority
+* Data retention
+* Privacy controls
+* Testing and health monitoring
+
+---
+
+## 29. SOAR and Security Automation
+
+Security orchestration, automation and response helps connect tools and automate repetitive response activities.
+
+Useful automation examples:
+
+* Enrich an alert with asset and identity context.
+* Check whether an IP is known to be malicious.
+* Disable a compromised account.
+* Revoke sessions.
+* Isolate an endpoint.
+* Create an incident ticket.
+* Collect evidence.
+* Notify responders.
+* Update a case record.
+
+### Use caution
+
+High-impact actions should require strong confidence or human approval.
+
+For example:
+
+* Automatically enriching an alert is low risk.
+* Automatically disabling a senior executive's account may require approval.
+* Automatically deleting evidence is unacceptable.
+
+Start with enrichment and workflow automation before implementing aggressive containment.
+
+---
+
+## 30. Enterprise Response Strategy
+
+Enterprise response requires coordination between:
+
+* Security operations
+* Engineering
+* Cloud teams
+* Legal
+* Privacy
+* Risk
+* Compliance
+* Communications
+* Business leadership
+* Customer support
+* Third-party providers
+
+Create a RACI model defining who is:
+
+* Responsible
+* Accountable
+* Consulted
+* Informed
+
+Prepare playbooks for scenarios such as:
+
+* Account compromise
+* Ransomware
+* Cloud-key exposure
+* Data exfiltration
+* Malicious dependency
+* Public storage exposure
+* Insider threat
+* DDoS
+* Lost device
+* CI/CD compromise
+* Certificate failure
+
+---
+
+# Part IX: Governance, Risk and Compliance
+
+## 31. Cybersecurity Frameworks
+
+Frameworks such as NIST, ISO 27001 and SOC 2 should organise and evidence security—not substitute for engineering judgement.
+
+### NIST
+
+NIST frameworks can help organisations structure activities around areas such as:
+
+* Identification
+* Protection
+* Detection
+* Response
+* Recovery
+* Governance
+
+Use them to build:
+
+* Control libraries
+* Capability assessments
+* Improvement roadmaps
+* Risk reporting
+* Executive dashboards
+
+### ISO 27001
+
+ISO 27001 focuses on establishing, operating and improving an information security management system.
+
+Key themes include:
+
+* Organisational context
+* Leadership
+* Risk assessment
+* Risk treatment
+* Security objectives
+* Operational controls
+* Internal audits
+* Management review
+* Continual improvement
+
+### SOC 2
+
+SOC 2 reporting assesses controls relevant to trust-service criteria such as:
+
+* Security
+* Availability
+* Processing integrity
+* Confidentiality
+* Privacy
+
+A control should not exist only in a policy document. It should be implemented, operated consistently and supported by evidence.
+
+---
+
+## 32. Audit and Compliance Mapping
+
+Control mapping reduces duplicated work.
+
+For example, one access-review process might provide evidence for multiple frameworks.
+
+Create a control matrix containing:
+
+| Field | Purpose |
+| --- | --- |
+| Control ID | Unique reference |
+| Control objective | What the control achieves |
+| Framework mapping | Relevant standards |
+| Owner | Accountable person |
+| Implementation | Technical or procedural control |
+| Frequency | Continuous, daily, quarterly |
+| Evidence | Logs, reports, approvals |
+| Testing method | How effectiveness is assessed |
+| Exception process | How deviations are handled |
+| Status | Designed, implemented, effective |
+
+### Evidence examples
+
+* Access-review records
+* Vulnerability reports
+* Pipeline logs
+* Backup test results
+* Incident exercises
+* Security-training records
+* Risk approvals
+* Change records
+* Encryption configurations
+* Monitoring dashboards
+
+---
+
+## 33. Risk Quantification
+
+Risk statements should connect technical conditions to business consequences.
+
+Weak statement:
+
+> The server has a critical vulnerability.
+
+Stronger statement:
+
+> An internet-accessible customer portal contains a remotely exploitable vulnerability that could allow unauthorised access to customer information, creating material privacy, operational and reputational impact.
+
+### Basic risk model
+
+A simple approach is:
+
+```text
+Risk = Likelihood × Impact
+```
+
+Likelihood may consider:
+
+* Exposure
+* Exploitability
+* Threat activity
+* Required access
+* Existing controls
+
+Impact may consider:
+
+* Financial loss
+* Service disruption
+* Data exposure
+* Safety
+* Legal consequences
+* Regulatory consequences
+* Reputation
+
+More advanced organisations may estimate probable financial ranges, but the objective is still to support decisions rather than create false precision.
+
+---
+
+# Part X: A Practical DevSecOps Delivery Model
+
+## 34. Embed Security Across the Software Lifecycle
+
+### Stage 1: Business requirements
+
+Security activities:
+
+* Identify critical assets.
+* Classify data.
+* Determine regulatory obligations.
+* Define availability requirements.
+* Document abuse cases.
+* Define acceptable risk.
+
+Deliverables:
+
+* Security requirements
+* Data classification
+* Initial risk assessment
+* Compliance scope
+
+### Stage 2: Architecture
+
+Security activities:
+
+* Threat modelling
+* Trust-boundary analysis
+* Identity design
+* Network zoning
+* Encryption design
+* Key-management planning
+* Logging design
+
+Deliverables:
+
+* Architecture diagram
+* Threat model
+* Security control design
+* Security decision records
+
+### Stage 3: Development
+
+Security activities:
+
+* Secure coding standards
+* Dependency control
+* Secret scanning
+* Code review
+* Unit security tests
+* Developer training
+
+Deliverables:
+
+* Reviewed source code
+* Security test cases
+* Dependency inventory
+* Exception records
+
+### Stage 4: Build
+
+Security activities:
+
+* Static analysis
+* Software composition analysis
+* Infrastructure scanning
+* Container scanning
+* Artefact signing
+* SBOM generation
+
+Deliverables:
+
+* Scan results
+* Signed artefact
+* SBOM
+* Build provenance
+
+### Stage 5: Test
+
+Security activities:
+
+* Dynamic application testing
+* API testing
+* Authentication testing
+* Authorisation testing
+* Abuse-case testing
+* Performance and resilience testing
+
+Deliverables:
+
+* Security-test report
+* Remediation evidence
+* Accepted-risk record
+
+### Stage 6: Release
+
+Security activities:
+
+* Policy checks
+* Approval gates
+* Change verification
+* Deployment authorisation
+* Rollback planning
+
+Deliverables:
+
+* Release approval
+* Deployment evidence
+* Rollback plan
+
+### Stage 7: Runtime
+
+Security activities:
+
+* Log monitoring
+* Threat detection
+* Runtime protection
+* Vulnerability monitoring
+* Configuration monitoring
+* Certificate monitoring
+
+Deliverables:
+
+* Dashboards
+* Alerts
+* Incident tickets
+* Runtime risk reports
+
+### Stage 8: Improvement
+
+Security activities:
+
+* Post-incident reviews
+* Control tuning
+* Metrics analysis
+* Policy updates
+* Training updates
+* Architecture improvement
+
+Deliverables:
+
+* Improvement backlog
+* Revised playbooks
+* Updated controls
+* Leadership report
+
+---
+
+# Part XI: Recommended DevSecOps Tool Categories
+
+A DevSecOps platform normally combines several tool categories.
+
+| Category | Purpose |
+| --- | --- |
+| Source control | Protect and review code changes |
+| Secret scanning | Detect credentials in repositories |
+| SAST | Analyse source code |
+| SCA | Analyse open-source dependencies |
+| IaC scanning | Find cloud and infrastructure misconfigurations |
+| Container scanning | Assess container images |
+| DAST | Test running applications |
+| API security testing | Assess API behaviour and controls |
+| CSPM | Assess cloud configuration |
+| SIEM | Centralise and analyse security events |
+| EDR | Detect endpoint threats |
+| SOAR | Automate investigation and response |
+| KMS | Protect cryptographic keys |
+| Secrets manager | Store and issue application secrets |
+| SBOM tooling | Record software components |
+| Artefact signing | Verify integrity and provenance |
+| Policy engine | Enforce deployment rules |
+
+Tool selection should follow requirements. Do not begin by buying tools and then search for problems they can solve.
+
+---
+
+# Part XII: A 24-Week Learning Plan
+
+## Weeks 1–4: Core foundations
+
+Learn:
+
+* Python or another primary language
+* Bash or PowerShell
+* Git
+* Linux basics
+* CIA triad
+* Authentication and authorisation
+* Basic encryption
+* HTTP, DNS and TLS
+
+Build:
+
+* Log-analysis script
+* Simple authenticated API
+* Network-traffic investigation lab
+
+## Weeks 5–8: Application security
+
+Learn:
+
+* OWASP risks
+* Input validation
+* SQL injection prevention
+* XSS prevention
+* Secure session management
+* API security
+* Secure error handling
+
+Build:
+
+* Deliberately vulnerable test application
+* Secure version of the same application
+* Security test suite
+
+## Weeks 9–12: Threats, monitoring and vulnerability management
+
+Learn:
+
+* STRIDE
+* PASTA
+* Attack-surface mapping
+* SIEM concepts
+* Alert design
+* Vulnerability prioritisation
+* Burp Suite, Nmap and Wireshark basics
+
+Build:
+
+* Threat model
+* Asset inventory
+* Five security detection rules
+* Vulnerability remediation dashboard
+
+## Weeks 13–16: Cloud and containers
+
+Learn:
+
+* Cloud IAM
+* Network segmentation
+* KMS
+* CSPM
+* Docker
+* Kubernetes
+* Image scanning
+* Runtime controls
+
+Build:
+
+* Containerised application
+* Hardened container image
+* Kubernetes deployment
+* Network policy
+* Least-privilege service account
+
+## Weeks 17–20: Pipeline and supply chain
+
+Learn:
+
+* SAST
+* SCA
+* Secret scanning
+* IaC scanning
+* SBOMs
+* Artefact signing
+* Pipeline hardening
+* Dependency governance
+
+Build:
+
+* End-to-end secure pipeline
+* SBOM generation
+* Signed container artefact
+* Risk-based deployment gate
+
+## Weeks 21–24: Enterprise security
+
+Learn:
+
+* Incident response
+* SOAR
+* EDR
+* PKI
+* Multi-region planning
+* NIST
+* ISO 27001
+* SOC 2
+* Risk quantification
+
+Build:
+
+* Incident-response playbook
+* Control-mapping matrix
+* Enterprise security architecture
+* Executive risk report
+* Final portfolio presentation
+
+---
+
+# Part XIII: Portfolio Project
+
+## 35. Build an Enterprise-Grade Secure Application
+
+Create a realistic application such as:
+
+* Customer-service portal
+* Financial-document processor
+* Employee knowledge assistant
+* Healthcare appointment platform
+* E-commerce order service
+
+Your project should include:
+
+### Application
+
+* Web interface
+* API
+* Database
+* Authentication
+* Role-based access
+* Input validation
+* Audit logging
+
+### Infrastructure
+
+* Infrastructure as code
+* Private networking
+* Firewall rules
+* Managed secrets
+* Managed keys
+* Backups
+* Monitoring
+
+### Pipeline
+
+* Secret scanning
+* Static analysis
+* Dependency scanning
+* Infrastructure scanning
+* Container scanning
+* SBOM generation
+* Artefact signing
+* Deployment approval
+
+### Security documentation
+
+* Data-flow diagram
+* Threat model
+* Risk register
+* Security requirements
+* Incident playbook
+* Access-control matrix
+* Vulnerability-management procedure
+* Compliance mapping
+
+### Operational evidence
+
+* Detection alerts
+* Dashboards
+* Access logs
+* Scan reports
+* Deployment records
+* Backup test
+* Incident simulation
+
+This project demonstrates that you can secure the entire delivery system rather than operate a single scanning tool.
+
+---
+
+# Part XIV: DevSecOps Metrics
+
+## 36. Measure Outcomes, Not Tool Activity
+
+Avoid reporting only:
+
+* Number of scans
+* Number of alerts
+* Number of policies
+* Number of training sessions
+
+Better metrics include:
+
+### Prevention
+
+* Percentage of repositories with secret scanning
+* Percentage of production workloads using managed identities
+* Percentage of deployments with signed artefacts
+* Percentage of assets covered by configuration policies
+
+### Detection
+
+* Mean time to detect
+* Detection coverage for critical attack scenarios
+* Percentage of high-risk assets producing usable logs
+* Alert precision
+
+### Remediation
+
+* Mean time to remediate
+* Critical-vulnerability age
+* Reopened vulnerability rate
+* Percentage of remediation completed within target
+
+### Delivery
+
+* Security-related deployment failure rate
+* Percentage of findings discovered before production
+* Time required to complete security review
+* Number of emergency security exceptions
+
+### Resilience
+
+* Mean time to contain
+* Recovery time
+* Backup restoration success
+* Incident-playbook exercise completion
+* Certificate-expiry incidents
+
+### Governance
+
+* Access-review completion
+* Control-test pass rate
+* Risk-exception age
+* Percentage of controls with current evidence
+
+---
+
+# Part XV: DevSecOps Maturity Model
+
+## Level 1: Reactive
+
+Characteristics:
+
+* Security happens near release.
+* Processes are manual.
+* Asset inventory is incomplete.
+* Findings lack ownership.
+* Incident response is improvised.
+
+Priority:
+
+* Establish basic visibility and accountability.
+
+## Level 2: Repeatable
+
+Characteristics:
+
+* Core scanning is standardised.
+* Security requirements exist.
+* High-risk issues have remediation targets.
+* Logging is becoming centralised.
+* Basic incident playbooks exist.
+
+Priority:
+
+* Create consistent processes.
+
+## Level 3: Integrated
+
+Characteristics:
+
+* Security checks run in pipelines.
+* Threat modelling is part of design.
+* Cloud and container policies are automated.
+* Identity follows least privilege.
+* Security data is connected to asset ownership.
+
+Priority:
+
+* Embed security into engineering workflows.
+
+## Level 4: Measured
+
+Characteristics:
+
+* Risk-based metrics drive decisions.
+* Alert quality is measured.
+* Control effectiveness is tested.
+* Security exceptions are governed.
+* Business impact informs prioritisation.
+
+Priority:
+
+* Improve effectiveness and reduce friction.
+
+## Level 5: Adaptive
+
+Characteristics:
+
+* Controls respond to changing threats.
+* Architecture is continuously assessed.
+* Security automation is widely used.
+* Teams perform proactive attack simulations.
+* Lessons learned rapidly improve delivery controls.
+
+Priority:
+
+* Create a continuously learning security system.
+
+---
+
+## Conclusion
+
+DevSecOps is not a single role, certification or product. It is an operating model that combines secure engineering, automated assurance, cloud security, identity, monitoring, incident response and governance.
+
+The best learning order is:
+
+1. Programming and scripting
+2. Security and networking foundations
+3. Secure coding
+4. Identity and access control
+5. Monitoring and security testing
+6. Threat modelling
+7. Cloud and container security
+8. Pipeline and supply-chain security
+9. Secure architecture
+10. Incident response
+11. Enterprise operations
+12. Governance and risk
+
+The objective is not to complete every box on a roadmap. The objective is to develop the judgement required to answer four questions throughout delivery:
+
+* What could go wrong?
+* How will we prevent it?
+* How will we detect it?
+* How will we respond when it happens?
+
+When these questions become part of normal engineering decisions, security stops being a release obstacle and becomes a foundation for delivering trusted software quickly and responsibly.
+
+<KeyTakeaways>
+- Treat DevSecOps as a delivery operating model—prevention, detection and response across the full lifecycle—not a late-stage scan.
+- Sequence capability from foundations through cloud, pipeline, architecture, incident response and governance.
+- Measure outcomes (coverage, MTTD/MTTR, findings before production, control evidence)—not tool activity alone.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed journey: [DevSecOps roadmap](/roadmaps/devsecops).
+- Harden APIs with the [API Security Engineering roadmap](/roadmaps/api-security-engineering).
+- Practise related skills: [Security Engineering](/learning-map/17-security-engineering) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</NextSteps>

@@ -1,0 +1,167 @@
+---
+sidebar_position: 3
+slug: ai-data-scientist
+title: AI Data Scientist Roadmap
+description: A practical project-based path from mathematics and statistics through classical ML, deep learning, generative AI and MLOps—plus experimentation, causal reasoning and responsible AI.
+---
+
+# AI Data Scientist Roadmap
+
+An AI and data scientist uses data, statistics, software engineering and machine learning to support decisions or create intelligent products. The work is not limited to choosing algorithms. Mature practitioners translate business problems into analytical questions, prepare imperfect data, design trustworthy experiments, build models, deploy them safely and communicate impact.
+
+<ExecSummary>
+Treat the roadmap as a sequence of capabilities, not a list of courses. For every stage: learn, build a project, evaluate with baselines and business metrics, document limitations, and only then move on. Complete the competency checklist before claiming production readiness.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building or deepening AI and data science capability from foundations to production.
+- Pair with the full guide: [The Complete AI and Data Scientist Roadmap](/articles/ai-data-scientist-roadmap).
+- Cross-check with [Machine Learning Foundations](/learning-map/10-machine-learning-foundations), [MLOps](/learning-map/20-mlops-llmops-observability), [AI Engineer](./ai-engineer) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</WhenToUse>
+
+## Capability map
+
+1. Business problem framing and decision quality
+2. Mathematics for machine learning
+3. Statistics, hypothesis testing and A/B experimentation
+4. Econometrics, causal inference and time series
+5. Python, SQL, Git and engineering discipline
+6. Exploratory data analysis and data quality
+7. Classical machine learning
+8. Deep learning and transformers
+9. Generative AI (RAG, agents, evaluation)
+10. Data engineering for model reliability
+11. MLOps, monitoring and safe deployment
+12. Responsible AI, privacy and security
+
+## Learning cycle
+
+```text
+Frame problem → Investigate data → Analyse → Model → Deploy → Monitor → Improve
+```
+
+Approximately twelve months at consistent weekly effort. Experienced analysts or engineers may compress foundations; beginners should not skip mathematics, statistics or SQL.
+
+## Eight-stage learning journey
+
+### Stage 1 — Mathematics
+
+Linear algebra, calculus and optimisation enough to understand representations, learning and trade-offs.
+
+**Build:** NumPy PCA and cosine document similarity; linear regression via gradient descent (no ML library).
+
+### Stage 2 — Statistics and experimentation
+
+Descriptive statistics, probability, sampling, hypothesis testing, A/B testing, CUPED/CUPAC and ratio metrics.
+
+**Build:** Experiment proposal, sample-size calculator, A/B analysis and executive decision memo.
+
+### Stage 3 — Econometrics and time series
+
+Regression for causal questions, causal inference methods, forecasting workflow and time-aware validation.
+
+**Build:** Retail demand forecast with baseline, ARIMA/smoothing, tree model and reorder recommendations.
+
+### Stage 4 — Coding
+
+Python, NumPy/pandas/scikit-learn, DSA awareness, analytical SQL, Git and tested modular packages.
+
+**Build:** Customer analytics SQL report (cohorts, retention, funnel, channel value).
+
+### Stage 5 — Exploratory data analysis
+
+Data dictionaries, quality checks, missingness mechanisms, uni/bi/multivariate analysis and leakage hunts.
+
+**Build:** Reproducible EDA report with quality findings, hypotheses and next steps.
+
+### Stage 6 — Classical machine learning
+
+Supervised and unsupervised learning, pipelines, leakage prevention, metrics, baselines, explainability and business value.
+
+**Build:** End-to-end churn system with threshold cost-benefit, model card and monitoring plan.
+
+### Stage 7 — Deep learning and generative AI
+
+Neural foundations, CNNs, sequence models, transformers, transfer learning, RAG and cautious agent design.
+
+**Build:** Image or text classifier; evaluated document Q&A RAG with faithfulness and cost metrics.
+
+### Stage 8 — Data engineering and MLOps
+
+Pipelines, feature stores, reproducibility, APIs, containers, CI/CD/CT, drift monitoring and release strategies.
+
+**Build:** Containerised prediction API with tests, registry, drift alerts and champion–challenger path.
+
+## 12-month plan (summary)
+
+| Months | Focus | Key deliverable |
+| --- | --- | --- |
+| 1–2 | Maths, stats, Python | PCA, gradient descent, cleaning package |
+| 3 | SQL and EDA | Case study + data dictionary |
+| 4 | Experimentation | A/B memo + sample-size tool |
+| 5 | Econometrics / time series | Demand forecast + causal study |
+| 6–7 | Classical ML | Churn model + segmentation |
+| 8–9 | Deep learning | Image/NLP app + error analysis |
+| 10 | Generative AI | Evaluated RAG system |
+| 11 | MLOps | Containerised API + monitoring |
+| 12 | Capstone | Customer-intelligence platform |
+
+## Capstone (Month 12)
+
+Enterprise customer-intelligence platform: cohorts and segmentation, churn and CLV models, next-best-action, grounded GenAI summaries, dashboard with human approval, MLOps and governance (model card, lineage, PII controls).
+
+**Success:** retention uplift, cost per retained customer, calibration, segment fairness, latency and cost per prediction—not F1 alone.
+
+## Competency checklist
+
+### Foundations
+
+- Frame a decision before choosing a model
+- Explain vectors, gradients and bias–variance at working depth
+- Interpret p-values, effect sizes and confidence intervals correctly
+- Design an A/B test with primary and guardrail metrics
+
+### Data and modelling
+
+- Write analytical SQL (cohorts, windows, funnels)
+- Produce an EDA that surfaces leakage and quality risk
+- Beat a simple baseline with honest validation
+- Connect metrics to business cost and value
+
+### Production and trust
+
+- Package inference behind a validated, authenticated API
+- Monitor system, data, model and business signals
+- Apply fairness, privacy and AI security basics
+- Ship a model card, risk assessment and rollback plan
+
+## Portfolio evidence
+
+| Stage | Evidence |
+| --- | --- |
+| Mathematics | Gradient descent and PCA implementation |
+| Statistics | Experiment-design report |
+| Econometrics | Causal or forecasting analysis |
+| Coding | Tested Python package and SQL analysis |
+| EDA | Reproducible data-quality report |
+| Machine learning | End-to-end prediction system |
+| Deep learning | Image or NLP application |
+| Generative AI | Evaluated RAG system |
+| MLOps | Deployed and monitored model |
+| Responsible AI | Model card and risk assessment |
+
+## Core principle
+
+> The goal is not to memorise every algorithm. The goal is to take an ambiguous problem and turn it into a measurable, technically reliable, commercially valuable and responsibly operated AI solution.
+
+<KeyTakeaways>
+- Start with the decision and evidence standard, not the model catalogue.
+- Prefer classical ML on structured data until deep learning is clearly justified.
+- Never deploy without baselines, leakage checks, monitoring and an operating owner.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete AI and Data Scientist Roadmap](/articles/ai-data-scientist-roadmap).
+- Continue into production AI systems: [AI Engineer roadmap](./ai-engineer) and [AI Agents roadmap](./ai-agents).
+- Practise related skills: [Machine Learning Foundations](/learning-map/10-machine-learning-foundations), [Data Engineering](/learning-map/09-data-engineering-architecture) and [MLOps](/learning-map/20-mlops-llmops-observability).
+</NextSteps>

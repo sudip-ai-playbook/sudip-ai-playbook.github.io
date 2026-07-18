@@ -1,0 +1,167 @@
+---
+sidebar_position: 8
+slug: software-architect
+title: Software Architect Roadmap
+description: A practical, project-based roadmap from engineering foundations to enterprise architecture leadership—principles, patterns, security, data, APIs, cloud and communication.
+---
+
+# Software Architect Roadmap
+
+A software architect is not simply a senior developer who draws diagrams. The role sits at the intersection of technology, business, delivery, security, operations and leadership. Subjects on a typical architect map should not be learned independently—they need to be connected through progressively more complex projects and architectural decisions.
+
+<ExecSummary>
+Progress through twelve stages from engineering foundations to portfolio delivery. Learn a principle, apply it to a working system, document the decision, test under failure, evaluate trade-offs and explain the solution to different audiences.
+</ExecSummary>
+
+<WhenToUse>
+- Use when preparing for, transitioning into or strengthening a software architect role (application, solution or enterprise scope).
+- Pair with the full guide: [The Complete Software Architect Roadmap](/articles/software-architect-roadmap).
+- Cross-check with [Enterprise Architecture](/learning-map/08-enterprise-architecture), [Software Engineering](/learning-map/15-software-engineering) and [Architecture](/ai-solution-engineering/architecture).
+</WhenToUse>
+
+## Capability map
+
+1. Engineering foundations (OS, networking, version control)
+2. Programming depth (primary language, frontend literacy, paradigms)
+3. Software design principles (SOLID, DDD, TDD, ACID, CAP, eventual consistency)
+4. Architecture styles and patterns (layered, modular monolith, SOA, microservices, serverless, CQRS, actors)
+5. Data architecture (relational, NoSQL, analytics, distributed processing)
+6. APIs, integration and messaging
+7. Security architecture (identity, PKI, encryption, OWASP, threat modelling, zero trust)
+8. Web and mobile architecture
+9. Cloud, infrastructure and operations
+10. Enterprise systems and frameworks (ERP, CRM, BPM, TOGAF, ITIL)
+11. Architecture leadership and communication
+12. Portfolio and capstone delivery
+
+## Three levels of architecture
+
+| Level | Scope | Central question |
+| --- | --- | --- |
+| Application | One product or service | How should modules, data access and runtime behaviour be structured? |
+| Solution | Several apps, services and vendors | How do these elements work together as one coherent business solution? |
+| Enterprise | Organisation-wide | How do capabilities, platforms and investment support strategy? |
+
+## Twelve-stage journey
+
+### Stage 1 — Engineering foundations
+
+Understand how software actually runs: Linux processes, memory, networking, DNS, TLS, load balancers and Git beyond basic commits.
+
+**Build:** a containerised API behind a reverse proxy with HTTPS, health checks and basic rate limiting.
+
+### Stage 2 — Programming depth
+
+Develop depth in one primary backend ecosystem and working knowledge of two others. Learn enough frontend to understand architectural consequences.
+
+**Build:** a modular backend with tests, profiling and clear dependency injection.
+
+### Stage 3 — Design principles
+
+Master SOLID, domain-driven design, TDD, ACID transactions, CAP reasoning and eventual consistency under failure.
+
+**Build:** a domain model with bounded contexts, transaction isolation notes and ADRs for consistency choices.
+
+### Stage 4 — Architecture styles
+
+Compare layered, modular monolith, client-server, SOA, microservices, serverless, CQRS and actor models—choose based on constraints, not fashion.
+
+**Build:** an architecture-options paper and a selected target style with decision records.
+
+### Stage 5 — Data architecture
+
+Design relational and NoSQL stores, warehouses and distributed processing from access patterns, consistency and operational requirements.
+
+**Build:** a data model, ownership matrix, backup/recovery plan and database selection comparison.
+
+### Stage 6 — APIs and integration
+
+Design REST, GraphQL, gRPC and messaging integrations with contracts, idempotency, delivery semantics and failure handling.
+
+**Build:** OpenAPI specs, an event-driven workflow with outbox, retries and dead-letter queues.
+
+### Stage 7 — Security architecture
+
+Bake in authentication, authorisation, PKI, encryption, OWASP controls, threat modelling and zero-trust thinking from day one.
+
+**Build:** a threat model, access-control matrix and security architecture for one system.
+
+### Stage 8 — Web and mobile
+
+Understand SPA, SSR, SSG, microfrontends and mobile offline/version constraints.
+
+**Build:** a client architecture note covering auth flows, caching and version compatibility.
+
+### Stage 9 — Cloud and operations
+
+Practise one major cloud, IaC, containers, Kubernetes where justified, CI/CD, observability and reliability engineering.
+
+**Build:** Terraform (or equivalent) environments, a deployment pipeline, SLOs and a recovery runbook.
+
+### Stage 10 — Enterprise systems
+
+Understand ERP, CRM, BPM and frameworks (TOGAF, UML, BABOK, ITIL, PMI/PRINCE2) enough to integrate and govern without becoming a product specialist in every platform.
+
+**Build:** current-state and target-state diagrams with a gap analysis and transition roadmap.
+
+### Stage 11 — Leadership and communication
+
+Use a repeatable decision process, simplify ruthlessly, estimate with ranges, communicate by audience and coach teams to good decisions.
+
+**Build:** ADRs, an executive summary and a technical design workshop facilitation plan.
+
+### Stage 12 — Portfolio and capstone
+
+Demonstrate reasoning through three case studies: modular business app, event-driven platform and enterprise integration programme.
+
+**Build:** a complete architecture pack (context, requirements, security, decisions, delivery, operations, governance).
+
+## 12-month learning plan (summary)
+
+| Period | Focus | Key deliverables |
+| --- | --- | --- |
+| Month 1 | Foundations | Containerised API, HTTPS, deployment docs |
+| Month 2 | Application design | Modular backend, tests, initial ADRs |
+| Month 3 | Data | Data model, query report, DB comparison |
+| Month 4 | APIs | Documented API, auth flow, error standard |
+| Month 5 | Patterns | Options paper, target architecture, ADRs |
+| Month 6 | Messaging | Event workflow, retries, DLQ, failure scenarios |
+| Month 7 | Security | Threat model, security architecture, access matrix |
+| Month 8 | Cloud / IaC | Infra repo, env separation, backups |
+| Month 9 | Operations | Pipeline, dashboards, alerts, DR runbook |
+| Month 10 | Enterprise | Current/target state, gap analysis, transition roadmap |
+| Month 11 | Leadership | Review presentation, executive summary, workshop |
+| Month 12 | Capstone | Full enterprise architecture case study |
+
+## Architecture review checklist (summary)
+
+Before approving an architecture, confirm:
+
+- **Business** — problem, outcomes, proportionate design, clear owners
+- **Requirements** — measurable NFRs, assumptions and constraints documented
+- **Design** — clear boundaries, justified technology, evolution path, no unnecessary complexity
+- **Data** — ownership, consistency, retention, backup/recovery, sensitive data identified
+- **Security** — authn/z, least privilege, secrets, trust boundaries, threat model
+- **Integration** — contracts, retries, observability, versioning, idempotency
+- **Operations** — automated deploy, logs/metrics/traces, SLOs, rollback, tested DR
+- **Delivery** — migration plan, visible dependencies, owned risks, incremental value, recorded decisions
+
+## Readiness signals
+
+You are progressing toward architect-level capability when you can convert goals into requirements, compare options with evidence, design for security and operations, document decisions, communicate with engineers and executives, coach rather than dictate, and revisit decisions when assumptions change.
+
+## Core principle
+
+> The defining capability of a software architect is not knowing every technology. It is making sound decisions in uncertain conditions, communicating them clearly and guiding a system from business need through implementation and operation.
+
+<KeyTakeaways>
+- Connect foundations, design, data, integration, security, cloud and leadership through projects—not disconnected study lists.
+- Prefer modular boundaries and justified distribution; document why, not only what.
+- Treat security, operations and business value as first-class architecture concerns from the start.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete Software Architect Roadmap](/articles/software-architect-roadmap).
+- Practise related skills: [Enterprise Architecture](/learning-map/08-enterprise-architecture), [Software Engineering](/learning-map/15-software-engineering) and [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Align delivery artefacts with [Architecture](/ai-solution-engineering/architecture) and the [Career roadmap](/ai-solution-engineering/career-roadmap).
+</NextSteps>

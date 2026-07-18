@@ -8,6 +8,11 @@ roadmaps:
   permalink: /roadmaps-tag
   description: Stage-by-stage engineering journeys for production AI capabilities
 
+leadership:
+  label: Leadership
+  permalink: /leadership
+  description: Engineering management, people leadership and organisational capability
+
 agents:
   label: Agents
   permalink: /agents
@@ -28,6 +33,11 @@ architecture:
   permalink: /architecture
   description: Cross-cloud AI architecture decisions and patterns
 
+cloud:
+  label: Cloud
+  permalink: /cloud
+  description: Cloud platforms, landing zones and production AWS, Azure and GCP patterns
+
 consulting:
   label: Consulting
   permalink: /consulting
@@ -37,6 +47,11 @@ finops:
   label: FinOps
   permalink: /finops
   description: LLM cost, alternatives, and commercial trade-offs
+
+product:
+  label: Product Management
+  permalink: /product-management
+  description: Product discovery, strategy, roadmaps, metrics, and AI product practice
 
 governance:
   label: Governance

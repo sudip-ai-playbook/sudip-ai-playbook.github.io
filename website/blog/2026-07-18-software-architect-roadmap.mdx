@@ -1,0 +1,2264 @@
+---
+slug: software-architect-roadmap
+title: "The Complete Software Architect Roadmap: A Practical, Project-Based Guide"
+description: A structured learning journey from engineering foundations to enterprise architecture leadership—principles, patterns, security, data, APIs, cloud, operations and communication.
+authors: [sudip]
+tags: [roadmaps, architecture, solution-engineering, playbook]
+keywords:
+  - software architect roadmap
+  - software architecture
+  - solution architecture
+  - enterprise architecture
+  - architecture decision records
+  - modular monolith
+  - microservices
+  - AI Solution Engineering
+---
+
+A software architect is not simply a senior developer who draws diagrams. The role sits at the intersection of technology, business, delivery, security, operations and leadership.
+
+{/* truncate */}
+
+<ExecSummary>
+Architecture is the collection of important decisions that shape a system. Follow twelve stages from foundations to portfolio delivery: learn a principle, apply it, document the decision, test under failure, evaluate trade-offs and explain the solution to different audiences.
+</ExecSummary>
+
+<WhenToUse>
+- Use when preparing for, transitioning into or strengthening a software architect role.
+- Pair with the [Software Architect roadmap](/roadmaps/software-architect), [Enterprise Architecture](/learning-map/08-enterprise-architecture) and [Architecture](/ai-solution-engineering/architecture).
+- Treat the 12-month plan, documentation structure and review checklist as your working system.
+</WhenToUse>
+
+The [Software Architect roadmap](/roadmaps/software-architect) covers architecture fundamentals, programming, design principles, architecture styles, security, data, APIs, web and mobile systems, networks, operations, management frameworks and enterprise platforms. These subjects should not be learned independently or in a random order. They need to be connected through progressively more complex projects and architectural decisions.
+
+This guide expands that roadmap into a structured learning journey from foundational engineering knowledge to enterprise-level architecture leadership.
+
+---
+
+## 1. What is software architecture?
+
+Software architecture describes the high-level structure of a software system.
+
+It explains:
+
+* What major components exist.
+* How those components communicate.
+* Where data is stored and processed.
+* How the system is deployed.
+* How security is enforced.
+* How the system scales.
+* How failures are handled.
+* How the architecture supports business objectives.
+* How the solution can evolve without becoming unmanageable.
+
+Architecture is therefore not just a diagram. It is the collection of important decisions that shape a system.
+
+For example, an architecture may decide that:
+
+* A modular monolith will be used instead of microservices.
+* PostgreSQL will hold transactional data.
+* Redis will support caching and temporary state.
+* Events will be published through Kafka.
+* REST will be used for external integrations.
+* Internal services will use gRPC.
+* Authentication will be handled using OpenID Connect.
+* The application will run in Kubernetes.
+* Infrastructure will be provisioned through Terraform.
+* Logs, metrics and traces will be collected through OpenTelemetry.
+
+Each decision creates benefits, limitations, costs and risks. The architect's role is to understand these trade-offs.
+
+---
+
+## 2. What does a software architect do?
+
+A software architect makes high-impact technical decisions while helping teams deliver software successfully.
+
+The architect does not need to write every line of code. However, they must understand implementation deeply enough to recognise unrealistic designs, hidden risks and unnecessary complexity.
+
+The role normally includes the following responsibilities.
+
+### 2.1 Technical decision-making
+
+The architect helps decide:
+
+* Which programming languages should be used.
+* Whether to build, buy or integrate a capability.
+* Which databases and messaging technologies are appropriate.
+* Whether the system should be monolithic, modular or distributed.
+* Which cloud services are suitable.
+* How integrations should be designed.
+* How security controls should be applied.
+* How the platform should scale.
+* Which technical standards teams should follow.
+
+A good architect does not make decisions based on personal preference. Decisions should be based on requirements, constraints, evidence and trade-offs.
+
+### 2.2 Requirements elicitation
+
+Architects must identify requirements that may not be obvious during normal product discussions.
+
+Functional requirements describe what the system must do.
+
+Examples:
+
+* Customers can place an order.
+* Employees can update inventory.
+* Administrators can create reports.
+
+Non-functional requirements describe how well the system must operate.
+
+Examples:
+
+* Support 20,000 concurrent users.
+* Process payments within three seconds.
+* Maintain 99.95% availability.
+* Recover from a regional failure within 30 minutes.
+* Encrypt customer data at rest and in transit.
+* Retain audit logs for seven years.
+* Support deployment without downtime.
+
+Architects should convert vague expectations into measurable quality attributes.
+
+Instead of:
+
+> The system should be fast.
+
+Use:
+
+> The API should respond within 500 milliseconds at the 95th percentile under a load of 2,000 requests per second.
+
+### 2.3 Architecture and design
+
+The architect defines the system's major structures.
+
+These may include:
+
+* Application architecture.
+* Data architecture.
+* Integration architecture.
+* Security architecture.
+* Cloud architecture.
+* Deployment architecture.
+* Observability architecture.
+* Disaster-recovery architecture.
+
+The architect should define enough structure to guide implementation while avoiding excessive detail that prevents teams from making local decisions.
+
+### 2.4 Documentation
+
+Architecture documentation allows decisions to survive beyond meetings and individual team members.
+
+Important documents include:
+
+* System context diagrams.
+* Container and component diagrams.
+* Data-flow diagrams.
+* Deployment diagrams.
+* Sequence diagrams.
+* Architecture decision records.
+* API specifications.
+* Security threat models.
+* Non-functional requirements.
+* Integration catalogues.
+* Risk and assumption registers.
+* Operational runbooks.
+
+Documentation should explain why a design exists, not only what it looks like.
+
+### 2.5 Standards and governance
+
+Architects establish standards that improve consistency across teams.
+
+Examples include:
+
+* API naming conventions.
+* Authentication requirements.
+* Logging formats.
+* Error-handling patterns.
+* Data-classification rules.
+* Cloud-resource tagging.
+* Approved technology lists.
+* Testing requirements.
+* Deployment controls.
+* Dependency-management rules.
+
+Governance should enable delivery rather than become a bureaucratic approval process.
+
+### 2.6 Collaboration and coaching
+
+Architects work with:
+
+* Developers.
+* Engineering managers.
+* Product managers.
+* Business analysts.
+* Security teams.
+* Data engineers.
+* Platform and DevOps teams.
+* Operations teams.
+* Compliance specialists.
+* Enterprise architects.
+* Vendors.
+* Senior executives.
+
+The architect must translate between technical and non-technical groups.
+
+A developer may need implementation guidance. A product manager may need a trade-off explained. A security team may need evidence that controls are implemented. An executive may need to understand cost, risk and business value.
+
+---
+
+## 3. The three levels of architecture
+
+The roadmap separates architecture into application, solution and enterprise architecture. These levels are related but operate at different scopes.
+
+### 3.1 Application architecture
+
+Application architecture focuses on one application or product.
+
+It covers:
+
+* Internal modules and components.
+* Frameworks.
+* Application patterns.
+* Data access.
+* APIs.
+* Error handling.
+* Caching.
+* Testing.
+* Deployment.
+* Runtime behaviour.
+
+Example questions:
+
+* Should the application use layered or hexagonal architecture?
+* Where should business logic be placed?
+* How should commands and queries be separated?
+* Which modules can access the database?
+* How should the application handle retries?
+* How should background jobs be processed?
+
+An application architect works closely with software engineers.
+
+### 3.2 Solution architecture
+
+Solution architecture covers a complete business solution, which may involve several applications, services and third-party systems.
+
+It includes:
+
+* Business requirements.
+* Application interactions.
+* Data flows.
+* Integration patterns.
+* Security boundaries.
+* Infrastructure.
+* Operational processes.
+* Vendor products.
+* Migration planning.
+* Delivery sequencing.
+
+For example, an online retail solution might contain:
+
+* Customer website.
+* Mobile application.
+* Product catalogue.
+* Order-management system.
+* Payment gateway.
+* Customer-service platform.
+* Warehouse-management system.
+* Analytics platform.
+* Identity provider.
+* Notification service.
+
+The solution architect ensures these elements work together as one coherent solution.
+
+### 3.3 Enterprise architecture
+
+Enterprise architecture operates across the organisation.
+
+It connects:
+
+* Business strategy.
+* Organisational capabilities.
+* Applications.
+* Information and data.
+* Technology platforms.
+* Security standards.
+* Operating models.
+* Investment roadmaps.
+
+Enterprise architects ask questions such as:
+
+* Which business capabilities need modernisation?
+* Where are systems duplicated?
+* Which platforms should become enterprise standards?
+* Which legacy applications should be retired?
+* How should technology investment support the organisation's strategy?
+* Which capabilities should be centralised?
+* Which capabilities should remain within business units?
+
+A software architect does not need to become an enterprise architect immediately, but understanding enterprise architecture improves long-term decision-making.
+
+---
+
+## 4. The software architect learning roadmap
+
+The expanded roadmap can be organised into twelve stages.
+
+1. Engineering foundations.
+2. Programming depth.
+3. Software design principles.
+4. Architecture patterns.
+5. Data architecture.
+6. APIs, integration and messaging.
+7. Security architecture.
+8. Web and mobile architecture.
+9. Cloud, infrastructure and operations.
+10. Enterprise systems and frameworks.
+11. Architecture leadership and communication.
+12. Portfolio and capstone delivery.
+
+These stages are not completely linear. You will revisit each area as your systems become more complex.
+
+---
+
+## Stage 1: Build strong engineering foundations
+
+Before designing large systems, you must understand how software actually runs.
+
+### 5.1 Operating systems
+
+Learn the fundamentals of Linux and Unix environments.
+
+Study:
+
+* Processes and threads.
+* Memory management.
+* Files and permissions.
+* Environment variables.
+* Signals.
+* Services and daemons.
+* Package management.
+* File systems.
+* System logs.
+* Networking commands.
+* CPU and memory monitoring.
+* Shell scripting.
+
+Useful practical tasks:
+
+* Run an application as a Linux service.
+* Inspect memory and CPU usage.
+* Investigate why a process stopped.
+* Configure file permissions.
+* Analyse application logs.
+* Create a shell script for deployment.
+
+An architect who does not understand runtime behaviour may create designs that appear correct in diagrams but fail in production.
+
+### 5.2 Networking
+
+Study the OSI model and TCP/IP model, but focus on practical understanding.
+
+Learn:
+
+* IP addresses.
+* Subnets.
+* DNS.
+* Ports.
+* TCP and UDP.
+* HTTP and HTTPS.
+* TLS.
+* Load balancers.
+* Reverse proxies.
+* Forward proxies.
+* Network address translation.
+* Firewalls.
+* Virtual private networks.
+* Content delivery networks.
+* Private endpoints.
+* Network peering.
+
+You should be able to explain what happens when a user enters a URL into a browser:
+
+1. The domain name is resolved through DNS.
+2. A TCP or QUIC connection is established.
+3. TLS negotiation secures the connection.
+4. The request reaches a CDN or load balancer.
+5. Traffic is forwarded to an application.
+6. The application may call other services and databases.
+7. A response travels back to the client.
+
+#### Practical project
+
+Deploy a simple API behind a reverse proxy.
+
+Include:
+
+* HTTPS.
+* Domain configuration.
+* Firewall rules.
+* Application logs.
+* Health endpoint.
+* Basic rate limiting.
+
+### 5.3 Version control
+
+Learn Git beyond basic commits.
+
+Understand:
+
+* Branching.
+* Merging.
+* Rebasing.
+* Pull requests.
+* Conflict resolution.
+* Tags and releases.
+* Commit history.
+* Protected branches.
+* Code ownership.
+* Release branches.
+* Trunk-based development.
+
+Architects often influence repository structure, release strategy and dependency boundaries.
+
+---
+
+## Stage 2: Develop programming depth
+
+You do not need to master every language listed on typical roadmaps. A better approach is to develop depth in one primary ecosystem and working knowledge of two others.
+
+### 6.1 Choose a primary backend language
+
+Strong options include:
+
+* Java or Kotlin for enterprise applications.
+* C# and .NET for Microsoft-focused organisations.
+* Python for data, automation and AI-oriented systems.
+* Go for cloud-native platforms and infrastructure tools.
+* TypeScript for full-stack and server-side JavaScript systems.
+
+Your primary language should teach you:
+
+* Type systems.
+* Object-oriented design.
+* Functional concepts.
+* Concurrency.
+* Memory and resource management.
+* Error handling.
+* Package management.
+* Testing.
+* Dependency injection.
+* Framework design.
+* Performance profiling.
+
+### 6.2 Learn enough frontend development
+
+Understand:
+
+* HTML.
+* CSS.
+* JavaScript.
+* TypeScript.
+* Browser behaviour.
+* Client-side state.
+* API consumption.
+* Authentication flows.
+* Accessibility.
+* Performance.
+* Responsive design.
+
+You do not need to become a specialist frontend designer, but you should understand the architectural consequences of frontend decisions.
+
+### 6.3 Learn multiple programming paradigms
+
+#### Object-oriented programming
+
+Understand:
+
+* Encapsulation.
+* Abstraction.
+* Inheritance.
+* Polymorphism.
+* Composition.
+* Interfaces.
+* Dependency inversion.
+
+Avoid treating inheritance as the default reuse mechanism. Composition is often more flexible.
+
+#### Functional programming
+
+Learn:
+
+* Pure functions.
+* Immutability.
+* Higher-order functions.
+* Function composition.
+* Declarative programming.
+* Side-effect management.
+
+Functional concepts improve concurrency, testability and predictability.
+
+#### Reactive programming
+
+Reactive systems are designed around asynchronous data streams and events.
+
+Study:
+
+* Observables.
+* Backpressure.
+* Non-blocking processing.
+* Event loops.
+* Asynchronous pipelines.
+* Reactive streams.
+
+Use reactive programming when it solves a real scale or responsiveness problem, not because it appears advanced.
+
+---
+
+## Stage 3: Master software design principles
+
+### 7.1 SOLID principles
+
+#### Single Responsibility Principle
+
+A module should have one clear reason to change.
+
+A payment class should not also generate reports, send emails and manage customer profiles.
+
+#### Open/Closed Principle
+
+Software should be open for extension but closed for unnecessary modification.
+
+New behaviour should often be added through well-defined interfaces rather than repeated changes to stable code.
+
+#### Liskov Substitution Principle
+
+Implementations should be safely replaceable wherever their abstraction is expected.
+
+#### Interface Segregation Principle
+
+Prefer focused interfaces over large interfaces containing unrelated operations.
+
+#### Dependency Inversion Principle
+
+High-level business logic should depend on abstractions rather than infrastructure details.
+
+### 7.2 Domain-driven design
+
+Domain-driven design is valuable when business complexity is more difficult than technical complexity.
+
+Learn:
+
+* Domain.
+* Subdomain.
+* Core domain.
+* Bounded context.
+* Ubiquitous language.
+* Entity.
+* Value object.
+* Aggregate.
+* Repository.
+* Domain service.
+* Application service.
+* Domain event.
+* Anti-corruption layer.
+
+#### Example
+
+In a financial platform, the word "customer" may mean different things in different contexts:
+
+* A marketing prospect.
+* An account holder.
+* A borrower.
+* A regulated legal entity.
+* A support contact.
+
+Trying to create one universal customer model may produce confusion. Bounded contexts allow each domain to represent the concept appropriately.
+
+### 7.3 Test-driven development
+
+TDD follows a short cycle:
+
+1. Write a failing test.
+2. Implement the smallest change needed.
+3. Refactor while keeping the test passing.
+
+Architects should understand how architecture affects testability.
+
+A system that requires databases, cloud services and message brokers for every unit test is probably too tightly coupled.
+
+### 7.4 ACID and transaction principles
+
+ACID stands for:
+
+* Atomicity.
+* Consistency.
+* Isolation.
+* Durability.
+
+Understand:
+
+* Database transactions.
+* Isolation levels.
+* Dirty reads.
+* Non-repeatable reads.
+* Phantom reads.
+* Optimistic locking.
+* Pessimistic locking.
+* Deadlocks.
+
+These concepts are essential when designing financial, inventory, booking or payment systems.
+
+### 7.5 CAP theorem
+
+CAP describes trade-offs in distributed data systems involving:
+
+* Consistency.
+* Availability.
+* Partition tolerance.
+
+In a real distributed system, network partitions can occur. The system must decide how it behaves when nodes cannot communicate.
+
+Do not use CAP as a simple database classification exercise. Use it to reason about behaviour during failure.
+
+### 7.6 Eventual consistency
+
+In an eventually consistent system, different components may temporarily hold different versions of data.
+
+Example:
+
+1. An order is created.
+2. An `OrderPlaced` event is published.
+3. Inventory reserves the item.
+4. The customer record is updated.
+5. Analytics processes the order.
+6. A confirmation email is sent.
+
+These actions may not complete at exactly the same moment.
+
+The architecture must handle:
+
+* Duplicate events.
+* Delayed messages.
+* Failed consumers.
+* Out-of-order events.
+* Retries.
+* Compensation.
+* Reconciliation.
+
+---
+
+## Stage 4: Learn architecture styles and patterns
+
+### 8.1 Layered architecture
+
+A traditional layered application may contain:
+
+* Presentation layer.
+* Application layer.
+* Domain layer.
+* Data-access layer.
+
+Advantages:
+
+* Easy to understand.
+* Familiar to development teams.
+* Suitable for many business applications.
+
+Risks:
+
+* Business logic may leak into controllers.
+* Layers may become tightly coupled.
+* Every request may pass through unnecessary layers.
+* The domain model may become weak.
+
+### 8.2 Modular monolith
+
+A modular monolith is one deployable application divided into strongly separated modules.
+
+It often provides a better starting point than microservices.
+
+Benefits:
+
+* Simpler deployment.
+* Easier transactions.
+* Lower operational cost.
+* Easier local development.
+* Clear internal boundaries.
+* Ability to extract services later.
+
+A modular monolith is not a poorly structured monolith. It requires deliberate module boundaries.
+
+### 8.3 Client-server architecture
+
+Client-server architecture separates the consuming interface from the server providing data or services.
+
+Examples:
+
+* Browser and web server.
+* Mobile app and backend API.
+* Desktop client and enterprise server.
+
+Study:
+
+* Stateless and stateful communication.
+* Session handling.
+* API versioning.
+* Client compatibility.
+* Offline behaviour.
+* Error recovery.
+
+### 8.4 Service-oriented architecture
+
+SOA organises capabilities as reusable services, often within an enterprise integration environment.
+
+Traditional SOA may involve:
+
+* Enterprise service buses.
+* SOAP services.
+* Central governance.
+* Canonical data models.
+* Business process orchestration.
+
+Modern microservices share some concepts with SOA but usually emphasise decentralised ownership, smaller services and independent deployment.
+
+### 8.5 Microservices
+
+Microservices divide a system into independently deployable services aligned with business capabilities.
+
+Potential benefits:
+
+* Independent deployment.
+* Team autonomy.
+* Independent scaling.
+* Technology flexibility.
+* Failure isolation.
+
+Potential costs:
+
+* Network failures.
+* Distributed transactions.
+* Data duplication.
+* Operational complexity.
+* Observability requirements.
+* Testing complexity.
+* Deployment coordination.
+* Increased cloud cost.
+
+Use microservices when organisational and scaling needs justify them.
+
+Do not use them merely because the organisation expects a "modern architecture."
+
+### 8.6 Serverless architecture
+
+Serverless platforms allow teams to execute code and use managed services without managing traditional servers.
+
+Common uses:
+
+* Event processing.
+* APIs.
+* Scheduled jobs.
+* File processing.
+* Automation.
+* Lightweight integrations.
+
+Benefits:
+
+* Reduced infrastructure management.
+* Automatic scaling.
+* Consumption-based pricing.
+* Fast delivery.
+
+Limitations:
+
+* Cold starts.
+* Execution limits.
+* Vendor dependency.
+* Debugging complexity.
+* Distributed monitoring.
+* Cost unpredictability at high scale.
+
+### 8.7 CQRS
+
+Command Query Responsibility Segregation separates write operations from read operations.
+
+Commands change state.
+
+Queries retrieve data.
+
+CQRS can be useful when:
+
+* Write and read requirements differ significantly.
+* Complex domain logic controls updates.
+* Read models require specialised structures.
+* Event-driven processing is already required.
+
+CQRS does not automatically require separate databases or event sourcing.
+
+Avoid introducing it into simple CRUD applications without a strong reason.
+
+### 8.8 Actor model
+
+The actor model treats each actor as an independent unit that:
+
+* Holds private state.
+* Receives messages.
+* Changes its state.
+* Sends messages.
+* Creates other actors.
+
+It can be useful for:
+
+* Highly concurrent systems.
+* Real-time applications.
+* Distributed simulations.
+* Telecommunications.
+* Device management.
+* Stateful workflows.
+
+---
+
+## Stage 5: Build data architecture knowledge
+
+### 9.1 Relational databases
+
+Learn:
+
+* Tables and relationships.
+* Primary and foreign keys.
+* Normalisation.
+* Indexes.
+* Constraints.
+* Transactions.
+* Query execution plans.
+* Stored procedures.
+* Partitioning.
+* Replication.
+* Backups.
+* Read replicas.
+
+Understand when relational databases are the safest choice. For many transactional systems, they should remain the default.
+
+### 9.2 NoSQL databases
+
+"NoSQL" includes several database categories.
+
+#### Document databases
+
+Useful for flexible document-shaped records.
+
+Examples:
+
+* Product catalogues.
+* Content.
+* User preferences.
+* Configuration data.
+
+#### Key-value databases
+
+Useful for:
+
+* Caching.
+* Sessions.
+* Counters.
+* Feature flags.
+* Temporary state.
+
+#### Wide-column databases
+
+Useful for:
+
+* High-volume distributed writes.
+* Time-series-like workloads.
+* Large-scale event data.
+
+#### Graph databases
+
+Useful where relationships are central.
+
+Examples:
+
+* Fraud detection.
+* Social networks.
+* Recommendation systems.
+* Knowledge graphs.
+* Network topology.
+
+Choose a database based on access patterns, consistency, scale and operational requirements—not popularity.
+
+### 9.3 Data warehouses and analytics
+
+Understand the difference between operational and analytical systems.
+
+Operational systems are designed for frequent transactions.
+
+Analytical systems are designed for aggregations, historical analysis and reporting.
+
+Study:
+
+* ETL and ELT.
+* Data warehouses.
+* Data lakes.
+* Lakehouses.
+* Star schemas.
+* Fact tables.
+* Dimension tables.
+* Slowly changing dimensions.
+* Data marts.
+* Batch processing.
+* Streaming.
+* Data quality.
+* Data lineage.
+
+### 9.4 Hadoop, Spark and distributed processing
+
+Learn the concepts behind:
+
+* Distributed storage.
+* MapReduce.
+* Parallel processing.
+* Data partitioning.
+* Cluster computing.
+* Fault tolerance.
+* Data locality.
+* Spark transformations and actions.
+
+You may not use Hadoop directly in every modern architecture, but understanding distributed data processing remains valuable.
+
+### 9.5 Data architecture decisions
+
+For every data store, document:
+
+* Data owner.
+* Data classification.
+* Data model.
+* Read and write patterns.
+* Expected volume.
+* Growth rate.
+* Retention period.
+* Consistency requirement.
+* Availability requirement.
+* Backup strategy.
+* Recovery objectives.
+* Encryption requirement.
+* Data-residency requirement.
+* Archival and deletion process.
+
+---
+
+## Stage 6: Learn APIs, integration and messaging
+
+### 10.1 REST
+
+A REST-style API normally uses HTTP resources and methods.
+
+Examples:
+
+* `GET /customers/123`
+* `POST /orders`
+* `PATCH /orders/456`
+* `DELETE /sessions/789`
+
+Learn:
+
+* Resource modelling.
+* Status codes.
+* Idempotency.
+* Pagination.
+* Filtering.
+* Sorting.
+* Versioning.
+* Authentication.
+* Rate limiting.
+* Error responses.
+* Correlation IDs.
+* OpenAPI specifications.
+
+### 10.2 GraphQL
+
+GraphQL allows clients to request specific fields.
+
+It can reduce over-fetching and help applications with diverse client needs.
+
+Risks include:
+
+* Expensive queries.
+* Complex authorisation.
+* Difficult caching.
+* N+1 query problems.
+* Schema governance.
+
+Use query-depth limits, cost controls and strong authorisation.
+
+### 10.3 gRPC
+
+gRPC is useful for high-performance service-to-service communication.
+
+It offers:
+
+* Strong contracts.
+* Protocol Buffers.
+* Code generation.
+* Efficient binary serialisation.
+* Streaming.
+* Lower payload overhead.
+
+It is often suitable for internal communication but may be less convenient for browser-facing public APIs.
+
+### 10.4 SOAP and enterprise service buses
+
+SOAP remains relevant in sectors such as finance, government, healthcare and large enterprise integration.
+
+Understand:
+
+* XML schemas.
+* WSDL.
+* SOAP envelopes.
+* Enterprise service buses.
+* Transformation.
+* Routing.
+* Orchestration.
+* Centralised integration governance.
+
+Do not assume legacy means unimportant. Architects frequently need to modernise systems without breaking established integrations.
+
+### 10.5 Messaging queues and event streaming
+
+Message brokers help systems communicate asynchronously.
+
+Important concepts include:
+
+* Producers.
+* Consumers.
+* Topics.
+* Queues.
+* Partitions.
+* Consumer groups.
+* Dead-letter queues.
+* Retry policies.
+* Message ordering.
+* Delivery semantics.
+* Event schemas.
+* Idempotent consumers.
+
+#### Delivery semantics
+
+**At-most-once:** a message may be lost but will not be processed twice.
+
+**At-least-once:** a message will normally arrive but may be processed more than once.
+
+**Exactly-once:** difficult to guarantee across a complete distributed business process.
+
+Architects should usually design consumers to be idempotent.
+
+### 10.6 Integration patterns
+
+Study:
+
+* Request-response.
+* Publish-subscribe.
+* Event notification.
+* Event-carried state transfer.
+* Batch integration.
+* File transfer.
+* Webhooks.
+* Change data capture.
+* Saga pattern.
+* Outbox pattern.
+* API gateway.
+* Backend for frontend.
+* Anti-corruption layer.
+
+For each integration, capture:
+
+* Source.
+* Destination.
+* Data exchanged.
+* Protocol.
+* Frequency.
+* Authentication.
+* Failure handling.
+* Retry policy.
+* Ownership.
+* Service-level expectation.
+
+---
+
+## Stage 7: Develop security architecture capability
+
+Security cannot be added after the architecture is complete.
+
+### 11.1 Authentication and authorisation
+
+Authentication confirms identity.
+
+Authorisation determines what that identity may do.
+
+Study:
+
+* Sessions.
+* Cookies.
+* JSON Web Tokens.
+* OAuth 2.0.
+* OpenID Connect.
+* SAML.
+* API keys.
+* Mutual TLS.
+* Role-based access control.
+* Attribute-based access control.
+* Policy-based access control.
+
+Do not place sensitive information inside tokens simply because the token is signed. Signed does not necessarily mean encrypted.
+
+### 11.2 Public-key infrastructure
+
+Learn:
+
+* Public and private keys.
+* Certificates.
+* Certificate authorities.
+* Certificate chains.
+* TLS.
+* Certificate rotation.
+* Mutual TLS.
+* Digital signatures.
+* Key management.
+
+### 11.3 Hashing and encryption
+
+Hashing is one-way and is often used for integrity checks or password storage.
+
+Encryption is reversible using a key.
+
+Study:
+
+* Secure password hashing.
+* Salting.
+* Symmetric encryption.
+* Asymmetric encryption.
+* Encryption at rest.
+* Encryption in transit.
+* Key rotation.
+* Hardware security modules.
+* Secret-management systems.
+
+### 11.4 OWASP principles
+
+Learn the common application risks identified by OWASP, including:
+
+* Broken access control.
+* Cryptographic failures.
+* Injection.
+* Insecure design.
+* Security misconfiguration.
+* Vulnerable components.
+* Authentication failures.
+* Integrity failures.
+* Logging and monitoring failures.
+* Server-side request forgery.
+
+Architecture reviews should include threat modelling rather than relying only on penetration testing near release.
+
+### 11.5 Threat modelling
+
+A basic threat-modelling process involves:
+
+1. Identify assets.
+2. Identify actors.
+3. Map trust boundaries.
+4. Document data flows.
+5. Identify threats.
+6. Evaluate risk.
+7. Define controls.
+8. Record residual risk.
+9. Test the controls.
+
+Use methods such as STRIDE:
+
+* Spoofing.
+* Tampering.
+* Repudiation.
+* Information disclosure.
+* Denial of service.
+* Elevation of privilege.
+
+### 11.6 Zero-trust thinking
+
+Zero trust assumes that network location alone should not establish trust.
+
+Apply:
+
+* Strong identity.
+* Least privilege.
+* Short-lived credentials.
+* Service-to-service authentication.
+* Network segmentation.
+* Continuous verification.
+* Device and workload identity.
+* Centralised auditing.
+
+---
+
+## Stage 8: Understand web and mobile architecture
+
+### 12.1 Single-page applications
+
+SPAs execute much of the interface logic in the browser.
+
+Benefits:
+
+* Responsive interaction.
+* Rich client-side experiences.
+* Separation between frontend and backend.
+
+Challenges:
+
+* Large JavaScript bundles.
+* Search-engine optimisation.
+* Client-side security.
+* State complexity.
+* Initial-load performance.
+* API dependency.
+
+### 12.2 Server-side rendering
+
+SSR generates HTML on the server.
+
+It can improve:
+
+* Initial page load.
+* Search visibility.
+* Social previews.
+* Performance on lower-powered devices.
+
+However, it introduces server rendering and caching complexity.
+
+### 12.3 Static-site generation
+
+SSG creates pages during a build process.
+
+It is suitable for:
+
+* Documentation.
+* Marketing sites.
+* Blogs.
+* Product pages with infrequent changes.
+
+It may not suit highly dynamic, personalised pages without additional runtime capabilities.
+
+### 12.4 Microfrontends
+
+Microfrontends divide a frontend into independently owned areas.
+
+They may help large organisations where different teams own separate business capabilities.
+
+Risks include:
+
+* Inconsistent user experience.
+* Duplicate dependencies.
+* Performance overhead.
+* Complex routing.
+* Shared-state problems.
+* Difficult design-system governance.
+
+Use microfrontends for organisational scalability, not simply technical novelty.
+
+### 12.5 Mobile architecture
+
+Study:
+
+* Native applications.
+* Cross-platform development.
+* Offline-first design.
+* Local storage.
+* Synchronisation.
+* Push notifications.
+* Secure credential storage.
+* Mobile API gateways.
+* App version compatibility.
+* Background execution.
+* Device permissions.
+
+Mobile applications may remain in use for months without being updated. Backend changes must account for older client versions.
+
+---
+
+## Stage 9: Learn cloud, infrastructure and operations
+
+### 13.1 Cloud providers
+
+Build practical experience with at least one major provider:
+
+* AWS.
+* Microsoft Azure.
+* Google Cloud.
+
+Understand the major service categories:
+
+* Compute.
+* Containers.
+* Serverless.
+* Storage.
+* Networking.
+* Databases.
+* Identity.
+* Messaging.
+* Monitoring.
+* Security.
+* Data and analytics.
+
+Do not memorise hundreds of product names. Learn architectural capabilities and trade-offs.
+
+### 13.2 Infrastructure as code
+
+Infrastructure as code allows infrastructure to be version-controlled and repeatedly provisioned.
+
+Learn tools such as:
+
+* Terraform.
+* AWS CloudFormation.
+* Azure Bicep.
+* Pulumi.
+* Ansible for configuration management.
+
+IaC should support:
+
+* Repeatability.
+* Review.
+* Auditability.
+* Environment consistency.
+* Automated testing.
+* Disaster recovery.
+
+### 13.3 Containers
+
+Learn:
+
+* Container images.
+* Registries.
+* Image layers.
+* Environment configuration.
+* Volumes.
+* Networking.
+* Resource limits.
+* Health checks.
+* Image scanning.
+* Non-root execution.
+* Multi-stage builds.
+
+Understand what containers solve and what they do not solve.
+
+A container packages software consistently. It does not automatically make the application scalable, secure or observable.
+
+### 13.4 Kubernetes
+
+Study:
+
+* Pods.
+* Deployments.
+* Services.
+* Ingress.
+* ConfigMaps.
+* Secrets.
+* Namespaces.
+* Autoscaling.
+* StatefulSets.
+* Jobs.
+* Network policies.
+* Resource requests and limits.
+* Liveness and readiness probes.
+
+Use Kubernetes when its operational benefits justify its complexity.
+
+### 13.5 Service mesh
+
+A service mesh may provide:
+
+* Service identity.
+* Mutual TLS.
+* Traffic policies.
+* Retries.
+* Telemetry.
+* Circuit breaking.
+
+However, it also adds complexity and operational overhead. Do not introduce a service mesh without clear requirements.
+
+### 13.6 CI/CD
+
+Continuous integration validates every change.
+
+Continuous delivery keeps software ready for release.
+
+Continuous deployment automatically releases validated changes.
+
+A mature pipeline may include:
+
+1. Code quality checks.
+2. Unit tests.
+3. Dependency scanning.
+4. Secret scanning.
+5. Build.
+6. Container scanning.
+7. Integration tests.
+8. Infrastructure validation.
+9. Deployment.
+10. Smoke tests.
+11. Security tests.
+12. Progressive rollout.
+13. Automated rollback.
+
+### 13.7 Observability
+
+Observability helps teams understand internal system behaviour from its outputs.
+
+The three main signals are:
+
+* Logs.
+* Metrics.
+* Traces.
+
+Also consider:
+
+* Business events.
+* Audit events.
+* User-experience monitoring.
+* Synthetic tests.
+* Profiling.
+
+Every request should ideally carry a correlation or trace identifier across service boundaries.
+
+Track both technical and business measures.
+
+Technical examples:
+
+* Error rate.
+* Latency.
+* CPU.
+* Memory.
+* Queue depth.
+* Database connections.
+
+Business examples:
+
+* Orders completed.
+* Payments failed.
+* Sign-ups abandoned.
+* Claims processed.
+* Recommendations accepted.
+
+### 13.8 Reliability engineering
+
+Study:
+
+* Service-level indicators.
+* Service-level objectives.
+* Service-level agreements.
+* Error budgets.
+* Recovery-time objective.
+* Recovery-point objective.
+* High availability.
+* Fault tolerance.
+* Graceful degradation.
+* Circuit breakers.
+* Timeouts.
+* Retries.
+* Bulkheads.
+* Rate limiting.
+* Disaster recovery.
+
+#### Important retry rule
+
+Retries should use:
+
+* Exponential backoff.
+* Jitter.
+* A maximum attempt count.
+* Idempotent operations where possible.
+
+Uncontrolled retries can turn a small failure into a full outage.
+
+---
+
+## Stage 10: Understand enterprise software and frameworks
+
+Enterprise solutions frequently depend on platforms such as SAP, Microsoft Dynamics, Salesforce, IBM BPM and enterprise content-management systems.
+
+A software architect does not need to become a specialist in every product. However, enterprise solutions frequently depend on them.
+
+### 14.1 ERP systems
+
+Enterprise resource planning systems may manage:
+
+* Finance.
+* Procurement.
+* Inventory.
+* Manufacturing.
+* Human resources.
+* Supply chain.
+* Order fulfilment.
+
+Architectural concerns include:
+
+* Master data.
+* Customisation.
+* Integration.
+* Upgradeability.
+* Vendor support.
+* Batch processing.
+* Reporting.
+* Access control.
+
+### 14.2 CRM systems
+
+Customer relationship management platforms may contain:
+
+* Customer records.
+* Sales pipelines.
+* Marketing activity.
+* Support cases.
+* Campaigns.
+* Customer communications.
+
+Architects must decide which platform owns customer information and how changes are synchronised with other systems.
+
+### 14.3 Business process management
+
+BPM platforms model and execute workflows.
+
+Examples:
+
+* Loan approval.
+* Insurance claims.
+* Employee onboarding.
+* Procurement approval.
+* Customer complaint resolution.
+
+Learn the difference between:
+
+* Process orchestration.
+* Service choreography.
+* Human workflow.
+* Automated workflow.
+* Business rules.
+* Case management.
+
+### 14.4 Architecture frameworks
+
+#### TOGAF
+
+TOGAF is commonly associated with enterprise architecture.
+
+Its Architecture Development Method helps organisations move from vision through business, information, application and technology architecture into implementation and governance.
+
+Use it as a guide rather than applying every artefact mechanically.
+
+#### UML
+
+Useful UML diagrams include:
+
+* Use-case diagrams.
+* Class diagrams.
+* Sequence diagrams.
+* Activity diagrams.
+* State diagrams.
+* Deployment diagrams.
+* Component diagrams.
+
+#### BABOK
+
+BABOK supports business analysis practices such as:
+
+* Requirements elicitation.
+* Stakeholder analysis.
+* Strategy analysis.
+* Requirements lifecycle management.
+* Solution evaluation.
+
+#### ITIL
+
+ITIL helps architects understand service management, including:
+
+* Incident management.
+* Problem management.
+* Change enablement.
+* Service levels.
+* Service configuration.
+* Continual improvement.
+
+#### PMI and PRINCE2
+
+These frameworks help architects understand project governance, planning, risk, dependencies and delivery controls.
+
+The goal is not to turn the architect into a full-time project manager. It is to understand how architecture decisions affect delivery.
+
+---
+
+## Stage 11: Build architecture leadership skills
+
+Technical knowledge alone does not make someone an effective architect.
+
+### 15.1 Decision-making
+
+Use a repeatable process:
+
+1. Define the decision.
+2. Identify stakeholders.
+3. Confirm requirements.
+4. Record constraints.
+5. Generate alternatives.
+6. Define evaluation criteria.
+7. Compare trade-offs.
+8. Run experiments where needed.
+9. Select an option.
+10. Record the decision.
+11. Review the result later.
+
+#### Architecture decision record template
+
+**Title:** Use PostgreSQL for the transactional order store
+
+**Status:** Accepted
+
+**Context:**
+The order service requires strong consistency, relational queries, transactional updates and mature backup support.
+
+**Options considered:**
+
+* PostgreSQL.
+* MongoDB.
+* DynamoDB.
+
+**Decision:**
+Use PostgreSQL.
+
+**Reasons:**
+
+* Strong transactional guarantees.
+* Existing team experience.
+* Mature operational tooling.
+* Relational reporting requirements.
+
+**Consequences:**
+
+* Schema migrations must be managed carefully.
+* Horizontal write scaling will require additional planning.
+* The team must monitor connection usage.
+
+### 15.2 Simplification
+
+Strong architects remove unnecessary complexity.
+
+For every proposed technology, ask:
+
+* What problem does this solve?
+* Can the current platform solve it?
+* Is the problem present today?
+* What new operational burden will this introduce?
+* Does the team have the capability to run it?
+* Can the decision be reversed?
+* Is there a simpler option?
+
+The most impressive architecture is not the one with the most technologies. It is the one that meets the requirements with the least unnecessary complexity.
+
+### 15.3 Estimation and evaluation
+
+Architects should estimate:
+
+* Development effort.
+* Infrastructure cost.
+* Integration complexity.
+* Migration risk.
+* Support effort.
+* Security impact.
+* Operational burden.
+* Training needs.
+* Vendor cost.
+* Long-term maintenance.
+
+Use ranges instead of false precision.
+
+For example:
+
+* Optimistic: 8 weeks.
+* Most likely: 12 weeks.
+* Pessimistic: 18 weeks.
+
+Document assumptions behind the estimate.
+
+### 15.4 Communication
+
+A useful architecture explanation follows this structure:
+
+1. Business problem.
+2. Requirements.
+3. Constraints.
+4. Proposed solution.
+5. Key decisions.
+6. Benefits.
+7. Risks.
+8. Cost.
+9. Delivery approach.
+10. Decisions required.
+
+#### Executive version
+
+> We propose a managed event-driven platform that will reduce manual order reconciliation, support projected transaction growth and improve failure recovery. The design introduces additional messaging costs and requires operational monitoring, but it avoids major changes to the existing ERP during the first phase.
+
+#### Engineering version
+
+> The order service writes the transaction and event record in the same PostgreSQL transaction. A background publisher forwards pending events to Kafka using the transactional outbox pattern. Consumers use idempotency keys and dead-letter queues to handle duplicate or failed processing.
+
+The message changes according to the audience, but the underlying decision remains consistent.
+
+### 15.5 Consulting and coaching
+
+Architects should help teams reach good decisions rather than acting as the only decision-maker.
+
+Good coaching questions include:
+
+* What requirement does this pattern address?
+* What happens when this dependency fails?
+* Who owns this data?
+* How will the team observe this process?
+* How will the design scale?
+* How can this be tested?
+* What is the migration path?
+* What is the rollback plan?
+* What is the simplest acceptable approach?
+* Which assumption needs validation?
+
+### 15.6 Marketing and influencing skills
+
+Architecture proposals must gain support.
+
+This does not mean exaggerating benefits. It means presenting technical work in terms stakeholders understand.
+
+Instead of:
+
+> We will introduce a Kafka-based event architecture.
+
+Say:
+
+> We will separate order processing from downstream fulfilment so temporary warehouse outages do not prevent customers from completing purchases.
+
+Connect architecture to:
+
+* Revenue.
+* Cost reduction.
+* Risk reduction.
+* Customer experience.
+* Regulatory compliance.
+* Delivery speed.
+* Operational resilience.
+* Strategic flexibility.
+
+---
+
+## Stage 12: Create an architecture portfolio
+
+An architecture portfolio should demonstrate reasoning, not only diagrams.
+
+Build at least three case studies.
+
+### Case study 1: Modular business application
+
+Design an order-management platform using a modular monolith.
+
+Include:
+
+* React or Angular frontend.
+* Java, .NET, Python or TypeScript backend.
+* PostgreSQL.
+* Redis.
+* REST API.
+* Role-based access control.
+* Docker.
+* CI/CD.
+* Logs and metrics.
+
+Produce:
+
+* System context diagram.
+* Container diagram.
+* Module diagram.
+* Database model.
+* API specification.
+* Threat model.
+* Deployment diagram.
+* Architecture decision records.
+
+### Case study 2: Event-driven platform
+
+Extend the application with:
+
+* Message broker.
+* Order events.
+* Inventory consumer.
+* Notification consumer.
+* Dead-letter queue.
+* Retry policy.
+* Outbox pattern.
+* Distributed tracing.
+
+Explain:
+
+* Why asynchronous processing is required.
+* How duplicate events are handled.
+* What happens when a consumer fails.
+* How eventual consistency affects the user.
+* How the system is monitored.
+
+### Case study 3: Enterprise integration programme
+
+Design a solution connecting:
+
+* Customer portal.
+* CRM.
+* ERP.
+* Payment provider.
+* Identity provider.
+* Analytics platform.
+* Document-management system.
+
+Include:
+
+* Integration catalogue.
+* Data ownership model.
+* Security zones.
+* Migration roadmap.
+* Buy-versus-build assessment.
+* Vendor risks.
+* Target architecture.
+* Transition architecture.
+* Cost model.
+* Support model.
+
+---
+
+## 16. A 12-month learning plan
+
+### Month 1: Foundations
+
+Learn:
+
+* Linux.
+* Git.
+* HTTP.
+* DNS.
+* TCP/IP.
+* Basic cloud networking.
+
+Deliver:
+
+* Containerised API.
+* HTTPS endpoint.
+* Basic deployment documentation.
+
+### Month 2: Application design
+
+Learn:
+
+* SOLID.
+* Layered architecture.
+* Dependency injection.
+* Unit testing.
+* Domain modelling.
+
+Deliver:
+
+* Modular backend.
+* Automated tests.
+* Initial architecture decision records.
+
+### Month 3: Data
+
+Learn:
+
+* SQL.
+* Transactions.
+* Indexing.
+* NoSQL categories.
+* Caching.
+* Backup and recovery.
+
+Deliver:
+
+* Data model.
+* Query-performance report.
+* Database selection comparison.
+
+### Month 4: APIs
+
+Learn:
+
+* REST.
+* OpenAPI.
+* OAuth.
+* API versioning.
+* Rate limiting.
+* Idempotency.
+
+Deliver:
+
+* Documented API.
+* Authentication flow.
+* API error standard.
+
+### Month 5: Architecture patterns
+
+Learn:
+
+* Modular monoliths.
+* Microservices.
+* CQRS.
+* Event-driven architecture.
+* Serverless.
+* Distributed-system trade-offs.
+
+Deliver:
+
+* Architecture-options paper.
+* Selected target architecture.
+* Decision records.
+
+### Month 6: Messaging
+
+Learn:
+
+* Queues.
+* Topics.
+* Consumer groups.
+* Delivery semantics.
+* Outbox pattern.
+* Saga pattern.
+
+Deliver:
+
+* Event-driven workflow.
+* Retry strategy.
+* Dead-letter queue.
+* Failure scenarios.
+
+### Month 7: Security
+
+Learn:
+
+* OAuth 2.0.
+* OpenID Connect.
+* PKI.
+* Encryption.
+* Secret management.
+* OWASP.
+* Threat modelling.
+
+Deliver:
+
+* Threat model.
+* Security architecture.
+* Access-control matrix.
+* Security-testing plan.
+
+### Month 8: Cloud and infrastructure
+
+Learn:
+
+* Cloud compute.
+* Networking.
+* Managed databases.
+* Storage.
+* Terraform.
+* Containers.
+
+Deliver:
+
+* Infrastructure-as-code repository.
+* Separate development and production environments.
+* Backup configuration.
+
+### Month 9: Operations
+
+Learn:
+
+* CI/CD.
+* Logs.
+* Metrics.
+* Traces.
+* SLOs.
+* Incident response.
+* Disaster recovery.
+
+Deliver:
+
+* Deployment pipeline.
+* Monitoring dashboard.
+* Alerting rules.
+* Recovery runbook.
+
+### Month 10: Enterprise architecture
+
+Learn:
+
+* TOGAF concepts.
+* Capability mapping.
+* Application portfolios.
+* Integration governance.
+* ERP and CRM architecture.
+
+Deliver:
+
+* Current-state architecture.
+* Target-state architecture.
+* Gap analysis.
+* Transition roadmap.
+
+### Month 11: Leadership
+
+Learn:
+
+* Architecture reviews.
+* Facilitation.
+* Estimation.
+* Stakeholder communication.
+* Conflict resolution.
+* Coaching.
+
+Deliver:
+
+* Architecture-review presentation.
+* Executive summary.
+* Technical design workshop.
+
+### Month 12: Capstone
+
+Create a complete enterprise architecture case study.
+
+It should include:
+
+* Business context.
+* Stakeholder map.
+* Requirements.
+* Quality attributes.
+* Current-state assessment.
+* Target architecture.
+* Security model.
+* Data model.
+* Integration model.
+* Deployment model.
+* Cost estimate.
+* Risk register.
+* Migration roadmap.
+* Operational model.
+* Decision records.
+
+---
+
+## 17. Recommended architecture documentation structure
+
+Use the following repository structure for each project:
+
+```text
+architecture/
+├── 01-business-context/
+│   ├── objectives.md
+│   ├── stakeholders.md
+│   └── scope.md
+├── 02-requirements/
+│   ├── functional-requirements.md
+│   ├── non-functional-requirements.md
+│   ├── constraints.md
+│   └── assumptions.md
+├── 03-current-state/
+│   ├── systems.md
+│   ├── integrations.md
+│   └── pain-points.md
+├── 04-target-architecture/
+│   ├── context-diagram.md
+│   ├── container-diagram.md
+│   ├── component-diagram.md
+│   ├── data-architecture.md
+│   ├── integration-architecture.md
+│   └── deployment-architecture.md
+├── 05-security/
+│   ├── threat-model.md
+│   ├── trust-boundaries.md
+│   ├── access-control.md
+│   └── security-controls.md
+├── 06-decisions/
+│   ├── ADR-001.md
+│   ├── ADR-002.md
+│   └── ADR-003.md
+├── 07-delivery/
+│   ├── roadmap.md
+│   ├── migration-plan.md
+│   └── dependencies.md
+├── 08-operations/
+│   ├── observability.md
+│   ├── service-level-objectives.md
+│   ├── disaster-recovery.md
+│   └── runbooks.md
+└── 09-governance/
+    ├── standards.md
+    ├── risks.md
+    └── review-process.md
+```
+
+---
+
+## 18. Architecture review checklist
+
+Before approving an architecture, review the following areas.
+
+### Business alignment
+
+* Is the business problem clearly defined?
+* Are measurable outcomes identified?
+* Is the design proportionate to the expected value?
+* Are stakeholders and owners known?
+
+### Requirements
+
+* Are functional requirements complete enough?
+* Are non-functional requirements measurable?
+* Are assumptions documented?
+* Are constraints understood?
+
+### Design
+
+* Are component boundaries clear?
+* Is responsibility assigned correctly?
+* Is unnecessary complexity avoided?
+* Are technology choices justified?
+* Can the architecture evolve?
+
+### Data
+
+* Is data ownership clear?
+* Are consistency requirements documented?
+* Are retention and deletion addressed?
+* Are backup and recovery defined?
+* Is sensitive data identified?
+
+### Security
+
+* Are users and services authenticated?
+* Is least privilege applied?
+* Are secrets protected?
+* Are trust boundaries documented?
+* Has threat modelling been completed?
+* Are security events logged?
+
+### Integration
+
+* Are API contracts defined?
+* Are failures and retries handled?
+* Are integrations observable?
+* Are versioning and compatibility considered?
+* Are messages idempotent?
+
+### Operations
+
+* Can the system be deployed automatically?
+* Are logs, metrics and traces available?
+* Are service objectives defined?
+* Is there a rollback strategy?
+* Is disaster recovery tested?
+
+### Delivery
+
+* Is there a migration plan?
+* Are dependencies visible?
+* Are architecture risks owned?
+* Can value be delivered incrementally?
+* Are major decisions recorded?
+
+---
+
+## 19. Common mistakes aspiring architects make
+
+### Learning tools instead of principles
+
+Cloud products and frameworks change. Principles such as modularity, coupling, cohesion, consistency, reliability and security remain useful.
+
+### Choosing microservices too early
+
+Microservices introduce organisational and operational complexity. Start with clear boundaries and adopt distribution only where justified.
+
+### Producing diagrams without decisions
+
+A diagram showing boxes and arrows is not enough. Explain responsibilities, protocols, ownership, failure behaviour and trade-offs.
+
+### Ignoring operational concerns
+
+A design is incomplete until teams know how it will be deployed, monitored, recovered and supported.
+
+### Treating security as a final review
+
+Security requirements should influence identity, data flow, deployment and integration choices from the beginning.
+
+### Over-engineering for hypothetical scale
+
+Design for realistic growth and create evolution paths. Do not pay today's complexity cost for an uncertain future scenario.
+
+### Becoming detached from code
+
+Architects should remain close enough to implementation to validate patterns, review critical code and understand operational behaviour.
+
+### Failing to communicate business value
+
+Architecture must solve business problems. Technical sophistication is not a substitute for measurable outcomes.
+
+---
+
+## 20. How to know that you are ready for a software architect role
+
+You are progressing toward architecture-level capability when you can:
+
+* Convert business goals into technical requirements.
+* Identify missing non-functional requirements.
+* Compare multiple architecture options.
+* Explain trade-offs without relying on personal preference.
+* Design for security, reliability and operations.
+* Produce useful architecture documentation.
+* Communicate with both engineers and executives.
+* Facilitate decisions across teams.
+* Identify unnecessary complexity.
+* Design a realistic migration path.
+* Estimate cost, effort and operational impact.
+* Review implementation without becoming a bottleneck.
+* Coach teams instead of simply issuing instructions.
+* Revisit decisions when assumptions change.
+
+The defining capability of a software architect is not knowing every technology. It is being able to make sound decisions in uncertain conditions, communicate those decisions clearly and guide a system from business need through implementation and operation.
+
+---
+
+## Conclusion
+
+The software architect roadmap is broad because architecture itself is broad. A capable architect needs programming experience, design knowledge, security awareness, data understanding, integration skills, cloud and operational knowledge, enterprise context and strong communication.
+
+However, these areas should not be studied as a collection of disconnected subjects.
+
+The most effective learning method is:
+
+1. Learn a principle.
+2. Apply it to a working system.
+3. Document the decision.
+4. Test the system under failure.
+5. Evaluate the trade-offs.
+6. Explain the solution to different audiences.
+7. Improve the architecture based on evidence.
+
+Following this process transforms the roadmap from a list of technologies into a practical path toward becoming a trusted software architect.
+
+<KeyTakeaways>
+- Architecture is a set of high-impact decisions and trade-offs, not only diagrams.
+- Connect twelve stages through projects: foundations → design → data → integration → security → cloud → enterprise → leadership → portfolio.
+- Prefer clear boundaries and justified complexity; document decisions; design for security and operations from the start.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed path: [Software Architect roadmap](/roadmaps/software-architect).
+- Practise: [Enterprise Architecture](/learning-map/08-enterprise-architecture), [Software Engineering](/learning-map/15-software-engineering), [Security Engineering](/learning-map/17-security-engineering).
+- Align artefacts with [Architecture](/ai-solution-engineering/architecture) and the [Career roadmap](/ai-solution-engineering/career-roadmap).
+</NextSteps>

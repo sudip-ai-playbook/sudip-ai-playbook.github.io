@@ -1,0 +1,175 @@
+---
+sidebar_position: 2
+slug: ai-engineer
+title: AI Engineer Roadmap
+description: A practical learning programme from software developer to production AI systems—pretrained models, prompting, safety, RAG, agents, multimodal AI and production engineering.
+---
+
+# AI Engineer Roadmap
+
+An AI engineer builds applications and systems that use artificial intelligence to solve real business and user problems. The role is not limited to training models. Modern AI engineers spend more time integrating pretrained models, designing prompts and retrieval pipelines, connecting tools, evaluating behaviour, implementing safety controls, and monitoring cost, latency and quality.
+
+<ExecSummary>
+Treat the roadmap as a sequence of capabilities, not a list of technologies to memorise. For every stage: learn, build, evaluate, document limitations, deploy and improve using evidence. Complete the competency checklist before claiming entry-level readiness.
+</ExecSummary>
+
+<WhenToUse>
+- Use when moving from software development into production AI engineering.
+- Pair with the full guide: [The Complete AI Engineer Roadmap](/articles/ai-engineer-roadmap).
+- Cross-check with [RAG](/ai-solution-engineering/rag), [Agentic AI](/ai-solution-engineering/agentic-ai), [Security & privacy](/ai-solution-engineering/security-privacy) and the [AI Agents roadmap](./ai-agents).
+</WhenToUse>
+
+## Capability map
+
+1. Software, API and deployment prerequisites
+2. AI engineering foundations and terminology
+3. Pretrained models and model selection
+4. Model APIs and prompt engineering
+5. AI safety, security and ethics
+6. Open-source and local models
+7. Embeddings and vector databases
+8. Retrieval-augmented generation
+9. AI agents and tool use
+10. Multimodal AI
+11. Development tools and production engineering
+
+## Learning cycle
+
+```text
+Understand → Build → Test → Evaluate → Deploy → Observe → Improve
+```
+
+Approximately six months at eight to twelve hours per week. Experienced developers may move faster; beginners may spend more time on programming, APIs, databases and deployment.
+
+## Ten-phase learning journey
+
+### Phase 0 — Prerequisites
+
+Programming fundamentals, HTTP and APIs, one backend framework, SQL databases, Docker and basic cloud deployment.
+
+**Build:** a deployed web service that calls an external API securely, with validation, retries, logging and caching.
+
+### Phase 1 — AI engineering foundations
+
+Clarify the AI engineer role versus ML engineering, understand inference versus training, tokens, context windows, temperature, hallucination, embeddings, RAG and agents.
+
+**Build:** a written explanation of probabilistic behaviour and the limitations of a basic text-generation application.
+
+### Phase 2 — Pretrained models
+
+Compare providers on quality, latency, cost, context, privacy, structured output, tool use, multimodal capability and governance fit. Build a weighted evaluation matrix on your own dataset.
+
+**Build:** a task-specific model comparison with scored criteria.
+
+### Phase 3 — Model APIs and prompting
+
+Design prompts with role, objective, context, constraints, output format and failure behaviour. Manage tokens, streaming, retries and structured outputs. Know when fine-tuning is justified.
+
+**Build:** a support-ticket classifier with an evaluation set of at least 50 realistic examples.
+
+### Phase 4 — Safety, security and ethics
+
+Threat-model the application. Defend against prompt injection, apply data minimisation, test for bias, run adversarial tests and add human approval for high-impact actions.
+
+**Build:** a safety layer, threat model and red-team test report.
+
+### Phase 5 — Open-source AI
+
+Compare open-weight and closed models, read model cards and licences, run local inference and assess hardware, quantisation and production trade-offs.
+
+**Build:** a comparison of a managed model and an open-weight model on the same task.
+
+### Phase 6 — Embeddings and vector databases
+
+Generate embeddings, index with metadata filters, choose similarity metrics and combine keyword, vector and reranking for hybrid search.
+
+**Build:** a semantic document search with relevance testing and permission-aware filters.
+
+### Phase 7 — Retrieval-augmented generation
+
+Ingest, parse, clean, chunk, embed, retrieve, rerank, construct context, generate with citations and validate faithfulness.
+
+**Build:** a document Q&A assistant with a RAG evaluation covering retrieval and generation.
+
+### Phase 8 — AI agents
+
+Use agents where multi-step tool use adds value; prefer deterministic workflows when it does not. Design narrow tools, risk-tiered permissions, memory boundaries and failure recovery.
+
+**Build:** a support agent with read-only tools, approval for high-risk actions, traces and a failure test suite.
+
+### Phase 9 — Multimodal AI
+
+Process images, speech and video safely: validate uploads, control cost and privacy, and avoid unsupported conclusions.
+
+**Build:** a multimodal document assistant that handles text and images with validation.
+
+### Phase 10 — Production capstone
+
+Combine authentication, RAG, tools, safety, evaluation, monitoring and deployment into one production-style system.
+
+**Build:** an enterprise knowledge and action assistant with full project documentation.
+
+## 24-week plan (summary)
+
+| Weeks | Focus | Key deliverable |
+| --- | --- | --- |
+| 1–2 | Software and API foundations | Deployed service with logging |
+| 3–4 | AI foundations | Documented application limitations |
+| 5–6 | Prompting and model APIs | Classifier + 50-example eval set |
+| 7–8 | Safety and security | Threat model and red-team report |
+| 9–10 | Open-source models | Hosted vs local model comparison |
+| 11–12 | Embeddings | Semantic search with relevance tests |
+| 13–15 | Vector databases | Retrieval benchmark |
+| 16–18 | RAG | Faithfulness and citation evaluation |
+| 19–21 | Agents | Permissions matrix and failure suite |
+| 22–23 | Multimodal | Safe text + image assistant |
+| 24 | Capstone | Production-style app with docs |
+
+## Competency checklist
+
+### Foundations
+
+- Explain inference, training, tokens and context windows
+- Distinguish AI engineering from ML engineering
+- Build and deploy an API-based application
+
+### Model integration and prompting
+
+- Integrate a pretrained model securely
+- Manage tokens, retries and streaming
+- Compare models with task-specific evaluations
+- Design prompts with structured outputs and fallbacks
+
+### Safety and open models
+
+- Explain prompt injection and apply data minimisation
+- Create a basic AI threat model and adversarial tests
+- Assess open models, licences and local inference
+
+### Retrieval and agents
+
+- Build embeddings, vector indexes and hybrid search
+- Ship RAG with citations and faithfulness evaluation
+- Define safe tools, least privilege and approval gates
+
+### Production
+
+- Monitor latency, cost and quality
+- Version prompts, models and indexes
+- Deploy with feedback and incident processes
+
+## Core principle
+
+> A strong AI engineer is not simply someone who can call a model API. A strong AI engineer can turn uncertain model behaviour into a useful, measurable, secure and maintainable product.
+
+<KeyTakeaways>
+- Start with the simplest reliable architecture; do not begin with a highly autonomous agent.
+- Treat evaluation, safety and versioning as first-class engineering work—not launch extras.
+- Prefer RAG for changing knowledge; fine-tune for stable behaviour only after prompting and retrieval fall short.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete AI Engineer Roadmap](/articles/ai-engineer-roadmap).
+- Continue into specialised paths: [AI Agents roadmap](./ai-agents) and [Engineering Manager roadmap](./engineering-manager).
+- Practise related skills: [Prompt & context engineering](/learning-map/12-prompt-context-engineering), [RAG](/ai-solution-engineering/rag) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</NextSteps>

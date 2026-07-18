@@ -1,0 +1,1647 @@
+---
+slug: aws-roadmap
+title: "The Complete AWS Learning Roadmap: From Cloud Fundamentals to Production-Ready Architecture"
+description: A practical AWS learning system from cloud fundamentals through IAM, VPC, EC2, platform services, data, containers, serverless, production engineering and a progressive capstone.
+authors: [sudip]
+tags: [roadmaps, architecture, cloud, playbook, finops]
+keywords:
+  - AWS roadmap
+  - AWS learning path
+  - IAM VPC EC2
+  - ECS Fargate
+  - Lambda serverless
+  - Well-Architected Framework
+  - cloud architecture
+  - AI Solution Engineering
+---
+
+The AWS roadmap in the classic one-page diagram provides a strong high-level sequence: begin with cloud fundamentals, IAM, VPC and EC2; continue into S3, SES, Route 53, CloudWatch and CloudFront; add databases and containers; and finish with serverless computing. The diagram also recommends learning by deploying a simple application rather than studying every AWS service independently.
+
+This expanded roadmap turns that sequence into a practical learning system. It explains what each service does, why and when you would use it, which concepts matter, which exercises to complete, how services work together, which production topics are often missing from one-page maps, and how to progress from a simple application to an enterprise-ready AWS platform.
+
+{/* truncate */}
+
+<ExecSummary>
+Do not memorise hundreds of AWS services. For every stage: understand the business problem, learn the concepts, create the resource in the console, repeat with the CLI, automate with infrastructure as code, then add security, monitoring and cost controls. The goal is to design, deploy, secure, operate and improve a workload on AWS.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building personal or team AWS platform capability from foundations through production architecture.
+- Pair with the [AWS Learning Roadmap](/roadmaps/aws), [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering) and [Architecture](/ai-solution-engineering/architecture).
+- Treat the 16-week plan, progressive capstone and completion checklist as your working system.
+</WhenToUse>
+
+The condensed [AWS Learning Roadmap](/roadmaps/aws) covers stages from cloud fundamentals through production engineering. This article is the full implementation guide.
+
+---
+
+## 1. How to use this AWS roadmap
+
+Do not attempt to memorise hundreds of AWS services.
+
+Instead, follow this cycle for every stage:
+
+1. **Understand the business problem.**
+2. **Learn the service concepts.**
+3. **Create the resource manually in the console.**
+4. **Repeat the task using the AWS CLI.**
+5. **Automate it using infrastructure as code.**
+6. **Add security, monitoring and cost controls.**
+7. **Document your architecture and decisions.**
+
+The target is not to become someone who recognises AWS service names. The target is to become someone who can design, deploy, secure, operate and improve a workload running on AWS.
+
+### Roadmap at a glance
+
+| Stage | Main focus | Practical outcome |
+| --- | --- | --- |
+| 0 | Cloud fundamentals | Understand cloud delivery and deployment models |
+| 1 | AWS foundations | Choose Regions, Availability Zones and architecture principles |
+| 2 | IAM | Create secure human and workload access |
+| 3 | VPC | Design a secure public/private network |
+| 4 | EC2 | Deploy and scale a traditional web application |
+| 5 | Core platform services | Add storage, DNS, CDN, email and monitoring |
+| 6 | Data services | Choose relational, NoSQL and caching technologies |
+| 7 | Containers | Package and operate applications with ECS, Fargate or EKS |
+| 8 | Serverless | Build event-driven applications with Lambda |
+| 9 | Production engineering | Add automation, auditing, encryption, cost and governance |
+| 10 | Capstone | Deliver a production-style AWS application |
+
+---
+
+# Part One: Cloud and AWS Foundations
+
+## 2. Understand cloud computing first
+
+Before creating AWS resources, understand what problem cloud computing solves.
+
+Traditional infrastructure normally requires an organisation to purchase hardware, configure data centres, estimate future capacity and maintain physical systems. Cloud computing changes this by allowing organisations to provision computing resources when required and pay according to their usage or commitment model.
+
+You should understand five practical characteristics of cloud platforms:
+
+### On-demand provisioning
+
+Resources can be created through a console, command-line interface, software development kit or API. For example, instead of ordering a physical server, you can create an EC2 instance in minutes.
+
+### Elasticity
+
+Resources can increase or decrease as demand changes. For example, an online retailer might operate four application servers normally but increase to twenty during a promotion.
+
+### Resource abstraction
+
+Developers consume compute, storage, networking and databases without directly managing all the physical infrastructure underneath them.
+
+### Usage-based charging
+
+Many cloud services charge according to time, requests, storage, data transfer or provisioned capacity.
+
+### Global deployment
+
+Applications can be deployed across geographic Regions and isolated Availability Zones. AWS Regions are separate geographic areas, while Availability Zones are isolated locations inside a Region. AWS also provides Local Zones and other infrastructure options that place selected resources closer to users. See [AWS Regions and Availability Zones](https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions-availability-zones.html).
+
+---
+
+## 3. Understand IaaS, PaaS and SaaS
+
+### Infrastructure as a Service
+
+Infrastructure as a Service gives you fundamental infrastructure components such as virtual machines, storage and networks.
+
+**AWS examples:** Amazon EC2, Amazon EBS, Amazon VPC.
+
+You normally manage more of the operating system, runtime and application stack.
+
+Use IaaS when you need operating-system control, custom networking, legacy application support, special agents or software, or greater infrastructure flexibility.
+
+### Platform as a Service
+
+Platform services provide more of the runtime and operational environment.
+
+Examples include Amazon RDS, AWS Elastic Beanstalk, Amazon ECS with Fargate and AWS Lambda.
+
+You focus more on the application and less on managing servers.
+
+Use PaaS-style services when you want faster delivery, reduced operational burden, managed scaling or patching, and standard application architectures.
+
+### Software as a Service
+
+Software as a Service is a complete application consumed by users—collaboration, CRM and accounting platforms are common examples outside the infrastructure layer.
+
+These categories are not absolute. An AWS architecture will commonly use several layers at once.
+
+---
+
+## 4. Understand public, private and hybrid cloud
+
+### Public cloud
+
+Infrastructure is operated by a cloud provider and made available through cloud services. This does not mean that every workload is publicly accessible. You can run private subnets, private endpoints and tightly controlled applications inside a public cloud provider.
+
+### Private cloud
+
+Infrastructure is dedicated to one organisation and normally operated in its data centre or through a dedicated hosting model.
+
+### Hybrid cloud
+
+Hybrid cloud connects cloud resources with on-premises systems. A hybrid design may be necessary when some systems cannot yet be migrated, data must remain in a specific environment, low-latency connectivity is required to local systems, an organisation is performing a phased migration, or legacy systems must integrate with new cloud applications.
+
+At this stage, focus on understanding the business trade-offs rather than memorising connectivity services.
+
+---
+
+# Part Two: Introduction to AWS
+
+## 5. Learn the AWS global infrastructure
+
+An AWS architecture starts with selecting where the workload will run.
+
+### Region
+
+A Region is a separate geographic area containing multiple Availability Zones.
+
+Region selection should consider customer location, data residency, regulatory obligations, service availability, latency, disaster-recovery requirements, cost and integration with existing systems.
+
+### Availability Zone
+
+An Availability Zone is an isolated infrastructure location within a Region. A production system should not normally depend on one Availability Zone. Instead, distribute application components across multiple Availability Zones when the required availability level justifies it. See [AWS Availability Zones](https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-availability-zones.html).
+
+### Edge location
+
+Edge locations support services such as CloudFront by placing content and network capabilities nearer to users.
+
+### Practical exercise
+
+Choose a fictional business and document its primary users, geographic location, regulatory constraints, expected latency, preferred AWS Region, whether it needs one or multiple Regions, and the consequences of a complete Region failure.
+
+This teaches architecture through business requirements rather than service selection alone.
+
+---
+
+## 6. Understand the shared responsibility model
+
+AWS is responsible for security **of** the cloud, including the underlying infrastructure, physical facilities and foundational cloud components.
+
+The customer is responsible for security **in** the cloud. Depending on the service, this can include identity permissions, network configuration, data classification, encryption decisions, application vulnerabilities, guest operating-system patching, security group rules, backup configuration, logging and monitoring, and compliance controls.
+
+The exact division changes according to the service. With EC2, the customer manages more of the stack. With Lambda or a managed database, AWS manages more of the underlying platform, but the customer still controls data, identity and application configuration. See the [shared responsibility model](https://docs.aws.amazon.com/whitepapers/latest/aws-risk-and-compliance/shared-responsibility-model.html).
+
+### Practical exercise
+
+Create a responsibility matrix for three workloads:
+
+1. Application on EC2.
+2. Application on ECS Fargate.
+3. Application using Lambda and DynamoDB.
+
+For each workload, identify who manages physical infrastructure, host operating system, guest operating system, runtime, application code, identity, data, encryption, network rules and monitoring.
+
+---
+
+## 7. Use the AWS Well-Architected Framework
+
+The AWS Well-Architected Framework should guide every stage of the roadmap. It contains six pillars:
+
+1. **Operational excellence**
+2. **Security**
+3. **Reliability**
+4. **Performance efficiency**
+5. **Cost optimisation**
+6. **Sustainability**
+
+The framework helps teams evaluate architecture decisions, understand trade-offs and identify improvements rather than treating architecture as a one-time diagram. See the [Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/userguide/waf.html).
+
+### Questions to ask throughout the roadmap
+
+#### Operational excellence
+
+- Can the environment be recreated automatically?
+- Are operational procedures documented?
+- Can the team identify and respond to incidents?
+
+#### Security
+
+- Are permissions based on least privilege?
+- Is sensitive data encrypted?
+- Are activities logged and auditable?
+
+#### Reliability
+
+- What happens if an instance fails?
+- What happens if an Availability Zone fails?
+- Are backups tested?
+
+#### Performance efficiency
+
+- Is the selected service appropriate for the access pattern?
+- Can the architecture scale?
+- Are resources right-sized?
+
+#### Cost optimisation
+
+- Are unused resources removed?
+- Are storage classes selected appropriately?
+- Are budgets and cost alerts configured?
+
+#### Sustainability
+
+- Does the system avoid unnecessary resource consumption?
+- Can managed services or automatic scaling improve utilisation?
+
+---
+
+# Part Three: IAM and Secure Access
+
+## 8. Secure the AWS account before building anything
+
+IAM should be learned before compute because every AWS action depends on identity and authorisation.
+
+Start with the following account controls:
+
+- Protect the root account.
+- Enable multifactor authentication.
+- Do not use the root account for daily work.
+- Avoid creating root access keys.
+- Prefer temporary credentials.
+- Use IAM Identity Center or federation for human access.
+- Create separate permissions for administrators, developers and auditors.
+
+AWS recommends securing the root user with MFA, avoiding root access keys and using temporary credentials or federated access for routine work. See [root user best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html).
+
+---
+
+## 9. Understand IAM identities
+
+### IAM users
+
+An IAM user represents an identity with long-term credentials. Historically, IAM users were commonly created for individuals. Current AWS guidance favours federation and temporary credentials for human users rather than maintaining long-term IAM credentials. Use IAM users only when there is a justified requirement that cannot be met through federation or roles. See [Create an IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
+
+### IAM groups
+
+Groups organise IAM users that require similar permissions—for example developers, read-only auditors and billing administrators. Groups simplify permission management, but they are not authenticated principals by themselves. See [IAM groups](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_create.html).
+
+### IAM roles
+
+A role is an AWS identity with permissions that can be assumed. Roles are commonly used by EC2 instances, Lambda functions, ECS tasks, cross-account administrators, federated users and CI/CD pipelines. Roles provide temporary credentials and avoid embedding long-term access keys in applications. See [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html).
+
+---
+
+## 10. Understand IAM policies
+
+An IAM policy is a JSON document describing permissions. A policy generally contains:
+
+- **Effect:** Allow or Deny.
+- **Action:** The AWS operation.
+- **Resource:** The AWS resource.
+- **Condition:** Optional restrictions.
+- **Principal:** Used in relevant resource-based or trust policies.
+
+### Identity-based policies
+
+Attached to users, groups and roles. They describe what the identity can do.
+
+### Resource-based policies
+
+Attached directly to a resource. Common examples include S3 bucket policies, KMS key policies, SQS queue policies and Lambda resource policies.
+
+Identity-based policies grant permissions to an identity, while resource-based policies specify which principals can interact with a particular resource. See [identity-based vs resource-based policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html).
+
+### Example least-privilege policy
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadApplicationDocuments",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "arn:aws:s3:::example-application-documents/*"
+    }
+  ]
+}
+```
+
+This is better than granting full S3 access because it allows only one operation against one defined resource path.
+
+---
+
+## 11. Learn instance profiles and role assumption
+
+### EC2 instance profile
+
+An EC2 instance cannot directly attach a role in the same way a user assumes one. An instance profile acts as the container through which an IAM role is made available to EC2. The application running on the instance can then obtain temporary credentials without storing an access key in a configuration file.
+
+### Assuming roles
+
+Role assumption allows one identity to temporarily become another authorised identity. Typical scenarios include a developer assuming a deployment role, a central operations account accessing a production account, a CI/CD system assuming a release role, or one AWS service accessing another service.
+
+Every role should be understood through two separate questions:
+
+1. **Who is allowed to assume the role?** Defined by the trust policy.
+2. **What can the role do after it is assumed?** Defined by the permissions policies.
+
+### IAM completion project
+
+Create:
+
+- An administrator permission set.
+- A developer permission set.
+- A read-only permission set.
+- An EC2 application role that can read one S3 bucket.
+- A cross-account deployment role design.
+- A short IAM access matrix.
+
+You are ready to continue when you can explain why storing access keys on an EC2 server is inferior to assigning an IAM role.
+
+---
+
+# Part Four: Amazon VPC and Networking
+
+## 12. Understand the VPC as your network boundary
+
+An Amazon Virtual Private Cloud is a logically isolated network in which you deploy AWS resources. You define address ranges, subnets, routes, internet connectivity, private connectivity, traffic rules and service endpoints.
+
+Do not begin by memorising every VPC feature. First learn how traffic moves from a user to an application and then to a database.
+
+---
+
+## 13. Learn CIDR blocks
+
+CIDR notation defines an IP address range.
+
+Example:
+
+```text
+10.0.0.0/16
+```
+
+A possible subdivision could be:
+
+```text
+10.0.1.0/24  Public subnet in Availability Zone A
+10.0.2.0/24  Public subnet in Availability Zone B
+10.0.11.0/24 Private application subnet in Availability Zone A
+10.0.12.0/24 Private application subnet in Availability Zone B
+10.0.21.0/24 Private database subnet in Availability Zone A
+10.0.22.0/24 Private database subnet in Availability Zone B
+```
+
+Plan ranges carefully because overlapping CIDR ranges create difficulties when connecting VPCs or on-premises networks.
+
+---
+
+## 14. Understand subnets
+
+A subnet is a range of IP addresses associated with one Availability Zone.
+
+### Public subnet
+
+A subnet is considered public when its route table contains a route to an internet gateway. A resource also needs appropriate addressing and security configuration before it can communicate with the internet. A route alone does not automatically make every resource publicly reachable. See [internet gateways](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html).
+
+Typical public-subnet resources include internet-facing load balancers, NAT gateways and carefully controlled bastion-style components—although managed access alternatives are often preferable.
+
+### Private subnet
+
+A private subnet does not provide direct inbound internet access. Typical private-subnet resources include application servers, ECS tasks, internal services, databases and caches.
+
+Private resources may still need controlled outbound internet access for updates or external APIs. A NAT gateway can provide outbound access while preventing unsolicited inbound internet connections. See [how Amazon VPC works](https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html).
+
+---
+
+## 15. Understand route tables
+
+A route table contains rules that determine where network traffic is directed. A route contains a destination and a target.
+
+Example public route:
+
+```text
+Destination: 0.0.0.0/0
+Target: Internet Gateway
+```
+
+Example private outbound route:
+
+```text
+Destination: 0.0.0.0/0
+Target: NAT Gateway
+```
+
+Route-table targets may also include VPC peering connections, VPN connections and other network components. See [route tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html).
+
+---
+
+## 16. Understand security groups
+
+Security groups control permitted inbound and outbound traffic for supported AWS resources.
+
+A good three-tier design might contain:
+
+### Load balancer security group
+
+- Allow HTTPS from the internet.
+- Send traffic only to the application security group.
+
+### Application security group
+
+- Allow application traffic only from the load balancer security group.
+- Allow database connections only to the database security group.
+
+### Database security group
+
+- Allow the database port only from the application security group.
+- Do not expose the database directly to the internet.
+
+Avoid rules such as `All traffic from 0.0.0.0/0` unless there is an explicit, reviewed justification.
+
+---
+
+## 17. Understand internet and NAT gateways
+
+### Internet gateway
+
+An internet gateway connects a VPC to the public internet and acts as a route target for internet-routable traffic.
+
+### NAT gateway
+
+A NAT gateway commonly allows private resources to initiate outbound internet communication:
+
+```text
+Private EC2 instance
+        ↓
+Private subnet route table
+        ↓
+NAT gateway in public subnet
+        ↓
+Internet gateway
+        ↓
+Internet
+```
+
+For resilient production designs, consider the impact of placing all outbound traffic through a NAT gateway in only one Availability Zone.
+
+---
+
+## 18. VPC practical project
+
+Create a VPC containing:
+
+- Two Availability Zones.
+- Two public subnets.
+- Two private application subnets.
+- Two private database subnets.
+- An internet gateway.
+- NAT connectivity.
+- Separate route tables.
+- Load balancer, application and database security groups.
+- VPC flow logging.
+- A network diagram.
+
+### Completion criteria
+
+You should be able to trace:
+
+1. A browser request reaching a load balancer.
+2. The load balancer forwarding the request to an application server.
+3. The application connecting to a database.
+4. A private server downloading an operating-system update.
+5. Why the database cannot be accessed directly from the internet.
+
+---
+
+# Part Five: EC2 and Traditional Compute
+
+## 19. Understand Amazon EC2
+
+Amazon EC2 provides virtual compute instances. You select machine image, instance type, network, storage, IAM role, security groups, purchasing model and startup configuration.
+
+EC2 gives you significant flexibility but also more operational responsibility than serverless or fully managed platform services.
+
+---
+
+## 20. Learn EC2 instance types
+
+Instance families are designed for different workload characteristics.
+
+### General purpose
+
+Balanced CPU and memory. Suitable for web applications, development environments, business applications and small services.
+
+### Compute optimised
+
+Suitable for CPU-intensive processing, batch computation, media processing and high-performance application servers.
+
+### Memory optimised
+
+Suitable for in-memory databases, large caches and memory-intensive analytics.
+
+### Storage optimised
+
+Suitable for high-throughput local storage, search and indexing, and data processing with demanding I/O requirements.
+
+Do not choose an instance because it is familiar. Select it from measured CPU, memory, network and storage requirements. See [EC2 instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
+
+---
+
+## 21. Understand CPU credits
+
+Burstable T-family instances provide baseline CPU performance and can temporarily burst above that baseline. When the instance operates below its baseline, it accumulates CPU credits. It consumes credits when it operates above the baseline. These instances suit workloads with low-to-moderate average CPU usage and occasional spikes, rather than sustained high CPU demand. See [burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html).
+
+Monitor CPU utilisation, CPU credit balance, surplus credit charges where applicable, and application response time. A small instance that appears inexpensive can become the wrong choice if its workload continuously requires more than its baseline performance.
+
+---
+
+## 22. Learn EC2 storage
+
+### Root volume
+
+Contains the operating system.
+
+### Additional EBS volumes
+
+Used for application data, logs or other persistent block storage.
+
+Understand volume types, size, IOPS, throughput, encryption, snapshots, attachment and detachment, deletion behaviour, and backup and restore.
+
+Separate application state from the instance wherever practical. An application should not lose critical information simply because an EC2 instance is replaced.
+
+---
+
+## 23. Key pairs and administrative access
+
+Key pairs support cryptographic access to EC2 instances. However, your operational design should avoid sharing private keys, emailing keys, storing keys in source control, allowing SSH from the entire internet, or depending on one administrator’s laptop.
+
+For a production environment, create controlled, auditable administrative access and minimise direct server login.
+
+---
+
+## 24. Elastic IP addresses
+
+An Elastic IP is a static public IPv4 address associated with an AWS account and Region. Use it only when a stable public address is genuinely required.
+
+Do not automatically assign one to every EC2 instance. Many architectures should place instances behind a load balancer, a NAT gateway, a private network or a managed access mechanism.
+
+---
+
+## 25. User data scripts
+
+EC2 user data can run startup instructions when an instance launches.
+
+Example:
+
+```bash
+#!/bin/bash
+dnf update -y
+dnf install -y nginx
+systemctl enable nginx
+systemctl start nginx
+echo "AWS roadmap application" > /usr/share/nginx/html/index.html
+```
+
+User data is useful for bootstrapping, but very large startup scripts can make deployments slow and difficult to debug. AWS supports shell scripts and cloud-init directives through EC2 user data. See [EC2 user data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html).
+
+A mature deployment may combine a prepared AMI, a launch template, a short user-data script and configuration retrieved securely at runtime.
+
+---
+
+## 26. Understand EC2 purchasing options
+
+### On-Demand
+
+Pay for compute without a long-term commitment. Best for uncertain workloads, development, short-term environments and new applications without stable usage patterns.
+
+### Savings Plans
+
+Commit to a level of eligible compute usage in exchange for reduced pricing. Best for predictable baseline compute where flexibility remains important.
+
+### Reserved Instances
+
+Provide billing benefits based on a defined commitment and configuration model.
+
+### Spot Instances
+
+Use spare capacity at a lower price, but the capacity can be interrupted. Best for fault-tolerant batch workloads, distributed processing, flexible CI workloads and stateless workers. Not ideal for a single, irreplaceable production server.
+
+### Capacity Reservations
+
+Reserve capacity where guaranteed instance availability matters.
+
+See [EC2 purchasing options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html).
+
+---
+
+# Part Six: EC2 Scaling and Load Balancing
+
+## 27. Learn AMIs
+
+An Amazon Machine Image defines the software image used to launch an EC2 instance. It may include operating system, runtime, application dependencies, security configuration, monitoring agents and base application components.
+
+Use versioned, tested images rather than repeatedly configuring every production instance by hand.
+
+---
+
+## 28. Learn launch templates
+
+A launch template defines reusable EC2 launch settings such as AMI, instance type, key pair, security groups, IAM instance profile, storage, user data and tags. Launch templates support versioning, allowing a team to release a new application image while retaining previous configurations for rollback or comparison. See [launch templates](https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-templates.html).
+
+---
+
+## 29. Learn Auto Scaling groups
+
+An Auto Scaling group manages a desired range of EC2 instances. You define minimum capacity, desired capacity, maximum capacity, subnets, launch template, health-check behaviour and scaling policies.
+
+### Target tracking
+
+Maintain a metric near a target—for example average CPU utilisation near 50%.
+
+### Step scaling
+
+Add or remove different amounts of capacity according to the size of a threshold breach.
+
+### Scheduled scaling
+
+Change capacity based on predictable demand—for example increase capacity every weekday at 08:00.
+
+A launch template supplies the instance configuration used by an Auto Scaling group. See [Auto Scaling groups with launch templates](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-auto-scaling-groups-launch-template.html).
+
+---
+
+## 30. Learn Elastic Load Balancing
+
+A load balancer distributes traffic across multiple healthy targets.
+
+### Application Load Balancer
+
+Suitable for HTTP and HTTPS applications requiring application-layer routing. Common capabilities include host-based routing, path-based routing, TLS termination, health checks and target groups.
+
+### Network Load Balancer
+
+Suitable for high-performance connection-level traffic and TCP or UDP use cases.
+
+### Gateway Load Balancer
+
+Used for inserting virtual network appliances into traffic paths.
+
+### Basic production request flow
+
+```text
+User
+  ↓
+Route 53
+  ↓
+Application Load Balancer
+  ↓
+EC2 Auto Scaling group
+  ↓
+RDS database
+```
+
+---
+
+## 31. EC2 deployment project
+
+Build a small web application with:
+
+- Two Availability Zones.
+- Application Load Balancer.
+- EC2 Auto Scaling group.
+- Launch template.
+- Private EC2 instances.
+- IAM instance role.
+- CloudWatch metrics and logs.
+- RDS database.
+- HTTPS.
+- Health checks.
+- Scaling policy.
+
+Then test stopping one instance, increasing CPU load, deploying a new launch-template version, replacing unhealthy instances and restoring the database from backup.
+
+---
+
+# Part Seven: Core AWS Services
+
+## 32. Amazon S3
+
+Amazon S3 is object storage organised around buckets and objects. Use it for static website assets, documents, images, backups, logs, data lakes, application uploads and software packages.
+
+### Concepts to learn
+
+Bucket naming, objects and keys, prefixes, versioning, bucket policies, encryption, public-access controls, presigned URLs, event notifications, replication and lifecycle rules.
+
+### Storage classes
+
+A fuller decision process asks: How frequently is the data accessed? How quickly must it be retrieved? Can it be stored in one Availability Zone? How long will it be retained? Is there a minimum storage duration? What retrieval charges are acceptable?
+
+S3 provides multiple storage classes for different access patterns, and lifecycle rules can transition or expire objects automatically. See [S3 storage classes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html).
+
+### S3 project
+
+Create a document-upload workflow with a private bucket, versioning, encryption, presigned upload and download URLs, a lifecycle rule, access logging, a bucket policy that rejects unintended access, and CloudFront in front of selected content.
+
+---
+
+## 33. Amazon Route 53
+
+Route 53 provides DNS-related capabilities.
+
+### Hosted zones
+
+A hosted zone stores DNS records for a domain. Learn records such as A and AAAA, CNAME, Alias, MX, TXT and NS.
+
+### Routing policies
+
+Important routing policies include simple, weighted, latency, failover, geolocation, geoproximity and multivalue answer. Latency routing can direct users toward the Region expected to provide lower latency, while failover routing can direct traffic away from an unhealthy primary endpoint. See [Route 53 routing policies](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html).
+
+### Health checks
+
+Route 53 health checks can support DNS failover by evaluating endpoint health and influencing which records are returned.
+
+### Route 53 project
+
+Configure:
+
+```text
+app.example.com
+        ↓
+Route 53 alias record
+        ↓
+Application Load Balancer
+```
+
+Then add a health check, a secondary endpoint, a failover record and a documented recovery scenario.
+
+---
+
+## 34. Amazon CloudFront
+
+CloudFront is a content delivery network. It can place content closer to users and reduce repeated requests to the origin.
+
+### Concepts to learn
+
+Distribution, origin, cache behaviour, time to live, cache key, origin access, signed URLs and cookies, TLS certificates, geo restrictions, invalidations and custom error responses.
+
+### Common architecture
+
+```text
+User
+  ↓
+CloudFront
+  ├── Static content from S3
+  └── Dynamic requests to Application Load Balancer
+```
+
+### Invalidations
+
+An invalidation asks CloudFront to remove selected cached objects before their normal expiry. Do not rely on invalidating everything during every deployment. A better pattern for static assets is versioned filenames such as `app.7f34c9.js` and `styles.4d2c1a.css`.
+
+---
+
+## 35. Amazon CloudWatch
+
+CloudWatch provides monitoring capabilities across metrics, logs and alarms. Older “CloudWatch Events” terminology has evolved into Amazon EventBridge, while CloudWatch remains central for metrics, logs, dashboards and alarms. See [CloudWatch documentation](https://docs.aws.amazon.com/cloudwatch/).
+
+### Metrics
+
+Numerical measurements over time—for example EC2 CPU utilisation, Application Load Balancer request count, Lambda errors, RDS connections and DynamoDB throttling.
+
+### Logs
+
+Store and analyse logs from applications, Lambda, EC2 agents, containers and AWS services. CloudWatch Logs can turn matching log events into numerical metrics for visualisation and alerting. See [metric filters](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/MonitoringLogData.html).
+
+### Alarms
+
+An alarm evaluates a metric or log-derived condition. Example: alarm when 5XX error rate is greater than 2% for three consecutive 5-minute periods.
+
+### Dashboards
+
+Build separate dashboards for business outcomes, application health, infrastructure, security, and cost and capacity.
+
+### CloudWatch project
+
+Create an operational dashboard containing request count, error rate, response time, instance CPU, database connections, application exceptions and alarm status. Then define an operational response for every alarm. Monitoring without a response process is only visualisation.
+
+---
+
+## 36. Amazon SES
+
+Amazon Simple Email Service supports application and bulk email delivery.
+
+### Sandbox and production access
+
+New SES environments may begin with restrictions. While in the sandbox, recipient verification requirements apply except when using supported mailbox simulation options. See [verified identities](https://docs.aws.amazon.com/ses/latest/dg/verify-addresses-and-domains.html).
+
+### Identity verification
+
+Verify email addresses, domains and sending identities. Domain verification is more scalable than verifying every sender address individually.
+
+### DKIM
+
+DKIM signs email so receiving systems can verify that it was authorised by the domain and was not modified in transit. See [creating and verifying identities](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html).
+
+### Feedback handling
+
+Capture deliveries, bounces, complaints, rejects, opens and clicks where appropriate, and rendering or delivery failures. Repeatedly sending to invalid or complaining recipients damages sender reputation.
+
+### Configuration sets
+
+Configuration sets apply rules and event destinations to sent email, supporting monitoring and separation of email streams. See [configuration sets](https://docs.aws.amazon.com/ses/latest/dg/using-configuration-sets.html).
+
+### Dedicated IP addresses
+
+Dedicated IPs provide greater control over sender reputation but add cost and operational responsibility. They are generally justified by sufficient, stable email volume and a mature deliverability programme. See [dedicated IPs](https://docs.aws.amazon.com/ses/latest/dg/dedicated-ip.html).
+
+### SES project
+
+Build a transactional email system for registration verification, password reset and order confirmation. Include domain verification, DKIM, a configuration set, bounce and complaint processing, suppression handling and an email-event dashboard.
+
+---
+
+# Part Eight: Databases and Caching
+
+## 37. Choosing the correct data service
+
+Do not choose a database by popularity. Start with access patterns, relationships, transactions, schema change frequency, consistency, scale, latency, backup and recovery objectives, and team operational expertise.
+
+---
+
+## 38. Amazon RDS
+
+Amazon RDS is a managed relational database service. Use it when the workload benefits from SQL, relational modelling, transactions, joins, constraints and established relational engines.
+
+### Concepts to learn
+
+DB instances and clusters, engine selection, instance classes, storage, automated backups, manual snapshots, point-in-time recovery, Multi-AZ deployment, read replicas, parameter groups, subnet groups, encryption, monitoring and connection management.
+
+RDS supports automated backups and manual snapshots, and point-in-time recovery can restore a database within its configured backup-retention window. See [Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html).
+
+### Storage types
+
+Treat magnetic storage as a historical or legacy topic rather than the preferred design target for new learning. Current AWS documentation notes restrictions around restoring magnetic-backed snapshots and directs users toward newer storage types. See [RDS storage](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html).
+
+### RDS project
+
+Create a PostgreSQL database that runs in private database subnets, accepts traffic only from the application security group, uses encryption, has automated backups, has deletion protection for production, publishes relevant monitoring metrics and has a documented restore procedure.
+
+Perform an actual restore. A backup strategy is incomplete until recovery has been tested.
+
+---
+
+## 39. Amazon DynamoDB
+
+DynamoDB is a managed NoSQL database designed around key-based access patterns.
+
+### Core model
+
+- **Table:** Collection of data.
+- **Item:** Individual record.
+- **Attribute:** Field within an item.
+- **Partition key:** Determines data placement and access.
+- **Sort key:** Allows related items to be ordered and queried together.
+
+A table can use a partition key only, or a partition key plus sort key. DynamoDB supports local and global secondary indexes, on-demand and provisioned capacity modes, backups and alternate query patterns through secondary indexes. See [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
+
+### Data modelling
+
+With DynamoDB, begin with queries rather than entities—for example retrieve a customer by ID, list all orders for a customer, retrieve an order by order ID, list orders by status and date, or retrieve the latest ten events for a device. Then design keys and indexes around those operations.
+
+### Secondary indexes
+
+A **global secondary index** provides an alternate partition key and optional sort key. A **local secondary index** uses the same partition key as the base table but a different sort key. Do not add indexes without understanding their storage, write and capacity implications.
+
+### DynamoDB Streams
+
+Streams record item-level changes and can trigger downstream processing:
+
+```text
+Order updated
+    ↓
+DynamoDB Stream
+    ↓
+Lambda
+    ↓
+Update search index or publish event
+```
+
+### Capacity settings
+
+**On-demand** is useful for unpredictable or early-stage workloads. **Provisioned** is useful when demand is understood and capacity is actively managed.
+
+### Backups
+
+DynamoDB supports on-demand backup, restore and point-in-time recovery options. Restores create a new table rather than overwriting the existing table. See [DynamoDB backup and restore](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CreateBackup.html).
+
+### Partition-key quality
+
+A poor partition key can concentrate traffic and create hot partitions. Design for activity to be distributed across partition-key values. See [partition key best practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html).
+
+### DynamoDB project
+
+Model an order-management system supporting customer profile retrieval, customer order history, order retrieval, orders by status, order events, idempotency keys, time-to-live for temporary records, stream-based event processing, and backup and restore.
+
+---
+
+## 40. Amazon ElastiCache
+
+ElastiCache provides managed in-memory data stores and caches. Current options include Valkey, Redis OSS and Memcached. See [ElastiCache documentation](https://docs.aws.amazon.com/elasticache/).
+
+### Suitable uses
+
+Query-result caching, session storage, rate limiting, distributed locks, counters, leaderboards and frequently accessed reference data.
+
+### Redis/Valkey-style capabilities
+
+Useful where richer data structures, replication, persistence options or messaging-style patterns are needed.
+
+### Memcached
+
+Useful for simpler distributed caching where data can be divided across nodes and recreated from the primary source.
+
+### Cache-aside pattern
+
+```text
+Application requests item
+        ↓
+Check cache
+   ├── Found → return item
+   └── Missing
+          ↓
+       Query database
+          ↓
+       Store result in cache
+          ↓
+       Return item
+```
+
+### Cache risks
+
+Understand stale data, cache invalidation, cache stampedes, memory eviction, unavailable cache nodes, sensitive-data exposure, and using the cache as an accidental source of truth.
+
+### ElastiCache project
+
+Add caching to an API and measure database query count, API response time, cache hit ratio, behaviour after cache failure, behaviour after key expiry and consistency after database updates.
+
+---
+
+# Part Nine: Containers on AWS
+
+## 41. Learn containers before orchestration
+
+Before using ECS or EKS, understand images, containers, registries, Dockerfiles, layers, environment variables, ports, volumes, health checks, resource limits and immutable deployments.
+
+A container should package the application and its runtime dependencies consistently across development, testing and production.
+
+---
+
+## 42. Amazon ECR
+
+Amazon Elastic Container Registry stores container images. Learn private repositories, image tags, image digests, authentication, image scanning, lifecycle policies, cross-account access, immutable tagging and replication.
+
+A production image process should resemble:
+
+```text
+Source commit
+    ↓
+Build image
+    ↓
+Run tests
+    ↓
+Scan image
+    ↓
+Push to ECR
+    ↓
+Deploy immutable image digest
+```
+
+Avoid deploying the `latest` tag as your only production version because it does not clearly identify which code is running.
+
+---
+
+## 43. Amazon ECS
+
+Amazon Elastic Container Service is AWS’s native container orchestration service. Its main concepts include:
+
+### Cluster
+
+A logical grouping for running workloads.
+
+### Task definition
+
+A versioned description of one or more containers, including image, CPU, memory, ports, environment, secrets, logging, IAM roles and health checks.
+
+### Task
+
+A running copy of a task definition.
+
+### Service
+
+Maintains a desired number of tasks and replaces failed tasks. ECS services can also integrate with load balancing and service auto scaling. See [ECS services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html).
+
+### Task role and execution role
+
+Do not confuse them:
+
+- **Task role:** Permissions used by the application.
+- **Execution role:** Permissions used by ECS to launch and operate the task, such as pulling an image or publishing logs.
+
+---
+
+## 44. ECS on EC2
+
+With ECS on EC2, you operate the EC2 capacity that hosts the containers. You manage instance types, AMIs, operating-system patching, cluster capacity, Auto Scaling groups, instance replacement and container placement.
+
+Use it when you need host-level control, specific instance requirements, specialised hardware, or economics that justify managing the cluster capacity.
+
+Modern ECS designs should also understand capacity providers rather than thinking only in terms of older launch-configuration wording.
+
+---
+
+## 45. ECS on Fargate
+
+Fargate provides serverless compute for containers. You specify task-level resources and avoid managing EC2 worker nodes.
+
+Use it when you want lower operational overhead, workloads are containerised, you do not need host-level access, and teams want to focus on applications rather than cluster infrastructure. See [getting started with Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/getting-started-fargate.html).
+
+### ECS Fargate project
+
+Deploy an API with ECR, an ECS cluster, a Fargate task definition, an ECS service, an Application Load Balancer, private subnets, a task IAM role, Secrets Manager, CloudWatch Logs, service auto scaling, health checks and rolling deployment.
+
+---
+
+## 46. Amazon EKS
+
+Amazon EKS is AWS’s managed Kubernetes service. Learn EKS only after understanding containers, Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, namespaces, resource requests and limits, Horizontal Pod Autoscaling, persistent storage, cluster security and Kubernetes observability.
+
+EKS manages significant Kubernetes control-plane responsibilities, while the customer remains responsible for application workloads and many cluster-level operational decisions. AWS also offers EKS Auto Mode to manage more of the supporting infrastructure. See [What is Amazon EKS?](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html).
+
+### Choose EKS when
+
+Kubernetes portability matters, the organisation already has Kubernetes expertise, a common multi-environment platform is required, Kubernetes-native tooling is important, or workload and organisational complexity justify it.
+
+### Do not choose EKS merely because
+
+Kubernetes is popular, it appears more advanced, the application has several containers, or the team wants to learn Kubernetes in production.
+
+ECS is often the simpler AWS-native option for teams that do not require Kubernetes.
+
+### EKS project
+
+Deploy an EKS cluster, managed or automatically managed compute, an application Deployment, a Kubernetes Service, Ingress or load-balancing integration, IAM integration for workloads, autoscaling, CloudWatch or OpenTelemetry observability, network controls, and upgrade and recovery documentation.
+
+---
+
+# Part Ten: Serverless Architecture
+
+## 47. AWS Lambda
+
+AWS Lambda runs code without requiring the customer to provision or manage servers. AWS manages underlying capacity, patching and scaling infrastructure while the customer supplies the function code and configuration. See [What is AWS Lambda?](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
+
+Use Lambda for APIs, event processing, scheduled jobs, file processing, data transformation, automation, stream consumers and integration workflows.
+
+---
+
+## 48. Creating and invoking functions
+
+A Lambda function can be invoked synchronously through an API, asynchronously through an event, from a queue, from a stream, on a schedule, in response to an S3 event, or through an EventBridge rule.
+
+A reliable design must consider invocation behaviour, retries and duplicate processing.
+
+---
+
+## 49. Layers and custom runtimes
+
+### Lambda layers
+
+Layers can package shared code or dependencies separately from function code. Use them carefully. Too many shared layers can make dependencies difficult to understand and version.
+
+### Custom runtimes
+
+Custom runtimes let teams execute languages or runtime versions not provided through standard managed runtimes. They add flexibility but increase responsibility for runtime maintenance, security updates, compatibility and startup performance.
+
+---
+
+## 50. Versions and aliases
+
+### Version
+
+An immutable snapshot of a function configuration and code.
+
+### Alias
+
+A named pointer to a version—for example `dev → version 14`, `test → version 18`, `prod → version 17`. Aliases can support controlled releases and rollback without changing every caller.
+
+---
+
+## 51. EventBridge and scheduled execution
+
+Amazon EventBridge supports event-driven integration and scheduled invocation:
+
+```text
+Every day at 01:00
+        ↓
+EventBridge schedule
+        ↓
+Lambda
+        ↓
+Generate report
+        ↓
+Store in S3
+        ↓
+Send notification
+```
+
+For asynchronous systems, define retry policy, dead-letter handling, idempotency, event schema, event ownership, replay approach and monitoring.
+
+---
+
+## 52. Cold starts
+
+A cold start occurs when Lambda must initialise a new execution environment before processing a request. Impact depends on runtime, package size, initialisation logic, network configuration, dependencies and function configuration.
+
+Possible mitigations include reducing package size, moving reusable setup outside the handler, avoiding unnecessary initialisation, using provisioned concurrency where justified, and using supported startup-optimisation features such as SnapStart for appropriate runtimes. See [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html).
+
+---
+
+## 53. Lambda limitations
+
+Serverless does not mean unlimited. You must understand function timeout, memory and CPU allocation, concurrency, payload limits, temporary storage, deployment-package limits, downstream service quotas, connection management and scaling behaviour.
+
+Lambda functions have configurable timeouts up to 15 minutes, making them unsuitable for some long-running workloads. See [function timeout](https://docs.aws.amazon.com/lambda/latest/dg/configuration-timeout.html).
+
+A system can also scale Lambda faster than a database or external API can handle. Control concurrency and backpressure rather than assuming automatic scaling is always beneficial.
+
+---
+
+## 54. API Gateway
+
+API Gateway can expose Lambda functions as managed APIs. Learn resources and routes, methods, request validation, authentication, authorisation, throttling, stages, deployment, CORS, logging, custom domains and usage plans where appropriate.
+
+### Serverless API pattern
+
+```text
+Client
+  ↓
+CloudFront
+  ↓
+API Gateway
+  ↓
+Lambda
+  ↓
+DynamoDB
+```
+
+Add Cognito or another identity provider, WAF, structured logs, tracing, dead-letter handling, idempotency, alarms and cost controls.
+
+---
+
+## 55. Lambda@Edge and edge processing
+
+Lambda@Edge can run supported logic closer to CloudFront users. Possible uses include header manipulation, redirects, request normalisation, authentication-related edge logic and content-selection rules.
+
+Do not move business logic to the edge without a clear reason. Edge code introduces additional deployment, testing and observability considerations.
+
+---
+
+# Part Eleven: Production Capabilities Missing from One-Page Roadmaps
+
+A typical visual roadmap covers major compute, networking, storage, database and serverless services, but a production AWS learning path needs several additional capabilities.
+
+## 56. Infrastructure as code
+
+Manual console work is useful for initial learning but should not become the normal production deployment model.
+
+Infrastructure as code provides repeatability, version control, reviewable changes, environment consistency, automated deployment and easier recovery.
+
+AWS CloudFormation models AWS resources in template files and manages them as stacks. See [CloudFormation documentation](https://docs.aws.amazon.com/cloudformation/).
+
+Learn one of CloudFormation, AWS CDK or Terraform. The important capability is not the syntax. It is being able to recreate an environment from reviewed code.
+
+### Practical progression
+
+1. Create a VPC manually.
+2. Recreate it with infrastructure as code.
+3. Delete and redeploy it.
+4. Add a second environment.
+5. Review the planned changes.
+6. Test rollback.
+7. Detect configuration drift.
+
+---
+
+## 57. AWS CloudTrail
+
+CloudWatch tells you how systems are performing. CloudTrail helps answer who performed actions in the AWS environment.
+
+CloudTrail records AWS account activity and API calls, including identity, timing, source and request information. See [CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html).
+
+Use it for questions such as: Who deleted the security group? Which role changed the bucket policy? When was the database configuration modified? Which source address made the request? Was the change made through the console, CLI or service?
+
+A production platform should preserve relevant audit events in a protected location.
+
+---
+
+## 58. Encryption and AWS KMS
+
+Learn encryption for data at rest, data in transit, backups, logs, object storage, databases, secrets and application payloads where required.
+
+AWS KMS helps control encryption keys and related permissions. Understand AWS-owned keys, AWS-managed keys, customer-managed keys, key policies, grants, rotation, separation of administrative and usage permissions, cross-account access and encryption context.
+
+Do not create customer-managed keys for everything automatically. Use them where control, audit, separation, cross-account access or compliance requirements justify the additional management.
+
+---
+
+## 59. AWS Secrets Manager
+
+Secrets Manager should be considered for database credentials, API tokens, third-party credentials, application secrets and rotation workflows. Secrets Manager protects stored secret values using KMS-based encryption and controls access through IAM and resource policies. See [Secrets Manager encryption](https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html).
+
+Do not place production secrets in source code, Dockerfiles, public environment files, user-data scripts, infrastructure templates, chat messages or plaintext application logs.
+
+---
+
+## 60. Multi-account architecture
+
+As an organisation grows, avoid placing development, testing, production, security and experimentation into one AWS account.
+
+A multi-account structure improves isolation, permission boundaries, billing visibility, audit separation, production protection and delegated administration.
+
+AWS Organisations provides central governance and configuration across accounts. See [AWS Organisations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html).
+
+A simple structure might be:
+
+```text
+Management
+├── Security
+├── Log archive
+├── Shared services
+├── Development
+├── Test
+└── Production
+```
+
+---
+
+## 61. Cost management
+
+Cost must be designed, not reviewed only after deployment.
+
+Learn Cost Explorer, AWS Budgets, cost allocation tags, Savings Plans, resource right-sizing, data-transfer costs, NAT gateway costs, log-retention costs, snapshot and backup costs, idle-resource detection and unit economics.
+
+AWS Budgets can track costs and usage against defined thresholds, while Cost Explorer supports analysing spending patterns. See [creating a budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create.html).
+
+### Add a cost gate to every design
+
+For each workload, document estimated monthly cost, main cost drivers, cost per customer or transaction, scaling assumption, idle cost, peak cost, cost-alert thresholds and a shutdown plan for temporary environments.
+
+---
+
+## 62. Tagging
+
+Create a tagging standard such as:
+
+```text
+Environment = production
+Application = customer-portal
+Owner = digital-platform
+CostCentre = CC-1024
+DataClassification = confidential
+ManagedBy = cloudformation
+```
+
+Tags support cost allocation, ownership, automation, search, policy enforcement, incident response and lifecycle management. Do not let every team invent incompatible tag names.
+
+---
+
+## 63. CI/CD
+
+A complete application-delivery pipeline should cover:
+
+```text
+Code commit
+    ↓
+Static analysis
+    ↓
+Unit tests
+    ↓
+Dependency scanning
+    ↓
+Build
+    ↓
+Artifact or image storage
+    ↓
+Deploy to development
+    ↓
+Integration tests
+    ↓
+Approval
+    ↓
+Production deployment
+    ↓
+Verification and rollback
+```
+
+Learn deployment approaches such as rolling, blue-green, canary, immutable replacement and feature flags. The deployment method should reflect application risk, rollback speed and business impact.
+
+---
+
+# Part Twelve: A Progressive Capstone Application
+
+## 64. The business scenario
+
+Build a small order-management platform.
+
+### User capabilities
+
+- Register and sign in.
+- Browse products.
+- Place an order.
+- View order history.
+- Upload order-related documents.
+- Receive confirmation emails.
+- Allow administrators to update order status.
+
+### Non-functional requirements
+
+- Secure access.
+- Private database.
+- High availability across two Availability Zones.
+- Central logging.
+- Monitoring and alarms.
+- Automated backups.
+- Infrastructure as code.
+- Cost limit.
+- Audit trail.
+- Encryption.
+- Automated deployment.
+
+---
+
+## 65. Version One: EC2 architecture
+
+```text
+Users
+  ↓
+Route 53
+  ↓
+CloudFront
+  ↓
+Application Load Balancer
+  ↓
+EC2 Auto Scaling group
+  ↓
+RDS PostgreSQL
+```
+
+Supporting services: S3 for files, SES for emails, CloudWatch for metrics and logs, CloudTrail for audit, Secrets Manager for credentials, KMS for encryption and AWS Budgets for cost alerts.
+
+### What this version teaches
+
+Traditional server deployment, operating-system responsibility, Auto Scaling, load balancing, VPC routing, relational databases and server bootstrapping.
+
+---
+
+## 66. Version Two: ECS Fargate architecture
+
+Replace the EC2 application servers with:
+
+```text
+ECR
+  ↓
+ECS service
+  ↓
+Fargate tasks
+```
+
+Retain Route 53, CloudFront, load balancer, RDS, S3, SES, CloudWatch and Secrets Manager.
+
+### What this version teaches
+
+Container packaging, immutable deployments, task definitions, service scaling, task IAM roles and reduced host-management responsibility.
+
+Compare the two versions across deployment speed, operational effort, cost, scaling, debugging, portability and security responsibility.
+
+---
+
+## 67. Version Three: Serverless architecture
+
+Rebuild selected capabilities using:
+
+```text
+CloudFront
+   ↓
+API Gateway
+   ↓
+Lambda
+   ↓
+DynamoDB
+```
+
+Supporting workflows:
+
+```text
+S3 upload
+   ↓
+Lambda document processor
+```
+
+```text
+Order event
+   ↓
+EventBridge
+   ↓
+Lambda
+   ↓
+SES
+```
+
+### What this version teaches
+
+Event-driven design, function boundaries, NoSQL modelling, asynchronous processing, idempotency, concurrency, managed scaling and quota-aware design.
+
+---
+
+# Part Thirteen: A 16-Week AWS Study Plan
+
+## Weeks 1–2: Cloud and AWS foundations
+
+Learn cloud computing, IaaS/PaaS/SaaS, public/private/hybrid cloud, Regions and Availability Zones, shared responsibility and the Well-Architected Framework.
+
+**Deliverable:** Region-selection paper, shared-responsibility matrix and Well-Architected review of a fictional system.
+
+## Weeks 3–4: IAM and account security
+
+Learn root account protection, IAM Identity Center, users, groups and roles, policies, instance profiles, role assumption and least privilege.
+
+**Deliverable:** Permission model, IAM role for an EC2 application, cross-account access design and denied-access troubleshooting exercise.
+
+## Weeks 5–6: VPC networking
+
+Learn CIDR, subnets, route tables, security groups, internet gateways, NAT, and public/private architecture.
+
+**Deliverable:** Two-AZ VPC, network diagram, traffic-flow explanation and connectivity troubleshooting guide.
+
+## Weeks 7–8: EC2 and scaling
+
+Learn instance types, CPU credits, EBS, AMIs, user data, launch templates, Auto Scaling, load balancers and purchasing options.
+
+**Deliverable:** Load-balanced EC2 application, scaling test, replacement test and cost comparison.
+
+## Weeks 9–10: Platform services
+
+Learn S3, Route 53, CloudFront, CloudWatch and SES.
+
+**Deliverable:** Static assets through CloudFront, domain configuration, monitoring dashboard and transactional email workflow.
+
+## Weeks 11–12: Data
+
+Learn RDS, DynamoDB, ElastiCache, backups, data modelling and recovery.
+
+**Deliverable:** Relational version of the application, DynamoDB access-pattern design, cache performance test and backup/restore evidence.
+
+## Weeks 13–14: Containers
+
+Learn Docker, ECR, ECS, Fargate and EKS fundamentals.
+
+**Deliverable:** Containerised application, ECS Fargate deployment, autoscaling and rolling release, and an ECS-versus-EKS decision record.
+
+## Week 15: Serverless
+
+Learn Lambda, API Gateway, EventBridge, versions and aliases, cold starts, concurrency and error handling.
+
+**Deliverable:** Serverless API, scheduled function, event-driven email flow, and dead-letter and retry design.
+
+## Week 16: Production readiness
+
+Add infrastructure as code, CloudTrail, KMS, Secrets Manager, Budgets, tagging, CI/CD and operational runbooks.
+
+**Deliverable:** Final architecture, automated deployment, threat model, cost estimate, monitoring plan, disaster-recovery plan and Well-Architected assessment.
+
+---
+
+# Part Fourteen: Completion Checklist
+
+You should consider the roadmap complete when you can answer the following questions without simply naming a service.
+
+## Architecture
+
+- Why did you choose EC2, ECS, EKS or Lambda?
+- Why did you choose RDS or DynamoDB?
+- Where does application state live?
+- What fails if one Availability Zone becomes unavailable?
+- How does the system scale?
+
+## Networking
+
+- Which subnets are public?
+- Which resources have public addresses?
+- How does a private application reach the internet?
+- How does the load balancer reach the application?
+- How does the application reach the database?
+
+## Security
+
+- How do humans access AWS?
+- How do workloads receive credentials?
+- Where are secrets stored?
+- Which data is encrypted?
+- Who can modify production?
+- Where are API actions audited?
+
+## Reliability
+
+- What are the recovery-time and recovery-point objectives?
+- How are backups created?
+- Have restores been tested?
+- How are unhealthy components replaced?
+- How is an unsuccessful deployment rolled back?
+
+## Operations
+
+- Which metrics represent user impact?
+- What alarms exist?
+- Who responds to them?
+- Where are logs stored?
+- How is an incident investigated?
+
+## Cost
+
+- What are the largest cost drivers?
+- What happens to cost as traffic doubles?
+- Which resources run while idle?
+- Which budgets and alerts are configured?
+- What is the cost per customer or transaction?
+
+---
+
+# Common mistakes to avoid
+
+## Learning services without building systems
+
+Knowing that S3 stores objects is not enough. Build an upload workflow with permissions, lifecycle, encryption and monitoring.
+
+## Starting with EKS too early
+
+Kubernetes introduces significant operational concepts. Learn containers and simpler orchestration before using EKS.
+
+## Giving administrator access to every user
+
+Permissions should reflect responsibilities, environments and specific actions.
+
+## Placing databases in public subnets
+
+Application components should reach databases through controlled private networking.
+
+## Hard-coding credentials
+
+Use IAM roles and managed secret storage.
+
+## Treating backups as recovery
+
+A backup that has never been restored is an assumption, not verified recovery.
+
+## Ignoring cost until production
+
+Estimate and monitor cost from the first learning environment.
+
+## Building everything manually
+
+Use the console to understand resources, then move the architecture into infrastructure as code.
+
+## Monitoring only infrastructure
+
+CPU utilisation does not tell you whether customers can complete an order. Monitor technical and business outcomes.
+
+## Selecting services before understanding requirements
+
+Begin with users, workflows, data, risk, scale and operations. Then select services.
+
+---
+
+# Conclusion
+
+The original AWS roadmap provides a useful service sequence, but becoming competent with AWS requires more than progressing through boxes on a diagram. Each service must be learned as part of an operating system for the business:
+
+- IAM controls who and what can act.
+- VPC controls how systems communicate.
+- EC2, containers and Lambda provide different compute models.
+- S3, RDS, DynamoDB and ElastiCache support different data patterns.
+- Route 53 and CloudFront connect applications to users.
+- CloudWatch and CloudTrail provide operational and audit visibility.
+- KMS and Secrets Manager protect sensitive information.
+- Infrastructure as code makes environments reproducible.
+- Budgets and tagging make cloud consumption governable.
+- The Well-Architected Framework keeps technical decisions connected to reliability, security, performance, operations, sustainability and cost.
+
+The best evidence of completing this roadmap is not a certificate or a list of AWS services. It is a working application that can be deployed repeatedly, survives failure, protects its data, produces useful telemetry, stays within its cost boundaries and can be operated confidently by someone other than its original developer.
+
+<KeyTakeaways>
+- Learn AWS as an operating system for a business workload—identity, network, compute, data, edge, observability and governance together.
+- Use the console to understand, the CLI to repeat, and infrastructure as code to make environments reproducible.
+- Progress from EC2 to containers to serverless with the same non-functional bar: security, HA, monitoring, backups, cost and audit.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed journey: [AWS Learning Roadmap](/roadmaps/aws).
+- Practise the capability: [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Harden delivery with [DevSecOps](/roadmaps/devsecops) and [API Security Engineering](/roadmaps/api-security-engineering).
+- Cross-check architecture patterns in [Architecture](/ai-solution-engineering/architecture).
+</NextSteps>

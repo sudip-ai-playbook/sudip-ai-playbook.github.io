@@ -41,11 +41,11 @@ const PATHS: PathCard[] = [
     eyebrow: 'Engineering journeys',
     title: 'Roadmaps',
     description:
-      'Stage-by-stage paths to production capabilities — starting with enterprise AI agents.',
+      'Stage-by-stage paths to production capabilities and engineering leadership — AI engineering, agents, management and more.',
     primaryLabel: 'Open roadmaps',
     primaryTo: '/roadmaps/overview',
-    secondaryLabel: 'AI Agents roadmap',
-    secondaryTo: '/roadmaps/ai-agents',
+    secondaryLabel: 'AI Engineer',
+    secondaryTo: '/roadmaps/ai-engineer',
   },
   {
     eyebrow: 'Hands-on',

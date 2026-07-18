@@ -1,0 +1,2428 @@
+---
+slug: ai-data-scientist-roadmap
+title: "The Complete AI and Data Scientist Roadmap: From Foundations to Production"
+description: A practical project-based learning system from mathematics and statistics through experimentation, classical ML, deep learning, generative AI, data engineering and MLOps—plus responsible AI and portfolio evidence.
+authors: [sudip]
+tags: [roadmaps, ai-engineering, solution-engineering, playbook]
+keywords:
+  - AI data scientist roadmap
+  - data science roadmap
+  - machine learning roadmap
+  - A/B testing
+  - MLOps
+  - causal inference
+  - deep learning
+  - generative AI
+  - AI Solution Engineering
+---
+
+The uploaded roadmap presents eight core stages: mathematics, statistics, econometrics, coding, exploratory data analysis, machine learning, deep learning and MLOps. Specialist topics such as hypothesis testing, A/B testing, CUPED, ratio metrics, time-series forecasting, transformers and CI/CD matter just as much as the headline stages.
+
+The roadmap provides a strong technical foundation, but becoming an effective AI and data scientist requires more than completing courses. You must learn how to translate business problems into analytical questions, prepare imperfect data, design trustworthy experiments, build models, deploy them safely and communicate their impact.
+
+{/* truncate */}
+
+<ExecSummary>
+Treat this roadmap as a sequence of capabilities, not technologies to memorise. For every stage: learn, build, evaluate with baselines and business metrics, document limitations, deploy and improve using evidence. The goal is end-to-end ownership of measurable, trustworthy analytical solutions.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building AI and data science capability from foundations to production.
+- Pair with the [AI Data Scientist roadmap](/roadmaps/ai-data-scientist), [Machine Learning Foundations](/learning-map/10-machine-learning-foundations), [MLOps](/learning-map/20-mlops-llmops-observability) and [AI Engineer](/roadmaps/ai-engineer).
+- Treat the 12-month plan, portfolio table and capstone as your working system.
+</WhenToUse>
+
+The [AI Data Scientist roadmap](/roadmaps/ai-data-scientist) summarises the journey. This expanded guide turns that sequence into a practical, project-based learning system.
+
+---
+
+## 1. What does an AI and data scientist actually do?
+
+An AI and data scientist uses data, statistics, software engineering and machine learning to support decisions or create intelligent products.
+
+The job usually involves six types of work:
+
+1. **Problem definition:** Understanding the business decision or user problem.
+2. **Data investigation:** Finding, cleaning and validating relevant data.
+3. **Statistical analysis:** Identifying patterns and determining whether results are reliable.
+4. **Model development:** Building predictive, descriptive or generative models.
+5. **Deployment:** Integrating models into applications and operational processes.
+6. **Monitoring and improvement:** Measuring business impact, model quality, cost, reliability and risk.
+
+A mature data scientist does not begin by asking:
+
+> Which model should I use?
+
+They begin by asking:
+
+> What decision needs to improve, how will we measure improvement, and what evidence would justify taking action?
+
+---
+
+# Part I: Foundations
+
+## 2. Stage One: Mathematics for Machine Learning
+
+You do not need to become a pure mathematician. You need enough mathematics to understand how models represent data, learn from errors and make predictions.
+
+### 2.1 Linear Algebra
+
+Linear algebra is the language used to represent datasets and model parameters.
+
+You should understand:
+
+* Scalars, vectors, matrices and tensors
+* Matrix addition and multiplication
+* Dot products
+* Matrix transpose
+* Identity and inverse matrices
+* Linear transformations
+* Rank and linear independence
+* Eigenvalues and eigenvectors
+* Vector norms
+* Orthogonality
+* Singular Value Decomposition
+* Principal Component Analysis
+
+### Why it matters
+
+A dataset containing 10,000 customers and 30 variables can be represented as a matrix with 10,000 rows and 30 columns.
+
+Neural-network weights, word embeddings, recommendation systems and image data are all represented through vectors, matrices or higher-dimensional tensors.
+
+### Practical exercises
+
+Implement the following using NumPy:
+
+* Vector addition
+* Matrix multiplication
+* Cosine similarity
+* Euclidean distance
+* Matrix inversion
+* Eigenvalue decomposition
+* Singular Value Decomposition
+* PCA without using scikit-learn’s PCA implementation
+
+### Mini-project
+
+Build a simple document-similarity system.
+
+1. Convert documents into vectors.
+2. Calculate cosine similarity.
+3. Rank the most similar documents.
+4. Visualise the document vectors using PCA.
+
+### Completion checkpoint
+
+You are ready to continue when you can explain:
+
+* What a vector represents
+* Why matrix multiplication is used in neural networks
+* How cosine similarity differs from Euclidean distance
+* How PCA reduces dimensionality
+* What information may be lost during dimensionality reduction
+
+---
+
+## 2.2 Calculus
+
+Calculus explains how models learn by adjusting their parameters.
+
+Learn:
+
+* Functions and variables
+* Limits
+* Derivatives
+* Partial derivatives
+* Gradients
+* Chain rule
+* Optimisation
+* Local and global minima
+* Convex and non-convex functions
+* Gradient descent
+* Learning rates
+* Second derivatives
+* Hessian matrices
+
+### Why it matters
+
+Machine-learning training is usually an optimisation problem.
+
+The model makes predictions, calculates an error and adjusts its parameters to reduce that error. Derivatives describe the direction and magnitude of those adjustments.
+
+### Practical exercise
+
+Implement linear regression using gradient descent without using a machine-learning library.
+
+Your implementation should:
+
+1. Initialise weights.
+2. Calculate predictions.
+3. Calculate mean squared error.
+4. Compute gradients.
+5. Update weights.
+6. Stop when the loss stabilises.
+
+### Completion checkpoint
+
+You should be able to explain:
+
+* Why gradient descent moves in the opposite direction of the gradient
+* What happens when the learning rate is too high
+* What happens when the learning rate is too low
+* Why neural networks use backpropagation
+* Why optimisation may become difficult in deep networks
+
+---
+
+## 2.3 Mathematical Analysis and Optimisation
+
+For more advanced work, study:
+
+* Constrained optimisation
+* Lagrange multipliers
+* Convex optimisation
+* Numerical stability
+* Approximation methods
+* Floating-point precision
+* Regularisation
+* Bias–variance trade-off
+
+These concepts become particularly important when working on custom algorithms, scientific machine learning, probabilistic modelling and advanced optimisation.
+
+---
+
+# Part II: Statistics and Experimentation
+
+## 3. Stage Two: Statistics
+
+Statistics allows you to reason about uncertainty.
+
+A data scientist must distinguish between:
+
+* A real pattern and random variation
+* Correlation and causation
+* Statistical significance and practical importance
+* A useful model and an apparently accurate model
+* A reliable experiment and a misleading experiment
+
+---
+
+## 3.1 Descriptive Statistics
+
+Learn:
+
+* Mean
+* Median
+* Mode
+* Variance
+* Standard deviation
+* Range
+* Percentiles
+* Interquartile range
+* Skewness
+* Kurtosis
+* Covariance
+* Correlation
+
+### Practical task
+
+Take a customer-transactions dataset and produce:
+
+* Distribution summaries
+* Customer-spending percentiles
+* Outlier analysis
+* Correlation matrix
+* Segment-level comparisons
+* Missing-value report
+
+Do not simply calculate numbers. Explain what each measurement means for the business.
+
+---
+
+## 3.2 Probability
+
+Learn:
+
+* Sample spaces
+* Events
+* Conditional probability
+* Independence
+* Bayes’ theorem
+* Random variables
+* Expected value
+* Variance
+* Discrete distributions
+* Continuous distributions
+* Joint distributions
+* Conditional distributions
+
+Important distributions include:
+
+* Bernoulli
+* Binomial
+* Poisson
+* Uniform
+* Normal
+* Exponential
+* Beta
+* Gamma
+
+### Practical applications
+
+Probability is used in:
+
+* Fraud detection
+* Customer churn
+* Medical diagnosis
+* Risk modelling
+* Demand forecasting
+* Bayesian inference
+* Recommendation systems
+* Reliability analysis
+
+### Mini-project
+
+Build a Bayesian spam classifier and explain how prior probabilities and observed evidence influence the final prediction.
+
+---
+
+## 3.3 Sampling and the Central Limit Theorem
+
+Learn:
+
+* Population versus sample
+* Random sampling
+* Stratified sampling
+* Cluster sampling
+* Sampling bias
+* Selection bias
+* Sampling distributions
+* Standard error
+* Law of large numbers
+* Central Limit Theorem
+* Confidence intervals
+
+### Why it matters
+
+Most organisations cannot analyse every possible customer, transaction or future event. They use samples to estimate population behaviour.
+
+The Central Limit Theorem helps explain why sample means often approximate a normal distribution as sample size increases.
+
+### Completion checkpoint
+
+You should be able to explain:
+
+* Why a large dataset can still be biased
+* Why sample size does not automatically guarantee representativeness
+* How confidence intervals should be interpreted
+* The difference between population variance and sample variance
+* Why randomisation matters
+
+---
+
+## 3.4 Hypothesis Testing
+
+Learn the structure of statistical testing:
+
+1. Define the null hypothesis.
+2. Define the alternative hypothesis.
+3. Select a significance level.
+4. Choose an appropriate statistical test.
+5. Calculate the test statistic.
+6. Calculate or interpret the p-value.
+7. Assess effect size and confidence intervals.
+8. Make a decision in business context.
+
+Common tests include:
+
+* One-sample t-test
+* Independent two-sample t-test
+* Paired t-test
+* Chi-square test
+* ANOVA
+* Mann–Whitney U test
+* Wilcoxon signed-rank test
+* Kruskal–Wallis test
+* Proportion test
+* Kolmogorov–Smirnov test
+
+Also understand:
+
+* Type I errors
+* Type II errors
+* Statistical power
+* Multiple-testing problems
+* Bonferroni correction
+* False discovery rate
+* Parametric versus non-parametric tests
+
+### Important warning
+
+A small p-value does not prove that a result is important.
+
+Always examine:
+
+* Effect size
+* Confidence interval
+* Sample quality
+* Business impact
+* Experimental assumptions
+* Data leakage
+* Measurement reliability
+
+---
+
+## 3.5 A/B Testing
+
+A/B testing compares two or more versions of a product, process or intervention.
+
+### Standard A/B-testing workflow
+
+#### Step 1: Define the hypothesis
+
+Example:
+
+> Changing the checkout button from “Continue” to “Complete Purchase” will increase checkout completion.
+
+#### Step 2: Choose a primary metric
+
+Possible metrics:
+
+* Conversion rate
+* Revenue per user
+* Retention rate
+* Completion rate
+* Average order value
+* Click-through rate
+
+Avoid selecting many primary metrics because doing so increases the risk of finding misleading results.
+
+#### Step 3: Define guardrail metrics
+
+Guardrails ensure that improvement in one area does not create damage elsewhere.
+
+Examples:
+
+* Refund rate
+* Complaint rate
+* Page-loading time
+* Customer-support contacts
+* Cancellation rate
+* Fraud rate
+
+#### Step 4: Estimate sample size
+
+Consider:
+
+* Baseline conversion
+* Minimum Detectable Effect
+* Statistical power
+* Significance level
+* Expected traffic
+* Experiment duration
+
+#### Step 5: Randomise participants
+
+Randomisation reduces systematic differences between the control and treatment groups.
+
+#### Step 6: Run the experiment
+
+Avoid stopping an experiment simply because the current results look positive.
+
+#### Step 7: Analyse the results
+
+Analyse:
+
+* Absolute uplift
+* Relative uplift
+* Confidence interval
+* Statistical significance
+* Practical significance
+* Segment-level effects
+* Guardrail metrics
+
+#### Step 8: Make a decision
+
+Possible decisions:
+
+* Roll out
+* Reject
+* Continue testing
+* Redesign the intervention
+* Investigate unexpected segments
+
+---
+
+## 3.6 Increasing Experiment Sensitivity
+
+Methods such as CUPED, CUPAC, stratification and ratio-metric analysis are valuable for mature experimentation teams.
+
+### CUPED
+
+Controlled Experiments Using Pre-Experiment Data reduces variance by using information collected before the experiment.
+
+For example, previous customer spending may help explain spending during the test period.
+
+This can make experiments more sensitive without necessarily increasing sample size.
+
+### CUPAC
+
+CUPAC extends this idea by using machine-learning predictions as covariates.
+
+A model predicts likely outcomes based on pre-experiment characteristics. The prediction is then used to reduce unexplained variance.
+
+### Stratification
+
+Stratification separates users into important groups before or during analysis.
+
+Examples:
+
+* New versus returning customers
+* High-value versus low-value customers
+* Mobile versus desktop users
+* Country or region
+* Subscription plan
+
+### Ratio metrics
+
+Many product metrics are ratios:
+
+* Revenue per user
+* Orders per customer
+* Clicks per session
+* Errors per request
+* Watch time per active account
+
+Ratio metrics require careful treatment because the numerator and denominator may be correlated.
+
+### Advanced experiment topics
+
+After mastering basic testing, learn:
+
+* Sequential testing
+* Network effects
+* Interference between users
+* Novelty effects
+* Carryover effects
+* Cluster randomisation
+* Switchback experiments
+* Quasi-experiments
+* Difference-in-differences
+* Regression discontinuity
+* Synthetic controls
+
+---
+
+# Part III: Econometrics and Time Series
+
+## 4. Stage Three: Econometrics
+
+Econometrics connects statistics with economic and business decision-making.
+
+It is especially useful when randomised experiments are impossible.
+
+---
+
+## 4.1 Regression Foundations
+
+Learn:
+
+* Simple linear regression
+* Multiple linear regression
+* Ordinary Least Squares
+* Regression assumptions
+* Residual analysis
+* Multicollinearity
+* Heteroscedasticity
+* Autocorrelation
+* Interaction terms
+* Polynomial regression
+* Dummy variables
+* Model specification
+* Omitted-variable bias
+
+### Key distinction
+
+Predictive modelling asks:
+
+> Can we accurately predict the outcome?
+
+Econometric analysis often asks:
+
+> What is the estimated effect of one variable on another?
+
+A highly predictive model is not automatically a valid causal model.
+
+---
+
+## 4.2 Causal Inference
+
+Learn:
+
+* Correlation versus causation
+* Confounding variables
+* Directed Acyclic Graphs
+* Backdoor adjustment
+* Propensity-score matching
+* Difference-in-differences
+* Instrumental variables
+* Regression discontinuity
+* Interrupted time series
+* Synthetic control methods
+
+### Example
+
+Suppose customers who use a premium feature have higher retention.
+
+This does not prove the feature caused better retention. Premium-feature users may already be more engaged.
+
+A causal analysis would investigate whether the feature itself improved retention after accounting for confounding variables.
+
+---
+
+## 4.3 Time-Series Analysis
+
+Time-series data is ordered through time.
+
+Examples:
+
+* Daily sales
+* Hourly electricity demand
+* Monthly churn
+* Weekly support tickets
+* Sensor measurements
+* Website traffic
+* Stock levels
+
+Learn:
+
+* Trend
+* Seasonality
+* Cycles
+* Noise
+* Stationarity
+* Autocorrelation
+* Partial autocorrelation
+* Lag features
+* Moving averages
+* Exponential smoothing
+* ARIMA
+* SARIMA
+* Forecasting regression
+* Prophet-style additive models
+* Tree-based forecasting
+* Deep-learning forecasting
+
+### Time-series workflow
+
+1. Define the forecast horizon.
+2. Select the forecast granularity.
+3. Examine trends and seasonality.
+4. Detect missing dates and anomalies.
+5. Create lag and rolling features.
+6. Establish a naïve baseline.
+7. Use time-aware validation.
+8. Train candidate models.
+9. Compare forecast errors.
+10. Analyse uncertainty.
+11. Monitor performance after deployment.
+
+### Metrics
+
+Common forecasting metrics include:
+
+* MAE
+* RMSE
+* MAPE
+* sMAPE
+* MASE
+* Weighted Absolute Percentage Error
+
+Do not rely on one metric alone. Some metrics behave poorly when actual values are near zero.
+
+### Mini-project
+
+Create a retail-demand forecasting system that predicts weekly product demand.
+
+Include:
+
+* Seasonal analysis
+* Promotion features
+* Holiday effects
+* Baseline model
+* ARIMA or exponential-smoothing model
+* Tree-based model
+* Time-based cross-validation
+* Error analysis by product category
+* Reorder recommendations
+
+---
+
+# Part IV: Programming and Data Work
+
+## 5. Stage Four: Coding
+
+A data scientist is not required to be a specialist software engineer, but production-quality work requires strong programming discipline.
+
+---
+
+## 5.1 Python
+
+Learn the language properly rather than only memorising notebook commands.
+
+### Core Python
+
+Study:
+
+* Variables and data types
+* Lists, tuples, dictionaries and sets
+* Conditions and loops
+* Functions
+* Classes and objects
+* File handling
+* Exceptions
+* Comprehensions
+* Iterators
+* Generators
+* Decorators
+* Context managers
+* Type hints
+* Modules and packages
+* Virtual environments
+
+### Data-science libraries
+
+Become comfortable with:
+
+* NumPy
+* pandas
+* SciPy
+* Matplotlib
+* scikit-learn
+* Statsmodels
+* PyTorch or TensorFlow
+
+### Engineering practices
+
+Learn:
+
+* Clean project structure
+* Modular code
+* Reusable functions
+* Logging
+* Configuration management
+* Environment variables
+* Unit testing
+* Integration testing
+* Dependency management
+* Code formatting
+* Static analysis
+* Documentation
+
+### Notebook discipline
+
+Notebooks are useful for exploration but can become difficult to reproduce.
+
+A good workflow is:
+
+1. Explore in a notebook.
+2. Move reusable logic into Python modules.
+3. Add tests.
+4. Create configuration files.
+5. Track experiments.
+6. Package the final inference code.
+
+---
+
+## 5.2 Data Structures and Algorithms
+
+Focus on concepts relevant to practical data work:
+
+* Arrays
+* Linked lists
+* Stacks
+* Queues
+* Hash maps
+* Trees
+* Graphs
+* Heaps
+* Searching
+* Sorting
+* Recursion
+* Dynamic programming
+* Time complexity
+* Space complexity
+
+You do not need to solve hundreds of algorithm problems before building data projects. However, you should be able to recognise inefficient code.
+
+### Example
+
+A nested loop comparing every customer with every other customer may have quadratic complexity.
+
+For one thousand customers, this might be manageable. For ten million customers, it may be unusable.
+
+---
+
+## 5.3 SQL
+
+SQL is one of the most important skills for a data scientist.
+
+Learn:
+
+* SELECT
+* WHERE
+* GROUP BY
+* HAVING
+* ORDER BY
+* CASE
+* JOINs
+* Subqueries
+* Common Table Expressions
+* Window functions
+* Date functions
+* String functions
+* NULL handling
+* Aggregations
+* Query optimisation
+* Indexes
+* Execution plans
+
+### Advanced analytical SQL
+
+Practise:
+
+* Customer cohorts
+* Funnel analysis
+* Rolling averages
+* Retention calculations
+* Ranking
+* Sessionisation
+* First and last event analysis
+* Year-over-year comparisons
+* Running totals
+* Conversion windows
+
+### SQL project
+
+Build a customer analytics report that answers:
+
+* How many users joined each month?
+* What percentage returned after 30, 60 and 90 days?
+* Which acquisition channels produce the highest-value customers?
+* Where do customers leave the purchase funnel?
+* Which products are frequently purchased together?
+* What is the average time between first visit and purchase?
+
+---
+
+## 5.4 Git and Collaboration
+
+Learn:
+
+* Repositories
+* Commits
+* Branches
+* Pull requests
+* Merge conflicts
+* Tags
+* Releases
+* `.gitignore`
+* Code review
+* Issue tracking
+
+A professional project should not exist only as a collection of files called:
+
+* `model_final.ipynb`
+* `model_final_v2.ipynb`
+* `model_final_really_final.ipynb`
+
+Use source control and clear versioning.
+
+---
+
+# Part V: Exploratory Data Analysis
+
+## 6. Stage Five: Exploratory Data Analysis
+
+EDA is the process of understanding the data before building a model.
+
+It helps identify:
+
+* Incorrect values
+* Missing information
+* Outliers
+* Data leakage
+* Unexpected relationships
+* Sampling problems
+* Segment differences
+* Measurement issues
+* Potential features
+
+---
+
+## 6.1 Data Understanding
+
+Before analysing the data, document:
+
+* What each row represents
+* What each column means
+* How the data was collected
+* Who owns the data
+* How frequently it changes
+* Which fields contain sensitive information
+* Whether timestamps represent event time or processing time
+* Whether labels were available at prediction time
+* Which populations may be underrepresented
+
+Create a data dictionary containing:
+
+| Field | Meaning | Type | Source | Quality concerns |
+| --- | --- | --- | --- | --- |
+| customer_id | Unique customer reference | String | CRM | Possible duplicates |
+| signup_date | Registration date | Date | Web application | Time-zone inconsistency |
+| revenue | Completed revenue | Decimal | Billing system | Refund handling unclear |
+| churned | Customer stopped service | Boolean | Derived | Definition must be agreed |
+
+---
+
+## 6.2 Data-Quality Analysis
+
+Check:
+
+* Missing values
+* Duplicate records
+* Invalid categories
+* Impossible dates
+* Negative quantities
+* Inconsistent units
+* Out-of-range values
+* Broken relationships between tables
+* Unexpected class imbalance
+* Data freshness
+* Label reliability
+
+### Missing-data mechanisms
+
+Understand:
+
+* Missing Completely at Random
+* Missing at Random
+* Missing Not at Random
+
+The appropriate treatment depends on why the information is missing.
+
+Possible strategies include:
+
+* Removing records
+* Simple imputation
+* Group-based imputation
+* Model-based imputation
+* Adding missingness indicators
+* Treating “missing” as a meaningful category
+
+---
+
+## 6.3 Univariate Analysis
+
+Analyse each variable independently.
+
+For numerical variables:
+
+* Distribution
+* Mean and median
+* Variance
+* Percentiles
+* Outliers
+* Skewness
+
+For categorical variables:
+
+* Frequency
+* Cardinality
+* Rare categories
+* Missing values
+* Unexpected labels
+
+---
+
+## 6.4 Bivariate and Multivariate Analysis
+
+Investigate relationships between variables using:
+
+* Scatter plots
+* Box plots
+* Correlation matrices
+* Cross-tabulations
+* Grouped aggregations
+* Pair plots
+* Segment comparisons
+* Partial-dependence thinking
+
+Do not assume correlation means one variable causes another.
+
+---
+
+## 6.5 EDA Deliverable
+
+A professional EDA report should include:
+
+1. Business objective
+2. Data sources
+3. Data dictionary
+4. Quality findings
+5. Missing-data assessment
+6. Distribution analysis
+7. Relationship analysis
+8. Potential leakage
+9. Segment-level differences
+10. Initial hypotheses
+11. Recommended next steps
+12. Risks and limitations
+
+---
+
+# Part VI: Machine Learning
+
+## 7. Stage Six: Classical Machine Learning
+
+Classical machine learning should be mastered before deep learning because it teaches the foundations of modelling, evaluation and generalisation.
+
+---
+
+## 7.1 Supervised Learning
+
+Supervised learning uses labelled examples.
+
+### Regression algorithms
+
+Learn:
+
+* Linear regression
+* Ridge regression
+* Lasso regression
+* Elastic Net
+* Decision-tree regression
+* Random Forest
+* Gradient boosting
+* XGBoost-style models
+* Support Vector Regression
+
+Use regression for continuous outcomes such as:
+
+* Revenue
+* Price
+* Demand
+* Delivery time
+* Energy consumption
+
+### Classification algorithms
+
+Learn:
+
+* Logistic regression
+* Naïve Bayes
+* k-Nearest Neighbours
+* Decision trees
+* Random Forest
+* Gradient boosting
+* Support Vector Machines
+* Neural networks
+
+Use classification for outcomes such as:
+
+* Churn or no churn
+* Fraud or legitimate
+* Approved or rejected
+* Defective or normal
+* High risk or low risk
+
+---
+
+## 7.2 Unsupervised Learning
+
+Unsupervised learning finds structure without labelled outcomes.
+
+Learn:
+
+* K-means clustering
+* Hierarchical clustering
+* DBSCAN
+* Gaussian Mixture Models
+* PCA
+* t-SNE
+* UMAP
+* Association rules
+* Anomaly detection
+
+Applications include:
+
+* Customer segmentation
+* Behaviour discovery
+* Fraud investigation
+* Product grouping
+* Data compression
+* Outlier detection
+
+### Warning
+
+Clusters are not automatically meaningful business segments.
+
+After clustering, validate:
+
+* Stability
+* Separation
+* Interpretability
+* Actionability
+* Business relevance
+
+---
+
+## 7.3 Data Preparation
+
+Learn:
+
+* Train, validation and test splits
+* Cross-validation
+* Stratified sampling
+* Scaling
+* Normalisation
+* Categorical encoding
+* Feature selection
+* Feature engineering
+* Class imbalance
+* Leakage prevention
+* Pipelines
+
+### Data leakage
+
+Leakage occurs when the model receives information that would not be available when making a real prediction.
+
+Examples:
+
+* Using a customer’s cancellation date to predict whether they will cancel
+* Using future purchases to predict present behaviour
+* Imputing the entire dataset before splitting it
+* Creating aggregates using test data
+* Selecting features using the full dataset
+
+Leakage can make a weak model appear exceptionally accurate.
+
+---
+
+## 7.4 Evaluation Metrics
+
+### Regression
+
+Use:
+
+* MAE
+* MSE
+* RMSE
+* R²
+* Adjusted R²
+* MAPE
+* Quantile loss
+
+### Classification
+
+Use:
+
+* Accuracy
+* Precision
+* Recall
+* F1 score
+* Specificity
+* ROC-AUC
+* PR-AUC
+* Log loss
+* Matthews correlation coefficient
+* Calibration metrics
+
+### Business evaluation
+
+Technical metrics should be connected to operational outcomes.
+
+For fraud detection, ask:
+
+* How much fraud value is prevented?
+* How many legitimate customers are incorrectly blocked?
+* What is the investigation cost?
+* How many cases can the review team process?
+* What threshold maximises net value?
+
+---
+
+## 7.5 Baselines
+
+Always establish a baseline.
+
+Possible baselines include:
+
+* Predicting the mean
+* Predicting the median
+* Predicting the majority class
+* Using the previous time period
+* Applying a simple business rule
+* Using a linear model
+
+A sophisticated model that does not meaningfully outperform a simple baseline may not justify its complexity.
+
+---
+
+## 7.6 Hyperparameter Optimisation
+
+Learn:
+
+* Grid search
+* Random search
+* Bayesian optimisation
+* Early stopping
+* Nested cross-validation
+
+Do not optimise hyperparameters before confirming that:
+
+* The objective is valid
+* The data is trustworthy
+* The baseline is reasonable
+* Leakage has been removed
+* The evaluation method reflects production
+
+---
+
+## 7.7 Explainability
+
+Learn:
+
+* Coefficient interpretation
+* Feature importance
+* Permutation importance
+* Partial Dependence Plots
+* SHAP-style explanations
+* Local versus global explanation
+* Counterfactual explanations
+
+Explainability should answer:
+
+* Why did the model make this prediction?
+* Which variables influence the model overall?
+* Is the model relying on inappropriate proxies?
+* How stable are the explanations?
+* Can a human challenge the outcome?
+
+---
+
+## 7.8 End-to-End Machine-Learning Project
+
+Build a churn-prediction solution.
+
+### Business objective
+
+Identify customers at high risk of leaving so the retention team can intervene.
+
+### Required components
+
+* Churn definition
+* Prediction horizon
+* Data dictionary
+* EDA
+* Leakage analysis
+* Baseline model
+* Feature engineering
+* Multiple candidate models
+* Cross-validation
+* Threshold selection
+* Explainability
+* Segment analysis
+* Cost-benefit analysis
+* Deployment API
+* Monitoring plan
+
+### Business metric
+
+Do not stop at F1 score.
+
+Estimate:
+
+```text
+Expected Value =
+  (Saved Customers × Customer Lifetime Value)
+  − Intervention Cost
+  − Cost of Incorrect Interventions
+```
+
+---
+
+# Part VII: Deep Learning
+
+## 8. Stage Seven: Deep Learning
+
+Deep learning is useful when working with large-scale, complex or unstructured data.
+
+Examples include:
+
+* Images
+* Audio
+* Natural language
+* Video
+* Sensor streams
+* Large recommendation systems
+
+---
+
+## 8.1 Neural-Network Foundations
+
+Learn:
+
+* Neurons
+* Weights and biases
+* Activation functions
+* Forward propagation
+* Loss functions
+* Backpropagation
+* Optimisers
+* Batch size
+* Epochs
+* Learning rates
+* Weight initialisation
+* Regularisation
+* Dropout
+* Batch normalisation
+* Overfitting
+* Vanishing gradients
+* Exploding gradients
+
+### Activation functions
+
+Understand:
+
+* Sigmoid
+* Tanh
+* ReLU
+* Leaky ReLU
+* GELU
+* Softmax
+
+### Optimisers
+
+Learn:
+
+* Stochastic Gradient Descent
+* Momentum
+* RMSprop
+* Adam
+* AdamW
+
+---
+
+## 8.2 Convolutional Neural Networks
+
+CNNs are commonly associated with image processing.
+
+Learn:
+
+* Convolution
+* Filters
+* Kernels
+* Feature maps
+* Pooling
+* Padding
+* Stride
+* Receptive fields
+* Data augmentation
+* Transfer learning
+
+### Project
+
+Build an image-classification system that includes:
+
+* Dataset validation
+* Data augmentation
+* Baseline CNN
+* Transfer-learning model
+* Confusion matrix
+* Class-level error analysis
+* Inference API
+* Monitoring for changing image quality
+
+---
+
+## 8.3 Recurrent Networks and Sequence Models
+
+Learn:
+
+* Recurrent Neural Networks
+* Hidden states
+* Backpropagation Through Time
+* LSTM
+* GRU
+* Sequence-to-sequence models
+* Attention
+
+Traditional recurrent models remain useful for understanding sequence modelling, although transformers are now widely used for many language and multimodal tasks.
+
+---
+
+## 8.4 Transformers
+
+Learn the transformer architecture deeply.
+
+Core concepts include:
+
+* Tokenisation
+* Embeddings
+* Positional encoding
+* Queries, keys and values
+* Self-attention
+* Multi-head attention
+* Feed-forward layers
+* Residual connections
+* Layer normalisation
+* Encoder architecture
+* Decoder architecture
+* Causal masking
+* Pretraining
+* Fine-tuning
+
+### Practical exercises
+
+1. Implement scaled dot-product attention.
+2. Visualise attention weights.
+3. Fine-tune a small transformer classifier.
+4. Compare full fine-tuning with parameter-efficient tuning.
+5. Evaluate accuracy, latency, memory and cost.
+
+---
+
+## 8.5 Transfer Learning
+
+Transfer learning allows you to reuse knowledge learned from large datasets.
+
+Learn:
+
+* Feature extraction
+* Freezing layers
+* Unfreezing layers
+* Fine-tuning
+* Domain adaptation
+* Catastrophic forgetting
+* Parameter-efficient fine-tuning
+
+Use transfer learning when your labelled dataset is limited but a relevant pretrained model exists.
+
+---
+
+# Part VIII: Generative AI
+
+## 9. An Important Extension to the Roadmap
+
+Modern AI and data scientists should understand generative AI, even when it is not their primary specialisation.
+
+Learn:
+
+* Large language models
+* Tokenisation
+* Context windows
+* Prompt design
+* Embeddings
+* Vector search
+* Retrieval-Augmented Generation
+* Reranking
+* Tool calling
+* Structured outputs
+* Agents
+* Fine-tuning
+* Evaluation
+* Guardrails
+* Hallucination management
+
+---
+
+## 9.1 Retrieval-Augmented Generation
+
+A RAG system normally contains:
+
+1. Data ingestion
+2. Document parsing
+3. Chunking
+4. Metadata extraction
+5. Embedding generation
+6. Vector indexing
+7. Query processing
+8. Retrieval
+9. Reranking
+10. Prompt construction
+11. Model generation
+12. Citation or evidence presentation
+13. Evaluation and monitoring
+
+### RAG evaluation
+
+Measure:
+
+* Retrieval precision
+* Retrieval recall
+* Context relevance
+* Answer relevance
+* Faithfulness
+* Citation correctness
+* Latency
+* Cost
+* Refusal quality
+* User satisfaction
+
+---
+
+## 9.2 Agentic Systems
+
+Agents can plan actions, call tools and maintain state.
+
+Study:
+
+* Tool schemas
+* Planning
+* Routing
+* Memory
+* State management
+* Human approval
+* Retry handling
+* Timeouts
+* Idempotency
+* Observability
+* Access control
+
+Do not use an agent when a deterministic workflow would be safer and simpler.
+
+A reliable enterprise system often combines:
+
+* Deterministic business logic
+* Model-based classification
+* Retrieval
+* Tool execution
+* Human approval
+* Audit logging
+
+---
+
+# Part IX: Data Engineering
+
+## 10. Data Engineering for Data Scientists
+
+Models depend on reliable data systems.
+
+Learn:
+
+* Data warehouses
+* Data lakes
+* Lakehouse architecture
+* ETL and ELT
+* Batch processing
+* Stream processing
+* Data modelling
+* Schema evolution
+* Data partitioning
+* Data lineage
+* Data contracts
+* Feature stores
+* Orchestration
+
+Useful technologies may include:
+
+* PostgreSQL
+* Spark
+* Kafka
+* Airflow
+* dbt
+* Cloud object storage
+* Managed data warehouses
+
+### Data-pipeline project
+
+Build a pipeline that:
+
+1. Ingests transaction data.
+2. Validates the schema.
+3. Removes or quarantines invalid records.
+4. Creates analytical tables.
+5. Generates model features.
+6. Tracks data lineage.
+7. Runs quality tests.
+8. Retrains a model when approved conditions are met.
+
+---
+
+# Part X: MLOps and Production AI
+
+## 11. Stage Eight: MLOps
+
+MLOps combines machine learning, software engineering and operations.
+
+The objective is not simply to deploy a model. It is to operate the entire machine-learning lifecycle reliably.
+
+---
+
+## 11.1 Reproducibility
+
+Track:
+
+* Source code
+* Dataset version
+* Feature definitions
+* Model parameters
+* Hyperparameters
+* Runtime environment
+* Metrics
+* Artefacts
+* Approval status
+
+A prediction should be traceable to:
+
+* The model version
+* The data version
+* The feature pipeline
+* The code release
+* The configuration
+* The request
+* The output
+
+---
+
+## 11.2 Experiment Tracking
+
+Each experiment should record:
+
+* Experiment name
+* Dataset version
+* Features
+* Algorithm
+* Hyperparameters
+* Metrics
+* Training duration
+* Hardware
+* Model artefact
+* Notes
+* Approval decision
+
+Avoid relying on notebook output or memory to compare experiments.
+
+---
+
+## 11.3 Model Packaging
+
+Common deployment options include:
+
+* Batch prediction
+* Real-time API
+* Streaming inference
+* Edge deployment
+* Embedded application inference
+
+### Batch prediction
+
+Appropriate when predictions can be generated periodically.
+
+Examples:
+
+* Weekly churn lists
+* Nightly demand forecasts
+* Monthly customer segments
+
+### Real-time inference
+
+Appropriate when an application requires an immediate prediction.
+
+Examples:
+
+* Fraud detection
+* Recommendation
+* Dynamic pricing
+* Content moderation
+
+### Edge deployment
+
+Appropriate when:
+
+* Connectivity is limited
+* Privacy requires local processing
+* Latency must be extremely low
+* Devices generate continuous data
+
+---
+
+## 11.4 APIs
+
+Learn to expose models through an API.
+
+The API should include:
+
+* Input validation
+* Authentication
+* Authorisation
+* Request limits
+* Structured responses
+* Error handling
+* Logging
+* Health checks
+* Versioning
+* Timeouts
+
+Example endpoints might include:
+
+```text
+POST /v1/predict
+GET  /health
+GET  /readiness
+GET  /model-info
+```
+
+Do not expose sensitive internal model details through public responses.
+
+---
+
+## 11.5 Containerisation
+
+Learn:
+
+* Docker images
+* Dockerfiles
+* Containers
+* Image registries
+* Environment variables
+* Secrets
+* Volumes
+* Networking
+* Image scanning
+* Minimal base images
+
+The model, dependencies and inference service should run consistently across development, testing and production environments.
+
+---
+
+## 11.6 CI/CD and CT
+
+### Continuous Integration
+
+Automatically run:
+
+* Unit tests
+* Data tests
+* Integration tests
+* Security scans
+* Code-quality checks
+* Packaging checks
+
+### Continuous Delivery
+
+Automate safe delivery to staging and production.
+
+### Continuous Training
+
+Retrain models only when defined conditions are met.
+
+Possible triggers include:
+
+* New approved data
+* Performance deterioration
+* Scheduled retraining
+* Data-distribution changes
+* Business-policy changes
+
+Continuous training should not mean automatically promoting every retrained model into production.
+
+---
+
+## 11.7 Model Monitoring
+
+Monitor four categories.
+
+### System monitoring
+
+* CPU
+* GPU
+* Memory
+* Disk
+* Request rate
+* Error rate
+* Latency
+* Availability
+
+### Data monitoring
+
+* Missing values
+* Schema changes
+* Range violations
+* Category changes
+* Feature distributions
+* Data freshness
+
+### Model monitoring
+
+* Prediction distributions
+* Confidence
+* Accuracy
+* Precision and recall
+* Calibration
+* Drift
+* Segment-level performance
+
+### Business monitoring
+
+* Revenue impact
+* Conversion
+* Retention
+* Fraud prevented
+* Operational workload
+* Customer complaints
+* Intervention success
+
+---
+
+## 11.8 Drift
+
+Understand:
+
+* Data drift
+* Covariate shift
+* Label shift
+* Concept drift
+* Prediction drift
+
+Drift does not always mean the model must be retrained. First determine:
+
+* What changed?
+* Is the change temporary?
+* Is the data pipeline broken?
+* Has customer behaviour changed?
+* Has the business definition changed?
+* Is performance actually deteriorating?
+
+---
+
+## 11.9 Deployment Strategies
+
+Learn:
+
+* Shadow deployment
+* Blue-green deployment
+* Canary deployment
+* Champion–challenger testing
+* Rolling deployment
+* A/B deployment
+
+### Recommended model-release process
+
+1. Validate offline performance.
+2. Complete risk and security review.
+3. Deploy in shadow mode.
+4. Compare production predictions.
+5. Release to a small percentage of traffic.
+6. Monitor guardrails.
+7. Expand gradually.
+8. Maintain rollback capability.
+
+---
+
+# Part XI: Responsible AI, Privacy and Security
+
+## 12. Responsible AI
+
+A model that performs well technically can still be unsafe, unfair or unsuitable.
+
+Assess:
+
+* Fairness
+* Bias
+* Transparency
+* Explainability
+* Robustness
+* Privacy
+* Security
+* Accountability
+* Human oversight
+* Contestability
+
+---
+
+## 12.1 Fairness Testing
+
+Performance should be analysed across meaningful groups.
+
+Possible measurements include:
+
+* Selection rates
+* False-positive rates
+* False-negative rates
+* Calibration
+* Error distributions
+* Outcome differences
+
+Fairness cannot always be reduced to one metric. The correct approach depends on the use case, legal context and potential harm.
+
+---
+
+## 12.2 Privacy
+
+Apply:
+
+* Data minimisation
+* Purpose limitation
+* Retention controls
+* Encryption
+* Pseudonymisation
+* Access controls
+* Deletion processes
+* Consent management
+* Audit logging
+
+Do not collect data merely because it might eventually become useful.
+
+---
+
+## 12.3 AI Security
+
+Consider:
+
+* Training-data poisoning
+* Model extraction
+* Membership inference
+* Adversarial inputs
+* Prompt injection
+* Sensitive-data disclosure
+* Insecure tool execution
+* Supply-chain vulnerabilities
+* Excessive permissions
+* Denial-of-service risks
+
+Security should be designed across:
+
+* Data
+* Models
+* APIs
+* Infrastructure
+* User interfaces
+* Tool integrations
+* Monitoring
+* Incident response
+
+---
+
+# Part XII: Business and Product Skills
+
+## 13. Business Problem Framing
+
+Before modelling, create a problem statement.
+
+Use this structure:
+
+> We need to help **[user or stakeholder]** make **[decision]** by using **[available evidence]**, so that **[business outcome]** improves, while respecting **[constraints]**.
+
+Example:
+
+> We need to help the retention team identify customers likely to cancel within 30 days so that targeted interventions can improve retention without creating excessive contact costs or unfair treatment.
+
+---
+
+## 13.1 Define Success
+
+Separate success into four levels.
+
+### Model success
+
+Examples:
+
+* Recall
+* Precision
+* MAE
+* Calibration
+
+### Product success
+
+Examples:
+
+* Adoption
+* Completion rate
+* Response time
+* User satisfaction
+
+### Business success
+
+Examples:
+
+* Revenue
+* Retention
+* Cost reduction
+* Risk reduction
+
+### Responsible-AI success
+
+Examples:
+
+* Fairness
+* Override rate
+* Complaint rate
+* Explanation coverage
+* Incident frequency
+
+---
+
+## 13.2 Assess Feasibility
+
+Evaluate:
+
+* Data availability
+* Data quality
+* Label availability
+* Technical complexity
+* Integration requirements
+* Security requirements
+* Regulatory constraints
+* Operational readiness
+* Cost
+* Time to value
+
+Use cases should not be prioritised only by expected value. They should be evaluated by value, feasibility, risk and adoption readiness.
+
+---
+
+## 13.3 Communicating Results
+
+A good data-science presentation should answer:
+
+1. What problem did we investigate?
+2. Why does it matter?
+3. What data did we use?
+4. What did we find?
+5. How reliable is the evidence?
+6. What limitations exist?
+7. What action do we recommend?
+8. What should happen next?
+
+Avoid presenting twenty technical charts when the audience needs one clear decision.
+
+---
+
+# Part XIII: Portfolio Projects
+
+## 14. Build Evidence, Not Just Certificates
+
+For every major stage, create an artefact.
+
+| Stage | Evidence |
+| --- | --- |
+| Mathematics | Gradient descent and PCA implementation |
+| Statistics | Experiment-design report |
+| Econometrics | Causal or forecasting analysis |
+| Coding | Tested Python package and SQL analysis |
+| EDA | Reproducible data-quality report |
+| Machine learning | End-to-end prediction system |
+| Deep learning | Image or NLP application |
+| Generative AI | Evaluated RAG system |
+| MLOps | Deployed and monitored model |
+| Responsible AI | Model card and risk assessment |
+
+---
+
+## 14.1 Recommended Portfolio Structure
+
+```text
+project-name/
+├── README.md
+├── pyproject.toml
+├── requirements.txt
+├── configs/
+├── data/
+│   ├── raw/
+│   ├── interim/
+│   └── processed/
+├── notebooks/
+│   ├── 01_data_understanding.ipynb
+│   ├── 02_eda.ipynb
+│   └── 03_modelling.ipynb
+├── src/
+│   ├── data/
+│   ├── features/
+│   ├── models/
+│   ├── evaluation/
+│   └── api/
+├── tests/
+├── reports/
+│   ├── figures/
+│   ├── model_card.md
+│   └── risk_assessment.md
+├── Dockerfile
+└── .github/
+    └── workflows/
+```
+
+---
+
+## 14.2 What Every Project Should Explain
+
+Your README should include:
+
+* Business problem
+* Intended users
+* Data source
+* Assumptions
+* Methodology
+* Baseline
+* Evaluation
+* Results
+* Limitations
+* Architecture
+* Installation
+* Reproduction steps
+* Security considerations
+* Responsible-AI considerations
+* Future improvements
+
+---
+
+# Part XIV: A 12-Month Learning Plan
+
+The following schedule is illustrative. Adjust it based on your existing experience.
+
+## Months 1–2: Mathematics, Statistics and Python
+
+Focus on:
+
+* Linear algebra
+* Calculus
+* Probability
+* Descriptive statistics
+* Python
+* NumPy
+* pandas
+
+Deliverables:
+
+* PCA implementation
+* Gradient-descent implementation
+* Statistical-analysis notebook
+* Data-cleaning package
+
+---
+
+## Month 3: SQL and Exploratory Data Analysis
+
+Focus on:
+
+* SQL
+* Data quality
+* Visualisation
+* Cohort analysis
+* Funnel analysis
+
+Deliverables:
+
+* SQL case study
+* EDA report
+* Data dictionary
+* Business recommendations
+
+---
+
+## Month 4: Hypothesis Testing and Experimentation
+
+Focus on:
+
+* Statistical tests
+* Power analysis
+* A/B testing
+* Minimum Detectable Effect
+* Guardrails
+* CUPED concepts
+
+Deliverables:
+
+* Experiment proposal
+* Sample-size calculator
+* A/B-test analysis
+* Executive decision memo
+
+---
+
+## Month 5: Econometrics and Time Series
+
+Focus on:
+
+* Regression
+* Causal reasoning
+* Time-series components
+* Forecast validation
+* ARIMA-style models
+
+Deliverables:
+
+* Demand forecast
+* Causal-analysis case study
+* Forecast-monitoring plan
+
+---
+
+## Months 6–7: Machine Learning
+
+Focus on:
+
+* Supervised learning
+* Unsupervised learning
+* Feature engineering
+* Cross-validation
+* Evaluation
+* Explainability
+
+Deliverables:
+
+* Churn model
+* Customer-segmentation project
+* Model card
+* Threshold-cost analysis
+
+---
+
+## Months 8–9: Deep Learning
+
+Focus on:
+
+* Neural networks
+* CNNs
+* Sequence modelling
+* Transformers
+* Transfer learning
+
+Deliverables:
+
+* Image classifier
+* Text classifier
+* Transformer fine-tuning experiment
+* Error-analysis report
+
+---
+
+## Month 10: Generative AI
+
+Focus on:
+
+* Embeddings
+* Vector search
+* RAG
+* Tool calling
+* Evaluation
+* Guardrails
+
+Deliverables:
+
+* Document-question-answering system
+* Retrieval benchmark
+* Hallucination analysis
+* Security test cases
+
+---
+
+## Month 11: MLOps
+
+Focus on:
+
+* APIs
+* Docker
+* Experiment tracking
+* CI/CD
+* Model registry
+* Monitoring
+
+Deliverables:
+
+* Containerised API
+* Automated test pipeline
+* Model-monitoring dashboard
+* Deployment strategy
+
+---
+
+## Month 12: Capstone Project
+
+Build one integrated solution that includes:
+
+* Business case
+* Data pipeline
+* Statistical analysis
+* Model
+* API
+* User interface
+* Monitoring
+* Security
+* Responsible-AI assessment
+* Cost estimation
+* Executive presentation
+
+---
+
+# Part XV: The Capstone Project
+
+## 15. Enterprise Customer-Intelligence Platform
+
+A strong capstone could combine prediction, experimentation and generative AI.
+
+### Business objective
+
+Help a subscription business understand customer behaviour, predict churn and provide recommended retention actions.
+
+### Solution components
+
+#### Data layer
+
+* Customer profiles
+* Product usage
+* Support interactions
+* Billing history
+* Marketing engagement
+* Feedback data
+
+#### Analytical layer
+
+* Cohort analysis
+* Retention analysis
+* Customer segmentation
+* Churn drivers
+* Experiment results
+
+#### Machine-learning layer
+
+* Churn prediction
+* Customer-lifetime-value estimation
+* Next-best-action model
+
+#### Generative-AI layer
+
+* Customer-summary generation
+* Evidence-grounded explanation
+* Suggested support response
+* Retrieval from approved policy documents
+
+#### Application layer
+
+* Customer dashboard
+* Risk indicators
+* Explanation panel
+* Recommended actions
+* Human approval
+
+#### MLOps layer
+
+* Feature pipeline
+* Model registry
+* Deployment pipeline
+* Drift detection
+* Performance monitoring
+* Audit logging
+
+#### Governance layer
+
+* Role-based access
+* PII protection
+* Human oversight
+* Model card
+* Data lineage
+* Decision logs
+* Incident process
+
+### Success measures
+
+* Retention uplift
+* Precision among contacted customers
+* Cost per retained customer
+* Intervention acceptance
+* Complaint rate
+* Model calibration
+* Segment-level performance
+* System latency
+* Cost per prediction
+
+---
+
+# Part XVI: Common Mistakes
+
+## 16. Mistakes to Avoid
+
+### Learning every topic before building anything
+
+You will forget theory that you never apply. Build small projects throughout the roadmap.
+
+### Starting with deep learning
+
+Many structured-data problems are solved effectively using regression, tree-based models or well-designed rules.
+
+### Ignoring data quality
+
+A sophisticated algorithm cannot repair an unreliable label or incorrectly joined dataset.
+
+### Optimising only for accuracy
+
+Accuracy may be inappropriate for imbalanced problems and may not represent business value.
+
+### Ignoring baselines
+
+Without a baseline, you cannot determine whether complexity created meaningful improvement.
+
+### Treating correlation as causation
+
+Predictive relationships do not prove that changing one variable will change another.
+
+### Using random splits for time-series problems
+
+Random splitting can expose future information to the training process.
+
+### Deploying without monitoring
+
+A model can fail because the environment changes even when the code remains unchanged.
+
+### Building AI without an operating process
+
+Someone must own:
+
+* Alerts
+* Overrides
+* Retraining decisions
+* Incident investigation
+* User feedback
+* Model retirement
+
+### Collecting certificates without producing evidence
+
+Employers and clients need evidence that you can solve problems, not only evidence that you completed courses.
+
+---
+
+# Final Roadmap
+
+The complete learning sequence is:
+
+1. Understand business problems and decision-making.
+2. Learn mathematics for model understanding.
+3. Master statistics and uncertainty.
+4. Learn experimentation and causal reasoning.
+5. Build strong Python and SQL skills.
+6. Develop disciplined exploratory-analysis practices.
+7. Master classical machine learning.
+8. Study deep learning and transformers.
+9. Learn generative-AI architectures.
+10. Understand data engineering.
+11. Deploy models using MLOps.
+12. Apply security, privacy and responsible-AI controls.
+13. Communicate recommendations clearly.
+14. Build portfolio projects that demonstrate end-to-end ownership.
+15. Continue learning through production feedback.
+
+The goal is not to memorise every algorithm. The goal is to become capable of taking an ambiguous problem and turning it into a measurable, technically reliable, commercially valuable and responsibly operated AI solution.
+
+<KeyTakeaways>
+- Begin with the decision, evidence standard and success metrics—not the model catalogue.
+- Prefer classical ML on structured data until deep learning is clearly justified by the problem shape.
+- Ship portfolio evidence at every stage: experiments, forecasts, prediction systems, RAG and monitored APIs.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed path: [AI Data Scientist roadmap](/roadmaps/ai-data-scientist).
+- Deepen production AI systems with the [AI Engineer roadmap](/roadmaps/ai-engineer) and [AI Agents roadmap](/roadmaps/ai-agents).
+- Practise related Learning Map topics: [Machine Learning Foundations](/learning-map/10-machine-learning-foundations), [Data Engineering](/learning-map/09-data-engineering-architecture) and [MLOps](/learning-map/20-mlops-llmops-observability).
+</NextSteps>

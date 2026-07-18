@@ -1,0 +1,976 @@
+---
+slug: ai-engineer-roadmap
+title: "The Complete AI Engineer Roadmap: From Software Developer to Production AI Systems"
+description: A practical learning programme from software foundations through pretrained models, prompting, safety, open-source AI, embeddings, RAG, agents, multimodal systems and production engineering.
+authors: [sudip]
+tags: [roadmaps, ai-engineering, solution-engineering, playbook]
+keywords:
+  - AI engineer roadmap
+  - AI engineering
+  - pretrained models
+  - prompt engineering
+  - RAG
+  - vector databases
+  - AI agents
+  - production AI
+  - AI Solution Engineering
+---
+
+An AI engineer builds applications and systems that use artificial intelligence to solve real business and user problems.
+
+The role is not limited to training machine-learning models. Modern AI engineers often spend more time integrating pretrained models, designing prompts and structured outputs, building retrieval pipelines, connecting models to tools and APIs, evaluating behaviour, implementing security and safety controls, monitoring cost, latency and quality, deploying scalable AI services, and improving products through user feedback.
+
+{/* truncate */}
+
+<ExecSummary>
+Treat this roadmap as a sequence of capabilities, not technologies to memorise. For every stage: learn, build, evaluate, document limitations, deploy and improve using evidence. The goal is a repeatable engineering approach that turns uncertain model behaviour into useful, measurable, secure products.
+</ExecSummary>
+
+<WhenToUse>
+- Use when moving from software development into production AI engineering.
+- Pair with the [AI Engineer roadmap](/roadmaps/ai-engineer), [RAG](/ai-solution-engineering/rag), [Agentic AI Systems](/ai-solution-engineering/agentic-ai) and [Security & privacy](/ai-solution-engineering/security-privacy).
+- Treat the 24-week plan, capstone and competency checklist as your working system.
+</WhenToUse>
+
+The [AI Engineer roadmap](/roadmaps/ai-engineer) provides a strong visual sequence covering foundations, pretrained models, model APIs, AI safety, open-source AI, embeddings, vector databases, retrieval-augmented generation, agents, multimodal AI and development tools. This expanded guide turns that roadmap into a practical learning programme that readers can follow from beginning to end.
+
+---
+
+## 1. What does an AI engineer actually do?
+
+A traditional software application follows explicitly programmed rules:
+
+```text
+Input → Business Logic → Database → Output
+```
+
+An AI application introduces probabilistic model behaviour:
+
+```text
+Input
+  ↓
+Validation and Safety Controls
+  ↓
+Prompt or Retrieval Pipeline
+  ↓
+AI Model
+  ↓
+Output Validation
+  ↓
+Application or User
+```
+
+This changes how products must be designed. Developers can no longer assume that the same input will always create exactly the same response. AI systems need evaluation, monitoring, fallback logic, human oversight and carefully defined boundaries.
+
+---
+
+## 2. How to use this roadmap
+
+Do not treat the roadmap as a list of technologies to memorise.
+
+Use it as a sequence of capabilities.
+
+For every stage:
+
+1. Learn the concept.
+2. Build a small implementation.
+3. Evaluate the implementation.
+4. Document its limitations.
+5. Deploy it.
+6. Improve it using evidence.
+
+A useful learning cycle is:
+
+```text
+Understand → Build → Test → Evaluate → Deploy → Observe → Improve
+```
+
+The roadmap can be completed in approximately six months by studying for eight to twelve hours per week. Experienced developers may move faster, while beginners may spend additional time on programming, APIs, databases and deployment.
+
+---
+
+## 3. Phase 0: Prerequisites
+
+The roadmap recommends having experience in at least one software-development area: frontend, backend or full-stack development.
+
+You do not need to be an expert in every area, but you should understand how a web application works before building AI features.
+
+### 3.1 Programming fundamentals
+
+Python is the most useful starting language for AI engineering because of its ecosystem. JavaScript or TypeScript is also valuable for browser and full-stack AI applications.
+
+You should understand:
+
+* Variables and data types.
+* Conditions and loops.
+* Functions.
+* Classes and objects.
+* Modules and packages.
+* Error handling.
+* Asynchronous programming.
+* Environment variables.
+* Virtual environments.
+* Dependency management.
+* Reading and writing files.
+* JSON processing.
+* Logging and debugging.
+
+**Practical exercise.** Create a Python command-line application that:
+
+1. accepts a user question;
+2. validates that the question is not empty;
+3. stores the question in a JSON file;
+4. calls a placeholder response function;
+5. logs the execution time;
+6. handles errors without crashing.
+
+This teaches the application structure that will later surround an AI model.
+
+### 3.2 API fundamentals
+
+Most AI models are accessed through APIs.
+
+Learn:
+
+* HTTP methods such as GET and POST.
+* Request and response bodies.
+* Headers.
+* Authentication.
+* API keys.
+* Status codes.
+* Timeouts.
+* Retries.
+* Rate limits.
+* Streaming responses.
+* Webhooks.
+* REST and event-driven communication.
+
+**Practical exercise.** Build a small application that calls a public API and displays the response in a simple user interface. Then add timeout handling, retry logic, loading indicators, validation, logging and caching. These same patterns will later be used with model APIs.
+
+### 3.3 Backend development
+
+AI applications normally need a backend layer to protect credentials and apply business rules.
+
+Learn one framework:
+
+* FastAPI or Flask for Python.
+* Express or NestJS for TypeScript.
+* Spring Boot for Java.
+* ASP.NET for C#.
+
+Your backend should be able to receive user requests, authenticate users, validate inputs, call a model, access a database, return structured responses, and record logs and metrics.
+
+### 3.4 Databases
+
+Understand the difference between relational databases, document databases, key-value stores, vector databases and graph databases.
+
+Start with SQL and learn tables, relationships, primary and foreign keys, indexes, joins, transactions and data constraints.
+
+AI applications still need conventional databases for users, permissions, conversations, configurations, audit records and feedback.
+
+### 3.5 Cloud and deployment fundamentals
+
+Learn Docker, containers, basic networking, environment configuration, secrets management, continuous integration and deployment, cloud storage, serverless functions, managed databases and monitoring.
+
+At the end of the prerequisite stage, you should be able to deploy a basic web application that calls an external API securely.
+
+---
+
+## 4. Phase 1: AI engineering foundations
+
+### 4.1 What is an AI engineer?
+
+An AI engineer converts AI capabilities into reliable products.
+
+A typical workflow is:
+
+```text
+Business problem
+    ↓
+Use-case definition
+    ↓
+Data and risk assessment
+    ↓
+Model or architecture selection
+    ↓
+Prototype
+    ↓
+Evaluation
+    ↓
+Production implementation
+    ↓
+Monitoring and continuous improvement
+```
+
+AI engineering exists between several disciplines: software engineering, machine learning, data engineering, product management, user experience, cloud architecture, security, governance and business analysis.
+
+A good AI engineer does not begin by asking, “Which model should we use?”
+
+The first question should be:
+
+> What outcome are we trying to improve, and how will we know that the AI system has improved it?
+
+### 4.2 AI engineer vs machine-learning engineer
+
+The roles overlap but usually have different centres of gravity.
+
+| Area | AI engineer | Machine-learning engineer |
+| --- | --- | --- |
+| Main objective | Build AI-enabled products | Build and operationalise ML models |
+| Model usage | Frequently uses pretrained models | May train or optimise custom models |
+| Application development | Central responsibility | Sometimes secondary |
+| Prompting and RAG | Common | Depends on role |
+| Data pipelines | Important | Usually highly important |
+| Model training | Sometimes | Frequently |
+| Product integration | Very important | Varies |
+| Evaluation | Product and model evaluation | Model and statistical evaluation |
+| Infrastructure | APIs, cloud, orchestration | Training and inference infrastructure |
+
+An AI engineer should still understand machine-learning concepts, even when using external models.
+
+### 4.3 AI vs AGI
+
+Artificial intelligence is a broad term for systems that perform tasks normally associated with human intelligence—language generation, image recognition, recommendation, forecasting, speech recognition, anomaly detection and planning.
+
+Artificial general intelligence refers to a hypothetical system that can perform a broad range of intellectual tasks at a general human level or beyond.
+
+AI engineers work with available task-oriented and general-purpose AI systems. They should avoid designing business plans around assumptions that require speculative future capabilities.
+
+---
+
+## 5. Core AI terminology
+
+### Model
+
+A model is a system that has learned patterns from data and can produce predictions or outputs.
+
+### Training
+
+Training is the process of adjusting model parameters using data.
+
+### Inference
+
+Inference occurs when a trained model receives an input and produces an output. When a user submits a question to a language model, the model is performing inference.
+
+### Parameter
+
+A parameter is an internal numerical value learned during training. Large models can contain very large numbers of parameters, but parameter count alone does not determine suitability.
+
+### Token
+
+A token is a unit of text processed by a language model. A token may represent a complete word, part of a word, punctuation or another text fragment.
+
+Tokens affect model context limits, processing time, cost and output length.
+
+### Context window
+
+The context window is the maximum amount of information a model can process in a request or interaction. The context may contain system instructions, conversation history, retrieved documents, user input, tool outputs, examples and generated output.
+
+### Temperature
+
+Temperature influences output variability. Lower values generally produce more consistent responses. Higher values generally produce more diverse responses.
+
+Use lower variability for extraction, classification, compliance tasks, structured data and factual enterprise workflows. Use higher variability carefully for brainstorming, creative writing, naming ideas and alternative generation.
+
+### Hallucination
+
+A hallucination is an output that appears plausible but is unsupported, inaccurate or invented.
+
+Hallucination cannot be managed through prompting alone. It usually requires a combination of reliable context, retrieval, output validation, citations, confidence handling, human review and deterministic business rules.
+
+### Embedding
+
+An embedding is a numerical representation of data that captures semantic characteristics. Similar items should have embeddings that are close within a vector space.
+
+### Vector database
+
+A vector database stores embeddings and supports similarity-based retrieval.
+
+### RAG
+
+Retrieval-augmented generation retrieves relevant information and gives it to a model before the model generates a response.
+
+### Agent
+
+An AI agent is a model-driven system that can choose or execute actions to achieve a goal—searching documents, calling APIs, querying databases, sending messages, updating records, generating files or requesting human approval.
+
+---
+
+## 6. Phase 2: Using pretrained models
+
+### 6.1 What is a pretrained model?
+
+A pretrained model has already been trained on a large dataset. Instead of building a model from the beginning, developers provide instructions, examples or additional context. This makes it possible to create an AI product without operating a large training infrastructure.
+
+### 6.2 Benefits
+
+* **Faster development** — teams can prototype within days instead of months of foundation-model training.
+* **Lower initial cost** — the provider absorbs large-scale training infrastructure cost.
+* **Broad capabilities** — summarisation, extraction, classification, reasoning, coding, translation, question answering, image understanding and tool selection.
+* **Managed infrastructure** — providers may handle scaling, hardware and model serving.
+
+### 6.3 Limitations and considerations
+
+* Limited control over training data, architecture, updates, provider behaviour and availability.
+* Knowledge limitations for current, private or domain-specific information.
+* Inconsistent, probabilistic outputs.
+* Data privacy, contractual and regulatory concerns.
+* Vendor dependency on API, behaviour and pricing.
+* Cost at scale—prototypes may be cheap while production usage becomes costly.
+
+### 6.4 How to select a model
+
+Model selection should be treated as an engineering decision rather than a popularity contest.
+
+Evaluate against:
+
+1. **Task quality** — does it perform well on your exact task?
+2. **Latency** — how quickly must the response arrive?
+3. **Cost** — estimate monthly cost from request volume, input/output size and pricing, plus embeddings, vector databases, storage, orchestration, monitoring and human review.
+4. **Context requirements** — how much information must be processed in one interaction? A large context window does not remove the need for retrieval.
+5. **Privacy and deployment model** — public API, enterprise cloud, private endpoint, dedicated deployment, or on-premises/self-hosted.
+6. **Structured output reliability** — valid JSON or another required format.
+7. **Tool-use capability** — correct tool selection and calling.
+8. **Multimodal capability** — text, image, audio or video.
+9. **Language coverage** — languages, dialects and terminology expected in production.
+10. **Safety and governance** — auditability, access control, retention, content safety, monitoring, regional processing and incident management.
+
+### 6.5 Build a model evaluation matrix
+
+Before selecting a model, test multiple candidates using the same dataset.
+
+| Criterion | Weight | Model A | Model B | Model C |
+| --- | ---: | ---: | ---: | ---: |
+| Accuracy | 30% | | | |
+| Instruction following | 15% | | | |
+| Latency | 15% | | | |
+| Cost | 15% | | | |
+| Structured output | 10% | | | |
+| Security fit | 10% | | | |
+| Multilingual quality | 5% | | | |
+
+Do not rely on a generic public benchmark alone. Create an evaluation dataset representing your actual users, content and failure risks.
+
+---
+
+## 7. Phase 3: Model APIs and prompt engineering
+
+### 7.1 Anatomy of a model request
+
+A typical model request contains model selection, system instructions, user input, conversation history, retrieved context, tool definitions, output format and generation settings.
+
+Conceptually:
+
+```python
+response = model.generate(
+    instructions=system_instructions,
+    input=user_question,
+    context=retrieved_documents,
+    output_schema=expected_schema
+)
+```
+
+Production applications should keep model calls behind a backend service. Never expose sensitive API credentials in frontend code.
+
+### 7.2 Prompt engineering
+
+Prompt engineering is the process of designing instructions and context that help a model complete a task reliably.
+
+A strong prompt commonly contains six elements:
+
+1. **Role** — responsibility of the model.
+2. **Objective** — desired outcome.
+3. **Context** — relevant information.
+4. **Constraints** — what the model must not do.
+5. **Output format** — expected structure.
+6. **Failure behaviour** — what to do when evidence is insufficient.
+
+### 7.3 A reusable prompt template
+
+```text
+ROLE
+You are [role].
+
+OBJECTIVE
+Complete [task].
+
+INPUT
+[User input]
+
+CONTEXT
+[Trusted contextual information]
+
+RULES
+- Follow [business rule].
+- Do not [prohibited action].
+- Use only [permitted information].
+- Ask for clarification when [condition].
+
+OUTPUT
+Return the response using this structure:
+[required format]
+
+UNCERTAINTY
+When the answer is not supported by the context, state:
+[approved fallback response].
+```
+
+### 7.4 Few-shot prompting
+
+Few-shot prompting provides examples of correct behaviour. Examples are especially useful for classification, tone, formatting, extraction and policy interpretation. However, too many examples increase token usage and may create conflicting patterns.
+
+### 7.5 Structured outputs
+
+Whenever the output is consumed by software, prefer a structured schema.
+
+```json
+{
+  "category": "billing",
+  "priority": "high",
+  "requires_human_review": true,
+  "summary": "The customer reports a duplicated payment."
+}
+```
+
+The application should validate required fields, allowed values, data types, maximum lengths and unexpected content. Never assume model-generated JSON is valid until it has been parsed and validated.
+
+### 7.6 Token management
+
+Common sources of token waste include full conversation histories, retrieving too many documents, duplicated instructions, excessively long examples, unnecessarily long outputs and raw documents without preprocessing.
+
+Token-control strategies:
+
+* summarise older conversation turns;
+* retrieve only relevant passages;
+* set sensible output limits;
+* remove repeated content;
+* cache reusable information;
+* use smaller models for simple tasks;
+* use routing to select models by complexity.
+
+A model-routing pattern might be:
+
+```text
+Simple classification → smaller model
+Standard question → general model
+Complex analysis → advanced model
+High-risk decision → human review
+```
+
+### 7.7 When to use fine-tuning
+
+Fine-tuning adjusts a pretrained model using examples. Consider it when you have a stable and repeatable task, a high-quality labelled dataset, consistent output expectations, sufficient evaluation evidence and a clear reason prompting or RAG is inadequate.
+
+Fine-tuning may help with style consistency, domain-specific classification, specialised structured outputs and repeated behavioural patterns. It is not usually the first solution for missing factual knowledge. If information changes frequently, retrieval is generally easier to update.
+
+Before fine-tuning, try improving instructions, adding examples, improving context, introducing retrieval, validating outputs and evaluating another model.
+
+---
+
+## 8. Phase 4: AI safety, security and ethics
+
+Safety must be designed into the application, not added shortly before launch.
+
+### 8.1 Threat model for an AI application
+
+Identify who will use the system, what information it can access, what actions it can perform, what information it can expose, how it could be manipulated, how harmful outputs could affect users, and what happens when dependencies fail.
+
+A support chatbot that only answers public FAQs has a different risk profile from an agent that can issue refunds or update customer records.
+
+### 8.2 Prompt injection
+
+Prompt injection occurs when malicious or untrusted content attempts to override application instructions.
+
+Indirect prompt injection can also appear inside retrieved webpages, uploaded documents, emails, database records and third-party tool outputs.
+
+**Controls** (use several layers):
+
+1. separate system instructions from untrusted data;
+2. clearly delimit retrieved content;
+3. restrict tool permissions;
+4. validate tool arguments;
+5. require approval for sensitive actions;
+6. filter secrets from model context;
+7. log suspicious instructions;
+8. test known attack patterns;
+9. apply output validation;
+10. operate with least privilege.
+
+A prompt alone is not a sufficient security boundary.
+
+### 8.3 Privacy and data protection
+
+Classify information before sending it to a model: public, internal, confidential, personal, special-category personal information, financial, authentication credentials and regulated data.
+
+Implement data minimisation, masking or redaction, encryption, retention policies, regional processing controls, access control, audit logging, deletion workflows and user consent where required. Avoid sending unnecessary personal data inside prompts.
+
+### 8.4 Bias and fairness
+
+Models may produce different outcomes across demographic, language or user groups. Evaluate performance by user segment, false-positive and false-negative rates, language quality, accessibility, harmful stereotypes and unequal escalation patterns.
+
+For high-impact decisions, AI should not be the only decision-maker without appropriate governance and oversight.
+
+### 8.5 Adversarial testing
+
+Create a red-team test set containing prompt injection attempts, requests for hidden instructions, harmful content, fabricated sources, irrelevant context, conflicting documents, oversized input, malformed input, unsupported languages and requests outside the system’s authority.
+
+Record test case, expected behaviour, actual behaviour, severity, owner, remediation and retest result.
+
+### 8.6 Human-in-the-loop controls
+
+Human approval is appropriate when an action is financially significant, legally sensitive, difficult to reverse, safety-critical, reputationally sensitive or based on low-confidence evidence.
+
+The interface should show the reviewer the proposed action, supporting evidence, the model’s reasoning summary, warnings, missing information, and approve, reject and edit options.
+
+---
+
+## 9. Phase 5: Open-source AI
+
+### 9.1 Open vs closed models
+
+**Closed models** are typically offered through managed APIs. Advantages include easier setup, managed scaling, strong general capabilities and less infrastructure work. Limitations include limited deployment control, provider dependency, possible data-governance constraints and variable pricing.
+
+**Open-weight models** make weights available under a particular licence. Advantages include greater deployment control, potential on-premises use, customisation and reduced dependency on one API provider. Limitations include infrastructure responsibility, GPU requirements, security patching, model optimisation, licensing analysis, and observability and scaling complexity.
+
+“Open” does not automatically mean unrestricted. Review the model licence before commercial use.
+
+### 9.2 Working with model hubs
+
+A model hub helps developers discover models for text generation, classification, embeddings, translation, image processing, speech recognition and summarisation.
+
+When reviewing a model, inspect the model card, licence, intended use, limitations, training information, supported languages, model size, hardware requirements, evaluation results and safety notes. Never select a model only because it is popular or highly downloaded.
+
+### 9.3 Local model development
+
+Local runtimes are useful for offline experimentation, privacy-sensitive prototypes, learning model behaviour, testing open models and reducing API dependency.
+
+For production, evaluate memory requirements, GPU availability, quantisation, throughput, concurrency, cold-start time, monitoring and model versioning.
+
+---
+
+## 10. Phase 6: Embeddings and vector databases
+
+### 10.1 How embeddings work
+
+An embedding model converts content into a vector. Semantically similar sentences should produce nearby vectors. This allows systems to search based on meaning instead of exact keywords.
+
+### 10.2 Embedding use cases
+
+Semantic search, recommendation systems, classification, duplicate detection, clustering and anomaly detection.
+
+### 10.3 Choosing an embedding model
+
+Evaluate retrieval quality, vector dimensions, language support, domain suitability, maximum input length, inference cost, latency and deployment requirements.
+
+Use the same embedding model for stored documents and incoming queries unless you are deliberately using a compatible asymmetric retrieval design.
+
+### 10.4 What is a vector database?
+
+A vector database stores vectors and searches for nearby vectors. A vector record may contain an id, vector, text and metadata such as document name, version, department and access level.
+
+Metadata is important because similarity alone is not enough. You may need to filter by user permissions, region, product, department, document version, publication date and content type.
+
+### 10.5 Vector search process
+
+```text
+User query
+   ↓
+Create query embedding
+   ↓
+Search vector database
+   ↓
+Apply metadata filters
+   ↓
+Rank matching records
+   ↓
+Return relevant passages
+```
+
+Common similarity measures include cosine similarity, dot product and Euclidean distance. The database and embedding model documentation should guide the correct metric.
+
+### 10.6 Hybrid search
+
+Vector search is strong at semantic similarity, but keyword search remains useful for exact product names, codes, identifiers, legal clauses and technical terminology.
+
+Hybrid search combines keyword search, vector search and reranking. This often produces more reliable enterprise retrieval than vector search alone.
+
+---
+
+## 11. Phase 7: Retrieval-augmented generation
+
+### 11.1 What problem does RAG solve?
+
+A model may not know private company policies, recently updated information, internal technical documentation, customer-specific records or proprietary domain knowledge. RAG retrieves relevant content and provides it to the model.
+
+```text
+Question
+   ↓
+Query processing
+   ↓
+Document retrieval
+   ↓
+Relevant context
+   ↓
+Model generation
+   ↓
+Answer with evidence
+```
+
+### 11.2 The RAG pipeline
+
+1. **Document ingestion** — collect source content and record metadata and permissions.
+2. **Parsing** — extract text, headings, tables, lists, page numbers, links and structure.
+3. **Cleaning** — remove repeated headers, navigation, irrelevant footers, corrupted characters and duplicates while preserving interpretive information.
+4. **Chunking** — fixed-length, paragraph-based, heading-based, sentence-based, semantic or parent-child strategies. A chunk should be meaningful without being unnecessarily large.
+5. **Embedding** — convert each chunk into a vector.
+6. **Indexing** — store vector, text and metadata.
+7. **Query transformation** — rewrite, expand abbreviations, generate alternate queries, extract filters and detect intent.
+8. **Retrieval** — retrieve candidate passages.
+9. **Reranking** — reorder candidates by relevance.
+10. **Context construction** — select, deduplicate and format evidence.
+11. **Generation** — answer using the supplied evidence.
+12. **Validation** — citations, support, format, sensitive content and escalation.
+
+### 11.3 RAG vs fine-tuning
+
+| Requirement | RAG | Fine-tuning |
+| --- | --- | --- |
+| Frequently changing knowledge | Strong fit | Weak fit |
+| Private document access | Strong fit | Not sufficient alone |
+| Source citations | Strong fit | Difficult |
+| Style consistency | Moderate | Strong |
+| Task behaviour | Moderate | Strong |
+| Updating knowledge | Re-index documents | Retrain or update dataset |
+| Data access controls | Can filter during retrieval | Requires separate controls |
+
+They can also be combined: fine-tuned behaviour plus retrieved current knowledge.
+
+### 11.4 RAG evaluation
+
+Do not evaluate only the final answer. Evaluate the entire pipeline.
+
+**Retrieval metrics:** recall, precision, ranking quality, access correctness.
+
+**Generation metrics:** faithfulness, relevance, completeness, citation correctness, refusal quality.
+
+**Operational metrics:** latency, cost, failure rate, empty retrieval rate, user satisfaction, escalation rate, feedback rate.
+
+---
+
+## 12. Phase 8: AI agents
+
+### 12.1 What is an AI agent?
+
+A chatbot generates responses. An agent can select and execute actions.
+
+```text
+User goal
+   ↓
+Agent interprets goal
+   ↓
+Agent selects a tool
+   ↓
+Tool performs an action
+   ↓
+Agent reviews the result
+   ↓
+Agent continues or responds
+```
+
+### 12.2 Good agent use cases
+
+Agents are useful when the workflow requires several steps, the next action depends on earlier results, multiple systems must be accessed, information must be gathered before a decision, or human approval may be inserted.
+
+Examples include customer-support case resolution, employee onboarding, research assistance, incident triage, document-review workflows, sales qualification and procurement analysis.
+
+### 12.3 When not to use an agent
+
+Do not use an agent when a fixed workflow is sufficient, the task can be handled by a deterministic API call, actions are highly sensitive and cannot be safely constrained, the additional autonomy provides no user benefit, or reliability requirements exceed current model performance.
+
+A workflow is often safer than an autonomous agent. Use autonomy only where flexibility creates meaningful value.
+
+### 12.4 ReAct pattern
+
+ReAct combines reasoning and action selection: observe the request, choose the next action, call a tool, observe the tool result, then repeat or provide an answer.
+
+In production, hidden reasoning should not be treated as an audit record. Record observable decisions instead: selected tool, input arguments, tool result, policy decision, approval status and final action.
+
+### 12.5 Tool design
+
+A tool should have a clear name, a narrow purpose, a defined input schema, validated parameters, predictable output, permission checks, error handling and audit logs.
+
+Prefer narrow tools such as `get_customer_order(order_id)` over broad tools such as `manage_customer()`. Narrow tools are easier to govern and test.
+
+### 12.6 Agent permission model
+
+Classify tools by risk:
+
+* **Read-only** — search documents, view order status, retrieve public information.
+* **Low-risk write** — create a draft, add a note, prepare a ticket.
+* **High-risk write** — send money, cancel a contract, disclose personal information, delete data, approve a claim.
+
+Require human approval for high-risk actions.
+
+### 12.7 Agent memory
+
+Memory may include current conversation state, user preferences, workflow progress, long-term profile data and past tool results.
+
+Separate short-term memory (needed for the current task) from long-term memory (stored across sessions). Long-term memory requires careful consent, retention, deletion and access controls. Do not store every conversation by default.
+
+### 12.8 Agent evaluation
+
+Test tool-selection accuracy, tool-argument accuracy, task-completion rate, unnecessary steps, recovery from tool errors, policy compliance, human-approval compliance, cost per completed task and average execution time.
+
+Create scenarios including unavailable tools, conflicting data, missing permissions, ambiguous requests, malicious instructions and partial tool failures.
+
+---
+
+## 13. Phase 9: Multimodal AI
+
+Multimodal systems process or generate more than one type of data—text and images, audio and text, video and text, documents containing charts and tables, or speech-based agents.
+
+### 13.1 Image understanding
+
+Use cases include document analysis, visual quality inspection, image classification, chart interpretation, accessibility descriptions, product-image analysis and screenshot support.
+
+A robust pipeline should validate file type, scan the file, limit size and resolution, remove unnecessary metadata, provide task-specific instructions, validate the model response and avoid unsupported conclusions.
+
+### 13.2 Image generation
+
+Controls should address inappropriate content, intellectual-property risk, misleading representations, branding consistency, disclosure requirements and user-uploaded image permissions.
+
+### 13.3 Speech-to-text and text-to-speech
+
+Evaluate background noise, accents, speaker separation, domain vocabulary, latency, transcription confidence and personal-data exposure for STT. For TTS, consider voice consent, impersonation risk, disclosure, pronunciation, interruption handling and emotional appropriateness.
+
+### 13.4 Video understanding
+
+Video can be expensive to process. A practical system may first extract audio transcript, selected frames and metadata; the model then reasons over those derived components.
+
+---
+
+## 14. Phase 10: Development tools
+
+AI development tools can accelerate boilerplate generation, test creation, code explanation, refactoring, documentation, debugging and API integration.
+
+However, generated code must still be reviewed. Check for security vulnerabilities, incorrect dependencies, missing validation, exposed credentials, inefficient queries, licence issues, outdated APIs, weak error handling and fabricated library functions.
+
+Treat generated code as an untrusted contribution from a junior developer: useful, but always reviewed and tested.
+
+---
+
+## 15. A 24-week learning plan
+
+| Weeks | Focus | Deliverable |
+| --- | --- | --- |
+| 1–2 | Software and API foundations | Deployed web service with error handling and logging |
+| 3–4 | AI foundations | Written explanation of application limitations |
+| 5–6 | Model APIs and prompting | Support-ticket classifier + evaluation dataset (≥50 examples) |
+| 7–8 | Safety and security | Threat model and red-team test report |
+| 9–10 | Open-source models | Comparison of managed and open-weight models |
+| 11–12 | Embeddings | Semantic document search with relevance testing |
+| 13–15 | Vector databases | Retrieval benchmark with representative queries |
+| 16–18 | RAG | RAG evaluation covering retrieval and generation |
+| 19–21 | Agents | Agent trace, permissions matrix and failure test suite |
+| 22–23 | Multimodal AI | Application that processes text and images safely |
+| 24 | Production capstone | Production-style AI application with documentation |
+
+---
+
+## 16. Recommended capstone project
+
+### Enterprise knowledge and action assistant
+
+Build an assistant that can:
+
+1. authenticate users;
+2. search authorised internal documents;
+3. answer with citations;
+4. identify missing evidence;
+5. create a draft support ticket;
+6. request approval before submitting it;
+7. record feedback;
+8. log model and tool interactions;
+9. monitor quality, latency and cost.
+
+### Suggested architecture
+
+```text
+Web or Mobile Interface
+        ↓
+API Gateway
+        ↓
+Authentication and Authorisation
+        ↓
+AI Orchestration Service
+        ├── Prompt and Policy Layer
+        ├── Retrieval Service
+        ├── Tool Service
+        ├── Safety Service
+        └── Evaluation and Logging
+        ↓
+Model Provider / Local Model
+        ↓
+Validated Response
+```
+
+### Required project documentation
+
+Create a problem statement, user personas, use-case boundaries, architecture diagram, model-selection matrix, data-flow diagram, threat model, RAG evaluation, agent evaluation, cost estimate, deployment guide, incident process, limitations and future roadmap.
+
+This documentation demonstrates engineering maturity more effectively than a chatbot interface alone.
+
+---
+
+## 17. Production AI engineering
+
+Building a working demo is only the beginning. A production system must address:
+
+### Reliability
+
+Timeouts, retries, circuit breakers, fallback models, graceful degradation, queue-based processing, idempotency and dependency health checks.
+
+### Observability
+
+Request volume, model latency, token usage, cost, retrieval quality, tool failures, unsafe-output rate, user feedback and escalation rate.
+
+### Versioning
+
+Version prompts, models, embedding models, document indexes, tools, evaluation datasets and safety policies. Without versioning, teams cannot explain why behaviour changed.
+
+### Evaluation gates
+
+Before release, require minimum thresholds for task accuracy, retrieval recall, citation correctness, safety performance, latency, cost and approval compliance.
+
+### Feedback loops
+
+Collect explicit feedback (helpful / not helpful) and structured reasons: incorrect, incomplete, outdated, unsafe, irrelevant, poor citation, wrong action. Use feedback to improve the evaluation dataset rather than automatically training on all user conversations.
+
+---
+
+## 18. Common mistakes
+
+* **Starting with an agent** — master model calls, structured outputs and retrieval first.
+* **Using one model for everything** — route by complexity, risk, latency, modality and cost.
+* **Ignoring evaluation** — create a repeatable evaluation process.
+* **Treating prompts as security controls** — enforce permissions in application code and infrastructure.
+* **Storing sensitive information in prompts** — minimise, redact and control data before it reaches the model.
+* **Retrieving too much context** — more context can increase cost and introduce irrelevant information.
+* **Choosing tools before defining the problem** — begin with outcome, user need, risk and success metric.
+* **Building without failure handling** — design for unavailable models, empty retrieval, invalid JSON, tool failure, rate limiting, ambiguous questions and unsafe requests.
+
+---
+
+## 19. AI engineer competency checklist
+
+A learner is ready for an entry-level AI engineering role when they can:
+
+### Foundations
+
+* Explain inference, training, tokens and context windows.
+* Describe the difference between AI engineering and ML engineering.
+* Build and deploy an API-based application.
+
+### Model integration
+
+* Integrate a pretrained model securely.
+* Manage tokens, retries and streaming.
+* Compare models using task-specific evaluations.
+
+### Prompting
+
+* Design clear instructions.
+* Use examples effectively.
+* Produce and validate structured outputs.
+* Define uncertainty and fallback behaviour.
+
+### Safety
+
+* Explain prompt injection.
+* Apply data minimisation.
+* Create a basic AI threat model.
+* Perform adversarial testing.
+* Add human approval to sensitive actions.
+
+### Open-source AI
+
+* Find and assess open models.
+* Interpret model cards and licences.
+* Run a local model.
+* Compare hosted and self-hosted deployment.
+
+### Embeddings and retrieval
+
+* Generate embeddings.
+* Create a vector index.
+* Perform semantic and hybrid search.
+* Apply metadata and permission filters.
+
+### RAG
+
+* Build an ingestion and retrieval pipeline.
+* Select a chunking approach.
+* Generate answers with citations.
+* Evaluate retrieval and faithfulness.
+
+### Agents
+
+* Define safe tools.
+* Validate tool arguments.
+* Manage state.
+* Apply least privilege.
+* Evaluate agent completion and failure behaviour.
+
+### Multimodal AI
+
+* Process images or audio.
+* Validate uploaded content.
+* Manage multimodal cost and privacy.
+* Test quality across realistic inputs.
+
+### Production engineering
+
+* Deploy the application.
+* Monitor latency, cost and quality.
+* Version prompts and models.
+* Implement feedback and incident processes.
+
+---
+
+## 20. Final learning principle
+
+The goal of this roadmap is not to become familiar with every model, framework and vector database.
+
+The goal is to develop a repeatable engineering approach:
+
+```text
+Understand the problem
+        ↓
+Define measurable success
+        ↓
+Select the simplest suitable AI architecture
+        ↓
+Build a controlled prototype
+        ↓
+Evaluate quality and risk
+        ↓
+Deploy with security and observability
+        ↓
+Learn from real usage
+        ↓
+Improve continuously
+```
+
+A strong AI engineer is not simply someone who can call a model API. A strong AI engineer can turn uncertain model behaviour into a useful, measurable, secure and maintainable product.
+
+<KeyTakeaways>
+- Follow capabilities in order: foundations → models → prompting → safety → retrieval → agents → production.
+- Prefer the simplest reliable architecture; use autonomy only where it creates measurable value.
+- Evaluation, versioning and threat modelling are part of engineering maturity—not optional extras.
+</KeyTakeaways>
+
+<NextSteps>
+- Follow the staged path in the [AI Engineer roadmap](/roadmaps/ai-engineer).
+- Continue with specialised journeys: [AI Agents roadmap](/roadmaps/ai-agents) and [Building Production-Grade AI Agents](/articles/building-production-grade-ai-agents).
+- Practise related skills: [Prompt & context engineering](/learning-map/12-prompt-context-engineering), [RAG](/ai-solution-engineering/rag) and [Security & privacy](/ai-solution-engineering/security-privacy).
+</NextSteps>

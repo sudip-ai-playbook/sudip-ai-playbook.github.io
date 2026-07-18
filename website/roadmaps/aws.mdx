@@ -1,0 +1,207 @@
+---
+sidebar_position: 9
+slug: aws
+title: AWS Learning Roadmap
+description: A practical path from cloud fundamentals to production-ready AWS architecture—IAM, VPC, EC2, platform services, data, containers, serverless, automation and governance.
+---
+
+# AWS Learning Roadmap
+
+The original one-page AWS sequence—cloud fundamentals, IAM, VPC and EC2; then S3, SES, Route 53, CloudWatch and CloudFront; then databases, containers and serverless—is a strong starting map. This roadmap turns that sequence into a learning system: learn by deploying a simple application, then harden it into something you can operate in production.
+
+<ExecSummary>
+Do not memorise hundreds of AWS services. For every stage: understand the business problem, learn the concepts, create the resource in the console, repeat with the CLI, automate with infrastructure as code, then add security, monitoring and cost controls. Complete the 16-week plan and capstone before claiming production readiness.
+</ExecSummary>
+
+<WhenToUse>
+- Use when building AWS platform capability from foundations through production architecture.
+- Pair with the full guide: [The Complete AWS Learning Roadmap](/articles/aws-roadmap).
+- Cross-check with [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering), [DevSecOps](./devsecops) and [Architecture](/ai-solution-engineering/architecture).
+</WhenToUse>
+
+## Capability map
+
+1. Cloud fundamentals and delivery models
+2. AWS global infrastructure and shared responsibility
+3. IAM and secure account access
+4. VPC networking
+5. EC2, AMIs, Auto Scaling and load balancing
+6. Core platform services (S3, Route 53, CloudFront, CloudWatch, SES)
+7. Data services (RDS, DynamoDB, ElastiCache)
+8. Containers (ECR, ECS, Fargate, EKS)
+9. Serverless (Lambda, API Gateway, EventBridge)
+10. Production engineering (IaC, CloudTrail, KMS, Secrets Manager, multi-account, cost, CI/CD)
+11. Capstone order-management platform
+
+## Learning cycle
+
+```text
+Business problem → Concepts → Console → CLI → IaC → Secure/monitor/cost → Document
+```
+
+The target is not recognising service names. The target is designing, deploying, securing, operating and improving a workload on AWS.
+
+## Roadmap at a glance
+
+| Stage | Main focus | Practical outcome |
+| --- | --- | --- |
+| 0 | Cloud fundamentals | Understand cloud delivery and deployment models |
+| 1 | AWS foundations | Choose Regions, AZs and architecture principles |
+| 2 | IAM | Create secure human and workload access |
+| 3 | VPC | Design a secure public/private network |
+| 4 | EC2 | Deploy and scale a traditional web application |
+| 5 | Core platform services | Add storage, DNS, CDN, email and monitoring |
+| 6 | Data services | Choose relational, NoSQL and caching technologies |
+| 7 | Containers | Package and operate applications with ECS, Fargate or EKS |
+| 8 | Serverless | Build event-driven applications with Lambda |
+| 9 | Production engineering | Add automation, auditing, encryption, cost and governance |
+| 10 | Capstone | Deliver a production-style AWS application |
+
+## Eleven-stage journey
+
+### Stage 0 — Cloud fundamentals
+
+Understand on-demand provisioning, elasticity, resource abstraction, usage-based charging and global deployment. Distinguish IaaS, PaaS and SaaS, and public, private and hybrid cloud trade-offs.
+
+**Build:** a one-page note comparing IaaS/PaaS choices for a fictional workload.
+
+### Stage 1 — AWS foundations
+
+Select Regions and Availability Zones from latency, residency, regulation, DR and cost. Apply the shared responsibility model and the six Well-Architected pillars.
+
+**Build:** Region-selection paper, shared-responsibility matrix (EC2 vs Fargate vs Lambda/DynamoDB) and a Well-Architected review of a fictional system.
+
+### Stage 2 — IAM
+
+Protect the root account, prefer federation and temporary credentials, and design least-privilege policies for humans and workloads. Separate trust policies from permissions policies.
+
+**Build:** admin / developer / read-only permission sets, an EC2 app role that can read one S3 bucket, and a cross-account deployment role design.
+
+### Stage 3 — VPC
+
+Design CIDR ranges, public and private subnets across two AZs, route tables, security groups, internet and NAT gateways, and VPC flow logs.
+
+**Build:** a two-AZ VPC with public, application and database tiers, plus a traffic-flow diagram you can explain end to end.
+
+### Stage 4 — EC2 and scaling
+
+Choose instance types and purchasing options, manage EBS, AMIs, launch templates, Auto Scaling groups and Elastic Load Balancing. Prefer roles over long-lived keys.
+
+**Build:** a load-balanced Auto Scaling web app in private subnets with health checks, scaling tests and instance replacement.
+
+### Stage 5 — Core platform services
+
+Add S3 (versioning, encryption, lifecycle, presigned URLs), Route 53 (alias and failover), CloudFront, CloudWatch (metrics, logs, alarms, dashboards) and SES (DKIM, bounce handling).
+
+**Build:** static assets via CloudFront, DNS to an ALB, an ops dashboard with response plans, and a transactional email workflow.
+
+### Stage 6 — Data services
+
+Choose data stores from access patterns. Operate RDS with private networking and tested restores; model DynamoDB from queries; add ElastiCache with cache-aside and failure tests.
+
+**Build:** PostgreSQL with backup/restore evidence, a DynamoDB order model with streams, and a cache performance comparison.
+
+### Stage 7 — Containers
+
+Learn images and registries first. Deploy with ECR and ECS on Fargate; understand when EKS is justified versus when ECS is simpler.
+
+**Build:** containerised API on ECS Fargate with ALB, secrets, logs, service auto scaling and rolling deployment; write an ECS-versus-EKS decision record.
+
+### Stage 8 — Serverless
+
+Build with Lambda, API Gateway and EventBridge. Design for retries, idempotency, concurrency limits, cold starts and dead-letter handling.
+
+**Build:** serverless API (API Gateway → Lambda → DynamoDB), a scheduled job, and an event-driven email flow with DLQ design.
+
+### Stage 9 — Production engineering
+
+Move from console learning to IaC (CloudFormation, CDK or Terraform). Add CloudTrail, KMS, Secrets Manager, multi-account structure, Budgets, tagging and CI/CD with rollback.
+
+**Build:** recreate the VPC from code, protect audit logs, encrypt secrets, set cost alerts and automate deployment with verification.
+
+### Stage 10 — Capstone
+
+Ship an order-management platform through three architectures: EC2 + RDS, ECS Fargate + RDS, then selected serverless paths—each with security, HA, monitoring, backups, IaC and cost limits.
+
+**Build:** final architecture, automated deployment, threat model, cost estimate, monitoring plan, DR plan and Well-Architected assessment.
+
+## Capstone progression
+
+```text
+Version 1: Route 53 → CloudFront → ALB → EC2 ASG → RDS
+Version 2: Replace EC2 with ECR → ECS Fargate
+Version 3: CloudFront → API Gateway → Lambda → DynamoDB (+ EventBridge/SES)
+```
+
+Compare versions on deployment speed, operational effort, cost, scaling, debugging, portability and security responsibility.
+
+## 16-week plan (summary)
+
+| Weeks | Focus | Key deliverable |
+| --- | --- | --- |
+| 1–2 | Cloud and AWS foundations | Region paper, responsibility matrix, Well-Architected review |
+| 3–4 | IAM and account security | Permission model, EC2 role, cross-account design |
+| 5–6 | VPC networking | Two-AZ VPC, diagram, traffic-flow explanation |
+| 7–8 | EC2 and scaling | Load-balanced app, scaling and replacement tests |
+| 9–10 | Platform services | CloudFront assets, DNS, dashboard, SES workflow |
+| 11–12 | Data | RDS restore, DynamoDB model, cache test |
+| 13–14 | Containers | ECS Fargate deploy, ECS-versus-EKS ADR |
+| 15 | Serverless | Serverless API, schedule, event email, DLQ design |
+| 16 | Production readiness | IaC, audit, encryption, budgets, CI/CD, runbooks |
+
+## Completion checklist
+
+### Architecture
+
+- Explain why you chose EC2, ECS, EKS or Lambda—and RDS or DynamoDB
+- Know where state lives and what fails if one AZ is unavailable
+- Describe how the system scales
+
+### Networking
+
+- Identify public subnets and public addresses
+- Trace browser → load balancer → app → database
+- Explain private outbound internet path and why the database is not public
+
+### Security
+
+- Describe human access, workload credentials, secrets storage and encryption
+- Know who can modify production and where API actions are audited
+
+### Reliability and operations
+
+- State RTO/RPO, prove restores were tested, and describe rollback
+- Name user-impact metrics, alarms, responders and investigation path
+
+### Cost
+
+- Identify largest cost drivers, idle cost, budgets and unit economics
+
+## Common mistakes to avoid
+
+- Learning services without building systems
+- Starting with EKS too early
+- Administrator access for every user
+- Databases in public subnets
+- Hard-coding credentials
+- Treating untested backups as recovery
+- Ignoring cost until production
+- Building everything manually forever
+- Monitoring only infrastructure, not business outcomes
+- Selecting services before understanding requirements
+
+## Core principle
+
+> The best evidence of completing this roadmap is not a certificate or a list of AWS services. It is a working application that can be deployed repeatedly, survives failure, protects its data, produces useful telemetry, stays within its cost boundaries and can be operated by someone other than its original developer.
+
+<KeyTakeaways>
+- Learn AWS as an operating system for a business workload—identity, network, compute, data, edge, observability and governance together.
+- Use the console to understand, the CLI to repeat, and infrastructure as code to make environments reproducible.
+- Progress from EC2 to containers to serverless with the same non-functional bar: security, HA, monitoring, backups, cost and audit.
+</KeyTakeaways>
+
+<NextSteps>
+- Read the full guide: [The Complete AWS Learning Roadmap](/articles/aws-roadmap).
+- Practise the capability: [Cloud and Platform Engineering](/learning-map/16-cloud-platform-engineering).
+- Harden delivery with [DevSecOps](./devsecops) and [API Security Engineering](./api-security-engineering).
+</NextSteps>

@@ -225,7 +225,36 @@ const config: Config = {
               href: 'https://sudip-ai-playbook.github.io/consult',
             },
             {label: 'Articles', to: '/articles'},
+            {label: 'AI Engineer roadmap', to: '/roadmaps/ai-engineer'},
+            {
+              label: 'AI Data Scientist roadmap',
+              to: '/roadmaps/ai-data-scientist',
+            },
             {label: 'AI Agents roadmap', to: '/roadmaps/ai-agents'},
+            {
+              label: 'AI Product Builder roadmap',
+              to: '/roadmaps/ai-product-builder',
+            },
+            {
+              label: 'Forward-Deployed Engineer roadmap',
+              to: '/roadmaps/forward-deployed-engineer',
+            },
+            {
+              label: 'AI Product Management roadmap',
+              to: '/roadmaps/ai-product-management',
+            },
+            {
+              label: 'Engineering Manager roadmap',
+              to: '/roadmaps/engineering-manager',
+            },
+            {
+              label: 'DevSecOps roadmap',
+              to: '/roadmaps/devsecops',
+            },
+            {
+              label: 'Software Architect roadmap',
+              to: '/roadmaps/software-architect',
+            },
             {label: 'Competency test', to: '/learning-map/competency-test'},
             {
               label: 'GitHub',
