@@ -3,7 +3,11 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HubView } from './HubView'
 import { ProjectProvider } from '../journey/ProjectProvider'
-import { LEARNING_MAP_PATH } from '../../constants/playbook'
+import {
+  BUY_ME_A_COFFEE_URL,
+  KO_FI_URL,
+  LEARNING_MAP_PATH,
+} from '../../constants/playbook'
 
 function renderHub() {
   return render(
@@ -27,5 +31,12 @@ describe('HubView orientation', () => {
 
     expect(screen.queryByTestId('hub-blog-featured')).not.toBeInTheDocument()
     expect(screen.queryByTestId('plane-map')).not.toBeInTheDocument()
+
+    expect(screen.getByTestId('hub-support')).toBeInTheDocument()
+    expect(screen.getByTestId('hub-buy-me-a-coffee')).toHaveAttribute(
+      'href',
+      BUY_ME_A_COFFEE_URL,
+    )
+    expect(screen.getByTestId('hub-ko-fi')).toHaveAttribute('href', KO_FI_URL)
   })
 })

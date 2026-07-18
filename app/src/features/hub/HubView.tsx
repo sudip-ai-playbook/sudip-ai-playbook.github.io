@@ -1,7 +1,19 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { ArrowRight, BookOpen, Briefcase, Compass, type LucideIcon } from 'lucide-react'
-import { LEARNING_MAP_PATH } from '../../constants/playbook'
+import {
+  ArrowRight,
+  BookOpen,
+  Briefcase,
+  Coffee,
+  Compass,
+  Heart,
+  type LucideIcon,
+} from 'lucide-react'
+import {
+  BUY_ME_A_COFFEE_URL,
+  KO_FI_URL,
+  LEARNING_MAP_PATH,
+} from '../../constants/playbook'
 import { isFrameComplete } from '../journey/project.logic'
 import { useProject } from '../journey/useProject'
 
@@ -135,6 +147,47 @@ export function HubView() {
               <PathActionCard path={path} />
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="hub-support-heading"
+        className="glass-panel flex flex-wrap items-end justify-between gap-4 p-6 sm:p-8"
+        data-testid="hub-support"
+      >
+        <div className="max-w-xl">
+          <h2
+            id="hub-support-heading"
+            className="font-[family-name:var(--font-display)] text-xl font-700"
+          >
+            Keep this playbook free
+          </h2>
+          <p className="mt-2 text-sm text-ink-secondary">
+            If these guides, roadmaps or tools helped you on a real engagement, a coffee funds
+            the next article, exercise and interactive update.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={BUY_ME_A_COFFEE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-accent"
+            data-testid="hub-buy-me-a-coffee"
+          >
+            <Coffee className="h-4 w-4" aria-hidden />
+            Buy me a coffee
+          </a>
+          <a
+            href={KO_FI_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-ghost"
+            data-testid="hub-ko-fi"
+          >
+            <Heart className="h-4 w-4" aria-hidden />
+            Support on Ko-fi
+          </a>
         </div>
       </section>
     </div>

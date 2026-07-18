@@ -1,6 +1,10 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import {
+  BUY_ME_A_COFFEE_URL,
+  KO_FI_URL,
+} from './src/constants/support';
 
 const config: Config = {
   title: 'AI Solution Engineering Playbook',
@@ -145,6 +149,12 @@ const config: Config = {
     },
     navbar: {
       title: 'AI Solution Engineering Playbook',
+      logo: {
+        alt: 'AI Solution Engineering Playbook',
+        src: 'img/logo.svg',
+        href: 'https://sudip-ai-playbook.github.io/',
+        target: '_self',
+      },
       items: [
         {to: '/', label: 'Home', position: 'left'},
         {
@@ -176,29 +186,19 @@ const config: Config = {
         },
         {to: '/articles', label: 'Articles', position: 'left'},
         {
-          href: 'https://sudip-ai-playbook.github.io/',
-          label: 'Open app',
-          position: 'right',
-        },
-        {
           type: 'dropdown',
           label: 'Support',
           position: 'right',
           items: [
             {
               label: 'Buy me a coffee',
-              href: 'https://www.buymeacoffee.com/kandelsudir',
+              href: BUY_ME_A_COFFEE_URL,
             },
             {
               label: 'Support on Ko-fi',
-              href: 'https://ko-fi.com/sudipkandel123',
+              href: KO_FI_URL,
             },
           ],
-        },
-        {
-          href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
-          label: 'GitHub',
-          position: 'right',
         },
       ],
     },
@@ -298,11 +298,11 @@ const config: Config = {
           items: [
             {
               label: 'Buy me a coffee',
-              href: 'https://www.buymeacoffee.com/kandelsudir',
+              href: BUY_ME_A_COFFEE_URL,
             },
             {
               label: 'Support on Ko-fi',
-              href: 'https://ko-fi.com/sudipkandel123',
+              href: KO_FI_URL,
             },
             {
               label: 'GitHub',

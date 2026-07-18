@@ -176,6 +176,7 @@ body {
   font-weight: 600;
   letter-spacing: -0.02em;
   font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
 .navbar__logo {
@@ -184,6 +185,28 @@ body {
 
 .navbar__brand {
   margin-right: 0.75rem;
+  margin-left: -0.35rem;
+  padding: 0.3rem 0.45rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.navbar__brand:hover {
+  background-color: var(--ase-accent-soft);
+  text-decoration: none;
+}
+
+.navbar__brand:hover .navbar__title {
+  color: var(--ifm-color-primary);
+}
+
+.navbar__brand:focus-visible {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
 }
 
 .navbar__link {

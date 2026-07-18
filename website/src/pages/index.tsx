@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import SupportCta from '@site/src/components/SupportCta';
 
 import styles from './index.module.css';
 
@@ -219,28 +220,8 @@ export default function Home(): ReactNode {
         <section
           className={clsx(styles.section, styles.sectionMuted)}
           aria-labelledby="support-playbook">
-          <div className={clsx('container', styles.supportPanel)}>
-            <div>
-              <Heading as="h2" id="support-playbook" className={styles.sectionTitle}>
-                Keep this playbook free
-              </Heading>
-              <p className={styles.sectionLead}>
-                If these guides, roadmaps or tools helped you on a real engagement, a coffee funds the
-                next article, exercise and interactive update.
-              </p>
-            </div>
-            <div className={styles.nextActions}>
-              <Link
-                className="button button--primary"
-                href="https://www.buymeacoffee.com/kandelsudir">
-                Buy me a coffee
-              </Link>
-              <Link
-                className="button button--secondary"
-                href="https://ko-fi.com/sudipkandel123">
-                Support on Ko-fi
-              </Link>
-            </div>
+          <div className="container">
+            <SupportCta headingId="support-playbook" />
           </div>
         </section>
       </main>
