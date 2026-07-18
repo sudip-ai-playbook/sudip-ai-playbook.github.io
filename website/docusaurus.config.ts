@@ -46,8 +46,8 @@ const config: Config = {
           blogTitle: 'Articles',
           blogDescription:
             'Practical notes on designing, governing and scaling production AI systems.',
-          blogSidebarTitle: 'Recent articles',
-          blogSidebarCount: 8,
+          blogSidebarTitle: 'Articles by topic',
+          blogSidebarCount: 'ALL',
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -155,6 +155,12 @@ const config: Config = {
       sidebar: {
         hideable: true,
         autoCollapseCategories: true,
+      },
+    },
+    blog: {
+      sidebar: {
+        // Categories are handled by the swizzled BlogSidebar/Content.
+        groupByYear: false,
       },
     },
     tableOfContents: {

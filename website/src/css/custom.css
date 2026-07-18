@@ -350,7 +350,7 @@ article .markdown > h1:first-child,
   box-shadow: none;
 }
 
-/* —— Sidebars (docs + blog recent articles) —— */
+/* —— Sidebars (docs + blog article categories) —— */
 
 .theme-doc-sidebar-container,
 .blog-wrapper .col.col--3 {
@@ -369,13 +369,62 @@ article .markdown > h1:first-child,
 
 /* Blog sidebar title + links — match docs menu */
 .blog-wrapper .col.col--3 > div > h3,
-.blog-wrapper aside h3 {
+.blog-wrapper aside h3,
+.blog-sidebar-category__summary h3 {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ase-muted);
+  margin: 0;
+}
+
+.blog-sidebar-category {
   margin-bottom: 0.85rem;
+  border-bottom: 1px solid var(--ase-rule);
+  padding-bottom: 0.65rem;
+}
+
+.blog-sidebar-category:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.blog-sidebar-category__summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0;
+  user-select: none;
+}
+
+.blog-sidebar-category__summary::-webkit-details-marker {
+  display: none;
+}
+
+.blog-sidebar-category__summary::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1.5px solid var(--ase-muted);
+  border-bottom: 1.5px solid var(--ase-muted);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-top: -0.1rem;
+}
+
+.blog-sidebar-category[open] > .blog-sidebar-category__summary::before {
+  transform: rotate(45deg);
+  margin-top: 0;
+}
+
+.blog-sidebar-category__body {
+  margin-top: 0.35rem;
+  padding-left: 0.15rem;
 }
 
 .blog-wrapper .col.col--3 ul,
