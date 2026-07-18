@@ -146,6 +146,16 @@ body {
 .navbar__title {
   font-weight: 600;
   letter-spacing: -0.02em;
+  font-size: 0.95rem;
+}
+
+/* Text-only brand — no Docusaurus / default logo mark */
+.navbar__logo {
+  display: none;
+}
+
+.navbar__brand {
+  margin-right: 0.75rem;
 }
 
 .navbar__link {

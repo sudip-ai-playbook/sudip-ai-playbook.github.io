@@ -1,0 +1,86 @@
+---
+sidebar_position: 30
+slug: 20-mlops-llmops-observability
+title: "20. MLOps, LLMOps and Observability"
+description: "Operate models and prompts with registries, eval pipelines, drift detection, tracing and reliability targets."
+---
+
+# 20. MLOps, LLMOps and Observability
+
+<ExecSummary>
+Operate models and prompts with registries, eval pipelines, drift detection, tracing and reliability targets.
+</ExecSummary>
+
+<WhenToUse>
+- Study this topic when you need to **use it on a live engagement**, not only recognise the vocabulary.
+- Complete the practice exercise before moving on.
+- Pair with related playbook pages for delivery artefacts.
+</WhenToUse>
+
+<AudienceSplit
+  executive={<>Focus on the questions, expected outputs and the real-world scenario. Ask whether the team can produce the artefacts.</>}
+  technical={<>Work the Learn list into checklists, then run the practice exercise and keep outputs in your engagement pack.</>}
+/>
+
+## Why this matters
+
+An AI Solution Engineer uses this capability to turn ambiguity into decisions. Reading is not enough—you should leave with artefacts you can reuse.
+
+## Learn
+
+- Experiment tracking, registries, versioning, canaries, shadow, A/B, continuous eval
+- LLM observability: prompts, tokens, latency, retrieval sources, tools, cost, traces, overrides
+- SLI/SLO/SLA, error budgets, MTTR
+
+## Real-world scenario
+
+Faithfulness drops after a corpus update. Traces show chunker change; you roll back index build and add a canary eval gate.
+
+## Practice exercise
+
+Define three SLIs and one SLO for a RAG assistant, plus the dashboard panels you would check first in an incident.
+
+## Questions you should be able to answer
+
+- What SLOs matter for this assistant?
+- How do we detect prompt or retrieval regressions?
+- Can we roll back model/prompt versions in minutes?
+
+<DeliverableBox>
+Expected outputs for this topic:
+
+- Observability plan
+- SLO draft
+- Rollback runbook outline
+</DeliverableBox>
+
+<Checklist title="Practice checklist">
+
+- [ ] I can explain this topic without naming a vendor first
+- [ ] I completed the practice exercise in writing
+- [ ] I produced at least one expected output artefact
+- [ ] I know which stakeholder challenges this topic
+
+</Checklist>
+
+## Related playbook content
+
+- [Guide link](/ai-solution-engineering/evaluation-observability)
+- [How to use this Learning Map](./how-to-use)
+- [8D Framework](/docs/ai-solution-engineering/8d-framework)
+
+<KeyTakeaways>
+
+- Master the questions and outputs, not only the vocabulary list.
+- Use the scenario as a template for your industry context.
+- File practice artefacts into a personal pattern library.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Finish the practice exercise.
+2. Continue with [21. AI Evaluation and Quality Assurance](./21-ai-evaluation-quality-assurance).
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) when you need workshops or architecture tools.
+
+</NextSteps>

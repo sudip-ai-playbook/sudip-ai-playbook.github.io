@@ -1,0 +1,86 @@
+---
+sidebar_position: 42
+slug: 32-operations-production-support
+title: "32. Operations and Production Support"
+description: "Transition to run: readiness, incidents, runbooks and AI-specific failure modes (drift, cost spikes, safety)."
+---
+
+# 32. Operations and Production Support
+
+<ExecSummary>
+Transition to run: readiness, incidents, runbooks and AI-specific failure modes (drift, cost spikes, safety).
+</ExecSummary>
+
+<WhenToUse>
+- Study this topic when you need to **use it on a live engagement**, not only recognise the vocabulary.
+- Complete the practice exercise before moving on.
+- Pair with related playbook pages for delivery artefacts.
+</WhenToUse>
+
+<AudienceSplit
+  executive={<>Focus on the questions, expected outputs and the real-world scenario. Ask whether the team can produce the artefacts.</>}
+  technical={<>Work the Learn list into checklists, then run the practice exercise and keep outputs in your engagement pack.</>}
+/>
+
+## Why this matters
+
+An AI Solution Engineer uses this capability to turn ambiguity into decisions. Reading is not enough—you should leave with artefacts you can reuse.
+
+## Learn
+
+- ITIL-ish: incident/problem/change/release/capacity/knowledge, on-call, DR/BCP
+- AI ops issues: degradation, retrieval fail, safety, cost, provider outage, prompt regression, misuse
+
+## Real-world scenario
+
+Provider outage: failover to secondary model with reduced capability mode and banner; runbook includes customer comms template.
+
+## Practice exercise
+
+Write a one-page runbook section for “faithfulness drop” including detect → contain → fix → communicate.
+
+## Questions you should be able to answer
+
+- Who is on-call and what is the first checklist?
+- How do we detect a safety incident?
+- What is RTO/RPO for the knowledge index?
+
+<DeliverableBox>
+Expected outputs for this topic:
+
+- ORR checklist
+- Runbook
+- Support model
+- DR plan inputs
+</DeliverableBox>
+
+<Checklist title="Practice checklist">
+
+- [ ] I can explain this topic without naming a vendor first
+- [ ] I completed the practice exercise in writing
+- [ ] I produced at least one expected output artefact
+- [ ] I know which stakeholder challenges this topic
+
+</Checklist>
+
+## Related playbook content
+
+- [Guide link](/ai-solution-engineering/delivery)
+- [How to use this Learning Map](./how-to-use)
+- [8D Framework](/docs/ai-solution-engineering/8d-framework)
+
+<KeyTakeaways>
+
+- Master the questions and outputs, not only the vocabulary list.
+- Use the scenario as a template for your industry context.
+- File practice artefacts into a personal pattern library.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Finish the practice exercise.
+2. Continue with [33. Leadership and People Management](./33-leadership-people-management).
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) when you need workshops or architecture tools.
+
+</NextSteps>

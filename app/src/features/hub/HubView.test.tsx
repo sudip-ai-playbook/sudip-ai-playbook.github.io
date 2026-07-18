@@ -6,7 +6,7 @@ import { ProjectProvider } from '../journey/ProjectProvider'
 import {
   ARTICLES_PATH,
   BLOG_FEATURED_LINKS,
-  GUIDE_OVERVIEW_PATH,
+  LEARNING_MAP_PATH,
 } from '../../constants/playbook'
 
 function renderHub() {
@@ -24,8 +24,8 @@ describe('HubView orientation', () => {
     renderHub()
 
     expect(screen.getByTestId('hub-primary-cta')).toHaveAttribute('href', '/consult')
-    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', GUIDE_OVERVIEW_PATH)
-    expect(screen.getByTestId('path-learn')).toHaveAttribute('href', GUIDE_OVERVIEW_PATH)
+    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
+    expect(screen.getByTestId('path-learn')).toHaveAttribute('href', LEARNING_MAP_PATH)
     expect(screen.getByTestId('start-consulting')).toHaveAttribute('href', '/consult')
     expect(screen.getByTestId('start-journey')).toHaveAttribute('href', '/frame')
 
@@ -33,8 +33,7 @@ describe('HubView orientation', () => {
     expect(screen.getByTestId('hub-blog-all')).toHaveAttribute('href', ARTICLES_PATH)
 
     for (const post of BLOG_FEATURED_LINKS) {
-      const slug = post.href.split('/').filter(Boolean).pop()
-      expect(screen.getByTestId(`hub-blog-${slug}`)).toHaveAttribute('href', post.href)
+      expect(screen.getByTestId(`hub-blog-${post.id}`)).toHaveAttribute('href', post.href)
     }
   })
 })

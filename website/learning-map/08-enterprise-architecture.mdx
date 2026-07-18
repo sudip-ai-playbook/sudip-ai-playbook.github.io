@@ -1,0 +1,87 @@
+---
+sidebar_position: 18
+slug: 08-enterprise-architecture
+title: "8. Enterprise Architecture"
+description: "Place AI in the enterprise: business, application, data, integration, security and technology views with ADRs."
+---
+
+# 8. Enterprise Architecture
+
+<ExecSummary>
+Place AI in the enterprise: business, application, data, integration, security and technology views with ADRs.
+</ExecSummary>
+
+<WhenToUse>
+- Study this topic when you need to **use it on a live engagement**, not only recognise the vocabulary.
+- Complete the practice exercise before moving on.
+- Pair with related playbook pages for delivery artefacts.
+</WhenToUse>
+
+<AudienceSplit
+  executive={<>Focus on the questions, expected outputs and the real-world scenario. Ask whether the team can produce the artefacts.</>}
+  technical={<>Work the Learn list into checklists, then run the practice exercise and keep outputs in your engagement pack.</>}
+/>
+
+## Why this matters
+
+An AI Solution Engineer uses this capability to turn ambiguity into decisions. Reading is not enough—you should leave with artefacts you can reuse.
+
+## Learn
+
+- Architecture domains and EA governance
+- APIs, events, scaling, multi-tenancy, resilience, HA/DR, residency, zero trust
+- C4, DDD awareness, Well-Architected, ADRs
+
+## Real-world scenario
+
+You draw a C4 container diagram: Agent UI → Orchestration API → RAG service → Vector index → Policy CMS → IdP. ADR-001: no customer PII in prompts without Presidio masking.
+
+## Practice exercise
+
+Sketch a one-page C4 context diagram for a HR policy assistant integrating IdP, SharePoint and ServiceNow.
+
+## Questions you should be able to answer
+
+- What systems own the workflow and data?
+- Where does the AI component sit in the C4 context/container view?
+- Which ADRs are non-negotiable (identity, residency, logging)?
+
+<DeliverableBox>
+Expected outputs for this topic:
+
+- Context/container diagrams
+- Data-flow
+- ADR set
+- HLD
+</DeliverableBox>
+
+<Checklist title="Practice checklist">
+
+- [ ] I can explain this topic without naming a vendor first
+- [ ] I completed the practice exercise in writing
+- [ ] I produced at least one expected output artefact
+- [ ] I know which stakeholder challenges this topic
+
+</Checklist>
+
+## Related playbook content
+
+- [Guide link](/ai-solution-engineering/architecture)
+- [How to use this Learning Map](./how-to-use)
+- [8D Framework](/docs/ai-solution-engineering/8d-framework)
+
+<KeyTakeaways>
+
+- Master the questions and outputs, not only the vocabulary list.
+- Use the scenario as a template for your industry context.
+- File practice artefacts into a personal pattern library.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Finish the practice exercise.
+2. Continue with [9. Data Engineering and Data Architecture](./09-data-engineering-architecture).
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) when you need workshops or architecture tools.
+
+</NextSteps>

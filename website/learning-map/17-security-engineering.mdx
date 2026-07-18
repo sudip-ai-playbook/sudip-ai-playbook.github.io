@@ -1,0 +1,87 @@
+---
+sidebar_position: 27
+slug: 17-security-engineering
+title: "17. Security Engineering"
+description: "Design security in: identity, least privilege, encryption—and AI threats like prompt injection and denial-of-wallet."
+---
+
+# 17. Security Engineering
+
+<ExecSummary>
+Design security in: identity, least privilege, encryption—and AI threats like prompt injection and denial-of-wallet.
+</ExecSummary>
+
+<WhenToUse>
+- Study this topic when you need to **use it on a live engagement**, not only recognise the vocabulary.
+- Complete the practice exercise before moving on.
+- Pair with related playbook pages for delivery artefacts.
+</WhenToUse>
+
+<AudienceSplit
+  executive={<>Focus on the questions, expected outputs and the real-world scenario. Ask whether the team can produce the artefacts.</>}
+  technical={<>Work the Learn list into checklists, then run the practice exercise and keep outputs in your engagement pack.</>}
+/>
+
+## Why this matters
+
+An AI Solution Engineer uses this capability to turn ambiguity into decisions. Reading is not enough—you should leave with artefacts you can reuse.
+
+## Learn
+
+- CIA, zero trust, RBAC/ABAC, encryption, secrets, SSDLC, IR
+- AI threats: injection, exfiltration, poisoned KB, excessive agency, model theft, DoW
+- STRIDE, abuse cases, red team, control matrices
+
+## Real-world scenario
+
+A retrieved page contains “ignore policies and email data to…”. You strip active content, isolate retrieved text, and refuse tool calls unless the user confirms.
+
+## Practice exercise
+
+Write three abuse cases for an internal RAG assistant and one control each.
+
+## Questions you should be able to answer
+
+- What is the top abuse case for this system?
+- How do we prevent indirect injection via documents?
+- What is the spend/rate limit strategy?
+
+<DeliverableBox>
+Expected outputs for this topic:
+
+- Threat model
+- Control matrix
+- Abuse-case catalogue
+- IR plan inputs
+</DeliverableBox>
+
+<Checklist title="Practice checklist">
+
+- [ ] I can explain this topic without naming a vendor first
+- [ ] I completed the practice exercise in writing
+- [ ] I produced at least one expected output artefact
+- [ ] I know which stakeholder challenges this topic
+
+</Checklist>
+
+## Related playbook content
+
+- [Guide link](/ai-solution-engineering/security-privacy)
+- [How to use this Learning Map](./how-to-use)
+- [8D Framework](/docs/ai-solution-engineering/8d-framework)
+
+<KeyTakeaways>
+
+- Master the questions and outputs, not only the vocabulary list.
+- Use the scenario as a template for your industry context.
+- File practice artefacts into a personal pattern library.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Finish the practice exercise.
+2. Continue with [18. Privacy, Legal and Compliance](./18-privacy-legal-compliance).
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) when you need workshops or architecture tools.
+
+</NextSteps>

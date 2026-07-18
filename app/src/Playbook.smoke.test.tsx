@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { PROJECT_STORAGE_KEY } from './constants/journey'
-import { BLOG_BASE_PATH, GUIDE_OVERVIEW_PATH } from './constants/playbook'
+import { BLOG_BASE_PATH, LEARNING_MAP_PATH } from './constants/playbook'
 
 const framedProject = {
   outcome: 'Grounded GenAI assistant for claims handlers',
@@ -101,6 +101,6 @@ describe('End-to-end journey smoke', () => {
     expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue architecture journey')
     expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
     expect(screen.getByTestId('hub-blog-featured')).toBeInTheDocument()
-    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', GUIDE_OVERVIEW_PATH)
+    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
   })
 })

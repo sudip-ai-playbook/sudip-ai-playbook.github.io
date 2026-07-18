@@ -1,6 +1,19 @@
 # AI Solution Engineering Playbook — Learning site (Docusaurus)
 
-Companion home, guide, framework docs and articles for the [AI Solution Engineering Playbook](https://sudip-ai-playbook.github.io), published at `/blog/`.
+Companion home, Learning Map, Guide, Framework and Articles for the [AI Solution Engineering Playbook](https://sudip-ai-playbook.github.io), published at `/blog/`.
+
+## How docs integrate with the app
+
+| Surface | URL | Role |
+| --- | --- | --- |
+| Interactive app | `/` | Workshops, architecture tools, ConsultAI OS |
+| Learn site | `/blog/` | Curriculum + playbooks (this Docusaurus project) |
+| Learning Map | `/blog/learning-map/` | 35 practice-first capability topics |
+| Guide | `/blog/ai-solution-engineering/` | 18-part engagement playbooks |
+| Framework | `/blog/docs/` | 8D + VALUE |
+| Articles | `/blog/articles/` | Short notes |
+
+Deploy merges `website/build/` into `app/dist/blog/` so one GitHub Pages site serves both.
 
 ## Develop
 
@@ -12,25 +25,15 @@ npm start
 
 Open http://localhost:3000/blog/
 
-Use the navbar **search** for terms such as RAG, FinOps, GDPR, Bedrock, or governance.
+## Expand a Learning Map topic
 
-## Key routes (after build)
+1. Open the topic MDX under `learning-map/`.
+2. Add definition → when to use → pitfalls under **Learn**.
+3. Add a second **Real-world scenario** for your industry.
+4. Keep the practice exercise and expected outputs.
+5. Link related Guide pages — do not duplicate engagement playbooks.
 
-| Path | Content |
-| --- | --- |
-| `/blog/` | Home — choose a path |
-| `/blog/ai-solution-engineering/overview` | 18-part guide |
-| `/blog/docs/ai-solution-engineering/8d-framework` | 8D framework |
-| `/blog/docs/ai-solution-engineering/value-gate` | VALUE gate |
-| `/blog/docs/playbook-page-template` | Reusable page template + MDX components |
-| `/blog/articles` | Articles list |
-| `/blog/articles/what-is-ai-solution-engineering` | Flagship article |
-
-## Playbook MDX components
-
-Guide and docs pages can use: `SeriesMeta`, `ExecSummary`, `WhenToUse`, `AudienceSplit`, `DecisionBox`, `RiskBox`, `RoleBox`, `DeliverableBox`, `Checklist`, `KeyTakeaways`, `NextSteps`.
-
-See [Playbook page template](./docs/playbook-page-template.mdx).
+Regenerate stubs (overwrites topic bodies): `node scripts/generate-learning-map.mjs`
 
 ## Build
 
@@ -38,9 +41,3 @@ See [Playbook page template](./docs/playbook-page-template.mdx).
 cd website
 npm run build
 ```
-
-Output lands in `website/build/` and is copied into `app/dist/blog/` by GitHub Actions.
-
-## Author an article
-
-Add `website/blog/YYYY-MM-DD-slug.mdx` with front matter (`title`, `authors`, `tags`). See [Write a blog post](./docs/write-a-blog-post.mdx).

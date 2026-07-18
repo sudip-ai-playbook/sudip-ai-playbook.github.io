@@ -17,7 +17,7 @@ import {
 import {
   ARTICLES_PATH,
   BLOG_FEATURED_LINKS,
-  GUIDE_OVERVIEW_PATH,
+  LEARNING_MAP_PATH,
 } from '../../constants/playbook'
 import { isFrameComplete } from '../journey/project.logic'
 import { useProject } from '../journey/useProject'
@@ -95,11 +95,11 @@ export function HubView() {
     {
       testId: 'path-learn',
       eyebrow: 'Learn',
-      title: 'Read the guide',
-      description: '18-part curriculum and methodology notes for enterprise AI solutions.',
-      primaryLabel: 'Open the guide overview',
+      title: 'Open the Learning Map',
+      description: '35 practice-first topics with real-world scenarios and exercises.',
+      primaryLabel: 'Start the Learning Map',
       icon: BookOpen,
-      href: GUIDE_OVERVIEW_PATH,
+      href: LEARNING_MAP_PATH,
     },
     {
       testId: 'start-consulting',
@@ -146,9 +146,9 @@ export function HubView() {
             Open ConsultAI OS
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
-          <a href={GUIDE_OVERVIEW_PATH} className="btn btn-ghost" data-testid="open-blog">
+          <a href={LEARNING_MAP_PATH} className="btn btn-ghost" data-testid="open-blog">
             <BookOpen className="h-4 w-4" aria-hidden />
-            Read the guide
+            Open Learning Map
           </a>
         </div>
       </motion.section>
@@ -194,9 +194,9 @@ export function HubView() {
         <div className="grid gap-4 sm:grid-cols-3">
           {BLOG_FEATURED_LINKS.map((post) => (
             <a
-              key={post.href}
+              key={post.id}
               href={post.href}
-              data-testid={`hub-blog-${post.href.split('/').filter(Boolean).pop()}`}
+              data-testid={`hub-blog-${post.id}`}
               className="glass-card block h-full p-4 hover:-translate-y-0.5"
             >
               <h3 className="text-sm font-bold text-ink">{post.title}</h3>

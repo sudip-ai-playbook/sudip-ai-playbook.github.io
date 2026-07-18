@@ -18,24 +18,24 @@ type PathCard = {
 
 const PATHS: PathCard[] = [
   {
-    eyebrow: 'Start here',
-    title: 'Learn the method',
+    eyebrow: 'Curriculum',
+    title: 'Learning Map',
     description:
-      'An 18-part guide from opportunity discovery through delivery, governance and adoption.',
-    primaryLabel: 'Read the guide overview',
-    primaryTo: '/ai-solution-engineering/overview',
-    secondaryLabel: 'What is AI Solution Engineering?',
-    secondaryTo: '/articles/what-is-ai-solution-engineering',
+      '35 practice-first topics from business fundamentals to leadership — with scenarios and exercises you can use on live work.',
+    primaryLabel: 'Open the Learning Map',
+    primaryTo: '/learning-map/overview',
+    secondaryLabel: 'How to practise',
+    secondaryTo: '/learning-map/how-to-use',
   },
   {
-    eyebrow: 'Core framework',
-    title: 'Apply 8D and VALUE',
+    eyebrow: 'Engagement playbooks',
+    title: 'Guide and Framework',
     description:
-      'Define → Deliver with stage gates, plus the VALUE quality check before you commit.',
-    primaryLabel: 'Open the 8D framework',
-    primaryTo: '/docs/ai-solution-engineering/8d-framework',
-    secondaryLabel: 'VALUE quality gate',
-    secondaryTo: '/docs/ai-solution-engineering/value-gate',
+      '18-part delivery guide plus 8D and VALUE for stage gates and quality checks.',
+    primaryLabel: 'Read the guide overview',
+    primaryTo: '/ai-solution-engineering/overview',
+    secondaryLabel: '8D framework',
+    secondaryTo: '/docs/ai-solution-engineering/8d-framework',
   },
   {
     eyebrow: 'Hands-on',
@@ -51,24 +51,24 @@ const PATHS: PathCard[] = [
 
 const PHASES = [
   {
-    title: 'Discover & prioritise',
-    description: 'Frame the problem, stakeholders and business case.',
-    to: '/ai-solution-engineering/discovery',
+    title: 'Stage 1 · Business & consulting',
+    description: 'Explain why the client should invest.',
+    to: '/learning-map/stage-1-business-consulting',
   },
   {
-    title: 'Design the solution',
-    description: 'Architecture, data, RAG, agents and AI patterns.',
-    to: '/ai-solution-engineering/architecture',
+    title: 'Stage 2 · AI & data',
+    description: 'Judge technical feasibility.',
+    to: '/learning-map/stage-2-ai-data',
   },
   {
-    title: 'Trust & operate',
-    description: 'Security, governance, evaluation and FinOps.',
-    to: '/ai-solution-engineering/security-privacy',
+    title: 'Stage 3–4 · Architecture & trust',
+    description: 'Design enterprise-grade, governable solutions.',
+    to: '/learning-map/stage-3-architecture-cloud',
   },
   {
-    title: 'Deliver & scale',
-    description: 'Delivery, adoption, industries and consulting craft.',
-    to: '/ai-solution-engineering/delivery',
+    title: 'Stage 5–6 · Delivery & leadership',
+    description: 'Ship to production and lead teams.',
+    to: '/learning-map/stage-5-commercial-delivery',
   },
 ];
 
@@ -123,13 +123,13 @@ function HomepageHeader(): ReactNode {
         <div className={styles.heroActions}>
           <Link
             className="button button--primary button--lg"
-            to="/ai-solution-engineering/overview">
-            Read the guide
+            to="/learning-map/overview">
+            Open the Learning Map
           </Link>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/ai-solution-engineering/8d-framework">
-            View the 8D framework
+            to="/ai-solution-engineering/overview">
+            Read the guide
           </Link>
         </div>
       </div>
@@ -163,10 +163,11 @@ export default function Home(): ReactNode {
         <section className={clsx(styles.section, styles.sectionMuted)} aria-labelledby="how-organised">
           <div className="container">
             <Heading as="h2" id="how-organised" className={styles.sectionTitle}>
-              How the guide is organised
+              How the curriculum is organised
             </Heading>
             <p className={styles.sectionLead}>
-              Four phases, eighteen chapters. Start at the phase that matches your current work.
+              Six stages, thirty-five topics. Each page includes a scenario, practice exercise and
+              expected outputs.
             </p>
             <div className={styles.phaseGrid}>
               {PHASES.map((phase) => (
@@ -187,21 +188,19 @@ export default function Home(): ReactNode {
                 What to do next
               </Heading>
               <p className={styles.sectionLead}>
-                New here? Read the overview, then skim 8D. Returning? Search for a term (RAG,
-                FinOps, GDPR) or jump into articles and the app.
+                New here? Start the Learning Map Stage 1. Returning? Search (RAG, FinOps, GDPR) or
+                jump into the Guide and app.
               </p>
             </div>
             <div className={styles.nextActions}>
-              <Link className="button button--primary" to="/ai-solution-engineering/overview">
-                Start with the overview
+              <Link className="button button--primary" to="/learning-map/overview">
+                Start the Learning Map
+              </Link>
+              <Link className="button button--secondary" to="/learning-map/competency-test">
+                Take the competency test
               </Link>
               <Link className="button button--secondary" to="/articles">
                 Browse articles
-              </Link>
-              <Link
-                className="button button--secondary"
-                to="/docs/playbook-page-template">
-                View page template
               </Link>
             </div>
           </div>

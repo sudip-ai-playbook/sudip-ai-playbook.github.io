@@ -2,21 +2,25 @@ export const APP_NAME = 'AI Solution Engineering Playbook'
 export const APP_TAGLINE = 'Learn. Decide. Deliver.'
 export const BLOG_BASE_PATH = '/blog/'
 export const ARTICLES_PATH = `${BLOG_BASE_PATH}articles/`
+export const LEARNING_MAP_PATH = `${BLOG_BASE_PATH}learning-map/overview/`
 export const GUIDE_OVERVIEW_PATH = `${BLOG_BASE_PATH}ai-solution-engineering/overview/`
 export const FRAMEWORK_8D_PATH = `${BLOG_BASE_PATH}docs/ai-solution-engineering/8d-framework/`
 
 export const BLOG_FEATURED_LINKS = [
   {
-    href: `${ARTICLES_PATH}what-is-ai-solution-engineering/`,
-    title: 'What is AI Solution Engineering?',
-    desc: '8D spine, VALUE gates, and how the playbook fits together',
+    id: 'learning-map',
+    href: LEARNING_MAP_PATH,
+    title: 'Learning Map',
+    desc: '35 practice-first topics with scenarios and exercises',
   },
   {
+    id: 'guide-overview',
     href: GUIDE_OVERVIEW_PATH,
     title: 'Guide overview',
-    desc: '18-part curriculum from discovery through adoption',
+    desc: '18-part engagement curriculum from discovery through adoption',
   },
   {
+    id: '8d-framework',
     href: FRAMEWORK_8D_PATH,
     title: '8D framework',
     desc: 'Define → Deliver with stage gates and legacy mapping',

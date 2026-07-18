@@ -70,7 +70,7 @@ const config: Config = {
         indexDocs: true,
         indexBlog: true,
         indexPages: true,
-        docsRouteBasePath: ['docs', 'ai-solution-engineering'],
+        docsRouteBasePath: ['docs', 'ai-solution-engineering', 'learning-map'],
         blogRouteBasePath: 'articles',
         explicitSearchResultPath: true,
         searchBarShortcutHint: true,
@@ -93,10 +93,23 @@ const config: Config = {
         showLastUpdateAuthor: false,
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'learning-map',
+        path: 'learning-map',
+        routeBasePath: 'learning-map',
+        sidebarPath: './sidebarsLearningMap.ts',
+        editUrl:
+          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+      },
+    ],
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/social-card.svg',
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -111,13 +124,16 @@ const config: Config = {
       maxHeadingLevel: 3,
     },
     navbar: {
-      title: 'AI Playbook',
-      logo: {
-        alt: 'AI Solution Engineering Playbook',
-        src: 'img/logo.svg',
-      },
+      title: 'AI Solution Engineering Playbook',
       items: [
         {to: '/', label: 'Home', position: 'left'},
+        {
+          type: 'docSidebar',
+          sidebarId: 'learningMapSidebar',
+          docsPluginId: 'learning-map',
+          position: 'left',
+          label: 'Learning Map',
+        },
         {
           type: 'docSidebar',
           sidebarId: 'aiSolutionEngineeringSidebar',
@@ -146,47 +162,27 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
+      logo: undefined,
       links: [
         {
           title: 'Start here',
           items: [
-            {
-              label: 'Home',
-              to: '/',
-            },
-            {
-              label: 'Guide overview',
-              to: '/ai-solution-engineering/overview',
-            },
-            {
-              label: '8D Framework',
-              to: '/docs/ai-solution-engineering/8d-framework',
-            },
-            {
-              label: 'VALUE gate',
-              to: '/docs/ai-solution-engineering/value-gate',
-            },
+            {label: 'Home', to: '/'},
+            {label: 'Learning Map', to: '/learning-map/overview'},
+            {label: 'How to practise', to: '/learning-map/how-to-use'},
+            {label: 'Guide overview', to: '/ai-solution-engineering/overview'},
+            {label: '8D Framework', to: '/docs/ai-solution-engineering/8d-framework'},
           ],
         },
         {
-          title: 'Guide phases',
+          title: 'Learning stages',
           items: [
-            {
-              label: 'Discover & prioritise',
-              to: '/ai-solution-engineering/discovery',
-            },
-            {
-              label: 'Design the solution',
-              to: '/ai-solution-engineering/architecture',
-            },
-            {
-              label: 'Trust & operate',
-              to: '/ai-solution-engineering/security-privacy',
-            },
-            {
-              label: 'Deliver & scale',
-              to: '/ai-solution-engineering/delivery',
-            },
+            {label: '1. Business & consulting', to: '/learning-map/stage-1-business-consulting'},
+            {label: '2. AI & data', to: '/learning-map/stage-2-ai-data'},
+            {label: '3. Architecture & cloud', to: '/learning-map/stage-3-architecture-cloud'},
+            {label: '4. Trust & control', to: '/learning-map/stage-4-trust-control'},
+            {label: '5. Commercial & delivery', to: '/learning-map/stage-5-commercial-delivery'},
+            {label: '6. Leadership', to: '/learning-map/stage-6-leadership'},
           ],
         },
         {
@@ -200,14 +196,8 @@ const config: Config = {
               label: 'ConsultAI OS',
               href: 'https://sudip-ai-playbook.github.io/consult',
             },
-            {
-              label: 'Articles',
-              to: '/articles',
-            },
-            {
-              label: 'Page template',
-              to: '/docs/playbook-page-template',
-            },
+            {label: 'Articles', to: '/articles'},
+            {label: 'Competency test', to: '/learning-map/competency-test'},
             {
               label: 'GitHub',
               href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',

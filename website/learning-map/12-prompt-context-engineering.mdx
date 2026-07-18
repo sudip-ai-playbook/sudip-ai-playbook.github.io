@@ -1,0 +1,86 @@
+---
+sidebar_position: 22
+slug: 12-prompt-context-engineering
+title: "12. Prompt and Context Engineering"
+description: "Prompting matters, but enterprise solutions need versioning, schemas, controls and evaluation—not prompts alone."
+---
+
+# 12. Prompt and Context Engineering
+
+<ExecSummary>
+Prompting matters, but enterprise solutions need versioning, schemas, controls and evaluation—not prompts alone.
+</ExecSummary>
+
+<WhenToUse>
+- Study this topic when you need to **use it on a live engagement**, not only recognise the vocabulary.
+- Complete the practice exercise before moving on.
+- Pair with related playbook pages for delivery artefacts.
+</WhenToUse>
+
+<AudienceSplit
+  executive={<>Focus on the questions, expected outputs and the real-world scenario. Ask whether the team can produce the artefacts.</>}
+  technical={<>Work the Learn list into checklists, then run the practice exercise and keep outputs in your engagement pack.</>}
+/>
+
+## Why this matters
+
+An AI Solution Engineer uses this capability to turn ambiguity into decisions. Reading is not enough—you should leave with artefacts you can reuse.
+
+## Learn
+
+- System/user messages, few-shot, structured prompting, schemas, tool descriptions, context assembly/compression
+- Versioning, testing, injection resistance
+- Principle: prompts + data + access control + eval + monitoring + human review
+
+## Real-world scenario
+
+A “friendly” system prompt causes inconsistent claim summaries. You replace it with a schema (fields, citations required) and a golden test set of 50 cases in CI.
+
+## Practice exercise
+
+Write a system prompt + JSON schema for “policy answer with citations” and list three regression tests.
+
+## Questions you should be able to answer
+
+- What is the contract for output schema?
+- How do we regression-test prompt changes?
+- What injection paths exist via retrieved documents?
+
+<DeliverableBox>
+Expected outputs for this topic:
+
+- Prompt template pack
+- Output schema
+- Prompt test set
+</DeliverableBox>
+
+<Checklist title="Practice checklist">
+
+- [ ] I can explain this topic without naming a vendor first
+- [ ] I completed the practice exercise in writing
+- [ ] I produced at least one expected output artefact
+- [ ] I know which stakeholder challenges this topic
+
+</Checklist>
+
+## Related playbook content
+
+- [Guide link](/ai-solution-engineering/rag)
+- [How to use this Learning Map](./how-to-use)
+- [8D Framework](/docs/ai-solution-engineering/8d-framework)
+
+<KeyTakeaways>
+
+- Master the questions and outputs, not only the vocabulary list.
+- Use the scenario as a template for your industry context.
+- File practice artefacts into a personal pattern library.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Finish the practice exercise.
+2. Continue with [13. Retrieval-Augmented Generation](./13-retrieval-augmented-generation).
+3. Open the [interactive playbook](https://sudip-ai-playbook.github.io/) when you need workshops or architecture tools.
+
+</NextSteps>
