@@ -1,0 +1,533 @@
+---
+slug: frameworks-for-end-to-end-ai-solution-engineering
+title: "Frameworks for End-to-End AI Solution Engineering"
+description: A category-by-category catalogue of AI engineering and consulting frameworks—data, ML, MLOps, orchestration, domain toolkits, strategy, governance and security—with cloud guidance and a worked financial-audit firm scenario.
+authors: [sudip]
+tags: [solution-engineering, consulting, playbook, governance, architecture, security, finops, cloud]
+keywords:
+  - AI frameworks catalogue
+  - end-to-end AI solution engineering
+  - MLOps LLMOps AgentOps
+  - data management frameworks
+  - AI consulting frameworks
+  - financial audit AI
+  - NIST AI RMF
+  - ISO/IEC 42001
+  - Responsible AI gatekeeping
+---
+
+These frameworks provide structured approaches, tools and methodologies that streamline the development, deployment and management of AI systems. No single library or methodology covers the full journey from ambiguous business problem to governed production capability. End-to-end AI solution engineering therefore uses a **stack**: consulting and strategy frameworks to decide *what* to build; data, ML, MLOps and orchestration frameworks to build and run it; domain toolkits for specialised capabilities; and security–governance frameworks as **gatekeepers** that decide whether work may proceed.
+
+{/* truncate */}
+
+<ExecSummary>
+Treat frameworks as a layered operating system: consulting frameworks for ambition and prioritisation; data and ML frameworks for trustworthy inputs and models; MLOps / LLMOps / AgentOps for production lifecycle; orchestration for multi-step workflows; domain toolkits for NLP and vision; and NIST AI RMF, ISO/IEC 42001, OWASP LLM and privacy controls as release gates. The running example is a mid-market financial auditing firm industrialising AI for engagement planning, document review, anomaly detection and working-paper drafting—with human reviewers remaining accountable.
+</ExecSummary>
+
+<WhenToUse>
+- Use this as the explorative reference when selecting frameworks for an engagement, platform decision or stage gate.
+- Pair with the [End-to-End AI Solution Engineering Framework Playbook](/articles/ai-solution-engineering-framework-playbook) for lifecycle sequencing and the [AI Consulting Strategy, Frameworks and Roadmap](/articles/ai-consulting-strategy-frameworks-roadmap) for stage-by-stage consulting delivery.
+- For governance depth, use [NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act) and [Implementing ISO/IEC 42001](/articles/ai-governance-iso-iec-42001).
+</WhenToUse>
+
+## Running client: Apex Audit Partners
+
+Throughout this article, **Apex Audit Partners** is a mid-market financial auditing firm (≈1,200 professionals across assurance, risk advisory and tax). Leadership wants AI to:
+
+1. Accelerate engagement planning and risk assessment from prior-year files and industry benchmarks.
+2. Extract, classify and reconcile evidence from contracts, invoices, bank statements and general ledgers.
+3. Flag unusual journal entries and related-party patterns for senior review.
+4. Draft working-paper narratives and management-letter points that partners still own and sign.
+
+Constraints are typical of regulated professional services: client confidentiality, independence rules, audit quality standards, explainability to engagement quality reviewers and regulators, and zero tolerance for unverifiable AI assertions in the audit file.
+
+---
+
+## How to read this catalogue
+
+Each category below answers four questions:
+
+| Question | What you get |
+|---|---|
+| **What it is** | Definition and role in the AI lifecycle |
+| **Best end-to-end approach** | How to apply it in production AI engineering |
+| **Cloud / tooling** | When a hyperscaler or open stack is a sensible default |
+| **Security–governance gate** | What must be true before the next stage proceeds |
+| **Apex example** | Concrete use at the financial auditing firm |
+
+Cross-links to the playbook’s consulting dictionary appear in Part II so strategy, commercial, change and Responsible AI frameworks stay in the same reference surface.
+
+---
+
+# Part I — Technical AI Engineering Frameworks
+
+## 1. Data management frameworks
+
+### What they are
+
+Data management frameworks cover ingestion, cleaning, transformation, feature creation, lineage, quality monitoring and access control. They ensure models and LLM retrieval systems are trained and grounded on accurate, authorised and auditable data—not ad-hoc extracts.
+
+Common building blocks:
+
+- Medallion / lakehouse patterns (bronze → silver → gold)
+- Data mesh and data fabric operating models
+- Feature stores and data contracts
+- Data quality frameworks (Great Expectations, Deequ, dbt tests)
+- Lineage and catalogue (OpenLineage, DataHub, Collibra, Purview)
+- Privacy-preserving patterns (tokenisation, differential privacy, clean rooms)
+
+### Best end-to-end approach
+
+1. Start from the **decision or assertion** the AI will support (for Apex: “which journals warrant senior review?”), then work backwards to required fields, freshness and evidence standards.
+2. Define **data contracts** between source systems (ERP extracts, document stores, prior-year binders) and AI consumers.
+3. Separate **training / evaluation** datasets from **live engagement** data; never mix client matter into shared training corpora without legal approval.
+4. Enforce quality gates in the pipeline: schema, null rates, reconciliation totals, PII detection, retention tags.
+5. Persist lineage so every model score or RAG citation can be traced to source artefacts in the audit file.
+
+### Suggested cloud
+
+| Context | Prefer |
+|---|---|
+| Microsoft-centric firm (M365, Entra, Purview) | Azure Data Lake + Fabric / Synapse + Purview |
+| AWS-native data estate | S3 + Glue / Lake Formation + Athena + SageMaker Feature Store |
+| Analytics-first / BigQuery estate | BigQuery + Dataplex + Vertex Feature Store |
+| Multi-cloud or strong portability need | Open lakehouse (Iceberg/Delta) + open catalogue; cloud as IaaS |
+
+For Apex, **Azure** is often the default when engagement files already live in SharePoint / M365 and governance must integrate with Purview and Entra ID.
+
+### Security–governance gate
+
+Before model training or production retrieval:
+
+- [ ] Lawful basis / engagement letter covers processing
+- [ ] Data classification and retention applied
+- [ ] PII / secrets scanning on ingestion
+- [ ] Client segregation (no cross-client leakage in indices or feature stores)
+- [ ] Lineage and access logs exportable for quality review
+- [ ] DPIA / transfer assessment completed where required
+
+### Apex example
+
+Apex ingests client purchase history is not the pattern—here the firm ingests **prior-year working papers, trial balances, journal extracts and scanned invoices**. The data framework cleans inconsistent account names, handles missing posting dates, and creates features such as “days since last similar journal,” “poster seniority,” and “deviation from account monthly mean.” Those features feed the anomaly model and the RAG index used for engagement planning. Without this layer, the recommendation engine for “areas of elevated risk” would amplify dirty ledgers and produce irrelevant or misleading suggestions for partners.
+
+---
+
+## 2. Machine learning and deep learning frameworks
+
+### What they are
+
+Libraries and platforms for defining, training, validating and exporting models—classical ML (scikit-learn, XGBoost, LightGBM) and deep learning (PyTorch, TensorFlow, JAX). AutoML and foundation-model fine-tuning sit in the same category when the firm trains or adapts models rather than only calling an API.
+
+### Best end-to-end approach
+
+1. Prefer the **simplest model class** that meets the decision threshold (gradient boosting often beats deep nets on tabular journals).
+2. Fix **evaluation design** before architecture: stratified folds by client/industry, leakage checks, calibration, cost-sensitive metrics (false negatives in fraud/anomaly detection are expensive).
+3. Version code, data and hyperparameters together (MLflow, W&B, or cloud experiment tracking).
+4. Produce a **model card**: intended use, out-of-scope uses, metrics, known failure modes, human oversight requirements.
+5. For document and image workloads, use transfer learning or multimodal foundation models rather than training CNNs from scratch—unless the firm has unique labelled corpora and a clear ROI.
+
+### Suggested cloud
+
+| Workload | Sensible default |
+|---|---|
+| Tabular risk / anomaly models | SageMaker, Azure ML, or Vertex Training + managed endpoints |
+| Document OCR + layout | Azure Document Intelligence, AWS Textract, Document AI |
+| Custom vision (rare for audit) | SageMaker / Azure ML / Vertex with GPU pools |
+| Fine-tuning small domain LLMs | Managed fine-tuning (Bedrock, Azure AI, Vertex) with private networking |
+
+### Security–governance gate
+
+- [ ] Training data provenance approved
+- [ ] Hold-out / challenge set locked before final selection
+- [ ] Bias and subgroup performance reviewed where populations differ (entity size, industry)
+- [ ] Model card and risk classification recorded (NIST Map / ISO 42001)
+- [ ] No client-identifying examples in shared experiment artefacts
+
+### Apex example
+
+For **unusual journal detection**, Apex trains a gradient-boosted model on labelled historical review outcomes, not a large neural net. For **invoice and contract understanding**, the firm uses a document AI service plus a lightweight classifier for document type—not a custom CNN for “medical scans.” (Medical imaging frameworks illustrate the same pattern in healthcare; in audit, the analogue is layout-aware document models.) Cross-validation is grouped by engagement so the model cannot memorise a single client’s chart of accounts.
+
+---
+
+## 3. MLOps, LLMOps and AgentOps frameworks
+
+### What they are
+
+**MLOps** encompasses practices, tools and automation for deploying, scaling, monitoring and managing machine learning models in production. It aims to make the AI lifecycle repeatable: CI/CD for models, registries, canary releases, drift detection and rollback.
+
+**LLMOps** extends this for generative systems: prompt and retrieval versioning, evaluation suites (including LLM-as-judge plus human review), hallucination and toxicity monitors, token cost controls and gateway policies.
+
+**AgentOps** adds tracing of multi-step tool use, human-in-the-loop approval gates, session replay, circuit breakers for runaway loops and verification of tool side-effects.
+
+Together these are sometimes called **XOps** or GenAIOps—one operating model spanning classical ML, generative models and agents.
+
+### Best end-to-end approach
+
+1. Automate the path: train/evaluate → register → approve → deploy → monitor → retrain or retire.
+2. Treat **prompts, tools, indexes and policies as versioned artefacts**, not chat history.
+3. Separate **offline evaluation** (golden sets of working papers and known anomalies) from **online monitoring** (latency, cost, override rates, drift).
+4. Use progressive delivery: shadow mode → limited engagements → firm-wide, with kill switches.
+5. Tie alerts to **business and quality metrics** (partner override rate, EQCR findings), not only model accuracy.
+
+Representative tooling: MLflow, Kubeflow, TFX, SageMaker Pipelines, Azure ML pipelines, Vertex Pipelines, LangSmith / Phoenix / OpenTelemetry for traces, Evidently / WhyLabs for drift.
+
+### Suggested cloud
+
+| Firm posture | Prefer |
+|---|---|
+| Strong platform engineering on AWS | SageMaker Pipelines + Model Registry + CloudWatch + Bedrock guardrails |
+| Microsoft enterprise / Purview-heavy | Azure ML + Azure AI Foundry + Monitor + Defender for Cloud |
+| Data science velocity on GCP | Vertex Pipelines + Model Registry + Cloud Trace + Gemini Enterprise controls |
+| Vendor-neutral control plane | Kubernetes + open MLOps (MLflow, KServe) with cloud GPUs |
+
+Regulated audit firms often favour **Azure** or **AWS** for mature compliance attestations and private-link patterns; pick the cloud that already holds the engagement data to avoid egress and dual-control complexity.
+
+### Security–governance gate
+
+- [ ] Model / prompt change requires recorded approval (RAPID / change board)
+- [ ] Staging evaluation meets release thresholds on golden sets
+- [ ] Rollback tested
+- [ ] Production monitors for drift, cost, toxicity, PII leakage and abnormal tool use
+- [ ] Audit log retention matches quality-file requirements
+- [ ] High-risk actions (sending client data to tools, posting entries) require human confirmation
+
+### Apex example
+
+When a new journal-anomaly model version is trained, the MLOps pipeline automatically tests it on a locked challenge set, deploys to staging, runs shadow predictions on live engagements, then gradually rolls out to production. The framework continuously monitors precision/recall proxies, latency and the rate at which seniors dismiss AI flags. If fraud or error patterns shift (new ERP, new posting culture), drift alerts trigger investigation—allowing the team to retrain or pause the model before it quietly degrades audit quality.
+
+For the **working-paper drafting assistant**, LLMOps versions the system prompt, citation policy and retrieval index; AgentOps traces every tool call (search binder, fetch prior-year note) so EQCR can reconstruct how a draft was produced.
+
+---
+
+## 4. Orchestration and workflow frameworks
+
+### What they are
+
+Orchestration frameworks coordinate multi-step pipelines: real-time or batch data ingestion, feature extraction, model prediction, human review, downstream actions and risk assessment. They ensure each step runs when needed, with retries, timeouts, idempotency and clear ownership of state.
+
+Examples:
+
+- Workflow engines: Airflow, Prefect, Dagster, Temporal, Step Functions, Azure Data Factory / Logic Apps
+- Agent / graph orchestrators: LangGraph, Semantic Kernel, CrewAI patterns, cloud agent runtimes
+- Event-driven backbones: Kafka, EventBridge, Pub/Sub for asynchronous audit-file events
+
+### Best end-to-end approach
+
+1. Draw the **control flow** separately from the model: what must be sequential, what can fan out, where humans gate.
+2. Prefer **durable workflows** (Temporal / Step Functions) for long-running engagement processes over fragile cron scripts.
+3. Make every step **observable and replayable**; store correlation IDs on engagement and workpaper IDs.
+4. Encode policy in the workflow (for example: “no export of drafts until reviewer approval”), not only in the prompt.
+5. Design for partial failure: a failed OCR step must not silently invent numbers.
+
+### Suggested cloud
+
+| Pattern | Prefer |
+|---|---|
+| Batch nightly ledger scoring | Managed Airflow / Dagster Cloud / ADF + schedule |
+| Long-running engagement assistant | Temporal or cloud workflow + queue |
+| Event-driven document arrival | Object storage events → serverless → queue → workers |
+| Low-code internal ops | Logic Apps / Power Automate only behind DLP and approval |
+
+### Security–governance gate
+
+- [ ] Secrets never in workflow definitions
+- [ ] Least-privilege task roles per step
+- [ ] Human approval nodes for high-impact actions
+- [ ] Dead-letter queues and on-call ownership
+- [ ] Workflow definition changes go through the same change control as model releases
+
+### Apex example
+
+Apex’s engagement-risk pipeline includes real-time document ingestion, OCR and feature extraction, anomaly prediction, trade-off style **risk scoring**, and routing to the engagement manager. The orchestration framework ensures each step executes when prerequisites succeed, pauses for senior approval when risk exceeds a threshold, and writes an immutable trail into the electronic audit file—so the “AI step” is as reviewable as any other audit procedure.
+
+---
+
+## 5. Domain-specific AI frameworks and toolkits
+
+### What they are
+
+Libraries and toolkits designed for particular AI subfields—Natural Language Processing (NLP), computer vision, speech, time series, recommender systems and graph ML. They provide domain-specific functionalities and often accelerate delivery when the problem matches the toolkit’s strengths.
+
+Examples:
+
+- NLP: spaCy, Hugging Face Transformers, Stanza; evaluation with RAGAS / DeepEval for generative QA
+- Documents: layout parsers, OCR SDKs, table extractors
+- Vision: torchvision, Detectron-style stacks (less central in audit)
+- Time series: Prophet, GluonTS, Nixtla (for practice forecasting, utilisation)
+- Graphs: PyG / DGL for related-party and entity-relationship analysis
+
+### Best end-to-end approach
+
+1. Match toolkit to **artefact type** (text, table, image, graph), not to fashion.
+2. For generative NLP on client data, prefer **retrieval-grounded** generation with citation mandatory over free-form completion.
+3. Keep classical NLP (NER, classification) for high-precision extraction; use LLMs for synthesis under review.
+4. Maintain domain lexicons (IFRS/GAAP terms, firm methodology language) as governed assets.
+5. Evaluate with **task metrics auditors care about**: citation accuracy, numeric consistency, procedure coverage—not BLEU alone.
+
+### Suggested cloud
+
+Managed document and language services reduce build time: Azure AI Document Intelligence + Azure OpenAI / Foundry; Amazon Textract + Bedrock; Document AI + Vertex / Gemini—always in private networking with logging.
+
+### Security–governance gate
+
+- [ ] Domain models tested for numeric and citation faithfulness
+- [ ] Prohibited topics / independence-sensitive outputs filtered
+- [ ] No training on client text without contract and anonymisation rules
+- [ ] Output labelled as AI-assisted in the audit file
+
+### Apex example
+
+For analysis of **management responses and board minutes**, Apex uses an NLP stack to process large volumes of text, identify key topics (going concern, related parties, litigation) and score sentiment / urgency for partner attention—not to replace professional scepticism. spaCy-class pipelines handle entity extraction; an LLM summariser produces drafts that must cite paragraph anchors. This helps the firm quickly understand themes across a multi-entity group and identify areas for deeper substantive testing.
+
+---
+
+## 6. Architecture, platform and FinOps frameworks
+
+### What they are
+
+Enterprise architecture and platform frameworks that keep AI solutions operable, securable and economically sustainable:
+
+- TOGAF / ArchiMate for capability and integration maps
+- Domain-Driven Design and API-first / event-driven design
+- Cloud Adoption Frameworks and Well-Architected reviews (AWS, Azure, Google)
+- Zero Trust and landing-zone patterns
+- Platform engineering / Internal Developer Platforms for AI
+- FinOps and LLM unit-economics controls
+- SRE (SLIs/SLOs, error budgets) for AI services
+
+### Best end-to-end approach
+
+1. Publish a thin **AI reference architecture**: ingress, identity, data plane, model plane, tool plane, observability, governance.
+2. Run Well-Architected-style reviews at design gate and before scale-out.
+3. Put **cost guards** next to latency guards: budgets per engagement, caching, model routing (small model first).
+4. Prefer platform building blocks (shared RAG service, shared evaluation harness) over per-team snowflakes.
+
+### Suggested cloud
+
+Choose the primary cloud from **data residency + identity + existing commit**, then apply that provider’s CAF / Well-Architected AI lens. Multi-cloud AI is a last resort for audit firms because of evidence, DLP and egress complexity.
+
+### Security–governance gate
+
+- [ ] Architecture decision records (ADRs) filed
+- [ ] Threat model updated (STRIDE + LLM/OWASP + MITRE ATLAS as applicable)
+- [ ] Cost ceiling and chargeback defined
+- [ ] SLO and support model agreed with the practice
+
+### Apex example
+
+Apex’s AI platform team owns a shared private RAG service and model gateway. Engagement tools consume them via APIs; FinOps dashboards show token spend per engagement partner. Well-Architected findings (public endpoints, missing encryption, unbounded agent loops) block go-live until remediated.
+
+---
+
+# Part II — Consulting and Delivery Frameworks in the Playbook
+
+Technical frameworks alone do not deliver client value. The AI Solution Engineering Playbook organises consulting frameworks by job-to-be-done. Below is the working catalogue with Apex-oriented examples. Full method cards live in the [Framework Playbook dictionary](/articles/ai-solution-engineering-framework-playbook) (Part III) and the [Consulting Strategy roadmap](/articles/ai-consulting-strategy-frameworks-roadmap).
+
+## 7. Strategy frameworks
+
+**Examples:** Corporate strategy cascade, Three Horizons, SWOT, PESTLE, Porter’s Five Forces, Value Chain, Business Model Canvas, Operating Model Canvas, Strategy Choice Cascade / Playing to Win, Blue Ocean, Scenario planning, Wardley Mapping, capability-based planning, value-driver trees.
+
+**End-to-end use:** Decide *why* Apex invests in AI (margin on assurance, quality consistency, talent leverage) and which horizons get funding (Horizon 1: document extraction; Horizon 2: risk sensing; Horizon 3: continuous audit products).
+
+**Gate:** Strategic-fit approval—AI ambition linked to measurable practice KPIs, not “innovation theatre.”
+
+**Apex example:** Value-driver tree links partner hours released → utilisation → realisation; Three Horizons prevents every idea from becoming a foundation-model science project.
+
+## 8. Discovery frameworks
+
+**Examples:** Design Thinking, Double Diamond, Jobs to Be Done, journey mapping, service blueprinting, SIPOC, Value Stream Mapping, process mining, BPMN, stakeholder mapping, Voice of the Customer, Five Whys, fishbone, problem trees, MECE issue trees.
+
+**End-to-end use:** Evidence what actually happens on engagements before proposing models.
+
+**Gate:** Problem-definition approval—baseline cycle times, rework rates and quality findings documented.
+
+**Apex example:** SIPOC and VSM on the “invoice sample to working paper” stream show waiting on unclear scans and re-keying; JTBD for seniors is “confirm I have not missed a related-party signal,” not “chat with a bot.”
+
+## 9. Readiness and maturity frameworks
+
+**Examples:** McKinsey-style AI transformation dimensions, firm AI maturity models, Microsoft CAF for AI, IBM AI Ladder, data / MLOps / Responsible AI / cyber maturity assessments.
+
+**End-to-end use:** Score leadership, data, talent, technology, governance and adoption before scaling.
+
+**Gate:** Readiness approval—critical gaps funded or scope reduced.
+
+**Apex example:** High document volume but weak MLOps maturity → start with assisted extraction under review, not autonomous agent posting to the audit file.
+
+## 10. Use-case prioritisation frameworks
+
+**Examples:** DVF (desirability–viability–feasibility), value–feasibility–risk, RICE, WSJF, MoSCoW, Kano, ICE, weighted scoring, cost of delay, portfolio matrices.
+
+**End-to-end use:** Rank Apex’s backlog: journal anomaly vs minutes summarisation vs timesheet coding.
+
+**Gate:** Use-case approval—owner, KPI, risk class, human oversight model.
+
+**Apex example:** Journal anomaly scores high on value and risk; public-facing client chatbot scores low on desirability for an audit brand and is deferred.
+
+## 11. Commercial and value frameworks
+
+**Examples:** TCO, ROI, NPV, IRR, payback, unit economics, sensitivity / scenario analysis, benefits dependency networks, benefits realisation plans.
+
+**End-to-end use:** Prove AI saves review hours without destroying realisation through uncontrolled token spend.
+
+**Gate:** Investment approval—risk-adjusted case and FinOps model signed.
+
+**Apex example:** Unit economics per engagement: OCR + LLM cost vs hours released; sensitivity on override rates.
+
+## 12. Operating model and decision frameworks
+
+**Examples:** Operating Model Canvas, hub-and-spoke / AI CoE, RACI, RAPID, RAID, project charter, stage-gate / VALUE gate.
+
+**End-to-end use:** Clarify who owns models, who accepts residual risk, who can change prompts.
+
+**Gate:** Ownership approval—Accountable executive and model owner named.
+
+**Apex example:** RAPID for production release: Recommend = AI engineering; Agree = Risk & Quality; Perform = Platform; Input = Engagement leaders; Decide = Head of Assurance Technology.
+
+## 13. Delivery frameworks
+
+**Examples:** Agile / Scrum / Kanban, SAFe where needed, Dual-Track Agile, Lean, DevOps / DevSecOps, product operating model, TDD, continuous discovery and delivery, model-driven experimentation.
+
+**End-to-end use:** Separate discovery spikes from industrialisation; never confuse a partner demo with a production control.
+
+**Gate:** Release-readiness—tests, runbooks, support, rollback.
+
+## 14. Change and adoption frameworks
+
+**Examples:** Prosci ADKAR, Kotter, McKinsey 7S, influence–interest matrices, training-needs analysis, champion networks, Technology Acceptance Model.
+
+**End-to-end use:** Seniors and partners must trust and correctly override AI; training is part of the control system.
+
+**Gate:** Operational deployment approval—adoption metrics and coaching plan live.
+
+**Apex example:** ADKAR campaign for “AI flags are hypotheses”; champions in each industry group; measure override quality, not only usage.
+
+---
+
+# Part III — Security, Privacy and Responsible AI as Gatekeepers
+
+These are not optional “later” workstreams. In end-to-end AI solution engineering they function as **gates**: evidence must exist before the next lifecycle step.
+
+## 15. Responsible AI and governance frameworks
+
+| Framework | Role |
+|---|---|
+| [NIST AI RMF](/articles/ai-governance-nist-eu-ai-act) (Govern, Map, Measure, Manage) | Operational risk activities across the lifecycle |
+| [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001) | Certifiable AI Management System (AIMS) |
+| ISO/IEC 23894 / 42005 | AI risk and impact assessment methods |
+| EU AI Act classification | Regulatory risk tier and obligations |
+| OECD AI Principles | Ethical baseline |
+| Model Cards / Data Cards / system cards | Transparency artefacts |
+| Algorithmic / AI impact assessments | Pre-deployment harm analysis |
+| Human oversight frameworks | Who may accept or reject AI output |
+
+**Best practice:** Document once, map many—controls should satisfy NIST Map/Measure, ISO 42001 clauses and Act obligations from a single evidence pack.
+
+**Apex gate example:** No generative drafting tool reaches the audit file without: inventory entry, risk class, impact assessment, human-oversight procedure, and EQCR-visible logging.
+
+## 16. Security and privacy frameworks
+
+| Framework | Role |
+|---|---|
+| NIST CSF / ISO/IEC 27001 | Enterprise security management |
+| Zero Trust | Identity, device, network, application assumptions |
+| STRIDE | Classic threat modelling |
+| MITRE ATT&CK / ATLAS | Adversarial TTPs including ML/LLM attacks |
+| OWASP Top 10 for LLM Applications | Prompt injection, data leakage, insecure plugin design |
+| Privacy by Design / DPIA | Personal and client-confidential data |
+| Secure SDLC / DevSecOps | Shift-left controls in pipelines |
+| Shared responsibility model | Cloud vs firm obligations |
+
+**Apex gate example:** Threat model must cover cross-client RAG leakage, prompt injection via invoice OCR text, and exfiltration through agent tools—before production networking is opened.
+
+## 17. Minimum gate checklist (reuse on every use case)
+
+| Gate | Evidence |
+|---|---|
+| Strategic fit | Ambition map, sponsor, KPI |
+| Problem / use-case | Baseline, JTBD, risk class |
+| Investment | Business case, TCO, FinOps |
+| Design | HLD, data contracts, threat model |
+| Trust | DPIA, impact assessment, model/prompt cards |
+| Security | Control tests, private networking, secrets hygiene |
+| Production | Evaluation report, runbooks, rollback, monitors |
+| Adoption | Training, champions, override policy |
+| Scale / retire | Reuse standards or decommission plan |
+
+Align these with the playbook’s [VALUE gate](/docs/ai-solution-engineering/value-gate) and six stage gates in the [Framework Playbook](/articles/ai-solution-engineering-framework-playbook).
+
+---
+
+# Part IV — Putting the stack together for Apex
+
+## End-to-end sequence (one page)
+
+```text
+Strategy & discovery (Parts II §7–8)
+        ↓
+Readiness & prioritisation (§9–10)
+        ↓
+Business case & operating model (§11–12)
+        ↓
+Data framework (§1)  →  ML / domain toolkits (§2, §5)
+        ↓
+Architecture & FinOps (§6)
+        ↓
+Orchestration (§4) + MLOps/LLMOps/AgentOps (§3)
+        ↓
+Governance & security gates (§15–17)
+        ↓
+Delivery & adoption (§13–14)
+        ↓
+Operate, improve, scale or retire
+```
+
+## Worked mini-scenario: journal anomaly + working-paper assist
+
+1. **Strategy:** Horizon-1 quality and efficiency; value-driver = hours to EQCR-ready file.
+2. **Discovery:** VSM shows re-keying and inconsistent risk flags across teams.
+3. **Data:** Medallion lake for journals; Purview classification; per-client isolation.
+4. **ML:** Gradient boosting for anomaly scores; model card; grouped cross-validation.
+5. **NLP:** Retrieval-grounded drafting with mandatory citations to binder paragraphs.
+6. **Orchestration:** Durable workflow from ERP extract → score → senior queue → file write.
+7. **MLOps/LLMOps:** Registry, shadow mode, drift and override monitors, prompt versioning.
+8. **Cloud:** Azure landing zone (illustrative) with private endpoints and Entra RBAC.
+9. **Gates:** ISO 42001-aligned AIMS entries; NIST Map/Measure before go-live; OWASP LLM tests on invoice-injected prompts.
+10. **Adoption:** ADKAR for seniors; champions; KPI = reduced review time *with* stable or improved EQCR findings.
+
+That is how frameworks create significant business value: not as a poster of logos, but as a sequenced control system from ambition to audited production behaviour.
+
+---
+
+# Part V — Framework selection cheat sheet
+
+| If you need to decide… | Start with… |
+|---|---|
+| Why invest and where? | Strategy cascade, Three Horizons, value-driver tree |
+| What is broken today? | JTBD, SIPOC, VSM, Five Whys, MECE |
+| Are we ready? | AI / data / MLOps / RAI / cyber maturity |
+| Which use case first? | DVF, RICE, value–feasibility–risk |
+| Does it pay? | TCO, ROI/NPV, unit economics, FinOps |
+| Who decides? | Charter, RACI, RAPID, RAID |
+| How is data trustworthy? | Medallion, contracts, quality tests, lineage, Purview/Collibra |
+| Which model approach? | Simplest validated ML; RAG before fine-tune; domain toolkits by artefact |
+| How do we run it? | MLOps + LLMOps (+ AgentOps if tools/actions) |
+| How do steps connect? | Temporal / Step Functions / Airflow + policy in workflow |
+| Is it allowed? | NIST AI RMF, ISO 42001, DPIA, EU AI Act class |
+| Is it safe? | STRIDE, ATLAS, OWASP LLM, Zero Trust, DevSecOps |
+| Will people use it well? | ADKAR, training, champions, override design |
+| Which cloud? | Where data and identity already live; CAF + Well-Architected |
+
+Interactive canvases for many consulting frameworks live in the [AI Solution Engineering Playbook app](https://sudip-ai-playbook.github.io/) Framework Library (MECE, Five Whys, SIPOC, VSM, JTBD, AI Canvas, RICE, SWOT, PESTLE, BMC, 7S, NIST AI RMF, RACI, RAID, ADKAR, business case, TCO/ROI).
+
+---
+
+## Related reading
+
+- [End-to-End AI Solution Engineering Framework Playbook](/articles/ai-solution-engineering-framework-playbook)
+- [AI Consulting Strategy, Frameworks and Roadmap](/articles/ai-consulting-strategy-frameworks-roadmap)
+- [AI Governance: NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act)
+- [AI Governance: Implementing ISO/IEC 42001](/articles/ai-governance-iso-iec-42001)
+- [Model FinOps and AI Cost Engineering](/articles/model-finops-cost-engineering-roadmap)
+- [Enterprise AI Security Roadmap](/articles/enterprise-ai-security-roadmap)
+- [8D Framework](/docs/ai-solution-engineering/8d-framework)
+- [VALUE gate](/docs/ai-solution-engineering/value-gate)

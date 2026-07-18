@@ -19,6 +19,23 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Business Learning',
+      collapsed: false,
+      link: {
+        type: 'doc',
+        id: 'business-learning/overview',
+      },
+      items: [
+        'business-learning/overview',
+        'business-learning/business-briefing',
+        'business-learning/business-keywords',
+        'business-learning/business-power-words',
+        'business-learning/domain-knowledge-gathering',
+        'business-learning/domain-knowledge-workbook',
+      ],
+    },
+    {
+      type: 'category',
       label: '1. Business & consulting',
       collapsed: true,
       items: [

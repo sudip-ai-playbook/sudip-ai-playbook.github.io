@@ -1,0 +1,2191 @@
+---
+sidebar_position: 2
+slug: /business-learning/business-briefing
+title: "Business Briefing"
+description: "End-to-end business and product blueprint for an enterprise customer-service AI platform (NovaAssist / NovaConnect)."
+---
+
+# Business Briefing
+
+<ExecSummary>
+A complete business and product blueprint for enterprise customer-service AI — problem, journey, capabilities, economics, controls and adoption — using the fictional NovaConnect / NovaAssist case.
+</ExecSummary>
+
+<WhenToUse>
+- You need a worked example of how to brief an AI solution as a business and product proposition, not a chatbot demo.
+- You are preparing a Partner/Director or client briefing on customer operations AI.
+- You want a reusable structure: problem → journey → capabilities → economics → controls → adoption.
+</WhenToUse>
+
+## Enterprise Customer-Service AI: Complete Business and Product Blueprint
+
+I will use a fictional company so the use case is concrete.
+
+### Business scenario
+
+Company: NovaConnect
+Industry: Telecommunications
+Markets: UK, EU and selected Asia-Pacific (McKinsey & Company)on
+Channels: Voice, web chat, mobile app, email, WhatsApp and social media
+Current annual customer-service cost: Approximately £21 million
+Proposed product: NovaAssist — a security-first AI customer resolution platform
+
+Because no actual organisational baseline has been supplied, the “current position” below represents a typical enterprise starting point rather than an assessment of a specific company.
+
+## 1. Executive proposition
+
+### The business problem
+
+NovaConnect currently has:
+
+- High volumes of repetitive billing, account, network and device enquiries
+
+- Different answers being provided across channels
+
+- Long waiting times during outages and billing periods
+
+- Agents switching between CRM, billing, order management and network systems
+
+- Limited 24/7 support
+
+- High costs from contact-centre growth
+
+- Weak visibility into why customers contact the company
+
+- Customers repeating information during escalation
+
+- Poor conversion from service conversations into retention or sales opportunities
+
+### Proposed solution
+
+NovaAssist would combine:
+
+- AI customer self-service
+
+- Human-agent assistance
+
+- Deterministic business workflows
+
+- Secure integration with enterprise systems
+
+- Multilingual support
+
+- Human escalation
+
+- Customer journey analytics
+
+- Continuous AI evaluation
+
+- Governance, security and compliance controls
+
+The proposition is:
+
+Resolve routine customer needs immediately, guide complex enquiries safely and give human agents full context when judgement or empathy is required.
+
+### Strategic objective
+
+The company is not merely implementing a chatbot. It is creating an AI-enabled customer operations platform that can support service, sales, retention, marketing and operational intelligence.
+
+## 2. Detailed end-to-end use case
+
+### Use case: Unexpectedly high mobile bill
+
+#### Step 1: Customer enters the journey
+
+The customer opens the mobile application and writes:
+
+“Why is my bill £40 higher this month?”
+
+The interface clearly states:
+
+“You are speaking with NovaAssist, our AI service assistant. You can ask to speak with a person at any time.”
+
+This disclosure is important for customer trust and is increasingly relevant to regulatory transparency requirements. EU AI Act transparency obligations requiring users to be informed when they interact with an AI system are due to apply from 2 August 2026. (Digital Strategy EU)ty and authentication
+
+The system determines that account-specific data is required.
+
+The customer authenticates using:
+
+- Existing mobile-app session
+
+- MFA for higher-risk actions
+
+- Step-up authentication for payment, SIM or account-owner changes
+
+- Device and session-risk signals
+
+The AI itself does not decide whether authentication is sufficient. A deterministic identity service makes that decision.
+
+#### Step 3: Intent classification
+
+The AI identifies:
+
+- Primary intent: bill explanation
+
+- Secondary concern: possible overcharging
+
+- Sentiment: concerned
+
+- Risk classification: medium
+
+- Relevant systems: billing, tariffs, usage and previous interactions
+
+The AI must not directly retrieve arbitrary customer records. It requests access through an authorised tool gateway.
+
+#### Step 4: Deterministic data retrieval
+
+A controlled billing API returns:
+
+- Current bill: £82
+
+- Normal monthly bill: £42
+
+- Additional cost: £40
+
+- Cause: international roaming
+
+- Usage dates and country
+
+- Applicable tariff
+
+- Whether the charge meets the contract rules
+
+- Whether the customer received a roaming notification
+
+The billing system—not the language model—calculates the charge.
+
+#### Step 5: AI explanation
+
+NovaAssist translates the structured billing data into clear language:
+
+“Your bill is £40 higher because your phone used mobile data in Switzerland between 4 and 6 July. Switzerland is outside your current inclusive roaming zone. You used 1.8 GB, resulting in £40 of roaming charges.”
+
+The response includes:
+
+- A source link to the relevant tariff
+
+- A breakdown of the charge
+
+- The date and type of usage
+
+- An explanation of future prevention options
+
+#### Step 6: Resolution options
+
+NovaAssist offers approved actions:
+
+- View detailed usage
+
+- Add a roaming package
+
+- Set a roaming spending limit
+
+- Raise a billing dispute
+
+- Speak to a person
+
+The AI cannot invent a discount. Eligibility is checked by a deterministic policy engine.
+
+#### Step 7: Retention and sales opportunity
+
+The policy engine determines that:
+
+- The customer travels internationally regularly
+
+- A £12 monthly roaming add-on would have reduced the latest charge
+
+- The customer is eligible
+
+- Marketing consent permits an offer
+
+NovaAssist says:
+
+“You may benefit from our Global Roaming Add-on at £12 per month. Based on your recent usage, it could reduce similar charges in the future.”
+
+This turns customer service into a relevant sales opportunity without using the interaction for unrestricted selling.
+
+#### Step 8: Complaint or human escalation
+
+The customer writes:
+
+“I was never warned. I want this refunded.”
+
+The system identifies a possible complaint.
+
+NovaAssist:
+
+- Stops promotional messaging
+
+- Creates a complaint case
+
+- Summarises the conversation
+
+- Attaches the billing evidence
+
+- Records the notification status
+
+- Transfers the customer to an authorised agent
+
+- Provides an estimated waiting time
+
+The customer does not need to repeat the issue.
+
+#### Step 9: Agent support
+
+The human agent receives:
+
+- Verified customer identity
+
+- Issue summary
+
+- Billing evidence
+
+- Relevant contract clause
+
+- Previous contacts
+
+- Recommended next action
+
+- Refund authority limit
+
+- Customer sentiment
+
+- Compliance warnings
+
+The agent can accept, modify or reject the AI recommendation.
+
+#### Step 10: Transaction
+
+Where a refund is approved:
+
+- The agent or authorised workflow initiates it
+
+- A deterministic finance service validates the amount
+
+- Segregation-of-duties rules are checked
+
+- The action is recorded in an immutable audit log
+
+- The customer receives confirmation
+
+#### Step 11: Feedback
+
+After resolution:
+
+“Was your issue resolved?”
+
+The system records:
+
+- Resolution outcome
+
+- Customer satisfaction
+
+- Whether escalation was needed
+
+- Whether the recommendation was accepted
+
+- Refund outcome
+
+- Repeat contact within seven days
+
+- Conversation quality
+
+#### Step 12: Organisational learning
+
+Aggregated analytics may identify that:
+
+- Roaming complaints increased 28%
+
+- Customers are not seeing warnings
+
+- Switzerland-related enquiries have increased
+
+- A particular mobile-app journey is confusing
+
+- A tariff page contains ambiguous wording
+
+That insight is sent to:
+
+- Customer operations
+
+- Product management
+
+- Network operations
+
+- Marketing
+
+- Legal and compliance
+
+- Digital experience teams
+
+This is the difference between a chatbot and an enterprise customer-intelligence platform.
+
+## 3. Customer lifecycle coverage
+
+| Customer stage | AI capability | Business outcome |
+| --- | --- | --- |
+| Awareness | Product questions, coverage checks and comparisons | Increased qualified traffic |
+| Consideration | Plan recommendation and eligibility screening | Higher conversion |
+| Purchase | Guided checkout and document collection | Lower abandonment |
+| Onboarding | SIM activation, account setup and tutorials | Faster activation |
+| Usage | Technical support and network-status guidance | Lower service demand |
+| Billing | Bill explanations, payments and disputes | Reduced billing contacts |
+| Service recovery | Outage support and proactive notifications | Lower frustration |
+| Retention | Churn-risk identification and approved offers | Improved retention |
+| Expansion | Relevant upgrades and add-ons | Increased customer value |
+| Complaint | Complaint recognition and regulated workflow | Better compliance |
+| Cancellation | Cancellation support and reason capture | Retention insight |
+| Post-exit | Final billing and feedback | Reduced repeat contact |
+
+## 4. Product capability model
+
+### Customer-facing capabilities
+
+- Natural-language chat and voice
+
+- Multilingual service
+
+- Identity-aware personalised responses
+
+- Account and order enquiries
+
+- Billing explanations
+
+- Product recommendations
+
+- Transactional actions
+
+- Complaint recognition
+
+- Human escalation
+
+- Accessibility support
+
+- Proactive notifications
+
+### Agent-facing capabilities
+
+- Real-time answer recommendations
+
+- Knowledge retrieval
+
+- Case and conversation summaries
+
+- Sentiment and vulnerability indicators
+
+- Next-best action
+
+- Compliance reminders
+
+- Form completion
+
+- Automatic CRM updates
+
+- Quality-assurance support
+
+- Coaching recommendations
+
+### Supervisor capabilities
+
+- Live-risk monitoring
+
+- Resolution analytics
+
+- AI and human quality scoring
+
+- Knowledge gaps
+
+- Escalation patterns
+
+- Cost and utilisation reporting
+
+- Agent-adoption monitoring
+
+- Customer-journey failure analysis
+
+- Model and prompt performance
+
+- Incident management
+
+## 5. Deterministic AI operating model
+
+A customer-service platform should not use generative AI for every task.
+
+The preferred design is:
+
+Probabilistic language experience over a deterministic transaction core.
+
+### Generative AI should handle
+
+- Intent recognition
+
+- Language understanding
+
+- Summarisation
+
+- Translation
+
+- Tone adaptation
+
+- Knowledge retrieval
+
+- Explanation
+
+- Drafting
+
+- Conversation management
+
+### Deterministic systems should handle
+
+- Identity verification
+
+- Account entitlement
+
+- Prices and billing calculations
+
+- Refund limits
+
+- Credit decisions
+
+- Contract eligibility
+
+- Regulatory disclosures
+
+- Payment execution
+
+- Data-retention rules
+
+- Authentication requirements
+
+- Tool permissions
+
+- Escalation thresholds
+
+### Example
+
+The LLM can say:
+
+“I can check whether you are eligible for a refund.”
+
+It must not independently decide:
+
+“You are entitled to a £65 refund.”
+
+The refund decision should come from an approved rule or business service.
+
+Amazon’s current customer-service offering explicitly combines generative capabilities for open-ended interactions with deterministic functionality for defined conversational flows, demonstrating that the market is moving towards this mixed model. (Amazon Web Services, Inc.)rchitecture
+
+Customer Channels
+
+Web | Mobile | Voice | Email | WhatsApp | Social
+
+|
+
+API Gateway + WAF + DDoS Protection
+
+|
+
+Identity, Session and Consent Layer
+
+|
+
+AI Policy and Orchestration Layer
+
+|          |           |           |
+
+Intent     Safety      Journey      Model
+
+Router     Engine      Controller    Router
+
+|
+
+Retrieval and Knowledge Layer
+
+Approved content | CRM context | Policies
+
+|
+
+Secure Tool Gateway
+
+|
+
+CRM | Billing | Orders | Payments | Network | Marketing
+
+|
+
+Human Contact-Centre Platform
+
+|
+
+Evaluation | Audit | Observability | Risk | FinOps
+
+### Essential architectural principle
+
+The LLM should never have unrestricted access to databases or enterprise APIs.
+
+Every action should pass through a tool gateway that enforces:
+
+- Identity
+
+- Authorisation
+
+- Input schema
+
+- Output schema
+
+- Transaction limits
+
+- Customer consent
+
+- Data minimisation
+
+- Rate limits
+
+- Audit logging
+
+- Human approval where required
+
+## 7. Security-first AI design
+
+OWASP identifies prompt injection, sensitive-information disclosure, supply-chain weaknesses, improper output handling, excessive agency and other risks as major threats for LLM applications. The UK NCSC recommends treating security as a lifecycle concern covering design, development, deployment and operation. (OWASP Gen AI Security Project)ls
+
+| Domain | Required controls |
+| --- | --- |
+| Network | WAF, DDoS protection, network segmentation and private endpoints |
+| Firewall | Deny-by-default egress and domain/IP allowlists |
+| Identity | SSO, RBAC, ABAC, MFA and privileged-access management |
+| Applications | Secure SDLC, dependency scanning, SAST, DAST and API testing |
+| Data | Encryption, classification, tokenisation and DLP |
+| Models | Model approval, version control, red-team testing and rollback |
+| Prompts | Prompt versioning, injection testing and policy validation |
+| Retrieval | Source allowlists, access-filtered RAG and document sanitisation |
+| Tools | Least privilege, schema validation and action limits |
+| Output | Fact validation, prohibited-content filters and sensitive-data checks |
+| Monitoring | Security events, AI behaviour, latency, cost and quality |
+| Audit | Tamper-resistant records of prompts, sources, tools and decisions |
+| Incident response | Kill switch, model rollback and customer remediation |
+| Suppliers | AI bill of materials, subprocessors and vulnerability obligations |
+
+### Firewall and connectivity requirements
+
+The production AI service should use:
+
+- Private connectivity to cloud AI endpoints
+
+- No unrestricted public internet access
+
+- Egress allowlisting
+
+- Separate development, test and production networks
+
+- Mutual TLS between sensitive services
+
+- Service mesh or equivalent policy enforcement
+
+- Controlled DNS resolution
+
+- Restricted administration networks
+
+- Central security logging
+
+- Network intrusion detection
+
+### RBAC model
+
+Example roles:
+
+| Role | Permitted access |
+| --- | --- |
+| Customer | Own account information only |
+| Service agent | Assigned customer cases |
+| Senior agent | Approved refunds and escalations |
+| Supervisor | Team monitoring and quality review |
+| Knowledge manager | Approved knowledge content |
+| AI product manager | Prompts, journeys and metrics |
+| AI engineer | Technical configuration without production PII |
+| Security administrator | Security controls and investigations |
+| Auditor | Read-only audit evidence |
+| Platform administrator | Infrastructure, with privileged access controls |
+
+### MFA
+
+MFA should be mandatory for:
+
+- Administrators
+
+- Prompt and policy publishers
+
+- Knowledge approvers
+
+- Production support
+
+- Security investigators
+
+- Anyone able to change model, tool or access configuration
+
+High-risk customer actions should use step-up authentication even when the customer is already logged in.
+
+## 8. Prompt-injection and excessive-agency protection
+
+Treat all customer input, retrieved documents, website content and API responses as potentially hostile.
+
+Required controls include:
+
+- Separate system instructions from customer content.
+
+- Remove active content from retrieved documents.
+
+- Prevent retrieved text from changing system permissions.
+
+- Allow only pre-registered tools.
+
+- Validate all tool arguments against schemas.
+
+- Apply transaction and financial limits.
+
+- Require confirmation before material actions.
+
+- Require human approval for high-risk actions.
+
+- Validate tool results before presenting them.
+
+- Detect unusual sequences of requests.
+
+- Rate-limit account and data queries.
+
+- Continuously test known attack scenarios.
+
+## 9. Cloud, on-premises and hybrid deployment
+
+| Model | Best suited to | Advantages | Limitations |
+| --- | --- | --- | --- |
+| Public SaaS | Standard service journeys | Rapid implementation and low infrastructure burden | Less architectural control |
+| Private cloud | Regulated enterprise workloads | Network, encryption and residency control | Greater operational complexity |
+| Hybrid | Mixed-risk multinational environments | Sensitive controls remain private while using advanced cloud models | Integration complexity |
+| Fully on-premises | Highly restricted or disconnected environments | Maximum infrastructure control | GPU cost, skills, patching and model lifecycle burden |
+
+### Recommended design
+
+For NovaConnect, the strongest option is hybrid private architecture:
+
+- Customer identity remains in the enterprise identity system.
+
+- Sensitive records remain in existing systems.
+
+- Retrieval is security-filtered.
+
+- Models are accessed using private endpoints.
+
+- Highly sensitive journeys use private or on-premises models.
+
+- Billing, payment and account actions remain deterministic.
+
+- Only the minimum required context is passed to the model.
+
+- Regional data stores support residency requirements.
+
+### When full on-premises is justified
+
+- Data cannot legally or contractually leave a controlled environment
+
+- Operations must continue without internet access
+
+- Interaction volume is large and predictable
+
+- The organisation can operate GPU infrastructure
+
+- Latency requirements are extremely strict
+
+- The model can meet quality expectations
+
+- There is sufficient security and MLOps capability
+
+On-premises should not be selected only because it sounds more secure. Poorly operated on-premises infrastructure can be less secure than a mature private cloud environment.
+
+## 10. Compliance and governance
+
+### Data-protection requirements
+
+For every processing activity, the organisation should identify:
+
+- Purpose
+
+- Lawful basis
+
+- Data categories
+
+- Data subjects
+
+- System recipients
+
+- Retention period
+
+- Geographic location
+
+- Subprocessors
+
+- Security controls
+
+- Individual rights
+
+- Residual risk
+
+The ICO states that organisations must separate distinct AI processing operations and identify an appropriate purpose and lawful basis for each. It also provides an AI and data-protection risk toolkit. (ICO)cts
+
+- Data Protection Impact Assessment
+
+- AI impact assessment
+
+- Data-flow diagram
+
+- Records of processing activities
+
+- Legitimate interests assessment where applicable
+
+- Model card
+
+- System card
+
+- Dataset documentation
+
+- AI risk register
+
+- Security threat model
+
+- Human-oversight procedure
+
+- Retention and deletion policy
+
+- Incident-response plan
+
+- Vendor/subprocessor register
+
+- AI system inventory
+
+- Customer transparency notice
+
+- Accessibility assessment
+
+- Equality and fairness testing
+
+- Business-continuity plan
+
+### Customer transparency
+
+The customer should understand:
+
+- That they are interacting with AI
+
+- What the AI can and cannot do
+
+- When personal data is being used
+
+- How to reach a human
+
+- How to challenge an outcome
+
+- How conversation data may be retained
+
+- How to exercise data-protection rights
+
+### Global deployment model
+
+| Region | Primary product consideration |
+| --- | --- |
+| UK | UK GDPR, ICO expectations, accessibility and consumer protection |
+| EU/EEA | GDPR, EU AI Act transparency and country-specific requirements |
+| North America | State, federal and sector-specific requirements |
+| Middle East | Data residency, Arabic support and local hosting expectations |
+| Asia-Pacific | Local-language quality, data residency and messaging-channel integration |
+| Latin America | Spanish/Portuguese localisation and cost-efficient digital service |
+| Africa | Mobile-first interfaces, bandwidth efficiency and language coverage |
+
+The product should use a global core with local compliance and language packs, rather than building a completely different platform for every country.
+
+## 11. Current market state
+
+The market is moving through four stages:
+
+- Rule-based FAQ bots
+
+- Generative knowledge assistants
+
+- Transaction-capable AI agents
+
+- Orchestrated human-and-AI customer operations
+
+McKinsey’s 2025 global survey found that 23% of respondents reported scaling an agentic AI system somewhere in their enterprise. This indicates strong momentum, but also shows that mature, scaled adoption is not yet universal. (McKinsey & Company)timate valued the AI-for-customer-service market at approximately $13 billion in 2024 and forecasts it could reach about $84 billion by 2033. Such forecasts should be treated directionally rather than used as a financial business-case assumption. (Grand View Research)t realities
+
+#### AI is becoming a standard platform capability
+
+Salesforce, Microsoft, AWS, Google, ServiceNow, Zendesk and Fin now offer customer-service agents, agent assistance, workflow automation or omnichannel AI within their wider platforms. (Microsoft)nging
+
+Current commercial models include:
+
+- Per user
+
+- Per conversation
+
+- Per successful outcome
+
+- Per request
+
+- Per voice minute
+
+- Credits or consumption
+
+- Enterprise commitments
+
+For example, Fin currently advertises $0.99 per successful outcome. Salesforce offers consumption, credit and per-user approaches, while AWS and Google publish usage-based channel or conversational-agent pricing. (Intercom)ion is not automatic
+
+Research on chatbot adoption found that customers may avoid systems perceived as gatekeepers. Transparency about capabilities, showing expected waiting times and enabling faster access to humans after AI failure can improve adoption. (arXiv)ce can create value before autonomy
+
+A 2026 field experiment in Alibaba’s customer-service operations found improvements in service speed and subjective service quality, although the benefits differed by agent performance level. This supports beginning with agent assist and controlled automation instead of immediately pursuing complete autonomy. (arXiv)tor analysis
+
+| Competitor category | Strength | Best fit | Buyer consideration |
+| --- | --- | --- | --- |
+| Salesforce Agentforce | Deep CRM, service and customer-data integration | Salesforce-led enterprises | Licensing, implementation complexity and ecosystem dependency |
+| Microsoft Dynamics/Copilot | Microsoft integration, low-code tools and enterprise identity | Microsoft-oriented organisations | Product and licensing architecture must be carefully designed |
+| AWS Connect | Cloud contact centre, usage pricing and deterministic/AI combination | AWS-native enterprises | Requires strong cloud and integration capability |
+| Google Customer Engagement | Conversational AI, voice, multimodal and analytics | Google Cloud and AI-focused organisations | Enterprise integration and commercial structure require assessment |
+| ServiceNow CSM | Workflow and service-operation automation | Process-heavy enterprises | Strongest where ServiceNow is already strategic |
+| Zendesk | Integrated support suite and AI-agent capability | Mid-market and service-led businesses | Deep enterprise customisation must be validated |
+| Fin | Fast customer-service focus and outcome pricing | Digital service companies | Complex on-premises and regulated use cases require careful evaluation |
+| Custom platform | Maximum control and differentiation | Large regulated enterprises | Higher build, support and talent requirements |
+
+Official product materials show the industry converging around omnichannel service, autonomous workflows, agent assistance, summaries and CRM integration. (Google Cloud)market segment
+
+Do not target “every company that needs a chatbot.”
+
+### Recommended ideal customer profile
+
+Regulated, service-intensive enterprises with complex customer journeys and more than one million annual interactions.
+
+Priority sectors:
+
+- Telecommunications
+
+- Banking and insurance
+
+- Utilities
+
+- Healthcare administration
+
+- Travel
+
+- Government services
+
+- Large subscription businesses
+
+- Enterprise retail and e-commerce
+
+### Buyer characteristics
+
+- Existing CRM and contact-centre investment
+
+- Multiple customer channels
+
+- High operational service cost
+
+- Sensitive personal data
+
+- Strict audit requirements
+
+- Several countries or languages
+
+- Significant legacy-system integration
+
+- Need for human escalation
+
+- Concerns about vendor lock-in
+
+## 14. Unique value proposition
+
+A security-first customer-resolution platform that combines generative conversation with deterministic enterprise workflows, providing verifiable answers, controlled actions and seamless human escalation across cloud, private and on-premises environments.
+
+### Core differentiators
+
+#### 1. Resolution, not conversation
+
+Measure successful customer outcomes rather than chatbot engagement.
+
+#### 2. Deterministic transaction core
+
+The AI explains and orchestrates, but approved systems calculate, decide and execute.
+
+#### 3. Evidence-backed responses
+
+Every material response can be linked to:
+
+- Approved source
+
+- Policy version
+
+- Customer record
+
+- Tool result
+
+- Decision rule
+
+#### 4. Security and compliance by design
+
+Security is part of the architecture and commercial offering, not an optional implementation workstream.
+
+#### 5. Hybrid and vendor-neutral deployment
+
+Support multiple models and deployment environments.
+
+#### 6. Journey-level evaluation
+
+Test whether a complete customer need was resolved, not merely whether an answer sounded fluent.
+
+#### 7. Safe human collaboration
+
+Human escalation is a product capability, not a failure.
+
+#### 8. Global core, local controls
+
+Localise:
+
+- Language
+
+- Data residency
+
+- Regulatory disclosures
+
+- Product catalogues
+
+- Escalation rules
+
+- Cultural tone
+
+## 15. Product-market fit
+
+### Customer job to be done
+
+“Help my organisation resolve more customer needs quickly and safely without increasing contact-centre cost at the same rate as customer demand.”
+
+### Buyer pain
+
+- High cost per contact
+
+- Poor system integration
+
+- Low trust in generative AI
+
+- Inconsistent answers
+
+- Weak auditability
+
+- Failed chatbot implementations
+
+- Agent resistance
+
+- Vendor lock-in
+
+- Inability to demonstrate ROI
+
+### PMF hypotheses
+
+| Hypothesis | Validation method |
+| --- | --- |
+| Customers will use AI when it resolves needs faster | A/B test uptake and completion |
+| Enterprises will pay for verifiable resolution | Paid proof of value |
+| Security is a buying differentiator | Win/loss interviews |
+| Hybrid deployment increases regulated-sector demand | RFI and discovery analysis |
+| Outcome pricing reduces buying friction | Commercial experiments |
+| Human handoff improves trust | CSAT and abandonment comparison |
+
+### Product-market-fit signals
+
+- More than 60% of pilots convert to production
+
+- Customers expand to additional journeys
+
+- Reference customers are willing to speak publicly
+
+- Gross revenue retention exceeds 90%
+
+- Customers achieve payback within 12–18 months
+
+- Successful resolution improves without reducing CSAT
+
+- Implementation time consistently decreases
+
+- Security reviews become repeatable rather than bespoke
+
+- Product usage expands beyond the original team
+
+## 16. Business and commercial model
+
+### Recommended business model
+
+A B2B enterprise SaaS and managed-service model.
+
+#### Revenue streams
+
+- Platform subscription
+
+- Successful-resolution usage
+
+- Agent-assist licences
+
+- Implementation and integration
+
+- Private-cloud or on-premises licence
+
+- Managed AI operations
+
+- Governance and compliance package
+
+- Premium multilingual support
+
+- Analytics and optimisation
+
+- Training and change management
+
+### Recommended commercial structure
+
+#### Base platform fee
+
+Covers:
+
+- Core platform
+
+- Administration
+
+- Security
+
+- Standard integrations
+
+- Analytics
+
+- Governance controls
+
+- Support
+
+#### Outcome fee
+
+Charged when:
+
+- The customer’s issue is successfully resolved
+
+- No human intervention is required within a defined period
+
+- The action is completed correctly
+
+- The interaction meets quality thresholds
+
+#### Professional services
+
+Charged for:
+
+- Journey design
+
+- Data preparation
+
+- Integration
+
+- Security review
+
+- Migration
+
+- Custom models
+
+- Change management
+
+#### Managed service
+
+Recurring charge for:
+
+- Model monitoring
+
+- Prompt optimisation
+
+- Evaluation
+
+- Knowledge quality
+
+- Incident management
+
+- Cost optimisation
+
+- Regulatory updates
+
+### Commercial guardrails
+
+Define “successful resolution” contractually. It must not mean merely that the customer stopped responding.
+
+A valid resolution could require:
+
+- Confirmed completion
+
+- No repeat contact within seven days
+
+- No related complaint
+
+- No human reopening
+
+- Minimum quality score
+
+- Correct completion of the transaction
+
+## 17. Illustrative financial business case
+
+### Current state
+
+| Assumption | Value |
+| --- | --- |
+| Annual contacts | 5,000,000 |
+| Average cost per contact | £4.20 |
+| Annual service cost | £21,000,000 |
+
+### Expected operating case
+
+| Driver | Assumption |
+| --- | --- |
+| Contacts eligible for AI self-service | 55% |
+| Customer uptake | 75% |
+| Successful AI resolution | 68% |
+| AI-resolved contacts | 1,402,500 |
+| Avoided cost per resolved contact | £3.40 |
+| Gross service saving | £4.77m |
+| Realised agent-assist saving | £1.09m |
+| Incremental contribution from sales | £1.20m |
+| Contribution from churn reduction | £0.80m |
+| Annual platform and operating cost | £3.10m |
+| Initial implementation | £3.80m |
+
+### Results
+
+- Annual gross benefit: approximately £7.86 million
+
+- Annual net benefit: approximately £4.76 million
+
+- Indicative payback: approximately 9.6 months
+
+- Illustrative three-year ROI: approximately 80%
+
+These are planning assumptions, not guaranteed results. Each number must be validated during discovery and pilot.
+
+### Unit economics per resolved interaction
+
+| Component | Illustrative amount |
+| --- | --- |
+| Avoided human-service cost | £3.40 |
+| AI model and platform variable cost | £0.18 |
+| Quality and governance allocation | £0.12 |
+| Operational support allocation | £0.10 |
+| Contribution per AI resolution | £3.00 |
+
+The most important metric is:
+
+Contribution per successful resolution, not cost per token.
+
+## 18. AI energy and environmental cost
+
+AI energy should be managed as part of FinOps and GreenOps.
+
+Data-centre electricity demand increased significantly during 2025, and the IEA projects global data-centre electricity consumption could reach approximately 945 TWh by 2030 in its base case. (IEA)ergy and cost
+
+- Model size
+
+- Number of tokens
+
+- Context length
+
+- Voice processing
+
+- Repeated retrieval
+
+- Multiple model calls
+
+- Low GPU utilisation
+
+- Always-on capacity
+
+- Data transfer
+
+- Vector search
+
+- Evaluation workloads
+
+- Excessive logging
+
+- Cooling and infrastructure overhead
+
+### Metrics to monitor
+
+- Tokens per resolved case
+
+- Model calls per interaction
+
+- kWh per 1,000 interactions
+
+- Carbon emissions per 1,000 interactions
+
+- Cost per successful resolution
+
+- GPU utilisation
+
+- Cache-hit rate
+
+- Average context size
+
+- Model-routing distribution
+
+- Percentage of failed or repeated calls
+
+### Optimisation methods
+
+- Route simple tasks to smaller models
+
+- Use deterministic rules where appropriate
+
+- Cache common responses
+
+- Reduce retrieved context
+
+- Summarise long histories
+
+- Limit response length
+
+- Batch offline evaluation
+
+- Quantise self-hosted models
+
+- Scale infrastructure with demand
+
+- Select efficient hosting regions
+
+- Track environmental cost alongside financial cost
+
+Do not use a universal “energy per AI question” estimate. Actual consumption depends heavily on model, hardware, utilisation, response length and hosting architecture.
+
+## 19. Sales funnel
+
+### Enterprise sales funnel
+
+| Stage | Buyer activity | Seller objective |
+| --- | --- | --- |
+| Awareness | Recognises service-cost or CX problem | Establish category credibility |
+| Interest | Downloads report or attends event | Qualify industry and pain |
+| Discovery | Shares volumes, systems and objectives | Quantify business case |
+| Solution workshop | Maps customer journeys | Agree priority use cases |
+| Technical validation | Reviews security and integration | Remove architecture objections |
+| Proof of value | Tests limited journeys | Demonstrate measurable value |
+| Business case | Reviews ROI and operating model | Secure executive sponsorship |
+| Procurement | Runs RFP and due diligence | Achieve preferred-vendor status |
+| Negotiation | Agrees legal and commercial terms | Protect margin and manage risk |
+| Implementation | Deploys initial use cases | Achieve time to value |
+| Expansion | Adds journeys and countries | Increase annual contract value |
+
+### Funnel qualification
+
+Use MEDDPICC or an equivalent enterprise framework:
+
+- Metrics
+
+- Economic buyer
+
+- Decision criteria
+
+- Decision process
+
+- Paper process
+
+- Identified pain
+
+- Champion
+
+- Competition
+
+### Key buyer personas
+
+- Chief Operating Officer
+
+- Chief Customer Officer
+
+- Chief Information Officer
+
+- Chief Digital Officer
+
+- Customer Service Director
+
+- Contact Centre Director
+
+- Chief Information Security Officer
+
+- Data Protection Officer
+
+- Head of AI
+
+- Procurement Director
+
+- Chief Financial Officer
+
+## 20. Marketing strategy
+
+### Positioning themes
+
+#### Theme 1: Trusted resolution
+
+“Give customers correct outcomes, not just fluent answers.”
+
+#### Theme 2: Controlled autonomy
+
+“Automate safely with deterministic controls and human oversight.”
+
+#### Theme 3: Business economics
+
+“Reduce cost per resolution while protecting customer satisfaction.”
+
+#### Theme 4: Enterprise integration
+
+“Connect AI to the systems where customer work actually happens.”
+
+#### Theme 5: Regulatory readiness
+
+“Operate with evidence, accountability and auditability.”
+
+### Marketing assets
+
+- Executive AI customer-service benchmark
+
+- ROI calculator
+
+- Security architecture paper
+
+- Regulatory readiness guide
+
+- Industry-specific demonstrations
+
+- Customer journey assessment
+
+- RFP template
+
+- AI-resolution maturity assessment
+
+- Reference architectures
+
+- Case studies
+
+- Executive roundtables
+
+- Security and compliance workshops
+
+## 21. Go-to-market strategy
+
+### Phase 1: Beachhead
+
+Target UK-regulated or service-intensive enterprises with:
+
+- More than one million annual contacts
+
+- High average handling cost
+
+- Existing cloud or CRM transformation
+
+- Executive AI sponsorship
+
+- Clear pain in billing, account or order enquiries
+
+Lead with two or three repeatable journeys:
+
+- Billing explanation
+
+- Order or service status
+
+- Account and plan management
+
+### Phase 2: Verticalisation
+
+Develop industry packs:
+
+- Telecom customer service
+
+- Banking service
+
+- Utilities billing
+
+- Insurance claims support
+
+- Travel disruption
+
+- Healthcare administration
+
+Each pack contains:
+
+- Journey templates
+
+- Security controls
+
+- Evaluation sets
+
+- Data mappings
+
+- Regulatory controls
+
+- Integration patterns
+
+- KPI benchmarks
+
+### Phase 3: Geographic expansion
+
+Expand using:
+
+- Regional implementation partners
+
+- Local-language packs
+
+- Cloud-marketplace listings
+
+- Data-residency options
+
+- Local regulatory mappings
+
+- Regional customer references
+
+### Phase 4: Platform expansion
+
+Move from service into:
+
+- Sales
+
+- Retention
+
+- Marketing
+
+- Employee service
+
+- Field service
+
+- Partner support
+
+- Customer-success operations
+
+## 22. Procurement process
+
+UK government AI procurement guidance recommends structured preparation, supplier evaluation, selection, contracting and ongoing management. Similar discipline is valuable in private-sector enterprise procurement. (GOV.UK)efinition
+
+Produce:
+
+- Problem statement
+
+- Contact-volume baseline
+
+- Customer journeys
+
+- Target outcomes
+
+- Budget range
+
+- Risk appetite
+
+- Data classification
+
+- Deployment constraints
+
+### Stage 2: Market engagement
+
+Use:
+
+- Request for Information
+
+- Supplier demonstrations
+
+- Architecture workshops
+
+- Reference calls
+
+- Market benchmarking
+
+### Stage 3: RFP
+
+Request evidence for:
+
+- Business outcomes
+
+- Security
+
+- Privacy
+
+- AI quality
+
+- Integration
+
+- Scalability
+
+- Availability
+
+- Accessibility
+
+- Data residency
+
+- Model flexibility
+
+- Exit and portability
+
+- Total cost
+
+- Sustainability
+
+### Stage 4: Technical and security assessment
+
+Require:
+
+- Penetration-test evidence
+
+- Security certifications
+
+- Data-flow diagrams
+
+- Subprocessor list
+
+- Incident history
+
+- Encryption design
+
+- Identity model
+
+- Model-provider arrangements
+
+- Logging and retention
+
+- Disaster recovery
+
+- Secure development process
+
+- Prompt-injection testing
+
+### Stage 5: Proof of value
+
+The proof should use:
+
+- Realistic anonymised data
+
+- Defined acceptance criteria
+
+- Known edge cases
+
+- Security testing
+
+- Customer-experience testing
+
+- Performance and cost measurement
+
+### Stage 6: Commercial negotiation
+
+Negotiate:
+
+- Pricing metric
+
+- Volume commitments
+
+- Service levels
+
+- Data ownership
+
+- Model-training restrictions
+
+- Subprocessor changes
+
+- Liability
+
+- Security incidents
+
+- Audit rights
+
+- Exit support
+
+- Data deletion
+
+- Benchmarking rights
+
+### Stage 7: Contract implementation
+
+Create:
+
+- Implementation plan
+
+- Acceptance tests
+
+- Governance calendar
+
+- KPI dashboard
+
+- Incident process
+
+- Change-control process
+
+- Exit plan
+
+### Suggested procurement weighting
+
+| Criterion | Weight |
+| --- | --- |
+| Business and journey fit | 20% |
+| Security and compliance | 20% |
+| AI quality and evaluation | 15% |
+| Integration and architecture | 15% |
+| Total cost and unit economics | 10% |
+| Operability and support | 10% |
+| Supplier viability | 5% |
+| Commercial flexibility and exit | 5% |
+
+## 23. Prioritisation method
+
+Use a risk-adjusted scoring model.
+
+Score each use case from one to five.
+
+| Criterion | Weight |
+| --- | --- |
+| Financial value | 20% |
+| Customer impact | 15% |
+| Contact volume | 15% |
+| Technical feasibility | 15% |
+| Data readiness | 10% |
+| Strategic fit | 10% |
+| Time to value | 10% |
+| Risk suitability | 5% |
+
+### Example prioritisation
+
+| Use case | Value | Feasibility | Risk | Priority |
+| --- | --- | --- | --- | --- |
+| Order status | High | High | Low | 1 |
+| Bill explanation | High | High | Medium | 2 |
+| Password/account help | Medium | High | Medium | 3 |
+| Network troubleshooting | High | Medium | Medium | 4 |
+| Plan recommendation | High | Medium | Medium | 5 |
+| Complaint resolution | High | Medium | High | Later |
+| Refund approval | High | Medium | High | Later |
+| Credit decision | High | Low | Very high | Exclude initially |
+
+### Stage-gate rule
+
+No journey should move to production unless it passes:
+
+- Business-value gate
+
+- Data-readiness gate
+
+- Security gate
+
+- Privacy and compliance gate
+
+- Offline evaluation gate
+
+- User-acceptance gate
+
+- Production-readiness gate
+
+## 24. Product and business roadmap
+
+### Months 0–3: Foundation
+
+- Executive sponsor and business owner
+
+- Customer-service baseline
+
+- AI inventory
+
+- Target operating model
+
+- DPIA and threat model
+
+- Architecture decision
+
+- Knowledge assessment
+
+- Vendor assessment
+
+- Evaluation framework
+
+- Employee consultation
+
+- Pilot journey selection
+
+### Months 4–6: Controlled pilot
+
+Deploy:
+
+- Order status
+
+- General product information
+
+- Basic bill explanation
+
+- Human handoff
+
+- Agent summaries
+
+- Quality dashboard
+
+Pilot with 5–10% of digital traffic.
+
+### Months 7–9: Transactional service
+
+Add:
+
+- Authenticated account access
+
+- Payment support
+
+- Plan changes
+
+- Service diagnostics
+
+- CRM integration
+
+- Personalised recommendations
+
+- Multilingual journeys
+
+### Months 10–12: Operational scale
+
+Add:
+
+- Voice
+
+- Email automation
+
+- Supervisor analytics
+
+- Proactive outage communication
+
+- Workforce forecasting
+
+- Automated quality evaluation
+
+- Regional deployment
+
+### Months 13–18: Competitive differentiation
+
+Add:
+
+- Predictive service
+
+- Churn intervention
+
+- Customer digital twin/context
+
+- Multi-agent orchestration
+
+- Advanced journey personalisation
+
+- Partner ecosystem
+
+- Outcome-based commercial optimisation
+
+- Private/on-premises deployment package
+
+## 25. Governance structure
+
+NIST’s AI Risk Management Framework organises AI risk activities around Govern, Map, Measure and Manage, which provides a useful structure for the governance model. (NIST)tive governance
+
+#### Board or Risk Committee
+
+- Approves risk appetite
+
+- Reviews material customer and regulatory risk
+
+- Challenges strategic investment
+
+- Monitors major incidents
+
+#### Executive AI Steering Committee
+
+- Prioritises investment
+
+- Approves scale decisions
+
+- Resolves cross-functional issues
+
+- Reviews value, risk and adoption
+
+#### AI Product Council
+
+- Approves journeys
+
+- Reviews product performance
+
+- Manages roadmap
+
+- Coordinates business functions
+
+#### AI Risk and Assurance Forum
+
+- Security
+
+- Privacy
+
+- Legal
+
+- Compliance
+
+- Model risk
+
+- Internal audit
+
+- Customer conduct
+
+## 26. Key stakeholders
+
+| Stakeholder | Accountability |
+| --- | --- |
+| CEO | Strategic sponsorship and outcome |
+| Chairman/Board | Oversight and risk challenge |
+| COO | Customer-operations transformation |
+| Chief Customer Officer | Customer experience |
+| CFO | Business case and benefit realisation |
+| CIO/CTO | Technology and integration |
+| Chief Digital Officer | Digital journey and adoption |
+| CISO | Cybersecurity |
+| DPO | Data protection |
+| General Counsel | Legal and contractual risk |
+| Chief Risk Officer | Enterprise risk |
+| CMO | Brand, customer communication and consent |
+| Sales Director | Conversion and commercial journeys |
+| Customer Service Director | Operational ownership |
+| Contact Centre Director | Workforce and delivery |
+| Head of AI | AI strategy, standards and capability |
+| AI Product Owner | Day-to-day product accountability |
+| Data Owner | Data quality and access |
+| Knowledge Manager | Approved knowledge |
+| Procurement | Supplier sourcing and contract |
+| HR/People | Workforce impact and change |
+| Internal Audit | Independent assurance |
+| Employee representatives | Workforce consultation |
+| Customer advisory group | User feedback and accessibility |
+
+### Who should be the customer-side AI lead?
+
+There are two different roles:
+
+#### Executive AI sponsor
+
+Usually one of:
+
+- CIO
+
+- CDO
+
+- CTO
+
+- COO
+
+- Chief Customer Officer
+
+This person owns executive alignment and funding.
+
+#### Delivery AI lead
+
+Usually:
+
+- Head of AI
+
+- Director of AI
+
+- AI Transformation Lead
+
+- AI Product Director
+
+- Enterprise AI Architect
+
+The delivery AI lead should not own the business outcome alone. The Customer Service Director or Chief Customer Officer should remain accountable for the customer-service result.
+
+## 27. Adoption policy
+
+### Employees may
+
+- Use approved AI systems
+
+- Review AI recommendations
+
+- Correct incorrect outputs
+
+- Report harmful or inaccurate results
+
+- Use AI-generated summaries after validation
+
+- Use approved customer and company data within policy
+
+### Employees must not
+
+- Enter data into unapproved public AI tools
+
+- Allow AI to make unauthorised financial decisions
+
+- bypass human approval controls
+
+- Share credentials with AI systems
+
+- Treat AI output as automatically correct
+
+- Change production prompts without approval
+
+- Conceal an AI-related incident
+
+- Use customer conversations for unrelated purposes
+
+## 28. Change management
+
+### Change principles
+
+#### Explain the purpose
+
+Position AI as:
+
+- Removing repetitive work
+
+- Improving customer resolution
+
+- Supporting employee judgement
+
+- Reducing system switching
+
+- Creating capacity for complex cases
+
+#### Involve agents early
+
+Agents should participate in:
+
+- Journey design
+
+- Evaluation
+
+- Failure analysis
+
+- Knowledge improvement
+
+- Interface testing
+
+- Escalation design
+
+#### Redesign performance measures
+
+Do not punish agents because AI handles easier cases and leaves them with more complex conversations.
+
+Review:
+
+- Average handling time targets
+
+- Quality scoring
+
+- Productivity expectations
+
+- Sales targets
+
+- Escalation targets
+
+- Training requirements
+
+#### Training
+
+Provide:
+
+- AI literacy
+
+- Security and privacy
+
+- Correct use
+
+- Limitations
+
+- Escalation
+
+- Customer transparency
+
+- Incident reporting
+
+- Bias and fairness
+
+- Prompt-injection awareness
+
+## 29. Risk register
+
+| Risk | Likelihood | Impact | Primary control |
+| --- | --- | --- | --- |
+| Incorrect customer answer | Medium | High | Grounded responses and evaluation |
+| Personal-data leakage | Medium | Critical | DLP, access control and minimisation |
+| Prompt injection | High | High | Tool isolation and input controls |
+| Unauthorised transaction | Low | Critical | Deterministic policy and approval |
+| Customer cannot reach human | Medium | High | Explicit escalation paths |
+| Discriminatory treatment | Low/Medium | High | Fairness testing and monitoring |
+| Low customer adoption | Medium | Medium | Transparency and channel choice |
+| Agent resistance | Medium | High | Co-design and change management |
+| Vendor lock-in | Medium | High | Portability and exit clauses |
+| Unexpected AI cost | Medium | High | Model routing and FinOps |
+| Service outage | Medium | High | Resilience and fallback |
+| Knowledge becomes outdated | High | High | Content ownership and expiry |
+| Regulatory change | Medium | High | Compliance monitoring |
+| Reputational incident | Low/Medium | Critical | Incident response and communication |
+| Claimed savings not realised | Medium | High | Finance-led benefit tracking |
+
+## 30. “Where are we?” versus “What must be implemented?”
+
+### Representative gap analysis
+
+| Area | Typical current position | Required target |
+| --- | --- | --- |
+| Customer experience | FAQ chatbot | End-to-end resolution |
+| Channels | Web chat only | Omnichannel |
+| Knowledge | Unstructured documents | Governed knowledge products |
+| Integration | Limited CRM lookup | Secure transactional APIs |
+| Identity | Anonymous conversations | Identity-aware service |
+| Decision-making | LLM-generated answers | Deterministic policy engine |
+| Security | Standard application controls | AI-specific threat model |
+| Access | Broad service accounts | RBAC, ABAC and least privilege |
+| Administration | Password-based | SSO, MFA and privileged access |
+| Network | Public endpoints | Private connectivity and allowlisting |
+| Data protection | General privacy policy | Journey-level DPIA and minimisation |
+| Evaluation | Manual spot checks | Automated and human evaluation |
+| Monitoring | Uptime and errors | Quality, risk, cost and customer outcomes |
+| Governance | Project steering group | Enterprise AI operating model |
+| Ownership | Technology-led | Business-product ownership |
+| Financials | Technology budget | Benefit and unit-economics tracking |
+| Deployment | One market | Global core with local controls |
+| Feedback | CSAT only | Closed-loop journey improvement |
+| Change | Tool training | Workforce and process redesign |
+| Commercial model | Licence focused | Outcome and value based |
+
+## 31. Immediate implementation priorities
+
+### Priority 1: Establish the business baseline
+
+Measure:
+
+- Contact volume
+
+- Cost per contact
+
+- Repeat contacts
+
+- Resolution rate
+
+- Customer satisfaction
+
+- Average handling time
+
+- Top customer intents
+
+- Escalation rate
+
+- Complaint rate
+
+- Revenue and churn influence
+
+### Priority 2: Select three journeys
+
+Recommended:
+
+- Order or service status
+
+- Billing explanation
+
+- General account support
+
+### Priority 3: Establish security and governance
+
+Create:
+
+- AI policy
+
+- AI inventory
+
+- DPIA
+
+- Threat model
+
+- Risk register
+
+- Model approval process
+
+- Evaluation standards
+
+- Incident process
+
+### Priority 4: Build the deterministic service layer
+
+Prioritise APIs for:
+
+- Identity
+
+- Account
+
+- Billing
+
+- Orders
+
+- Payments
+
+- Product eligibility
+
+- Escalation
+
+### Priority 5: Create the evaluation system
+
+Test:
+
+- Correctness
+
+- Groundedness
+
+- Resolution
+
+- Safety
+
+- Privacy
+
+- Tool use
+
+- Escalation
+
+- Fairness
+
+- Latency
+
+- Cost
+
+### Priority 6: Pilot with humans in control
+
+Start with agent assistance and low-risk self-service, then increase autonomy only when evidence supports it.
+
+## 32. Final CEO and Chairman briefing
+
+We propose creating a security-first AI customer-resolution platform rather than deploying another standalone chatbot. The platform will combine conversational AI with deterministic business systems, allowing customers to receive immediate answers and complete approved actions while preserving human access for complex, vulnerable or regulated situations.
+
+The initial business case indicates the potential to resolve approximately 1.4 million annual interactions through AI, generate around £7.9 million in annual gross benefit and achieve an indicative payback period of approximately ten months. These assumptions will be validated through a controlled pilot.
+
+Our competitive advantage will come from verifiable resolution, controlled autonomy, secure enterprise integration, hybrid deployment and journey-level governance. We recommend beginning with billing explanation, order status and account support, followed by transactional services, voice, retention and proactive support.
+
+The executive decision required is approval for the discovery and pilot programme, appointment of an accountable customer-service business owner, establishment of the AI governance structure and agreement on the financial, customer, security and compliance success criteria.
+
+The strongest strategic framing is:
+
+Not a chatbot. A secure customer-resolution operating model powered by AI.
+
+
+## Related Business Learning content
+
+- [Business Learning overview](./overview)
+- [Domain Knowledge workbook](./domain-knowledge-workbook)
+- [Stage 1: Business and consulting](../stage-1-business-consulting)
+
+<KeyTakeaways>
+
+- Use this page as practice material, not only reference reading.
+- Capture outputs in the Domain Knowledge workbook so learning becomes evidence.
+- Link back to Stage 1 Learning Map topics when you need the curriculum framing.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+1. Continue with [Business Keywords](./business-keywords).
+2. Record artefacts in the [Domain Knowledge workbook](./domain-knowledge-workbook).
+3. Return to [Business Learning overview](./overview).
+
+</NextSteps>

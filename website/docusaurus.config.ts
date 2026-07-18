@@ -205,6 +205,7 @@ const config: Config = {
         {
           title: 'Learning stages',
           items: [
+            {label: 'Business Learning', to: '/learning-map/business-learning/overview'},
             {label: '1. Business & consulting', to: '/learning-map/stage-1-business-consulting'},
             {label: '2. AI & data', to: '/learning-map/stage-2-ai-data'},
             {label: '3. Architecture & cloud', to: '/learning-map/stage-3-architecture-cloud'},

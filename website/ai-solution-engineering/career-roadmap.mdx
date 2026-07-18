@@ -2,7 +2,7 @@
 sidebar_position: 18
 slug: career-roadmap
 title: Career and Capability Roadmap
-description: Progress from AI engineer to AI strategy leadership with capability levels spanning business, consulting, technical, governance and leadership skills.
+description: Progress from AI engineer to AI strategy leadership with capability levels, a prioritized Azure/AWS certification path, and a 24-month artefact-gated study plan.
 ---
 
 # Career and Capability Roadmap
@@ -109,15 +109,88 @@ The true measure of AI solution engineering is not the sophistication of the mod
 It is whether the solution creates sustained, trusted and measurable enterprise value.
 
 <DecisionBox>
-Assess capability with artefacts and outcomes—not certifications alone. Choose the next gap deliberately across business, consulting and governance.
+Assess capability with artefacts and outcomes—not certifications alone. Use the priority path below to close cloud and AI credibility gaps; treat each exam as complete only when you also have a reusable artefact.
 </DecisionBox>
+
+## Recommended certifications
+
+For AI Solution Engineers and Engineering Managers working primarily on Azure with multi-cloud delivery, this is a practical priority order. Pass the exam only after you can demonstrate the corresponding artefact on a real or capstone engagement.
+
+| Priority | Certification | Why it matters |
+| --- | --- | --- |
+| 1 | **AZ-104: Azure Administrator Associate** | Essential Azure identity, networking, compute, storage, governance and monitoring. Required before Azure Solutions Architect Expert. ([Microsoft Learn](https://learn.microsoft.com/credentials/certifications/azure-administrator/)) |
+| 2 | **AWS Certified Solutions Architect – Associate** | AWS architecture foundation across distributed systems, security, resilience, cost and the Well-Architected Framework. ([AWS](https://aws.amazon.com/certification/certified-solutions-architect-associate/)) |
+| 3 | **AI-103: Azure AI Apps and Agents Developer Associate** | Directly relevant to delivery work: Microsoft Foundry, generative AI, agents, Python, information extraction and managing Azure AI solutions; collaboration with architects, stakeholders, DevOps and security. ([Microsoft Learn](https://learn.microsoft.com/credentials/certifications/azure-ai-apps-and-agents-developer-associate/)) |
+| 4 | **AZ-305: Azure Solutions Architect Expert** | Credibility for translating business requirements into secure, resilient enterprise architecture (identity, governance, data, continuity, infrastructure). AZ-104 plus AZ-305 earns the Expert credential. ([Microsoft Learn](https://learn.microsoft.com/credentials/certifications/azure-solutions-architect/)) |
+| 5 | **AWS Certified Generative AI Developer – Professional** | Strongest AWS GenAI credential for production solutions with Amazon Bedrock, including security, deployment, monitoring and cost efficiency. ([AWS](https://aws.amazon.com/certification/certified-generative-ai-developer-professional/)) |
+| 6 | **Microsoft Agentic AI Business Solutions Architect (AB-100)** | Closest match to solution-architecture / manager scope: agentic architecture, multi-agent orchestration, security, telemetry, prototyping, implementation roadmaps and ROI. AI-103 is an accepted prerequisite. ([Microsoft Learn](https://learn.microsoft.com/credentials/certifications/agentic-ai-business-solutions-architect/)) |
+| 7 | **AWS Certified Solutions Architect – Professional** | Take after substantial AWS architecture work. Validates complex enterprise architecture, security, performance, cost optimisation and automation across multiple projects. ([AWS](https://aws.amazon.com/certification/certified-solutions-architect-professional/)) |
+| 8 | **AI-300: Machine Learning Operations Engineer Associate** | Optional MLOps / GenAIOps specialisation: deployment, evaluation, monitoring, observability, GitHub Actions, infrastructure as code and performance optimisation. ([Microsoft Learn](https://learn.microsoft.com/credentials/certifications/operationalizing-machine-learning-and-generative-ai-solutions/)) |
+
+Confirm exam codes, prerequisites and renewal rules on the vendor pages before you book—Microsoft and AWS update credentials regularly.
+
+## 24-month certification plan
+
+Treat this as a **capability programme**, not a badge race. One active certification track at a time; pause for delivery peaks; never skip the artefact gate.
+
+### How to study each credential
+
+1. **Map skills** — official study guide / exam guide to your current gaps.
+2. **Hands-on** — rebuild a small production-shaped lab (CLI + IaC + identity + monitoring + cost).
+3. **Artefact** — write one reusable playbook artefact (ADR, threat model, eval pack, architecture brief).
+4. **Practice** — vendor practice assessment or equivalent mocks until consistently above pass threshold.
+5. **Exam** — book only when the artefact would survive a client or peer review.
+6. **Transfer** — store the artefact in your personal development / toolkit folder and reuse it on the next engagement.
+
+### Phase A — Cloud foundations (months 1–6)
+
+| Months | Credential | Artefact gate (required before exam) |
+| --- | --- | --- |
+| 1–3 | AZ-104 | Landing-zone sketch: Entra ID + RBAC, VNet/private endpoints, storage, monitoring, Policy baseline |
+| 4–6 | AWS SAA | Multi-tier Well-Architected design note: VPC, IAM, resilience, cost and security trade-offs |
+
+**Exit:** you can explain and rebuild secure cloud foundations on Azure and AWS without relying on portal-only knowledge.
+
+### Phase B — AI builder and Azure architect (months 7–12)
+
+| Months | Credential | Artefact gate (required before exam) |
+| --- | --- | --- |
+| 7–9 | AI-103 | Foundry-based RAG or agent prototype with evaluation set, grounding evidence, basic safety controls |
+| 10–12 | AZ-305 | HLD for an enterprise AI workload: identity, data, continuity, governance and NFR decisions |
+
+**Exit:** you can build a production-oriented Azure AI app/agent and defend an end-to-end Azure architecture to sponsors.
+
+### Phase C — Production GenAI and agentic architecture (months 13–18)
+
+| Months | Credential | Artefact gate (required before exam) |
+| --- | --- | --- |
+| 13–15 | AWS GenAI Developer – Professional | Bedrock production design: RAG/agents, guardrails, deployment, monitoring and unit-cost model |
+| 16–18 | AB-100 | Agentic architecture pack: multi-agent orchestration, security/telemetry, roadmap, ROI and operating model |
+
+**Exit:** you can lead GenAI delivery on AWS and agentic solution architecture on Microsoft platforms with commercial and trust evidence.
+
+### Phase D — Later depth (months 19–24+)
+
+| Months | Credential | When to take it |
+| --- | --- | --- |
+| 19–22 | AWS Solutions Architect – Professional | After repeated multi-account / multi-project AWS architecture work |
+| 23–24+ | AI-300 (optional) | When you own MLOps/GenAIOps platforms, evaluation pipelines and IaC-heavy AI operations |
+
+**Exit:** deep multi-cloud architecture credibility, with optional platform-engineering specialisation.
+
+### Sequencing rules
+
+- Do **AZ-104 before AZ-305**; do **AI-103 before AB-100**.
+- Prefer **AWS SAA before** the GenAI Professional and Solutions Architect Professional exams.
+- If Azure delivery is the primary client stack, keep Phase A–B on schedule and stretch Phase C–D rather than skipping AI-103 or AZ-305.
+- If a live engagement already produces the artefact, count that work and sit the exam sooner—do not invent duplicate labs for their own sake.
 
 ## Case study reflection
 
 If you can lead the financial-services assistant from discovery problem statement through DPIA, architecture, golden-set gates, executive ask and adoption metrics — you are operating at opportunity-leader level or above, regardless of title.
 
 <DeliverableBox>
-Self-assessed capability level with evidence, chosen development gaps, artefact portfolio started, mentorship/review loop for executive communication, and a current personal development folder.
+Self-assessed capability level with evidence, chosen development gaps, artefact portfolio started, mentorship/review loop for executive communication, current personal development folder, and an active certification phase with its artefact gate.
 </DeliverableBox>
 
 ## Common failure modes
@@ -126,6 +199,7 @@ Self-assessed capability level with evidence, chosen development gaps, artefact 
 - Confusing slides with solution ownership
 - Avoiding commercial conversations
 - Collecting certifications without artefacts you can reuse
+- Booking expert exams before associate foundations and hands-on labs are solid
 
 ## Solution Engineer checklist
 
@@ -136,12 +210,14 @@ Self-assessed capability level with evidence, chosen development gaps, artefact 
 - [ ] Portfolio of artefacts started (problem statements, ADRs, briefs)
 - [ ] Mentorship or review loop for executive communication
 - [ ] Personal development folder kept current
+- [ ] Active certification phase selected from the priority path
+- [ ] Artefact gate defined and met before the next exam booking
 
 </Checklist>
 
 ## Practical exercise
 
-Collect three artefacts you have led in the last year. Score each against the final standard list. Your weakest three items become the next quarter’s development plan.
+Collect three artefacts you have led in the last year. Score each against the final standard list. Your weakest three items become the next quarter’s development plan. Map one of those gaps to the next certification in the priority path and define its artefact gate before you schedule study hours.
 
 ---
 
@@ -152,7 +228,7 @@ Collect three artefacts you have led in the last year. Score each against the fi
 - Titles vary; the shift is from components to outcome ownership.
 - Develop across business, consulting, technical, governance and leadership.
 - Measure by artefacts and sustained enterprise value.
-- Close gaps deliberately—not certification collecting alone.
+- Close gaps deliberately—use the certification path with artefact gates, not badge collecting alone.
 
 </KeyTakeaways>
 
@@ -160,7 +236,8 @@ Collect three artefacts you have led in the last year. Score each against the fi
 
 1. Return to [Overview](./overview) to re-orient the series.
 2. Follow the [AI Engineer roadmap](/roadmaps/ai-engineer) and [full guide](/articles/ai-engineer-roadmap), the [Software Architect roadmap](/roadmaps/software-architect) and [full guide](/articles/software-architect-roadmap), the [Forward-Deployed Engineer roadmap](/roadmaps/forward-deployed-engineer) and [full guide](/articles/forward-deployed-engineer-roadmap), or the [Engineering Manager roadmap](/roadmaps/engineering-manager) and [full guide](/articles/engineering-manager-roadmap).
-3. Use the [Toolkit](./toolkit) personal-development and artefact folders.
-4. Practice methodology via [8D Framework](/docs/ai-solution-engineering/8d-framework).
+3. Deepen cloud foundations with the [Azure](/roadmaps/azure) and [AWS](/roadmaps/aws) learning roadmaps while progressing the certification plan.
+4. Use the [Toolkit](./toolkit) personal-development and artefact folders.
+5. Practice methodology via [8D Framework](/docs/ai-solution-engineering/8d-framework).
 
 </NextSteps>
