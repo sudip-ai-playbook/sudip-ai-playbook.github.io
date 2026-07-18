@@ -181,6 +181,21 @@ const config: Config = {
           position: 'right',
         },
         {
+          type: 'dropdown',
+          label: 'Support',
+          position: 'right',
+          items: [
+            {
+              label: 'Buy me a coffee',
+              href: 'https://www.buymeacoffee.com/kandelsudir',
+            },
+            {
+              label: 'Support on Ko-fi',
+              href: 'https://ko-fi.com/sudipkandel123',
+            },
+          ],
+        },
+        {
           href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
           label: 'GitHub',
           position: 'right',
@@ -272,6 +287,23 @@ const config: Config = {
             },
             {label: 'Google Cloud Learning Roadmap', to: '/roadmaps/gcp'},
             {label: 'Competency test', to: '/learning-map/competency-test'},
+            {
+              label: 'GitHub',
+              href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
+            },
+          ],
+        },
+        {
+          title: 'Support',
+          items: [
+            {
+              label: 'Buy me a coffee',
+              href: 'https://www.buymeacoffee.com/kandelsudir',
+            },
+            {
+              label: 'Support on Ko-fi',
+              href: 'https://ko-fi.com/sudipkandel123',
+            },
             {
               label: 'GitHub',
               href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
