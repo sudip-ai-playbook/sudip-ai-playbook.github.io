@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Check, CheckCircle2, Copy, Download, RotateCcw } from 'lucide-react'
 import { PROVIDER_LABELS } from '../../constants/playbook'
 import { CoachBanner, ConfirmDialog } from '../guidance'
+import { WorkspaceSyncPanel } from '../persistence'
 import { buildDecisionBrief, isFrameComplete } from './project.logic'
 import { StepNav } from './StepNav'
 import { useProject } from './useProject'
@@ -248,6 +249,8 @@ export function SummaryView() {
           </div>
         </section>
       </div>
+
+      <WorkspaceSyncPanel />
 
       <ConfirmDialog
         testId="summary-reset-confirm"

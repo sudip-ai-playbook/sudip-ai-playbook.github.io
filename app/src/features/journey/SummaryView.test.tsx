@@ -56,6 +56,7 @@ describe('SummaryView closure', () => {
     renderSummary()
 
     expect(screen.getByTestId('summary-validation-checklist')).toBeInTheDocument()
+    expect(screen.getByTestId('workspace-sync-panel')).toBeInTheDocument()
     await user.click(screen.getByTestId('summary-check-residency'))
     expect(screen.getByTestId('summary-check-residency')).toBeChecked()
 

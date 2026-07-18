@@ -35,7 +35,7 @@ describe('End-to-end journey smoke', () => {
     render(<App />)
 
     expect(screen.getByTestId('hub-view')).toBeInTheDocument()
-    await user.click(screen.getByTestId('start-journey'))
+    await user.click(screen.getByTestId('hub-primary-cta'))
     expect(await screen.findByTestId('frame-view')).toBeInTheDocument()
 
     await user.type(
@@ -89,10 +89,10 @@ describe('End-to-end journey smoke', () => {
     await user.click(screen.getByTestId('summary-export'))
   })
 
-  it('opens engagement workspace from the hub', async () => {
+  it('opens engagement workspace from the nav', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.click(screen.getByTestId('start-consulting'))
+    await user.click(screen.getByTestId('nav-consult'))
     expect(await screen.findByTestId('consulting-view')).toBeInTheDocument()
     expect(screen.getByTestId('consulting-home-view')).toBeInTheDocument()
     await user.click(screen.getByTestId('consult-tab-playbook'))
@@ -103,8 +103,8 @@ describe('End-to-end journey smoke', () => {
     const user = userEvent.setup()
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
-    expect(screen.getByTestId('start-journey')).toHaveTextContent('Resume where you left off')
-    expect(screen.getByTestId('hub-primary-cta')).toHaveTextContent('Continue architecture journey')
+    expect(screen.getByTestId('hub-primary-cta')).toHaveTextContent('Continue')
+    expect(screen.getByTestId('hub-progress')).toBeInTheDocument()
     expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
     expect(screen.getByTestId('nav-buy-me-a-coffee')).toHaveAttribute(
       'href',
@@ -114,8 +114,9 @@ describe('End-to-end journey smoke', () => {
     expect(screen.getByTestId('brand-home')).toHaveAttribute('href', '#/')
     expect(screen.queryByTestId('shell-outcome')).not.toBeInTheDocument()
     expect(screen.queryByTestId('hub-blog-featured')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('workspace-sync-panel')).not.toBeInTheDocument()
 
-    await user.click(screen.getByTestId('start-journey'))
+    await user.click(screen.getByTestId('hub-primary-cta'))
     expect(await screen.findByTestId('picks-view')).toBeInTheDocument()
     await user.click(screen.getByTestId('brand-home'))
     expect(await screen.findByTestId('hub-view')).toBeInTheDocument()
