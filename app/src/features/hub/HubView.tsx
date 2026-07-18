@@ -4,20 +4,16 @@ import {
   ArrowRight,
   BookOpen,
   Briefcase,
-  Coffee,
   Compass,
-  Heart,
   type LucideIcon,
 } from 'lucide-react'
-import {
-  BUY_ME_A_COFFEE_URL,
-  KO_FI_URL,
-  LEARNING_MAP_PATH,
-} from '../../constants/playbook'
+import { LEARNING_MAP_PATH } from '../../constants/playbook'
+import { WorkspaceSyncPanel } from '../persistence'
+import { getJourneyProgress } from '../journey/journey.gates'
 import { isFrameComplete } from '../journey/project.logic'
 import { useProject } from '../journey/useProject'
 
-type PathCard = {
+type SecondaryPath = {
   testId: string
   eyebrow: string
   title: string
@@ -26,21 +22,23 @@ type PathCard = {
   icon: LucideIcon
 } & ({ to: string; href?: never } | { href: string; to?: never })
 
-function PathActionCard({ path }: { path: PathCard }) {
+function SecondaryPathCard({ path }: { path: SecondaryPath }) {
   const className =
-    'glass-card glass-card-accent-blue block h-full p-5 transition hover:-translate-y-0.5'
+    'glass-card block h-full p-5 transition hover:-translate-y-0.5'
   const Icon = path.icon
   const content = (
     <>
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-indigo-velvet">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-blue">
         {path.eyebrow}
       </p>
       <div className="mt-3 flex items-start gap-3">
         <Icon className="mt-0.5 h-5 w-5 shrink-0 text-slate-blue" aria-hidden />
         <div>
-          <h2 className="text-base font-bold text-ink">{path.title}</h2>
-          <p className="mt-1 text-sm text-ink-secondary">{path.description}</p>
-          <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-indigo-velvet">
+          <h3 className="font-[family-name:var(--font-display)] text-base font-600 tracking-wide text-ink">
+            {path.title}
+          </h3>
+          <p className="mt-1 text-sm font-normal text-ink-secondary">{path.description}</p>
+          <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ink">
             {path.primaryLabel}
             <ArrowRight className="h-3.5 w-3.5" aria-hidden />
           </span>
@@ -67,37 +65,28 @@ function PathActionCard({ path }: { path: PathCard }) {
 export function HubView() {
   const { project } = useProject()
   const framed = isFrameComplete(project)
-  const architecturePath = framed ? '/map' : '/frame'
+  const progress = getJourneyProgress(project)
+  const architecturePath = framed ? progress.nextOpenPath : '/frame'
 
-  const paths: PathCard[] = [
-    {
-      testId: 'path-learn',
-      eyebrow: 'Learn',
-      title: 'Open the Learning Map',
-      description: '35 practice-first topics with real-world scenarios and exercises.',
-      primaryLabel: 'Start the Learning Map',
-      icon: BookOpen,
-      href: LEARNING_MAP_PATH,
-    },
+  const secondaryPaths: SecondaryPath[] = [
     {
       testId: 'start-consulting',
-      eyebrow: 'Engage',
-      title: 'Run ConsultAI OS',
-      description: 'Workshops, journey stages, decisions and deliverables in one workspace.',
-      primaryLabel: 'Open ConsultAI OS',
+      eyebrow: 'Engagement workspace',
+      title: 'Run a consulting engagement',
+      description:
+        'Workshops, stage gates, decisions and deliverables when you need the full engagement OS.',
+      primaryLabel: 'Open engagement workspace',
       icon: Briefcase,
       to: '/consult',
     },
     {
-      testId: 'start-journey',
-      eyebrow: 'Architect',
-      title: framed ? 'Continue architecture journey' : 'Choose architecture',
-      description: framed
-        ? `Working on: ${project.outcome}`
-        : 'Frame the outcome, compare services, score trade-offs and export a brief.',
-      primaryLabel: framed ? 'Continue where you left off' : 'Start architecture journey',
-      icon: Compass,
-      to: architecturePath,
+      testId: 'path-learn',
+      eyebrow: 'Learn',
+      title: 'Open the Learning Map',
+      description: 'Practice-first topics with scenarios and exercises — no toolkit required.',
+      primaryLabel: 'Start the Learning Map',
+      icon: BookOpen,
+      href: LEARNING_MAP_PATH,
     },
   ]
 
@@ -107,89 +96,72 @@ export function HubView() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         className="glass-panel p-8 sm:p-10"
+        aria-labelledby="hub-hero-heading"
       >
-        <h1 className="max-w-2xl font-[family-name:var(--font-display)] text-3xl font-800 tracking-tight sm:text-4xl">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-blue">
+          Primary path
+        </p>
+        <h1
+          id="hub-hero-heading"
+          className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em] text-ink sm:text-4xl"
+        >
           Turn ambiguous AI problems into clear decisions
         </h1>
-        <p className="mt-4 max-w-xl text-base text-ink-secondary">
-          One place to learn the method, run consulting engagements, and choose a cloud AI
-          architecture — without hunting through every tool at once.
+        <p className="mt-4 max-w-xl text-base font-normal leading-relaxed text-ink-secondary">
+          Frame the outcome, compare cloud options, score trade-offs, and export a stakeholder
+          brief — one guided architecture journey.
         </p>
+        {framed ? (
+          <p className="mt-3 text-sm text-ink-muted" data-testid="hub-progress">
+            Progress: {progress.completedCount} of {progress.totalCount} steps · Working on:{' '}
+            <span className="font-medium text-ink">{project.outcome}</span>
+          </p>
+        ) : null}
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link to="/consult" className="btn btn-accent" data-testid="hub-primary-cta">
-            <Briefcase className="h-4 w-4" aria-hidden />
-            Open ConsultAI OS
+          <Link
+            to={architecturePath}
+            className="btn btn-primary"
+            data-testid="hub-primary-cta"
+          >
+            <Compass className="h-4 w-4" aria-hidden />
+            {framed ? 'Continue architecture journey' : 'Start architecture journey'}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
-          <a href={LEARNING_MAP_PATH} className="btn btn-ghost" data-testid="open-blog">
-            <BookOpen className="h-4 w-4" aria-hidden />
-            Open Learning Map
-          </a>
+          <Link
+            to={architecturePath}
+            className="btn btn-ghost"
+            data-testid="start-journey"
+          >
+            {framed ? 'Resume where you left off' : 'Begin with Frame'}
+          </Link>
         </div>
       </motion.section>
 
-      <section aria-labelledby="hub-paths-heading">
+      <section aria-labelledby="hub-secondary-heading">
         <h2
-          id="hub-paths-heading"
-          className="font-[family-name:var(--font-display)] text-xl font-700"
+          id="hub-secondary-heading"
+          className="font-[family-name:var(--font-display)] text-xl font-600 tracking-[0.02em]"
         >
-          Choose your path
+          Need something else?
         </h2>
-        <p className="mt-1 text-sm text-ink-muted">Three starting points. Pick one.</p>
-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
-          {paths.map((path, index) => (
+        <p className="mt-1 text-sm font-normal text-ink-muted">
+          Secondary paths for engagement delivery and learning — keep architecture as the default.
+        </p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {secondaryPaths.map((path, index) => (
             <motion.div
               key={path.testId}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
             >
-              <PathActionCard path={path} />
+              <SecondaryPathCard path={path} />
             </motion.div>
           ))}
         </div>
       </section>
 
-      <section
-        aria-labelledby="hub-support-heading"
-        className="glass-panel flex flex-wrap items-end justify-between gap-4 p-6 sm:p-8"
-        data-testid="hub-support"
-      >
-        <div className="max-w-xl">
-          <h2
-            id="hub-support-heading"
-            className="font-[family-name:var(--font-display)] text-xl font-700"
-          >
-            Keep this playbook free
-          </h2>
-          <p className="mt-2 text-sm text-ink-secondary">
-            If these guides, roadmaps or tools helped you on a real engagement, a coffee funds
-            the next article, exercise and interactive update.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href={BUY_ME_A_COFFEE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-accent"
-            data-testid="hub-buy-me-a-coffee"
-          >
-            <Coffee className="h-4 w-4" aria-hidden />
-            Buy me a coffee
-          </a>
-          <a
-            href={KO_FI_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-ghost"
-            data-testid="hub-ko-fi"
-          >
-            <Heart className="h-4 w-4" aria-hidden />
-            Support on Ko-fi
-          </a>
-        </div>
-      </section>
+      <WorkspaceSyncPanel />
     </div>
   )
 }

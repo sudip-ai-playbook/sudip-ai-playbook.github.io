@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event'
 import App from './App'
 import { PROJECT_STORAGE_KEY } from './constants/journey'
 import {
-  BLOG_BASE_PATH,
   BUY_ME_A_COFFEE_URL,
   KO_FI_URL,
   LEARNING_MAP_PATH,
@@ -90,7 +89,7 @@ describe('End-to-end journey smoke', () => {
     await user.click(screen.getByTestId('summary-export'))
   })
 
-  it('opens ConsultAI OS from the hub', async () => {
+  it('opens engagement workspace from the hub', async () => {
     const user = userEvent.setup()
     render(<App />)
     await user.click(screen.getByTestId('start-consulting'))
@@ -104,20 +103,20 @@ describe('End-to-end journey smoke', () => {
     const user = userEvent.setup()
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
-    expect(screen.getByTestId('start-journey')).toHaveTextContent('Continue architecture journey')
-    expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', BLOG_BASE_PATH)
+    expect(screen.getByTestId('start-journey')).toHaveTextContent('Resume where you left off')
+    expect(screen.getByTestId('hub-primary-cta')).toHaveTextContent('Continue architecture journey')
+    expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
     expect(screen.getByTestId('nav-buy-me-a-coffee')).toHaveAttribute(
       'href',
       BUY_ME_A_COFFEE_URL,
     )
     expect(screen.getByTestId('nav-ko-fi')).toHaveAttribute('href', KO_FI_URL)
-    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
     expect(screen.getByTestId('brand-home')).toHaveAttribute('href', '#/')
     expect(screen.queryByTestId('shell-outcome')).not.toBeInTheDocument()
     expect(screen.queryByTestId('hub-blog-featured')).not.toBeInTheDocument()
 
     await user.click(screen.getByTestId('start-journey'))
-    expect(await screen.findByTestId('map-view')).toBeInTheDocument()
+    expect(await screen.findByTestId('picks-view')).toBeInTheDocument()
     await user.click(screen.getByTestId('brand-home'))
     expect(await screen.findByTestId('hub-view')).toBeInTheDocument()
   })

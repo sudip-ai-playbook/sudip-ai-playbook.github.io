@@ -214,6 +214,7 @@ const config: Config = {
             {label: 'How to practise', to: '/learning-map/how-to-use'},
             {label: 'Guide overview', to: '/ai-solution-engineering/overview'},
             {label: 'Roadmaps', to: '/roadmaps/overview'},
+            {label: 'Framework Library', to: '/docs/framework'},
             {label: '8D Framework', to: '/docs/ai-solution-engineering/8d-framework'},
           ],
         },

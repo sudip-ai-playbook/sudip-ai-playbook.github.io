@@ -2,11 +2,29 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   tutorialSidebar: [
-    'intro',
-    'playbook-page-template',
+    'framework',
     {
       type: 'category',
-      label: '8D Framework',
+      label: 'Framework catalogue',
+      collapsed: false,
+      items: [
+        'frameworks/mobilisation',
+        'frameworks/strategy',
+        'frameworks/discovery',
+        'frameworks/readiness-maturity',
+        'frameworks/prioritisation',
+        'frameworks/commercial-value',
+        'frameworks/architecture-engineering',
+        'frameworks/technical-ai-engineering',
+        'frameworks/responsible-ai-governance',
+        'frameworks/security-privacy',
+        'frameworks/delivery',
+        'frameworks/change-adoption',
+      ],
+    },
+    {
+      type: 'category',
+      label: '8D Methodology',
       collapsed: false,
       items: [
         'ai-solution-engineering/8d-framework',
@@ -17,7 +35,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Contribute',
       collapsed: true,
-      items: ['write-a-blog-post'],
+      items: ['playbook-page-template', 'write-a-blog-post', 'about'],
     },
   ],
 };

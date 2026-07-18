@@ -152,6 +152,10 @@ describe('Consulting workshop flow', () => {
     await user.click(screen.getByTestId('journey-confirm-override'))
     await user.click(screen.getByTestId('journey-select-stage-0'))
 
+    const moreToolsButton = screen.getByTestId('consult-more-tools')
+    if (moreToolsButton.getAttribute('aria-expanded') !== 'true') {
+      await user.click(moreToolsButton)
+    }
     await user.click(screen.getByTestId('consult-tab-decisions'))
     expect(await screen.findByTestId('decision-centre-view')).toBeInTheDocument()
     await user.type(screen.getByTestId('decision-text'), 'Approve prototype')

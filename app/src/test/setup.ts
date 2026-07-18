@@ -52,6 +52,34 @@ beforeAll(() => {
     writable: true,
     value: () => undefined,
   })
+  HTMLCanvasElement.prototype.getContext = (() => {
+    return {
+      fillRect: () => undefined,
+      clearRect: () => undefined,
+      getImageData: () => ({ data: new Uint8ClampedArray() }),
+      putImageData: () => undefined,
+      createImageData: () => [],
+      setTransform: () => undefined,
+      drawImage: () => undefined,
+      save: () => undefined,
+      fillText: () => undefined,
+      restore: () => undefined,
+      beginPath: () => undefined,
+      moveTo: () => undefined,
+      lineTo: () => undefined,
+      closePath: () => undefined,
+      stroke: () => undefined,
+      translate: () => undefined,
+      scale: () => undefined,
+      rotate: () => undefined,
+      arc: () => undefined,
+      fill: () => undefined,
+      measureText: () => ({ width: 0 }),
+      transform: () => undefined,
+      rect: () => undefined,
+      clip: () => undefined,
+    }
+  }) as typeof HTMLCanvasElement.prototype.getContext
 })
 
 afterEach(() => {

@@ -61,5 +61,6 @@ describe('project.logic', () => {
     expect(brief).toContain('# Architecture decision brief')
     expect(brief).toContain('Claims copilot')
     expect(brief).toContain('Azure AI Search')
+    expect(brief).toContain('- [ ] Region / data residency confirmed')
   })
 })

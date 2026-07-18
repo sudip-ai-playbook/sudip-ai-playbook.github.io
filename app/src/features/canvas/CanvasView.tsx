@@ -106,7 +106,7 @@ export function CanvasView() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 7 · Build</p>
-          <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Assemble the stack</h1>
+          <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">Assemble the stack</h1>
           <p className="mt-1 text-sm text-ink-secondary">{EXCALIDRAW_LABELS.subtitle}</p>
         </div>
         <div className="flex flex-wrap gap-2">

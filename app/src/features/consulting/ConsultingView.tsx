@@ -95,7 +95,30 @@ const ALL_TABS = [
   TAB_COPILOT,
 ] as const
 
+const PRIMARY_TABS = [
+  TAB_HOME,
+  TAB_JOURNEY,
+  TAB_WORKSHOP,
+  TAB_LAB,
+  TAB_DELIVERABLES,
+  TAB_PLAYBOOK,
+] as const
+
+const MORE_TABS = [
+  TAB_WORKSPACES,
+  TAB_CONTROL,
+  TAB_DECISIONS,
+  TAB_GOVERNANCE,
+  TAB_ARCHITECTURE,
+  TAB_SERVICE,
+  TAB_COPILOT,
+] as const
+
 type ConsultTab = (typeof ALL_TABS)[number]
+
+function isMoreTab(tab: ConsultTab): boolean {
+  return (MORE_TABS as readonly string[]).includes(tab)
+}
 
 function parseTab(value: string | null): ConsultTab {
   if (value && (ALL_TABS as readonly string[]).includes(value)) {
@@ -126,6 +149,7 @@ export function ConsultingView() {
   const [query, setQuery] = useState('')
   const [preferredDeliverable, setPreferredDeliverable] =
     useState<DeliverableTemplateId | null>(null)
+  const [showMoreTools, setShowMoreTools] = useState(() => isMoreTab(tab))
 
   const filtered = searchStages(
     resolveConsultingStages({ stageFilter, situationId }),
@@ -137,23 +161,33 @@ export function ConsultingView() {
   const tabItems: Array<{ id: ConsultTab; label: string; icon: typeof Filter }> = useMemo(
     () => [
       { id: TAB_HOME, label: 'Home', icon: LayoutDashboard },
-      { id: TAB_WORKSPACES, label: 'Workspaces', icon: Building2 },
       { id: TAB_JOURNEY, label: 'Journey', icon: Route },
-      { id: TAB_PLAYBOOK, label: 'Playbook', icon: Filter },
-      { id: TAB_CONTROL, label: 'Control', icon: ClipboardList },
-      { id: TAB_LAB, label: 'Lab', icon: BookOpen },
       { id: TAB_WORKSHOP, label: 'Workshop', icon: Briefcase },
+      { id: TAB_LAB, label: 'Lab', icon: BookOpen },
+      { id: TAB_DELIVERABLES, label: 'Deliverables', icon: FileText },
+      { id: TAB_PLAYBOOK, label: 'Playbook', icon: Filter },
+      { id: TAB_WORKSPACES, label: 'Workspaces', icon: Building2 },
+      { id: TAB_CONTROL, label: 'Control', icon: ClipboardList },
       { id: TAB_DECISIONS, label: 'Decisions', icon: Scale },
       { id: TAB_GOVERNANCE, label: 'Governance', icon: Shield },
       { id: TAB_ARCHITECTURE, label: 'Architecture', icon: Boxes },
       { id: TAB_SERVICE, label: 'Service', icon: LifeBuoy },
-      { id: TAB_DELIVERABLES, label: 'Deliverables', icon: FileText },
       { id: TAB_COPILOT, label: 'Copilot', icon: Bot },
     ],
     [],
   )
 
+  const primaryTabItems = tabItems.filter((item) =>
+    (PRIMARY_TABS as readonly string[]).includes(item.id),
+  )
+  const moreTabItems = tabItems.filter((item) =>
+    (MORE_TABS as readonly string[]).includes(item.id),
+  )
+
   function setTab(next: ConsultTab, stageId?: string | null): void {
+    if (isMoreTab(next)) {
+      setShowMoreTools(true)
+    }
     const params = new URLSearchParams(searchParams)
     params.set('tab', next)
     if (stageId) {
@@ -248,19 +282,24 @@ export function ConsultingView() {
     setTab(tabId, tabId === TAB_WORKSHOP ? workshopStage : null)
   }
 
+  function handleToggleMoreTools(): void {
+    setShowMoreTools((current) => !current)
+  }
+
   return (
     <div data-testid="consulting-view" className="space-y-6">
       <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">
-          ConsultAI OS
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-blue">
+          Engagement workspace · legacy ConsultAI OS
         </p>
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">
-              {CONSULTING_OS_META.workingName}
+            <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">
+              Engagement workspace
             </h1>
             <p className="mt-1 max-w-3xl text-sm text-ink-secondary">
-              {CONSULTING_OS_META.positioning}
+              {CONSULTING_OS_META.positioning} Start with Home or Journey; open More tools only
+              when you need advanced centres.
             </p>
           </div>
           <label className="block text-xs font-semibold uppercase tracking-wider text-ink-muted">
@@ -283,19 +322,55 @@ export function ConsultingView() {
           Active: {engagement.clientName || 'Unnamed client'} /{' '}
           {engagement.engagementName || 'Unnamed engagement'}
         </p>
-        <div className="flex flex-wrap gap-2" data-testid="consult-tab-nav">
-          {tabItems.map((item) => (
+        <div className="space-y-2">
+          <div className="flex flex-wrap gap-2" data-testid="consult-tab-nav" role="tablist" aria-label="Engagement primary tools">
+            {primaryTabItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={tab === item.id}
+                data-testid={`consult-tab-${item.id}`}
+                onClick={() => handleSetTab(item.id)}
+                className={['btn', tab === item.id ? 'btn-primary' : 'btn-ghost'].join(' ')}
+              >
+                <item.icon className="h-4 w-4" aria-hidden />
+                {item.label}
+              </button>
+            ))}
             <button
-              key={item.id}
               type="button"
-              data-testid={`consult-tab-${item.id}`}
-              onClick={() => handleSetTab(item.id)}
-              className={['btn', tab === item.id ? 'btn-accent' : 'btn-ghost'].join(' ')}
+              data-testid="consult-more-tools"
+              onClick={handleToggleMoreTools}
+              className="btn btn-ghost"
+              aria-expanded={showMoreTools}
             >
-              <item.icon className="h-4 w-4" />
-              {item.label}
+              {showMoreTools ? 'Hide more tools' : 'More tools'}
             </button>
-          ))}
+          </div>
+          {showMoreTools ? (
+            <div
+              className="flex flex-wrap gap-2 rounded-xl border border-ink/10 bg-white/50 p-3"
+              data-testid="consult-more-tab-nav"
+              role="tablist"
+              aria-label="Engagement advanced tools"
+            >
+              {moreTabItems.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === item.id}
+                  data-testid={`consult-tab-${item.id}`}
+                  onClick={() => handleSetTab(item.id)}
+                  className={['btn', tab === item.id ? 'btn-accent' : 'btn-ghost'].join(' ')}
+                >
+                  <item.icon className="h-4 w-4" aria-hidden />
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
       </header>
 
@@ -520,7 +595,7 @@ export function ConsultingView() {
                     className={[
                       'w-full rounded-xl px-3 py-2 text-left text-xs transition',
                       isActive
-                        ? 'bg-slate-blue text-white shadow-md'
+                        ? 'bg-ink text-surface-soft shadow-md'
                         : isVisible
                           ? 'bg-white/50 text-ink hover:bg-white/80'
                           : 'bg-white/20 text-ink-muted',

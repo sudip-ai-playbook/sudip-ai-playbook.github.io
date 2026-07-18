@@ -1,0 +1,453 @@
+---
+sidebar_position: 3
+title: Discovery Frameworks
+description: Complete reference for discovery frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# Discovery Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in workshops; treat **Best output** as the minimum artefact for the related stage gate. **When to use / when not** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Step 2 and continuous discovery in Steps 8–13
+
+Use discovery frameworks to replace assumptions with evidence about people, processes, systems, data and root causes.
+
+**Running client:** Apex Audit Partners — a mid-market financial auditing firm industrialising AI for engagement risk scoring, journal anomaly detection, document extraction and working-paper drafting. Human partners remain accountable for all audit opinions.
+
+### Design Thinking
+
+**Purpose.** Design Thinking forces Apex-style AI programmes to start from the lived work of audit teams rather than from a preferred model or vendor demo. It sequences empathy, problem definition, ideation, prototyping and behavioural testing so that solutions earn their place in regulated workflows. The method is especially valuable when partners, managers and seniors experience the same engagement differently and when “AI for working papers” risks solving the wrong friction. It produces evidence that can survive challenge from risk, methodology and quality reviewers.
+
+**When to use.** When user behaviour, cognitive load or workplace constraints are unclear; when multiple personas must share one AI-assisted workflow; when early prototypes must prove usefulness before architecture lock-in.
+
+**When not to use.** When the problem is already evidenced and the remaining choice is purely architectural, commercial or control-design; when you only need a root-cause chain for a known defect.
+
+**How to use it.**
+
+1. Frame the engagement around a concrete audit journey (for example, planning risk assessment or substantive journal testing), not “AI transformation.”
+2. Shadow and interview partners, managers, seniors and specialists in situ; capture tools, interruptions, evidence sources and review loops.
+3. Synthesise insights into needs, pains and constraints; separate observations from interpretations.
+4. Write a problem statement that names the user, context, need and success measure.
+5. Ideate multiple concepts that respect partner accountability and firm methodology.
+6. Build the cheapest prototype that can be tested in a real file (paper, clickable mock, or sandboxed assistant).
+7. Test with target users; measure behaviour (time, errors, review comments), not opinions alone.
+8. Decide iterate, pivot or stop; log assumptions invalidated for the RAID and gate pack.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s Head of Assurance Technology sponsored a discovery sprint after partners complained that “the AI demo looked good but seniors still worked late on planning packs.” Empathy interviews with three engagement teams showed that seniors’ hands were rarely free during client walkthroughs: they juggled Excel exports, prior-year files and Teams messages, while managers later rewrote risk narratives for partner review. The problem statement shifted from “build a planning chatbot” to “help seniors capture risk hypotheses and linked evidence during fieldwork so managers spend less time reconstructing the story.” The team prototyped a mobile-friendly capture flow that drafted risk factors from meeting notes and linked them to GL extracts, with mandatory partner sign-off before the draft entered the audit file. After two test engagements, average planning pack rewrite time fell and partner review comments concentrated on judgement rather than formatting. Artefacts included research boards, a problem statement, prototype scripts and a behavioural test log. Operationally, Apex froze chatbot scope and funded the capture-and-draft pattern under human accountability.
+
+**Best output / artefact.** Research evidence pack, problem statement, prototype protocol and behavioural test results.
+
+**Lifecycle stage.** Discovery and continuous discovery during prototype and operate (steps 2, 8–13).
+
+**Stage-gate contribution.** Problem-definition approval: user evidence, problem statement and validated concept before build investment.
+
+**Failure modes.** Empathy theatre (workshops without observation); prototyping a solution before locking the problem; treating partner compliments as success instead of measuring file-quality and review effort.
+
+**Related frameworks.** Jobs to Be Done, Customer Journey Mapping, Double Diamond, Stakeholder Mapping, Service Blueprinting.
+
+### Double Diamond
+
+**Purpose.** Double Diamond separates divergent and convergent work across problem and solution spaces so Apex does not jump from “industrialise AI” to a single product. Discover and Define force evidence-backed problem framing; Develop and Deliver force concept competition and iterative proof. The method creates an auditable decision trail from broad exploration to a shippable, controlled release. It is the antidote to vendor-led scope that collapses discovery into a procurement demo.
+
+**When to use.** When sponsors disagree on the real problem; when many candidate use cases compete; when you must show why one problem definition beat others.
+
+**When not to use.** When a single defect has a validated root cause and only remediation design remains; when the task is detailed BPMN or data modelling alone.
+
+**How to use it.**
+
+1. Open Discover: collect signals from engagement metrics, review findings, methodology gaps, user interviews and system logs.
+2. Cluster themes without selecting a solution; map competing problem hypotheses.
+3. Converge in Define: pick the problem backed by strongest evidence and sponsor impact.
+4. Document rejected problem frames and why (decision trail).
+5. Open Develop: generate multiple solution concepts with control implications.
+6. Evaluate concepts against VALUE, risk, data readiness and partner accountability.
+7. Converge in Deliver: select one concept for controlled pilot with success metrics.
+8. Re-enter Discover after pilot learning before scale.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s AI steering group entered discovery with three slogans: automate working papers, detect fraud, and cut planning hours. Discover workshops with Quality & Risk, National Office Methodology, and two industry groups surfaced a sharper pattern: engagement risk assessments were inconsistent, journal testing was late because of evidence chasing, and working-paper drafts were rewritten after partner challenge. The Define diamond narrowed from “automate complaints about overtime” to “improve evidence completeness and risk narrative consistency before partner review.” Develop explored four concepts: risk-scoring assist, journal anomaly triage, OCR extraction for bank confirmations, and full working-paper generation. Deliver selected journal anomaly triage plus extraction for bank/AR confirmations as release one, with working-paper drafting deferred until review-comment taxonomies existed. Decisions were recorded in a problem-to-solution trail signed by the Managing Partner Assurance and the Chief Risk Officer. Artefacts included Discover boards, Define problem brief, concept scorecards and a pilot charter. Operationally, Apex stopped parallel PoCs and funded one controlled dual-track pilot with explicit out-of-scope items.
+
+**Best output / artefact.** Problem-to-solution decision trail with rejected alternatives and pilot scope.
+
+**Lifecycle stage.** Discovery through early delivery (steps 2–8); refresh at continuous discovery.
+
+**Stage-gate contribution.** Problem-definition and concept-selection gates: evidence-backed problem and chosen solution concept documented.
+
+**Failure modes.** Skipping Define and “developing” demos; treating Discover as a brainstorm without data; locking Deliver before partner accountability model is agreed.
+
+**Related frameworks.** Design Thinking, MECE Issue Tree, Prioritisation frameworks, VALUE gate, Five Whys.
+
+### Jobs to Be Done
+
+**Purpose.** Jobs to Be Done defines the progress an audit professional seeks in a specific situation, independent of any tool. For Apex, it prevents framing AI as “use the assistant” and instead frames outcomes such as “defend the risk assessment to the partner before fieldwork starts.” Job statements expose competing jobs across partner, manager and senior roles and clarify what must be measured. They also reveal when a job is social or compliance-driven (pass quality review) rather than efficiency-driven.
+
+**When to use.** When personas ask for features but outcomes are fuzzy; when adoption depends on professional identity and review dynamics; when metrics must track progress-made, not clicks.
+
+**When not to use.** When you need end-to-end process timing (use VSM) or system handoffs (use Service Blueprint / BPMN).
+
+**How to use it.**
+
+1. Select situations that trigger struggle (planning kickoff, journal sample prep, partner review night).
+2. Interview for context, desired progress, obstacles, workarounds and hiring criteria for solutions.
+3. Draft job stories: When… I want to… so I can…
+4. Separate functional, emotional and social jobs; note regulatory constraints.
+5. Prioritise jobs by frequency, severity and strategic fit.
+6. Define outcome metrics for each priority job.
+7. Map candidate AI assists to jobs, not to departments.
+8. Validate jobs with Methodology and Quality before build.
+
+**Enterprise worked example (Apex Audit Partners).** Interviews with Apex managers revealed a dominant job: “When the partner challenges the risk assessment the night before fieldwork, I want to explain variances and linked controls quickly so I can protect the engagement timeline without looking unprepared.” Seniors described a different job: “When I receive messy client exports, I want to extract and reconcile key balances so I can start testing without waiting for the manager.” Partners’ job was accountability: “When I sign the opinion trail, I want confidence that AI-assisted drafts do not invent assertions so I can remain the accountable professional.” Apex wrote and prioritised these jobs, then designed journal anomaly detection to serve the senior’s extraction/reconciliation progress and a risk narrative assist to serve the manager’s explanation job—with partner override and citation requirements as non-negotiable. Artefacts were a prioritised job backlog and outcome metrics (time-to-defensible narrative, percentage of AI drafts rejected for unsupported claims). Operationally, product OKRs shifted from “assistant usage” to job completion rates on live engagements.
+
+**Best output / artefact.** Prioritised job statements with outcome metrics and solution–job mapping.
+
+**Lifecycle stage.** Discovery and continuous discovery (steps 2, 8–13); feeds prioritisation and benefits design.
+
+**Stage-gate contribution.** Problem-definition and value gates: outcomes defined as progress-made, not feature delivery.
+
+**Failure modes.** Writing jobs as feature requests; interviewing only enthusiasts; ignoring partner social/compliance jobs that kill adoption.
+
+**Related frameworks.** Design Thinking, Customer Journey Mapping, Voice of the Customer, Value-driver trees, Benefits realisation.
+
+### Customer Journey Mapping
+
+**Purpose.** Customer Journey Mapping visualises an end-to-end experience—here, often an internal “customer” such as the engagement team or the audited client contact—across stages, actions, emotions, channels and pain points. For Apex it exposes moments of truth where AI could help or harm audit quality. Mapping both current and target journeys prevents local optimisations that worsen partner review or client trust. It is the experiential companion to process maps.
+
+**When to use.** When experience friction drives rework, attrition or client dissatisfaction; when AI touchpoints must be placed without breaking trust; when multiple channels fragment the journey.
+
+**When not to use.** When the need is supplier–process–output scoping (SIPOC) or deep causal analysis (Five Whys / Fishbone).
+
+**How to use it.**
+
+1. Choose persona and journey (for example, senior on first-year statutory audit planning; client AR clerk on confirmation fulfilment).
+2. Define stages from trigger to close; walk the journey with evidence.
+3. Capture actions, thoughts, emotions, tools and waiting points per stage.
+4. Mark moments of truth and failure points with severity.
+5. Overlay candidate AI assists and control risks per stage.
+6. Design a target journey with human checkpoints for partner accountability.
+7. Quantify pain where possible (hours, review notes, client chase cycles).
+8. Agree owners for journey fixes beyond the AI feature.
+
+**Enterprise worked example (Apex Audit Partners).** Apex mapped the senior’s “journal testing prep” journey from receiving client GL exports through sample selection, anomaly investigation and manager review. Stages showed high anxiety at “export lands in email,” frustration during manual Excel cleansing, a false calm when samples looked complete, then spike stress when the manager found missing supporting documents. Moments of truth were (1) first cut of the cleaned GL and (2) manager challenge on unexplained anomalies. The target journey inserted AI document extraction for bank statements and invoices into the cleansing stage, and anomaly triage before sample lock—both with mandatory senior confirmation that extracted fields matched source PDFs. Client-facing confirmation chase remained human-led. Artefacts were current/target journey maps and a pain–opportunity matrix. Operationally, Apex changed the engagement playbook so AI extraction ran before sample selection, cutting late document requests mid-fieldwork and reducing manager rewrite cycles.
+
+**Best output / artefact.** Current and target journey maps with moments of truth and AI opportunity/risk overlays.
+
+**Lifecycle stage.** Discovery and continuous discovery (steps 2, 8–13).
+
+**Stage-gate contribution.** Problem-definition approval: in-scope journeys documented with baseline pains and target experience.
+
+**Failure modes.** Mapping an ideal journey nobody lives; ignoring emotional load of partner review; adding AI at every stage until the journey becomes noisier.
+
+**Related frameworks.** Service Blueprinting, Jobs to Be Done, Design Thinking, Change impact assessment, Value Stream Mapping.
+
+### Service Blueprinting
+
+**Purpose.** Service Blueprinting connects frontstage experience with backstage processes, systems, data, policies and ownership. For Apex, the “frontstage” may be what seniors and clients see, while backstage includes audit software, data lake extracts, model endpoints, methodology rules and quality review. The blueprint makes invisible dependencies explicit before AI is inserted. It is essential when a smooth UI hides fragile controls.
+
+**When to use.** When AI answers or drafts depend on many systems and approvals; when failure recovery must be designed; when RACI across technology and methodology is unclear.
+
+**When not to use.** When you only need a high-level SIPOC boundary or a pure UX journey without systems.
+
+**How to use it.**
+
+1. Start from a validated journey map; draw the line of visibility.
+2. Add frontstage actions for users and client contacts.
+3. Add backstage actions for managers, specialists, IT and methodology.
+4. List supporting systems, data stores, model services and policies.
+5. Mark handoffs, SLAs, controls and evidence retention requirements.
+6. Design failure paths (model low confidence, extraction mismatch, partner reject).
+7. Assign owners for each backstage swimlane.
+8. Validate with InfoSec, Quality & Risk and platform owners.
+
+**Enterprise worked example (Apex Audit Partners).** Apex blueprinted “AI-assisted bank confirmation evidence pack.” Frontstage: senior requests confirmation status and reviews extracted balances. Backstage: engagement admin uploads PDFs; extraction service writes structured fields; anomaly rules flag mismatches to GL; audit file system stores model version, prompt hash and human acceptance; methodology policy blocks use of drafts without citation to source page images. Failure recovery: if extraction confidence is low, the senior is forced into manual entry; if partner rejects a draft note, the system retains both AI draft and final human version for quality review. Decisions included making the Engagement Partner accountable for acceptance of AI-assisted evidence summaries and the Platform Lead accountable for model logging. Artefacts were the blueprint, control points list and exception catalogue. Operationally, Apex refused a vendor UI that could not write immutable evidence logs into the audit file—blocking go-live until backstage controls matched the blueprint.
+
+**Best output / artefact.** End-to-end service blueprint with systems, controls, owners and failure recovery.
+
+**Lifecycle stage.** Discovery into design and operate (steps 2, 7–13).
+
+**Stage-gate contribution.** Design and release gates: backstage controls and failure paths approved before production use on live files.
+
+**Failure modes.** Blueprint that stops at UI; missing evidence-retention and model-version logging; owners listed as teams rather than named roles.
+
+**Related frameworks.** Customer Journey Mapping, BPMN, SIPOC, Responsible AI / governance controls, RACI.
+
+### Value Stream Mapping
+
+**Purpose.** Value Stream Mapping identifies waiting, rework, queues and non-value-adding activity across an audit process. For Apex it distinguishes seconds of model inference from days of waiting for client evidence or partner review. VSM turns “AI will speed us up” into a quantitative future-state plan. It also shows where AI without process change merely accelerates waste into the next queue.
+
+**When to use.** When lead time, WIP and rework dominate cost; when you must justify process redesign alongside AI; when multiple handoffs create invisible delay.
+
+**When not to use.** When the problem is primarily experiential without timing data (journey map first); when event-level variant analysis is needed (process mining).
+
+**How to use it.**
+
+1. Select a value stream with clear start/end (for example, GL received → journal testing signed off).
+2. Walk the process; capture process time, wait time, first-pass yield and batch sizes.
+3. Map information and material (file) flow; mark inventory of unfinished working papers.
+4. Identify waste types: waiting, rework, over-processing, motion, defects.
+5. Quantify opportunity and dependencies on client readiness.
+6. Design future state with AI assists and fewer queues.
+7. Build an improvement backlog with owners and sequencing.
+8. Set lead-time and quality metrics for the pilot.
+
+**Enterprise worked example (Apex Audit Partners).** Apex mapped journal testing for a manufacturing client. Process time for anomaly review was under two hours; wait time for missing invoices and bank PDFs averaged three days; manager rework after incomplete senior packs added another day. The current-state map showed AI scoring journals in seconds would not move the needle unless evidence completeness improved upstream. Future state placed document extraction and completeness checks before anomaly triage, and capped WIP of “open anomaly tickets” per senior. Decisions: fund extraction and completeness first; run anomaly detection second; keep partner review cadence unchanged. Artefacts included current/future VSMs, waste backlog and a pilot metric sheet (lead time, % complete evidence at sample lock, review notes per file). Operationally, engagement managers began refusing to open journal testing until the completeness gate passed—changing behaviour more than the model itself.
+
+**Best output / artefact.** Current and future value-stream maps plus waste backlog with quantified opportunities.
+
+**Lifecycle stage.** Discovery and continuous improvement (steps 2, 8–13).
+
+**Stage-gate contribution.** Problem-definition and value gates: baseline lead time/rework and future-state assumptions explicit.
+
+**Failure modes.** Mapping only happy path; optimising process time while ignoring wait time; future state that assumes perfect client data without a completeness gate.
+
+**Related frameworks.** SIPOC, Process Mining, BPMN, Lean waste analysis, Benefits dependency network.
+
+### SIPOC
+
+**Purpose.** SIPOC provides a high-level boundary for a process: Suppliers, Inputs, Process, Outputs and Customers. For Apex it prevents AI teams from starting mid-pipeline without knowing who supplies prior-year files, what “good” input quality means, and who consumes the output (manager, partner, regulator-facing file). It is the scoping conversation before deep mapping. It also clarifies that partners—not models—are the customers of decision-quality outputs.
+
+**When to use.** At the start of discovery for a use case; when scope debates keep expanding; when ownership of inputs/outputs is disputed.
+
+**When not to use.** As a substitute for detailed timing (VSM), variants (process mining) or experience (journey maps).
+
+**How to use it.**
+
+1. Name the process and hard start/end events.
+2. List outputs and who consumes them (customers).
+3. Define output quality criteria (audit-file ready, cited, reviewable).
+4. List inputs and suppliers (client, data team, methodology, prior engagement).
+5. Sketch five to seven high-level process steps only.
+6. Validate with suppliers and customers in one workshop.
+7. Record gaps (missing owners, unclear quality definitions).
+8. Decide whether to proceed to VSM/BPMN or stop for data remediation.
+
+**Enterprise worked example (Apex Audit Partners).** For “engagement risk scoring assist,” Apex ran a SIPOC. Suppliers: client (trial balance, org charts), National Office (methodology risk factors), prior engagement team (carry-forward risks), IT (data extracts). Inputs: industry pack, materiality memo, prior-year significant risks, management inquiry notes. Process: assemble inputs → draft risk hypotheses → link to accounts → manager challenge → partner approval. Outputs: risk assessment summary, linked account assertions, evidence index. Customers: engagement manager, engagement partner, EQCR on high-risk jobs, Quality reviewers. The workshop revealed that “industry pack” had no single supplier and was often stale—blocking any AI risk scoring that assumed current sector risk libraries. Decision: remediate methodology-owned risk factor library before model training; exclude automatic risk acceptance from scope. Artefact was a one-page SIPOC with quality criteria. Operationally, National Office assigned a named owner for risk factor currency, unlocking the next discovery step.
+
+**Best output / artefact.** Scoped SIPOC table with quality criteria and named suppliers/customers.
+
+**Lifecycle stage.** Early discovery (step 2); refresh when scope changes.
+
+**Stage-gate contribution.** Problem-definition approval: process boundaries and customers agreed before detailed design.
+
+**Failure modes.** Endless process step lists; outputs without quality criteria; customers listed as “the firm” instead of roles that accept or reject work.
+
+**Related frameworks.** Value Stream Mapping, BPMN, Stakeholder Mapping, RAID (for supplier dependencies).
+
+### Process Mining
+
+**Purpose.** Process mining uses event logs to discover actual process variants, bottlenecks and conformance gaps rather than workshop folklore. For Apex it can reveal how engagements really flow through audit software: rework loops, skipped reviews, late uploads. It quantifies which variants create most delay so AI targets the real path, not the SOP. It also supports continuous discovery after go-live by comparing intended BPMN to reality.
+
+**When to use.** When audit workflow systems produce reliable event logs; when variants are suspected but unproven; when conformance to methodology steps matters.
+
+**When not to use.** When logs are sparse, unauditable or legally restricted; when the process is mostly offline judgement with no case ID; when a quick SIPOC/VSM will answer the question cheaper.
+
+**How to use it.**
+
+1. Select process and stable case identifier (engagement ID / working-paper ID).
+2. Extract events with timestamp, activity, resource and relevant attributes.
+3. Clean and validate log quality; document gaps.
+4. Discover process map and top variants by volume and lead time.
+5. Analyse bottlenecks, rework loops and undesired skips.
+6. Compare to intended methodology (conformance).
+7. Quantify opportunity for AI or process change per variant.
+8. Feed findings into problem statement and pilot scope.
+
+**Enterprise worked example (Apex Audit Partners).** Apex mined events from its engagement management system for “document request → evidence linked → manager review” across 120 mid-market audits. The happy-path SOP was linear; reality showed a dominant variant where evidence was linked, unlinked and relinked after manager comments—creating a missing-document loop that explained most delay. Another variant skipped specialist review on ITGC-related evidence for a subset of jobs, flagged as a conformance risk. Decisions: AI document extraction would target the missing-document loop (reduce re-requests), while conformance alerts—not generative drafting—would address skipped specialist reviews. Artefacts included a discovered process model, variant report and conformance dashboard. Operationally, Apex changed coaching: managers were measured on first-pass evidence completeness, and the AI backlog prioritised extraction for the document types most associated with the rework loop (bank PDFs, sales invoices, board minutes).
+
+**Best output / artefact.** Evidence-based process model, variant analysis and conformance report.
+
+**Lifecycle stage.** Discovery and operate/monitor (steps 2, 12–13).
+
+**Stage-gate contribution.** Problem-definition and operate gates: baseline variants and conformance risks evidenced, not anecdotal.
+
+**Failure modes.** Mining without a clean case ID; privacy/ethics breaches on user-level logs; optimising the most frequent variant while the riskiest variant is rare but material.
+
+**Related frameworks.** Value Stream Mapping, BPMN, Five Whys, Observability / monitoring practices.
+
+### Business Process Modelling
+
+**Purpose.** Business Process Modelling (typically BPMN) represents tasks, events, gateways, roles and exceptions in a standard form that engineers, auditors and methodologists can share. For Apex it distinguishes deterministic controls (mandatory partner approval) from probabilistic AI recommendations. Clear models prevent “the model decided” ambiguity in regulated files. They also become the contract for automation and human-in-the-loop design.
+
+**When to use.** When handoffs, exceptions and decision rights must be precise; when AI steps must be explicit beside human approvals; when build teams need an unambiguous target process.
+
+**When not to use.** For early fuzzy problem exploration (use Double Diamond / JTBD first); for pure experience emotion mapping.
+
+**How to use it.**
+
+1. Model the current (as-is) process with roles and systems.
+2. Validate as-is with practitioners using real engagement examples.
+3. Design to-be process; isolate AI tasks as assistive, not decisive, unless policy allows.
+4. Mark gateways for confidence thresholds, partner approval and EQCR triggers.
+5. Define exceptions: model failure, data quality fail, client non-response.
+6. Align model with SIPOC boundaries and blueprint controls.
+7. Version the diagram with methodology sign-off.
+8. Translate into user stories and control test scripts.
+
+**Enterprise worked example (Apex Audit Partners).** Apex modelled to-be “journal anomaly detection.” As-is: senior exports GL, filters in Excel, judgmentally picks samples, manager reviews. To-be BPMN added: automated ingest → anomaly scoring service → senior review of ranked candidates → gateway (if high severity and material account → mandatory manager review) → partner notified for significant unusual items → working-paper generation assist only after human acceptance of the anomaly set. The AI recommendation task was drawn in a separate lane from the legal/professional decision lane. Exceptions included “score unavailable” (revert to traditional sampling) and “client GL schema drift” (stop and raise IT ticket). Decisions recorded: no automatic sample finalisation; partner remains accountable for significant risk responses. Artefacts were validated as-is/to-be BPMN and exception catalogue. Operationally, developers implemented the gateways as enforced workflow states in the audit tool rather than optional UI hints.
+
+**Best output / artefact.** Validated as-is and to-be BPMN with AI vs human decision lanes and exceptions.
+
+**Lifecycle stage.** Discovery into design and build (steps 2, 7–9).
+
+**Stage-gate contribution.** Design and release gates: process, controls and exceptions approved for build.
+
+**Failure modes.** Hiding AI inside a generic “analyse” box; no exception paths; diagrams never validated on a live engagement.
+
+**Related frameworks.** SIPOC, Service Blueprinting, Process Mining, Responsible AI decision rights, RAPID.
+
+### Stakeholder Mapping
+
+**Purpose.** Stakeholder Mapping identifies who is affected by, influential over, or resistant to Apex’s AI industrialisation—and what they need to see. In professional services, influence often sits with Quality & Risk, EQCR partners and methodology owners even when budget sits with technology. Mapping interests, incentives and engagement tactics prevents late vetoes. It also surfaces hidden blockers such as data owners with low seniority but absolute access control.
+
+**When to use.** Before workshops and gates; when politics stall discovery; when change impact is uneven across offices or service lines.
+
+**When not to use.** As a substitute for user research on jobs and journeys; when a simple RACI for one artefact already suffices.
+
+**How to use it.**
+
+1. List stakeholders across assurance, risk, methodology, IT, data, cyber, HR/L&D and client-facing leads.
+2. Assess influence, interest, attitude and what “good” means for each.
+3. Identify veto players and informal influencers.
+4. Document risks (career, liability, utilisation, brand).
+5. Design engagement cadence and artefacts per stakeholder.
+6. Assign relationship owners from the core team.
+7. Revisit after each major discovery finding.
+8. Link map to RAPID/RACI for gate decisions.
+
+**Enterprise worked example (Apex Audit Partners).** Mapping for the AI programme showed: Managing Partner Assurance (high influence, cautious); Chief Risk Officer (veto on client-data use); National Office Methodology (high interest, wants consistency); Engagement Partners in industrial markets (mixed attitude—fear of deskilling vs hope for leverage); Seniors (high interest, low formal influence); Data Platform Lead (medium seniority, high practical influence—without warehouse access nothing ships); EQCR partners (low day-to-day interest until high-risk files use AI). A junior data steward controlled access to historical working-paper text and had been left out of steering—creating a silent blocker. Decisions: add CRO and Methodology as Agree roles on RAPID for go-live; give the data steward a formal consulted seat; run partner office hours with EQCR examples. Artefacts were a power–interest map and engagement plan. Operationally, discovery unblocked within a week once data access requests carried CRO co-signature and Methodology-approved redaction rules.
+
+**Best output / artefact.** Stakeholder map, attitude/risk notes and engagement plan linked to decision rights.
+
+**Lifecycle stage.** Mobilise and discover (steps 0–2); refresh through change and scale.
+
+**Stage-gate contribution.** Mobilisation and problem-definition gates: veto players and engagement plan visible before commitments.
+
+**Failure modes.** Org-chart copying without informal influence; ignoring liability fears of signing partners; over-communicating to everyone equally.
+
+**Related frameworks.** RACI, RAPID, ADKAR / change frameworks, Voice of the Customer, RAID.
+
+### Voice of the Customer
+
+**Purpose.** Voice of the Customer converts feedback and behaviour from Apex’s internal customers (engagement teams) and external clients into prioritised needs. It blends interviews, review comments, utilisation pain, client satisfaction and support tickets into requirements. For AI, VOC often shows that explanation, defensibility and certainty matter more than raw speed. It disciplines the backlog against loudest-voice bias.
+
+**When to use.** When needs are anecdotal; when adoption metrics disagree with survey praise; when quality review themes should drive product requirements.
+
+**When not to use.** When you need causal root analysis of a single defect (Five Whys); when stakeholders are internal-only politics (stakeholder map) without customer evidence.
+
+**How to use it.**
+
+1. Define customers (seniors, managers, partners, clients, EQCR).
+2. Gather qualitative and quantitative sources: interviews, review notes, tickets, NPS/CSAT, time sheets.
+3. Code themes; separate must-have compliance needs from preferences.
+4. Quantify frequency and impact; weight by risk where needed.
+5. Translate themes into requirements and metrics.
+6. Validate critical themes with Methodology and Risk.
+7. Prioritise into discovery backlog and release criteria.
+8. Re-measure after pilot against the same VOC themes.
+
+**Enterprise worked example (Apex Audit Partners).** Apex coded six months of partner review comments, senior exit-interview notes, and client feedback on confirmation turnaround. Dominant VOC themes: (1) “don’t invent numbers,” (2) “show me the source page,” (3) “don’t add another tool login,” (4) “help me before the partner review, not after,” (5) clients cared more about clear requests than faster AI emails. Quantitatively, unsupported statements in drafts drove more review notes than slow Excel macros. Requirements became: citation-first extraction, inline display inside the existing audit suite, pre-review assist timing, and human send for client communications. Decisions killed a standalone chatbot portal. Artefacts were a VOC theme register linked to requirements and acceptance metrics (unsupported-claim rate, citation coverage, review-note taxonomy). Operationally, release one definition of done required citation coverage above an agreed threshold on pilot files before any working-paper drafting feature could start.
+
+**Best output / artefact.** VOC theme register linked to requirements, metrics and release criteria.
+
+**Lifecycle stage.** Discovery and continuous discovery (steps 2, 8–13).
+
+**Stage-gate contribution.** Problem-definition and value gates: needs evidenced and prioritised; vanity features challenged.
+
+**Failure modes.** Survey-only VOC without behavioural data; averaging contradictory partner vs senior needs into mush; treating client “faster email” requests as licence for unsupervised generative outreach.
+
+**Related frameworks.** Jobs to Be Done, Customer Journey Mapping, Prioritisation matrices, Quality review taxonomies.
+
+### Five Whys
+
+**Purpose.** Five Whys drills from an observed problem to a controllable root cause using evidence at each step. For Apex it stops the team from blaming “seniors are slow” or “the model is bad” when the cause is fragmented ownership, missing inputs or unclear methodology. The method is lightweight but only trustworthy when each why is evidenced. It feeds problem statements and corrective actions that AI alone cannot fix.
+
+**When to use.** When a specific, observable problem recurs; when symptoms are blamed on people or models prematurely; when you need a causal chain for a gate.
+
+**When not to use.** For multi-causal systemic issues without structure (use Fishbone / Problem Tree); for exploratory strategy questions.
+
+**How to use it.**
+
+1. State the problem precisely with metric and context.
+2. Ask why; answer with evidence (log, sample, interview).
+3. Continue until a cause the organisation can control appears.
+4. Stop before speculative philosophy; prefer actionable causes.
+5. Validate the chain with people who do the work.
+6. Identify countermeasures per link, not only the last why.
+7. Assign owners and due dates.
+8. Retest after intervention.
+
+**Enterprise worked example (Apex Audit Partners).** Problem: “Journal testing sign-off is late on 40% of mid-market jobs.” Why1: seniors submit incomplete anomaly packs (file samples). Why2: supporting documents arrive after testing starts (document request timestamps). Why3: document requests are issued late because cleansing the GL takes too long (time sheets). Why4: cleansing is manual across inconsistent client export formats (export inventory). Why5: there is no firm-standard intake schema or extraction step owned by the data/methodology function (RACI gap). Root cause: missing standardised intake and extraction capability with clear ownership—not “lazy seniors.” Countermeasures: SIPOC and ownership for intake; AI extraction for top document types; completeness gate before testing. Artefact was a validated why-chain with evidence links. Operationally, Apex stopped a proposed “nudge seniors harder” change campaign and redirected budget to intake standardisation plus extraction—aligning AI spend to the controllable cause.
+
+**Best output / artefact.** Validated root-cause chain with evidence and countermeasures.
+
+**Lifecycle stage.** Discovery and operate incident response (steps 2, 12–13).
+
+**Stage-gate contribution.** Problem-definition approval: root cause documented, not only symptoms.
+
+**Failure modes.** Why-chains based on opinions; stopping at blame; single linear cause when multiple causes exist.
+
+**Related frameworks.** Fishbone Analysis, Problem Trees, Process Mining, RAID, Corrective action tracking.
+
+### Fishbone Analysis
+
+**Purpose.** Fishbone (Ishikawa) structures potential causes across categories—people, process, technology, data, policy, environment—so Apex can investigate systematically. It is useful when journal quality issues, draft errors or adoption failures have many plausible drivers. The bone forces evidence plans per cause rather than a single favourite narrative. It complements Five Whys by broadening before narrowing.
+
+**When to use.** When brainstorming causes for a complex effect; when cross-functional contributors are likely; when you need an investigation plan, not an instant answer.
+
+**When not to use.** When a single evidenced causal chain already exists; when the session becomes unconstrained ideation without owners.
+
+**How to use it.**
+
+1. Define the effect precisely (what, where, when, how measured).
+2. Agree cause categories relevant to audit AI (add “methodology/policy” and “data”).
+3. Brainstorm candidate causes per bone.
+4. Mark which causes have evidence vs hypothesis.
+5. Rank by likely impact and testability.
+6. Assign investigations with methods and due dates.
+7. Convert confirmed causes into problem statements or countermeasures.
+8. Retire disproven causes publicly to avoid zombie myths.
+
+**Enterprise worked example (Apex Audit Partners).** Effect: “AI working-paper drafts generate excessive partner review notes on revenue testing.” Bones captured: People (seniors accept drafts without reading; partners distrust any AI prose); Process (drafts run before evidence is complete); Technology (prompt lacks assertion framework; no citation UI); Data (prior-year text contamination; OCR errors on contracts); Policy (unclear when AI drafts are permitted on high-risk accounts); Environment (busy season pressure). Evidence tests showed the strongest confirmed causes were incomplete evidence before drafting and missing citations—not partner technophobia alone. Decisions: disable drafting until completeness and citation gates pass; add assertion-aligned prompts; training only after control changes. Artefacts were the fishbone, evidence plan and cause ranking. Operationally, Apex’s pilot metrics flipped from “drafts produced” to “drafts accepted with ≤N review notes,” and busy-season guidance banned generative drafting on significant risk areas until EQCR rules were updated.
+
+**Best output / artefact.** Cause map, evidence plan and ranked confirmed causes.
+
+**Lifecycle stage.** Discovery and continuous discovery / incident learning (steps 2, 8–13).
+
+**Stage-gate contribution.** Problem-definition and operate gates: multi-cause investigation complete before large redesign bets.
+
+**Failure modes.** Endless bones with no tests; confirming biases only; categories that omit methodology/policy in a regulated firm.
+
+**Related frameworks.** Five Whys, Problem Trees, VOC, Responsible AI incident reviews, Design Thinking synthesis.
+
+### Problem Trees
+
+**Purpose.** Problem Trees map a central problem, its causes (roots) and consequences (branches), then convert into an objective tree for intervention design. For Apex they show how “high overtime on engagements” connects to unclear risk communication, inconsistent decisions, late evidence and partner rework—and what outcomes to pursue instead. The method keeps strategy, discovery and benefits logic aligned. It is powerful in sponsor workshops where symptoms compete for airtime.
+
+**When to use.** When a focal problem has cascading causes and effects; when you must align sponsors on what success looks like; when converting problems into objectives for a roadmap.
+
+**When not to use.** For detailed process timing or system design; when the issue is a single linear defect already suited to Five Whys.
+
+**How to use it.**
+
+1. Agree a precise focal problem statement.
+2. Build cause roots with evidence; avoid mixing causes and effects.
+3. Build consequence branches (quality, cost, people, client, regulatory).
+4. Validate relationships with cross-functional stakeholders.
+5. Invert into an objective tree (negative statements → positive outcomes).
+6. Select intervention points with highest leverage and feasibility.
+7. Link objectives to metrics and owners.
+8. Feed selected objectives into portfolio and VALUE cases.
+
+**Enterprise worked example (Apex Audit Partners).** Focal problem: “Engagement teams spend excessive hours reconstructing risk narratives and evidence packs before partner review.” Roots included inconsistent risk factor libraries, late client documents, manual journal cleansing, weak prior-year carry-forward hygiene, and unclear AI usage rules that caused hesitation then last-minute panic. Consequences: partner review bottlenecks, utilisation spikes, delayed fieldwork, uneven audit quality indicators, and attrition risk among seniors. The objective tree inverted to: “Engagement teams produce complete, cited risk and evidence packs before partner review with stable hours.” Intervention points chosen: methodology-owned risk library currency (cause), document extraction + completeness gate (cause), and partner-accountable AI assist with citations (enabler)—not a generic overtime policy. Artefacts were problem and objective trees plus intervention map. Operationally, Apex’s roadmap sequenced library remediation and extraction before generative narrative assist, and benefits tracking tied to “hours to partner-ready pack” and “review-note rate,” giving the steering group a shared success definition.
+
+**Best output / artefact.** Problem tree, objective tree and intervention map with metrics.
+
+**Lifecycle stage.** Discovery and portfolio shaping (steps 2–4); refresh when strategy shifts.
+
+**Stage-gate contribution.** Problem-definition and strategic-fit gates: focal problem, causes, consequences and objectives agreed.
+
+**Failure modes.** Focal problem too vague (“need AI”); causes that are secretly solutions; objective trees that ignore partner accountability and regulatory constraints.
+
+**Related frameworks.** Five Whys, Fishbone Analysis, Double Diamond, Value-driver trees, Benefits dependency network.

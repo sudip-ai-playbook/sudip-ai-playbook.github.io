@@ -12,6 +12,7 @@ import { FinOpsView } from './features/finops/FinOpsView'
 import { CanvasView } from './features/canvas'
 import { AiPlatformView } from './features/ai/AiPlatformView'
 import { ConsultingView } from './features/consulting'
+import { ResearchFeedbackView } from './features/research/ResearchFeedbackView'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route element={<AppShell />}>
             <Route index element={<HubView />} />
             <Route path="consult" element={<ConsultingView />} />
+            <Route path="research" element={<ResearchFeedbackView />} />
             <Route path="frame" element={<FrameView />} />
             <Route path="map" element={<MapView />} />
             <Route path="compare" element={<CompareView />} />

@@ -86,7 +86,7 @@ export function FinOpsView() {
     <div data-testid="finops-view" className="space-y-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 6 · FinOps</p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">LLM FinOps</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">LLM FinOps</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           Compare models, alternatives, and token economics across clouds.
         </p>
@@ -115,7 +115,7 @@ export function FinOpsView() {
             className={[
               'rounded-lg px-3 py-1.5 text-xs font-semibold',
               providerFilter === filter.id
-                ? 'bg-slate-blue text-white'
+                ? 'bg-ink text-surface-soft'
                 : 'bg-white/70 text-ink-secondary',
             ].join(' ')}
           >

@@ -51,7 +51,7 @@ export function FrameView() {
     <div data-testid="frame-view" className="space-y-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 1 of 8</p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Frame the outcome</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">Frame the outcome</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           Start with the problem — not a product name.
         </p>

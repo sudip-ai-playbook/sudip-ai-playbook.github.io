@@ -117,7 +117,7 @@ export function CompareView() {
     <div data-testid="compare-view" className="space-y-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 4 · Compare</p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Compare services</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">Compare services</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           {services.length} scored capabilities · add the winner to your stack
         </p>

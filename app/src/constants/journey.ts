@@ -78,8 +78,8 @@ export type JourneyStepId = (typeof JOURNEY_STEPS)[number]['id']
 /** Primary chrome only — journey steps live in JourneyRail. */
 export const NAV_ITEMS = [
   { path: '/', label: 'Home', id: 'hub' },
-  { path: '/consult', label: 'ConsultAI', id: 'consult' },
   { path: '/frame', label: 'Architecture', id: 'architecture' },
+  { path: '/consult', label: 'Engagement', id: 'consult' },
 ] as const
 
 export function getJourneyStepByPath(pathname: string) {

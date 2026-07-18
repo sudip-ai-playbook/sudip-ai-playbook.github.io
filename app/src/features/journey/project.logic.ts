@@ -1,5 +1,12 @@
 import type { DeploymentOption, EcosystemOption, ProviderId } from '../../constants/playbook'
 import { PROJECT_STORAGE_KEY } from '../../constants/journey'
+import {
+  createEmptyValidationChecks,
+  normalizeValidationChecks,
+  type ValidationChecks,
+  VALIDATION_CHECK_IDS,
+  VALIDATION_CHECK_LABELS,
+} from './validation.logic'
 
 export interface StackItem {
   id: string
@@ -22,6 +29,7 @@ export interface PlaybookProject {
   preferredProvider: ProviderId | 'undecided'
   decisionNotes: string
   stack: StackItem[]
+  validationChecks: ValidationChecks
   updatedAt: string
 }
 
@@ -37,21 +45,27 @@ export const EMPTY_PROJECT: PlaybookProject = {
   preferredProvider: 'undecided',
   decisionNotes: '',
   stack: [],
+  validationChecks: createEmptyValidationChecks(),
   updatedAt: '',
+}
+
+export function normalizeLoadedProject(parsed: Partial<PlaybookProject>): PlaybookProject {
+  return {
+    ...EMPTY_PROJECT,
+    ...parsed,
+    stack: Array.isArray(parsed.stack) ? parsed.stack : [],
+    validationChecks: normalizeValidationChecks(parsed.validationChecks),
+  }
 }
 
 export function loadProject(): PlaybookProject {
   try {
     const raw = localStorage.getItem(PROJECT_STORAGE_KEY)
-    if (!raw) return { ...EMPTY_PROJECT }
-    const parsed = JSON.parse(raw) as PlaybookProject
-    return {
-      ...EMPTY_PROJECT,
-      ...parsed,
-      stack: Array.isArray(parsed.stack) ? parsed.stack : [],
-    }
+    if (!raw) return { ...EMPTY_PROJECT, validationChecks: createEmptyValidationChecks() }
+    const parsed = JSON.parse(raw) as Partial<PlaybookProject>
+    return normalizeLoadedProject(parsed)
   } catch {
-    return { ...EMPTY_PROJECT }
+    return { ...EMPTY_PROJECT, validationChecks: createEmptyValidationChecks() }
   }
 }
 
@@ -108,11 +122,10 @@ export function buildDecisionBrief(project: PlaybookProject): string {
 
   lines.push('', '## Notes', project.decisionNotes || '_None_', '')
   lines.push('## Validation checklist')
-  lines.push('- [ ] Region / data residency confirmed')
-  lines.push('- [ ] Security and identity model reviewed')
-  lines.push('- [ ] SLA / quotas checked')
-  lines.push('- [ ] Cost / FinOps estimate reviewed')
-  lines.push('- [ ] Proof of value / PoC criteria defined')
+  VALIDATION_CHECK_IDS.forEach((id) => {
+    const marker = project.validationChecks[id] ? 'x' : ' '
+    lines.push(`- [${marker}] ${VALIDATION_CHECK_LABELS[id]}`)
+  })
   lines.push('')
   return lines.join('\n')
 }

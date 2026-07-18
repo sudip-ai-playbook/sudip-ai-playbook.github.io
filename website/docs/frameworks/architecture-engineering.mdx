@@ -1,0 +1,613 @@
+---
+sidebar_position: 7
+title: Architecture and Engineering Frameworks
+description: Complete reference for architecture and engineering frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# Architecture and Engineering Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in workshops; treat **Best output / artefact** as the minimum write-up for the related stage gate. **When to use / when not**, **Failure modes** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+All **Enterprise worked examples** use the same running client: **Apex Audit Partners** — a mid-market financial auditing firm (~1,200 professionals) industrialising an AI platform with four production pillars: **private RAG** over methodology and engagement evidence, a **model gateway** for multi-provider inference with policy and logging, **journal scoring** for anomaly detection on general-ledger extracts, and **document AI** for evidence extraction and cited drafting assist. Non-negotiable constraints: client confidentiality, auditor independence, audit quality review (including EQCR), and human partners remaining accountable for audit opinions.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Steps 7, 9, 13 and 14
+
+Use architecture and engineering frameworks to design a coherent system and make it reproducible, secure, reliable and economical.
+
+### TOGAF
+
+**Purpose.** Provides a disciplined enterprise architecture method (Architecture Development Method) from vision through baseline/target architecture, migration planning and continuous governance. For Apex it is the spine that keeps private RAG, the model gateway, journal scoring and document AI aligned to business capabilities, data ownership, application services and technology constraints—so pilots do not become four disconnected stacks. TOGAF forces explicit architecture principles (client tenancy isolation, human attestation, no cross-client training), decision records and a migration roadmap that Risk & Quality and EQCR can inspect.
+
+**When to use.** When Apex is designing or industrialising the production Audit Intelligence platform, integrating with the engagement file system and identity provider, or reviewing whether a vendor “AI workpaper” add-on fits the target architecture. Use before major cloud landing-zone spend and before promoting any pillar from sandbox to live opinion files.
+
+**When not to use.** When you only need a discovery workshop artefact (problem tree, JTBD, SIPOC) with no technical commitment yet. Do not run a full ADM cycle to decide a single prompt template or a one-week OCR spike.
+
+**How to use it.**
+1. Agree architecture principles with Head of Assurance Technology, Risk & Quality, Security and Independence (private tenancy, least privilege, citation-grade retrieval, partner accountability, multi-provider routing).
+2. Capture Architecture Vision: stakeholders, constraints, success metrics (risk-scored journals before fieldwork, grounded drafts, gateway audit logs).
+3. Baseline business/data/application/technology architectures for engagement files, GL extracts, methodology library, IdP and current shadow AI use.
+4. Design target architectures for the four pillars as one platform (gateway + shared evaluation + medallion data + document pipeline + RAG indexes).
+5. Produce gap analysis and a phased migration roadmap (H1 journals + gateway; H2 document AI + private RAG; harden observability).
+6. Define Architecture Building Blocks and Interface Contracts (API-first gateway, event schemas, data contracts).
+7. Establish Architecture Governance Board cadence; require Architecture Decision Records (ADRs) for model hosting, retention and cross-border processing.
+8. Attach the vision, target views and roadmap to the design gate pack; update after each major release.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: After board approval of “Audit Intelligence,” Apex discovered three parallel builds—an engagement-team RAG experiment on a public SaaS, a data-science notebook for journal anomalies on a single banking client, and a shared-service OCR trial—each with different identity, logging and data-residency assumptions. Head of Assurance Technology convened a TOGAF-lite ADM workshop with the principal architect, engagement platform owner, data protection officer, EQCR lead and two engagement partners. Moves: codify principles (no public LLM with client evidence; all inference via model gateway; RAG indexes per engagement with ACL inheritance; journal scores are recommendations not conclusions). Baseline showed methodology PDFs in SharePoint, working papers in the engagement suite, GL extracts as CSV drops, and no enterprise model registry. Target architecture placed a private Azure landing zone with gateway, vector store, medallion lakehouse, document AI pipeline and evaluation harness as shared ABBs; journal scoring and drafting as consuming applications. Decisions: retire the public SaaS RAG; migrate anomaly scoring behind the gateway; require ADRs for any new provider. Artefacts: Architecture Vision, baseline/target BDAT diagrams, migration roadmap (three waves), ADR backlog. Operationally, the design gate refused funding for a fourth vendor POC until it mapped to the target views and shared observability.
+
+**Best output / artefact.** Architecture Vision, baseline and target BDAT views, migration roadmap, principles catalogue and ADR log linked to the design gate.
+
+**Lifecycle stage.** Design, build, operate and scale (steps 7, 9, 13, 14).
+
+**Stage-gate contribution.** Design and release-readiness approvals: proves HLD coherence, NFR ownership, control boundaries and that each pillar inherits the same tenancy, logging and attestation model before production traffic.
+
+**Failure modes.**
+1. Producing slideware BDAT diagrams with no owners, interfaces or migration waves—architecture as wallpaper.
+2. Letting each AI pillar invent its own identity, logging and storage pattern, defeating the platform purpose.
+3. Skipping Independence/EQCR in governance so technically elegant designs fail quality review late.
+
+**Related frameworks.** ArchiMate, Cloud Adoption Frameworks, Well-Architected, Zero Trust, API-First, Platform Engineering, DevSecOps.
+
+### ArchiMate
+
+**Purpose.** Provides a visual enterprise-architecture language linking motivation, strategy, business, application and technology layers so stakeholders share one picture of how AI services support audit capabilities. At Apex, ArchiMate views show how private RAG, the model gateway, journal scoring and document AI realise capabilities such as “standardised planning risk coverage” and “inspectable evidence assembly”—and which technology services (IdP, lakehouse, vector index, evaluation store) they depend on. The value is stakeholder-specific viewpoints, not one overloaded diagram.
+
+**When to use.** When aligning partners, Risk & Quality, architects and vendors on how the Audit Intelligence platform maps to engagement processes; when onboarding a new integration (engagement suite API, confirmation portal); or when explaining impact of a change (new embedding model) on business outcomes.
+
+**When not to use.** For early discovery sticky-note workshops with no architectural commitment. Do not model every class and column in ArchiMate—use it for relationships and viewpoints, not detailed data schemas.
+
+**How to use it.**
+1. Select viewpoints needed: motivation (drivers/goals), capability map, application cooperation, technology (for security/ops).
+2. Model business capabilities (planning risk assessment, substantive testing support, documentation/EQCR readiness) and link AI application services that realise them.
+3. Place application components: Model Gateway, Private RAG Service, Journal Scoring Service, Document AI Pipeline, Evaluation Service, Audit Log Store.
+4. Connect to data objects (engagement ACL, GL extract, methodology corpus, citation index) and technology nodes (private endpoints, key vault, GPU/inference pools).
+5. Add motivation elements: confidentiality, independence, partner accountability as requirements constraining realisation.
+6. Validate each view with its audience (partners see capability; security sees technology and trust boundaries).
+7. Version views with the architecture repository; update when ADRs change interfaces.
+8. Export gate-ready diagrams with a short narrative of what changed since last review.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: A hyperscaler sales team proposed “one GenAI stack for everything,” while the engagement platform vendor offered embedded AI that bypassed Apex’s planned gateway. Partners could not see how either option preserved EQCR inspectability. The principal architect facilitated an ArchiMate session producing three views. Motivation view linked Managing Partner goals (hours flat, fewer documentation findings) to requirements (citation on every AI draft; model/version stamp in the file). Capability view showed journal scoring supporting “identify unusual transactions,” document AI supporting “assemble evidence,” private RAG supporting “apply methodology consistently,” and the gateway as a shared application service under all three. Technology view made private networking, key vault and per-engagement vector collections explicit. Decisions: reject direct vendor-to-engagement-suite AI that skips the gateway; accept vendor extraction only if it emits citation payloads into Apex’s Document AI contract. Artefacts: three ArchiMate viewpoints in the architecture repo, plus a one-page “how to read this” for partners. Operationally, Investment Committee used the capability view to fund shared platform ABBs before more use-case UIs.
+
+**Best output / artefact.** Stakeholder-specific ArchiMate viewpoints (motivation, capability, application, technology) versioned in the architecture repository.
+
+**Lifecycle stage.** Design, build, operate and scale (steps 7, 9, 13, 14)—especially communication at design and change-impact reviews.
+
+**Stage-gate contribution.** Design approval: demonstrates traceability from audit capabilities to AI services and technology controls; supports impact analysis at release gates when interfaces change.
+
+**Failure modes.**
+1. One mega-diagram that confuses every audience and never gets maintained.
+2. Modelling aspirations as if they were deployed services (capability theatre).
+3. Omitting motivation/requirements for independence and attestation, so diagrams look “modern” but fail quality review.
+
+**Related frameworks.** TOGAF, Domain-Driven Design, API-First, Zero Trust, Well-Architected.
+
+### Cloud Adoption Frameworks
+
+**Purpose.** Guide strategy, landing zones, governance, migration, operations and organisational readiness for cloud platforms that will host Apex’s AI workloads. Provider Cloud Adoption Frameworks (Microsoft CAF, AWS CAF, Google Cloud Adoption Framework) supply reference landing-zone patterns—identity, networking, logging, policy—that Apex must tailor so private RAG indexes, model gateway endpoints, journal feature stores and document AI pipelines inherit firm-wide controls by default. The framework prevents “AI subscription in a random resource group” shadow estates.
+
+**When to use.** When establishing or expanding the Audit Intelligence landing zone; choosing subscription/account topology for client-data vs methodology-only workloads; planning migration of GL extracts and document stores into governed cloud storage; or aligning platform ops with Security and FinOps.
+
+**When not to use.** When the decision is purely methodological (how managers review AI drafts) with no infrastructure change. Do not invoke CAF to rubber-stamp a single SaaS trial outside the landing zone—that is an exception process, not adoption.
+
+**How to use it.**
+1. Define cloud strategy outcomes with Security, Risk & Quality and Finance (UK data residency, private endpoints, tagged cost centres, separation of methodology vs client evidence).
+2. Design landing-zone topology: platform subscription, AI workload subscription(s), shared services (DNS, firewall, logging), and forbidden zones for public model endpoints with client data.
+3. Codify identity and access: Entra ID / IAM roles for gateway, RAG, journal and document pipelines; break-glass and JIT elevation.
+4. Establish management groups / SCPs / Azure Policy equivalents for encryption, network, retention and approved regions.
+5. Plan migration waves for data (GL bronze landing, document ingestion) and for inference (gateway first, then RAG).
+6. Define platform operations: patching, backup, DR targets for vector stores and model configs, on-call ownership.
+7. Skill and operating-model plan: who owns landing zone vs who consumes paved roads.
+8. Produce the cloud adoption / landing-zone plan as a design-gate attachment; reassess after first production incident or major provider feature change.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex’s early journal anomaly spike lived in a data scientist’s personal cloud sandbox with public outbound access; the OCR trial used a separate vendor tenancy; methodology RAG was proposed on a consumer ChatGPT team plan. Security halted all three. Using Microsoft CAF as the baseline (Apex’s engagement suite and Microsoft 365 estate), Head of Assurance Technology and cloud architects designed an Audit Intelligence landing zone: hub connectivity to on-prem engagement file APIs, private endpoints for Azure OpenAI / alternative providers via the gateway, segregated storage accounts for bronze GL and for engagement-scoped documents, central Log Analytics with immutable retention for EQCR sampling, and policy denying public IP on vector databases. Decisions: methodology corpus may reside in a firm-wide private index; client evidence indexes must be engagement-scoped with ACL sync from the engagement suite; all model calls exit only through the gateway VNet integration. Artefacts: landing-zone design doc, policy set, subscription vending checklist, migration wave plan. Operationally, the personal sandbox was wiped; journal scoring rebuild started only after bronze storage and private networking passed security review—unblocking later private RAG without re-litigating tenancy.
+
+**Best output / artefact.** Cloud adoption and landing-zone plan: topology, identity, policy, networking, ops ownership and migration waves.
+
+**Lifecycle stage.** Design, industrialise, operate and scale (steps 7, 9, 13, 14).
+
+**Stage-gate contribution.** Design and release-readiness: no production AI without landing-zone controls, private connectivity evidence and named ops owners.
+
+**Failure modes.**
+1. Copy-pasting provider CAF slides without tailoring audit confidentiality and engagement ACL requirements.
+2. Creating a landing zone so rigid that product teams invent shadow subscriptions again.
+3. Migrating data before identity, logging and key management are production-ready.
+
+**Related frameworks.** TOGAF, Well-Architected, Zero Trust, Platform Engineering, FinOps, DevSecOps.
+
+### Well-Architected Frameworks
+
+**Purpose.** Structured review of architectures against pillars such as operational excellence, security, reliability, performance efficiency, cost optimisation and sustainability (AWS Well-Architected, Azure Well-Architected, Google Cloud Architecture Framework). For Apex’s AI platform the review must extend classical pillars with AI-specific concerns: groundedness of RAG answers, evaluation coverage, model failover via the gateway, index freshness, and cost per successful cited draft or scored journal. The output is a risk register with remediations, not a vanity score.
+
+**When to use.** At design freeze before first production traffic; before busy-season scale-up; after major change (new embedding model, multi-region, new document AI vendor); and as a periodic assurance review for EQCR/technology audit.
+
+**When not to use.** As a substitute for threat modelling or DPIA. Do not run a full well-architected review on a disposable prototype that will never hold client evidence.
+
+**How to use it.**
+1. Choose the provider lens matching the landing zone; add an AI overlay checklist (RAG isolation, prompt/version control, eval gates, gateway quotas).
+2. Assemble reviewers: architect, security, SRE/platform, FinOps, methodology/EQCR representative.
+3. Walk each pillar against private RAG, model gateway, journal scoring and document AI—score risks High/Med/Low with evidence.
+4. Capture architectural risks (e.g. single-region vector store; unbounded context windows; missing canary for journal model).
+5. Agree remediation owners, due dates and whether each risk blocks the release gate.
+6. Re-test remediations; record residual risk acceptance with Risk & Quality where needed.
+7. Schedule revisit triggers (traffic 3×, new provider, new data class).
+8. File the review report with the release-readiness pack.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Design gate for private RAG + gateway was approaching busy season. A well-architected review found: Security—strong private endpoints, but RAG service account could read across engagements if ACL sync lagged; Reliability—vector index and gateway both single-region; Performance—document AI synchronous parsing blocked interactive drafting; Cost—no per-engagement token budgets, risking runaway summarisation on large board packs; Operational excellence—no runbook for embedding-model rollback. Moves: remediate ACL sync as a blocking control with continuous reconciliation job; add warm standby region for gateway config and critical indexes before year-2; make document AI async with job status API; impose gateway budgets and smaller-model routing for bulk extraction; write rollback runbooks and game-day the embedding pin. Decisions: accept single-region vector for year-1 with explicit residual risk and RPO/RTO documented; block go-live until ACL reconciliation and budgets shipped. Artefacts: well-architected report, risk register, remediation burn-down. Operationally, EQCR later sampled gateway logs and ACL alerts as part of technology assurance—turning the review into living evidence, not a one-off workshop.
+
+**Best output / artefact.** Well-architected review report with pillar scores, AI overlay findings, remediation backlog and residual-risk acceptances.
+
+**Lifecycle stage.** Design, release and operate (steps 7, 9, 13); revisit at scale (step 14).
+
+**Stage-gate contribution.** Release-readiness: blocking risks must be closed or formally accepted; supplies NFR and operability evidence for VALUE/release gates.
+
+**Failure modes.**
+1. Treating the review as a compliance checkbox without remediation owners.
+2. Ignoring AI-specific failure modes (poisoned docs, eval drift, prompt regression) because classical pillars look “green.”
+3. Accepting every residual risk to hit a date—busy season then becomes the real test in production.
+
+**Related frameworks.** Cloud Adoption Frameworks, SRE, FinOps, Zero Trust, LLMOps, GenAIOps, DevSecOps.
+
+### Domain-Driven Design
+
+**Purpose.** Aligns software boundaries and ubiquitous language with business domains so Apex’s AI platform does not become a single ball of mud called “AuditAI.” DDD clarifies bounded contexts—Engagement File, Methodology & Standards, Journal Analytics, Evidence/Document Processing, Model Access & Policy, Quality Review—and how they integrate via explicit contracts. Journal scoring language (“anomaly score,” “investigation queue”) must not be confused with opinion language (“misstatement,” “sufficient appropriate evidence”); private RAG retrieval is a Methodology/Engagement concern, not a free-text chat domain.
+
+**When to use.** When defining service boundaries for the gateway, RAG, journal and document AI; when multiple teams will own different pillars; when integrating with the engagement suite without leaking audit concepts into infrastructure code.
+
+**When not to use.** For a single script owned by one engineer with no integration surface. Do not run full Event Storming to rename a column in an existing warehouse.
+
+**How to use it.**
+1. Event-storm or capability workshop with partners, managers, methodology and engineers to harvest ubiquitous language and pain points.
+2. Propose bounded contexts and context map (customer/supplier, conformist, anti-corruption layer toward the engagement suite).
+3. Define aggregates and ownership (e.g. EngagementEvidenceIndex owned by Evidence context; ModelRoutePolicy owned by Model Access).
+4. Specify integration contracts (APIs/events) between contexts; forbid shared databases across contexts.
+5. Align team topology to contexts (platform team owns Model Access; analytics owns Journal; document factory owns Evidence processing).
+6. Encode language in APIs and UI copy so partners are not shown “chat completions” for working-paper assist.
+7. Review with Risk & Quality: ensure opinion-critical terms remain human-owned.
+8. Publish context map and glossary as design-gate artefacts; update when a new pillar is added.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: The first “unified AI service” prototype mixed journal features, PDF chunking, prompt templates and partner chat in one deployable, with a shared Mongo collection named `ai_stuff`. Ambiguous fields like `score` meant anomaly likelihood to data scientists and “audit risk rating” to managers—causing a near-miss where a high journal score was pasted into a planning memo as if it were a completed risk assessment. Head of Assurance Technology paused the build and ran a DDD workshop. Bounded contexts emerged: Journal Analytics (scores, features, investigator workflow); Document AI (parse, extract, cite); Private RAG (methodology + engagement retrieval with ACLs); Model Gateway (routing, policy, quotas, logs); Engagement Collaboration (drafting UI, attestation); Quality Review (sampling, EQCR evidence packs). Anti-corruption layers translated engagement-suite IDs and ACLs into Apex platform identifiers. Decisions: separate deployables and data stores per context; “anomalyScore” never labelled as “risk conclusion”; drafting UI consumes citation DTOs from Document AI/RAG, not raw model text alone. Artefacts: context map, glossary, ownership RACI. Operationally, incident blast radius shrank—prompt changes in drafting no longer redeployed journal models—and EQCR could request logs from a single named context.
+
+**Best output / artefact.** Domain model, ubiquitous language glossary, context map and ownership boundaries.
+
+**Lifecycle stage.** Design and industrialise (steps 7, 9); revisited when scaling new domains (step 14).
+
+**Stage-gate contribution.** Design approval: clear service/data ownership and contracts; reduces cross-team deadlock and language-risk in working papers.
+
+**Failure modes.**
+1. Bounded contexts that mirror org charts rather than audit domains (or vice versa with no team to own them).
+2. Shared databases “for convenience,” re-creating the ball of mud.
+3. Letting model/vendor language (“tokens,” “hallucination”) replace audit language in partner-facing artefacts.
+
+**Related frameworks.** Event-Driven Architecture, API-First, Data Mesh, TOGAF, ArchiMate, Platform Engineering.
+
+### Event-Driven Architecture
+
+**Purpose.** Uses domain events to decouple producers and consumers so Apex can coordinate asynchronous AI workflows—document ingested, extraction completed, index refreshed, journal batch scored, draft generated, attestation recorded—without brittle point-to-point calls. Events enable scale during busy season, retries, auditability and fan-out (one completed extraction can update RAG, notify managers and feed quality sampling). Delivery guarantees, schemas, idempotency and poison-message handling are first-class design concerns.
+
+**When to use.** For document AI pipelines, GL batch scoring, index refresh, evaluation jobs and any workflow that must not block interactive partner UX. Use when multiple consumers need the same fact (security logging, FinOps metering, EQCR evidence).
+
+**When not to use.** For simple synchronous request/response inside the model gateway (chat completion with tight latency SLA) where events add latency without benefit. Do not event-source everything as dogma.
+
+**How to use it.**
+1. Catalogue domain events from DDD contexts (`EvidencePackageReceived`, `DocumentParsed`, `ChunksIndexed`, `JournalBatchScored`, `DraftSuggested`, `HumanAttested`).
+2. Define schemas (versioned), producers, consumers and ownership; store in a schema registry.
+3. Choose broker/topology (e.g. Event Hubs/Kafka/SNS-SQS) inside the landing zone with private networking.
+4. Specify delivery semantics, idempotency keys (engagementId + documentId + contentHash) and dead-letter handling.
+5. Design observability: correlation IDs from engagement through gateway calls; dashboards for lag and failure rates.
+6. Implement consumer SLAs (index freshness for RAG; score availability before planning workshops).
+7. Chaos/failure tests: poison PDFs, duplicate events, downstream RAG outage.
+8. Publish the event catalogue and integration design for the design gate; require contract tests in CI.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Document AI initially called RAG re-index and drafting APIs synchronously; large lease PDFs timed out; managers refreshed endlessly; journal scoring could not start until “the document job finished” even when journals were independent. Architects redesigned with events. Flow: engagement suite emits `EvidencePackageReceived` → Document AI parses → emits `DocumentParsed` with citation anchors → chunker emits `ChunksIndexed` → Private RAG consumer updates the engagement collection → optional `DraftReadyForReview` when a workpaper template is requested. Separately, GL drop emits `JournalExtractLanded` → medallion pipeline → `JournalBatchScored` → investigation UI. The model gateway remains request/response for interactive calls but emits `ModelInvocationCompleted` for FinOps and EQCR logging. Decisions: at-least-once delivery with idempotent consumers; PII-minimised event payloads (IDs + hashes, not full client text on the bus); DLQ reviewed daily in busy season. Artefacts: event catalogue, sequence diagrams, contract tests. Operationally, parsing failures no longer blocked journal scoring; EQCR could reconstruct timelines from event and gateway logs when inspecting an AI-assisted file.
+
+**Best output / artefact.** Event catalogue (schemas, owners, SLAs), broker topology and integration design with idempotency/DLQ rules.
+
+**Lifecycle stage.** Design, build and operate (steps 7, 9, 13).
+
+**Stage-gate contribution.** Design/release: proves async workflows meet freshness SLAs and that audit timelines are reconstructable from events + logs.
+
+**Failure modes.**
+1. Fat events carrying full client documents onto shared buses (confidentiality and cost blow-ups).
+2. No idempotency—duplicate indexes or double-counted journal alerts.
+3. Unowned DLQs; silent backlog growth until planning week fails.
+
+**Related frameworks.** Domain-Driven Design, API-First, Medallion, GenAIOps, SRE, Data Mesh.
+
+### API-First Architecture
+
+**Purpose.** Treats interfaces as products and contracts before implementation—critical when Apex’s model gateway is the enterprise façade over multiple model providers, and when journal scoring, private RAG and document AI must be consumed by the engagement suite, shared service centre tools and future mobile review apps. API-first means OpenAPI/AsyncAPI specs, versioning, auth scopes, error models, SLAs and consumer-driven contract tests—so a provider swap or prompt-pack change does not break partners mid-busy-season.
+
+**When to use.** Before building UI or vendor lock-in; when exposing gateway, RAG query, journal score and extraction APIs to multiple consumers; when negotiating engagement-platform integrations.
+
+**When not to use.** For throwaway notebooks with no reuse. Do not freeze APIs so early that you cannot learn from a two-week spike—but still capture learnings into the contract before industrialisation.
+
+**How to use it.**
+1. Identify consumers and jobs (manager asks RAG; SSC posts documents; planning tool pulls journal scores; EQCR pulls audit logs).
+2. Draft OpenAPI for synchronous APIs and AsyncAPI for events; include auth scopes mapped to engagement ACLs.
+3. Define error taxonomy (out-of-scope engagement, index stale, policy denial, upstream model timeout) and idempotency headers.
+4. Mock servers for UI and engagement-suite integration while backends are built.
+5. Establish versioning and deprecation policy (gateway v1 retained through busy season).
+6. Automate contract tests in CI; block merges that break consumer pacts.
+7. Publish SLA/SLO targets per API (gateway latency, RAG groundedness metadata requirements).
+8. Govern via API catalogue; require security review of scopes before production keys are issued.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: The engagement suite vendor wanted Apex to call its proprietary “Assist” SDK; internal teams had already hardcoded Azure OpenAI SDKs in two apps. Head of Assurance Technology mandated API-first: a Model Gateway API (`/v1/chat`, `/v1/embed`, `/v1/moderate`) with policy headers (`engagementId`, `purpose`, `dataClass`); a RAG API returning passages with `sourceId`, `page`, `aclSnapshotId`; a Journal Scoring API returning `anomalyScore`, `drivers`, `modelVersion`; a Document AI API for job submit/status and citation objects. Decisions: no app holds provider keys; provider SDKs exist only behind the gateway; engagement suite integrates via Apex APIs or not at all. Contract tests caught a breaking change when RAG stopped returning page numbers—blocking release because cited drafting required them. Artefacts: OpenAPI bundles, mock environments, consumer pact reports, developer portal entries. Operationally, swapping in a second model provider for failover took days of gateway config rather than weeks of app rewrites—and EQCR could rely on stable log shapes across providers.
+
+**Best output / artefact.** Versioned API specifications, service contracts, mock/pact evidence and an API catalogue with owners.
+
+**Lifecycle stage.** Design, build, operate and scale (steps 7, 9, 13, 14).
+
+**Stage-gate contribution.** Design/release: contracts approved, security scopes reviewed, consumer tests green; provider changes do not bypass the gateway contract.
+
+**Failure modes.**
+1. “API-first” docs written after code—specs drift and consumers bind to accidents.
+2. Overly chatty APIs that leak provider-specific payloads, destroying portability.
+3. Missing engagement-scoped auth—correct OpenAPI, wrong trust model.
+
+**Related frameworks.** Zero Trust, Platform Engineering, LLMOps, Event-Driven Architecture, DevSecOps, TOGAF.
+
+### Zero Trust Architecture
+
+**Purpose.** Assumes no implicit trust based on network location: every request to Apex’s AI platform is authenticated, authorised in context, encrypted and continuously evaluated. For an audit firm, Zero Trust means the model gateway, private RAG, journal stores and document AI never rely on “inside the VNet = trusted.” Access is least-privilege, engagement-scoped, purpose-bound and fully logged—so a compromised laptop or over-privileged service account cannot exfiltrate another client’s evidence via RAG or gateway prompts.
+
+**When to use.** From first landing-zone design through production operations; whenever new tools, agents or vendor processors touch client evidence; at security and release gates.
+
+**When not to use.** As a buzzword sticker on a flat network with shared keys. Do not claim Zero Trust while embedding long-lived provider API keys in engagement-team laptops.
+
+**How to use it.**
+1. Inventory resources (gateway, indexes, bronze/silver/gold stores, document jobs, eval corpora) and identities (humans, services, vendors).
+2. Map trust boundaries and data flows for each pillar; mark high-risk paths (RAG query returning client text; journal features with account names).
+3. Enforce strong identity (SSO/MFA, workload identities) and short-lived tokens with engagement and purpose claims.
+4. Authorise every call against engagement ACLs and data classification; deny cross-engagement retrieval by default.
+5. Segment networks; prefer private endpoints; inspect egress so only gateway may call model providers.
+6. Continuous verification: device posture where applicable, anomaly detection on unusual RAG fan-out, just-in-time admin.
+7. Telemetry: immutable access logs suitable for EQCR and cyber incident response.
+8. Validate with purple-team tests; attach Zero Trust design and test evidence to security/release gates.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: A senior manager’s token for the drafting UI was reused by a browser extension that scraped “helpful” context; because early RAG authorised only at app login, the extension could query another engagement’s index ID guessed from URLs. Security and architecture responded with Zero Trust redesign: every RAG and gateway request requires a step-up token bound to `engagementId` + `userId` + `purpose` (drafting vs investigation); indexes keyed by engagement with server-side ACL checks against the engagement suite before retrieval; gateway refuses prompts tagged `dataClass=clientEvidence` unless purpose is attested; service accounts for document AI use federated workload identity with write-only paths to their own prefix; admin access to gold journal features is JIT and ticketed. Decisions: no shared “ApexAI” service principal with blanket read; vendor document processors receive ephemeral job credentials, not standing keys. Artefacts: trust-boundary diagrams, policy matrix, purple-team report. Operationally, the guessed-index attack failed closed; EQCR gained cleaner evidence of who retrieved what, when—strengthening both cyber and audit-quality narratives with clients.
+
+**Best output / artefact.** Zero Trust access and trust-boundary design: identity model, policy matrix, segmentation, telemetry and test evidence.
+
+**Lifecycle stage.** Design, build, operate and scale (steps 7, 9, 13, 14)—cross-cutting with security gates.
+
+**Stage-gate contribution.** Security and release-readiness: least-privilege and engagement isolation proven; residual access risks accepted only with Risk & Quality sign-off.
+
+**Failure modes.**
+1. Network segmentation without identity/context—flat trust inside the “secure” VNet.
+2. Over-privileged RAG service accounts that bypass user ACL checks.
+3. Logging without immutable retention—incidents and EQCR sampling cannot reconstruct access.
+
+**Related frameworks.** Cloud Adoption Frameworks, DevSecOps, Well-Architected, API-First, STRIDE/security catalogues, LLMOps.
+
+### Data Mesh
+
+**Purpose.** Distributes ownership of data as products to domain teams under federated governance—useful when Apex’s journal analytics, engagement metadata, methodology content and document-extraction outputs are produced by different owners but consumed by multiple AI services. Data Mesh avoids a central bottleneck that cannot understand audit semantics, while still enforcing interoperability, quality SLAs and confidentiality policies set by a federated board (Risk & Quality, DPO, platform).
+
+**When to use.** When multiple domains must publish reusable data products for AI (journal features, citation-ready extracts, engagement risk factors); when central data teams cannot keep up with busy-season semantics; when scaling beyond one lake owned by one squad.
+
+**When not to use.** For a single-team MVP with one GL pipeline—mesh overhead will slow delivery. Do not declare “mesh” without product owners, SLAs and platform self-service.
+
+**How to use it.**
+1. Identify domains and candidate data products (JournalFeatureSet, EngagementACLSnapshot, MethodologyCorpus, ExtractedEvidenceSpans).
+2. Assign product owners accountable for quality, documentation and consumer support.
+3. Define federated governance standards: classification, retention, access APIs, interoperability formats, PII rules.
+4. Provide self-service platform (ingestion templates, quality tests, catalogue registration).
+5. Publish products with contracts, SLAs (freshness before planning week) and discoverability in the catalogue.
+6. Onboard AI consumers (journal scoring, RAG, document AI) only via product interfaces—not raw replica access.
+7. Measure adoption and incident themes; retire unused products.
+8. Review mesh health in architecture governance; block new AI use cases that scrape non-product sources in production.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Central BI owned a warehouse that lagged engagement reality; data scientists pulled CSVs from clients; document SSC kept extraction outputs on a file share invisible to RAG. AI quality was inconsistent. Apex introduced a thin data mesh: Journal domain (Assurance Analytics) publishes `journal_gold_features` with reconciliation to trial balance; Evidence domain (SSC + Document AI team) publishes `evidence_spans_v1` with citation anchors; Methodology domain publishes `methodology_chunks` with version pins; Engagement domain publishes `acl_snapshot` hourly. Federated governance chaired by DPO + Risk & Quality mandated encryption, engagement-scoped access views and prohibition on cross-client joins for model training. Platform Engineering provided ingestion + contract-test paved roads. Decisions: private RAG may index only registered products; journal scoring trains only on versioned feature products; ad-hoc CSV paths allowed only in time-boxed sandboxes. Artefacts: data-product catalogue, owner RACI, federated standards. Operationally, RAG freshness incidents mapped to a named product owner instead of “the lake,” and EQCR could ask which product versions underpinned a scored journal population.
+
+**Best output / artefact.** Domain data-product map with owners, SLAs, contracts and federated governance standards.
+
+**Lifecycle stage.** Design, industrialise, operate and scale (steps 7, 9, 13, 14).
+
+**Stage-gate contribution.** Design/release: production AI consumers bind to governed products; critical contract failures block promotion.
+
+**Failure modes.**
+1. “Mesh” as renaming ETL jobs without owners or consumer SLAs.
+2. Federated standards so weak that every product reinvents access control—breaking Zero Trust.
+3. Central platform team still doing all domain modelling—bottleneck unchanged.
+
+**Related frameworks.** Data Fabric, Medallion, Data contracts, Domain-Driven Design, Platform Engineering, FinOps.
+
+### Data Fabric
+
+**Purpose.** Connects distributed data using active metadata, integration, lineage and policy automation so Apex can discover, govern and deliver data to AI without forcing a single physical migration of every client system. Fabric complements mesh: mesh answers who owns products; fabric answers how metadata, lineage and policies stitch products, warehouses, engagement APIs and document stores into a governable whole for private RAG and journal scoring.
+
+**When to use.** When Apex must retrieve and govern data across engagement suite, object storage, warehouse and vendor extraction outputs; when lineage is required for EQCR/technology audit; when policy (retention, residency, ACL) must be enforced consistently across stores.
+
+**When not to use.** As a magical substitute for poor source quality. Do not buy a fabric tool to avoid defining data products and contracts.
+
+**How to use it.**
+1. Inventory data sources touching AI pillars; classify and tag (methodology vs client evidence).
+2. Deploy active metadata/catalogue scanning with lineage from bronze GL and document jobs through features and indexes.
+3. Standardise connectors and ingestion patterns into the landing zone.
+4. Encode policies (residency, retention, masking) enforced at access time where possible.
+5. Enable semantic discovery for approved engineers and AI services—not open browsing of client text.
+6. Integrate lineage exports into EQCR evidence packs and incident response.
+7. Monitor metadata freshness and scanner coverage; alert on unregistered stores used by production AI.
+8. Document the fabric architecture and policy control points for design/security gates.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: After mesh products were declared, Apex still could not answer “which embeddings were built from which evidence pack version?” during an EQCR challenge on an AI-drafted lease memo. Architecture implemented a data-fabric layer: Purview/DataHub-style catalogue scanning of lakehouse tables, document job outputs and vector collections; lineage edges from `EvidencePackageReceived` through parse → chunk → embed → `ChunksIndexed`; policy attributes driving gateway purpose checks; unified search for platform engineers with DLP controls preventing catalogue snippets from showing raw client sentences. Decisions: every production RAG collection must register lineage to a source product version; journal model registry entries must link to feature-product versions; unscanned storage accounts are policy-denied for production pipelines. Artefacts: fabric architecture, lineage graphs for two pilot engagements, policy enforcement matrix. Operationally, EQCR received a lineage extract with the working-paper pack; a mis-pointed index to last year’s evidence was caught pre-release when lineage showed a stale `acl_snapshot` and package hash mismatch.
+
+**Best output / artefact.** Data-fabric architecture: metadata model, lineage graphs, connector standards and policy enforcement points.
+
+**Lifecycle stage.** Design, industrialise and operate (steps 7, 9, 13); strengthens scale audits (step 14).
+
+**Stage-gate contribution.** Design/release and assurance: lineage and policy automation evidence; blocks production AI on unregistered or unscanned stores.
+
+**Failure modes.**
+1. Catalogue without enforcement—pretty lineage, dirty production paths still open.
+2. Over-collecting raw text into metadata systems, creating a new confidentiality risk.
+3. Fabric project parallel to mesh with conflicting ownership—teams ignore both.
+
+**Related frameworks.** Data Mesh, Medallion, Zero Trust, LLMOps/RAG ops, Well-Architected, Responsible AI evidence packs.
+
+### Medallion Architecture
+
+**Purpose.** Progressively refines raw data into validated and curated layers (bronze → silver → gold) with quality checks and lineage. At Apex this pattern covers both tabular GL extracts for journal scoring and document/embedding paths for private RAG and document AI: raw packages land immutable in bronze; silver holds parsed, validated, ACL-tagged artefacts; gold serves features, citation spans and retrieval-ready chunks. Medallion prevents training or retrieval on unreconciled, untyped or cross-contaminated inputs.
+
+**When to use.** For any production AI path that depends on evolving enterprise and engagement data—especially journal scoring and document/RAG pipelines that must survive busy-season volume and inspection.
+
+**When not to use.** For a one-off notebook on a static CSV with no reuse—still record provenance, but do not build three layers of platform theatre.
+
+**How to use it.**
+1. Define bronze contracts: immutable landing for GL files and evidence packages with checksums and source metadata.
+2. Define silver rules: schema validation, PII tagging, engagementId enforcement, parse success criteria, trial-balance reconciliation for journals.
+3. Define gold products: journal features, citation spans, chunk tables, retrieval indexes with version pins.
+4. Automate quality gates on promotion; fail closed on critical breaches.
+5. Adapt embedding/chunk pipelines as first-class medallion paths, not side scripts.
+6. Expose lineage from gold back to bronze package hashes for EQCR.
+7. Load-test busy-season volumes; set retention per layer and classification.
+8. Attach layered pipeline design and sample quality reports to the design/release gate.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Journal anomaly v0 scored whatever CSV a manager uploaded; one client’s extract missed a subledger and generated hundreds of false “missing counterparty” alerts that polluted planning. Document AI wrote chunks straight into a global vector index. Rebuild applied medallion: bronze `gl_raw` and `evidence_raw` with checksums; silver `gl_postings` only after reconciliation to trial-balance control totals within tolerance; silver `documents_parsed` with layout blocks and ACL tags; gold `journal_features` for scoring; gold `evidence_spans` and per-engagement chunk tables feeding private RAG. Decisions: no gold write without silver quality green; no RAG index build from bronze; model training datasets snapshotted from gold versions. Artefacts: layer diagrams, dbt/Great Expectations suites, reconciliation runbooks. Operationally, false-alert storms dropped; when EQCR asked why a journal was scored, analytics showed feature version, silver reconciliation ID and bronze file hash—inspectable end-to-end. Private RAG inherited the same discipline for documents, ending “mystery chunks” from unmarked PDFs.
+
+**Best output / artefact.** Layered pipeline design with per-layer contracts, quality gates, retention and lineage to consumption (scores, indexes, drafts).
+
+**Lifecycle stage.** Design and industrialise (steps 7, 9); operate with continuous quality (step 13).
+
+**Stage-gate contribution.** Design/release: contracts and isolation rules approved; critical quality failures block promotion to scoring/indexing.
+
+**Failure modes.**
+1. Bronze-only lakes marketed as medallion—“layers” without gates.
+2. Indexing documents before ACL tags exist in silver.
+3. Silent reconciliation failures overridden to “keep busy season moving.”
+
+**Related frameworks.** Data Mesh, Data Fabric, MLOps, LLMOps, Data contracts, SRE (freshness SLOs).
+
+### MLOps
+
+**Purpose.** Industrialises the machine-learning lifecycle for models that are not purely prompt-based—especially Apex’s journal scoring models: versioned data/code/models, automated training and evaluation pipelines, model registry, controlled promotion, monitoring, drift detection, rollback and retraining under governance. MLOps ensures a new anomaly model is reproducible, challenge-set evaluated, shadow-tested and reversible without notebook heroics.
+
+**When to use.** When journal scoring (or other classical/ML models) influences planning, investigation queues or documentation on live engagements. Use from first industrialisation, not after the first production incident.
+
+**When not to use.** For pure research spikes that will be discarded—still version experiments if they might graduate. Do not impose full MLOps ceremony on a static rules engine with no learning loop (use plain CI instead).
+
+**How to use it.**
+1. Version feature data (gold products), training code, evaluation suites and model artefacts together.
+2. Automate train → evaluate on locked challenge sets → register with metrics and model card.
+3. Require human approval (analytics + methodology) before production promotion.
+4. Deploy with progressive delivery: shadow → canary engagements → full.
+5. Monitor input drift, score distribution, precision/recall proxies, investigator dismiss rates.
+6. Define retrain triggers and rollback drills; store artefacts for EQCR.
+7. Integrate security scanning of training pipelines and access to labelled data.
+8. Publish MLOps controls and runbooks as release-readiness evidence.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: A star data scientist improved journal recall on one bank client in a notebook; the pickle file was copied to a VM before busy season; nobody could reproduce features when the client chart of accounts changed. Apex instituted MLOps on Azure ML/MLflow-style registry: training only from versioned `journal_features` gold; challenge set curated by methodology (known unusual journals + clean controls); model card with intended use (“prioritise investigation, not conclude misstatement”); shadow mode on ten engagements comparing v2 vs v1; automatic rollback if investigator useful-alert rate dropped >X% or if gateway-side feature fetch failed. Decisions: partners see “modelVersion” on each alert; EQCR can pull training lineage; no production model without registry ID. Artefacts: pipeline definitions, registry entries, shadow report, rollback game-day notes. Operationally, a bad retrain that overfit to one ERP was caught in shadow before planning week; rollback restored v1 within an hour via gateway model-route config—without redeploying UIs.
+
+**Best output / artefact.** MLOps platform controls: pipelines, registry, model cards, monitoring, promotion policy and rollback runbooks.
+
+**Lifecycle stage.** Industrialise and operate (steps 9, 13); scale with multi-model portfolios (step 14).
+
+**Stage-gate contribution.** Release-readiness: staging/challenge metrics, shadow/canary evidence, monitors live, rollback tested.
+
+**Failure modes.**
+1. Registry theatre while production still loads hand-copied artefacts.
+2. Metrics that ignore business cost (optimising AUC while flooding managers with noise).
+3. Retrain on drifted client mixes without methodology approval.
+
+**Related frameworks.** Medallion, LLMOps, DevSecOps, SRE, FinOps, model cards / Responsible AI.
+
+### LLMOps
+
+**Purpose.** Manages prompts, models, retrieval indexes, evaluations, routing, safety filters and cost for LLM systems—Apex’s private RAG and generative drafting paths in particular. LLMOps extends MLOps ideas to non-weight artefacts: prompt packs, chunking configs, embedding versions, groundedness evaluations, injection tests and gateway routes. A prompt or index change cannot reach partners until regression suites pass.
+
+**When to use.** For any production generative feature: methodology RAG, cited working-paper assist, extraction-to-draft flows, gateway policy packs. Use before multi-team editing of prompts.
+
+**When not to use.** For offline experiments in a sealed sandbox with synthetic text only—still graduate into LLMOps before touching client evidence.
+
+**How to use it.**
+1. Version prompts, tools/policies, embedding models, index configs and decoding parameters as release candidates.
+2. Build evaluation sets: groundedness, citation correctness, refusal on out-of-ACL asks, prompt-injection, independence-sensitive topics.
+3. Automate regression in CI; block deploy on critical failures.
+4. Route via model gateway with canary percentages and automatic rollback.
+5. Monitor online quality (edit distance/partner edit rate, citation click-through, safety hits) and cost per successful draft.
+6. Manage provider change with side-by-side eval, not hope.
+7. Separate methodology indexes from engagement indexes operationally and in eval design.
+8. Attach LLMOps pipeline evidence and last eval report to release gates.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: A well-intentioned champion edited the “lease memo” system prompt in production; groundedness collapsed—fluent text cited the wrong lease clause; two managers nearly filed it. Apex implemented LLMOps: prompt packs in Git with review; embedding and chunk-size changes tied to index rebuild jobs; eval harness with 120 annotated Q&A pairs from methodology plus 80 engagement-style tasks with gold citations; injection suite (ignore ACLs, exfiltrate other engagement IDs); gateway canary 5% of drafting traffic; kill switch if groundedness &lt; threshold or citation page-miss rate spikes. Decisions: no hot-edit of production prompts; document AI citation schema required before drafting prompts can claim “cite sources”; provider failover only to models that passed the same harness. Artefacts: prompt registry, eval dashboards, canary policy. Operationally, the bad prompt never passed CI; a later embedding upgrade was rolled back within minutes when online partner-edit rate spiked—FinOps also showed the candidate model’s token cost was higher for no quality gain.
+
+**Best output / artefact.** LLMOps pipelines and registries for prompts, indexes, eval reports, routing rules and safety tests.
+
+**Lifecycle stage.** Design hardening through operate (steps 7, 9, 13); continuous at scale (step 14).
+
+**Stage-gate contribution.** Release-readiness: eval gates green, canary/rollback ready, logging of prompt/model/index versions on every partner-facing output.
+
+**Failure modes.**
+1. Eval sets that never include ACL isolation or citation checks—passing while unsafe for audit.
+2. Prompt edits outside version control.
+3. Index rebuilds without re-running groundedness suites.
+
+**Related frameworks.** GenAIOps, MLOps, API-First (gateway), Zero Trust, FinOps, Well-Architected, Responsible AI.
+
+### GenAIOps
+
+**Purpose.** Operates the whole generative AI system as one product—not only the model endpoint. For Apex that means content ingestion, document AI, private RAG, prompts, gateway policies, user feedback, evaluation, incidents, cost and change management across the drafting and research experiences. GenAIOps connects SSC operators, platform SRE, methodology owners and engagement champions under shared SLIs (index freshness, grounded answer rate, attestation completion) and shared incident practice.
+
+**When to use.** Once generative features leave pilot and become a firm service relied on in busy season. Use to align ops across RAG + document AI + gateway rather than siloed component ownership.
+
+**When not to use.** When you only have a single offline model experiment. Do not create a GenAIOps board with no production service to operate.
+
+**How to use it.**
+1. Define the GenAI product boundary and owners (platform vs methodology vs SSC).
+2. Map end-to-end value stream: ingest → parse → index → retrieve → generate → human attest → file.
+3. Set SLIs/SLOs spanning the stream (freshness, groundedness, latency, attestation lag, error budget).
+4. Unify telemetry: correlation from evidence package to draft ID to gateway invocation.
+5. Establish feedback loops: partner edits, “not useful” flags, EQCR sampling themes → backlog.
+6. Run incident and problem management for GenAI-specific failures (wrong citations, index ACL gaps).
+7. Coordinate releases across prompts, indexes and parsing models as one change calendar.
+8. Review ops health monthly with Risk & Quality; publish a GenAI operational model document.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Gateway uptime looked excellent while partners complained drafts “missed yesterday’s bank confirmation.” Ownership finger-pointing spanned SSC (ingestion), Document AI (parse), RAG (index), and drafting UI. GenAIOps introduced a single service catalogue entry—“Cited Drafting Assist”—with an E2E SLO: 95% of evidence packages indexed within four hours during busy season; grounded citation rate ≥ target on weekly eval sample; partner attestation captured before export to engagement suite. A shared dashboard combined parse failure rate, index lag, gateway latency, model cost and partner edit rate. Incident sev definitions included “cross-engagement retrieval” as Sev-1 regardless of uptime. Decisions: change freezes for prompt+index+parser bundles before planning peaks; SSC runbooks for poison PDFs; methodology owns eval content, platform owns tooling. Artefacts: GenAI operating model, E2E dashboard, incident playbooks. Operationally, a parser regression was detected via index-lag and groundedness together—not via CPU alerts—and rolled back as one release train, restoring confirmation-aware drafts before EQCR sampling week.
+
+**Best output / artefact.** End-to-end GenAI operational model: owners, SLIs/SLOs, telemetry map, feedback loops and incident playbooks.
+
+**Lifecycle stage.** Operate and scale (steps 13, 14); informs industrialisation design (step 9).
+
+**Stage-gate contribution.** Release-readiness and operational acceptance: E2E monitors live, owners named, playbooks drilled—not just model endpoint health.
+
+**Failure modes.**
+1. Component SLOs green while E2E partner journey fails.
+2. No feedback path from EQCR/partner edits into eval sets.
+3. Uncoordinated releases of parser, index and prompt causing irreducible regressions.
+
+**Related frameworks.** LLMOps, SRE, Platform Engineering, Event-Driven Architecture, FinOps, DevSecOps.
+
+### DevSecOps
+
+**Purpose.** Integrates security into planning, coding, build, test, release and operations for Apex’s AI platform—shifting left on secrets, IaC, dependencies, container images, prompt/tool permission changes and evidence that controls ran. DevSecOps ensures the model gateway, RAG services, journal pipelines and document AI cannot ship with excessive tool scopes, plaintext keys or unscanned base images—and that security evidence is available for firm cyber and client due diligence.
+
+**When to use.** From first repository and pipeline for any production-bound AI component; continuously thereafter. Mandatory before exposing APIs that touch client evidence.
+
+**When not to use.** As a gate that only runs once a year. Do not confuse DevSecOps tooling with a completed threat model or DPIA—they are complementary.
+
+**How to use it.**
+1. Mandate repo standards: secret scanning, dependency scanning, SAST, IaC scan on every PR.
+2. Sign and verify artefacts; block deploy on critical CVEs and policy failures.
+3. Encode policy-as-code for gateway routes, RAG scopes and document-processor permissions.
+4. Require security tests for prompt injection and over-privileged tool calls in CI (with LLMOps suites).
+5. Manage secrets via vault/workload identity—never in app config.
+6. Produce machine-readable evidence packs per release for cyber assurance.
+7. Share accountability: developers fix findings; security sets policy severity and exceptions.
+8. Red-team periodically; feed results into pipelines and architecture ADRs.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: A document AI container shipped with a leftover vendor API key in an environment variable; separately, a “helpful” tool definition allowed the drafting agent to call an internal search API without engagement filters. DevSecOps response: pipeline broke on secret scan; OPA/policy checks blocked agent manifests requesting `search:any`; image signing required in the landing zone; IaC scan denied public on vector DB; release evidence bundle auto-attached (scan results, SBOM, policy decisions). Decisions: any new gateway tool must pass a permissions review checklist; exceptions time-boxed and ticketed; production deploys only from signed pipelines. Artefacts: pipeline policies, exception log, release evidence pack template. Operationally, the over-privileged tool never reached busy season; client security questionnaires could be answered with concrete pipeline evidence rather than aspirational statements—supporting pursuits where mid-market audit committees asked how Apex controls AI.
+
+**Best output / artefact.** Secure CI/CD controls, policy-as-code, SBOM/scan evidence and permission review records per release.
+
+**Lifecycle stage.** Build, release and operate (steps 9, 13); continuous at scale (step 14).
+
+**Stage-gate contribution.** Security/release-readiness: critical pipeline findings closed; tool/scope changes reviewed; evidence pack attached.
+
+**Failure modes.**
+1. Scanners on but red findings waived forever to hit dates.
+2. Securing app code while ignoring prompt/tool permission sprawl.
+3. Separate “AI shadow pipelines” outside the controlled CI/CD path.
+
+**Related frameworks.** Zero Trust, Platform Engineering, LLMOps, Well-Architected, SRE, Cloud Adoption Frameworks.
+
+### Platform Engineering
+
+**Purpose.** Creates reusable self-service capabilities and paved roads so Apex product teams can deliver journal scoring, RAG apps and document AI features without re-implementing identity, gateway access, evaluation, observability and landing-zone wiring. The AI platform is treated as an internal product with a service catalogue, golden paths, documentation and measured developer experience—balancing speed with mandatory controls for audit confidentiality.
+
+**When to use.** When more than one team consumes shared AI infrastructure; when shadow stacks reappear; when time-to-secure-prototype is a bottleneck to industrialisation.
+
+**When not to use.** When a single squad owns a short-lived pilot with no reuse—still use the landing zone, but do not wait for a full internal developer platform. Avoid platform theatre (portals with no working paths).
+
+**How to use it.**
+1. Research developer journeys (add a RAG app; register a journal model; run evals; request gateway quota).
+2. Define service catalogue: model gateway, private vector collections, eval harness, logging/telemetry, medallion templates, secret vending.
+3. Build golden-path templates (IaC + CI) that encode Zero Trust and DevSecOps defaults.
+4. Provide self-service provisioning with approval hooks for client-data classes.
+5. Measure adoption, lead time, change fail rate and ticket friction; run platform product reviews.
+6. Support and enablement for champions in assurance service lines.
+7. Version platform interfaces; communicate breaking changes before busy season.
+8. Publish the catalogue and SLAs; require new use cases to consume paved roads at design gate.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Three teams estimated twelve weeks each to “add AI” because each reinvented Entra auth, private networking and logging. Platform Engineering created Audit Intelligence Platform v1: self-service “RAG collection” provisioner (engagement-scoped, ACL sync sidecar included); gateway client SDK with mandatory purpose headers; eval harness as a service; terraform module for medallion paths; observability dashboard blueprint. Decisions: non-catalogue infrastructure for production AI is out of policy; platform backlog prioritised by reduction in lead time and security exceptions. Artefacts: service catalogue, golden-path repos, DX survey baseline. Operationally, a new cited-drafting pilot stood up in days on the paved road; journal scoring onboarded to the same gateway and telemetry without a second identity design—freeing architecture time for DDD boundaries instead of YAML duplication. Risk & Quality preferred the model because controls were inherited, not negotiated per project.
+
+**Best output / artefact.** AI platform service catalogue with golden paths, SLAs, ownership and adoption metrics.
+
+**Lifecycle stage.** Industrialise, operate and scale (steps 9, 13, 14); shapes design (step 7).
+
+**Stage-gate contribution.** Design: use cases must map to catalogue services; exceptions documented. Scale: platform readiness is a prerequisite for firm-wide rollout.
+
+**Failure modes.**
+1. Portal without working automation—ticket queues renamed “platform.”
+2. Paved roads so restrictive that teams bypass them (shadow cloud returns).
+3. No product owner for the platform—everything is “best effort.”
+
+**Related frameworks.** Cloud Adoption Frameworks, API-First, DevSecOps, GenAIOps, TOGAF, FinOps.
+
+### FinOps
+
+**Purpose.** Creates shared accountability for variable cloud and AI spend—tokens, embedding rebuilds, GPU/inference, storage for bronze evidence, vector indexes—so Apex can industrialise AI without surprise bills or silent quality cuts. FinOps links cost to unit metrics partners understand (cost per successful cited draft, cost per 1,000 journals scored, cost per engagement indexed) and feeds architecture choices (model routing, cache, chunking strategy, retention).
+
+**When to use.** From first production gateway traffic; during design trade-offs between model tiers; monthly in operate; at scale when busy-season volume multiplies inference.
+
+**When not to use.** As the sole decision criterion that overrides independence or quality gates. Do not wait until finance panics after year-end invoices to invent allocation tags.
+
+**How to use it.**
+1. Tag all AI resources and gateway routes with engagement/service and cost centre dimensions (without putting client names in clear-text tags where prohibited).
+2. Define unit economics and budgets per product (drafting, RAG research, journal scoring, document AI).
+3. Allocate spend to owners; detect anomalies (runaway summarisation, rebuild storms).
+4. Optimise: smaller-model routing for bulk extraction, cache repeated methodology queries, lifecycle cold storage for bronze.
+5. Incorporate cost into ADRs and well-architected reviews.
+6. Report to Investment Committee alongside quality KPIs—not cost alone.
+7. Set gateway quotas and hard stops for non-production; softer budgets with alerts for production.
+8. Maintain an optimisation backlog with estimated savings vs quality risk.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: After enabling drafting assist, March invoices showed a spike: teams summarised entire board packs repeatedly with the largest model; embedding jobs rebuilt full indexes nightly “just in case.” FinOps working group (platform, finance partner, Head of Assurance Technology) introduced unit dashboards: cost per attested draft, cost per engagement indexed, journal scoring cost per 10k postings. Moves: gateway routed bulk document AI to a cheaper model tier; interactive drafting stayed on higher tier only when citation confidence low; methodology RAG cached; index rebuilds became incremental on contentHash change; budgets alerted champions at 80%. Decisions: quality floors from LLMOps evals cannot be breached for savings; savings proposals need eval proof. Artefacts: FinOps dashboard, allocation model, optimisation backlog. Operationally, token spend dropped ~35% without groundedness regression; Investment Committee extended funding because unit costs were understood and controlled—critical narrative when partners feared AI as an unbounded tax on engagement margins.
+
+**Best output / artefact.** FinOps dashboard, allocation model, budgets/quotas and optimisation backlog tied to quality constraints.
+
+**Lifecycle stage.** Design trade-offs (step 7), operate (step 13), scale (step 14).
+
+**Stage-gate contribution.** Design/release: cost guards and tagging in place; scale gate: unit economics acceptable vs benefit case.
+
+**Failure modes.**
+1. Optimising to cheap models that fail citation/groundedness gates.
+2. Untagged shared gateway spend—no owner, no behaviour change.
+3. Cutting eval or logging to save money—false economy under EQCR scrutiny.
+
+**Related frameworks.** Well-Architected, LLMOps, GenAIOps, Platform Engineering, SRE, Cloud Adoption Frameworks.
+
+### Site Reliability Engineering
+
+**Purpose.** Applies measurable reliability objectives and error budgets to production services, extended for AI quality and safety indicators—not only uptime. At Apex, SRE covers gateway availability/latency, RAG index freshness, document AI job success, journal scoring batch completion, and quality SLIs such as supported/grounded answer rate and ACL-denial correctness. Error budgets govern how aggressively teams can change prompts, models and parsers during busy season.
+
+**When to use.** When AI services become engagement-critical; before busy season; continuously in operate. Use to negotiate change freezes vs feature velocity with data, not opinion.
+
+**When not to use.** For prototypes without users. Do not set vanity SLOs (99.99% on a non-HA year-1 vector store) you cannot resource—or ignore them after setting.
+
+**How to use it.**
+1. Identify user journeys and critical dependencies across the four pillars.
+2. Define SLIs/SLOs (e.g. gateway availability, p95 latency, index freshness, groundedness sample pass rate, journal batch on-time rate).
+3. Set error budgets and policies (burn too fast → change freeze / focus on reliability).
+4. Build alerting on symptoms (journey failure) not only CPU; include AI quality monitors.
+5. Establish incident management, blameless postmortems and on-call rotations spanning platform and SSC where needed.
+6. Reduce toil (manual index repairs, hand re-scores) via automation.
+7. Game-day failover of gateway providers and rollback of prompts/indexes.
+8. Report SLO health to architecture/ops forums; attach to operational acceptance gates.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Platform claimed “AI is up” while managers experienced timeouts and stale RAG during planning week; journal batches finished late on Mondays. SRE practice introduced: Gateway SLO 99.9% monthly excluding planned freezes; Drafting journey SLO combining gateway + RAG retrieve + generate; Index freshness SLO 95% &lt; 4 hours; Journal scoring SLO batches complete by 06:00 engagement-local on planning days; Quality SLO weekly groundedness sample. Error budget policy paused non-critical prompt experiments when budget burned &gt;50% in a week. Alerting tied to synthetic transactions per region and to ACL-deny false-allow probes. Decisions: multi-provider gateway failover rehearsed quarterly; document AI toil from poison PDFs addressed with quarantine automation. Artefacts: SLO doc, error-budget policy, on-call rota, game-day report. Operationally, a provider outage triggered automated failover within SLO; a bad index build burned budget and froze releases until rollback—protecting planning week. Partners experienced fewer “AI mystery hangs,” and EQCR saw reliability evidence alongside quality sampling.
+
+**Best output / artefact.** SLOs, error budgets, alerting design, incident/on-call model and reliability/game-day reports—including AI quality SLIs.
+
+**Lifecycle stage.** Operate and scale (steps 13, 14); reliability targets inform design (step 7) and release readiness (step 9).
+
+**Stage-gate contribution.** Release/ops acceptance: SLOs defined, monitors live, rollback/failover tested; error-budget policy agreed before busy-season change peaks.
+
+**Failure modes.**
+1. Uptime-only SLOs that ignore stale indexes and wrong citations.
+2. SLOs without error-budget consequences—metrics as wallpaper.
+3. On-call that cannot reach SSC/methodology for E2E GenAI failures.
+
+**Related frameworks.** GenAIOps, Well-Architected, FinOps, Event-Driven Architecture, Platform Engineering, LLMOps, DevSecOps.

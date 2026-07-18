@@ -1,0 +1,484 @@
+---
+sidebar_position: 11
+title: Delivery Frameworks
+description: Complete reference for delivery frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# Delivery Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in workshops; treat **Best output** as the minimum artefact for the related stage gate. **When to use / when not** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Steps 8, 9, 12 and 13
+
+Use delivery frameworks to organise learning, execution, governance and production change.
+
+**Running client:** Apex Audit Partners — a mid-market financial auditing firm industrialising AI for journal anomaly detection, document AI (extraction from bank statements, invoices and confirmations) and working-paper assist. Delivery runs Dual-Track Agile with DevSecOps controls and explicit stage gates; human partners remain accountable for all audit opinions.
+
+### Agile
+
+**Purpose.** Agile organises Apex’s AI delivery as iterative, evidence-led increments rather than a big-bang “AI platform go-live.” It reduces uncertainty by shipping thin vertical slices—data access, model or prompt behaviour, UI and control checkpoints—then adapting scope from real engagement feedback. In a regulated audit context, Agile is not an excuse to skip governance: each increment must still pass quality, security and partner-accountability checks. The method keeps learning cycles short enough that journal anomaly rules, extraction schemas and working-paper templates can co-evolve with methodology without freezing the wrong design for a year.
+
+**When to use.** When requirements for AI-assisted audit work are still uncertain; when you need early production-like feedback from engagement teams; when value is best proven through successive thin releases under stage gates.
+
+**When not to use.** When the remaining work is a fixed regulatory remediation with no discovery left; when process theatre (ceremonies without increments) would replace evidence; when a one-shot compliance cutover is mandated and cannot be sliced safely.
+
+**How to use it.**
+
+1. Define outcome-based increments (for example, “anomaly triage for one GL export type with senior confirmation”), not component projects.
+2. Maintain a single prioritised backlog linking discovery evidence, delivery stories and gate evidence requirements.
+3. Plan short cycles that end with a demo on a real (sanitised) engagement artefact.
+4. Inspect quality metrics: false-positive rate, extraction field accuracy, partner review comments on AI drafts.
+5. Adapt scope after each cycle; log invalidated assumptions in RAID.
+6. Preserve non-negotiable controls (partner sign-off, citation, access logging) as permanent Definition of Done items.
+7. Escalate to a stage gate when investment, risk or blast radius increases.
+8. Stop or pivot when evidence shows the increment cannot meet VALUE or audit-quality thresholds.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s Assurance Technology programme initially planned a twelve-month “Audit AI Suite” covering journals, documents and working papers in one release. After a Dual-Track discovery spike, leadership reframed delivery as Agile outcome increments under stage gates. Release one targeted journal anomaly triage for statutory mid-market clients: clean GL ingest, anomaly scoring, senior review queue and manager override. Each two-week cycle shipped a usable slice—first export parsers, then scoring with explainability fields, then the review UI with mandatory confirmation that the senior had inspected source evidence. Document AI for bank confirmations entered only after journal triage cleared a pilot gate with Quality & Risk. Working-paper assist stayed on the discovery track until review-comment taxonomies existed. Artefacts included an outcome roadmap, iterative backlog, cycle demos on three live engagements and a Definition of Done that required DevSecOps scan results and evaluation metrics. Operationally, Apex avoided a monolithic go-live, cut partner overtime on journal prep for the pilot offices and kept methodology ownership of acceptance criteria.
+
+**Best output / artefact.** Outcome roadmap, iterative backlog and cycle evidence pack (demo notes, metrics, DoD checklist).
+
+**Lifecycle stage.** Prototype, industrialise, deploy and operate (steps 8, 9, 12, 13).
+
+**Stage-gate contribution.** Release-readiness and scale gates: increments demonstrate tests, runbooks, rollback, support model and evaluation evidence before wider rollout.
+
+**Failure modes.** Story theatre without shippable increments; treating Agile as permission to skip partner accountability; stacking features without measuring audit-quality outcomes; freezing “Agile” ceremonies while delivery remains waterfall underneath.
+
+**Related frameworks.** Dual-Track Agile, Scrum, Kanban, Stage-Gate, DevSecOps, Continuous Delivery, Continuous Discovery.
+
+### Scrum
+
+**Purpose.** Scrum gives Apex a lightweight operating rhythm—roles, events and artefacts—for time-boxed delivery of AI product increments. The Product Owner (Assurance Technology product lead) owns the backlog and VALUE outcomes; the cross-functional team owns the sprint increment; Scrum Master / delivery coach protects flow and removes blockers with Methodology, InfoSec and National Office. Sprint Goals force coherent slices (for example, “seniors can triage top-N journal anomalies with citations”) rather than scattered tickets. Sprint Review and Retrospective turn engagement feedback and defect patterns into the next backlog, while still feeding evidence into Dual-Track discovery and stage gates.
+
+**When to use.** When a stable cross-functional team can commit to time-boxed goals; when transparency of backlog and increment is needed for Quality & Risk; when dependencies are manageable within a sprint horizon.
+
+**When not to use.** When work is almost entirely interrupt-driven flow (prefer Kanban); when dozens of teams need portfolio coordination (prefer SAFe / PI Planning lightly applied); when the only need is a one-off experiment with no product cadence.
+
+**How to use it.**
+
+1. Appoint Product Owner with authority on scope trade-offs under partner accountability constraints.
+2. Maintain a transparent product backlog ordered by outcome and gate readiness, not by loudest stakeholder.
+3. Plan each sprint around one Sprint Goal that a senior could demo on a real file.
+4. Run Daily Scrum as a 15-minute blocker sync focused on the goal, not status theatre.
+5. Hold Sprint Review with Methodology and at least one engagement manager; capture behavioural evidence.
+6. Retro on quality escapes, false positives and pipeline friction; convert actions into backlog items.
+7. Carry Definition of Done items for security scans, evaluation suites and audit-trail logging.
+8. Feed discovery findings into the backlog one sprint ahead via Dual-Track linkage.
+
+**Enterprise worked example (Apex Audit Partners).** Apex stood up a Scrum team for the journal anomaly and document AI products: product owner from Assurance Technology, engineers, ML engineer, UX researcher, InfoSec embed and a methodology SME. Sprint Goals alternated between anomaly triage UX and extraction accuracy for bank PDF confirmations. In Sprint 6 the goal was “manager can approve or reject the top 20 anomalies with explainability and link to source journal line.” Review on engagement “Northwind Manufacturing” showed seniors trusted scores only when feature contributions and prior-year comparison were visible; the retro created a story for contribution charts and a DevSecOps story to redact client identifiers in logs. Working-paper assist remained a discovery spike owned by the Dual-Track research lane, not forced into sprint capacity. Artefacts were a living backlog, Sprint Goal board, review recordings and DoD evidence folders per increment. Operationally, Scrum made Quality & Risk attendance predictable and stopped ad-hoc “urgent partner requests” from derailing the industrialisation path without a backlog trade-off.
+
+**Best output / artefact.** Transparent backlog, Sprint Goals, shippable increments and review/retro evidence linked to gates.
+
+**Lifecycle stage.** Prototype, industrialise, deploy and operate (steps 8, 9, 12, 13).
+
+**Stage-gate contribution.** Increment evidence for release-readiness: DoD met, review outcomes recorded, unresolved risks escalated to gate owners.
+
+**Failure modes.** Product Owner as ticket clerk; Sprint Reviews that never include Methodology; DoD that ignores model evaluation; stuffing discovery spikes into sprints until delivery velocity collapses.
+
+**Related frameworks.** Agile, Dual-Track Agile, Kanban, Continuous Discovery, DevSecOps, Stage-Gate.
+
+### Kanban
+
+**Purpose.** Kanban optimises flow of AI delivery and operational work by visualising the value stream, limiting work in progress (WIP) and measuring lead time. At Apex it is especially powerful for queues that Agile sprints alone cannot tame: document-owner approvals, methodology sign-offs, client data remediation, vulnerability remediation and production incident follow-ups. Kanban policies make explicit what “Ready for engagement pilot” and “Blocked on Quality” mean, so Dual-Track discovery items and DevSecOps fixes do not silently starve. It complements Scrum when the team needs pull-based capacity for mixed BAU and product work.
+
+**When to use.** When queues and handoffs dominate delay (approvals, data cleansing, security exceptions); when interrupt load is high; when you need lead-time and WIP metrics for gate discussions.
+
+**When not to use.** When a coherent Sprint Goal and time-box are more important than pure flow; when the team has no policy discipline and the board would become a parking lot; when portfolio coordination across many teams is the primary problem.
+
+**How to use it.**
+
+1. Map the actual workflow from idea → discovery → build → secure → evaluate → pilot → operate.
+2. Set WIP limits on congested columns (Methodology review, InfoSec exception, Client data ready).
+3. Define entry/exit policies per column, including gate evidence requirements.
+4. Measure lead time, aging WIP and blocker age; review weekly with the product owner.
+5. Manage classes of service (expedite production defect vs standard feature) without breaking WIP forever.
+6. Pull the next highest-VALUE item only when capacity frees—no silent multitasking.
+7. Use swimlanes for Dual-Track discovery vs delivery vs DevSecOps remediation if needed.
+8. Continuously improve policies when metrics show chronic aging (for example, extraction schema approvals).
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s document AI lane stalled because bank confirmation PDFs sat for weeks awaiting client remediation and methodology approval of extraction schemas. A Kanban board exposed the truth: “Awaiting client export quality” and “Methodology schema review” held more cards than “In build.” WIP limits of three on methodology review forced prioritisation of confirmation fields that blocked journal sampling on live files. Expedite was reserved for production false-negative escapes that could miss a material misstatement signal. Lead time from “schema drafted” to “pilot-ready” fell from 34 to 11 days after policies required a standing two-hour methodology clinic twice weekly. Journal anomaly stories stayed on the Scrum board; Kanban absorbed the approval-heavy document pipeline and DevSecOps vulnerability queue. Artefacts included the flow board, policy card, aging charts and a service-level expectation for methodology turnaround. Operationally, Apex stopped starting new extraction templates until WIP cleared, which unblocked working-paper assist discovery that depended on reliable extracted balances.
+
+**Best output / artefact.** Flow board with WIP policies, lead-time metrics and class-of-service rules.
+
+**Lifecycle stage.** Prototype, industrialise, deploy and operate (steps 8, 9, 12, 13); strong in operate for BAU queues.
+
+**Stage-gate contribution.** Operational readiness and scale gates: evidence that bottlenecks are managed and lead times support safe release cadence.
+
+**Failure modes.** Board without WIP limits; expedite as the default lane; measuring cycle time of coding only while ignoring approval aging; using Kanban to hide lack of product strategy.
+
+**Related frameworks.** Lean, Scrum, DevOps, Continuous Delivery, Stage-Gate, Dual-Track Agile.
+
+### SAFe
+
+**Purpose.** SAFe (used lightly) coordinates strategy, portfolio funding and multiple delivery teams when Apex’s AI programme spans platform, data, product and compliance dependencies. Full SAFe ceremony is rarely appropriate for a mid-market firm; the useful subset is value-stream alignment, portfolio prioritisation, programme synchronisation and shared architectural runway—without smothering Dual-Track learning. At Apex, SAFe-style coordination prevents Assurance Technology, National Office Methodology, Cyber and Engagement Technology from shipping incompatible journal, document and working-paper capabilities on conflicting calendars.
+
+**When to use.** When two or more teams share platform/data/compliance dependencies; when portfolio investment must be sequenced against VALUE and risk; when a planning horizon longer than a sprint is needed for methodology and client change.
+
+**When not to use.** When a single Scrum team can own the product end-to-end; when SAFe would become process theatre; when the real need is one Dual-Track product team with stage gates, not an ART bureaucracy.
+
+**How to use it.**
+
+1. Identify the AI value stream (audit quality outcomes) and participating teams—not org chart silos.
+2. Maintain a lean portfolio backlog of epics (journal anomaly industrialisation, document AI, working-paper assist) with VALUE and guardrail scores.
+3. Fund capacity for architectural runway (secure model hosting, audit-trail store, evaluation harness).
+4. Run a lightweight Programme Increment (or quarterly) planning event for dependency mapping only.
+5. Align team objectives to shared outcomes and stage-gate dates.
+6. Inspect & Adapt on metrics: quality escapes, adoption, cost-to-serve, security debt.
+7. Keep Dual-Track discovery capacity explicit so SAFe planning does not freeze learning.
+8. Prune SAFe roles/events that do not reduce risk or improve flow for Apex’s size.
+
+**Enterprise worked example (Apex Audit Partners).** When Apex expanded from one Scrum team to three—Journal Anomaly, Document AI and Shared Platform—sprint-level planning alone failed. Document AI needed platform changes for OCR pipelines; journal scoring needed the same feature store; working-paper assist needed methodology content services not yet built. A lean SAFe-inspired portfolio board sequenced epics: Platform Secure Serving → Journal Pilot Scale → Document Extraction MVP → Working-Paper Assist Alpha. Quarterly planning exposed that Cyber’s key-rotation work blocked all three teams in the same fortnight; capacity was reserved and a shared DevSecOps epic created. The Managing Partner Assurance chaired a lean portfolio sync monthly against VALUE and stage-gate status rather than vanity velocity. Artefacts included portfolio epic briefs, dependency board, architectural runway roadmap and Inspect & Adapt notes. Operationally, Apex avoided three incompatible pilots and kept Dual-Track discovery funded as a fixed percentage of each team’s capacity so SAFe coordination did not kill learning.
+
+**Best output / artefact.** Lean portfolio model, value-stream map, dependency board and synchronised objectives for the planning horizon.
+
+**Lifecycle stage.** Industrialise, deploy and operate at multi-team scale (steps 9, 12, 13); light touch in late prototype.
+
+**Stage-gate contribution.** Portfolio and programme gates: investment sequenced with shared evidence standards and dependency risk accepted by named owners.
+
+**Failure modes.** Copy-paste SAFe with unused roles; planning theatre without architectural runway; freezing discovery under “committed PI objectives”; measuring success as feature throughput instead of audit-quality outcomes.
+
+**Related frameworks.** Programme Increment Planning, Product Operating Model, Stage-Gate, Dual-Track Agile, DevSecOps, Lean.
+
+### Lean
+
+**Purpose.** Lean maximises value for Apex partners and engagement teams while ruthlessly cutting waste—waiting, rework, over-processing, unused features and handoff delay. In AI delivery, waste often looks like duplicate manual review after automation, gold-plated prompts nobody trusts, or building working-paper generation before fixing extraction quality that feeds it. Lean thinking pairs with Dual-Track discovery (validate before build) and DevSecOps (automate quality gates rather than late inspection). The goal is flow of defensible audit work, not local efficiency that increases partner review burden.
+
+**When to use.** When lead times and rework dominate; when automation risks encoding wasteful process; when you must choose between feature volume and quality outcomes.
+
+**When not to use.** When the problem is purely strategic portfolio design (use SAFe/portfolio); when you need a time-boxed team rhythm more than waste analysis (use Scrum); when Lean becomes a slogan without value-stream evidence.
+
+**How to use it.**
+
+1. Define value from the partner-accountable outcome (defensible file, timely anomaly investigation), not from AI usage.
+2. Map the value stream for journal testing, document intake or working-paper drafting.
+3. Identify waste: waits on client data, duplicate manager rewrite, unused model outputs, security exceptions late in the cycle.
+4. Design pull: only extract/score/draft when the next consumer can act.
+5. Reduce batch size of releases and evaluation sets.
+6. Build quality in via automated tests, evaluation suites and DevSecOps checks.
+7. Create a Lean improvement backlog owned by the product team.
+8. Re-measure lead time and first-pass yield after each improvement.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s first document AI pilot “succeeded” on OCR accuracy but increased senior overtime: extracted fields were pasted into working papers, then managers re-checked every field against PDFs because citations were missing—automation plus duplicate inspection. A Lean value-stream workshop with two engagement teams showed the real value was “fields trusted enough to reduce, not add, review.” Waste included over-processing (extracting 40 fields when sampling needed 8), waiting (schema approvals) and defects (silent nulls). The team cut the extraction schema to sampling-critical fields, required source-page citations in the UI and stopped auto-pasting into working papers until senior confirmation. Journal anomaly triage similarly dropped low-value anomaly types that always false-positive on month-end accruals. Artefacts were current/future value-stream maps, waste catalogue and an improvement backlog. Operationally, Apex delayed working-paper assist industrialisation until extraction first-pass yield exceeded the agreed threshold—preventing a larger waste cascade into partner review.
+
+**Best output / artefact.** Value-stream map, waste catalogue and Lean improvement backlog with before/after metrics.
+
+**Lifecycle stage.** Prototype through operate (steps 8, 9, 12, 13); refresh after each major release.
+
+**Stage-gate contribution.** Value and release gates: evidence that automation reduces net rework and lead time, not just adds a tool.
+
+**Failure modes.** Automating a broken process; optimising engineering velocity while partner review waste grows; cutting “waste” that was actually a required control; celebrating OCR metrics that ignore end-to-end file quality.
+
+**Related frameworks.** Kanban, Continuous Delivery, Dual-Track Agile, Stage-Gate, Continuous Discovery, VALUE gate.
+
+### Stage-Gate
+
+**Purpose.** Stage-Gate prevents Apex AI initiatives from consuming escalating investment without evidence. Gates force stop, pivot or conditional proceed decisions with named owners, required artefacts and explicit risk acceptance. Combined with Dual-Track Agile and DevSecOps, Stage-Gate is how journal anomaly, document AI and working-paper assist graduate from discovery spike → controlled pilot → industrialised release → operate—without pretending every demo is production-ready. It is the governance spine that keeps partner accountability and audit quality ahead of feature momentum.
+
+**When to use.** When investment, blast radius or regulatory exposure increases; when multiple products compete for the same platform capacity; when Quality & Risk must formally accept residual risk.
+
+**When not to use.** When gates become rubber stamps; when a micro-decision inside a sprint needs only Product Owner authority; when Stage-Gate is used to delay learning instead of bounding it.
+
+**How to use it.**
+
+1. Define stages (Discover, Prototype, Pilot, Industrialise, Deploy, Operate) mapped to 8D steps 8–13.
+2. For each gate, list mandatory evidence: VALUE, evaluation metrics, security scans, runbooks, adoption plan, partner accountability model.
+3. Assign decision rights (Managing Partner Assurance, CRO, CISO, Product Owner).
+4. Allow outcomes: Proceed, Conditional proceed, Pivot, Stop—with conditions time-boxed.
+5. Require Dual-Track discovery evidence before build-heavy gates.
+6. Require DevSecOps and Continuous Delivery evidence before production gates.
+7. Record decisions and rejected options in an auditable gate pack.
+8. Never skip gates by renaming a pilot “soft launch.”
+
+**Enterprise worked example (Apex Audit Partners).** Apex instituted five gates for the AI programme. Gate A (problem/concept): Dual-Track evidence that journal anomaly triage beat alternatives. Gate B (prototype exit): evaluation harness meeting precision/recall floors on labelled journals; threat model complete. Gate C (pilot): three engagements, Quality & Risk attendance, no unsupported claims in any AI output path. Gate D (industrialise): CI/CD with security gates, runbooks, rollback, support RACI, training for seniors. Gate E (scale): benefits realisation and model drift monitoring. Working-paper assist was held at Gate B twice because citation completeness failed; document AI passed Gate C only after extraction schemas were methodology-approved. A conditional proceed at Gate D required completing key rotation before second-office rollout. Artefacts were gate charters, evidence checklists and signed decision logs. Operationally, Stage-Gate stopped a premature firm-wide working-paper rollout that would have created review chaos, while unlocking journal anomaly scale once evidence cleared.
+
+**Best output / artefact.** Stage-gate governance model with evidence checklists, decision rights and signed gate packs.
+
+**Lifecycle stage.** Across prototype, industrialise, deploy and operate (steps 8, 9, 12, 13); also frames exit from discovery.
+
+**Stage-gate contribution.** Is the stage-gate system: defines release-readiness criteria—tests, runbooks, rollback, support model, evaluation and security evidence.
+
+**Failure modes.** Rubber-stamp gates; evidence theatre (slide decks without metrics); skipping gates under executive pressure; gates without stop authority; confusing Stage-Gate with endless waterfall phases.
+
+**Related frameworks.** VALUE gate, Dual-Track Agile, DevSecOps, Continuous Delivery, Product Operating Model, Model-Driven Experimentation.
+
+### Dual-Track Agile
+
+**Purpose.** Dual-Track Agile runs continuous discovery alongside delivery so Apex does not build the wrong journal rules, extraction schemas or working-paper behaviours at scale. Discovery track validates opportunities, UX and assumptions ahead of the delivery track; delivery track industrialises only what evidence supports. The tracks share one product outcome backlog and feed Stage-Gate evidence. For regulated AI, Dual-Track is how “partner accountability” and “methodology fit” are tested before DevSecOps pipelines harden a design that should never have shipped.
+
+**When to use.** When uncertainty about user behaviour, data quality or control design remains high; when multiple AI concepts compete; when delivery risk of building the wrong thing exceeds coding risk.
+
+**When not to use.** When the problem and solution are already evidenced and only industrialisation remains; when “discovery” becomes an endless research team disconnected from delivery; when compliance remediation has a fixed, validated design.
+
+**How to use it.**
+
+1. Split capacity explicitly (for example, 30% discovery / 70% delivery) with shared Product Owner.
+2. Maintain linked opportunity and delivery backlogs; every delivery epic traces to validated discovery evidence.
+3. Run discovery spikes with seniors/managers on real (sanitised) engagement artefacts.
+4. Prototype cheaply: paper, clickable mock, sandboxed model—before platform commitments.
+5. Promote only validated items into delivery with clear success metrics.
+6. Keep discovery one to two cycles ahead of delivery for the next risky assumption.
+7. Feed Stage-Gate packs from both tracks (behavioural evidence + engineering evidence).
+8. Kill or park opportunities that fail partner-accountability or VALUE tests early.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s Dual-Track for Audit AI ran discovery and delivery in parallel under one product owner. While engineers industrialised journal anomaly triage (delivery), researchers tested working-paper assist prompts with managers on prior-year files (discovery). Discovery found that full auto-drafts increased partner challenge notes because the model invented assertion language; the opportunity pivoted to “structured section assists with mandatory citations and blank judgement fields.” That evidence blocked a delivery epic that would have automated narrative generation. Simultaneously, discovery for document AI validated that bank confirmation extraction needed human confirmation of payee and amount before any working-paper paste. Delivery then built the confirmation UX and DevSecOps logging for confirmation events. Artefacts included opportunity tree, dual backlogs, prototype test logs and gate evidence linking discovery outcomes to delivery scope. Operationally, Dual-Track prevented Apex from industrialising the wrong working-paper behaviour while still shipping journal and document value under Stage-Gate.
+
+**Best output / artefact.** Linked opportunity and delivery backlogs, discovery evidence repository and promotion criteria into build.
+
+**Lifecycle stage.** Prototype through operate with continuous refresh (steps 8, 9, 12, 13); strongest in prototype and early industrialise.
+
+**Stage-gate contribution.** Concept and pilot gates: proof that delivery scope is evidence-backed; release gates: discovery of failure modes before scale.
+
+**Failure modes.** Discovery theatre without decisions; delivery ignoring discovery findings; no shared owner; discovery forever delaying Gate B; treating Dual-Track as two disconnected teams.
+
+**Related frameworks.** Continuous Discovery, Agile, Scrum, Stage-Gate, Model-Driven Experimentation, Lean, Product Operating Model.
+
+### DevOps
+
+**Purpose.** DevOps creates shared build-and-run ownership so Apex’s AI services are not “thrown over the wall” to an operations team that never saw the model behaviour. Automation of integrate, test, deploy and monitor shortens feedback from production engagements back to the product team. For journal anomaly scoring, document extraction and working-paper assist APIs, DevOps means the same team that ships also owns alerts, on-call triage and rollback. It is the operational foundation that DevSecOps extends with security evidence and that Continuous Delivery uses for safe release mechanics.
+
+**When to use.** When production ownership is fragmented; when release risk is driven by manual handoffs; when you need fast feedback from live engagement usage into backlog priorities.
+
+**When not to use.** When “DevOps” means only tooling without ownership change; when a temporary lab prototype has no production intent; when shared ownership is blocked by organisational policy that you have not yet resolved.
+
+**How to use it.**
+
+1. Assign product-team ownership for build and run of each AI service, with clear escalation to Cyber and Infrastructure.
+2. Automate CI for unit, integration and evaluation suites on every change.
+3. Automate CD paths to non-prod and gated prod with approval where Stage-Gate requires.
+4. Instrument latency, error rate, extraction confidence, anomaly volume and human override rates.
+5. Define on-call, runbooks and blameless incident review for AI-specific failure modes.
+6. Minimise handoffs: Methodology and InfoSec embed into the team rather than late gates only.
+7. Feed production signals into Dual-Track discovery and the delivery backlog weekly.
+8. Measure deployment frequency, change fail rate and MTTR alongside audit-quality metrics.
+
+**Enterprise worked example (Apex Audit Partners).** Before DevOps, Apex’s journal anomaly model was trained by a data science pod and “supported” by central IT who could not interpret false-positive spikes during busy season. After adopting DevOps, the Journal Anomaly Scrum team owned the scoring service end-to-end: pipeline, dashboards, pager and rollback. A busy-season alert on rising override rates triggered a same-day config rollback of a new accrual rule set while Dual-Track discovery interviewed seniors about the false positives. Document AI extraction workers joined the same ownership model with queue-depth alerts when OCR backlog threatened sample selection timelines. Working-paper assist remained in non-prod until Stage-Gate D, but its sandbox already used the same CI patterns. Artefacts included ownership RACI, CI/CD diagrams, runbooks and incident postmortems. Operationally, Apex cut mean time to restore for scoring incidents from days to hours and stopped the pattern of “AI outages nobody owns.”
+
+**Best output / artefact.** CI/CD pipeline, operational ownership RACI, monitoring dashboards and runbooks.
+
+**Lifecycle stage.** Industrialise, deploy and operate (steps 9, 12, 13); begin patterns in late prototype.
+
+**Stage-gate contribution.** Release-readiness: proof of automated pipeline, monitoring, rollback and support model before production.
+
+**Failure modes.** Tooling without ownership; ignoring AI-specific telemetry; ops still firefighting alone; deploying without evaluation gates; celebrating deployment count while quality escapes rise.
+
+**Related frameworks.** DevSecOps, Continuous Delivery, MLOps, Kanban, Product Operating Model, Stage-Gate.
+
+### DevSecOps
+
+**Purpose.** DevSecOps integrates security and privacy controls into Apex’s delivery pipeline so journal anomaly, document AI and working-paper assist cannot reach production without threat models, automated checks, vulnerability management and audit-ready evidence. Client financial data, engagement files and model prompts are high-value targets; public model endpoints, prompt-injection paths and log leakage are unacceptable. Security becomes a team responsibility with Cyber as coach and gate participant—not a late veto. DevSecOps evidence is mandatory input to Stage-Gate production decisions.
+
+**When to use.** Always for production-bound AI processing of engagement data; when threat models must evolve with new model features; when regulators or clients require control evidence.
+
+**When not to use.** When a throwaway sandbox uses only synthetic data and has no production path (still apply basic hygiene); when “DevSecOps” is used as bureaucracy without automated feedback to developers.
+
+**How to use it.**
+
+1. Threat-model each service early (data flows, prompt injection, model exfiltration, privilege escalation, log leakage).
+2. Shift-left: SAST/DAST, dependency scanning, IaC policy, secret detection in CI.
+3. Enforce policy-as-code: no public model endpoints, encryption, private networking, least privilege.
+4. Manage vulnerabilities with SLAs and Kanban WIP for critical fixes.
+5. Red-team prompt and retrieval paths for injection and data exfiltration.
+6. Log access, overrides and model versions for audit trail without storing unnecessary PII.
+7. Make security DoD items non-optional for every increment.
+8. Present DevSecOps evidence packs at Stage-Gates C–E.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s first journal anomaly prototype temporarily exposed a scoring endpoint with overly broad network access “for demos.” Cyber halted promotion at Gate B and required DevSecOps industrialisation: private endpoint, mutual TLS from the audit app, keyed access per engagement, prompt/input validation and redaction of client names in application logs. Document AI pipelines added malware scanning on uploaded PDFs and quarantine for failed scans before OCR. Working-paper assist prompts were constrained to cite retrieved working-paper sections only, with output filters blocking unsupported assertion language. CI blocked merges on critical CVEs and failed IaC policies. A shared security champion in each Scrum team owned threat-model updates when features changed. Artefacts included threat models, pipeline security reports, exception register and Stage-Gate security annexes. Operationally, DevSecOps became the reason Apex could assure clients and insurers that AI processing of engagement data met firm standards—and it prevented a near-miss public endpoint from reaching pilot offices.
+
+**Best output / artefact.** Secure delivery pipeline, living threat models, vulnerability SLA board and gate-ready security evidence pack.
+
+**Lifecycle stage.** Prototype (threat model) through industrialise, deploy and operate (steps 8, 9, 12, 13).
+
+**Stage-gate contribution.** Release and scale gates: security evidence (scans, threat model, exceptions, logging) required alongside functional evaluation.
+
+**Failure modes.** Security as late veto only; exceptions that never expire; logging secrets or full journals; scanning theatre without remediation WIP; ignoring prompt-injection and retrieval abuse.
+
+**Related frameworks.** DevOps, Continuous Delivery, Stage-Gate, Security & Privacy frameworks, MLOps, Product Operating Model.
+
+### Product Operating Model
+
+**Purpose.** The Product Operating Model replaces project-shaped AI work with persistent cross-functional products accountable for outcomes across the lifecycle. At Apex, Journal Anomaly Detection, Document AI and Working-Paper Assist become funded products with missions, owners, measures, teams and operating cadences—not a temporary “AI project” that vanishes after go-live. The model aligns Dual-Track discovery, Scrum/Kanban delivery, DevSecOps and Stage-Gate under durable ownership so busy-season learning and model drift are managed after the consulting team leaves.
+
+**When to use.** When AI capabilities must live beyond a pilot; when outcomes (quality, cycle time, risk) matter more than project milestones; when funding and accountability need to persist into operate.
+
+**When not to use.** When the work is a true one-off remediation with no product residual; when leadership will not fund persistent teams; when “product” language is used without authority over backlog and outcomes.
+
+**How to use it.**
+
+1. Write a product charter: mission, users, non-goals, partner accountability constraints.
+2. Name a Product Owner with funding and scope authority under governance.
+3. Define outcome metrics and guardrails (quality, security, cost, adoption).
+4. Staff a persistent cross-functional team (or small team-of-teams) including methodology and security embeds.
+5. Set discovery, delivery and operations cadences (Dual-Track, Scrum/Kanban, on-call).
+6. Align Stage-Gate and portfolio funding to product outcomes, not project Gantt.
+7. Maintain a roadmap of outcomes for the next 2–4 quarters.
+8. Review product health monthly with Assurance leadership (VALUE, risk, tech debt, adoption).
+
+**Enterprise worked example (Apex Audit Partners).** After a successful journal anomaly pilot, Apex nearly “closed the project” and handed support to IT. Within one busy season, model drift and new GL formats degraded precision, and nobody owned the backlog. Leadership reconstituted Journal Anomaly Detection as a product with a charter: “Help seniors triage high-risk journals faster without reducing partner accountability.” The Product Owner controlled backlog trade-offs between new anomaly types and reliability work. Document AI and Working-Paper Assist received separate charters so they could progress at different Stage-Gate maturity. Shared Platform became a platform product serving both. Cadence included Dual-Track discovery hours, Scrum delivery, DevSecOps backlog and a monthly product review with Quality & Risk. Artefacts were product charters, OKRs tied to job outcomes, funding memos and operating cadence calendars. Operationally, the product model kept industrialisation alive through busy season and made Stage-Gate scale decisions about people and funding, not just features.
+
+**Best output / artefact.** Product charter, outcome metrics, funding model and operating cadence across discovery–delivery–ops.
+
+**Lifecycle stage.** Industrialise, deploy and operate (steps 9, 12, 13); establish charter by late prototype.
+
+**Stage-gate contribution.** Scale and operate gates: durable ownership, support model and funding continuity evidenced—not a project close-out.
+
+**Failure modes.** Project mindset in product clothing; Product Owner without authority; no methodology embed; funding cliffs after go-live; measuring output (stories) instead of outcomes (file quality, cycle time).
+
+**Related frameworks.** Dual-Track Agile, SAFe (lean portfolio), Stage-Gate, DevOps, Continuous Discovery, Scrum.
+
+### Programme Increment Planning
+
+**Purpose.** Programme Increment (PI) Planning aligns multiple Apex teams around a fixed planning horizon (typically a quarter), making dependencies, risks and capacity explicit before execution. Used lightly—not as SAFe cosplay—it synchronises Journal Anomaly, Document AI, Shared Platform, Cyber and Methodology on dates that matter for Stage-Gates and busy-season freezes. PI Planning produces team objectives, a dependency board and risk ROAM so Dual-Track discovery and DevSecOps work are reserved capacity rather than afterthoughts.
+
+**When to use.** When two or more teams share dependencies; when a quarterly horizon is needed for methodology, client change and gate dates; when ad-hoc coordination is failing.
+
+**When not to use.** When a single team owns the product; when PI Planning would freeze Dual-Track learning into immovable commitments; when the event becomes a theatre without dependency decisions.
+
+**How to use it.**
+
+1. Prepare portfolio priorities and Stage-Gate target dates before the event.
+2. Clarify capacity including discovery, DevSecOps and BAU reserve.
+3. Draft team objectives as outcomes (not task lists).
+4. Map dependencies on a shared board; assign owners and dates.
+5. ROAM risks (Resolved, Owned, Accepted, Mitigated).
+6. Agree PI objectives and confidence votes; record stretch vs commit.
+7. Schedule mid-PI inspection for gate evidence and dependency drift.
+8. Protect discovery capacity explicitly in the plan.
+
+**Enterprise worked example (Apex Audit Partners).** Apex ran a two-day lightweight PI Planning for Q3 covering Journal Anomaly scale-out, Document AI confirmation extraction MVP and Platform evaluation harness upgrades. Methodology needed schema workshops; Cyber needed key rotation; Engagement Technology needed audit-app integration windows before busy-season change freeze. The dependency board showed Document AI blocked on Platform OCR workers and Journal Anomaly blocked on the same feature-store release—capacity was re-sequenced so Platform went first. Working-paper assist stayed discovery-only with a stretch objective pending Gate B. Risks ROAMed included client PDF quality variability (mitigated with quarantine workflow) and partner change fatigue (owned by Change lead). Artefacts were PI objectives, dependency board, ROAM sheet and a mid-PI checkpoint agenda tied to Gate D evidence. Operationally, PI Planning replaced weekly fire drills with a shared quarter plan while Dual-Track discovery hours remained a first-class capacity line—not “if we have time.”
+
+**Best output / artefact.** PI objectives, dependency board, ROAM risks and capacity plan including discovery/DevSecOps reserve.
+
+**Lifecycle stage.** Industrialise and deploy at multi-team scale (steps 9, 12); refresh each horizon in operate.
+
+**Stage-gate contribution.** Programme readiness: dependencies and risks accepted before gated releases; mid-PI evidence feeds gate packs.
+
+**Failure modes.** Commitment theatre; ignoring discovery capacity; dependency boards nobody owns; PI objectives as feature laundry lists; freezing plans when evidence demands a pivot.
+
+**Related frameworks.** SAFe, Dual-Track Agile, Stage-Gate, Kanban, Product Operating Model, DevSecOps.
+
+### Test-Driven Development
+
+**Purpose.** Test-Driven Development (TDD) specifies deterministic behaviour through failing tests before implementation—critical for Apex control logic around approvals, citation requirements, access checks and schema validation. While probabilistic model outputs need evaluation harnesses (see Model-Driven Experimentation), the surrounding product must be deterministic: a journal anomaly cannot be marked “accepted” without senior identity and timestamp; extracted fields cannot enter a working paper without confirmation; policy engines cannot execute actions without required fields. TDD hardens those guarantees inside Continuous Delivery pipelines.
+
+**When to use.** When behaviour is deterministic and high-risk if wrong; when regressions in control logic would create audit-quality or security incidents; when APIs and domain rules must stay stable across refactors.
+
+**When not to use.** When exploring prompt phrasing or model choice (use experiments); when UI visuals are the only uncertainty; when TDD is forced on exploratory spikes that should stay throwaway.
+
+**How to use it.**
+
+1. Write a failing unit test that encodes the control or business rule.
+2. Implement the minimal code to pass.
+3. Refactor with tests green; keep tests fast and automated in CI.
+4. Add integration tests for critical paths (confirm → write working-paper field).
+5. Separate probabilistic evaluation suites from deterministic TDD suites.
+6. Treat flaky tests as defects; never skip security-related tests.
+7. Use TDD for policy engines, validators, redaction and audit-trail writers.
+8. Review test names as living specifications with Methodology for control language.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s working-paper assist nearly shipped a “helpful” auto-save that wrote AI draft text into the audit file without senior confirmation. A TDD initiative reversed the design: tests first asserted that `writeWorkingPaperSection` throws without `confirmedBySeniorId`, `sourceCitations.length > 0` and `modelVersion`. Document AI extraction used TDD for schema validators (amount formats, currency consistency) and for quarantine transitions when malware scan failed. Journal anomaly acceptance flows required tests that overrides store reason codes. These suites ran on every pull request under DevSecOps CI. Model scoring quality remained outside TDD—tracked in the evaluation harness—but the product refused to treat probabilistic outputs as file truth without deterministic gates. Artefacts included the unit/integration suite, coverage of control paths and CI badges in Stage-Gate packs. Operationally, TDD prevented a class of quality findings where AI text could have entered the file unaudited, which would have been catastrophic for partner accountability.
+
+**Best output / artefact.** Automated unit and integration test suite covering deterministic control paths, wired into CI.
+
+**Lifecycle stage.** Prototype (for control design) through industrialise, deploy and operate (steps 8, 9, 12, 13).
+
+**Stage-gate contribution.** Release-readiness: evidence that critical controls are test-enforced, not documentation-only.
+
+**Failure modes.** TDD on prompts instead of controls; skipping tests under schedule pressure; testing implementation details instead of behaviour; no integration tests for file-write paths; flaky suites ignored.
+
+**Related frameworks.** Continuous Delivery, DevSecOps, Model-Driven Experimentation, Stage-Gate, Agile.
+
+### Model-Driven Experimentation
+
+**Purpose.** Model-Driven Experimentation makes Apex’s AI experiments reproducible and decision-oriented. Every hypothesis about journal scoring, embedding choice, OCR/extraction model or working-paper prompt is registered with data version, model/prompt/config, metrics and conclusion. This replaces “the demo looked good” with a decision record Stage-Gate can trust. Experiments feed Dual-Track discovery and prevent delivery from industrialising a lucky notebook run. Combined with TDD for deterministic shells, experimentation governs the probabilistic core.
+
+**When to use.** When comparing models, prompts, features or thresholds; when promotion to pilot/production needs metric evidence; when drift or busy-season performance must be re-tested.
+
+**When not to use.** When the change is purely deterministic engineering; when experimentation becomes endless without decision criteria; when data labelling quality is too poor to trust any metric (fix data first).
+
+**How to use it.**
+
+1. Register hypothesis and decision criteria before running (precision/recall floors, latency, cost).
+2. Version datasets (labelled journals, confirmation PDFs, working-paper gold drafts).
+3. Fix evaluation protocols; forbid cherry-picked examples as primary evidence.
+4. Log model, prompt, hyperparameters, seeds and code commit.
+5. Compare candidates on the same holdout; record confidence intervals where possible.
+6. Write a decision record: promote, iterate or reject—with owner.
+7. Link promoted configs to Continuous Delivery feature flags and model registry.
+8. Re-run experiments on drift alerts or after methodology changes.
+
+**Enterprise worked example (Apex Audit Partners).** Apex compared three approaches for journal anomaly detection: rules-plus-isolation forest, a gradient-boosted classifier on engineered features, and an LLM-assisted narrative scorer. The experiment registry required the same labelled set of 12,000 journal lines from prior engagements with partner-validated “investigate / ignore” labels. The LLM scorer looked impressive in demos but failed precision floors on accruals; the boosted classifier met Gate B metrics with explainability features seniors could use. Document AI experiments compared two OCR vendors plus a layout-aware extractor on a fixed confirmation PDF set; the decision record chose layout-aware extraction with human confirmation UX. Working-paper assist prompt variants were experimented only after Dual-Track showed structured assists beat full drafts; experiments then optimised citation adherence, not eloquence. Artefacts were the experiment registry, metric dashboards and signed decision records attached to Stage-Gate packs. Operationally, Model-Driven Experimentation stopped Apex from industrialising the LLM scorer on charisma alone and created an auditable trail for Quality & Risk.
+
+**Best output / artefact.** Experiment registry, versioned datasets/configs and decision records linked to promotion.
+
+**Lifecycle stage.** Prototype and industrialise (steps 8, 9); continuous in operate for drift and change (steps 12, 13).
+
+**Stage-gate contribution.** Prototype/pilot/release gates: quantitative evidence that chosen model/prompt meets agreed floors before scale.
+
+**Failure modes.** Demo-driven selection; unversioned data; moving evaluation goals mid-flight; never killing losing candidates; confusing experiment metrics with production monitoring.
+
+**Related frameworks.** Dual-Track Agile, Continuous Discovery, Continuous Delivery, Stage-Gate, MLOps, TDD.
+
+### Continuous Discovery
+
+**Purpose.** Continuous Discovery keeps Apex in ongoing contact with engagement users and continuously tests assumptions after go-live—not only in an initial research phase. Weekly touchpoints, opportunity trees and assumption tests feed Dual-Track backlogs so journal anomaly rules, document AI schemas and working-paper assists adapt to methodology changes, busy-season behaviour and new failure patterns. It is how operate (step 13) stays evidence-led instead of ticket-led.
+
+**When to use.** When products are live or nearing pilot; when user behaviour and data drift; when roadmap decisions must stay tied to jobs-to-be-done.
+
+**When not to use.** When no product owner will act on evidence; when “interviews” replace instrumentation; when discovery is staffed but never allowed to change committed PI scope.
+
+**How to use it.**
+
+1. Schedule weekly discovery (interviews, observation, diary studies) with seniors/managers.
+2. Maintain an opportunity tree linked to product outcomes.
+3. Write testable assumptions; design the cheapest test.
+4. Instrument product analytics: overrides, confirmation rates, time-in-queue, review comments.
+5. Triage insights into backlog candidates with clear VALUE impact.
+6. Share findings in Sprint Review / product review with Methodology.
+7. Re-test after methodology or regulatory changes.
+8. Feed Stage-Gate operate reviews with discovery evidence, not only uptime.
+
+**Enterprise worked example (Apex Audit Partners).** After journal anomaly scaled to six offices, Continuous Discovery caught a new failure pattern within two weeks of a National Office methodology update on related-party testing: seniors overrode “related party” anomalies as noise because scoring used outdated vendor lists. Weekly interviews plus override analytics confirmed the assumption “vendor list freshness is sufficient” was false. Discovery created an opportunity to integrate the methodology vendor feed; delivery prioritised it over a new anomaly type. Document AI discovery found clients uploading password-protected PDFs; the team added a guided unlock workflow rather than blaming OCR. Working-paper assist discovery continued to reject full auto-drafts; opportunity tree kept “judgement blanks + citations” as the north star. Artefacts included opportunity tree, assumption test log, interview notes and analytics digests. Operationally, Continuous Discovery turned operate into a learning system under Dual-Track and gave Stage-Gate scale reviews behavioural evidence alongside DevSecOps health.
+
+**Best output / artefact.** Continuous discovery cadence, opportunity tree, assumption test log and evidence repository.
+
+**Lifecycle stage.** Continuous across prototype to operate (steps 8–13); critical in deploy and operate.
+
+**Stage-gate contribution.** Pilot/scale/operate gates: proof that learning continues and roadmap changes are evidence-based.
+
+**Failure modes.** Interview theatre; analytics without action; discovery team ignored by delivery; never updating opportunities after methodology change; confusing satisfaction surveys with behavioural evidence.
+
+**Related frameworks.** Dual-Track Agile, Jobs to Be Done (discovery set), Product Operating Model, Model-Driven Experimentation, Stage-Gate, Lean.
+
+### Continuous Delivery
+
+**Purpose.** Continuous Delivery keeps Apex’s AI software in a releasable state through automation, small batch changes, feature flags, canaries and proven rollback. Prompt updates, extraction schema versions, anomaly thresholds and UI changes ship safely without busy-season big-bang risk. CD depends on DevOps ownership, DevSecOps gates, TDD for deterministic paths and evaluation suites for probabilistic paths. Stage-Gate decides *whether* to release to broader populations; Continuous Delivery ensures the team *can* release reliably when the gate opens.
+
+**When to use.** When release risk and batch size are too high; when prompt/model/config changes must move faster than quarterly projects; when rollback and canary evidence are required for production gates.
+
+**When not to use.** When “CD” means pushing to production without Stage-Gate or evaluation; when change-freeze policy forbids releases and you have not negotiated gated exceptions; when pipelines are automated but tests are weak.
+
+**How to use it.**
+
+1. Automate build, deterministic tests, security scans and evaluation smoke suites.
+2. Keep main branch releasable; ban long-lived feature branches for production paths.
+3. Use feature flags for prompt versions, anomaly rule sets and UI assists.
+4. Canary to a small office or engagement cohort; watch quality and override metrics.
+5. Define automated and manual rollback paths (config rollback first, then artefact).
+6. Separate model registry promotion from app deploy when needed; both must be auditable.
+7. Minimise batch size: prefer many small gated changes over rare large ones.
+8. Present CD metrics and last canary evidence in Stage-Gate release packs.
+
+**Enterprise worked example (Apex Audit Partners).** Apex industrialised Continuous Delivery for journal anomaly and document AI after a painful manual release caused a firm-wide threshold change that flooded seniors with false positives two days before a filing deadline. The new pipeline required green TDD suites, DevSecOps scans and an evaluation smoke set before artefacts could enter the release candidate repo. Anomaly threshold changes shipped behind flags; canaries rolled to one office for 48 hours while override rate and precision proxies were watched. A prompt update for working-paper section assists (still pilot-only) canaried to 5% of opted-in managers with instant flag kill-switch when citation adherence dropped. Document AI schema versions were similarly flagged so methodology could approve promotion independently of app deploys. Artefacts included pipeline definitions, flag catalogue, canary runbooks and rollback drill records. Operationally, Continuous Delivery—bounded by Dual-Track evidence and Stage-Gate decisions—let Apex change AI behaviour safely during the year without repeating the false-positive flood, and gave Quality & Risk a concrete releasability story.
+
+**Best output / artefact.** Reliable release pipeline with feature flags, canary/rollback runbooks and releasability metrics.
+
+**Lifecycle stage.** Industrialise, deploy and operate (steps 9, 12, 13).
+
+**Stage-gate contribution.** Release-readiness: demonstrable ability to ship small changes safely with rollback and evaluation evidence.
+
+**Failure modes.** Automating deployment without tests; canaries without quality metrics; flags that never retire; CD used to bypass Stage-Gate; large batches disguised as “one release.”
+
+**Related frameworks.** DevOps, DevSecOps, TDD, Model-Driven Experimentation, Stage-Gate, Kanban, Dual-Track Agile.

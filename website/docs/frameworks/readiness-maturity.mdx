@@ -1,0 +1,357 @@
+---
+sidebar_position: 4
+title: AI Readiness and Maturity Frameworks
+description: Complete reference for ai readiness and maturity frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# AI Readiness and Maturity Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use** sections in workshops; treat **Best output** as the minimum artefact for the related stage gate. **When to use / when not**, **Failure modes** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Step 3
+
+Use maturity frameworks to establish whether the organisation has the minimum capability required for prototype, production and scale. Enterprise worked examples use **Apex Audit Partners** — a mid-market audit firm building AI for journals, documents and working papers under independence and audit-quality constraints.
+
+### McKinsey AI Transformation Dimensions
+
+**Purpose.** Assesses whether strategy, talent, operating model, technology, data, adoption and scaling capabilities work as a system rather than as isolated strengths. The model forces a cross-functional view: a strong model team without domain product owners, change capacity or data foundations is still unready to industrialise AI.
+
+**When to use.** Use when leadership must decide whether the organisation can deliver, govern and sustain a proposed AI ambition across journals, documents and working-paper workflows — especially before funding multi-use-case scale. Ideal when pilots look successful but enterprise rollout keeps stalling.
+
+**When not to use.** Do not use when you are only ranking ideas or selecting a model vendor. Readiness follows strategic intent and precedes heavy build; a single prototype spike does not need a full seven-dimension transformation scorecard.
+
+**How to use.**
+
+1. Agree the assessment scope (firm-wide vs. assurance practice vs. one AI product line) and the decision the scorecard must support.
+2. Define evidence criteria for strategy, talent, operating model, technology, data, adoption and scaling — including independence, quality-control and confidentiality constraints for audit work.
+3. Collect evidence through interviews, artefact review and sampled process observation; separate fact from aspiration.
+4. Score current and 12–18 month target maturity per dimension on a shared scale with explicit evidence notes.
+5. Identify bottlenecks where one weak dimension blocks others (for example data lineage blocking Responsible AI approval).
+6. Prioritise a cross-functional remediation roadmap with owners, funding and stage-gate dates.
+7. Re-score before scale decisions and after major operating-model changes.
+
+**Enterprise worked example (Apex Audit Partners).** Apex Audit Partners is a mid-market firm (~1,800 people) preparing AI assistants for journal-entry anomaly review, engagement-letter and contract document extraction, and working-paper drafting support. Partners want a national rollout of three copilots within eighteen months. Facilitation of McKinsey’s transformation dimensions reveals uneven capability: technology scores well because a small data-science pod already ships notebook prototypes on Azure; strategy scores moderately because the Managing Partner has endorsed “AI for audit efficiency” but has not linked it to chargeable-hour, quality-finding or independence KPIs. Talent is weak — no AI product owners sit inside audit methodology, and engagement teams treat copilots as optional side tools. Operating model is fragmented: IT owns infrastructure, Risk owns independence, Quality owns file review, and nobody owns end-to-end AI product outcomes. Data maturity is poor for working papers (inconsistent indexing, incomplete effective dating of methodology guidance). Adoption is low outside two pilot offices; scaling has no reusable platform, no model inventory and no federated delivery pattern. The heatmap makes the decision concrete: Apex funds a Practice AI Product Owner role, a methodology-linked benefits baseline, and a shared document corpus remediation before any national scale. Scope of the first production release is cut from three copilots to journals-only until working-paper metadata and independence review workflows meet the target scores.
+
+**Best output.** Transformation heatmap (current vs. target by dimension), bottleneck narrative, and funded capability roadmap with owners and gate dates.
+
+**Lifecycle stage.** Readiness assessment (step 3) and re-check before scale (step 14); light refresh after major organisational or regulatory change.
+
+**Stage-gate contribution.** Readiness approval: critical dimensional gaps are funded, deferred with explicit risk acceptance, or used to reduce scope before build and scale gates.
+
+**Failure modes.** Scoring aspirations as capability; assessing only IT/data-science while ignoring audit methodology and independence; treating the heatmap as a one-off slide instead of a living gate artefact; stacking every dimension as “critical” so nothing is prioritised.
+
+**Related frameworks.** Operating Model Canvas, AI Capability Maturity Models, Data Maturity Assessments, Responsible AI Maturity Models, MLOps Maturity Models, change and adoption frameworks.
+
+
+### Accenture AI Maturity Models
+
+**Purpose.** Assesses organisational capacity to move from experimentation to industrialised, responsible AI reinvention. Typical lenses include leadership alignment, talent and skills, data, technology platforms, delivery industrialisation, Responsible AI / trust, and value realisation — distinguishing ad-hoc pilots from repeatable productised AI.
+
+**When to use.** Use when Apex (or a similar firm) must decide whether it can industrialise beyond a few successful pilots into reusable platforms, federated product teams and governed multi-use-case delivery under professional-services constraints.
+
+**When not to use.** Do not use for early idea ranking, pure vendor RFPs, or a single proof-of-concept with no ambition to productise. Avoid when leadership only wants a vanity “maturity level” label without remediation commitment.
+
+**How to use.**
+
+1. Select the maturity model variant and define levels with audit-relevant evidence (for example Level 3 requires model inventory and quality-control hooks, not only chatbot usage).
+2. Map dimensions to Apex stakeholders: leadership (partners), talent (audit + tech), data (engagement files, journals, methodology), technology, delivery, Responsible AI, value.
+3. Score each dimension with artefacts (policies, runbooks, inventories, benefits trackers), not workshop opinion alone.
+4. Compare maturity profile to strategic ambition (for example national working-paper assistant vs. journals pilot).
+5. Identify the industrialisation gaps that block responsible scale — especially independence, confidentiality and file-review integration.
+6. Produce scaled-delivery recommendations: platform investments, operating-model changes, skill ramps and sequencing.
+7. Agree target maturity by use-case class (internal efficiency tools vs. engagement-critical assistants).
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s Innovation Lab has run six AI experiments in eighteen months: journal outlier tagging, lease-contract clause extraction, board-minute summarisation, working-paper narrative drafting, client-email triage and a partner briefing bot. Partners ask whether Apex is ready for “AI reinvention of the audit file.” An Accenture-style maturity assessment shows leadership enthusiasm (high) but value realisation (low) — no benefits owner tracks hours saved against quality findings or rework. Delivery is still project-by-project with no shared prompt/eval harness, no reusable retrieval layer for methodology, and no federated product teams inside assurance. Responsible AI maturity is checklist-based: Independence has issued a memo forbidding client-data training, but there is no tiered approval workflow for tools that draft working-paper content. Data maturity varies wildly: journals from the audit software are structured; scanned client PDFs are not. Technology has an approved Azure tenancy but no production landing zone for AI. The maturity profile recommends: freeze two low-value bots; industrialise journals first with a shared platform spine; appoint federated AI product owners in Audit Methodology and Risk; introduce mandatory Responsible AI tiers before any working-paper drafting assistant touches live engagements. The board accepts a two-year industrialisation path rather than an eighteen-month “all copilots live” slogan.
+
+**Best output.** Maturity profile by dimension, gap-to-ambition narrative, and scaled-delivery recommendations with sequenced investments.
+
+**Lifecycle stage.** Readiness assessment (step 3), industrialisation planning between prototype and scale, and re-check before scale (step 14).
+
+**Stage-gate contribution.** Readiness and scale gates: proves whether industrialisation capacity exists; funds platform and operating-model work or reduces portfolio ambition.
+
+**Failure modes.** Equating many pilots with high maturity; ignoring professional-services independence constraints; recommending generic “AI CoE” theatre without product ownership in audit; measuring maturity by tool count instead of governed reuse and value.
+
+**Related frameworks.** McKinsey AI Transformation Dimensions, PwC AI Maturity Frameworks, Operating Model Canvas, Responsible AI governance, MLOps/LLMOps maturity, benefits realisation.
+
+
+### PwC AI Maturity Frameworks
+
+**Purpose.** Connects business value, trust, governance, data and model controls, talent and enterprise enablement into a trusted-AI maturity view. Emphasises that AI readiness in regulated or professional-services settings is inseparable from risk classification, control evidence and benefits ownership.
+
+**When to use.** Use when Apex must demonstrate to partners, Quality, Independence and regulators-facing stakeholders that AI ambition is matched by trust, control and value accountability — not only by technical experimentation.
+
+**When not to use.** Do not use as a substitute for detailed technical design or for ranking a long list of ideas. Avoid when the question is purely cloud landing-zone engineering with no trust or value dimension.
+
+**How to use.**
+
+1. Frame the assessment around value at risk and trust requirements for audit AI (independence, confidentiality, professional scepticism, documentation standards).
+2. Define maturity evidence across value, governance, data/model controls, talent and enablement.
+3. Inventory existing and planned AI uses (journals, documents, working papers) and classify risk tiers.
+4. Assess current maturity with artefact evidence: model inventory, approval records, monitoring, benefits owners.
+5. Identify value at risk where weak controls threaten audit quality or independence, and capability gaps that block trusted scale.
+6. Define target-state governance and delivery (who approves, what evidence, what monitoring, who owns benefits).
+7. Translate gaps into a trusted-AI roadmap linked to readiness and production gates.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s Risk Partner commissions a PwC-style trusted-AI maturity review before approving a working-paper drafting assistant that suggests substantive-procedure narratives from prior-year files and methodology text. Value maturity is incomplete: Engagement Partners expect “20% faster file completion” but Quality has no metric for whether AI-suggested narratives increase or decrease review notes. Trust and governance are uneven — there is an AI acceptable-use policy, but no model inventory, no risk classification for tools that influence audit documentation, and no clear escalation when an assistant hallucinates a procedure that was never performed. Data/model controls lack lineage from source working papers to generated text; Independence cannot evidence that client-confidential extracts are excluded from vendor training. Talent gaps include reviewers who do not know how to challenge AI-suggested content under professional scepticism. Enterprise enablement lacks training, audit-software integration and a support path when the assistant fails mid-busy-season. The resulting trusted-AI heatmap rates Apex “experiment-ready, not engagement-critical-ready.” Gate decision: journals anomaly review may proceed to limited production with monitoring; working-paper drafting stays in sandbox until model inventory, tiered approvals, citation-to-source requirements and a Quality benefits/risk dashboard exist. Apex funds a Trusted AI lead in Risk and a benefits owner in Audit Operations.
+
+**Best output.** Trusted-AI maturity heatmap, value-at-risk narrative, and target-state governance/delivery roadmap.
+
+**Lifecycle stage.** Readiness assessment (step 3), pre-production trust review, and re-check before scale (step 14).
+
+**Stage-gate contribution.** Readiness and go-live gates for higher-risk audit AI: critical trust/control gaps funded or used to defer/reduce scope; benefits ownership named.
+
+**Failure modes.** Treating policy documents as control maturity; launching engagement-critical tools without inventory and tiering; separating “value” from “trust” so efficiency KPIs override quality risk; using the framework only for board theatre.
+
+**Related frameworks.** Responsible AI Maturity Models, Responsible AI / ISO-aligned governance, Data Maturity Assessments, MLOps Maturity Models, commercial benefits frameworks, security and privacy frameworks.
+
+
+### Microsoft Cloud Adoption Framework for AI
+
+**Purpose.** Structures cloud and AI adoption around strategy, planning, readiness, adoption, governance and management. Translates AI ambition into landing zones, operating-model readiness, workload patterns and continuous governance — especially useful for Azure-centric professional-services firms.
+
+**When to use.** Use when Apex is committing to cloud AI workloads (model endpoints, document intelligence, retrieval, agent tooling) and needs a coherent adoption path from strategy through managed production, not ad-hoc subscriptions.
+
+**When not to use.** Do not use for pure process discovery or for ranking use cases without a cloud/AI platform decision. Avoid when the organisation has no cloud footprint and the immediate question is only business problem definition.
+
+**How to use.**
+
+1. Document cloud/AI strategy aligned to Apex outcomes (journals, documents, working papers) and constraints (data residency, independence, client confidentiality).
+2. Plan portfolio waves, platform prerequisites and skills; identify landing-zone and identity requirements.
+3. Assess readiness: subscriptions, networking, private endpoints, key vault, logging, approved model services, FinOps baselines.
+4. Establish or update AI landing zones and platform operating model (who provisions, who approves, who pays).
+5. Adopt workloads through repeatable patterns (document intelligence pattern, RAG over methodology, journal scoring API) rather than one-off builds.
+6. Govern continuously: policy-as-code, model access control, data classification, cost and security monitoring.
+7. Manage via runbooks, SLOs, incident paths and backlog for platform improvements; feed lessons into the next adoption wave.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s IT Director discovers three shadow AI projects: a partner using a consumer LLM with pasted client excerpts; a regional team’s document extractor on a personal Azure subscription; and a journals model in a data-science sandbox with public endpoints. Applying CAF for AI, Apex first writes a short strategy: “Firm-approved AI only, client data never leaves the firm tenancy, Independence and Quality on the approval path.” Planning produces a backlog: AI landing zone with private networking, approved Azure OpenAI / Document Intelligence services, Purview labels for engagement data, and a CoE lite that publishes patterns. Readiness scoring shows identity and logging are strong, but private endpoints, prompt/response logging for auditability, and FinOps tags for AI spend are missing. Adoption is sequenced: Wave 1 journals scoring in the landing zone; Wave 2 methodology-grounded document Q&A; Wave 3 working-paper assist only after governance controls exist. Governance adds mandatory model access via enterprise Entra groups, DLP policies blocking paste into public tools, and cost alerts per engagement-code tag. Management defines on-call for AI platform incidents during busy season and a monthly landing-zone backlog review. The CAF plan becomes the gate artefact that kills the personal subscription and funds the landing zone before any further prototypes claim “production.”
+
+**Best output.** Cloud AI adoption plan, landing-zone backlog, workload-pattern catalogue and governance/management operating model.
+
+**Lifecycle stage.** Readiness (step 3), architecture and build planning, adoption waves, and continuous management through operate and scale (steps 10–14).
+
+**Stage-gate contribution.** Platform readiness for AI workloads: no production without landing-zone and governance baselines; adoption waves gated by pattern readiness.
+
+**Failure modes.** CAF slides without landing-zone build; allowing shadow subscriptions to persist; adopting agents before identity/network/logging baselines; ignoring FinOps so busy-season inference costs surprise partners; treating CoE as a committee instead of pattern publishers.
+
+**Related frameworks.** Cloud Maturity Assessments, Cybersecurity Maturity Assessments, MLOps/LLMOps maturity, architecture landing-zone patterns, FinOps frameworks, Responsible AI governance.
+
+
+### IBM AI Ladder
+
+**Purpose.** Explains the journey from fragmented data to AI embedded in workflows through Collect, Organise, Analyse and Infuse. Emphasises that analytics and AI value stall when lower rungs — collection and organisation/governance — are incomplete.
+
+**When to use.** Use when Apex AI ambitions depend on engagement data, journals, documents and methodology corpora that are incomplete, inconsistently structured or poorly governed. Especially useful when models “work in demos” but fail on real audit files.
+
+**When not to use.** Do not use as the sole framework for talent, change or commercial prioritisation. Avoid when the bottleneck is clearly only model selection or UI design and data foundations are already strong.
+
+**How to use.**
+
+1. Map the target AI use cases to required data domains (journals, contracts, working papers, methodology, client correspondence).
+2. Assess Collect: sources, completeness, access rights, retention and lawful/ethical basis for audit use.
+3. Assess Organise: catalogues, quality rules, lineage, ownership, classification and retrieval readiness.
+4. Assess Analyse: analytics/AI experiments, evaluation harnesses, bias/quality checks appropriate to audit.
+5. Assess Infuse: embedding into auditor workflows (audit software, review notes, sign-off) with controls and human accountability.
+6. Identify the lowest incomplete rung blocking scale; remediate bottom-up before funding upper-rung AI.
+7. Publish a data-to-AI roadmap with rung-level milestones tied to readiness gates.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s document AI demo impresses partners: it extracts covenants from clean sample PDFs. On live engagements it fails — scanned bank confirmations, poorly OCR’d leases and multi-entity group packs break extraction. An AI Ladder assessment shows Collect is incomplete: client documents land in engagement folders with inconsistent naming; journal exports differ by audit software version; methodology PDFs lack structured sections. Organise is the critical gap — no enterprise catalogue of document types, no effective-date metadata on methodology, no lineage from extracted clause to source page, and unclear ownership between Engagement teams and Knowledge Management. Analyse exists only as notebooks with cherry-picked samples. Infuse is premature: product managers want buttons inside the audit file before retrieval quality is proven. Apex therefore funds Collect/Organise for twelve weeks: standard document taxonomy, mandatory indexing for in-scope document classes, methodology chunking with citations, and journal schema normalisation. Analyse resumes with an evaluation set of real anonymised packs. Infuse is limited to a side-panel “suggest and cite” experience that never writes to the signed-off file without auditor acceptance. The ladder narrative persuades partners that the blocker is data organisation, not “a better LLM.”
+
+**Best output.** Rung-by-rung assessment, critical-path blockers, and data-to-AI capability roadmap with milestones.
+
+**Lifecycle stage.** Readiness (step 3), discovery of data constraints (step 2–3), and re-check before scale (step 14).
+
+**Stage-gate contribution.** Readiness approval contingent on lower-rung remediation for data-dependent use cases; prevents Infuse funding when Collect/Organise fail.
+
+**Failure modes.** Jumping to Infuse with chat UIs; assessing only structured journals while ignoring document chaos; organising data without owners; treating anonymisation and independence as afterthoughts on Collect.
+
+**Related frameworks.** Data Maturity Assessments, knowledge/content architecture, RAG evaluation practices, MLOps Maturity Models, discovery process frameworks.
+
+
+### AI Capability Maturity Models
+
+**Purpose.** Provide an organisation-specific progression from ad hoc experimentation to AI-native operation across people, process, data, technology, governance and value. Unlike vendor brand models, a tailored CMM defines levels and evidence that match Apex’s professional context and use-case risk classes.
+
+**When to use.** Use when Apex needs a single shared language for “how mature are we?” with different target levels by use-case class (for example Level 3 for internal journals tooling; Level 4 for anything influencing audit documentation).
+
+**When not to use.** Do not use a generic off-the-shelf level label without defining evidence. Avoid when a specialised assessment (only MLOps, only cyber, only data) is sufficient and a full CMM would dilute focus.
+
+**How to use.**
+
+1. Agree dimensions (people, process, data, technology, governance, value) and 1–5 level definitions with audit-specific evidence examples.
+2. Define target maturity by use-case class and risk tier, not one firm-wide vanity score.
+3. Assess current level with artefact sampling and interviews across Assurance, Risk, Quality, IT and Innovation.
+4. Gap-analyse against targets; quantify effort, dependency and regulatory/quality impact.
+5. Build an improvement plan with quarterly level-up goals and owners.
+6. Embed level gates into portfolio governance (cannot promote a use case to production below its required level).
+7. Reassess annually and after material incidents or regulatory change.
+
+**Enterprise worked example (Apex Audit Partners).** Apex drafts a five-level AI Capability Maturity Model. Level 1 is ad hoc personal tools; Level 2 is sanctioned pilots; Level 3 is governed production with inventory, monitoring and training; Level 4 is integrated into audit methodology and file review with measurable quality outcomes; Level 5 is continuous improvement with firm-wide AI product portfolio and predictive capacity planning. Assessment finds Apex mostly at Level 2: sanctioned pilots for journals and documents, but working-paper assist still informal. People: a few data scientists, scarce AI-fluent reviewers. Process: no standard intake-to-retire lifecycle for AI tools. Data: journals better than documents. Technology: sandbox-heavy. Governance: policy memo without operational tiering. Value: anecdote-based. Targets are set deliberately: journals anomaly review must reach Level 3 before busy season; document extraction for non-engagement-critical admin packs may stay Level 2; any assistant that drafts working-paper content must reach Level 4 (methodology integration, citation, Quality sampling of AI-touched files, independence evidence) before live use. The CMM becomes the portfolio rulebook: two tools are stopped because they cannot fund the jump to their required level. Training budget shifts from “prompt courses for all” to reviewer challenge skills and AI product ownership in methodology.
+
+**Best output.** Tailored maturity model (levels + evidence), current/target by use-case class, and improvement plan with gate rules.
+
+**Lifecycle stage.** Readiness (step 3), portfolio governance ongoing, and scale readiness (step 14).
+
+**Stage-gate contribution.** Production and scale gates reference required maturity levels; gaps fund remediation or block promotion.
+
+**Failure modes.** One firm-wide score that hides risk; copying another industry’s CMM; levels without evidence; never linking levels to real go/no-go decisions; gaming scores to unlock budget.
+
+**Related frameworks.** McKinsey AI Transformation Dimensions, Accenture/PwC maturity models, Responsible AI Maturity Models, MLOps Maturity Models, prioritisation and portfolio frameworks.
+
+
+### Data Maturity Assessments
+
+**Purpose.** Evaluate whether data is owned, accessible, high-quality, lawful, interoperable and traceable enough to support reliable AI — covering governance, quality, metadata, lineage, access, privacy/confidentiality, retention and data-product practices.
+
+**When to use.** Use before building or scaling RAG, document intelligence or journal models at Apex, and whenever demo performance diverges from live engagement data. Mandatory when Independence or client confidentiality constraints apply to training and retrieval corpora.
+
+**When not to use.** Do not use as a substitute for full privacy impact assessments when those are legally required, or when the decision is purely organisational change with no data dependency. Avoid endless scoring without a remediation backlog.
+
+**How to use.**
+
+1. Scope data domains for the AI portfolio (journals, engagement documents, working papers, methodology, HR/admin if relevant).
+2. Define scoring criteria: ownership, quality, metadata, lineage, access control, confidentiality/privacy, retention, interoperability, data-product readiness.
+3. Sample real artefacts and pipelines; score with evidence notes and confidence ratings.
+4. Identify blockers to specific AI use cases (for example missing effective dates block methodology RAG).
+5. Produce a remediation backlog prioritised by AI value and risk (independence breaches first).
+6. Assign data product owners and SLAs for critical corpora.
+7. Re-score before production and scale gates; include data tests in CI for AI pipelines where feasible.
+
+**Enterprise worked example (Apex Audit Partners).** Apex plans a methodology-grounded assistant for auditors asking “what does firm guidance say about revenue recognition for SaaS?” and a working-paper helper that retrieves similar prior-year procedures. A data maturity assessment samples 40 engagements and the methodology library. Ownership is unclear: Knowledge Management publishes PDFs; Audit Methodology owns content intent; local offices store annotated copies. Quality is weak — superseded guidance remains searchable; many working papers lack consistent procedure codes. Metadata is sparse: no effective dates, jurisdiction tags or industry tags on large parts of the corpus. Lineage from “AI answer” to “source paragraph” cannot be evidenced. Access controls are folder-based and over-permissioned for cross-engagement retrieval risk. Confidentiality is high risk: prior-year working papers contain client-identifiable detail that must never be retrieved across clients. Retention policies conflict with long-lived vector indexes. The scorecard rates methodology corpus “conditionally ready” after effective dating and deprecation rules; cross-engagement working-paper retrieval is rated “not ready” under independence. Remediation backlog: (1) methodology as a governed data product with owners and effective dates; (2) prohibit cross-client working-paper retrieval; (3) journals domain remediation for schema drift; (4) Purview labels before any embedding job. The readiness gate allows methodology Q&A in a controlled pilot and blocks working-paper similarity search across clients.
+
+**Best output.** Data-readiness scorecard by domain, evidence pack, and prioritised remediation backlog with owners.
+
+**Lifecycle stage.** Readiness (step 3), continuously during build/operate for data-dependent AI, and before scale (step 14).
+
+**Stage-gate contribution.** Data readiness is a hard dependency for RAG/document/journal production gates; critical confidentiality gaps block scope.
+
+**Failure modes.** Scoring only structured warehouses; ignoring cross-client contamination; metadata theatre without quality sampling; remediation lists with no owners; embedding everything before classification.
+
+**Related frameworks.** IBM AI Ladder, privacy/security frameworks, knowledge architecture, Responsible AI governance, MLOps data versioning practices.
+
+
+### MLOps Maturity Models
+
+**Purpose.** Assess reproducibility and control of model development, deployment and monitoring — including versioning, pipelines, registries, testing, deployment, monitoring, rollback and retraining — extended for LLMOps concerns such as prompt/version control, evaluation harnesses, grounding checks and cost/latency SLOs.
+
+**When to use.** Use when Apex moves from notebooks and demos to anything auditors rely on in live engagements, or when multiple models/prompts must be released safely during busy season.
+
+**When not to use.** Do not use for pure strategy workshops or early discovery with no engineering path. Avoid over-engineering Level 4 pipelines for a disposable spike that will be thrown away.
+
+**How to use.**
+
+1. Define maturity levels from ad hoc notebooks to automated, monitored, rollback-capable releases (include LLM-specific practices).
+2. Inventory current assets: models, prompts, retrieval indexes, evaluation sets, deployment paths.
+3. Score versioning, CI/CD, registry, testing (functional, eval, safety), deployment, monitoring, rollback, retraining/prompt iteration.
+4. Set minimum maturity for production by risk tier (journals scoring API vs. working-paper drafting assist).
+5. Build an engineering backlog to close gaps (eval sets of anonymised audit artefacts, canary releases, audit logging).
+6. Implement operational runbooks for drift, quality regressions and vendor model changes.
+7. Gate releases on meeting the minimum maturity bar; reassess after incidents.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s journals anomaly model lives in a data scientist’s notebook; scores are pasted into spreadsheets for two pilot teams. Partners want it in the audit software for 200 engagements. An MLOps maturity review finds: no model registry; training data snapshots unversioned; no automated pipeline; evaluation is “looks sensible to a manager”; deployment is manual; monitoring is absent; rollback means “email everyone to stop using it”; prompt templates for a companion narrative tool sit in Slack. LLMOps gaps include no golden-set of journals with labelled true anomalies, no hallucination/citation checks for narrative text, and no token-cost budgets per engagement. Apex sets production minimum at controlled Level 3: registered model versions, pipeline-built artefacts, offline eval gates on a frozen anonymised journal set, shadow-mode scoring for one busy-season month, latency/error dashboards, and one-click disable. Working-paper drafting assist requires additional prompt versioning, source-citation tests and Quality sampling hooks before any write-back path. The engineering backlog funds a shared MLOps/LLMOps platform thin slice rather than three bespoke pipelines. Gate outcome: journals may enter shadow production after registry + eval harness; narrative assist remains prototype until prompt governance exists. Busy-season change freeze rules are added so model updates cannot ship mid-filing without Risk approval.
+
+**Best output.** MLOps/LLMOps maturity score, target state by risk tier, and engineering backlog with release gates.
+
+**Lifecycle stage.** Readiness (step 3), build and hardening (steps 8–11), operate monitoring (steps 12–13), re-check before scale (step 14).
+
+**Stage-gate contribution.** Production readiness for model systems: minimum maturity enforced; rollback and monitoring are go-live criteria.
+
+**Failure modes.** Productionising notebooks; eval sets that do not resemble real audit data; ignoring prompt/index versioning; no busy-season change control; monitoring only infrastructure uptime, not decision quality.
+
+**Related frameworks.** Cloud maturity, cybersecurity, Responsible AI validation, architecture CI/CD patterns, data versioning, incident management.
+
+
+### Responsible AI Maturity Models
+
+**Purpose.** Assess how consistently AI risk is identified, controlled, approved and monitored — spanning policy, inventory, risk tiering, impact assessment, controls, validation, incidents and continual improvement — adapted to audit independence, quality and professional scepticism.
+
+**When to use.** Use whenever Apex AI can influence audit evidence, documentation, client data handling or auditor judgements. Essential before tools that draft or summarise working papers, and for firm-wide AI policy operationalisation.
+
+**When not to use.** Do not use as a paperwork substitute for engineering controls, or for ranking commercial ideas with no risk pathway. Avoid one-off ethics workshops that never connect to approval gates.
+
+**How to use.**
+
+1. Map RAI dimensions to Apex’s Risk, Independence, Quality and Ethics mandates.
+2. Assess policy clarity, AI inventory completeness, tiering criteria, DPIA/impact assessments, control libraries, validation practices, monitoring, incident/response and improvement loops.
+3. Classify each use case (journals, documents, working papers) into risk tiers with mandatory controls.
+4. Identify maturity gaps where practice relies on voluntary checklists.
+5. Design target operating model: who approves, what evidence, what ongoing monitoring, how exceptions work in busy season.
+6. Pilot the tiered process on one use case; refine; then mandate.
+7. Report RAI maturity to partners alongside value metrics; reassess after incidents or regulatory updates.
+
+**Enterprise worked example (Apex Audit Partners).** Apex has an “AI principles” PDF and an Independence email forbidding training on client data. A Responsible AI maturity assessment finds inventory incomplete (shadow tools remain), no formal tiering (a partner briefing bot and a working-paper drafter are treated alike), impact assessments optional, validation anecdotal, and no AI incident category in the firm’s quality event process. Facilitators walk through a concrete risk: if the working-paper assistant invents a procedure and an auditor accepts it without scepticism, audit quality and regulatory exposure follow. Apex designs tiers: Tier 0 personal productivity with no client data; Tier 1 internal admin; Tier 2 engagement-adjacent analytics (journals scoring with human decision); Tier 3 documentation-influencing assistants requiring Quality sampling, citation mandates, forced human acceptance, and Independence sign-off on data flows. Maturity actions: mandatory inventory within 30 days; tiering workshop for all in-flight tools; impact assessment template co-owned by Risk and Quality; validation including challenge testing by senior auditors; monitoring of override/acceptance rates; AI incidents routed like quality findings. After three months, maturity moves from “policy-only” to “operating Tier 2.” Tier 3 remains blocked until citation and sampling evidence exists. Partners accept that RAI maturity — not model cleverness — sets the pace for working-paper AI.
+
+**Best output.** Responsible AI maturity heatmap, tiering scheme, control/validation requirements by tier, and operating model for approvals and incidents.
+
+**Lifecycle stage.** Readiness (step 3), pre-production approval, continuous operate, and scale (step 14).
+
+**Stage-gate contribution.** Ethical/regulatory readiness and go-live: tier controls evidenced; inventory and approval recorded; residual risk accepted by named partners.
+
+**Failure modes.** Principles without inventory; one checklist for all risks; bypassing controls in busy season; no incident learning; treating independence as IT’s problem alone; RAI theatre disconnected from Quality file review.
+
+**Related frameworks.** PwC trusted-AI maturity, security-privacy frameworks, ISO-aligned AI management, audit quality frameworks, change/adoption for scepticism behaviours, MLOps validation.
+
+
+### Cloud Maturity Assessments
+
+**Purpose.** Evaluate whether cloud foundations can support secure, resilient and cost-controlled AI workloads — landing zones, network, identity, policy, observability, resilience, FinOps and service ownership.
+
+**When to use.** Use before Apex places client-sensitive audit data or model endpoints in cloud environments, and when pilots cannot scale because platform primitives are inconsistent.
+
+**When not to use.** Do not use for business-problem discovery or pure RAI policy design. Avoid assessing cloud maturity without reference to the actual AI workload patterns Apex intends to run.
+
+**How to use.**
+
+1. Define required platform capabilities for Apex AI patterns (private model endpoints, document pipelines, vector stores, logging).
+2. Assess landing zones, network segmentation, identity/privileged access, policy-as-code, observability, resilience/DR, FinOps and ownership.
+3. Score gaps against production bar for client-data workloads.
+4. Prioritise platform backlog by risk (exposure of engagement data first, then cost, then convenience).
+5. Assign platform product ownership and RACI with Assurance stakeholders.
+6. Prove a reference AI workload in the target landing zone before migrating shadow projects.
+7. Reassess at scale gate and after major cloud or vendor-model changes.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s document intelligence pilot runs in a shared sandbox subscription with public endpoints and a single service principal known to three contractors. A cloud maturity assessment against production AI requirements scores identity moderately (Entra SSO exists) but landing zones poorly (no AI-specific spoke, inconsistent tagging). Network lacks private endpoints for model and storage services; policy does not block public key access; observability has resource metrics but not prompt/response audit trails needed for Quality investigations; resilience has no DR story for the vector index; FinOps cannot attribute GPU/token spend to service lines; ownership is “IT shared services” with no AI platform product manager. The assessment concludes Apex is sandbox-mature, production-immature. Remediation: build an AI landing zone with private networking, customer-managed keys where required, mandatory diagnostic settings to a central log workspace, cost tags for Assurance vs. Tax vs. Advisory, and break-glass procedures. Only after a journals reference workload runs successfully in the landing zone are document and working-paper projects allowed to migrate. Shadow subscriptions are scheduled for decommission. Partners fund platform work explicitly rather than hiding it inside each use-case business case — a key maturity step for a mid-market firm with limited platform engineering depth.
+
+**Best output.** Cloud gap assessment, platform roadmap, reference-workload proof and ownership RACI.
+
+**Lifecycle stage.** Readiness (step 3), architecture foundations, pre-production, and scale (step 14).
+
+**Stage-gate contribution.** Platform readiness gate for AI production; critical network/identity/logging gaps block client-data workloads.
+
+**Failure modes.** Declaring cloud mature because VMs exist; public endpoints for “temporary” pilots that become permanent; no FinOps leading to surprise busy-season bills; platform owned by nobody; skipping reference workload proof.
+
+**Related frameworks.** Microsoft CAF for AI, cybersecurity maturity, FinOps, MLOps platform practices, architecture landing zones.
+
+
+### Cybersecurity Maturity Assessments
+
+**Purpose.** Evaluate governance, protection, detection, response and recovery capability — including AI-specific threats such as prompt injection, data exfiltration via models, poisoned documents, insecure tool/agent permissions and supply-chain risk in model vendors.
+
+**When to use.** Use before Apex exposes engagement data to AI services, enables agents/tools, or connects copilots to audit systems of record. Re-use when threat models change (new agent features, new vendors, new data classes).
+
+**When not to use.** Do not use as the only readiness lens when data quality or operating-model gaps are the real blockers. Avoid checkbox compliance that ignores AI-specific attack paths.
+
+**How to use.**
+
+1. Extend the firm’s cyber framework with AI threat scenarios relevant to audit (prompt injection in client PDFs, cross-client retrieval leakage, credentialed agent misuse).
+2. Assess govern/protect/detect/respond/recover with evidence; include third-party model providers.
+3. Red-team or tabletop AI incidents with Security, Risk, Quality and IT.
+4. Map control gaps to risk treatment (mitigate, avoid, transfer, accept) with partner-level acceptance where needed.
+5. Define minimum cyber maturity for each AI tier before go-live.
+6. Integrate AI logging into SOC detections and quality-event processes.
+7. Retest after major releases and annually before busy season.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s SOC can detect malware and anomalous VPN use, but an AI cyber maturity review asks: can we detect prompt injection embedded in a client-supplied PDF that causes the document assistant to exfiltrate another client’s extracted clauses? Can we investigate an auditor’s over-permissioned agent that queried the wrong engagement container? Current state: DLP blocks some web uploads but not all generative endpoints; no systematic prompt/response retention for forensic review; vendor SOC2 packs are filed but not mapped to Apex scenarios; incident runbooks lack AI playbooks; recovery does not cover poisoned indexes. A tabletop exercise simulates a malicious engagement pack; the team cannot quickly determine blast radius across vector stores. Treatment plan: mandatory private endpoints and egress controls; content-security scanning before embedding; strict engagement-scoped retrieval; tool permissions deny-by-default for any agent; SOC detections on unusual cross-engagement access; AI incident playbooks co-owned by Security and Quality; vendor assessment checklist for model providers (training-use commitments, subprocessors, residency). Minimum bar: Tier 2 journals API may go live after logging and private networking; Tier 3 working-paper assist blocked until retrieval scoping and injection testing pass. Partners accept residual risk only with named compensating controls and busy-season monitoring surge support.
+
+**Best output.** Cyber maturity profile (including AI threats), risk treatment plan, AI incident playbooks and go-live control baselines.
+
+**Lifecycle stage.** Readiness (step 3), pre-production security assurance, operate/detect/respond, and scale (step 14).
+
+**Stage-gate contribution.** Security readiness for AI go-live: critical AI threat gaps treated; residual risk accepted by accountable partners; monitoring and playbooks in place.
+
+**Failure modes.** Classic cyber scores that ignore LLM threats; accepting vendor paperwork as control; no logging because of “privacy” without a governed retention design; agents with broad tool access; skipping tabletops until a real incident.
+
+**Related frameworks.** Cloud maturity, Responsible AI, security-privacy design frameworks, vendor risk management, MLOps secure SDLC, incident and quality-event management.

@@ -64,7 +64,7 @@ export function AiPlatformView() {
   return (
     <div data-testid="ai-view" className="space-y-6">
       <header>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">AI Platform</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">AI Platform</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           Foundry · Bedrock · Vertex · Unity · governance controls
         </p>
@@ -85,7 +85,7 @@ export function AiPlatformView() {
             onClick={() => handleTab(id)}
             className={[
               'rounded-lg px-3 py-1.5 text-xs font-semibold',
-              tab === id ? 'bg-slate-blue text-white' : 'bg-white/70 text-ink-secondary',
+              tab === id ? 'bg-ink text-surface-soft' : 'bg-white/70 text-ink-secondary',
             ].join(' ')}
           >
             {label}

@@ -1,0 +1,367 @@
+---
+sidebar_position: 5
+title: Use-Case Prioritisation Frameworks
+description: Complete reference for use-case prioritisation frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# Use-Case Prioritisation Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in workshops; treat **Best output** as the minimum artefact for the related stage gate. **When to use / when not** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Step 4
+
+Use prioritisation frameworks to choose what to fund, what to validate, what foundation to build and what to reject.
+
+### Impact-versus-Effort Matrix
+
+**Purpose.** Rapidly sorts opportunities by expected impact and implementation effort so leadership can see quick wins, strategic bets, thankless tasks and low-value ideas on one shared map.
+
+**When to use / when not.** Use when you have more opportunities than capacity and need an auditable first cut of the funding sequence. Do not use when a single mandated regulatory or executive commitment already sets the next investment, or when impact and effort cannot yet be scored on a common scale.
+
+**How to use it.**
+
+1. Agree definitions of impact (quality, hours saved, risk reduction, client experience) and effort (data, integration, change, governance).
+2. Set comparable 1–5 scales with written anchors so teams score the same way.
+3. Score candidates collaboratively; challenge optimism and undocumented assumptions.
+4. Plot the four quadrants and force a first-pass ranking.
+5. Record owners, evidence quality and the next validation step for each funded item.
+
+**Enterprise worked example (Apex Audit Partners).** Apex Audit Partners (≈1,200 professionals across assurance, risk advisory and tax) convened partners, engagement managers, IT and the quality office to rank a backlog of AI ideas: journal-entry anomaly detection, invoice and contract document extraction, working-paper narrative assist, engagement-planning risk sensing from prior-year files, a public client FAQ chatbot, timesheet coding assist, and automatic management-letter drafting. Impact was defined as reduction in partner review hours, fewer missed related-party signals, and audit-file completeness; effort covered data readiness, client segregation, EQCR explainability and change. Document extraction landed high-impact / medium-effort because OCR and layout models already exist and the pain of re-keying is daily. Journal anomaly detection scored high-impact / high-effort because labelled review outcomes and leakage-safe evaluation are harder. Working-paper assist was high-impact / medium-effort once citation and human-sign-off rules were fixed. The public chatbot scored low-impact for an audit brand and was parked. Timesheet coding was low-impact / low-effort and deferred as a thankless distraction. The matrix produced a funded sequence: extraction pilot → anomaly model discovery → working-paper assist prototype, with the chatbot explicitly rejected for FY funding.
+
+**Best output.** A four-quadrant opportunity map with scores, assumptions and owners.
+
+**Lifecycle stage.** Use-case portfolio (step 4) and ongoing backlog grooming.
+
+**Stage-gate contribution.** Use-case approval: owner, KPI, risk class, oversight model and next validation step.
+
+**Failure modes.** Inflated impact from advocacy; understated effort on data and governance; treating the matrix as a final business case; scoring without shared anchors; funding “interesting” low-impact ideas because they are easy.
+
+**Related frameworks.** DVF, value–feasibility–risk, RICE/WSJF, weighted scoring, use-case portfolio matrix, AI Canvas, risk classification.
+
+
+### Desirability, Viability and Feasibility
+
+**Purpose.** Tests whether a use case is wanted by users, economically sustainable and practically deliverable before capital is committed.
+
+**When to use / when not.** Use when ideas look attractive on slides but evidence for need, unit economics or delivery practicality is thin. Do not use as the sole ranking method for a large portfolio when you need numeric sequencing across many comparable items—pair with RICE or weighted scoring for that.
+
+**How to use it.**
+
+1. Define evidence standards for desirability (user jobs), viability (benefit vs cost of oversight) and feasibility (data, tech, skills, controls).
+2. Score each lens with traffic lights or 1–5 scales and name the weakest assumption.
+3. Design targeted validation for the weakest lens (interviews, cost model, technical spike).
+4. Pass only candidates with a credible path to green on all three lenses.
+5. Attach residual risks and an oversight model before gate approval.
+
+**Enterprise worked example (Apex Audit Partners).** Apex applied DVF to five shortlisted ideas after the impact–effort filter. For journal anomaly detection, desirability was strong: seniors’ job is “confirm I have not missed a related-party or unusual posting signal,” not “chat with a bot.” Viability looked positive if false-positive rates stay manageable under partner review; feasibility required labelled historical review outcomes, client-segregated features and challenge sets locked before model selection. Document extraction scored green across all three: staff hate re-keying invoices and bank statements; hours saved are measurable; Document Intelligence–class tooling is mature. Working-paper assist was desirable and feasible with RAG over prior-year binders, but viability hinged on whether human oversight and EQCR logging keep unit cost acceptable—partners still own every assertion. A public client chatbot failed desirability for the audit brand and independence optics. An “autonomous management-letter generator” failed viability and desirability: partners rejected unsigned AI assertions in the audit file. DVF therefore funded extraction and anomaly discovery, advanced working-paper assist only with a human-sign-off procedure, and killed the chatbot and autonomous letter ideas before a business case was written.
+
+**Best output.** A DVF scorecard with evidence gaps and validation experiments.
+
+**Lifecycle stage.** Use-case portfolio (step 4) and early validation design (steps 4–5).
+
+**Stage-gate contribution.** Use-case approval: weakest-lens evidence plan, owner, KPI and oversight model.
+
+**Failure modes.** Treating “technically possible” as feasible; ignoring oversight cost in viability; surveying the wrong users; stacking green scores without evidence; advancing ideas that fail one lens “because leadership likes them.”
+
+**Related frameworks.** Value–feasibility–risk, JTBD, AI Canvas, business case, risk classification, ICE.
+
+
+### Value, Feasibility and Risk
+
+**Purpose.** Balances economic and strategic value against technical feasibility and residual risk so high-value but unsafe or unbuildable ideas do not crowd out safer wins.
+
+**When to use / when not.** Use when risk class and residual exposure must influence funding as much as benefit. Do not use when risk thresholds are undefined or when the decision is purely sequencing of already approved, low-risk backlog items.
+
+**How to use it.**
+
+1. Agree common criteria for value, feasibility and risk (including regulatory and quality exposure).
+2. Score each candidate; apply hard risk thresholds that cannot be traded away.
+3. Plot or table candidates for portfolio debate.
+4. Prefer read-only or assistive patterns over autonomous decisions when residual risk is high.
+5. Document mitigations required before the next stage gate.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s AI steering group scored the same backlog on value (margin, quality consistency, talent leverage), feasibility (data, platforms, skills) and residual risk (independence, confidentiality, unverifiable assertions, EQCR challenge). Journal anomaly detection scored high value and medium–high risk: false negatives in fraud/anomaly review are expensive, but a read-only “flag for senior review” pattern kept residual risk acceptable if lineage and override logging exist. Document extraction scored high value, high feasibility and medium risk (client PII in scans)—mitigated by engagement-letter cover, Purview classification and client-segregated indices. Working-paper assist scored high value but elevated risk unless every draft cites sources and a partner signs. A timesheet chatbot for staff scored low value and low risk—deprioritised. An autonomous engagement-acceptance recommender scored high purported value but failed the risk threshold: independence and client-acceptance decisions must remain human. The portfolio decision funded extraction and anomaly flagging as read-only assists, deferred generative drafting until citation and logging controls were designed, and rejected autonomous acceptance and public client chatbots. Value–feasibility–risk made the quality office’s veto criteria visible rather than informal.
+
+**Best output.** A value–feasibility–risk portfolio with risk thresholds and mitigations.
+
+**Lifecycle stage.** Use-case portfolio (step 4) and Responsible AI / security pre-gates.
+
+**Stage-gate contribution.** Use-case approval: risk class, residual exposure, oversight model and allowed autonomy level.
+
+**Failure modes.** Averaging away hard risk thresholds; scoring risk without quality or legal input; confusing model accuracy with residual process risk; funding high-value autonomous agents without control design.
+
+**Related frameworks.** DVF, risk-adjusted value, NIST AI RMF / ISO 42001 impact assessment, AI Canvas, MoSCoW for control requirements.
+
+
+### RICE
+
+**Purpose.** Prioritises by reach, impact, confidence and effort to produce a comparable numeric backlog score.
+
+**When to use / when not.** Use when many candidates compete for the same capacity and you need a transparent formula. Do not use when reach is meaningless (single mandated programme) or when confidence is systematically faked to inflate scores.
+
+**How to use it.**
+
+1. Fix the time window (for example next two quarters of engagements).
+2. Estimate reach (users or engagements touched), impact (per-user effect), confidence (%), and effort (person-months).
+3. Calculate RICE = (reach × impact × confidence) / effort consistently.
+4. Document evidence for each component and run sensitivity on low-confidence items.
+5. Review the ranking with owners; do not treat the top score as automatic approval.
+
+**Enterprise worked example (Apex Audit Partners).** Apex scored seven ideas over a two-quarter window covering roughly 180 mid-market assurance engagements. Document extraction: reach ~900 staff who touch evidence packs, impact 3 (hours saved per sample), confidence 80%, effort 4 → strong RICE. Journal anomaly detection: reach ~400 seniors and managers on substantive testing, impact 4 (missed-signal risk reduction), confidence 55% (labelled outcomes incomplete), effort 8 → mid ranking until a discovery spike raises confidence. Working-paper narrative assist: reach ~600, impact 3, confidence 50% (citation policy unproven), effort 6. Engagement-planning risk sensing from prior-year files: reach ~200 planners, impact 4, confidence 45%, effort 7. Public client FAQ chatbot: reach claimed as “all clients” but true internal demand near zero; impact 1, confidence 40%, effort 3 → bottom. Staff knowledge chatbot for methodology: reach 1,200, impact 2, confidence 70%, effort 3 → competitive on score but partners capped it behind quality-critical work. Timesheet coding: high reach, low impact. After sensitivity, Apex funded extraction first (high confidence), ran a two-week anomaly discovery to lift confidence before full build, and kept working-paper assist behind a citation prototype. RICE made “confidence theatre” visible: anomaly looked weaker than advocacy until evidence improved.
+
+**Best output.** A ranked RICE backlog with evidence notes and sensitivity flags.
+
+**Lifecycle stage.** Use-case portfolio (step 4) and quarterly backlog re-ranking.
+
+**Stage-gate contribution.** Use-case approval: score, confidence evidence, owner and next validation step.
+
+**Failure modes.** Inventing reach; scoring impact without a KPI; 100% confidence on unvalidated ideas; ignoring that effort excludes change and governance; ranking without a risk veto.
+
+**Related frameworks.** ICE, WSJF, weighted scoring, DVF, cost-of-delay.
+
+
+### WSJF
+
+**Purpose.** Prioritises work by cost of delay relative to job size so time-critical and risk-reducing items surface ahead of large, leisurely builds.
+
+**When to use / when not.** Use when delay has economic, regulatory or quality consequences and job sizes vary. Do not use when cost of delay cannot be estimated even roughly, or when political mandates already fix the sequence.
+
+**How to use it.**
+
+1. Estimate user/business value, time criticality and risk reduction / opportunity enablement on a common scale.
+2. Sum those into cost of delay; estimate job size (relative effort).
+3. Compute WSJF = cost of delay / job size.
+4. Sequence highest WSJF first, respecting dependencies and risk gates.
+5. Re-score when external deadlines or dependency dates move.
+
+**Enterprise worked example (Apex Audit Partners).** Apex used WSJF when Q3 busy season and an upcoming EQCR thematic review compressed capacity. Journal anomaly flagging scored high user/business value (audit quality) and high risk reduction (missed unusual journals), with elevated time criticality because busy-season substantive testing starts in eight weeks—cost of delay high, job size medium → top WSJF. Document extraction scored high value and medium time criticality (pain is continuous, not cliff-edged), job size medium → second. Working-paper assist scored high value but lower time criticality (partners can wait one season if extraction lands first), larger job size once citation logging is included → lower WSJF. A methodology chatbot had low time criticality and low risk reduction. A “continuous audit dashboard product” (Horizon 3) had strategic value but low near-term criticality and large job size → deferred. Importantly, a regulatory reporting change in the firm’s own quality system (non-AI) outranked a feature enhancement to the chatbot because delay created compliance exposure—WSJF kept the AI portfolio honest against non-AI critical work. The programme backlog therefore sequenced: anomaly discovery spike → extraction MVP for invoice samples → working-paper assist with mandatory citations → deferred product bets.
+
+**Best output.** A WSJF-ranked programme backlog with cost-of-delay rationale.
+
+**Lifecycle stage.** Use-case portfolio (step 4) and PI / quarterly planning.
+
+**Stage-gate contribution.** Sequencing approval: why this now, dependency map and delay cost if slipped.
+
+**Failure modes.** Ignoring time criticality; treating all AI ideas as equally urgent; underestimating job size for governance work; using WSJF to override hard risk thresholds.
+
+**Related frameworks.** Cost-of-delay analysis, RICE, portfolio matrix, RAID, delivery roadmapping.
+
+
+### MoSCoW
+
+**Purpose.** Creates release-level priority categories—Must, Should, Could and Won’t—so pilots stay scoped and negotiable.
+
+**When to use / when not.** Use when scoping a release, MVP or pilot and stakeholders inflate scope. Do not use as a substitute for portfolio ranking across unrelated use cases; MoSCoW is for requirements inside a chosen initiative.
+
+**How to use it.**
+
+1. Define objective rules for Must (fails audit quality or safety without it) versus Should/Could.
+2. Cap the proportion of Must items (often ≤60% of capacity).
+3. Negotiate trade-offs in a time-boxed workshop with product, quality and delivery.
+4. Record Won’t items explicitly to prevent silent reintroduction.
+5. Revisit categories only at release boundaries.
+
+**Enterprise worked example (Apex Audit Partners).** For the journal-anomaly + document-extraction pilot on mid-market assurance engagements, Apex ran MoSCoW with the quality office. Must: client-segregated processing; source citations for every extracted field; human senior review before any flag enters the audit file; access control aligned to engagement teams; immutable logging for EQCR. Should: related-party pattern hints; prior-year binder retrieval for planning; bulk invoice type classification. Could: custom dashboards per industry; optional Slack notifications; multi-language OCR beyond the pilot entities. Won’t for the pilot: public client chatbot; autonomous posting of working-paper conclusions; cross-client model training on live matter; unsigned management-letter generation; avatar or “personality” features. Working-paper narrative assist was classified Should for phase two, not Must for phase one, to protect the Must set. Capping Must items forced a hard cut: industry dashboards and Slack alerts moved to Could, and the chatbot was written into Won’t so sales could not reintroduce it mid-sprint. The release requirement set became auditable: if a Must slipped, go-live slipped; Could items never blocked the gate.
+
+**Best output.** A scoped release requirement set with explicit Won’t list.
+
+**Lifecycle stage.** Use-case portfolio into delivery scoping (steps 4–8).
+
+**Stage-gate contribution.** Release/MVP scope approval: Must set, capacity cap and Won’t register.
+
+**Failure modes.** Everything labelled Must; no Won’t list; MoSCoW without capacity maths; reopening Won’t mid-sprint; confusing portfolio prioritisation with release scoping.
+
+**Related frameworks.** Kano, RICE, AI Canvas, security/privacy controls checklists, change impact.
+
+
+### Kano Model
+
+**Purpose.** Distinguishes basic expectations, performance drivers and delight features so teams fund hygiene before differentiators.
+
+**When to use / when not.** Use when feature debates mix “table stakes” with “nice to have” and user research can classify reactions to presence and absence. Do not use as the primary funding model for an entire multi-use-case portfolio.
+
+**How to use it.**
+
+1. Research how users react when a capability is present versus absent.
+2. Classify features as basic, performance, delight (or indifferent / reverse).
+3. Prioritise basics to an acceptable level before investing in delight.
+4. Map performance features to measurable satisfaction or quality KPIs.
+5. Avoid shipping delight that undermines basics (for example witty tone that weakens professional trust).
+
+**Enterprise worked example (Apex Audit Partners).** Apex interviewed seniors, managers and EQCR reviewers about AI assists on engagements. Basics (must not annoy or endanger the file): accurate source citations, engagement-scoped access, no invented figures, clear human ownership of conclusions, predictable latency during fieldwork. Performance drivers: faster invoice-field extraction accuracy, better ranking of unusual journals, fewer false positives requiring senior time, clearer explanations of why a journal was flagged. Delight (only after basics): proactive engagement-planning suggestions from industry benchmarks, side-by-side prior-year narrative comparisons, optional coaching tips for juniors. Reverse / brand risk: a playful client-facing chatbot and “autonomous partner letters” reduced trust. Indifferent for many partners: custom avatars and theme colours. Using Kano, Apex refused to fund delight features on the working-paper assistant until citation completeness and access control met basic thresholds. Journal anomaly work prioritised explanation quality (performance) over flashy visualisations (delight). Document extraction invested first in field accuracy and reconciliation totals (basic/performance) rather than multi-language flourish. The Kano map stopped the product team from shipping a charming UI that still hallucinated amounts into the audit file.
+
+**Best output.** A Kano feature map tied to release priorities.
+
+**Lifecycle stage.** Use-case design and backlog refinement (steps 4–8).
+
+**Stage-gate contribution.** MVP quality bar: basics met before delight; EQCR-visible controls as basics.
+
+**Failure modes.** Shipping delight before basics; treating partner “nice ideas” as basics; ignoring reverse attributes that damage professional trust; surveying only enthusiasts.
+
+**Related frameworks.** MoSCoW, JTBD, DVF, change/adoption (ADKAR), Responsible AI oversight design.
+
+
+### ICE Scoring
+
+**Purpose.** Ranks ideas quickly through impact, confidence and ease when a full RICE model is too heavy for an early workshop.
+
+**When to use / when not.** Use for rapid triage of a long idea list in discovery or innovation sessions. Do not use as the final investment case for high-risk or high-spend programmes—graduate top ICE items into RICE, DVF or weighted scoring.
+
+**How to use it.**
+
+1. Set 1–10 scales for impact, confidence and ease.
+2. Score candidates in a time-boxed round; average independent scores.
+3. Use low confidence to force validation rather than debate.
+4. Take the top band into deeper frameworks; archive the bottom band.
+5. Re-score after spikes when confidence changes.
+
+**Enterprise worked example (Apex Audit Partners).** In a half-day innovation workshop, Apex scored twenty AI ideas with ICE before committing analyst time. Document extraction: impact 8, confidence 8, ease 7 → top band. Journal anomaly detection: impact 9, confidence 5, ease 4 → high impact but confidence gap triggered a labelled-data spike. Working-paper assist: impact 8, confidence 5, ease 5. Engagement risk sensing: impact 7, confidence 4, ease 3. Methodology chatbot for staff: impact 5, confidence 7, ease 8 → surprisingly high ICE but partners marked it non-critical for quality. Public client chatbot: impact 3, confidence 4, ease 7 → easy but low impact. Multi-agent “run the audit” workflow: impact claimed 10, confidence 2, ease 1 → parked. Timesheet coding: impact 3, confidence 8, ease 8. ICE cleared noise fast: extraction advanced to weighted scoring and a commercial case; anomaly and working-paper assist entered discovery with explicit confidence experiments; chatbot ideas and autonomous multi-agent dreams were archived with rationale. The firm avoided spending six weeks writing business cases for ideas that failed a 30-minute ICE pass.
+
+**Best output.** A fast opportunity ranking with a validation queue for low-confidence / high-impact items.
+
+**Lifecycle stage.** Early portfolio shaping (step 4) and innovation triage.
+
+**Stage-gate contribution.** Triage gate: top band proceeds to deeper scoring; bottom band closed or deferred with reason.
+
+**Failure modes.** Using ICE as a final business case; high confidence without evidence; ease ignoring security work; averaging away quality-office vetoes.
+
+**Related frameworks.** RICE, DVF, weighted scoring, portfolio matrix.
+
+
+### Weighted Scoring Model
+
+**Purpose.** Combines multiple explicit criteria and weights into an auditable prioritisation scorecard for investment committees.
+
+**When to use / when not.** Use when sponsors need transparent trade-offs across strategy, value, feasibility, data readiness and risk. Do not use when criteria or weights cannot be agreed, or when a single hard constraint (legal ban, mandatory programme) already decides.
+
+**How to use it.**
+
+1. Agree criteria and weights with sponsors (sum to 100%).
+2. Define scoring anchors (what “5” means for each criterion).
+3. Collect evidence; score independently then calibrate in a workshop.
+4. Apply risk penalties or pass/fail thresholds where needed.
+5. Run sensitivity on weights; lock the scorecard version used for the decision.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s investment committee set weights for FY AI funding: business value 30%, feasibility 20%, strategic alignment 15%, data readiness 15%, scalability across engagements 10%, residual risk penalty up to −20%. Candidates scored 1–5 with written anchors. Document extraction: strong value, feasibility and data readiness (SharePoint evidence packs), medium risk penalty for PII → top composite. Journal anomaly detection: highest strategic alignment to quality consistency, medium data readiness (labelling gap), higher risk penalty until read-only oversight confirmed → second, conditional on a discovery spike. Working-paper assist: high value and alignment, lower feasibility until citation logging designed, risk penalty for hallucinated narratives → third. Engagement-planning risk sensing: high alignment, weaker near-term feasibility. Staff methodology chatbot: moderate scores, small risk penalty, but low strategic weight versus assurance quality. Public client chatbot: weak strategic alignment for an audit brand, risk penalty for independence optics → below the funding line. Sensitivity (±10% on value vs risk) did not change the top two. The scorecard became the audit trail for why extraction and anomaly were funded and why the chatbot was not—useful when a partner later asked for a “quick chatbot pilot.”
+
+**Best output.** An auditable prioritisation scorecard with weights, anchors and sensitivity notes.
+
+**Lifecycle stage.** Use-case portfolio and investment committee (step 4).
+
+**Stage-gate contribution.** Funding approval: composite score, risk penalty, owner and conditions.
+
+**Failure modes.** Hidden re-weighting after preferred outcomes; vague anchors; single scorer bias; ignoring pass/fail risk thresholds; scorecard theatre without evidence packs.
+
+**Related frameworks.** RICE, strategic alignment scoring, risk-adjusted value, business case, DVF.
+
+
+### Risk-Adjusted Value Scoring
+
+**Purpose.** Discounts expected benefit for uncertainty and residual risk so optimistic business cases do not win by default.
+
+**When to use / when not.** Use when benefit claims are large and adoption, technical success or realisation probability is uncertain. Do not use when benefits cannot be estimated even directionally, or when the decision is non-financial (pure compliance mandate).
+
+**How to use it.**
+
+1. Estimate gross expected benefit over a defined horizon.
+2. Estimate probabilities of technical success, adoption and benefit realisation.
+3. Subtract control/oversight cost and residual risk exposure where material.
+4. Compare risk-adjusted values across candidates.
+5. Fund discovery to raise probability where upside remains large after discounting.
+
+**Enterprise worked example (Apex Audit Partners).** Apex modelled three-year benefit for leading ideas. Document extraction: £2.4m gross hours-saved benefit; technical success 85%, adoption 80%, realisation 75% → probability-adjusted ≈ £1.22m; control costs (Purview, segregation, logging) £0.18m; residual privacy exposure reserved £0.05m → risk-adjusted ≈ £0.99m. Journal anomaly detection: £3.1m quality and efficiency benefit claimed; technical success 60%, adoption 70%, realisation 65% → ≈ £0.85m before controls; higher oversight and evaluation cost £0.22m; residual false-negative exposure held as a quality reserve rather than pure cash → still competitive but no longer “obviously first.” Working-paper assist: £1.8m gross; probabilities 55/65/60 → ≈ £0.39m after heavy review-cost drag—partners insisted every draft is re-read. Public chatbot: £0.4m speculative “client experience” benefit collapsed under 30% adoption probability and brand risk reserve → near zero. The risk-adjusted view flipped advocacy order: extraction remained first; anomaly stayed second but only with a funded labelling and challenge-set programme to raise technical-success probability; working-paper assist waited for citation controls that reduce review drag. A £2m slide benefit that becomes ~£1m after probability adjustment is exactly the conversation Apex needed before CapEx approval.
+
+**Best output.** A risk-adjusted portfolio value model with probability and control-cost assumptions.
+
+**Lifecycle stage.** Use-case portfolio and commercial case (steps 4–5).
+
+**Stage-gate contribution.** Investment approval: risk-adjusted value, key probabilities and discovery plan to raise confidence.
+
+**Failure modes.** Single-point benefits with 100% probability; ignoring oversight cost; double-counting benefits; using risk adjustment to bury politically favoured ideas without transparent assumptions.
+
+**Related frameworks.** Business case, TCO/ROI, value–feasibility–risk, RICE, cost-of-delay.
+
+
+### Cost-of-Delay Analysis
+
+**Purpose.** Quantifies the economic, quality or strategic cost of waiting so sequencing decisions are timed, not only ranked.
+
+**When to use / when not.** Use when delay has measurable lost value, avoidable loss or regulatory/quality exposure. Do not use when timing is irrelevant or when delay cost is pure speculation with no trigger dates.
+
+**How to use it.**
+
+1. Define the delay period and the decision trigger (busy season, regulator visit, contract window).
+2. Model lost value, avoidable loss or risk exposure per period.
+3. Compare delay cost with incremental delivery cost of accelerating.
+4. Identify dependencies that create compounding delay.
+5. Document the timing decision and revisit when triggers move.
+
+**Enterprise worked example (Apex Audit Partners).** Apex compared delaying journal anomaly support versus document extraction ahead of busy season. Delaying anomaly flagging by six months meant one full substantive-testing cycle without AI-assisted unusual-journal review across ~180 engagements. Quality leadership estimated avoidable EQCR findings and partner overtime exposure far above the incremental cost of bringing forward a discovery spike and a read-only flagging MVP—cost of delay high and cliff-edged at fieldwork start. Delaying document extraction by six months continued daily re-keying waste (roughly £40–60k per month of junior hours across the practice) that accumulates linearly rather than as a single cliff—still material, but less time-critical than anomaly for the next eight weeks. Delaying working-paper assist had lower near-term delay cost because partners already draft narratives manually; the cost was mainly deferred efficiency. Delaying a client chatbot had negligible delay cost for audit quality. Cost-of-delay analysis therefore accelerated anomaly discovery into the pre-busy-season window, kept extraction on a parallel track with slightly less urgency, and accepted that working-paper assist slips a quarter if capacity collides. The timing decision was recorded with the busy-season trigger date so WSJF and the roadmap stayed aligned.
+
+**Best output.** A cost-of-delay estimate, trigger dates and timing decision.
+
+**Lifecycle stage.** Portfolio sequencing and programme planning (step 4 and delivery planning).
+
+**Stage-gate contribution.** Sequencing approval: delay cost if slipped, acceleration cost and trigger calendar.
+
+**Failure modes.** Inventing catastrophic delay without evidence; ignoring cliff dates; comparing delay cost without delivery cost; using cost-of-delay to override safety gates.
+
+**Related frameworks.** WSJF, risk-adjusted value, RAID, roadmap planning, commercial case.
+
+
+### Strategic Alignment Scoring
+
+**Purpose.** Measures contribution to agreed strategic objectives and capability themes so generic AI ideas do not displace strategy-linked work.
+
+**When to use / when not.** Use when the firm has an explicit AI or quality strategy and the portfolio is drifting toward convenient tools. Do not use when strategy itself is unclear—fix strategy first.
+
+**How to use it.**
+
+1. Restate strategic objectives and capability themes with sponsors.
+2. Map each use case to one or more objectives with evidence.
+3. Score alignment and reject weakly aligned ideas even if easy.
+4. Balance the portfolio across themes (quality, margin, talent, products).
+5. Revisit scores when strategy refresh changes themes.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s AI strategy named four themes: (1) audit quality consistency, (2) engagement margin on assurance, (3) talent leverage for juniors/seniors, (4) future continuous-assurance products. Journal anomaly detection scored 5 on quality and 4 on talent (seniors focus on true risks). Document extraction scored 5 on margin and 4 on talent (less re-keying). Working-paper assist scored 4 on quality (if citations hold) and 5 on talent. Engagement-planning risk sensing scored 5 on quality and 3 on future products. A generic writing assistant for emails scored 1–2 across themes despite high staff interest—rejected as weakly aligned. A public marketing chatbot scored low on all four and carried independence optics risk. A Horizon-3 continuous audit dashboard scored high on theme 4 but was capped to a small experiment fund so it did not starve Horizon-1 quality and margin work. Strategic alignment scoring made the “cool demo” problem explicit: timesheet coding and avatar features did not map to the four themes and were removed from the funded roadmap. The portfolio score became part of the investment pack alongside RICE and risk-adjusted value.
+
+**Best output.** A strategy-linked portfolio score with theme balance view.
+
+**Lifecycle stage.** Strategy cascade into use-case portfolio (steps 1 and 4).
+
+**Stage-gate contribution.** Portfolio approval: alignment evidence, theme balance and explicit rejects.
+
+**Failure modes.** Retrofitting alignment after choosing favourites; scoring without a written strategy; starving foundations that enable many aligned use cases; treating Horizon-3 as mandatory near-term spend.
+
+**Related frameworks.** Strategy cascade, Three Horizons, weighted scoring, portfolio matrix, OKRs.
+
+
+### Use-Case Portfolio Matrix
+
+**Purpose.** Balances quick wins, strategic bets, foundations, experiments and deferred work so the roadmap is coherent rather than a flat ranked list.
+
+**When to use / when not.** Use when multiple funded items must coexist with dependencies and risk concentration limits. Do not use when only one initiative is allowed or when categories become dumping grounds without funding rules.
+
+**How to use it.**
+
+1. Classify each opportunity: quick win, strategic bet, foundation, experiment, defer/reject.
+2. Map dependencies (foundations before dependent assists).
+3. Allocate funding percentages by category and review risk concentration.
+4. Sequence releases so foundations unlock later value.
+5. Review the matrix quarterly as learning changes classifications.
+
+**Enterprise worked example (Apex Audit Partners).** Apex classified the AI backlog after scoring. Quick wins: invoice/contract document extraction MVP; methodology FAQ chatbot for staff (small fund, non-file). Foundations: client-segregated data platform, Purview labelling, lineage for audit-file evidence, golden evaluation sets for journals and working papers, human-oversight and logging patterns—without these, anomaly and generative assists cannot pass EQCR. Strategic bets: journal anomaly detection at scale; working-paper narrative assist with citations; engagement-planning risk sensing. Experiments: continuous-assurance dashboard prototype; limited multi-language OCR. Deferred/rejected: public client chatbot; autonomous management-letter posting; cross-client training on live matter; “multi-agent runs the audit.” Funding split roughly 25% foundations, 40% quick wins and early strategic delivery, 25% strategic bets, 10% experiments. Dependencies were explicit: extraction and anomaly consume the data foundation; working-paper assist consumes citation logging and retrieval indices. Risk concentration review blocked stacking three generative file-writing tools in the same quarter. The portfolio matrix produced a roadmap partners could defend: foundations first, extraction as the visible quick win, anomaly as the quality strategic bet, working-paper assist gated on controls, chatbot ideas either tiny (internal FAQ) or rejected (public).
+
+**Best output.** A balanced portfolio map, dependency view and roadmap.
+
+**Lifecycle stage.** Use-case portfolio and multi-quarter roadmap (step 4).
+
+**Stage-gate contribution.** Portfolio approval: category mix, dependency unlock criteria and reject/defer register.
+
+**Failure modes.** Calling everything a strategic bet; skipping foundations; experiment sprawl; no funding caps; reintroducing rejected items without re-scoring.
+
+**Related frameworks.** Impact–effort, Three Horizons, weighted scoring, WSJF, architecture/data foundations, Responsible AI gates.

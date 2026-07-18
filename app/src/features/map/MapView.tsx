@@ -37,7 +37,7 @@ export function MapView() {
     <div data-testid="map-view" className="space-y-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 2 · Map</p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Locate the layer</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">Locate the layer</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           Foundation decisions constrain platform decisions.
         </p>
@@ -56,7 +56,7 @@ export function MapView() {
                 className={[
                   'w-full rounded-xl px-3 py-3 text-left text-sm transition',
                   isActive
-                    ? 'bg-slate-blue text-white shadow-md'
+                    ? 'bg-ink text-surface-soft shadow-md'
                     : 'bg-white/50 text-ink hover:bg-white/80',
                 ].join(' ')}
               >

@@ -166,7 +166,7 @@ export function ClientWorkspacesView({
                         className={[
                           'w-full rounded-lg px-2 py-1 text-left text-sm',
                           store.activeEngagementId === item.id
-                            ? 'bg-slate-blue text-white'
+                            ? 'bg-ink text-surface-soft'
                             : 'hover:bg-white',
                         ].join(' ')}
                         onClick={() => handleSelectEngagement(client.id, item.id)}

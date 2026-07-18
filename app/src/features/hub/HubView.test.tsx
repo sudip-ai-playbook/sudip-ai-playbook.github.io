@@ -3,11 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HubView } from './HubView'
 import { ProjectProvider } from '../journey/ProjectProvider'
-import {
-  BUY_ME_A_COFFEE_URL,
-  KO_FI_URL,
-  LEARNING_MAP_PATH,
-} from '../../constants/playbook'
+import { LEARNING_MAP_PATH } from '../../constants/playbook'
 
 function renderHub() {
   return render(
@@ -20,23 +16,16 @@ function renderHub() {
 }
 
 describe('HubView orientation', () => {
-  it('shows three primary paths without featured reading or tool grids', () => {
+  it('makes architecture the primary path and demotes secondary paths', () => {
     renderHub()
 
-    expect(screen.getByTestId('hub-primary-cta')).toHaveAttribute('href', '/consult')
-    expect(screen.getByTestId('open-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
-    expect(screen.getByTestId('path-learn')).toHaveAttribute('href', LEARNING_MAP_PATH)
-    expect(screen.getByTestId('start-consulting')).toHaveAttribute('href', '/consult')
+    expect(screen.getByTestId('hub-primary-cta')).toHaveAttribute('href', '/frame')
     expect(screen.getByTestId('start-journey')).toHaveAttribute('href', '/frame')
+    expect(screen.getByTestId('start-consulting')).toHaveAttribute('href', '/consult')
+    expect(screen.getByTestId('path-learn')).toHaveAttribute('href', LEARNING_MAP_PATH)
 
     expect(screen.queryByTestId('hub-blog-featured')).not.toBeInTheDocument()
     expect(screen.queryByTestId('plane-map')).not.toBeInTheDocument()
-
-    expect(screen.getByTestId('hub-support')).toBeInTheDocument()
-    expect(screen.getByTestId('hub-buy-me-a-coffee')).toHaveAttribute(
-      'href',
-      BUY_ME_A_COFFEE_URL,
-    )
-    expect(screen.getByTestId('hub-ko-fi')).toHaveAttribute('href', KO_FI_URL)
+    expect(screen.queryByTestId('hub-support')).not.toBeInTheDocument()
   })
 })

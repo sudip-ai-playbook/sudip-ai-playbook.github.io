@@ -1,0 +1,453 @@
+---
+sidebar_position: 6
+title: Commercial and Value Frameworks
+description: Complete reference for commercial and value frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# Commercial and Value Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in workshops; treat **Best output** as the minimum artefact for the related stage gate. **When to use / when not** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Step 6 and Step 13
+
+Use commercial frameworks to make costs, benefits, uncertainty and ownership explicit.
+
+**Running client:** Apex Audit Partners — a mid-market financial auditing firm industrialising AI for engagement risk scoring, journal anomaly detection, document extraction and working-paper drafting. Human partners remain accountable for all audit opinions. Typical engagement economics referenced below assume ~180 mid-market audits per year, blended senior/manager rates of £95–£145/hour, and a three-year investment horizon unless a framework specifies otherwise.
+
+### Total Cost of Ownership
+
+**Purpose.** Total Cost of Ownership (TCO) forces Apex to price the full lifecycle of an AI capability—build, run, govern, change and retire—rather than the vendor quote or token invoice alone. In regulated audit work, hidden costs (methodology updates, quality review uplift, model evaluation labour, knowledge curation and partner training) often exceed inference spend. TCO converts a product conversation into a multi-year cash and capacity model that Finance, Assurance Technology and Quality & Risk can challenge. Without it, pilots look cheap and production looks “surprisingly” expensive.
+
+**When to use.** Before investment approval for platform or use-case scale; when comparing build vs buy vs SaaS; when FinOps needs a baseline for run-rate forecasting; when partners ask “what does this really cost us over three years?”
+
+**When not to use.** When the problem and scope are still undefined and cost drivers cannot be named; when you only need a one-line ROI headline for a slide (use ROI after TCO exists); when the decision is purely a two-week discovery spend under £25k with no production path.
+
+**How to use it.**
+
+1. Fix the horizon (typically 36 months for Apex) and the scope boundary (one use case vs shared platform).
+2. Enumerate cost categories: build, licences, cloud/inference, data/knowledge ops, evaluation, security/compliance, change/training, BAU support, retirement.
+3. Separate one-off, fixed recurring and variable (volume-linked) costs; tag which scale with engagements or documents.
+4. Collect evidence: timesheets, vendor quotes, prior PoC invoices, Quality hours on methodology change.
+5. Model base, optimistic and pessimistic volumes (engagements, pages, journals, review rate).
+6. Add risk buffers for rework, model switches and regulatory change (explicit line items, not a vague contingency).
+7. Reconcile to the chart of accounts and name a cost owner per category.
+8. Package the multi-year TCO for the VALUE / investment gate with assumptions and evidence grades.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s CFO and Head of Assurance Technology commissioned a three-year TCO before scaling journal anomaly detection and bank-confirmation extraction beyond two pilot offices. Year-0 build (integration to the audit file system, prompt/eval harness, SSO and logging) was estimated at £420,000 professional services plus £85,000 licences. Annual run costs in the likely case were £110,000 cloud and inference (≈12m journal lines and 1.8m document pages processed), £95,000 knowledge and evaluation labour (1.2 FTE equivalent at blended £79k), £48,000 Quality & Risk methodology and control testing uplift, and £36,000 partner/manager training refresh. Hidden costs surfaced in workshops: seniors spent ~0.4 hours per engagement validating AI exception lists that Finance had initially ignored—≈£6,800/year at 180 engagements × £95/hour—plus £22,000 for periodic model revalidation after ISA methodology updates. Retirement/exit (data export, decommission, dual-run) was booked at £40,000 in Year 3. Three-year TCO landed at ≈£1.12m likely / £1.41m pessimistic. The artefact killed a “tokens only £18k/year” narrative and forced a shared-platform cost allocation so working-paper drafting would not be double-charged for the same eval harness.
+
+**Best output / artefact.** Multi-year TCO model (cash and FTE), assumption register, cost-owner map and evidence grades.
+
+**Lifecycle stage.** Business case (step 6); refresh in operate/scale FinOps reviews (steps 13–14).
+
+**Stage-gate contribution.** Investment approval: full lifecycle cost visible, owners named, and no material category left as “TBD.”
+
+**Failure modes.** Counting only vendor and cloud invoices; ignoring Quality/methodology labour; allocating shared platform cost as zero to every use case so each looks profitable alone.
+
+**Related frameworks.** Unit Economics, FinOps, Cost-Benefit Analysis, Sensitivity Analysis, Scenario Analysis, Benefits Realisation Plan.
+
+### Return on Investment
+
+**Purpose.** Return on Investment (ROI) expresses net benefit relative to cost so Apex’s Investment Committee can compare AI programmes with other firm investments on a common ratio. For audit AI, ROI must distinguish cashable capacity (hours released that reduce contractor spend or enable more engagements) from non-cash quality gains (fewer review comments, stronger evidence trails). Used well, ROI is a decision aid with transparent numerators and denominators; used poorly, it is a marketing number. Apex requires ROI by use case and by shared-platform roll-up so double counting is visible.
+
+**When to use.** At business-case approval and annual benefits reviews; when ranking competing use cases under a capital ceiling; when partners demand a single percentage to compare against training or M&A investments.
+
+**When not to use.** Before baselines and TCO exist; when cash timing matters more than the ratio (prefer NPV/IRR/payback); when benefits are almost entirely non-cash and the committee has not agreed valuation rules.
+
+**How to use it.**
+
+1. Lock the cost base from the approved TCO for the same horizon and scope.
+2. Define benefit categories: cashable hours, avoided contractors, revenue enablement, risk/quality (valued only if committee rules allow).
+3. Set baselines from timesheets and file metrics (hours per journal test, confirmation processing, planning rewrite).
+4. Apply success and adoption haircuts; never assume 100% of theoretical time saving is realised.
+5. Separate cashable vs non-cash; show both, but compute primary ROI on cashable + agreed valuation rules only.
+6. Calculate ROI = (net benefit − cost) / cost for base, likely and downside cases.
+7. Stress-test with Sensitivity and Scenario Analysis; document double-count checks across use cases.
+8. Present ROI with assumption register and benefit owners for gate sign-off.
+
+**Enterprise worked example (Apex Audit Partners).** For journal anomaly triage, Apex measured baseline senior time at 6.5 hours per engagement preparing samples and chasing explanations (£95/hour → £617.50). After AI, measured time on ten pilot files fell to 3.8 hours with manager review uplift of 0.3 hours (£145/hour → £43.50), net saving ≈£212 per engagement. At 180 engagements and 75% adoption in Year 2, annual cashable benefit was ≈£28,600; adding avoided seasonal contractor days (£42,000) and reduced late-file overtime (£18,000) produced £88,600 Year-2 benefits against incremental Year-2 cost of £52,000 (run + change), giving ROI ≈70% on that year alone. Over three years, cumulative net benefit of £195,000 on cumulative cost of £310,000 for the use-case slice produced ROI ≈−37% if platform build was fully loaded to journals only—but ROI ≈118% when journals carried 35% of shared platform TCO and extraction carried the rest. The Investment Committee approved scale only on the shared-allocation ROI and required non-cash quality benefits (fewer EQCR findings) to be tracked separately, not folded into the percentage.
+
+**Best output / artefact.** ROI summary pack: scenarios, cashable vs non-cash split, allocation method and assumption register.
+
+**Lifecycle stage.** Business case (step 6); benefits realisation reviews (step 13).
+
+**Stage-gate contribution.** Investment approval: risk-adjusted ROI with agreed valuation rules and no silent double counting.
+
+**Failure modes.** Inflating ROI with unverified “quality” pounds; loading zero platform cost; assuming every saved hour becomes billable or cash.
+
+**Related frameworks.** Total Cost of Ownership, Net Present Value, Payback Period, Unit Economics, Benefits Dependency Network, Value-Driver Tree.
+
+### Net Present Value
+
+**Purpose.** Net Present Value (NPV) values Apex’s multi-year AI cash flows in today’s money so delayed benefits and front-loaded build cost are not treated as equal. Mid-market audit firms often under-weight Year-0 integration pain and over-weight Year-3 scale stories; discounting forces an explicit cost of capital and timing debate. NPV also supports portfolio decisions: a platform with weak Year-1 ROI may still show positive NPV if it unlocks multiple use cases. For Apex, NPV sits beside partner risk appetite—positive NPV does not override control unreadiness.
+
+**When to use.** When cash flows span multiple years; when comparing investments with different timing profiles; when Finance mandates discounted cash-flow for capital >£250k.
+
+**When not to use.** For single-quarter experiments under a fixed discovery budget; when discount rate and cash definitions are politically contested and will not be resolved in the workshop; when the only question is operational break-even volume.
+
+**How to use it.**
+
+1. Agree horizon (36–60 months), discount rate (Apex Finance used 9% WACC proxy) and cash vs accounting profit rules.
+2. Forecast incremental cash inflows (contractor avoided, overtime reduced, marginal engagement capacity) by year.
+3. Forecast incremental cash outflows from TCO (build, run, change, exit).
+4. Exclude sunk PoC spend already incurred unless the gate asks for “including sunk” sensitivity.
+5. Calculate present values and NPV; show undiscounted totals alongside.
+6. Run sensitivity on discount rate (±2pp), adoption lag and Year-1 overrun.
+7. Compare NPV across use-case alone vs platform-enabled portfolio.
+8. Record decision: proceed / stage / stop with NPV and non-financial gate criteria.
+
+**Enterprise worked example (Apex Audit Partners).** Apex modelled the shared AI platform feeding journals, extraction and (later) working-paper drafting. Finance-approved incremental cash flows were −£505,000 in Year 0 (build and dual-run), −£25,000 in Year 1 (run still ahead of lagged adoption), +£190,000 in Year 2 and +£280,000 in Year 3. At a 9% discount rate, present values were approximately −£505k, −£22.9k, +£160.0k and +£216.3k, giving NPV ≈ **−£151.6k** on journals and extraction alone. Adding a Year-3 working-paper drafting increment of +£120k cash (PV ≈£92.6k) was still not enough on its own. NPV turned positive only when the case included contribution from twenty incremental audits enabled by released capacity—about +£360k over Years 2–3 (PV ≈£286k)—producing portfolio NPV of roughly **+£134k**. The steering group therefore approved staged funding: journals and extraction could proceed, while working-paper drafting stayed an unexercised option rather than a Year-0 commitment. The NPV pack made the timing story impossible to ignore—front-loaded integration spend is not offset by slideware Year-3 optimism—and forced Real-Options Analysis to sit beside the discounted cash-flow at the same gate.
+
+**Best output / artefact.** NPV model with discount-rate rationale, yearly cash bridge and portfolio vs single-use-case views.
+
+**Lifecycle stage.** Business case (step 6); revisit at scale funding (steps 13–14).
+
+**Stage-gate contribution.** Investment approval: discounted case signed by Finance; timing risk explicit.
+
+**Failure modes.** Mixing accounting profit with cash; ignoring Year-0 dual-run cost; claiming positive NPV by omitting shared platform build from the use case under review.
+
+**Related frameworks.** Internal Rate of Return, Payback Period, Real-Options Analysis, Scenario Analysis, Total Cost of Ownership.
+
+### Internal Rate of Return
+
+**Purpose.** Internal Rate of Return (IRR) is the discount rate at which project NPV equals zero—a useful hurdle comparison when Apex’s partners think in “what yield does this earn?” rather than absolute pounds. IRR highlights speed of cash recovery: two programmes with similar ROI can have very different IRRs if one returns cash earlier. In AI delivery, IRR must be interpreted with caution (multiple IRRs, scale options, non-cash benefits). Apex uses IRR as a companion to NPV, never as the sole kill criterion for control-critical capabilities.
+
+**When to use.** When ranking mutually exclusive investments against a firm hurdle (Apex: 12% for technology programmes); when cash-timing differences are material; when Investment Committee packs already include NPV and want a yield view.
+
+**When not to use.** When cash-flow signs flip more than once without care; when benefits are mostly non-cash; when comparing projects of very different scale without NPV; for tiny discovery spends.
+
+**How to use it.**
+
+1. Use the same incremental cash-flow series as the NPV model.
+2. Compute IRR; compare to hurdle rate and to alternative projects.
+3. Present IRR alongside NPV—reject IRR-only decisions.
+4. Test “delayed adoption” variants that push benefits right and crush IRR.
+5. Flag non-conventional cash flows and use MIRR if Finance requires.
+6. Separate use-case IRR from platform IRR with explicit cost allocation.
+7. Document whether hurdle already embeds risk or whether risk is handled via scenarios.
+8. Recommend proceed only if IRR ≥ hurdle **and** NPV ≥ 0 **and** control gates pass.
+
+**Enterprise worked example (Apex Audit Partners).** On the journals+extraction cash series (−£505k, −£25k, +£190k, +£280k), IRR was approximately **6.4%**, below Apex’s 12% technology hurdle—even though partners liked the operational story. When Finance included capacity-enabled contribution from twenty incremental audits phased across Years 2–3 (additional +£140k / +£220k), IRR rose to ≈**14.8%** with NPV positive at 9%. A competing investment—upgrading the cold document archive—showed IRR ≈16% but did not reduce EQCR findings. The committee did not pick the higher IRR blindly: it funded AI on a staged path because Quality & Risk valued the control narrative, while requiring the archive project to proceed in parallel on a smaller cheque (£180k). IRR analysis also exposed that slipping Year-2 benefits by two quarters (common when methodology freeze delayed production) dropped AI IRR to ≈9%, triggering a contingency plan of narrower office rollout rather than firm-wide launch.
+
+**Best output / artefact.** IRR (and optional MIRR) comparison table with hurdle, NPV companion and delay sensitivities.
+
+**Lifecycle stage.** Business case (step 6); portfolio rebalancing (step 13).
+
+**Stage-gate contribution.** Investment ranking: yield vs hurdle with explicit warning that control readiness can veto a high IRR.
+
+**Failure modes.** Choosing the highest IRR project regardless of NPV or risk; ignoring adoption delay; calculating IRR on benefits that include non-cash “£ equivalent” without Finance approval.
+
+**Related frameworks.** Net Present Value, Payback Period, Scenario Analysis, Real-Options Analysis, Prioritisation frameworks.
+
+### Payback Period
+
+**Purpose.** Payback Period measures how quickly cumulative net benefit recovers investment—critical for a mid-market partnership where partners dislike long cash sinkholes even if NPV is eventually positive. For Apex AI, payback translates abstract TCO into a calendar question: “When are we whole?” It supports risk appetite conversations: shorter payback may justify a narrower MVP; longer payback demands stronger staged options and control confidence. Payback ignores post-recovery value, so Apex never uses it alone.
+
+**When to use.** When partners focus on cash recovery speed; when comparing MVP scopes; when risk appetite caps maximum months-to-recover (Apex informal norm: ≤24 months for use-case scale funding).
+
+**When not to use.** When the strategic value is platform optionality beyond the payback window; when cash flows are highly seasonal and monthly granularity is unavailable; as a substitute for NPV on multi-decade infrastructure (not Apex’s case, but still).
+
+**How to use it.**
+
+1. Build monthly or quarterly net cash flow from TCO and benefits models.
+2. Include dual-run and training months that delay net positive cash.
+3. Cumulate until crossing zero; mark best / likely / worst payback dates.
+4. Compare against risk appetite and financing constraints.
+5. Identify scope cuts that shorten payback without breaking controls.
+6. Pair with NPV so “fast payback / low total value” traps are visible.
+7. Assign owners for the levers that move payback (adoption, review rate, licence renegotiation).
+8. Gate decision: fund full scope, fund MVP with shorter payback, or stop.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s likely-case quarterly model for journals+extraction showed cumulative cash still negative after four quarters (−£505k build, slow Year-1 benefits). Break-even landed in **Month 22** in the likely case: cumulative benefits from avoided contractors (£7k/month by Month 12 rising to £12k), overtime reduction and partial senior-hour release overtook cumulative spend. Worst case (45% adoption, 25% higher inference, methodology delay) pushed payback past **Month 34**, outside partner appetite. The team shortened likely payback to **Month 18** by deferring working-paper drafting UI polish (£70k), negotiating a 15% licence reduction (£12.75k/year) and limiting firm-wide training to two waves instead of four (saving £28k Year-0). Partners approved the MVP scope with a hard review at Month 12: if cumulative recovery trailed the plan by >£80k, offices four and five would not activate. Payback charts hung in the AI steering pack beside EQCR metrics so speed-to-cash could not silently override audit quality.
+
+**Best output / artefact.** Payback chart (cumulative cash), scenario dates and MVP scope bridge.
+
+**Lifecycle stage.** Business case (step 6); checkpoint in operate (step 13).
+
+**Stage-gate contribution.** Funding shape: full vs MVP based on recovery speed vs appetite.
+
+**Failure modes.** Stopping analysis at payback and ignoring later value; excluding Year-0 change cost to “improve” the chart; assuming linear monthly benefits from day one.
+
+**Related frameworks.** Net Present Value, Break-Even Analysis, Scenario Analysis, Real-Options Analysis, Benefits Realisation Plan.
+
+### Break-Even Analysis
+
+**Purpose.** Break-Even Analysis identifies the adoption, volume or productivity threshold at which Apex’s AI capability covers its cost—answering “how many engagements / documents / successful assists do we need?” It is operationally intuitive for engagement leaders who think in files, not discount rates. Break-even connects FinOps to delivery: if the firm cannot reach the threshold under realistic review rates and methodology constraints, the design must change. It also sets early-warning KPIs for the operate phase.
+
+**When to use.** When variable cost and per-unit contribution are knowable; when adoption uncertainty dominates; when setting go/no-go volume gates for office rollout.
+
+**When not to use.** When almost all cost is sunk/fixed and volume does not matter this year; when “units” are ambiguous (mixed journals + pages + chats) without a chosen primary unit; when qualitative strategic value is the real decision driver and volumes are secondary.
+
+**How to use it.**
+
+1. Choose the unit (engagement assisted, journal line scored, confirmation extracted, working-paper section drafted).
+2. Separate fixed period cost from variable cost per unit (inference, human review minutes).
+3. Define contribution per unit (cashable hour value net of review uplift).
+4. Solve break-even volume = fixed / contribution per unit; adjust for success rate.
+5. Plot break-even under different review-rate and adoption assumptions.
+6. Compare break-even to reachable volume (180 engagements, office waves).
+7. Set operational triggers: pause rollout if trailing volume &lt; 70% of path-to-break-even.
+8. Feed thresholds into Benefits Realisation and FinOps dashboards.
+
+**Enterprise worked example (Apex Audit Partners).** For confirmation extraction, Apex fixed quarterly fixed cost at £48,000 (allocated platform, licences, eval, Quality sampling). Variable cost was £0.11 per page inference + £1.40 human QA on a 12% sample (average £0.28/page all-in variable). Gross benefit per successful extraction pack was valued at £38 of senior time avoided (0.4 hours × £95) minus £8 manager spot-check, net contribution ≈£30 per pack. At ~22 pages per pack, variable cost ≈£6.16, contribution ≈£23.84. Break-even packs per quarter ≈ £48,000 / £23.84 ≈ **2,014 packs**. Apex processes roughly 180 engagements × ~9 confirmation packs ≈ 1,620 packs/year if fully adopted—**below quarterly run-rate break-even if fixed cost stayed at £48k/quarter**. The analysis forced two design moves: push extraction onto the shared platform allocation (cut fixed attributed cost to £22,000/quarter) and raise automation so QA sample fell from 12% to 6% after EQCR sampling confidence improved. New break-even ≈ 1,050 packs/quarter-equivalent annualised—reachable if 130 of 180 engagements adopted by Month 15. Offices were sequenced to hit that path; office three delayed until pack volume cleared 900 trailing-twelve-month.
+
+**Best output / artefact.** Break-even curve, unit definition, reachable-volume comparison and operational triggers.
+
+**Lifecycle stage.** Business case (step 6); operate FinOps (step 13).
+
+**Stage-gate contribution.** Scale gate: evidence that reachable volume clears break-even under agreed review rates.
+
+**Failure modes.** Mixing units; ignoring human QA as variable cost; setting break-even on vanity metrics (logins) instead of successful file-ready outputs.
+
+**Related frameworks.** Unit Economics, Total Cost of Ownership, Sensitivity Analysis, Benefits Realisation Plan, FinOps.
+
+### Cost-Benefit Analysis
+
+**Purpose.** Cost-Benefit Analysis (CBA) compares all material benefits and costs—including qualitative and distributional impacts—so Apex does not approve AI on Finance numbers alone while Quality & Risk absorbs unseen burden. CBA makes winners and losers explicit: central capacity gains versus increased review workload, faster fieldwork versus partner time spent challenging model outputs. It is the integrity layer over ROI/NPV when stakeholder impacts are uneven. For audit AI, CBA must include professional scepticism time and regulatory exposure, not only efficiency.
+
+**When to use.** When benefits and costs fall on different teams; when qualitative impacts (reputation, EQCR, talent retention) matter; when Investment Committee requires a transparent ledger beyond a single ROI%.
+
+**When not to use.** When a pure discounted cash model is mandated and qualitative items are out of scope; when you lack stakeholder map and will invent impacts; as a substitute for detailed TCO engineering.
+
+**How to use it.**
+
+1. Map stakeholders (partners, managers, seniors, Quality, IT, clients, regulators).
+2. List costs and benefits per stakeholder; mark cash, non-cash and transfer (who pays whom inside the firm).
+3. Quantify where credible; score qualitative items on an agreed scale with evidence.
+4. Check double counting and transfers (one team’s “saving” that is another’s new work).
+5. Analyse distribution: who gains capacity vs who gains review load.
+6. Document uncertainty and ethics/regulatory constraints that cap quantification.
+7. Summarise net position and residual risks for the gate pack.
+8. Agree mitigation funding (e.g. Quality capacity) as part of the investment, not an afterthought.
+
+**Enterprise worked example (Apex Audit Partners).** CBA for working-paper drafting assist showed Finance-facing benefits of ≈£120,000/year at scale (senior drafting hours) but Quality & Risk quantified an offsetting £55,000/year in additional file inspection and model-output challenge during the first two years, plus £30,000 methodology authoring. Managers reported a transfer cost: 0.5 hours/engagement rewriting AI tone to firm style (£145 × 0.5 × 180 × 60% adoption ≈ £7,830—small cash, high frustration). Client-facing qualitative benefit scored +2 (faster queries) while regulatory risk scored −2 until human-accountability controls were proven. Net cashable CBA was positive ≈£35,000/year after Quality uplift was funded inside the business case—not hoped away. The ledger convinced the Managing Partner Assurance to approve drafting only for low-judgement sections (lead schedules, tie-outs) and to exclude opinion-adjacent narrative. Artefacts included a stakeholder impact ledger, scored qualitative matrix and a funded mitigation line for two additional EQCR days per busy season (£18,000).
+
+**Best output / artefact.** Cost-benefit ledger with cash/non-cash/transfer tags, qualitative scores and mitigation budget.
+
+**Lifecycle stage.** Business case (step 6); benefits and risk reviews (step 13).
+
+**Stage-gate contribution.** Investment approval: distributional impacts and Quality mitigations funded, not deferred.
+
+**Failure modes.** Counting internal transfers as net firm benefit; ignoring Quality workload; scoring qualitative items without evidence or opposing voices.
+
+**Related frameworks.** Benefits Dependency Network, Total Cost of Ownership, Return on Investment, Responsible AI / governance gates, Change & Adoption frameworks.
+
+### Unit Economics
+
+**Purpose.** Unit Economics tests whether Apex’s AI is sustainable at the level of a single engagement, document pack or successful assist—not only at portfolio average. Averages hide that complex group audits consume disproportionate review and inference while simple audits look cheap. Choosing the wrong unit (cost per chat vs cost per file-ready exception list) produces false confidence. Unit economics links product design (review rate, context size, caching) to commercial reality and FinOps alerts.
+
+**When to use.** Before scale; when designing pricing for internal chargeback; when inference or review cost is spiking; when comparing model tiers or retrieval strategies.
+
+**When not to use.** When volume is near zero and fixed cost dominates every unit; when the unit cannot be measured in production telemetry; when the decision is solely strategic platform bet without per-unit accountability yet (use Real-Options + TCO first).
+
+**How to use it.**
+
+1. Select the economically meaningful unit (e.g. cost per engagement-ready journal anomaly pack).
+2. Allocate direct costs (inference, embeddings, storage) and fair share of platform.
+3. Add success-adjusted human cost (review minutes × rate / success rate).
+4. Measure benefit per successful unit from baselines.
+5. Compute contribution margin per unit and per engagement.
+6. Segment by audit complexity / industry; kill one-size averages.
+7. Model scale: what happens at 2× pages or 50% review rate.
+8. Publish a unit-economics dashboard with FinOps thresholds.
+
+**Enterprise worked example (Apex Audit Partners).** Apex initially tracked “cost per LLM call” at £0.004—commercially meaningless. Reframed unit: **engagement-ready journal anomaly pack** accepted into the audit file. Direct AI cost averaged £4.70/engagement (prompts, embeddings, storage). Shared platform allocation £9.10. Human review averaged 22 minutes senior + 8 minutes manager (≈£54.30). Success rate (packs accepted without full redo) was 81%, so success-adjusted delivery cost ≈ (£4.70 + £9.10 + £54.30) / 0.81 ≈ **£84.10**. Benefit per successful pack ≈£212 (see ROI baseline). Contribution ≈£127.90—healthy on simple audits. On group audits with 5× journal volume, inference rose to £18 and review to 55 senior minutes; success rate fell to 68%; success-adjusted cost ≈£198 vs benefit ≈£240—thin margin. Unit economics drove product changes: retrieval filters by entity, cheaper model for first-pass scoring, mandatory sampling caps, and a “complex audit” playbook with higher expected review. Chargeback to engagement codes used £85 standard / £190 complex so partners saw true cost.
+
+**Best output / artefact.** Unit-economics dashboard by segment, success-adjusted cost and contribution margin.
+
+**Lifecycle stage.** Design and business case (steps 5–6); continuous FinOps in operate (step 13).
+
+**Stage-gate contribution.** Scale approval: unit contribution positive on the segments you will actually roll out.
+
+**Failure modes.** Optimising cost per token; ignoring review labour; averaging away complex-audit losses.
+
+**Related frameworks.** Break-Even Analysis, Total Cost of Ownership, FinOps, Sensitivity Analysis, Value-Driver Tree.
+
+### Sensitivity Analysis
+
+**Purpose.** Sensitivity Analysis shows which single assumptions move Apex’s business case the most, so the firm spends evidence effort where it matters. For audit AI, adoption rate, human-review rate and benefit realisation haircut typically dominate token price—yet teams often argue about model unit costs. Sensitivity converts debate into a ranked list of uncertainties and informs pilot metrics. It is a required companion to ROI/NPV before VALUE-gate approval.
+
+**When to use.** After a base case exists; before funding; when stakeholders disagree which assumption is “the risk”; when setting monitoring KPIs.
+
+**When not to use.** Before any credible base model; when inputs are so correlated that one-at-a-time analysis misleads (pair with Scenario Analysis); as theatre with ±1% toys ranges that never happen.
+
+**How to use it.**
+
+1. Freeze a base-case financial model (TCO + benefits).
+2. Select 6–10 inputs with realistic ranges from evidence (not wishful bands).
+3. Vary one input at a time across the range; recalculate NPV/ROI/payback.
+4. Rank by impact (tornado chart).
+5. Assign evidence actions to top drivers (measure review rate in pilot, etc.).
+6. Set early-warning thresholds on those drivers in production.
+7. Re-run after major scope or pricing changes.
+8. Attach tornado and actions to the gate pack.
+
+**Enterprise worked example (Apex Audit Partners).** On the journals business case, Apex varied: adoption (40–90%), senior hours saved (1.5–3.5), manager review uplift (0.1–0.6 hours), inference cost (−30% to +80%), licence fees (±20%), methodology delay (0–2 quarters) and benefit haircut (10–40%). Tornado ranking showed **adoption** and **manager review uplift** dominated NPV; inference cost ranked sixth. A +0.3 hour review uplift wiped ≈£78,000 of annual benefit (180 × 0.3 × £145), more than a doubling of token spend (+£22,000). The pilot therefore instrumented review minutes as a primary KPI, not token dashboards. When review uplift tracked at 0.45 hours in month two, the team triggered prompt and UX changes before office three rollout—avoiding a silent NPV collapse. Sensitivity also justified paying £15,000 for better telemetry rather than another model bake-off.
+
+**Best output / artefact.** Tornado chart, ranked drivers, evidence actions and monitoring thresholds.
+
+**Lifecycle stage.** Business case (step 6); continuous in operate (step 13).
+
+**Stage-gate contribution.** Investment approval: top drivers evidenced or explicitly accepted as residual risk.
+
+**Failure modes.** Sensitive-looking charts with fantasy ranges; ignoring correlated drivers; monitoring cheap metrics instead of top tornado items.
+
+**Related frameworks.** Scenario Analysis, Unit Economics, Net Present Value, Benefits Realisation Plan, FinOps.
+
+### Scenario Analysis
+
+**Purpose.** Scenario Analysis builds internally consistent best, likely and worst worlds for Apex’s AI programme—combining adoption, review burden, integration delay and cost moves that actually travel together. Unlike one-at-a-time sensitivity, scenarios tell a story partners recognise (“busy season slip + EQCR clampdown”). Scenarios drive contingency funding, scope brackets and exit criteria. They are essential when uncertainty is structural, not a single noisy input.
+
+**When to use.** For Investment Committee packs; when external shocks matter (regulation, vendor price, hiring); when staging options depend on world-states.
+
+**When not to use.** When you only need to rank one input’s impact; when scenarios are just “±20% everything” without narrative coherence; when used to hide a weak base case behind a glossy “best.”
+
+**How to use it.**
+
+1. Agree three (or four) named scenarios with coherent assumption sets.
+2. Set drivers jointly: adoption, review rate, delay, inference, benefit haircut, regulatory drag.
+3. Calculate financial and operational outcomes per scenario (NPV, payback, EQCR load).
+4. Define management responses: scope cut, pause offices, renegotiate licences, abandon.
+5. Pre-commit triggers that map telemetry to scenario entry.
+6. Align contingency budget to worst credible case—not to best.
+7. Stress non-financial fail conditions (control breach) as scenario killers.
+8. Refresh scenarios at each major gate and after busy season.
+
+**Enterprise worked example (Apex Audit Partners).** Apex defined: **Accelerated** (80% adoption by Month 10, review +0.15h, on-time integration); **Likely** (65% by Month 14, review +0.3h, one-quarter methodology lag); **Stressed** (45% adoption, review +0.55h, vendor price +40%, EQCR demands 100% inspection of AI-touched papers for Year 1). Outcomes: Accelerated NPV ≈ +£210k, payback Month 16; Likely NPV ≈ +£40k, payback Month 22; Stressed NPV ≈ −£280k, payback &gt;36 months, plus £72,000 unplanned EQCR labour. Pre-committed responses: if trailing adoption &lt;50% at Month 9 **or** review uplift &gt;0.5h, freeze new offices and run a six-week remediation; if EQCR mandates 100% inspection beyond one season, pause working-paper drafting entirely and keep journals-only. Partners signed the scenario card so “we hoped for Accelerated” could not excuse missing Likely triggers. Contingency of £60,000 sat in the technology budget for Stressed-path remediation, not as free innovation spend.
+
+**Best output / artefact.** Scenario comparison pack with triggers, responses and contingency map.
+
+**Lifecycle stage.** Business case (step 6); operate governance (step 13).
+
+**Stage-gate contribution.** Investment approval: credible downside funded or explicitly accepted; triggers agreed.
+
+**Failure modes.** Best-case planning; incoherent driver mixes; triggers without authority to act.
+
+**Related frameworks.** Sensitivity Analysis, Real-Options Analysis, Payback Period, Net Present Value, Benefits Realisation Plan.
+
+### Real-Options Analysis
+
+**Purpose.** Real-Options Analysis values Apex’s right—not obligation—to stage AI investment: learn cheaply, scale if thresholds hit, abandon if not. It fits regulated mid-market firms that cannot bet the partnership on a single big-bang rollout. Options thinking reframes pilots as paid learning with explicit exercise prices (scale funding) and expiry (busy-season windows). It prevents both reckless full commitment and endless PoCs with no decision rights.
+
+**When to use.** When uncertainty is high but reducible by a pilot; when scale cost dwarfs learn cost; when abandon/expand/switch decisions are real; when NPV of full commitment is marginal.
+
+**When not to use.** When the “pilot” is theatre and scale is already politically decided; when learning will not change the decision; when option value maths will distract from clear negative unit economics.
+
+**How to use it.**
+
+1. Map stages: discover → controlled pilot → limited offices → firm-wide.
+2. Cost each stage (option premium) and the exercise price to enter the next.
+3. Define measurable exercise criteria (quality, adoption, unit contribution, control).
+4. Estimate upside of expand vs value of abandon (exit cost, salvage, reputation).
+5. Compare staged path to all-now commitment on risk-adjusted basis.
+6. Set expiry dates tied to methodology freeze and busy season.
+7. Assign decision owners with authority to not exercise.
+8. Document in the funding paper as staged warrants, not a vague roadmap.
+
+**Enterprise worked example (Apex Audit Partners).** Full firm-wide commitment was priced at £505,000 Year-0. Instead Apex bought an **eight-week pilot option** for £95,000 (two offices, journals + extraction, eval harness lite). Exercise price to open four more offices: £210,000. Exercise criteria: ≥60% senior adoption on in-scope procedures, review uplift ≤0.35h, success-adjusted unit cost ≤£100 on standard audits, zero critical EQCR findings attributable to AI misuse, partner accountability attested. If failed, abandon cost ≈£25,000 (decommission and file archive) with salvage of reusable eval assets (~£20,000 value to future work). The pilot cleared journals criteria but failed drafting readiness; Apex **exercised expand for journals/extraction only** and let the drafting option expire—saving ≈£140,000 of UI and change cost. Real-options framing gave the CRO political cover to say no to drafting without killing the whole programme. Year-2 revisit created a new option (£40,000 discovery) once review-comment taxonomies existed.
+
+**Best output / artefact.** Staged funding map, exercise criteria, expiry dates and abandon valuation.
+
+**Lifecycle stage.** Mobilise and business case (steps 4–6); re-option at scale gates (steps 12–13).
+
+**Stage-gate contribution.** Funding approval as staged options with kill criteria—not a single irreversible cheque.
+
+**Failure modes.** Pilot without authority to stop; criteria so vague they are always “nearly met”; counting sunk pilot cost as reason to exercise.
+
+**Related frameworks.** Scenario Analysis, Net Present Value, Payback Period, Prioritisation, VALUE gate.
+
+### Benefits Dependency Network
+
+**Purpose.** Benefits Dependency Network (BDN) shows how Apex’s enabling changes (technology, process, people, data) cause intermediate outcomes and only then final benefits. It stops the fantasy that “deploy the model” equals “save hours.” In audit, benefits die when workflow integration, methodology updates or partner behaviours are missing. BDN assigns owners to each link and exposes critical dependencies for the RAID log and change plan. It is the bridge from commercial targets to delivery and adoption work.
+
+**When to use.** When building the business case and change plan together; when benefits have failed previously; when multiple enablers must land in sequence; when clarifying ownership beyond IT.
+
+**When not to use.** When the benefit is a single already-integrated defect fix; when used as a poster without owners or measures; when the workshop time would be better spent on measurement design alone after dependencies are obvious.
+
+**How to use it.**
+
+1. State target benefits in measurable terms (hours, £, EQCR counts).
+2. Work backwards: intermediate outcomes required (e.g. trusted exception lists in the file).
+3. Identify enabling changes: tech, process, skills, data, controls, incentives.
+4. Draw dependency links; mark critical path enablers.
+5. Assign an accountable owner per enabler and per benefit.
+6. Attach KPIs and evidence sources to each outcome node.
+7. Feed gaps into change, architecture and methodology backlogs.
+8. Review the network at each gate; retire benefits that lost their enabler chain.
+
+**Enterprise worked example (Apex Audit Partners).** Target benefit: £88,600 Year-2 cashable capacity from journal triage. Intermediate outcomes included: seniors trust ranked anomalies; managers spend &lt;0.35h review; exceptions land in the audit file with lineage; methodology permits AI-assisted sampling. Enablers: integration to the engagement file (£120k), prompt/eval harness (£60k), senior training (16 hours × 90 seniors ≈ 1,440 hours ≈ £136,800 capacity cost at £95, scheduled across two months), partner communication pack, updated sampling guidance from National Office (six weeks elapsed), and incentive change so utilisation targets did not punish time spent validating AI. The network showed training without methodology update would yield near-zero benefit—exactly what happened in a prior chatbot pilot. Owners: Head of Assurance Technology (tech), National Office (methodology), People Partner (training), engagement leaders (adoption). When methodology slipped eight weeks, the BDN justified delaying benefit claims in Finance’s forecast by a matching quarter rather than “hoping seniors would wing it,” protecting credibility of the £88,600 number.
+
+**Best output / artefact.** Benefits dependency map with owners, KPIs and critical enablers.
+
+**Lifecycle stage.** Business case through deliver and operate (steps 6–13).
+
+**Stage-gate contribution.** Benefits credibility: no benefit claimed without a funded enabler chain and named owners.
+
+**Failure modes.** Technology-only networks; orphan benefits without owners; leaving incentives/utilisation policies off the map.
+
+**Related frameworks.** Benefits Realisation Plan, Value-Driver Tree, Change & Adoption, Cost-Benefit Analysis, Operating model.
+
+### Value-Driver Tree
+
+**Purpose.** A Value-Driver Tree links Apex’s financial outcomes to operational and AI-performance drivers in a MECE structure Finance and engagement teams share. It answers “what must move for the £ to move?”—e.g. net benefit depends on hours saved, which depends on acceptance rate, which depends on precision@k and UI latency. The tree becomes the measurement architecture for dashboards and experiment design. It prevents commercial models from floating free of production telemetry.
+
+**When to use.** When translating ROI into operational KPIs; when diagnosing benefit shortfalls; when aligning product, FinOps and Quality metrics; when designing A/B or pilot instrumentation.
+
+**When not to use.** When you only need a single payback date; when causal links are unknown and you refuse to label hypotheses; when the tree becomes a 200-node poster no one maintains.
+
+**How to use it.**
+
+1. Start from top financial nodes (cashable benefit, contribution margin, NPV).
+2. Decompose into operational drivers with MECE branches where possible.
+3. Connect AI performance metrics (precision, recall, latency, review rate) to operational drivers.
+4. Attach baselines, targets and data sources to each leaf.
+5. Mark causal confidence (proven / hypothesized).
+6. Select the vital few leaves for weekly monitoring.
+7. Use the tree in benefit variance meetings (“which leaf moved?”).
+8. Update after model or workflow changes.
+
+**Enterprise worked example (Apex Audit Partners).** Top node: Year-2 cashable benefit from journals. Level 2: (engagements × adoption × net hours saved × labour rate) + contractor days avoided. Net hours saved decomposed to: baseline prep hours − AI-assisted prep − review uplift − redo hours. AI-assisted prep linked to: anomaly list precision@50, time-to-first-valid-exception, and % exceptions with evidence links. Review uplift linked to: false-positive rate and explanation quality score. Baselines: precision@50 62% in week 1 → target 78%; review uplift 0.5h → target 0.3h. When Month 4 benefits trailed £12,000 behind plan, the tree showed adoption on track (68%) but precision@50 stuck at 64% and redo hours high—product work beat more training. A £9,000 eval-set enrichment spend improved precision to 76% and recovered ≈£10,400 run-rate benefit within six weeks. Partners preferred the tree over a vague “AI isn’t landing” narrative because it named the leaf to fix.
+
+**Best output / artefact.** Financial-to-operational KPI tree with baselines, targets, data sources and confidence tags.
+
+**Lifecycle stage.** Business case design (step 6); operate diagnostics (step 13).
+
+**Stage-gate contribution.** Measurement readiness: benefits model traceable to monitored drivers before scale.
+
+**Failure modes.** Orphan financial targets; unmeasured leaves; treating hypotheses as proven causal law.
+
+**Related frameworks.** Unit Economics, Benefits Dependency Network, Benefits Realisation Plan, Sensitivity Analysis, Technical evaluation frameworks.
+
+### Benefits Realisation Plan
+
+**Purpose.** The Benefits Realisation Plan defines how Apex will deliver, measure, own and correct each claimed benefit after go-live—turning the business case into an operating rhythm. It assigns benefit owners outside Engineering, sets baselines and targets, defines measurement methods and timing, and pre-agrees corrective actions. Without it, AI programmes celebrate launch while Finance never sees the £ and partners lose trust. For audit firms, the plan must respect busy-season blackouts and EQCR calendars.
+
+**When to use.** Before investment approval (draft) and mandatorily before scale; at each benefits review; when variance appears against the business case.
+
+**When not to use.** As a substitute for still-missing baselines; when ownership is refused (stop the gate instead); when the “plan” is a spreadsheet nobody reviews.
+
+**How to use it.**
+
+1. Transfer each business-case benefit into a register row: description, £/hours, owner, baseline, target, due date.
+2. Define measurement method (timesheets, file telemetry, contractor invoices) and frequency.
+3. Name verifying party (Finance or Quality) separate from the delivery team.
+4. Log dependencies from the Benefits Dependency Network; block claims if enablers slip.
+5. Set review cadence (monthly FinOps; quarterly Investment Committee).
+6. Pre-define corrective actions and escalation paths for amber/red variance.
+7. Align incentives so owners are not punished for accurate downside reporting.
+8. Close or re-baseline benefits formally; never silently rewrite history.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s register included: (1) senior journal prep hours — owner: Head of Audit Operations; baseline 6.5h; target 3.8h on adopted files; measure: workflow timestamps + sampling timesheets; verify: Finance Business Partner; (2) contractor days avoided — owner: Resourcing Lead; baseline 140 days/year busy season; target 95; measure: agency invoices; (3) EQCR findings on evidence completeness — owner: CRO; baseline 11 severity-2 findings prior season; target ≤6; measure: EQCR database (non-cash but gate-critical). Corrective playbook: if hours saved &lt;1.5h after eight weeks on an office, pause that office’s expansion and run UX remediation within £25,000. First quarterly review showed contractor days at 118 (amber) while hours saved hit target on standard audits only. Operations triggered the complex-audit playbook and re-forecast Year-2 benefit from £88,600 to £71,000 with Investment Committee assent—preserving trust. Engineering was not listed as benefit owner for any cashable line; they owned enabler SLAs instead. Busy-season blackout froze benefit experiments for eight weeks; measurement continued, interventions waited—explicitly written into the plan so “we couldn’t change anything” was not later framed as delivery failure.
+
+**Best output / artefact.** Benefits register, measurement dictionary, review cadence, variance playbook and owner RACI.
+
+**Lifecycle stage.** Finalised at business case (step 6); executed in operate/scale (steps 13–14).
+
+**Stage-gate contribution.** Go-live / scale: benefits owners signed, baselines locked, review dates booked.
+
+**Failure modes.** Engineering “owns” benefits; no verifying party; rewriting targets quietly when numbers miss.
+
+**Related frameworks.** Benefits Dependency Network, Value-Driver Tree, Return on Investment, Scenario Analysis, FinOps, Change & Adoption.

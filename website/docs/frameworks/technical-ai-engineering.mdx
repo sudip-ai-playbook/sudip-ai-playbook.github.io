@@ -1,0 +1,475 @@
+---
+sidebar_position: 8
+title: Technical AI Engineering Frameworks
+description: Data management, machine learning, MLOps/LLMOps/AgentOps, orchestration and domain toolkits for end-to-end AI solution engineering—with cloud guidance and security gates.
+---
+
+# Technical AI Engineering Frameworks
+
+**Primary lifecycle use:** Steps 7–13 (design, prototype, industrialise, secure, operate).
+
+These frameworks provide structured approaches, tools and methodologies that streamline development, deployment and management of AI systems. They complement consulting frameworks: consulting decides the outcome; technical frameworks make the outcome reproducible, observable and governable.
+
+## How to use this page
+
+Select frameworks by artefact type (tabular data, documents, workflows, generative answers, agents). Enforce the security–governance gate before production traffic. Pair with [Architecture and engineering](./architecture-engineering), [Responsible AI](./responsible-ai-governance) and [Security and privacy](./security-privacy). Narrative scenarios: [Frameworks for End-to-End AI Solution Engineering](/articles/frameworks-for-end-to-end-ai-solution-engineering).
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in design and build workshops; treat **Best output** as the minimum artefact for the related stage gate. **When to use / when not**, **Failure modes** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+**Running client:** Apex Audit Partners — a mid-market financial auditing firm (~1,200 professionals) industrialising AI for engagement risk assessment, journal anomaly detection, document/evidence extraction, and AI-assisted working-paper drafting. Non-negotiable constraints: client confidentiality, auditor independence, audit quality review (including EQCR), and human partners remaining accountable for audit opinions.
+
+---
+
+## Data management frameworks
+
+### Medallion / lakehouse pattern
+
+**Purpose.** The medallion (bronze → silver → gold) lakehouse pattern forces Apex to treat engagement data as a governed product rather than a series of ad-hoc Excel extracts. Bronze preserves raw, immutable landing of client and firm sources; silver applies cleansing, reconciliation and standard schemas; gold publishes curated features and analytics-ready tables for models, RAG indexes and engagement UIs. The pattern creates progressive quality, explicit contracts between layers, and lineage that can survive EQCR and external inspection. It is the backbone for journal anomaly detection, engagement risk scoring and evidence pipelines that must prove where every field came from.
+
+**When to use.** Any production AI that depends on evolving enterprise or client data; multi-source engagement extracts that must reconcile to control totals; regulated environments that require reconstructable provenance; shared platforms serving many engagements or industry groups.
+
+**When not to use.** One-off notebook extracts with no reuse—still document provenance and retention, but do not over-build a three-layer platform for a single throwaway spike. Do not invent a lakehouse to justify cloud spend when the only consumer is a disposable PoC spreadsheet.
+
+**How to use it.**
+
+1. Inventory sources (ERP journals, trial balances, bank PDFs, engagement file metadata, methodology reference data) and classify sensitivity, retention and lawful basis.
+2. Define bronze landing rules: immutable storage, checksum/hash, ingestion timestamp, source system identity, engagement/client tenant tags.
+3. Define silver transforms: schema standardisation, deduplication, currency normalisation, entity keys, reconciliation to TB/control totals.
+4. Define gold products: feature tables, risk aggregates, document chunk metadata, engagement-scoped serving views—with named owners and SLAs.
+5. Automate quality and contract tests on every promotion; block silver→gold when critical checks fail.
+6. Publish lineage (column/table and, for documents, file→page→chunk) into the catalogue used by EQCR and InfoSec.
+7. Isolate tenants: never co-mingle client gold products without cryptographic/logical segregation and access policies.
+8. Review layer design at design gate and after major source-system change; keep ADRs for exceptions (for example, streaming vs batch landing).
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s Head of Assurance Technology inherited a jungle of engagement-team SharePoint drops and “GL_clean_v7_FINAL.xlsx” files feeding a fragile journal-anomaly notebook. Design workshops with the data platform owner, Risk & Quality, and two engagement partners established a medallion on Azure: client journal CSVs and ERP API pulls land in ADLS Gen2 bronze under engagement-scoped containers with Purview classification; ADF/Fabric pipelines promote to silver Delta tables only after trial-balance reconciliation and PII scanning; gold Feature + scoring tables feed Azure ML batch jobs and the engagement UI via private endpoints. Document PDFs follow a parallel path—bronze blobs → silver parsed text/layout via Document Intelligence → gold chunk and citation metadata for the working-paper assistant. Decisions: no model may read bronze; seniors see gold scores only after silver quality gates; lineage exports are mandatory for EQCR sampling. Artefacts included layer contracts, Purview collections, and a tenant isolation matrix. Operationally, Apex cut “which export did we score?” disputes and blocked go-live until gold promotion required signed quality reports.
+
+**Best output / artefact.** Layered pipeline design with data contracts, quality gates, lineage exports and tenant isolation rules.
+
+**Lifecycle stage.** Design and industrialise (steps 7, 9); operate refresh (step 13).
+
+**Stage-gate contribution.** Design approval requires contracts, quality gates and client/tenant isolation rules; release-readiness requires evidence that critical promotion failures block serving.
+
+**Failure modes.** “Bronze-only” lakes that never get cleansed; gold tables rebuilt by notebooks bypassing contracts; shared containers across clients; lineage that stops at file name; treating medallion as storage tiers without ownership.
+
+**Related frameworks.** Data contracts and quality, feature stores and lineage catalogues, DPIA / data protection, model and data cards, Well-Architected (data), FinOps.
+
+**Cloud guidance.** Prefer the cloud that already holds engagement and ERP extracts. Azure: ADLS Gen2 + Fabric/Synapse + Purview + ADF. AWS: S3 + Glue/Lake Formation + Athena + Glue Data Catalog. GCP: Cloud Storage + BigQuery + Dataplex. Use Delta/Iceberg/Hudi for ACID silver/gold where concurrent writers exist; private networking and CMEK/CMK by default for client data.
+
+**Security–governance gate.** Lawful basis and engagement letters cover processing; classification and PII scanning on ingest; segregation of clients and engagements; no training on client bronze without contract; exportable lineage for inspection; retention aligned to audit-file policy.
+
+### Data contracts and quality frameworks
+
+**Purpose.** Data contracts make producer–consumer expectations explicit and testable—schema, semantics, freshness, null rates, uniqueness, reconciliation rules and ownership. For Apex, a journal extract that “usually works” is unacceptable when anomaly scores influence sample selection. Quality frameworks (Great Expectations, dbt tests, Deequ, custom control totals) turn those expectations into automated gates. Together they prevent silent schema drift from ERP upgrades, shared-service extract changes, or client-side export format churn from corrupting models and RAG indexes.
+
+**When to use.** Multiple teams or systems feed the same model, feature store or RAG index; regulated auditability of inputs; multi-engagement industrialisation where one bad extract can poison firm-wide scores.
+
+**When not to use.** Single disposable prototype with throwaway data—still sample quality manually and record assumptions. Do not write fifty contracts for a one-week spike that will be discarded; do write at least a checklist if any output touches a live file.
+
+**How to use it.**
+
+1. Identify each AI consumer (anomaly scorer, risk model, document indexer, drafting retriever) and list required fields and semantics.
+2. Write versioned contracts: schema, types, allowed nulls, primary keys, freshness SLA, reconciliation rules, owner and escalation path.
+3. Encode contracts as automated tests in the pipeline (dbt, GE, Deequ, or custom Python in CI).
+4. Define severity: critical (block promotion), major (alert + quarantine), minor (ticket).
+5. Fail pipelines on critical breach; route quarantine datasets away from serving.
+6. Alert named owners (engagement data steward, platform on-call) with engagement/client context—never anonymous Slack noise.
+7. Version contracts alongside model and prompt versions; break changes require a design mini-gate.
+8. Sample contract failures in the AI quality forum; feed chronic breaches into RAID and vendor/client remediation.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s journal anomaly pilot failed mid-busy-season when a manufacturing client’s ERP upgrade renamed “document_number” and dropped functional currency. Scores still ran; seniors investigated phantom anomalies for two days. Head of Assurance Technology mandated contracts before industrialisation: the silver journal fact table must reconcile debit/credit to trial-balance control totals within £1 (or documented materiality band), freshness ≤ T+1 from extract receipt, and null rate on account code &lt; 0.1%. Contracts were implemented as dbt tests plus Great Expectations suites in Azure DevOps CI, with Purview owning the business glossary. Decision: critical failures quarantine the engagement’s gold scores and show “data not certified” in the UI—managers cannot publish samples from uncertified scores. Artefacts: contract catalogue, CI quality reports, quarantine runbook. Operationally, shared-service extract owners became accountable for schema change notices two weeks before ERP patches; model drift tickets dropped because input failures were caught upstream.
+
+**Best output / artefact.** Versioned data contracts, automated CI quality reports, quarantine/alerting runbooks and owner RACI.
+
+**Lifecycle stage.** Steps 7–13 (design through operate); refreshed whenever sources or consumers change.
+
+**Stage-gate contribution.** Release blocked on open critical contract failures; design gate requires contracts for every production consumer.
+
+**Failure modes.** Contracts written once and never versioned; tests that warn but never block; ownership assigned to “data team” with no named human; reconciling only row counts instead of control totals; ignoring semantic drift (same column, new meaning).
+
+**Related frameworks.** Medallion / lakehouse, MLOps, RAID (data dependencies), Responsible AI (data cards), FinOps (reprocessing cost).
+
+**Cloud guidance.** Azure: dbt on Fabric/Synapse, ADF data quality, Purview glossary. AWS: Glue Data Quality, Deequ on EMR, Lake Formation permissions tied to contract scope. GCP: Dataplex data quality, BigQuery assertions. Store contract YAML in Git; promote with environment gates.
+
+**Security–governance gate.** Contract metadata must not leak client identifiers into shared CI logs; quarantine stores inherit the same encryption and access controls as gold; failed extracts remain in bronze with retention—do not “fix” by copying client data to personal storage.
+
+### Feature stores and lineage catalogues
+
+**Purpose.** Feature stores reuse transformations consistently between training and serving so Apex does not train on one definition of “days since last similar journal” and score with another. Lineage catalogues (Purview, DataHub, Collibra, cloud-native catalogues) prove where features and documents originated, who owns them, and which models consume them. Together they support auditability, reduce duplicated logic across notebooks, and make EQCR-ready evidence of data provenance possible without heroic archaeology.
+
+**When to use.** Multiple models or UIs share transformations; regulated auditability of features; online/offline parity matters (batch training vs near-real-time scoring); many engagements consume the same firm-standard features.
+
+**When not to use.** A single simple model with inline transforms that will not be reused—and even then version the transform code in Git and record hashes on the model card. Do not stand up a feature platform for one notebook that dies after the pilot.
+
+**How to use it.**
+
+1. Inventory candidate features from discovery and model design; separate firm-standard vs engagement-specific.
+2. Register each feature with owner, definition, source tables, freshness SLA, PII classification and allowed consumers.
+3. Implement offline (training/batch) and online (if needed) serving from the same logic or generated code.
+4. Bind feature versions to model versions in the registry; never deploy a model against an undeclared feature set.
+5. Catalogue lineage from source system → bronze → silver → feature → model → engagement UI decision.
+6. Enforce access policies: engagement-scoped features cannot cross clients; firm methodology features may be global.
+7. Monitor freshness and null SLAs; alert when serving falls behind training expectations.
+8. Export lineage snapshots for EQCR and inspection packs on demand.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s anomaly and engagement-risk models both needed “unusual posting hour,” “rare account combination,” and “days since last similar journal.” Two data scientists had implemented incompatible SQL in separate notebooks, producing divergent scores on the same file. The platform team introduced an Azure ML feature store pattern backed by gold Delta tables, with Feast-compatible definitions in Git for portability. Features were registered with owners in Purview; offline materialisations ran nightly via ADF; batch scoring for engagements pulled the same versions recorded on the MLflow model card. Decision: engagement-specific client vendor features stay in engagement-scoped stores; firm methodology features are global but never include raw client narrative text. Artefacts: feature registry, lineage graph exports, parity test report (offline vs batch serve). Operationally, EQCR could ask “which feature version scored engagement X?” and receive a catalogue answer in minutes instead of a forensic rebuild.
+
+**Best output / artefact.** Feature registry with owners/SLAs, online/offline parity evidence, and a lineage graph exportable for audit.
+
+**Lifecycle stage.** Design and industrialise (steps 7, 9); continuous operate (step 13).
+
+**Stage-gate contribution.** Production approval for multi-model platforms requires registered features, lineage and parity tests; single-model pilots may defer the store but not lineage documentation.
+
+**Failure modes.** Feature store as a dump of every column; training/serving skew ignored; catalogue without runtime enforcement; PII features exposed firm-wide; orphan features with no consumer cleanup.
+
+**Related frameworks.** Medallion, data contracts, MLOps, model cards, DPIA, Zero Trust (feature access).
+
+**Cloud guidance.** SageMaker Feature Store; Azure ML feature store patterns + Purview; Vertex AI Feature Store; open: Feast + DataHub/Purview. Prefer compute that stays in the private landing zone; do not materialise client features to public endpoints.
+
+**Security–governance gate.** Feature definitions and values inherit client classification; lineage exports are access-controlled; prohibit features that embed raw identity documents; document retention for feature history vs audit-file retention separately.
+
+---
+
+## Machine learning frameworks
+
+### Classical ML stacks (scikit-learn, XGBoost, LightGBM)
+
+**Purpose.** Classical ML stacks deliver strong tabular predictors with interpretable pipelines, controlled evaluation and modest compute—ideal for Apex journal anomaly detection and engagement risk scoring on sparse ledger and questionnaire features. Gradient boosting and well-designed linear/logistic baselines often outperform deep nets on structured audit data while remaining easier to explain to partners, EQCR and inspectors. The framework emphasises leakage control, grouped validation, calibration to business cost, and model cards—not algorithm novelty.
+
+**When to use.** Structured prediction with labelled or weakly labelled outcomes; sparse tabular features; need for explainability and stable industrialisation; latency and cost constraints that favour CPU batch scoring.
+
+**When not to use.** Open-ended document synthesis, free-form Q&A, or multi-step tool use—use RAG/LLM and AgentOps patterns instead. Do not force boosting onto raw PDF bytes without an extraction layer.
+
+**How to use it.**
+
+1. Lock the decision and labels with Methodology and Quality (what is a “true” anomaly or elevated risk for training/eval).
+2. Design evaluation first: challenge sets, grouped splits by engagement/client, leakage checks (no future period features).
+3. Engineer features from gold tables; register them; document transformations.
+4. Train baselines then boosting/ensemble; tune thresholds to false-positive cost on senior time, not only AUC.
+5. Produce explanations (SHAP/feature importance) suitable for manager review—not as automated blame.
+6. Register the model with metrics, data versions, code hash and model card.
+7. Shadow-score on live engagements before replacing human sample selection aids.
+8. Define retrain triggers (drift, performance, methodology change) under MLOps.
+
+**Enterprise worked example (Apex Audit Partners).** Apex labelled historical journal investigations from manufacturing and wholesale engagements (confirmed unusual postings vs cleared false alarms) under Methodology oversight. Data scientists trained LightGBM on gold features in Azure ML with scikit-learn pipelines for preprocessing, using group-k-fold by engagement ID to prevent leakage. A neural net pilot on the same sparse features underperformed and was rejected. Thresholds were calibrated so that seniors received a capped daily queue sized to investigation capacity; SHAP summaries appeared in the UI as “drivers to investigate,” never as conclusions. The model registered in MLflow with a model card stating limitations (new ERP charts of accounts, first-year clients). Cloud choice: Azure ML compute clusters in the private hub, scoring via batch endpoint writing to gold tables—no public inference URL. Artefacts: challenge-set report, calibration curves, model card, shadow-period comparison. Operationally, partners approved industrialisation only after shadow precision on the hold-out industry group matched the challenge set within agreed bands.
+
+**Best output / artefact.** Registered model, locked challenge-set metrics, calibration/threshold memo, model card and oversight design.
+
+**Lifecycle stage.** Prototype and industrialise (steps 8–9); monitor/retrain in operate (step 13).
+
+**Stage-gate contribution.** Production approval requires locked challenge-set results, leakage analysis, oversight design and rollback plan—not a notebook demo.
+
+**Failure modes.** Random train/test splits that leak the same client across folds; optimising AUC while flooding seniors with false positives; unexplained “black box” sold to partners; retraining on production scores without human labels; using classical ML as a substitute for partner judgement.
+
+**Related frameworks.** MLOps, model cards, human oversight / Responsible AI, data contracts, feature stores, FinOps.
+
+**Cloud guidance.** Train and register on SageMaker, Azure ML or Vertex; prefer managed experiment tracking; export ONNX only if serving requires it. CPU batch scoring is usually enough for nightly journal jobs—avoid GPU spend theatre.
+
+**Security–governance gate.** Training data remains in the private tenant; no export of client journals to personal laptops; model cards disclose known failure populations; human review mandatory before scores affect the audit file.
+
+### Deep learning frameworks (PyTorch, TensorFlow, JAX)
+
+**Purpose.** Deep learning frameworks train representation models for vision, speech, specialised NLP or fine-tuning when classical features fail and ROI is proven. For Apex, this is the exception path: layout-aware document models, specialised embedding fine-tunes, or domain classifiers—not a default prestige choice for tabular ledgers. The discipline is transfer learning, experiment tracking, cost/carbon awareness, private training networking, and honest comparison against managed Document AI / foundation model APIs before building custom nets.
+
+**When to use.** Unstructured signals where classical features and managed APIs fail evaluation gates; sufficient labelled corpora and budget; clear serving path (ONNX/cloud formats) and ownership for drift.
+
+**When not to use.** As default prestige on tabular problems; when a managed OCR/LLM API already meets citation and accuracy bars; when labelled data and MLOps maturity are missing.
+
+**How to use it.**
+
+1. Prove failure of simpler baselines and managed services on the same golden set before approving custom DL.
+2. Prefer transfer learning / fine-tuning over training from scratch; freeze what you can.
+3. Track experiments (hyperparameters, data versions, compute hours, cost).
+4. Evaluate on domain hold-outs (cheque scans, certificate layouts, invoice templates Apex actually sees).
+5. Export artefacts (ONNX, TorchScript, cloud-native) and register with model cards.
+6. Design monitoring for input drift (scan quality, language mix, layout shifts).
+7. Document compute, cost and residual risk for FinOps and sustainability reporting.
+8. Plan rollback to the previous managed or classical path if fine-tune regresses.
+
+**Enterprise worked example (Apex Audit Partners).** Apex evaluated custom layout models after bank-confirmation PDFs from certain overseas banks defeated generic OCR field mapping. A two-week bake-off compared Azure Document Intelligence custom models, Amazon Textract Queries, and a PyTorch layout-aware fine-tune on Apex’s labelled confirmation set. The managed custom model won on accuracy and operability; the PyTorch path was retained only as a research spike for rare sealed-certificate scans where managed APIs failed. Where fine-tuning proceeded, training ran on Azure ML GPU clusters with private endpoints, customer-managed keys, and no internet egress; checkpoints never left the subscription. Artefacts: bake-off report, labelled corpus card, experiment registry, cost per 1,000 pages. Operationally, Risk & Quality refused “we built our own vision model” marketing until the bake-off showed a clear win—and required dual-control labelling so juniors could not silently redefine ground truth.
+
+**Best output / artefact.** Experiment registry, exported artefact, domain evaluation report, cost/compute note and model card—or a documented decision to stay on managed APIs.
+
+**Lifecycle stage.** Prototype and industrialise (steps 8–9); specialised operate monitoring (step 13).
+
+**Stage-gate contribution.** Design gate requires bake-off vs managed/classical baselines; production requires hold-out metrics, private training evidence and rollback.
+
+**Failure modes.** Training from scratch without labels; GPU sprawl without FinOps; beating a weak baseline that never included Document AI; deploying fine-tunes that overwrite citation anchors; ignoring scan-quality drift at busy season.
+
+**Related frameworks.** NLP/Document AI, MLOps, FinOps, Well-Architected, Responsible AI, computer vision toolkit.
+
+**Cloud guidance.** Managed training on SageMaker, Azure ML, Vertex with private networking mandatory for client scans; prefer managed Document AI first. Export to ONNX for portable scoring only when necessary.
+
+**Security–governance gate.** No training on client text/images without contractual cover; labelling environments inherit ISMS controls; prohibit uploading confirmation PDFs to public notebook hosts; retain human verification for extracted balances posted to the file.
+
+---
+
+## MLOps, LLMOps and AgentOps
+
+### MLOps
+
+**Purpose.** MLOps industrialises the ML lifecycle: versioning, CI/CD/CT, registry, deployment, monitoring, rollback and retraining. For Apex, anomaly and risk models that influence sample selection or planning focus are production systems—not science projects. MLOps makes promotion evidence-based, enables shadow and canary releases, and ties model versions to engagement outcomes so EQCR can reconstruct what scored a file. It integrates with DevSecOps, SRE and FinOps rather than living as a parallel hobby stack.
+
+**When to use.** Any model that influences production decisions, engagement files or client-facing artefacts; multi-engagement industrialisation; regulated environments needing reproducible runs.
+
+**When not to use.** Pure research spikes that will not graduate—still version experiments and data snapshots if promotion is plausible. Do not impose full CT automation on a one-week methodology exploration.
+
+**How to use it.**
+
+1. Standardise project layout: data version, code, pipeline definition, tests, model card template.
+2. Automate train → evaluate → register only if challenge-set gates pass.
+3. Require human approval (Methodology + platform) before production registry stages.
+4. Deploy with progressive delivery: shadow → canary → full; define automatic rollback triggers.
+5. Monitor technical drift and business KPIs (precision@k, senior accept/reject, review notes).
+6. Alert on-call and model owners; link incidents to RAID.
+7. Schedule CT (continuous training) only with fresh labels and contract-healthy data.
+8. Run rollback drills before busy season; document runbooks.
+
+**Enterprise worked example (Apex Audit Partners).** Apex industrialised journal anomaly LightGBM with Azure ML pipelines + MLflow registry + Azure DevOps. Every merge trained on the certified gold snapshot; evaluation against the locked challenge set was a hard gate; only then could a candidate enter “Staging.” Staging shadowed live engagements for two weeks—scores written to a side table, seniors used the incumbent model. Canary promoted 10% of engagements by industry group; automatic rollback fired if precision@50 dropped more than three points or if data-contract failures spiked. Tooling: Evidently dashboards for drift, App Insights traces for pipeline health, Purview lineage for data versions. Decisions: no silent auto-retrain into production; Methodology chairs the weekly model review. Artefacts: MLOps control matrix, promotion checklist, rollback drill record. Operationally, a bad feature push was rolled back in under an hour during canary—without corrupting sample selections already locked on prior scores (immutable score snapshots per engagement day).
+
+**Best output / artefact.** MLOps platform controls, promotion evidence packs, monitoring dashboards and rollback runbooks.
+
+**Lifecycle stage.** Industrialise and operate (steps 9 and 13); design the control plane in step 7.
+
+**Stage-gate contribution.** Release-readiness: staging evaluation, rollback test, monitors live, owners named.
+
+**Failure modes.** Registry theatre without gates; shadow mode that nobody reviews; auto-retrain on poisoned labels; monitoring only loss metrics while business precision collapses; one shared “prod” endpoint with no canary.
+
+**Related frameworks.** DevSecOps, SRE, FinOps, model cards, data contracts, Responsible AI, Well-Architected.
+
+**Cloud guidance.** MLflow, Kubeflow, SageMaker Pipelines, Azure ML pipelines, Vertex AI Pipelines; monitoring with Evidently, WhyLabs or cloud model monitor. Keep training/serving identities separate (workload identity); private endpoints only.
+
+**Security–governance gate.** Signed promotions; segregated staging data; secrets in vault not notebooks; access reviews on who can approve production models; retain model artefacts for inspection retention period.
+
+### LLMOps
+
+**Purpose.** LLMOps operates generative systems: prompts, retrieval indexes, evaluations, routing, safety filters, cost and version governance. For Apex working-paper drafting and methodology Q&A, fluency is not success—citation faithfulness, independence-safe content, injection resistance and token economics are. LLMOps treats prompts and indexes as first-class artefacts equivalent to model binaries, with golden-set regression before any promotion that touches live files.
+
+**When to use.** Any production LLM or RAG assistant; multi-prompt products; environments with cost, safety or citation requirements.
+
+**When not to use.** Ad-hoc consumer ChatGPT use without enterprise data—still apply acceptable-use policy and block it technically. Do not build a full LLMOps platform for a single offline summarisation experiment that never leaves a sandbox.
+
+**How to use it.**
+
+1. Version prompts, system policies, tools schemas and index builds in Git with semantic versions.
+2. Maintain golden sets: groundedness, citation accuracy, numeric faithfulness, refusal on out-of-scope, injection tests.
+3. Gate promotion on eval suites; record scores beside human review samples.
+4. Route models via a firm gateway (multi-provider) with allow-lists, PII filters and logging.
+5. Enforce token budgets and caching; attribute cost to engagement or cost centre.
+6. Separate indexes by client/engagement; rebuild with lineage from silver/gold documents.
+7. Monitor online: user edit distance, partner reject rate, hallucination tickets, cost per draft.
+8. Incident response: revoke prompt version, roll back index, notify Quality if file-impacting.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s working-paper drafting assistant could not promote until citation faithfulness tests exceeded the threshold on a golden set of board minutes, contracts and bank confirmations. LLMOps stack: Azure AI Foundry / gateway with private network to approved models; prompts and policy packs in Git; vector index per engagement in Azure AI Search with chunk→page anchors from Document Intelligence; offline eval with Promptfoo-style suites plus custom numeric checkers; online telemetry in App Insights. A prompt change that improved fluency but dropped citation precision was blocked by CI. Cost dashboards showed drafting assist spend per engagement; FinOps caps prevented runaway retries. Decisions: no raw client text in provider training; outputs labelled AI-assisted; managers must accept/edit before file write. Artefacts: prompt registry, eval reports, cost dashboards, index build manifests. Operationally, EQCR sampled AI-assisted papers and traced each citation to stored page images—LLMOps logging made that reconstruction routine.
+
+**Best output / artefact.** LLMOps registries (prompt/index/model route), eval reports, safety test evidence and cost dashboards.
+
+**Lifecycle stage.** Design through operate (steps 7–13); critical at industrialise and secure (9–11).
+
+**Stage-gate contribution.** Production gate: golden-set pass, safety tests, gateway policy, logging/retention and human acceptance workflow proven.
+
+**Failure modes.** Editing prompts in the portal without versioning; indexes that mix clients; evaluating only “helpfulness”; ignoring cost until the cloud bill arrives; treating provider uptime as the only SLO.
+
+**Related frameworks.** GenAIOps patterns, OWASP LLM Top 10, FinOps, human oversight, AgentOps, Responsible AI, Zero Trust.
+
+**Cloud guidance.** Azure AI Foundry / Azure OpenAI + AI Search; Amazon Bedrock + OpenSearch Serverless / Kendra patterns; Vertex AI + Agent Builder—always private endpoints, customer-managed keys, and firm-controlled gateways. Prefer retrieval grounding over fine-tuning for methodology text unless eval proves otherwise.
+
+**Security–governance gate.** Independence-sensitive filters; no training on client content; red-team injection tests; DLP on logs; retention of prompts/outputs aligned to audit-file policy; break-glass access reviewed.
+
+### AgentOps
+
+**Purpose.** AgentOps operates multi-step tool-using agents with tracing, approvals, circuit breakers, sandboxing and replay. For Apex, an engagement assistant that can search the binder, call extraction, or draft notes must not silently write to the audit file or email the client. AgentOps makes every tool call attributable, bounds loops and tokens, requires human confirmation for high-impact actions, and stores session replay for quality and security review—bridging LLMOps with Zero Trust and least privilege.
+
+**When to use.** Agents with tools, side-effects or multi-step plans; workflows that span retrieval, calculation and write-backs; products where autonomy claims must be constrained by professional standards.
+
+**When not to use.** Single-shot Q&A without tools—LLMOps suffices. Do not add an agent runtime to impress stakeholders when a deterministic workflow plus one LLM call is safer and cheaper.
+
+**How to use it.**
+
+1. Enumerate tools and side-effects; classify by risk (read vs write vs external communication).
+2. Enforce least-privilege credentials per tool; never share engagement-wide admin tokens with the agent.
+3. Require human confirmation for high-impact actions (file write, client email, sample lock).
+4. Trace every thought/tool/observation with correlation IDs; store replay for audit retention.
+5. Bound loops, time, tokens and tool-call counts; circuit-break on repeated failures.
+6. Policy-as-code for allowed tools per role (senior vs manager vs partner).
+7. Evaluate agents on task success and policy violations—not only fluent dialogue.
+8. Red-team for tool abuse, path traversal across engagements and prompt injection via documents.
+
+**Enterprise worked example (Apex Audit Partners).** Apex scoped an “engagement assistant” that could search the binder, fetch gold journal scores, and draft a working-paper section. AgentOps rules: read tools allowed under the authenticated user’s engagement ACL; write to the audit file only after senior confirmation with diff view; no outbound email tool in v1. Runtime used a durable orchestrator for multi-step plans, OpenTelemetry traces into the SIEM, and session replay stored in the immutable evidence store. A circuit breaker stopped the agent after three failed retrievals and surfaced a human checklist instead. MITRE ATLAS-inspired tests tried to inject “email the client the draft” via a malicious PDF; the policy engine blocked the non-existent email tool and flagged the injection. Cloud: Azure AI agent patterns behind APIM, with managed identities per tool connector. Artefacts: tool risk catalogue, policy-as-code, approval metrics, replay samples for EQCR. Operationally, partners accepted the assistant only after write-rate with approval and zero cross-engagement retrieval incidents in the pilot.
+
+**Best output / artefact.** Agent run traces, policy-as-code, approval metrics, circuit-breaker config and replay packs.
+
+**Lifecycle stage.** Design, industrialise, secure, operate (steps 7, 9–13).
+
+**Stage-gate contribution.** Security and production gates: threat model for tools, approval UX proven, replay retention tested, least-privilege evidence.
+
+**Failure modes.** Unlimited tool access “for usefulness”; missing human gates on writes; traces without retention; agents that retry forever; evaluating only task completion while ignoring policy breaches.
+
+**Related frameworks.** Orchestration / durable workflows, Zero Trust, least privilege, MITRE ATLAS, OWASP LLM, LLMOps, Responsible AI.
+
+**Cloud guidance.** Use cloud agent services only behind firm gateways; prefer explicit tool allow-lists over open browsing; isolate sandbox compute for code-running tools; log to immutable storage.
+
+**Security–governance gate.** Partner accountability unchanged; high-impact actions dual-controlled; cross-tenant retrieval tests must pass; injection and tool-abuse red teams before busy season.
+
+---
+
+## Orchestration and workflow frameworks
+
+### Durable workflows (Temporal, Step Functions, durable Azure/GCP workflows)
+
+**Purpose.** Durable workflows coordinate long-running multi-step processes with retries, timeouts, human-in-the-loop pauses and recoverable state. Apex engagement pipelines—ERP extract → OCR → features → score → senior queue → immutable file write—span hours or days and must not lose state when a model endpoint blips. Separating control flow from model calls encodes policy in the workflow (when to pause for partner approval) and makes steps idempotent, observable and auditable.
+
+**When to use.** Engagement-length or multi-hour processes; human-in-the-loop gates; compensating actions and retries across unreliable APIs; need for correlation IDs end-to-end.
+
+**When not to use.** Simple synchronous API calls—avoid ceremony. Do not wrap a single LLM request in a workflow engine for theatre.
+
+**How to use it.**
+
+1. Map the business process and policy pauses (senior review, partner sign-off, data-quality fail).
+2. Encode steps as idempotent activities with timeouts and explicit retry policies.
+3. Keep model/LLM calls inside activities; keep branching/policy in the workflow definition.
+4. Persist correlation IDs across extract, score, UI and file write.
+5. Design dead-letter / failure queues with named owners and SLAs.
+6. Implement human tasks as first-class signals (approve, reject, request more evidence).
+7. Test replay and recovery: kill workers mid-flight and prove resume without duplicate file writes.
+8. Observe with dashboards: age of open anomalies, stuck approvals, step error budgets.
+
+**Enterprise worked example (Apex Audit Partners).** Apex implemented journal-to-file flow on Azure Durable Functions (with Temporal evaluated for future multi-cloud): (1) ingest certified gold journals, (2) score via Azure ML batch, (3) open senior investigation tasks for top anomalies, (4) attach evidence extractions, (5) pause for manager review on high-risk flags, (6) write accepted conclusions to the audit file with model version stamps. High-risk pauses used human signals; duplicate writes were prevented by idempotency keys per engagement-anomaly-id. AWS Step Functions was the reference design for a client-hosted pattern in a restricted engagement. Recovery drills killed workers mid-OCR and proved resume without double-posting to the file. Artefacts: workflow definitions, sequence diagrams, DLQ runbooks, correlation-ID standard, and a busy-season capacity plan for approval queues. Operationally, a mid-pipeline Document Intelligence outage no longer orphaned half-scored engagements—the workflow resumed, and seniors saw accurate queue states instead of conflicting Excel trackers.
+
+**Best output / artefact.** Workflow definitions, correlation-ID standard, DLQ ownership, recovery test evidence and human-task SLAs.
+
+**Lifecycle stage.** Design and industrialise (steps 7, 9); operate (step 13).
+
+**Stage-gate contribution.** Design/release: recoverable workflow proven, idempotent file writes tested, human gates encoded—not only happy-path demos.
+
+**Failure modes.** Business logic buried inside brittle scripts; non-idempotent file writes; infinite retries hammering paid APIs; human tasks with no SLA; missing correlation across systems.
+
+**Related frameworks.** Event-driven architecture, AgentOps, batch orchestration, RAID (dependencies), SRE, Zero Trust.
+
+**Cloud guidance.** Temporal (self/managed); AWS Step Functions; Azure Durable Functions / Logic Apps (durable); GCP Workflows. Choose based on existing landing zone skills; keep secrets out of workflow payloads; encrypt state at rest.
+
+**Security–governance gate.** Workflow state may contain client identifiers—apply same classification as gold data; restrict who can raise “approve write” signals; audit log every human decision.
+
+### Batch and data orchestration (Airflow, Prefect, Dagster, ADF)
+
+**Purpose.** Batch and data orchestration schedules and observes recurring pipelines for training data builds, nightly scoring, index refresh and contract tests. For Apex, anomaly scores and RAG indexes must be ready before seniors start the day—orchestration makes dependencies, SLAs and data-quality tasks first-class rather than cron folklore on a single VM.
+
+**When to use.** Recurring pipelines with dependencies; multi-team ownership of data tasks; need for SLA alerting and backfills; training/scoring/index jobs that must run in order.
+
+**When not to use.** One-off manual loads during a spike—use a documented script. Do not migrate every ad-hoc notebook to Airflow on day one of discovery.
+
+**How to use it.**
+
+1. Declare pipelines as DAGs/assets with clear upstream/downstream and owners.
+2. Make data-quality and contract tests explicit tasks—not afterthoughts.
+3. Separate environments (dev/staging/prod) with promotion rules.
+4. Alert on SLA breach before consumers notice (scores missing at 07:00).
+5. Support controlled backfills with lineage and cost estimates.
+6. Parameterise by engagement/industry where needed without copying DAGs wildly.
+7. Integrate with medallion promotion and ML/LLM job triggers.
+8. Review failed-task taxonomy weekly in the platform ops forum.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s nightly journal scoring and weekly methodology-index refresh ran on Azure Data Factory orchestrating Databricks/Fabric notebooks, with Dagster considered for asset-centric lineage in phase two. The DAG: bronze land → silver certify (dbt tests) → gold feature materialise → ML score → publish to engagement UI → invalidate cache. A parallel weekly DAG rebuilt firm methodology embeddings only (no client text). SLA: gold scores available by 06:30 UK for engagements with extracts received by 22:00. Failures paged the platform on-call and set UI banners—“scores not certified.” Backfill jobs required FinOps estimates before reprocessing a full busy-season week of journals. Artefacts: DAG diagrams, SLA catalogue, on-call runbooks, backfill playbooks. Operationally, Prefect was used by a data-science pod for experimental graphs, but only ADF-published pipelines could touch production gold—preventing shadow orchestration that bypassed quality gates.
+
+**Best output / artefact.** Pipeline DAGs/asset graphs with owners, SLAs, quality tasks and backfill playbooks.
+
+**Lifecycle stage.** Industrialise and operate (steps 9, 13); design dependencies in step 7.
+
+**Stage-gate contribution.** Release-readiness: prod DAG owned, SLA monitors live, quality tasks blocking, backfill tested.
+
+**Failure modes.** Cron on a laptop; quality checks outside the DAG; silent partial success; backfills that double-count costs; one hero engineer who “knows the jobs.”
+
+**Related frameworks.** Medallion, data contracts, MLOps, LLMOps (index refresh), FinOps, SRE.
+
+**Cloud guidance.** Airflow (MWAA/Composer), Prefect, Dagster, Azure Data Factory/Synapse pipelines, AWS Glue workflows, GCP Cloud Composer. Prefer managed orchestration in the landing zone; store connection secrets in cloud vaults.
+
+**Security–governance gate.** Service principals per pipeline with least privilege; no personal credentials in connections; logs scrubbed of unnecessary client payloads; production DAGs change-controlled like application code.
+
+---
+
+## Domain-specific toolkits
+
+### NLP and document AI
+
+**Purpose.** NLP and document AI extract, classify and synthesise language and documents with domain precision. Apex’s evidence packs—bank confirmations, contracts, board minutes, invoices—are the primary unstructured substrate for audit quality. The toolkit combines classical NLP / deterministic extraction for high-precision fields, managed Document AI for layout, and LLMs for synthesis under strict citation policy. Evaluation emphasises numeric faithfulness, citation anchors and independence-safe filtering—not generic summarisation scores.
+
+**When to use.** Document-heavy procedures; need to structure evidence before testing; drafting that must cite sources; multilingual or multi-layout client packs.
+
+**When not to use.** Pure tabular ledger problems already solved by classical ML; unconstrained chat over the entire firm corpus without retrieval boundaries.
+
+**How to use it.**
+
+1. Inventory document types and fields required by methodology (balances, dates, parties, covenants).
+2. Prefer managed OCR/layout (Document Intelligence, Textract, Document AI) before custom models.
+3. Use classical NLP / rules / NER for high-precision entities where regex/grammar suffice.
+4. Apply LLMs only for synthesis with mandatory citations to page/bounding boxes.
+5. Build golden sets per document type; measure field F1 and citation precision.
+6. Human-verify low-confidence extractions; dual-sample high-risk fields.
+7. Label all AI-assisted outputs in the audit file; retain model/prompt/index versions.
+8. Monitor layout drift (new bank templates) and refresh custom models or rules.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s shared service centre processed bank confirmations and AR evidence with Azure Document Intelligence custom models for balances and dates, spaCy-class NER for party names where templates varied, and a RAG summariser for board minutes that could only cite paragraph anchors from silver-parsed text. AWS Textract was kept as a secondary path for a US affiliate landing zone. Every extracted balance shown to seniors included confidence and a link to the source page image; below-threshold items forced manual entry. Working-paper drafts pulled only cited spans; numeric claims were checked against extracted fields by a deterministic validator before manager review. Artefacts: extraction schemas, per-type eval sets, labelling guidelines, AI-assisted output policy. Operationally, Independence and Quality blocked a vendor that stored client PDFs for vendor-side training; Apex negotiated zero-retention private endpoints and won the gate.
+
+**Best output / artefact.** Extraction schemas, golden eval sets, citation policy, labelled AI-assisted file outputs and drift monitors.
+
+**Lifecycle stage.** Prototype through operate (steps 8–13); design retrieval/extraction architecture in step 7.
+
+**Stage-gate contribution.** Production: eval thresholds met, citation and labelling policy enforced, private endpoint evidence, human verification workflow live.
+
+**Failure modes.** LLM-only extraction of amounts without validators; summaries without anchors; training on client PDFs without contract; ignoring template drift; seniors accepting fluent wrong balances.
+
+**Related frameworks.** LLMOps, computer vision (layout), data contracts, Responsible AI, security/privacy, durable workflows.
+
+**Cloud guidance.** Azure Document Intelligence / AI Foundry; Amazon Textract + Bedrock; Google Document AI + Vertex/Gemini—private endpoints, CMEK, regional residency matching engagement letters.
+
+**Security–governance gate.** No training on client text without contract; outputs labelled AI-assisted; independence-sensitive filters; retention mirrors audit file; DLP on export paths.
+
+### Computer vision (when relevant)
+
+**Purpose.** Computer vision analyses images and scans when the artefact is primarily visual rather than born-digital text. In audit, this is narrower than in healthcare or manufacturing: cheque images, wet-ink signatures, sealed certificates, inventory photo counts, or heavily degraded scans. The framework insists on domain validation, managed OCR/layout first, and honest rarity—most Apex evidence is PDF text/layout, not CNN territory.
+
+**When to use.** Artefacts are images/scans where text pipelines fail; inventory or physical evidence procedures; signature/seal presence checks with clear methodology rules.
+
+**When not to use.** Standard digital PDFs better handled by Document AI; using vision as a buzzword for OCR; safety-critical medical claims outside Apex’s licence and expertise.
+
+**How to use it.**
+
+1. Confirm the artefact is visual and that Document AI/OCR failed the golden set.
+2. Define labels and acceptance criteria with Methodology (what “present seal” means).
+3. Prefer managed vision/OCR APIs; escalate to custom CNNs only with bake-off proof.
+4. Build a domain hold-out set from real engagement images (quality variance included).
+5. Evaluate confusion matrices; set operating points for senior review queues.
+6. Monitor scan-quality drift (mobile photos vs flatbed).
+7. Integrate human confirmation before file impact.
+8. Document limitations on the model card (lighting, language, fraud ultramatches out of scope).
+
+**Enterprise worked example (Apex Audit Partners).** Healthcare peers use CNNs on medical scans; Apex’s analogue was rare: sealed certificate scans for certain legal confirmations and cheque images in a payments-heavy client. A pilot used Azure AI Vision / custom vision only after Document Intelligence failed to detect seal presence reliably on glossy scans. The model flagged “seal likely absent/present” for senior confirmation—never auto-concluding authenticity. Inventory count photos for a retail client stayed out of scope after Independence and Methodology declined AI authenticity claims. Artefacts: domain hold-out set, confusion matrix, model card, human confirmation UX. Cloud: private Vision endpoints in the UK region; images never sent to public consumer apps. Operationally, Apex published guidance: default to Document AI; invoke vision only under an approved exception list—preventing engagement teams from inventing CV projects mid-file.
+
+**Best output / artefact.** Vision model card, domain confusion matrix, exception approval and human confirmation design.
+
+**Lifecycle stage.** Prototype and selective industrialise (steps 8–9); specialised operate monitoring.
+
+**Stage-gate contribution.** Exception-based production approval: bake-off vs Document AI, hold-out metrics, methodology sign-off on what the model may claim.
+
+**Failure modes.** Treating all PDFs as vision problems; claiming fraud/authenticity beyond model competence; skipping human confirmation; training on scraped internet images irrelevant to Apex scans.
+
+**Related frameworks.** NLP/Document AI, deep learning, Responsible AI, MLOps, security/privacy.
+
+**Cloud guidance.** Azure AI Vision; Amazon Rekognition / Textract; Google Vision AI—private endpoints; prefer OCR/Document AI first. Custom CNNs only on private training sets with ISMS controls.
+
+**Security–governance gate.** Images may contain PII and wet signatures—classify highly; prohibit public model demos with client artefacts; human remains accountable for authenticity conclusions.
+
+---
+
+## Cross-cutting technical practice
+
+| Practice | Minimum bar |
+|---|---|
+| Evaluation | Offline golden sets before online traffic; challenge sets locked at gates |
+| Observability | Traces across retrieval, model, tools and workflow correlation IDs |
+| Cost | Unit economics and budgets beside latency SLOs; FinOps owners named |
+| Identity | User and workload identity on every call; least privilege per tool/data product |
+| Change control | Prompts, models, indexes, contracts and DAGs versioned like code |
+| Recovery | Rollback drills for models/prompts/workflows before busy season |
+| Evidence | Lineage, versions and human acceptances reconstructable for EQCR |
+
+**Stage-gate contribution (technical).** Design and production gates require architecture decision records, evaluation evidence, threat model updates, FinOps ceilings and rollback drills—not demos alone. For Apex, no AI path that touches the audit file clears release-readiness without: certified data (contracts + medallion), registered models/prompts, human oversight UX, private networking, and an inspectable evidence trail.

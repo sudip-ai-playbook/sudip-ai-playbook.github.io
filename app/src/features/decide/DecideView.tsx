@@ -99,7 +99,7 @@ export function DecideView() {
     <div data-testid="decide-view" className="space-y-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 5 · Decide</p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Score the trade-offs</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">Score the trade-offs</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           Using your framed ecosystem ({project.ecosystem}) and deployment ({project.deployment}).
         </p>

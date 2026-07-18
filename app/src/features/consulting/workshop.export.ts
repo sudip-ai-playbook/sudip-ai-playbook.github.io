@@ -108,11 +108,12 @@ export function buildWorkshopHtml(session: WorkshopSession): string {
   <meta charset="utf-8" />
   <title>${escapeHtml(session.title)}</title>
   <style>
-    body { font-family: "DM Sans", "Segoe UI", sans-serif; margin: 0; background: #f0effa; color: #1a1744; }
-    header { background: linear-gradient(135deg, #3d348b, #7678ed); color: white; padding: 1.5rem; }
+    body { font-family: Inter, "Segoe UI", sans-serif; margin: 0; background: #f7f4ef; color: #1f2a32; }
+    header { background: #1f2a32; color: #f7f4ef; padding: 1.5rem; }
+    h1 { font-family: Cinzel, "Times New Roman", serif; font-weight: 600; letter-spacing: 0.02em; }
     main { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
-    .block { background: white; border-radius: 1rem; padding: 1rem 1.25rem; margin-bottom: 1rem; border: 1px solid rgba(118,120,237,0.2); }
-    .muted { color: #7b7799; font-size: 0.85rem; }
+    .block { background: white; border-radius: 1rem; padding: 1rem 1.25rem; margin-bottom: 1rem; border: 1px solid rgba(31,42,50,0.1); }
+    .muted { color: #7a858f; font-size: 0.85rem; }
   </style>
 </head>
 <body>

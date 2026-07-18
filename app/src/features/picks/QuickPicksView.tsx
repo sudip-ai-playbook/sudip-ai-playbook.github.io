@@ -94,7 +94,7 @@ export function QuickPicksView() {
     <div data-testid="picks-view" className="space-y-6">
       <header>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-blue">Step 3 · Picks</p>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-800">Start from a default</h1>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">Start from a default</h1>
         <p className="mt-1 text-sm text-ink-secondary">
           {project.selectedLayer
             ? `Filtered to ${project.selectedLayer}`

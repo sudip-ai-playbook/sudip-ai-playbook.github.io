@@ -1,0 +1,484 @@
+---
+sidebar_position: 10
+title: Security and Privacy Frameworks
+description: Complete reference for security and privacy frameworks used in AI consulting and delivery—purpose, method, example, artefacts, stage use and gates.
+---
+
+# Security and Privacy Frameworks
+
+## How to use this page
+
+Each framework below is written for AI consulting and delivery practice. Use the **Purpose** and **How to use it** sections in workshops; treat **Best output / artefact** as the minimum write-up for the related stage gate. **When to use / when not**, **Failure modes** and **Stage-gate contribution** keep the framework from becoming slideware.
+
+All **Enterprise worked examples** use the same running client: **Apex Audit Partners** — a mid-market financial auditing firm (~1,200 professionals) industrialising AI for engagement risk assessment, journal anomaly detection, document/evidence extraction, and AI-assisted working-paper drafting. Non-negotiable constraints: **client confidentiality**, auditor independence, audit quality review (including EQCR), and human partners remaining accountable for audit opinions. Security and privacy work is framed around a **private RAG** architecture (engagement-scoped retrieval, no public-model training on client filings), **OWASP LLM** application controls, and **DPIA** where personal or high-risk client data is processed—aligned to ISMS, Zero Trust and release gates.
+
+Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate). Interactive canvases for selected frameworks live in the [playbook app](https://sudip-ai-playbook.github.io/).
+
+**Primary lifecycle use:** Cross-cutting, with formal design and release gates
+
+Use security and privacy frameworks to protect the entire sociotechnical system, including models, users, data, tools and suppliers.
+
+### NIST Cybersecurity Framework
+
+**Purpose.** The NIST Cybersecurity Framework (CSF) organises cyber risk through Govern, Identify, Protect, Detect, Respond and Recover so Apex can treat AI platforms, private RAG stores, model gateways and engagement tooling as managed enterprise assets—not shadow IT. Govern sets cyber policy and roles for AI (including prohibition of public LLMs on client data). Identify inventories AI assets, data classes and suppliers. Protect covers identity, encryption, segmentation and secure configuration. Detect and Respond cover prompt-abuse, exfiltration and compromise signals. Recover covers engagement continuity when AI services fail mid-busy-season. Used properly, CSF produces a current/target profile that Risk & Quality and CISO can sample—not a generic poster after go-live.
+
+**When to use.** When Apex must protect users, data, models, tools, infrastructure and suppliers across the AI lifecycle; when leadership needs a common cyber language for private RAG and model gateways; when insurers, clients or inspection ask how AI cyber risk is governed; when CISO and Assurance Technology disagree on what “secure enough for client files” means.
+
+**When not to use.** When security is deferred to production hardening after architecture is frozen—too late; when the only open question is a single code defect with a known fix; when you need a legal privacy classification alone (use DPIA / Privacy by Design first, then map controls into CSF functions).
+
+**How to use it.**
+
+1. Establish Govern: name the AI cyber owner (typically CISO jointly with Head of Assurance Technology), publish policy on client confidentiality, private tenancy, prohibited public-model use and escalation to the AI quality / security board.
+2. Identify in-scope AI assets: model gateway, vector stores, prompt/response logs, retrieval indexes, evaluation harnesses, CI/CD for prompts and agent tools.
+3. Assess current CSF profile against threats to confidentiality (cross-client leakage), integrity (tampered retrieval) and availability (gateway outage in busy season).
+4. Define target profile: Zero Trust access, engagement-scoped RAG, encryption, monitoring and recovery RTO/RPO for AI services.
+5. Select Protect/Detect/Respond/Recover controls; map each to owners, tests and evidence retention.
+6. Assign residual-risk acceptance to a named partner-grade or CISO owner; record assumptions and evidence quality.
+7. Wire continuous monitoring (prompt-abuse alerts, anomalous retrieval, DLP hits, supplier incidents) into monthly security and AI quality reviews.
+8. Refresh Identify/Protect profiles after each material model, prompt, index or supplier change before production re-release.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: After partners were found pasting client excerpts into consumer chatbots and a banking-client journal PoC wrote embeddings into a shared sandbox index, Apex’s CISO refused further production AI without a firm-wide cyber profile. Head of Assurance Technology, CISO, Risk & Quality, Independence and the data-platform owner ran a two-day NIST CSF workshop. Govern outputs forbade public-model use on client data, required private tenancy for all RAG indexes, and mandated model-version stamps plus human attestation on AI-assisted workpapers. Identify inventoried four systems—engagement risk scoring, journal anomaly detection, document extraction and drafting assist—plus the model gateway, per-engagement vector partitions, prompt logs and three critical SaaS suppliers. Protect targets included engagement-scoped retrieval, encryption at rest/in transit, workload identities for agents and DLP on outbound prompts. Detect added prompt-injection and bulk-export heuristics; Respond defined playbooks for suspected cross-client leakage; Recover set busy-season fallback to non-AI procedures within four hours. Decisions: no AI feature reaches live engagements until current/target CSF gaps for that system are closed or explicitly accepted; EQCR may sample cyber-control evidence alongside quality documentation. Artefacts: CSF current/target profile, AI asset inventory, residual-risk acceptances and monitoring dashboard spec. Operationally, three chatbot pilots were frozen until they appeared in the inventory and passed Protect/Detect gates; the shared sandbox index was destroyed and rebuilt with engagement isolation.
+
+**Best output / artefact.** Current/target cyber profile for AI assets with named owners, control tests, monitoring and residual-risk acceptance.
+
+**Lifecycle stage.** Cross-cutting design and release gates (especially steps 7, 9, 11); refresh on material change.
+
+**Stage-gate contribution.** Security/privacy approval: threat model alignment, DPIA where required, control tests and residual risk recorded against the CSF target profile before scale.
+
+**Failure modes.** Completing Govern slides without Identify depth; Protect controls that never appear in penetration or red-team evidence; Detect without Respond playbooks; treating CSF as a one-time certification; inventing cyber language that Independence cannot reconcile with client-confidentiality policy; leaving RAG indexes out of the asset inventory.
+
+**Related frameworks.** ISO/IEC 27001, Zero Trust, STRIDE, MITRE ATLAS, OWASP LLM, Defence in Depth, Shared Responsibility Model, DPIA.
+
+### ISO/IEC 27001
+
+**Purpose.** ISO/IEC 27001 establishes an auditable information security management system (ISMS): scope, risk assessment, Statement of Applicability, control operation, internal audit, management review and continual improvement. For Apex it is the spine that turns ad hoc AI security into evidence inspectors, clients and insurers can trust—especially for model endpoints, private RAG vector stores, prompt logs and supplier subprocessors. It does not replace DPIA or independence rules; it creates the management machinery that makes confidentiality and integrity controls enforceable for AI. The ISMS is how Apex proves that AI use of client data is designed, operated and improved under accountability.
+
+**When to use.** When Apex commits to industrialising multiple AI systems on client files and needs durable, auditable security evidence; when leadership wants certification-aligned or certification-ready proof; when suppliers and business units must obey one control set; when management review of AI security must become routine.
+
+**When not to use.** When a single experimental spike has no production path and ISMS theatre would slow learning more than it reduces risk; when only a product threat model is needed without organisational clauses (use STRIDE / Threat Modelling first); when treating 27001 as a badge after go-live without operating the PDCA cycle.
+
+**How to use it.**
+
+1. Define ISMS scope: legal entities, geographies, AI systems, data environments and exclusions (for example, UK audit production year 1; advisory AI for audit clients out of scope pending independence analysis).
+2. Inventory information assets: client filings, workpapers, embeddings, prompts, evaluation datasets, model configs and admin credentials.
+3. Assess risks (confidentiality, integrity, availability) including AI-specific scenarios: cross-client RAG bleed, prompt injection, model-supply compromise.
+4. Select controls and produce Statement of Applicability covering AI assets and suppliers; close gaps contractually or technically.
+5. Operate controls: access management, encryption, logging, secure development, supplier due diligence, incident response.
+6. Establish performance evaluation: internal audits, metrics, nonconformity handling, linkage to EQCR themes where relevant.
+7. Run management review with Assurance Executive / CISO; decide resource, scope and improvement actions.
+8. Maintain documented information so inspection can reconstruct who approved what AI system, when and on which evidence.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex’s board asked whether AI handling of client confidential filings was “ISMS-ready” after a near-miss where a shared vector collection mixed two clients’ engagement docs. Risk & Quality and CISO proposed extending the ISO/IEC 27001 ISMS rather than collecting disconnected AI security PDFs. Scope workshops with Head of Assurance Technology, Independence, Legal, EQCR and the engagement-platform owner set UK statutory-audit AI systems in scope and explicitly excluded training foundation models on client confidential filings across clients. Asset inventory added model endpoints, private RAG stores, prompt/response logs, evaluation corpora and CI secrets for prompt packs. Risk assessment rated cross-client disclosure and unauthorised model access as highest severity. Controls selected included engagement-partitioned indexes, mandatory encryption, private-link model access, privileged-access review for AI admins, supplier clauses on data residency and no-training, and secure SDL gates for agent tools. Statement of Applicability was updated; internal audit planned sampling of RAG isolation tests and prompt-log access reviews before busy season. Management review quarterly decided continuous-assurance products remain outside production ISMS scope until a separate non-audit entity analysis completed. Artefacts: ISMS scope statement, risk treatment plan, SoA delta for AI, internal-audit plan and management-review minutes. Operationally, new AI features could not reach live engagements without ISMS change control—ending partners “trying a vendor toggle” mid-file against client data.
+
+**Best output / artefact.** ISMS risk treatment and evidence pack for AI assets: scope, SoA, control operation records, internal-audit results and management-review decisions.
+
+**Lifecycle stage.** Cross-cutting organisational capability; gates at steps 7, 9 and 11 plus periodic management review.
+
+**Stage-gate contribution.** Security/privacy approval: proof that AI assets are in ISMS scope, risks treated, controls operated and residual risk accepted—not project slideware.
+
+**Failure modes.** Writing a policy without operating procedures; ISMS owner with no authority over partners’ shadow AI; certification theatre while public LLMs continue on client excerpts; scope so wide nothing is controlled; leaving vector stores and prompt logs out of the asset register; ignoring supplier subprocessors for model hosting.
+
+**Related frameworks.** NIST CSF, Zero Trust, Shared Responsibility Model, Secure Development Lifecycle, DPIA, Privacy by Design, Defence in Depth.
+
+### Zero Trust
+
+**Purpose.** Zero Trust requires explicit verification and least privilege for every access—never trusting network location, VPN presence or “internal” AI services by default. For Apex, every identity (human, service, agent), every resource (workpaper store, RAG index, model gateway, tool API) and every session must be authenticated, authorised in context and continuously reassessed. Zero Trust is how private RAG stays private: retrieval cannot bypass source-system entitlements; an AI tool cannot fetch records outside the authenticated user’s engagement permissions; compromised accounts cannot laterally move into other clients’ indexes. It produces policy and architecture that CISO and Assurance Technology can test—not a marketing slogan.
+
+**When to use.** When Apex must protect multi-tenant client data behind AI assistants; when agents and tools call enterprise APIs; when hybrid cloud or vendor model endpoints sit outside the traditional perimeter; when EQCR or clients demand proof that “the AI only sees what the auditor can see.”
+
+**When not to use.** When security is deferred to production hardening after architecture is frozen—too late; when the system has no identity integration path and would only add theatre; when you need only a static network ACL for a single-lab prototype with no client data.
+
+**How to use it.**
+
+1. Map identities (partners, managers, seniors, service accounts, agent workloads) and resources (engagement files, indexes, gateway, tools).
+2. Define trust boundaries and continuous verification points for each AI data path (prompt → retrieve → generate → write-back).
+3. Enforce contextual access: engagement membership, role, device posture, time and data classification.
+4. Propagate user context into retrieval and tools so RAG and agents inherit source entitlements.
+5. Segment networks and data planes: per-engagement or per-client index partitions; deny lateral retrieval.
+6. Instrument continuous monitoring and session re-auth for anomalous AI use (bulk retrieve, off-hours export).
+7. Test deny-by-default with red-team scenarios (user A tries client B docs via chat).
+8. Reassess after identity-provider, gateway or index-schema changes before re-release.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Early drafting-assist PoCs authenticated users to the chat UI but retrieved from a firm-wide “knowledge” index using a shared service account—any authenticated auditor could surface excerpts from engagements they were not assigned to. CISO and Head of Assurance Technology ran a Zero Trust design workshop with Identity, the engagement-platform owner, Risk & Quality and two engagement partners. They mapped identities to Azure AD / Okta groups and engagement membership; resources to workpaper DMS, private RAG partitions, model gateway and journal-tool APIs. Policy: every RAG query must carry the human user’s token; the retrieval service validates engagement ACLs before returning chunks; agent tools use short-lived workload identities scoped to the engagement; admin break-glass is logged and dual-controlled. Architecture decisions included mutual TLS to the model gateway, private endpoints only, and denial of cross-engagement vector search even for national-office methodology users without explicit elevation. Red-team tests confirmed that User A’s session could not retrieve Client B filings via prompt tricks that previously succeeded against the shared index. Artefacts: Zero Trust policy, architecture diagram with verification points, entitlement propagation design and test evidence. Operationally, the shared index was retired; drafting assist only went live for engagements where membership sync was proven—closing the confidentiality failure mode that had blocked CRO approval.
+
+**Best output / artefact.** Zero Trust policy and architecture for AI paths, including entitlement propagation and continuous-verification tests.
+
+**Lifecycle stage.** Cross-cutting design and release gates (especially steps 7, 9, 11).
+
+**Stage-gate contribution.** Security/privacy approval: proof that AI access is identity-bound, least-privilege and continuously verified before production use on client files.
+
+**Failure modes.** Authenticating the UI but not the retrieval path; shared service accounts for RAG; “VPN equals trust”; elevating national-office users without logging; skipping re-verification after token or schema changes; confusing Zero Trust slides with implemented PEP/PDP controls.
+
+**Related frameworks.** Identity-First Security, Least Privilege, Defence in Depth, STRIDE, NIST CSF, ISO/IEC 27001, OWASP LLM.
+
+### STRIDE
+
+**Purpose.** STRIDE systematically identifies Spoofing, Tampering, Repudiation, Information disclosure, Denial of service and Elevation of privilege threats against a decomposed system. For Apex AI, STRIDE forces concrete threats on private RAG and LLM apps: spoofed tool endpoints, tampered retrieved documents, repudiation of who approved an AI-assisted conclusion, disclosure across clients, denial of gateway capacity in busy season, and elevation via over-privileged agents. It produces a threat model and mitigation backlog that feeds design and release gates—not a brainstorm sticky-note wall that disappears after the workshop.
+
+**When to use.** When designing or materially changing AI architectures that touch client data, tools or audit documentation; when CISO requires structured threat enumeration before go-live; when OWASP LLM risks need mapping to classic abuse categories for auditors who know STRIDE.
+
+**When not to use.** When security is deferred until after architecture freeze—too late; when you only need organisational ISMS clauses with no system decomposition; when the change is a pure documentation update with no trust-boundary shift.
+
+**How to use it.**
+
+1. Draw data-flow diagrams for the AI system: users, UI, gateway, retriever, vector store, model, tools, DMS write-back.
+2. Mark trust boundaries (engagement, firm, vendor, internet) and data classifications (client confidential, personal, methodology).
+3. Enumerate STRIDE threats per element and data flow—especially RAG chunk integrity and agent tool calls.
+4. Prioritise by impact on confidentiality, audit quality and availability; score likelihood with evidence where possible.
+5. Assign mitigations (controls, tests, monitoring) and owners; link to OWASP LLM and ATLAS where relevant.
+6. Define validation tests (unit, integration, red-team) that prove mitigations work.
+7. Gate implementation on mitigation of must-fix threats; record residual risk acceptance.
+8. Revisit STRIDE after major prompt, tool, model or index changes.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex’s document-extraction and drafting-assist services were approaching pilot on live banking-client PDFs. Architecture review had praised latency but never listed abuse cases. A half-day STRIDE workshop with CISO threat modelling, Assurance Technology, EQCR and a senior manager decomposed flows: authenticated auditor → chat UI → model gateway → private RAG (engagement partition) → optional DMS write-back of draft workpapers; parallel tool calls to journal APIs. Spoofing: attacker spoofs a tool endpoint returning fabricated confirmations. Tampering: poisoned PDF or altered chunk in the index changes extracted balances. Repudiation: no durable log of which model version produced a draft that later supported a conclusion. Disclosure: prompt injection instructing the model to dump other engagements’ metadata from context windows or misconfigured indexes. Denial: flooding the gateway during busy season. Elevation: agent with write tools posting unapproved workpapers. Mitigations included signed tool allowlists, content hashing and source citations for retrieved chunks, immutable prompt/model audit logs, engagement-scoped retrieval with Zero Trust entitlements, rate limits and capacity reservations, and human attestation before file lock. Artefacts: DFD, STRIDE register, prioritised mitigation backlog and residual-risk sheet. Operationally, write-back was disabled until attestation and logging shipped; EQCR added sampling of AI documentation trails—turning STRIDE from a workshop into release blockers.
+
+**Best output / artefact.** Threat model (DFD + STRIDE register) and prioritised mitigation backlog with owners and tests.
+
+**Lifecycle stage.** Design and release (steps 7, 9, 11); refresh on material change.
+
+**Stage-gate contribution.** Security/privacy approval: enumerated threats, mitigations and residual risk before production use on client files.
+
+**Failure modes.** STRIDE without a DFD; treating disclosure as “users should be careful”; ignoring tool and RAG paths; no tests for must-fix threats; freezing the model while prompts and indexes keep changing; repudiation gaps that EQCR cannot reconstruct.
+
+**Related frameworks.** Threat Modelling, OWASP LLM, MITRE ATLAS, Zero Trust, Defence in Depth, Secure Development Lifecycle, DPIA.
+
+### MITRE ATT&CK
+
+**Purpose.** MITRE ATT&CK provides a knowledge base of adversary tactics and techniques across enterprise systems—initial access, execution, persistence, privilege escalation, defence evasion, credential access, discovery, lateral movement, collection, exfiltration and impact. For Apex, ATT&CK frames how a compromised developer or partner account, phishing into the AI admin plane, or abused CI/CD for prompts could alter production behaviour, steal client embeddings or disable detections. It complements AI-specific ATLAS by covering the enterprise substrate that hosts private RAG and model gateways. Best output is a coverage matrix of detections and controls—not a printed matrix nobody monitors.
+
+**When to use.** When Apex must harden the platform and identity plane around AI; when SOC detection engineering needs AI-relevant techniques; when tabletop exercises must include realistic enterprise attack paths into AI systems.
+
+**When not to use.** When the only concern is model-intrinsic attacks (prefer ATLAS / OWASP LLM); when security is deferred after architecture freeze; when no SOC or detection capability exists to use the matrix (build detection ownership first).
+
+**How to use it.**
+
+1. Identify likely adversaries and objectives (credential theft for client data, sabotage of audit AI, ransomware affecting busy season).
+2. Map ATT&CK techniques to AI admin paths: IdP, CI/CD for prompts, gateway consoles, vector DB admin, logging pipelines.
+3. Assess detection coverage and control gaps per technique; prioritise high-impact gaps.
+4. Implement or improve detections, hardening and response playbooks.
+5. Run purple-team or tabletop exercises that include AI asset compromise scenarios.
+6. Feed findings into ISMS risk treatment and CSF Detect/Respond profiles.
+7. Assign owners for each critical technique’s control and detection.
+8. Reassess after new suppliers, admin tools or identity changes.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex’s SOC monitored traditional endpoints well but had blind spots around the new model gateway and vector-store admin APIs. After a phishing near-miss against an Assurance Technology engineer, CISO convened an ATT&CK coverage workshop with SOC, Identity, DevOps and Head of Assurance Technology. They mapped techniques: spearphishing for initial access; token theft against cloud consoles; modification of prompt packs in CI as defence evasion / impact; discovery of engagement index names; collection and exfiltration of embeddings or prompt logs containing client excerpts. Coverage gaps included missing alerts on unusual vector-admin bulk exports, weak MFA on gateway break-glass accounts and no integrity monitoring on production prompt repositories. Treatments: phishing-resistant MFA for AI admins, immutable audit of prompt promotions, DLP and egress controls on index exports, just-in-time elevation for vector admin, and SOC detections for anomalous retrieval volumes. A tabletop simulated a compromised developer altering a production system prompt to weaken citation requirements—response playbooks now include rolling back prompt versions and notifying Risk & Quality. Artefacts: ATT&CK coverage matrix for AI substrate, detection backlog and exercise report. Operationally, prompt CI became a controlled change path under SDL—closing the “edit prod prompt in portal” shortcut.
+
+**Best output / artefact.** ATT&CK coverage matrix for AI-related enterprise paths with detection and response owners.
+
+**Lifecycle stage.** Cross-cutting operations and release hardening (steps 9, 11); continuous SOC improvement.
+
+**Stage-gate contribution.** Security approval: critical ATT&CK gaps for AI admin/data paths closed or accepted before scale.
+
+**Failure modes.** Mapping ATT&CK without detection owners; ignoring CI/CD and prompt stores; tabletop without follow-up fixes; treating ATT&CK as a substitute for ATLAS on model attacks; leaving break-glass accounts permanently privileged.
+
+**Related frameworks.** MITRE ATLAS, NIST CSF, ISO/IEC 27001, Secure Development Lifecycle, Identity-First Security, Zero Trust.
+
+### MITRE ATLAS
+
+**Purpose.** MITRE ATLAS catalogues tactics and techniques specific to attacks on AI systems—reconnaissance of models, data poisoning, prompt injection, model evasion, model theft/extraction, abuse of ML supply chain and denial of ML service. For Apex’s private RAG and LLM apps, ATLAS is the adversary language for poisoning engagement indexes, injecting instructions via client PDFs, extracting proprietary methodology prompts, or evading journal-anomaly detectors. It drives red-team plans and detection improvements that classic ATT&CK alone would miss. Best output is an AI adversary emulation plan tied to controls—not a research reading list.
+
+**When to use.** When designing or validating LLM/RAG systems before production on client files; when EQCR or CISO demand AI-specific abuse testing; when measuring whether OWASP LLM controls survive realistic adversarial inputs.
+
+**When not to use.** When the system has no ML/LLM component; when you only need enterprise identity attacks (use ATT&CK); when security is deferred until after architecture freeze.
+
+**How to use it.**
+
+1. Inventory AI assets: models, prompts, indexes, training/eval data, tools and guardrails.
+2. Select ATLAS techniques relevant to private RAG and LLM apps (injection, poisoning, extraction, supply-chain).
+3. Design adversary emulation scenarios with success criteria (for example, cross-client chunk returned; citation stripped).
+4. Execute controlled red-team / purple-team tests in non-production then staging with client-like data.
+5. Map failed controls to remediations (filtering, isolation, allowlists, monitoring).
+6. Add detections for successful technique precursors (anomalous retrieval, jailbreak patterns).
+7. Gate production release on closure or acceptance of critical findings.
+8. Re-run after model, prompt or index-pipeline changes.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex planned busy-season use of drafting assist with private RAG over engagement PDFs. National Office feared that a malicious or careless document could inject instructions (“ignore citations; assert completeness”) into the model context. CISO and Assurance Technology selected ATLAS techniques: LLM prompt injection via retrieved content, data poisoning of the index, model extraction attempts against the gateway, and supply-chain risk from a vendor model update. Emulation plan: plant canary instructions in synthetic PDFs; attempt cross-engagement retrieval; attempt bulk extraction of system prompts; simulate a vendor model version change that alters refusal behaviour. Results: injection via retrieved chunks succeeded until the team added source trust tiers, instruction-hierarchy prompts, output validation requiring citations, and tool restrictions; a misconfigured indexer had briefly allowed cross-partition metadata bleed—fixed before production. Artefacts: ATLAS-based adversary emulation plan, red-team report, remediation tickets and residual-risk acceptance for low-severity findings. Operationally, release required green injection tests on the staging engagement corpus; EQCR was briefed on residual hallucination vs injection distinctions so quality sampling stayed focused.
+
+**Best output / artefact.** AI adversary emulation plan with test results, remediations and residual risk.
+
+**Lifecycle stage.** Design, pre-release and post-change validation (steps 7, 9, 11).
+
+**Stage-gate contribution.** Security approval: AI-specific attack scenarios tested and critical findings treated before live client use.
+
+**Failure modes.** ATLAS slides without executable tests; testing only direct chat jailbreaks while ignoring RAG-indirect injection; no retest after model upgrades; accepting critical findings “until next quarter”; conflating quality hallucination metrics with adversarial control failures.
+
+**Related frameworks.** OWASP LLM, STRIDE, Threat Modelling, MITRE ATT&CK, Defence in Depth, Secure Development Lifecycle, Zero Trust.
+
+### OWASP Top 10 for LLM Applications
+
+**Purpose.** The OWASP Top 10 for LLM Applications highlights common application risks in LLM systems—including prompt injection, insecure output handling, training-data/poisoning concerns, model DoS, supply-chain vulnerabilities, sensitive-information disclosure, insecure plugin/tool design, excessive agency, overreliance and unbounded consumption (taxonomy evolves by version; map to the current OWASP list in use). For Apex, OWASP LLM is the practical checklist that connects private RAG architecture, tool permissions and confidentiality controls to testable release evidence. It turns “be careful with prompts” into preventive controls, tests, monitoring and residual-risk statements that CISO and EQCR can sample.
+
+**When to use.** For every LLM or agentic system touching client data, tools or workpaper write-back; when vendors claim “secure GenAI” and Apex must verify controls; when release gates need a shared application-risk language across engineering and Risk & Quality.
+
+**When not to use.** When there is no LLM/agent component; when security is deferred after architecture freeze; when only organisational ISMS paperwork is needed without application testing (still required later before production).
+
+**How to use it.**
+
+1. Map each OWASP LLM risk to the Apex architecture (gateway, RAG, tools, UI, logging).
+2. Define preventive controls per risk (isolation, allowlists, validation, rate limits, least privilege).
+3. Define detective controls and telemetry (injection patterns, anomalous tool use, cost/DoS signals).
+4. Build automated and manual tests—including RAG-indirect injection and excessive-agency scenarios.
+5. Record residual risk and compensating human controls (attestation, dual review) where needed.
+6. Block release on unresolved critical OWASP items; track the checklist in the engagement workspace.
+7. Monitor production against the same risk list; feed incidents back into the backlog.
+8. Re-map after adding tools, changing prompts or switching model providers.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex’s drafting assist and journal-anomaly agent were approaching limited production. A joint OWASP LLM control workshop with AppSec, Assurance Technology, CISO, EQCR and Independence mapped risks to design. Prompt injection: controlled with source-trust tiers for retrieved chunks, system-prompt instruction hierarchy, output schemas requiring citations to engagement documents, and refusal to follow retrieved “instructions.” Sensitive disclosure: private tenancy, engagement-scoped RAG, DLP on prompts/logs, redaction of national identifiers before certain model calls, and prohibition on public models. Insecure plugins/excessive agency: journal agent may flag anomalies and create draft review notes but cannot post journals or approve entries; tools are allowlisted with schema validation. Overreliance: UI labels AI drafts as non-authoritative; partner/manager attestation required before file lock. Unbounded consumption: per-engagement quotas and gateway rate limits for busy season. Test evidence included automated injection suites, tool-permission fuzzing and a failed-then-fixed case where the agent attempted an out-of-scope API. Artefacts: OWASP LLM control checklist, test evidence pack and residual-risk register. Operationally, Independence signed that tool scopes did not create prohibited non-audit patterns; CRO approved production only after critical OWASP items were green—making OWASP LLM the release language rather than vendor assurance letters alone.
+
+**Best output / artefact.** OWASP LLM control checklist with test evidence, monitoring and residual-risk statements.
+
+**Lifecycle stage.** Design and release gates (especially steps 7, 9, 11); continuous monitoring thereafter.
+
+**Stage-gate contribution.** Security/privacy approval: OWASP LLM risks mapped, tested and residual risk accepted before scale on client files.
+
+**Failure modes.** Checklist completed without tests; controlling only direct chat injection while ignoring RAG; tools with broad agency “for convenience”; logging full client prompts to overly broad admin roles; treating vendor SOC reports as OWASP coverage; freezing the checklist while adding new tools weekly.
+
+**Related frameworks.** MITRE ATLAS, STRIDE, Threat Modelling, Least Privilege, Zero Trust, Privacy by Design, DPIA, Defence in Depth, Secure Development Lifecycle.
+
+### Privacy by Design
+
+**Purpose.** Privacy by Design builds privacy into purpose, architecture and default behaviour—data minimisation, purpose limitation, secure defaults, retention limits, transparency and support for data-subject rights—rather than bolting consent banners onto an over-collecting AI pipeline. For Apex, Privacy by Design means the assistant masks or excludes identifiers before model processing where feasible, stores only required audit fields, scopes RAG to engagement necessity, and defaults to deny on cross-purpose reuse of prompts or embeddings. It is the design discipline that makes DPIAs shorter and ISMS controls natural—not a poster in the privacy office.
+
+**When to use.** When AI systems process personal data (client employees, Apex staff identifiers in workpapers, KYC artefacts) or when confidentiality-adjacent minimisation reduces breach impact; when selecting vendors and model hosts; when defining logging and evaluation-data practices.
+
+**When not to use.** When security is deferred until after architecture freeze—too late; when no personal data and no retention decisions exist (still apply confidentiality minimisation via other frameworks); when used as a substitute for a required DPIA.
+
+**How to use it.**
+
+1. State purposes precisely (assist drafting on this engagement; not model training across clients).
+2. Minimise data fields in prompts, indexes, logs and eval sets; prefer references/IDs over full payloads where possible.
+3. Set secure defaults: private tenancy, encryption, engagement scope, no public-model routing.
+4. Define retention and deletion for prompts, embeddings, caches and eval corpora aligned to audit-file rules.
+5. Design rights/support processes (access, deletion, restriction) for personal data in AI stores.
+6. Validate necessity/proportionality with privacy counsel and Risk & Quality.
+7. Encode decisions in architecture ADRs and UI defaults; test that defaults hold under failure.
+8. Review after new data sources or secondary purposes are proposed.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Early extraction pilots indexed entire client HR and payroll PDFs “in case fields were useful later,” and prompt logs retained full text for ninety days viewable by all AI admins. Privacy counsel and CISO halted expansion. A Privacy by Design workshop with Data Protection Officer, Assurance Technology, engagement-platform owner and EQCR redefined purpose: extract only fields required for defined audit procedures on named engagements; forbid secondary use for model fine-tuning. Design decisions: field-level allowlists for indexing; automatic masking of national IDs and account numbers before model calls where the procedure does not require them; prompt-log retention shortened and access limited to break-glass roles; evaluation datasets synthesised or heavily redacted; default model route private-only. UI defaults showed data categories sent to the model and blocked paste into unapproved channels. Artefacts: privacy design decision log, data-flow minimisation map, retention schedule and ADR set. Operationally, indexes were rebuilt with allowlisted fields only—reducing DPIA residual risk and the blast radius of any future disclosure incident, while still supporting extraction quality metrics EQCR cared about.
+
+**Best output / artefact.** Privacy design decisions (purpose, minimisation, defaults, retention, rights support) linked to architecture.
+
+**Lifecycle stage.** Early design through release (steps 7, 9, 11); refresh on data-purpose change.
+
+**Stage-gate contribution.** Privacy approval input: demonstrable minimisation and defaults before processing personal or high-risk data at scale.
+
+**Failure modes.** “We’ll anonymise later”; logging everything for debugging permanently; using client data for eval without purpose; defaults that route to public models on error; Privacy by Design slides with maximising indexes in production; skipping retention alignment to audit-file obligations.
+
+**Related frameworks.** DPIA, ISO/IEC 27001, Zero Trust, OWASP LLM, Shared Responsibility Model, NIST CSF.
+
+### Data Protection Impact Assessment
+
+**Purpose.** A Data Protection Impact Assessment (DPIA) assesses high-risk personal-data processing and required mitigations—mapping data and purposes, necessity and proportionality, risks to individuals, stakeholder consultation and residual-risk approval. For Apex AI, DPIAs cover assistants that process conversation text, identity-bearing workpapers, payroll extracts or KYC documents inside private RAG pipelines. The DPIA is a decision record, not a novel: it must be approved before scale and refreshed on material change. It pairs with Privacy by Design and OWASP LLM so technical controls appear as mitigations with evidence.
+
+**When to use.** When processing is likely high risk to individuals (large-scale, sensitive categories, innovative AI, systematic monitoring, or vulnerable subjects); when privacy counsel, DPO or clients require it; before production RAG on identity-rich client corpora.
+
+**When not to use.** When security is deferred after architecture freeze—too late to influence design; as a post-hoc essay after go-live; when no personal data is processed and confidentiality risks are purely corporate (still use threat models / ISMS); when used to rubber-stamp maximising data collection.
+
+**How to use it.**
+
+1. Describe processing: systems, purposes, legal basis, data categories, recipients, retention and international transfers (including model hosts).
+2. Map data flows through private RAG, logs, eval stores and human review queues.
+3. Assess necessity and proportionality; challenge nice-to-have fields and secondary uses.
+4. Identify risks to individuals (confidentiality breach, incorrect automated inferences affecting people, excessive retention).
+5. Consult stakeholders (DPO, CISO, Assurance Technology, business owner, optionally employee reps).
+6. Define mitigations and residual risk; assign approval to an authorised owner.
+7. Gate go-live on signed DPIA; register in the AIMS/ISMS evidence set.
+8. Refresh on material change (new data types, new model region, new tools, new purposes).
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex planned to roll document extraction and drafting assist across engagements that routinely include employee PII inside client-provided PDFs and, for some entities, special-category data in health-plan or grievance files. The DPO required a DPIA before busy-season scale. Workshops mapped purposes (assist auditors extracting defined fields; draft workpaper language with citations) and prohibited purposes (HR analytics, training foundation models, cross-client profiling). Data flows included upload to engagement DMS → allowlisted indexing → private model gateway in-region → prompt/response logs with restricted access → human attestation. Risks: unauthorised access to PII via chat; cross-engagement leakage; incorrect extraction affecting individuals if misused outside audit context; vendor subprocessors in non-approved regions. Mitigations: Privacy by Design allowlists, Zero Trust entitlements, encryption, DLP, no-training contractual clauses, retention limits, OWASP LLM disclosure controls and staff training. Residual risk accepted by the DPO and Managing Partner Assurance only with those controls and a six-month review. Artefacts: approved DPIA, consultation log, mitigation tracker and refresh triggers. Operationally, engagements containing special-category data were excluded until additional masking shipped—preventing a blanket “AI on all PDFs” rollout that would have failed client and regulatory challenge.
+
+**Best output / artefact.** Approved DPIA with mitigations, residual risk, consultation record and refresh triggers.
+
+**Lifecycle stage.** Before production processing of in-scope data (steps 7, 9); refresh at step 11/13 on material change.
+
+**Stage-gate contribution.** Privacy approval: DPIA completed and accepted where required before scale; linked to security control tests and residual risk.
+
+**Failure modes.** DPIA after go-live; copying a template without Apex data flows; ignoring model-host transfers; no consultation record; mitigations that are aspirations without owners; failing to exclude special-category corpora; never refreshing after RAG schema changes.
+
+**Related frameworks.** Privacy by Design, ISO/IEC 27001, OWASP LLM, Zero Trust, NIST CSF, Shared Responsibility Model, Threat Modelling.
+
+### Threat Modelling
+
+**Purpose.** Threat modelling systematically anticipates misuse and attack paths before implementation—defining assets, actors, boundaries, threats, controls and validation tests, then revisiting after major change. For Apex it is the umbrella practice that may use STRIDE, ATLAS and OWASP LLM as lenses, but always produces security requirements that engineering must implement. It covers sociotechnical misuse (auditor over-trust, malicious insider) as well as external attackers. Best output is a living threat model and security requirements set—not a one-off workshop photo.
+
+**When to use.** At design start for any AI system on client data; before adding agent tools; before enabling write-back to audit files; when material architecture changes occur.
+
+**When not to use.** When security is deferred until after architecture freeze—too late; when change is cosmetic with no trust-boundary impact; when used as endless analysis to avoid shipping controls.
+
+**How to use it.**
+
+1. Define assets (client filings, embeddings, prompts, opinions trail, methodology IP) and actors (users, admins, vendors, attackers, malicious docs).
+2. Draw boundaries and data flows for private RAG and tools.
+3. Enumerate threats with STRIDE/ATLAS/OWASP lenses as appropriate.
+4. Derive security requirements and acceptance tests.
+5. Prioritise and assign owners; agree must-fix vs accept.
+6. Validate controls in staging with adversarial tests.
+7. Gate release on must-fix closure; file residual risk.
+8. Re-open the model after major change or incidents.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex proposed an agent that could open tickets in the engagement platform and attach AI-drafted evidence summaries. Product urgency pushed coding before threat modelling. CISO stopped the sprint for a structured session: assets included client confidential summaries and the integrity of the audit file; actors included distracted seniors, malicious insiders and prompt-injected content. Threats: agent attaches summaries to the wrong engagement; agent overwrites reviewer comments; attacker uses the ticket tool to exfiltrate; repudiation of whether a human approved the attachment. Security requirements: engagement-context binding on every tool call, least-privilege tool scopes (create draft ticket only—no approve), mandatory human confirmation UI, immutable logs linking user, model version and artefact hashes, and OWASP-style output validation before attach. Validation tests failed initially when context binding used only display labels—fixed to server-side engagement IDs. Artefacts: threat model document, security requirements backlog and test evidence. Operationally, the agent shipped two sprints later with confirmation gates; EQCR sampling could reconstruct AI-assisted attachments—unblocking CRO approval that had been withheld for “unmodelled agent risk.”
+
+**Best output / artefact.** Threat model and security requirements with validation tests and residual-risk record.
+
+**Lifecycle stage.** Design and release (steps 7, 9, 11); continuous on change.
+
+**Stage-gate contribution.** Security/privacy approval: threats and requirements agreed before build/scale; evidence of validation before production.
+
+**Failure modes.** Workshop without requirements; requirements without tests; ignoring insider and misuse paths; never revisiting after tool expansion; threat model owned by nobody; treating vendor assurances as the threat model.
+
+**Related frameworks.** STRIDE, MITRE ATLAS, OWASP LLM, Secure Development Lifecycle, Zero Trust, Defence in Depth, DPIA.
+
+### Secure Development Lifecycle
+
+**Purpose.** A Secure Development Lifecycle (SDL / DevSecOps) embeds security from requirements through retirement—security requirements, design review, secure coding, testing, release gates, monitoring and vulnerability response. For Apex AI, SDL must cover prompts, RAG pipelines, evaluation harnesses and agent tools as first-class artefacts alongside application code. Every agent tool undergoes permission and misuse testing before release; model/prompt promotions use change control; vulnerabilities in gateway or index software have response SLAs. Best output is an SDL evidence pack per release—not a wiki aspiration.
+
+**When to use.** For all production-bound AI software and configuration; when multiple teams change prompts and tools; when ISMS or clients require secure-development evidence.
+
+**When not to use.** When security is deferred to post-freeze hardening—too late; for pure research spikes with no production path (still apply lightweight checks before any client data); when SDL theatre blocks learning without producing tests.
+
+**How to use it.**
+
+1. Capture security/privacy requirements from threat models, DPIA and OWASP LLM checklists.
+2. Conduct design reviews for trust boundaries, RAG isolation and tool scopes.
+3. Apply secure coding and config standards (secrets, authn/z, validation, logging).
+4. Automate SAST/DAST/dependency scans plus AI-specific tests (injection, permission misuse).
+5. Enforce release gates: critical findings blocked; model/prompt version pinned and attested.
+6. Monitor production; operate vulnerability and incident response including prompt rollback.
+7. Train engineers and prompt authors on SDL obligations.
+8. Retire systems with data deletion and access revocation.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Prompt engineers previously edited production system prompts in a vendor UI during busy season, and a dependency CVE in a vector DB client sat unpatched. CISO and Head of Assurance Technology instituted an AI SDL. Requirements from STRIDE/OWASP fed a definition-of-done: engagement isolation tests, tool-permission tests, secret scanning and DPIA refresh triggers. Design review became mandatory for new tools. CI pipelines built prompt packs as versioned artefacts with peer review; production promotion required AppSec sign-off for high-risk changes. Every agent tool ran misuse test suites (excessive agency, wrong-engagement bind). Release evidence packs linked commit SHAs, model versions, test reports and residual-risk notes. Vulnerability response defined 72-hour mitigation for critical gateway CVEs and immediate rollback paths for bad prompt releases. Artefacts: SDL procedure, CI gate config, release evidence pack template and training records. Operationally, hot-edits in the vendor UI were disabled; the first busy-season prompt fix went through CI in under two hours with full audit trail—satisfying both speed and ISMS evidence needs.
+
+**Best output / artefact.** SDL evidence pack per release: requirements traceability, design review, test results, approvals and monitoring hooks.
+
+**Lifecycle stage.** Continuous across build, release and operate (steps 7, 9, 11).
+
+**Stage-gate contribution.** Security approval: SDL gates passed (or waivers accepted) before production promotion of AI code, prompts or tools.
+
+**Failure modes.** SDL for app code but not prompts; waivers without expiry; tests that never run in CI; production portal edits bypassing CI; ignoring dependency risk on AI infra; no rollback for model/prompt changes.
+
+**Related frameworks.** Threat Modelling, OWASP LLM, ISO/IEC 27001, MITRE ATT&CK, Defence in Depth, Shared Responsibility Model, Least Privilege.
+
+### Defence in Depth
+
+**Purpose.** Defence in Depth uses layered controls so one failure does not create catastrophe—identity, network, application, data, model, tool, output and human layers. For Apex private RAG, if prompt filtering fails, tool scope and output DLP still prevent exfiltration; if retrieval mis-scopes, human attestation and EQCR sampling still catch unsupported or leaked content before opinion signing. Layers must be designed and tested together, including combined failure scenarios. Best output is a layered control architecture with proven independence between layers—not duplicate paperwork for the same control.
+
+**When to use.** When client confidentiality and audit quality require resilience to single control failure; when building LLM apps known to have imperfect filters; when presenting residual risk to CRO/CISO.
+
+**When not to use.** When security is deferred after architecture freeze; when “more layers” means redundant ineffective alerts with no independent preventive control; when a single well-designed Zero Trust path is incomplete and depth is used to excuse it.
+
+**How to use it.**
+
+1. List assets and worst-case harms (cross-client disclosure, corrupted audit file, busy-season outage).
+2. Define control layers: identity, network, app, data/RAG, model/gateway, tools, output, human/process.
+3. Ensure layers fail independently (different owners/mechanisms where possible).
+4. Map each critical threat to at least two effective layers.
+5. Test combined failure scenarios (filter bypass + overly broad tool).
+6. Remove theatrical layers that add complexity without risk reduction.
+7. Document residual risk if a layer is weak; compensate explicitly.
+8. Review depth after architecture or threat changes.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Apex’s first drafting-assist design relied almost entirely on a system prompt saying “do not reveal other clients.” Red-team injection succeeded. Defence-in-depth redesign with CISO, AppSec and Assurance Technology added: Zero Trust engagement entitlements on retrieval (data layer); private network endpoints (network); schema-validated outputs with mandatory citations (application/output); tool allowlists with least privilege (tool); DLP on egress and prompt logs (data); rate limits (availability); and partner attestation plus EQCR sampling (human). Combined tests showed that even when injection caused the model to request broad retrieval, the retriever denied cross-engagement chunks; when a misconfiguration briefly widened retrieval, DLP and attestation still blocked bulk export and file lock. Artefacts: layered control architecture diagram, cross-layer test results and residual-risk statement. Operationally, CRO accepted residual hallucination risk under human review but rejected any design with only prompt-layer confidentiality—making depth a hard gate for private RAG go-live.
+
+**Best output / artefact.** Layered control architecture with cross-layer test evidence and residual-risk notes.
+
+**Lifecycle stage.** Design and release (steps 7, 9, 11); continuous assurance.
+
+**Stage-gate contribution.** Security/privacy approval: critical harms mitigated by multiple independent layers before production.
+
+**Failure modes.** Single-layer confidentiality (prompts only); dependent layers that fail together (same misconfig flag); alert fatigue as fake depth; never testing combined failures; removing human layers too early for “automation.”
+
+**Related frameworks.** Zero Trust, OWASP LLM, Least Privilege, STRIDE, NIST CSF, Identity-First Security, Secure Development Lifecycle.
+
+### Identity-First Security
+
+**Purpose.** Identity-First Security makes verified identity and authorisation the basis of all access and action—enterprise IdP integration, propagation of user context to retrieval and tools, workload identities for services and agents, and audit of every decision. For Apex, retrieval must apply the same document entitlements as the source DMS; an AI session is not a new security principal that outranks the auditor’s engagement membership. Identity-first design is the practical core of Zero Trust for private RAG. Best output is an identity and authorisation design with proof of propagation—not a login screen alone.
+
+**When to use.** For any multi-user AI system on client data; when agents call APIs; when admin and break-glass paths must be controlled; when clients ask how entitlements are enforced.
+
+**When not to use.** When security is deferred after architecture freeze; when a single-lab identity with no client data is temporary (still avoid hardcoding shared secrets); when identity work is treated as optional polish after RAG ships.
+
+**How to use it.**
+
+1. Integrate enterprise identity (SSO/MFA) for all human AI users and admins.
+2. Model roles and engagement membership as the source of authorisation truth.
+3. Propagate user context (tokens/claims) into RAG and tool calls end-to-end.
+4. Issue workload identities for services/agents; ban long-lived shared keys where possible.
+5. Authorise every action server-side; never trust client-supplied engagement IDs alone.
+6. Audit authentication and authorisation decisions with retention suitable for EQCR/inspection.
+7. Define break-glass procedures with dual control and retrospective review.
+8. Test entitlement parity: AI retrieval ≡ DMS permissions for sampled users.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: Drafting assist used SSO at the UI but the retriever accepted an engagement ID from the browser and queried with a privileged service account—any user who guessed another engagement’s UUID could retrieve chunks. Identity-first remediation with Identity Engineering, CISO and Assurance Technology required on-behalf-of flows: the retriever validated the user’s token, resolved engagement membership from the platform API, and filtered vector search to authorised partitions only. Agents received workload identities scoped per engagement session. Admin consoles enforced phishing-resistant MFA and just-in-time roles. Audit logs captured subject, action, resource and decision. Parity tests compared DMS ACL samples to RAG results for seniors on and off engagements—initially failing for borrowed staff whose membership sync lagged; fixed with sync SLO before production. Artefacts: identity/authorisation design, sequence diagrams, parity test report and break-glass runbook. Operationally, CRO approval hinged on parity evidence—identity-first became the confidentiality proof clients’ security questionnaires demanded.
+
+**Best output / artefact.** Identity and authorisation design with context propagation, workload identity model and entitlement-parity tests.
+
+**Lifecycle stage.** Design and release (steps 7, 9, 11); continuous identity operations.
+
+**Stage-gate contribution.** Security approval: proven identity-bound access for AI data paths before production.
+
+**Failure modes.** SSO without server-side authorisation; shared service accounts for retrieval; trusting client-supplied scope; unlogged break-glass; membership sync lag untreated; agents with god-credentials.
+
+**Related frameworks.** Zero Trust, Least Privilege, ISO/IEC 27001, Defence in Depth, OWASP LLM, NIST CSF.
+
+### Least Privilege
+
+**Purpose.** Least Privilege restricts permissions to the minimum necessary for a defined task—for humans, services and AI agents. For Apex, an onboarding or journal agent may create a draft ticket or flag anomalies but cannot approve access or post journals; RAG service accounts cannot read all engagements; prompt-log admins cannot export bulk client text without elevation. Least privilege shrinks blast radius for prompt injection and compromised accounts. Best output is a permission matrix with review cadence—not role names that mean “admin everywhere.”
+
+**When to use.** When designing roles, tool scopes and service accounts for AI systems; when reducing standing privilege before busy season; when responding to excessive-agency OWASP findings.
+
+**When not to use.** When security is deferred after architecture freeze; when “temporary” admin is permanent; when privilege reviews never happen; when used to block all tools instead of scoping them.
+
+**How to use it.**
+
+1. Enumerate actions per persona and agent (read, retrieve, draft, write, approve, admin).
+2. Scope permissions to engagement, data class and time; deny by default.
+3. Prefer just-in-time elevation over standing admin for AI platform roles.
+4. Constrain tool schemas and allowlists to necessary APIs and fields.
+5. Review usage logs; remove unused privileges.
+6. Test excessive-agency attempts as release gates.
+7. Document exceptions with expiry and owner.
+8. Re-certify privileges on a fixed cadence and after incidents.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: The journal-anomaly agent originally inherited a service principal with broad ERP read/write “to speed the PoC,” and national-office AI admins had standing access to all prompt logs. Least-privilege redesign workshops with AppSec, Identity, Methodology and CISO produced a permission matrix: agent may read designated journal extracts and write draft review notes to the engagement workspace; cannot post journals, change master data or access other engagements; humans approve any ERP action. RAG indexer roles separated from query roles; query roles bound to engagement partitions. Prompt-log access moved to JIT with dual approval for exports. Automated tests attempted privilege escalation via injected instructions requesting write tools—denied. Quarterly access reviews removed three unused admin grants before busy season. Artefacts: permission matrix, JIT runbooks, test evidence and review minutes. Operationally, Independence confirmed scoped tools did not create prohibited management functions for audit clients; CRO accepted the agent for limited production only under this matrix—turning least privilege into a commercial and regulatory enabler rather than a brake.
+
+**Best output / artefact.** Permission matrix for humans, services and agents with JIT rules, tests and review cadence.
+
+**Lifecycle stage.** Design, release and operate (steps 7, 9, 11).
+
+**Stage-gate contribution.** Security approval: least-privilege scopes proven for AI tools and data access before production.
+
+**Failure modes.** PoC privileges left in production; agents with approve rights; standing AI admin; no usage review; exceptions without expiry; conflating “read all” with audit quality needs.
+
+**Related frameworks.** Zero Trust, Identity-First Security, OWASP LLM, Defence in Depth, Secure Development Lifecycle, Shared Responsibility Model.
+
+### Shared Responsibility Model
+
+**Purpose.** A Shared Responsibility Model clarifies security and operational responsibilities across cloud/model providers and the customer—so Apex does not assume the vendor “secures AI” end-to-end. Typical split: provider secures foundation infrastructure and base model service; Apex remains responsible for prompts, client data, access control, RAG contents, tool configuration, monitoring, DPIA and acceptable use. The model must be verified with supplier evidence and closed contractually (data residency, no-training, subprocessors, incident notice). Best output is a responsibility matrix and supplier control file—not a marketing shared-responsibility PDF left unread.
+
+**When to use.** When selecting or onboarding model hosts, vector DB SaaS, AI gateways or agent platforms; when negotiating contracts; when ISMS supplier control must include AI; when incidents require clear ownership.
+
+**When not to use.** When security is deferred after architecture freeze; when used to outsource accountability for client confidentiality (Apex always retains duty to clients); when the matrix is copied from a vendor without Apex-specific AI paths.
+
+**How to use it.**
+
+1. List lifecycle controls for the AI system (identity, encryption, RAG isolation, logging, IR, DPIA, eval, change control).
+2. Assign each control to provider, Apex, or shared—with evidence artefacts.
+3. Verify provider claims (SOC reports, certifications, region, no-training options).
+4. Close gaps with configuration, additional tooling or contract clauses.
+5. Define incident roles, notification SLAs and forensic data access.
+6. Align the matrix to ISMS supplier management and AIMS change control.
+7. Communicate duties to engineers, prompt authors and engagement teams.
+8. Revisit on provider feature changes or new subprocessors.
+
+**Enterprise worked example (Apex Audit Partners).** Situation: A frontier-model vendor pitched “enterprise secure AI” while default terms allowed broad use of inputs for service improvement and listed subprocessors in multiple regions. Legal, CISO, DPO and Assurance Technology built a shared-responsibility matrix for private RAG drafting assist: vendor responsible for host hardening, base-model service availability and platform patching; Apex responsible for client data classification, engagement-scoped indexes, IdP entitlements, prompt content, tool scopes, DPIA, monitoring for abuse and human attestation. Gaps found: training-use of inputs, insufficient residency guarantees and vague incident timelines. Contractual closures: no-training addendum, approved-region pinning, subprocessor notice, 24-hour security-incident notification and audit rights for control evidence. Technical closures: private endpoints, customer-managed keys where offered, Apex-side DLP and retrieval ACLs. Artefacts: responsibility matrix, due-diligence file, contract addenda and configuration baseline. Operationally, a second vendor without no-training terms was rejected for client-data workloads; Independence and CRO required the matrix before any production traffic—making shared responsibility a procurement gate, not a slide after signature.
+
+**Best output / artefact.** Responsibility matrix and supplier controls evidence (contractual + technical) mapped to ISMS/AIMS.
+
+**Lifecycle stage.** Supplier selection through operate (steps 7, 9, 11); continuous vendor management.
+
+**Stage-gate contribution.** Security/privacy approval: responsibilities clear, gaps closed, residual vendor risk accepted before production client data flows.
+
+**Failure modes.** Believing the vendor secures prompts and RAG; unsigned no-training terms; ignoring subprocessors; matrix never updated; Apex teams unaware they own monitoring; using shared responsibility to dodge DPIA ownership.
+
+**Related frameworks.** ISO/IEC 27001, NIST CSF, DPIA, Privacy by Design, Secure Development Lifecycle, Zero Trust, OWASP LLM.

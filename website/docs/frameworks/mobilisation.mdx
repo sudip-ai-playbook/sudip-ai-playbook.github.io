@@ -1,0 +1,230 @@
+---
+sidebar_position: 1
+title: Mobilisation and Decision Frameworks
+description: Engagement charter, RACI, RAPID, RAID, MECE, AI Canvas and decision frameworks that start AI consulting engagements on controlled ground—with filled Apex Audit Partners enterprise examples.
+---
+
+# Mobilisation and Decision Frameworks
+
+**Primary lifecycle use:** Step 0 (mobilise) and every major gate thereafter.
+
+Use these frameworks before deep analysis. Unclear sponsorship, fuzzy scope and hidden decision-makers destroy more AI engagements than weak models.
+
+**Running enterprise client:** Apex Audit Partners — a mid-market financial auditing firm (~1,200 professionals) industrialising AI for engagement risk assessment, journal anomaly detection, document extraction and AI-assisted working-paper drafting. Partners remain accountable for opinions; Risk & Quality and EQCR can stop unsafe releases.
+
+## How to use this page
+
+Facilitate mobilisation in the first days. Publish charter and decision rights before discovery workshops. Revisit RAPID/RACI at every stage gate. Pair with the [Framework library overview](/docs/framework), [8D Framework](/docs/ai-solution-engineering/8d-framework) and [VALUE gate](/docs/ai-solution-engineering/value-gate).
+
+### Project Charter
+
+**Purpose.** Converts an ambiguous request such as “we need AI for audit” into a controlled engagement: problem statement, measurable outcomes, scope and exclusions, sponsor, budget authority, timeline, RAID seeds, deliverables and the evidence required at each gate. Without a charter, teams optimise for demos instead of audit-file outcomes.
+
+**When to use.** Engagement kick-off; after a major pivot (for example from “client chatbot” to “internal senior assist”); before releasing budget beyond discovery.
+
+**When not to use.** As a substitute for discovery evidence—the charter states intent and boundaries, not validated root causes. Do not freeze a 40-page charter that nobody reads.
+
+**How to use it.**
+
+1. Interview the sponsor (Head of Assurance Technology or Managing Partner for Digital) for the business condition that hurts today (hours, quality findings, utilisation).
+2. Rewrite the ask as a problem + outcome, not a solution (“reduce time-to-EQCR-ready file” not “deploy GPT”).
+3. Define in-scope journeys and explicit exclusions (no client-facing autonomy; no posting to the audit file without human approval).
+4. Name budget owner, steering forum, decision rights (link to RAPID) and success metrics with baselines to be validated.
+5. List phase-1 deliverables and gate evidence (VALUE / stage gates).
+6. Capture top assumptions and dependencies in RAID.
+7. Read the one-page charter aloud; if the sponsor cannot explain exclusions in one minute, revise.
+8. Obtain written sponsor acceptance before discovery workshops begin.
+
+**Enterprise worked example (Apex Audit Partners).** Apex’s innovation lead asked for “an AI chatbot for clients to answer audit FAQs.” In a two-hour mobilisation with the Head of Assurance Technology, Risk & Quality, and a partner from Financial Services, the team reframed the problem: seniors spend 3–5 hours per engagement hunting prior-year binders and re-keying invoice samples, and EQCR repeatedly cites inconsistent documentation of related-party consideration. The signed charter limited phase 1 to *internal* AI: (a) journal anomaly assist for seniors, (b) document extraction into structured workpapers, (c) draft narrative assist with mandatory citations. Exclusions: no client-facing bot, no autonomous opinion language, no training on identifiable client text without Legal approval. Sponsor: Head of Assurance Technology. Steering: bi-weekly with Risk & Quality holding Agree on production release. Success metrics: reduce median “evidence gather to senior-ready” time by 20% on two pilot industry groups, with stable or improved EQCR finding rates. Budget: discovery + 12-week pilot capped; scale funding requires gate pack. The chatbot idea was parked in the portfolio as Won’t for 12 months. Operationally, engineering stopped building a public portal and opened discovery on the invoice-to-workpaper value stream instead.
+
+**Best output / artefact.** One-page signed engagement charter + governance calendar + initial RAID.
+
+**Lifecycle stage.** Step 0; refresh at pivots and before scale investment.
+
+**Stage-gate contribution.** Mobilisation approval—sponsor, scope, exclusions, decisions and success definition clear.
+
+**Failure modes.** Solution-led charters; multiple sponsors with conflicting KPIs; exclusions written so vaguely that “autonomous write-back” sneaks back in.
+
+**Related frameworks.** RACI, RAPID, RAID, MECE, Strategy Choice Cascade, VALUE gate.
+
+### RACI
+
+**Purpose.** Clarifies who is Responsible, Accountable, Consulted and Informed for each mobilisation and delivery artefact so AI work does not stall on ambiguous ownership—especially between Platform, Risk & Quality, and engagement partners.
+
+**When to use.** Kick-off; operating-model design; before production release when “who owns the model?” is unclear.
+
+**When not to use.** For a single binary decision under time pressure—use RAPID. Do not create a RACI with multiple Accountables.
+
+**How to use it.**
+
+1. List critical activities/artefacts (charter, data access, model card, EQCR briefing, production release, incident response).
+2. Assign exactly one Accountable per row.
+3. Assign Responsible doers; mark Consulted (must be heard) and Informed.
+4. Resolve gaps (empty A) and overlaps (two A’s) in a live workshop.
+5. Validate with Risk & Quality that Agree-style vetoes appear as Consulted/Accountable correctly.
+6. Publish in the engagement workspace; revisit when roles change.
+7. Link RACI rows to stage-gate checklist owners.
+
+**Enterprise worked example (Apex Audit Partners).** During mobilisation, Platform Engineering assumed Risk & Quality “owned AI,” while Risk assumed Platform owned it. The RACI workshop produced: Accountable for production release = Head of Assurance Technology; Responsible for pipeline and monitoring = AI Platform Lead; Consulted = Risk & Quality (mandatory), DPO, EQCR methodology lead; Informed = industry group managing partners. Accountable for engagement-level override quality = Engagement Partner; Responsible for coaching = AI champions. Accountable for data contracts on journal extracts = Finance Systems Data Owner. This unblocked Purview access requests that had sat for six weeks because “Legal” was incorrectly listed as Accountable for technical provisioning. Steers now open with the RACI row for the decision on the agenda.
+
+**Best output / artefact.** RACI matrix linked to gate artefacts and owners.
+
+**Lifecycle stage.** Steps 0, 5, 12–13.
+
+**Stage-gate contribution.** Ownership approval—every critical artefact has one Accountable name.
+
+**Failure modes.** Multiple Accountables; Consulted used as soft veto without RAPID; RACI never updated after reorg.
+
+**Related frameworks.** RAPID, Operating Model Canvas, RAID, ADKAR.
+
+### RAPID
+
+**Purpose.** Clarifies Recommend, Agree, Perform, Input and Decide for high-stakes decisions so AI releases, risk acceptance and vendor choices do not die in consensus theatre.
+
+**When to use.** Production go-live, residual risk acceptance, major scope change, foundation-model vendor selection, raising autonomy level.
+
+**When not to use.** Sprint backlog ordering or typographical prompt tweaks—overhead exceeds value.
+
+**How to use it.**
+
+1. Write the decision as a yes/no or option choice with date.
+2. Assign R / A / P / I / D by name (Agree = formal veto; Decide = single decision-maker).
+3. Time-box Inputs; circulate evidence pack 48 hours prior.
+4. Hold decision meeting; record Decide outcome and dissent.
+5. Translate into change ticket / release train action (Perform).
+6. File decision log in the AIMS / engagement workspace.
+7. Re-run RAPID if the decision’s risk class changes (for example RAG write-back enabled).
+
+**Enterprise worked example (Apex Audit Partners).** The pilot journal-anomaly model met offline metrics, but Risk & Quality worried about seniors over-relying on scores. RAPID for “Approve shadow→canary production on FS industry group”: Recommend = AI Engineering Lead; Agree = Risk & Quality Partner; Perform = Platform SRE; Input = two FS engagement partners + EQCR methodology; Decide = Head of Assurance Technology. Evidence pack included model card, challenge-set results, override UI mock, and kill-switch runbook. Agree required a mandatory “AI flag is a hypothesis” banner and weekly override-quality sampling. Decide approved canary at 15% of FS engagements for four weeks. Perform executed feature flags the same day. Without RAPID, the meeting would have ended in “need another committee.”
+
+**Best output / artefact.** Decision-rights table + dated decision log entry.
+
+**Lifecycle stage.** Every formal gate (steps 0–14).
+
+**Stage-gate contribution.** Makes gate decisions attributable and auditable.
+
+**Failure modes.** Hidden Agree holders; Decide by committee; Inputs invited after the decision.
+
+**Related frameworks.** RACI, Stage-Gate, RAID, Responsible AI approvals, VALUE gate.
+
+### RAID Log
+
+**Purpose.** Continuously tracks Risks, Assumptions, Issues and Dependencies so AI programmes surface blockers (data access, independence, vendor DPA) before they become silent schedule fiction.
+
+**When to use.** From day one through operate; especially when discovery is assumption-heavy.
+
+**When not to use.** As a dumping ground for unowned complaints—every row needs owner, date and next action.
+
+**How to use it.**
+
+1. Seed RAID from the charter workshop (at least 10 items).
+2. Tag each item R/A/I/D; score impact and proximity.
+3. Assign owners; define next action and due date.
+4. Review in every steer; promote Assumptions to validated facts or Risks.
+5. Escalate items that block the next gate.
+6. Link critical dependencies to RAPID decisions.
+7. Archive resolved items with evidence (do not delete history).
+
+**Enterprise worked example (Apex Audit Partners).** Assumption A-03 stated “prior-year workpapers are consistently tagged with effective dates.” Sampling in week two falsified it: 22% of articles lacked owners or dates. A-03 became Issue I-07 blocking RAG for methodology content; Risk raised Risk R-04 (hallucinated methodology citations). Dependency D-02 (Purview labelling of client containers) sat with IT Security for three weeks until RAID made it the first steer agenda item; Decide via RAPID assigned a two-week SLA. By week six, RAID had prevented a false “green” status report that would have claimed RAG was production-ready. EQCR later used the RAID history as evidence that knowledge-quality risk was known and treated.
+
+**Best output / artefact.** Living RAID log with owners, dates and gate impact tags.
+
+**Lifecycle stage.** Cross-cutting steps 0–14.
+
+**Stage-gate contribution.** Gate packs include open critical RAID items and treatment status.
+
+**Failure modes.** Traffic-light theatre without owners; deleting resolved history; never converting failed assumptions.
+
+**Related frameworks.** Charter, risk registers, benefits dependency network, data contracts.
+
+### MECE Issue Tree
+
+**Purpose.** Breaks a complicated audit-operations problem into mutually exclusive, collectively exhaustive branches so teams investigate root causes instead of jumping to a foundation-model purchase.
+
+**When to use.** Ambiguous multi-factor problems (“why are files late?”, “why inconsistent related-party docs?”) before AI Canvas or build.
+
+**When not to use.** Detailed swimlane design (use SIPOC/VSM) or pure vendor bake-offs.
+
+**How to use it.**
+
+1. Write the governing question in one sentence.
+2. Propose 4–7 first-level branches that do not overlap.
+3. Test collective coverage with practitioners (“what did we miss?”).
+4. Decompose one level where evidence is weakest.
+5. Mark each leaf as fact / hypothesis / data request.
+6. Assign analysis owners and interview lists.
+7. Convert priority branches into discovery backlog (SIPOC/VSM/JTBD).
+8. Kill overlapping labels (e.g. both “process” and “workflow”).
+
+**Enterprise worked example (Apex Audit Partners).** Governing question: “Why does median time from client evidence receipt to senior-ready workpaper exceed five days on mid-market FS audits?” First-level MECE branches: (1) evidence intake quality, (2) extraction/re-key effort, (3) review loops and comments, (4) tooling fragmentation, (5) skills/experience mix, (6) client responsiveness, (7) methodology ambiguity. “AI not smart enough” was rejected as a branch (solution masquerading as cause). Workshops with seniors showed branch (2) and (4) dominated: invoice PDFs re-keyed across three tools; prior-year search lacked filters. Branch (3) mattered for related-party narratives. The tree produced a discovery plan: VSM on invoice-to-workpaper; JTBD for seniors; data quality sample on binder metadata. Outcome: AI investment framed as extraction + anomaly assist + cited drafting—not a generic chatbot—and the charter exclusions were confirmed by evidence.
+
+**Best output / artefact.** MECE issue tree with hypotheses, evidence requests and owners.
+
+**Lifecycle stage.** Steps 0–2; reuse when prioritisation debates reopen the problem.
+
+**Stage-gate contribution.** Problem-structuring quality for discovery / problem-definition approval.
+
+**Failure modes.** Overlapping branches; solution branches; no evidence requests.
+
+**Related frameworks.** Five Whys, SIPOC, VSM, AI Canvas, prioritisation.
+
+### AI Canvas
+
+**Purpose.** Structures a single AI use case: prediction/generation task, human judgment, downstream action, data, value hypothesis, risks and fallback—so Apex does not fund “AI” without a decision loop.
+
+**When to use.** After problem framing; before prototype spend; when ranking use cases.
+
+**When not to use.** For pure process/policy fixes with no prediction or generation component.
+
+**How to use it.**
+
+1. Name the user and decision/action the AI supports.
+2. Define the model output (score, extraction, draft).
+3. Specify human oversight (who, when, authority).
+4. List required data, labels and isolation rules.
+5. Write value hypothesis + baseline KPI.
+6. List top risks (independence, hallucination, leakage) and fallback.
+7. Define out-of-scope uses on the canvas.
+8. Gate: canvas incomplete ⇒ no engineering spike.
+
+**Enterprise worked example (Apex Audit Partners).** Canvas for “journal anomaly assist”: User = audit senior. Output = risk score + top contributing features per journal line cluster. Judgment = senior accepts/dismisses with reason codes; partner still owns risk assessment. Action = add to testing sample or document dismissal. Data = prior-year labelled review outcomes + current extract; per-client isolation; no cross-client features. Value = increase true-positive unusual journals in sample without increasing senior hours; baseline from last year’s manual selection hit rate. Risks = automation bias; leakage via shared vector DB; gaming by posting patterns. Fallback = if confidence low or new ERP schema, route 100% to manual. Out of scope: automatic sample finalisation without human. The canvas killed a parallel idea to auto-write the full risk assessment narrative without citations. Gate pack attached the canvas to use-case approval; engineering built shadow scoring against those fields only.
+
+**Best output / artefact.** One AI Canvas per funded use case.
+
+**Lifecycle stage.** Steps 4–8.
+
+**Stage-gate contribution.** Use-case approval—decision, data, value and oversight explicit.
+
+**Failure modes.** Canvas that names a model vendor but no human action; KPI = “accuracy” with no business baseline.
+
+**Related frameworks.** JTBD, DVF, model cards, human oversight, RICE.
+
+### Stakeholder Influence–Interest Matrix
+
+**Purpose.** Segments stakeholders so engagement intensity matches real influence—including quiet blockers such as data owners and EQCR methodology leads.
+
+**When to use.** Mobilisation and before adoption planning; when politics stall access or release.
+
+**When not to use.** As a static poster never validated with the sponsor.
+
+**How to use it.**
+
+1. Brainstorm affected parties (partners, seniors, IT, Risk, DPO, EQCR, clients—if any touch).
+2. Score influence and interest; place on matrix.
+3. Design tactics: manage closely / keep satisfied / keep informed / monitor.
+4. Validate with sponsor; add hidden influencers.
+5. Assign relationship owners from the delivery team.
+6. Revisit after organisational or vendor changes.
+7. Feed high-influence/low-interest parties into communications planning.
+
+**Enterprise worked example (Apex Audit Partners).** Initial map over-weighted the innovation committee and under-weighted the FS methodology partner who informally advises EQCR. After validation, that partner moved to high influence / medium interest (“manage closely”). The Purview admin had high influence / low interest—kept satisfied with a clear security one-pager and change calendar, unblocking labels. Engagement seniors were high interest / medium influence—co-design workshops, not only town halls. Client CFOs were low influence on internal tools—monitor only (charter exclusion of client-facing AI). The matrix drove a stakeholder plan that Risk & Quality accepted as part of mobilisation approval; adoption later reused the same map for ADKAR audience segmentation.
+
+**Best output / artefact.** Stakeholder map + engagement tactics by quadrant.
+
+**Lifecycle stage.** Steps 0, 2, 12.
+
+**Stage-gate contribution.** Mobilisation and adoption gates require named plans for high-influence parties.
+
+**Failure modes.** Org-chart-only maps; ignoring informal EQCR influencers; never updating after reorg.
+
+**Related frameworks.** RACI, RAPID, ADKAR, communications planning.

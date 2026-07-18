@@ -50,15 +50,15 @@ export function buildConsultingHtml(stages: ConsultingStage[]): string {
   <title>${escapeHtml(CONSULTING_OS_META.workingName)} — Playbook</title>
   <style>
     :root { color-scheme: light; }
-    body { font-family: "DM Sans", "Segoe UI", sans-serif; margin: 0; background: #f0effa; color: #1a1744; line-height: 1.5; }
-    header { background: linear-gradient(135deg, #3d348b, #7678ed); color: white; padding: 2rem 1.5rem; }
+    body { font-family: Inter, "Segoe UI", sans-serif; margin: 0; background: #f7f4ef; color: #1f2a32; line-height: 1.5; }
+    header { background: #1f2a32; color: #f7f4ef; padding: 2rem 1.5rem; }
     main { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
-    h1 { margin: 0 0 0.5rem; font-family: Syne, "Segoe UI", sans-serif; }
-    .stage { background: rgba(255,255,255,0.85); border: 1px solid rgba(118,120,237,0.2); border-radius: 1rem; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
-    h2 { margin-top: 0; color: #3d348b; }
-    h3 { margin-bottom: 0.35rem; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.04em; color: #7b7799; }
-    .meta { color: #4a4570; }
-    .muted { color: #7b7799; }
+    h1 { margin: 0 0 0.5rem; font-family: Cinzel, "Times New Roman", serif; font-weight: 600; letter-spacing: 0.02em; }
+    .stage { background: rgba(255,255,255,0.9); border: 1px solid rgba(31,42,50,0.1); border-radius: 1rem; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+    h2 { margin-top: 0; color: #1f2a32; font-family: Cinzel, "Times New Roman", serif; font-weight: 600; }
+    h3 { margin-bottom: 0.35rem; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.08em; color: #7a858f; }
+    .meta { color: #4a5560; }
+    .muted { color: #7a858f; }
     ul { margin-top: 0.25rem; }
   </style>
 </head>

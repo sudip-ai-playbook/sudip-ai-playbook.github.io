@@ -165,7 +165,7 @@ export function FrameworkLabView({
                   onClick={() => handleSelect(entry)}
                   className={[
                     'w-full rounded-xl px-3 py-2 text-left text-sm transition',
-                    isActive ? 'bg-slate-blue text-white' : 'bg-white/50 hover:bg-white/80',
+                    isActive ? 'bg-ink text-surface-soft' : 'bg-white/50 hover:bg-white/80',
                   ].join(' ')}
                 >
                   <span className="font-semibold">{entry.name}</span>
