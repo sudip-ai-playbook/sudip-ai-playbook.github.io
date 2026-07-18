@@ -1,37 +1,21 @@
-import React, {
-  memo,
-  useEffect,
-  useState,
-  type ReactNode,
-  type SyntheticEvent,
-} from 'react';
-import {useLocation} from '@docusaurus/router';
+import React, {memo, useState, type ReactNode, type SyntheticEvent} from 'react';
 import Heading from '@theme/Heading';
 import type {Props} from '@theme/BlogSidebar/Content';
 import {
-  categoryContainsPermalink,
   groupBlogSidebarItemsByCategory,
   type ArticleSidebarCategory,
 } from '@site/src/data/articleSidebarCategories';
 
 function BlogSidebarCategoryGroup({
   category,
-  shouldOpen,
   yearGroupHeadingClassName,
   children,
 }: {
   category: ArticleSidebarCategory;
-  shouldOpen: boolean;
   yearGroupHeadingClassName?: string;
   children: ReactNode;
 }): ReactNode {
-  const [isOpen, setIsOpen] = useState(shouldOpen);
-
-  useEffect(() => {
-    if (shouldOpen) {
-      setIsOpen(true);
-    }
-  }, [shouldOpen]);
+  const [isOpen, setIsOpen] = useState(false);
 
   function handleToggle(event: SyntheticEvent<HTMLDetailsElement>): void {
     setIsOpen(event.currentTarget.open);
@@ -59,28 +43,18 @@ function BlogSidebarContent({
   yearGroupHeadingClassName,
   ListComponent,
 }: Props): ReactNode {
-  const {pathname} = useLocation();
   const groups = groupBlogSidebarItemsByCategory(items);
-  const hasActiveCategory = groups.some((group) =>
-    categoryContainsPermalink(group, pathname),
-  );
 
   return (
     <>
-      {groups.map((group) => {
-        const containsActive = categoryContainsPermalink(group, pathname);
-        // On the articles index, expand every section for browsing.
-        const shouldOpen = hasActiveCategory ? containsActive : true;
-        return (
-          <BlogSidebarCategoryGroup
-            key={group.category}
-            category={group.category}
-            shouldOpen={shouldOpen}
-            yearGroupHeadingClassName={yearGroupHeadingClassName}>
-            <ListComponent items={group.items} />
-          </BlogSidebarCategoryGroup>
-        );
-      })}
+      {groups.map((group) => (
+        <BlogSidebarCategoryGroup
+          key={group.category}
+          category={group.category}
+          yearGroupHeadingClassName={yearGroupHeadingClassName}>
+          <ListComponent items={group.items} />
+        </BlogSidebarCategoryGroup>
+      ))}
     </>
   );
 }
