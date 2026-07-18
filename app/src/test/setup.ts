@@ -52,7 +52,7 @@ beforeAll(() => {
     writable: true,
     value: () => undefined,
   })
-  HTMLCanvasElement.prototype.getContext = (() => {
+  function getMockCanvasContext(): CanvasRenderingContext2D {
     return {
       fillRect: () => undefined,
       clearRect: () => undefined,
@@ -78,7 +78,16 @@ beforeAll(() => {
       transform: () => undefined,
       rect: () => undefined,
       clip: () => undefined,
+    } as unknown as CanvasRenderingContext2D
+  }
+
+  HTMLCanvasElement.prototype.getContext = ((
+    contextId: string,
+  ): RenderingContext | null => {
+    if (contextId === '2d') {
+      return getMockCanvasContext()
     }
+    return null
   }) as typeof HTMLCanvasElement.prototype.getContext
 })
 
