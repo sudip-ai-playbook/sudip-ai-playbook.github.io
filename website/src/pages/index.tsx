@@ -49,6 +49,16 @@ const PATHS: PathCard[] = [
     secondaryTo: '/roadmaps/ai-engineer',
   },
   {
+    eyebrow: 'Founder practice',
+    title: 'Startup and Entrepreneurship',
+    description:
+      'Practitioner synthesis from CS183B / YC: ideas, product, team, execution, growth, culture, fundraising and scaling.',
+    primaryLabel: 'Open the Startup section',
+    primaryTo: '/startup-entrepreneurship/overview',
+    secondaryLabel: 'Great ideas',
+    secondaryTo: '/startup-entrepreneurship/great-ideas',
+  },
+  {
     eyebrow: 'Hands-on',
     title: 'Use the interactive tools',
     description:

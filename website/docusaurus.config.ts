@@ -79,6 +79,7 @@ const config: Config = {
           'ai-solution-engineering',
           'learning-map',
           'roadmaps',
+          'startup-entrepreneurship',
         ],
         blogRouteBasePath: 'articles',
         explicitSearchResultPath: true,
@@ -122,6 +123,19 @@ const config: Config = {
         path: 'roadmaps',
         routeBasePath: 'roadmaps',
         sidebarPath: './sidebarsRoadmaps.ts',
+        editUrl:
+          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'startup-entrepreneurship',
+        path: 'startup-entrepreneurship',
+        routeBasePath: 'startup-entrepreneurship',
+        sidebarPath: './sidebarsStartupEntrepreneurship.ts',
         editUrl:
           'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
@@ -180,6 +194,13 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
+          sidebarId: 'startupEntrepreneurshipSidebar',
+          docsPluginId: 'startup-entrepreneurship',
+          position: 'left',
+          label: 'Startup',
+        },
+        {
+          type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Framework',
@@ -214,6 +235,10 @@ const config: Config = {
             {label: 'How to practise', to: '/learning-map/how-to-use'},
             {label: 'Guide overview', to: '/ai-solution-engineering/overview'},
             {label: 'Roadmaps', to: '/roadmaps/overview'},
+            {
+              label: 'Startup and Entrepreneurship',
+              to: '/startup-entrepreneurship/overview',
+            },
             {label: 'Framework Library', to: '/docs/framework'},
             {label: '8D Framework', to: '/docs/ai-solution-engineering/8d-framework'},
           ],

@@ -62,3 +62,18 @@ security:
   label: Security
   permalink: /security
   description: Privacy, threat modelling, and secure AI delivery
+
+business:
+  label: Business
+  permalink: /business
+  description: Vision, GTM, customer acquisition and operating a company
+
+entrepreneurship:
+  label: Entrepreneurship
+  permalink: /entrepreneurship
+  description: Founder practice, startups and building from zero
+
+communication:
+  label: Communication
+  permalink: /communication
+  description: Speaking, writing and influencing with clarity
