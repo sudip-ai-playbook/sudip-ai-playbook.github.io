@@ -458,21 +458,43 @@ export default function DailyNotes(): ReactNode {
     <div className={styles.root} data-testid="daily-notes">
       <header className={styles.header}>
         <div className={styles.headerRow}>
-          <Heading as="h1" className={styles.title}>
+          <Heading
+            as="h1"
+            className={
+              isToday ? `${styles.title} ${styles.titleToday}` : styles.title
+            }
+            data-testid="daily-notes-title">
             {formatDisplayDate(selectedDateKey)}
           </Heading>
           <button
             type="button"
             className={styles.downloadButton}
             onClick={handleDownload}
+            aria-label="Download"
+            title="Download"
             data-testid="daily-notes-download">
-            Download Excel
+            <svg
+              className={styles.downloadIcon}
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              aria-hidden="true"
+              focusable="false">
+              <path
+                fill="currentColor"
+                d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"
+              />
+            </svg>
           </button>
         </div>
         <div className={styles.pickerRow}>
           <input
             id="daily-notes-date-picker"
-            className={styles.datePicker}
+            className={
+              isToday
+                ? `${styles.datePicker} ${styles.datePickerToday}`
+                : styles.datePicker
+            }
             type="date"
             value={pickerDate}
             onChange={handlePickerChange}
@@ -513,8 +535,12 @@ export default function DailyNotes(): ReactNode {
           <button
             type="submit"
             className={styles.addButton}
+            aria-label="Add"
+            title="Add"
             data-testid="daily-notes-add">
-            Add
+            <span className={styles.addIcon} aria-hidden="true">
+              +
+            </span>
           </button>
         </form>
 

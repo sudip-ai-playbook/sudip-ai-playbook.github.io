@@ -22,24 +22,52 @@
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   letter-spacing: -0.03em;
   line-height: 1.2;
+  color: var(--ase-ink);
+  transition: color 0.2s ease;
+}
+
+.titleToday {
+  color: var(--ifm-color-primary);
 }
 
 .downloadButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.2rem;
   border: 1px solid var(--ase-rule);
   border-radius: var(--ifm-global-radius);
-  padding: 0.5rem 0.85rem;
+  padding: 0;
   background: transparent;
-  color: var(--ase-ink);
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
+  color: var(--ase-muted);
   cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.15s ease;
 }
 
 .downloadButton:hover {
   border-color: var(--ifm-color-primary);
   background: var(--ase-accent-soft);
   color: var(--ifm-color-primary);
+}
+
+.downloadButton:active {
+  transform: scale(0.96);
+}
+
+.downloadButton:focus-visible {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
+}
+
+.downloadIcon {
+  display: block;
 }
 
 .loading {
@@ -61,6 +89,16 @@
   background: var(--ifm-background-color);
   color: var(--ase-ink);
   font: inherit;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.datePickerToday {
+  border-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+  color: var(--ifm-color-primary);
 }
 
 .todayLink {
@@ -107,18 +145,45 @@
 }
 
 .addButton {
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--ase-rule);
   border-radius: var(--ifm-global-radius);
-  padding: 0.65rem 1.1rem;
-  background: var(--ifm-color-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 600;
+  padding: 0;
+  background: transparent;
+  color: var(--ase-muted);
   cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.15s ease;
 }
 
 .addButton:hover {
-  background: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+  color: var(--ifm-color-primary);
+}
+
+.addButton:active {
+  transform: scale(0.96);
+}
+
+.addButton:focus-visible {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
+}
+
+.addIcon {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .empty {
@@ -460,10 +525,13 @@
 
 @media (max-width: 600px) {
   .addForm {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
   }
 
   .addButton {
-    width: 100%;
+    width: 2.5rem;
+    align-self: stretch;
+    height: auto;
   }
 }
