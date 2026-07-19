@@ -7,7 +7,7 @@ import {
 } from './src/constants/support';
 
 const config: Config = {
-  title: 'AI Solution Engineering Playbook',
+  title: 'AI Playbook',
   tagline:
     'Turn ambiguous business problems into valuable, feasible and trusted AI solutions',
   favicon: 'img/favicon.ico',
@@ -161,9 +161,9 @@ const config: Config = {
       maxHeadingLevel: 3,
     },
     navbar: {
-      title: 'AI Solution Engineering Playbook',
+      title: 'AI Playbook',
       logo: {
-        alt: 'AI Solution Engineering Playbook',
+        alt: 'AI Playbook',
         src: 'img/logo.svg',
         href: 'https://sudip-ai-playbook.github.io/',
         target: '_self',
@@ -220,7 +220,7 @@ const config: Config = {
       style: 'light',
       logo: undefined,
       links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} AI Solution Engineering Playbook.`,
+      copyright: `Copyright © ${new Date().getFullYear()} AI Playbook.`,
     },
     prism: {
       theme: prismThemes.github,

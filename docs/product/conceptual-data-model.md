@@ -1,6 +1,6 @@
 # Conceptual data model
 
-**Product:** AI Solution Engineering Playbook  
+**Product:** AI Playbook  
 **Companion:** [Sitemap and page specification](./sitemap-and-page-specification.md)  
 **Horizon:** Future-ready multi-tenant team platform (V4), with V1 content fields marked separately  
 **Current prototype persistence:** browser `localStorage` key `sudip-consult-workspace` — **not** a security or multi-tenant boundary
@@ -811,7 +811,7 @@ Export endpoints require `Idempotency-Key`. Duplicate key returns same `ExportJo
 
 | Topic | Spec stance |
 | --- | --- |
-| Product name | AI Solution Engineering Playbook; legacy “ConsultAI OS” retained as compatibility label |
+| Product name | AI Playbook; legacy “ConsultAI OS” retained as compatibility label |
 | 20 stages | Content under 8D; not deleted |
 | `/consult` tabs | Map to `/app/*` modules |
 | Persona stub | Preference only until V4 ACL |

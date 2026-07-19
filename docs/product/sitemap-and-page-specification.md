@@ -1,6 +1,6 @@
 # Sitemap and page specification
 
-**Product:** AI Solution Engineering Playbook  
+**Product:** AI Playbook  
 **Companion:** [Conceptual data model](./conceptual-data-model.md)  
 **Primary methodology:** 8D AI Solution Engineering Framework  
 **Source of existing IP:** [`app/src/data/consultingOs.ts`](../../app/src/data/consultingOs.ts), [`app/src/features/consulting/ConsultingView.tsx`](../../app/src/features/consulting/ConsultingView.tsx)

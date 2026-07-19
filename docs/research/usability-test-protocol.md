@@ -1,4 +1,4 @@
-# Usability test protocol — AI Solution Engineering Playbook
+# Usability test protocol — AI Playbook
 
 ## Goal
 

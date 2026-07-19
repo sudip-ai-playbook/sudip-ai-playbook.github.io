@@ -131,7 +131,7 @@ function HomepageHeader(): ReactNode {
   return (
     <header className={styles.hero}>
       <div className={clsx('container', styles.heroInner)}>
-        <p className={styles.heroEyebrow}>AI Solution Engineering Playbook</p>
+        <p className={styles.heroEyebrow}>AI Playbook</p>
         <Heading as="h1" className={styles.heroTitle}>
           Practical frameworks for enterprise AI solutions
         </Heading>

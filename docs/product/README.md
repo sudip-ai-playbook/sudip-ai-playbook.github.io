@@ -1,6 +1,6 @@
 # Product specification
 
-Canonical product documentation for the **AI Solution Engineering Playbook**.
+Canonical product documentation for the **AI Playbook**.
 
 | Document | Purpose |
 | --- | --- |
@@ -11,7 +11,7 @@ Canonical product documentation for the **AI Solution Engineering Playbook**.
 
 | Field | Value |
 | --- | --- |
-| Primary name | AI Solution Engineering Playbook |
+| Primary name | AI Playbook |
 | Positioning name | AI Consulting & Communication OS |
 | Tagline | Turn ambiguous business problems into valuable, feasible and trusted AI solutions—and lead stakeholders from discovery to decision. |
 | Legacy name in code | ConsultAI OS (`app/src/data/consultingOs.ts`) |

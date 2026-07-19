@@ -1,6 +1,6 @@
-# AI Solution Engineering Playbook — Learning site (Docusaurus)
+# AI Playbook — Learning site (Docusaurus)
 
-Companion home, Learning Map, Guide, Framework and Articles for the [AI Solution Engineering Playbook](https://sudip-ai-playbook.github.io), published at `/blog/`.
+Companion home, Learning Map, Guide, Framework and Articles for the [AI Playbook](https://sudip-ai-playbook.github.io), published at `/blog/`.
 
 ## How docs integrate with the app
 

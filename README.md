@@ -1,4 +1,4 @@
-# Sudip AI Playbook
+# AI Playbook
 
 Cross-cloud AI architecture playbook for comparing AWS, Azure, and Google Cloud services end to end — with FinOps LLM costing, an architecture canvas, and an **ConsultAI OS** consulting lifecycle playbook.
 
@@ -6,7 +6,7 @@ Cross-cloud AI architecture playbook for comparing AWS, Azure, and Google Cloud 
 
 ## Product specification (8D target)
 
-Target product docs for the **AI Solution Engineering Playbook** (8D primary journey; existing 20-stage content mapped underneath):
+Target product docs for the **AI Playbook** (8D primary journey; existing 20-stage content mapped underneath):
 
 - [docs/product/README.md](docs/product/README.md)
 - [Sitemap and page specification](docs/product/sitemap-and-page-specification.md)

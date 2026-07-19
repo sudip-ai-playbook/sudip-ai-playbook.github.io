@@ -223,7 +223,7 @@ export async function buildNotesXlsxBuffer(
   todayKey: string,
 ): Promise<ArrayBuffer> {
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'Sudip AI Playbook';
+  workbook.creator = 'AI Playbook';
   workbook.created = new Date();
   workbook.modified = new Date();
 
