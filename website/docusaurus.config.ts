@@ -1,10 +1,6 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import {
-  BUY_ME_A_COFFEE_URL,
-  KO_FI_URL,
-} from './src/constants/support';
 
 const config: Config = {
   title: 'AI Solution Engineering Playbook',
@@ -180,112 +176,12 @@ const config: Config = {
         href: 'https://sudip-ai-playbook.github.io/',
         target: '_self',
       },
-      items: [
-        {to: '/', label: 'Home', position: 'left'},
-        {
-          type: 'docSidebar',
-          sidebarId: 'learningMapSidebar',
-          docsPluginId: 'learning-map',
-          position: 'left',
-          label: 'Learning Map',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'aiSolutionEngineeringSidebar',
-          docsPluginId: 'ai-solution-engineering',
-          position: 'left',
-          label: 'Guide',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'roadmapsSidebar',
-          docsPluginId: 'roadmaps',
-          position: 'left',
-          label: 'Roadmaps',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'startupEntrepreneurshipSidebar',
-          docsPluginId: 'startup-entrepreneurship',
-          position: 'left',
-          label: 'Startup',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Framework',
-        },
-        {to: '/articles', label: 'Articles', position: 'left'},
-        {to: '/notes', label: 'Notes', position: 'left'},
-        {
-          type: 'dropdown',
-          label: 'Support',
-          position: 'right',
-          items: [
-            {
-              label: 'Buy me a coffee',
-              href: BUY_ME_A_COFFEE_URL,
-            },
-            {
-              label: 'Support on Ko-fi',
-              href: KO_FI_URL,
-            },
-          ],
-        },
-      ],
+      items: [],
     },
     footer: {
       style: 'light',
       logo: undefined,
-      links: [
-        {
-          title: 'Explore',
-          items: [
-            {label: 'Home', to: '/'},
-            {label: 'Learning Map', to: '/learning-map/overview'},
-            {label: 'Guide', to: '/ai-solution-engineering/overview'},
-            {label: 'Roadmaps', to: '/roadmaps/overview'},
-            {
-              label: 'Startup',
-              to: '/startup-entrepreneurship/overview',
-            },
-            {label: 'Framework', to: '/docs/framework'},
-            {label: 'Articles', to: '/articles'},
-          ],
-        },
-        {
-          title: 'Tools',
-          items: [
-            {
-              label: 'Interactive playbook',
-              href: 'https://sudip-ai-playbook.github.io/',
-            },
-            {
-              label: 'ConsultAI OS',
-              href: 'https://sudip-ai-playbook.github.io/consult',
-            },
-            {label: 'Daily Notes', to: '/notes'},
-          ],
-        },
-        {
-          title: 'Support',
-          items: [
-            {
-              label: 'Buy me a coffee',
-              href: BUY_ME_A_COFFEE_URL,
-            },
-            {
-              label: 'Support on Ko-fi',
-              href: KO_FI_URL,
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
-            },
-          ],
-        },
-      ],
+      links: [],
       copyright: `Copyright © ${new Date().getFullYear()} AI Solution Engineering Playbook.`,
     },
     prism: {

@@ -1,0 +1,967 @@
+---
+slug: ai-governance-iso-iec-27001
+title: "AI Governance and Information Security: Implementing ISO/IEC 27001 as the ISMS Backbone for Enterprise AI"
+description: Implement ISO/IEC 27001 as an Information Security Management System (ISMS) for enterprise AI—scope, Clauses 4–10, risk treatment, Statement of Applicability, Annex A themes, AI asset controls, evidence pack and a 120-day roadmap.
+authors: [sudip]
+tags: [governance, security, consulting, solution-engineering, playbook]
+keywords:
+  - ISO/IEC 27001
+  - ISMS
+  - information security management system
+  - Statement of Applicability
+  - ISO/IEC 27002
+  - AI security governance
+  - residual risk
+  - PDCA
+  - enterprise AI security
+  - Responsible AI
+---
+
+Information security for AI should not exist as a pile of threat models, vendor questionnaires and one-off pen tests. ISO/IEC 27001 establishes an organisation-wide Information Security Management System—scope, policy, risk assessment, control selection, operation, audit, management review and continual improvement—so confidentiality, integrity and availability remain enforceable when models, retrieval systems, agents and suppliers change.
+
+{/* truncate */}
+
+<ExecSummary>
+Use ISO/IEC 27001 as the information-security management-system backbone for enterprise AI: define a defensible ISMS scope that includes AI assets (model endpoints, vector stores, prompt logs, agents, tools and subprocessors), operate Clauses 4–10 and Annex A controls through risk-based Statement of Applicability, and integrate with ISO/IEC 42001, NIST AI RMF, NIST CSF and the EU AI Act rather than treating them as alternatives.
+</ExecSummary>
+
+<WhenToUse>
+- Use this when building, extending or certifying an Information Security Management System (ISMS) that must cover AI systems and data.
+- Pair with [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001), [Enterprise AI Security Roadmap](/articles/enterprise-ai-security-roadmap), [AI Governance: NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act) and [Security and privacy frameworks](/docs/frameworks/security-privacy).
+- Treat scope, asset inventory, risk treatment, SoA, control operation evidence and management-review decisions as mandatory artefacts—not project slideware.
+</WhenToUse>
+
+> **Source note:** This article is an original practitioner synthesis of ISO/IEC 27001 concepts for enterprise AI delivery. It is not a substitute for the official ISO/IEC text and is not legal advice. Obtain the current standard (ISO/IEC 27001:2022 and related ISO/IEC 27002:2022 guidance) from ISO or your national standards body. The first edition (ISO/IEC 27001:2005) established the PDCA ISMS model; this guide leads with the current edition while preserving the risk and control thinking that still drives audits and certification.
+
+---
+
+## Information security is a management system, not a project checkpoint
+
+An organisation may already have:
+
+* An information security policy
+* Access reviews
+* Cloud security baselines
+* Vulnerability scanning
+* Incident response runbooks
+* SOC 2 or customer security questionnaires
+* AI red-team reports
+* Model-provider due diligence packs
+
+These activities do not automatically form an effective ISMS.
+
+The organisation still needs to determine:
+
+* Which systems and data are in scope
+* Who owns each information asset
+* How risks are assessed consistently
+* How controls are selected and justified
+* What residual risk is accepted—and by whom
+* What evidence must be retained
+* How effectiveness is measured
+* How nonconformities are corrected
+* How the system continually improves when AI architecture changes
+
+ISO/IEC 27001 addresses this organisational problem.
+
+ISO/IEC 27001 specifies requirements for establishing, implementing, maintaining and continually improving an **Information Security Management System**, commonly called an **ISMS**. It applies to organisations of any type or size. The ISMS is designed so that security controls are **adequate and proportionate** to business risk—not identical for every system.
+
+An ISMS is not a firewall rule set or a single AI threat model.
+
+It is the organisation-wide system of:
+
+* Policies and objectives
+* Roles and responsibilities
+* Risk-assessment and risk-treatment methods
+* Selected controls (including Annex A and organisation-specific controls)
+* Operational procedures
+* Monitoring and measurement
+* Internal audit
+* Management review
+* Corrective action
+* Continual improvement
+
+The central principle is:
+
+> ISO/IEC 27001 does not merely secure one model endpoint. It governs how the organisation decides, operates and evidences information security for all assets within the defined ISMS scope—including AI.
+
+---
+
+## 1. Where ISO/IEC 27001 belongs in the AI delivery framework
+
+ISO/IEC 27001 should not be positioned as a badge collected after AI systems are already live on client or customer data.
+
+It should operate across the delivery lifecycle.
+
+| Delivery stage | ISO/IEC 27001 application |
+| --- | --- |
+| 1. Business strategy | Align information-security objectives and risk appetite with AI ambitions |
+| 2. Opportunity discovery | Identify information assets, trust boundaries and interested-party expectations |
+| 3. Use-case qualification | Decide whether the use case is inside ISMS scope and which data classes are involved |
+| 4. Value and feasibility | Surface security cost, supplier constraints and residual-risk appetite early |
+| **5. Governance qualification** | **Complete risk assessment before sensitive data enters models, RAG stores or agent tools** |
+| 6. Data readiness | Classification, provenance, retention, access and privacy controls |
+| 7. Architecture | Translate SoA controls into identity, network, encryption, logging and isolation requirements |
+| 8. Build and prototype | Secure development, secrets management, environment separation |
+| 9. Testing and assurance | Control effectiveness tests, red teaming, recovery tests, supplier assurance |
+| 10. Deployment | Change control, residual-risk acceptance, operational readiness |
+| 11. Adoption | Awareness, acceptable use, privileged-access discipline |
+| 12. Production operation | Monitoring, incident response, capacity, backup, supplier oversight |
+| 13. Improvement | Corrective action, risk reassessment, SoA updates |
+| 14. Retirement | Secure disposal of models, embeddings, logs, keys and media |
+
+Governance Step 5 (in the playbook’s delivery sequence) is where the organisation decides whether an AI use case may proceed. ISO/IEC 27001 strengthens that gate by requiring:
+
+1. Named assets and owners
+2. Threats, vulnerabilities and impacts (confidentiality, integrity, availability—and where relevant authenticity, accountability, non-repudiation and reliability)
+3. Comparable, reproducible risk assessment
+4. Risk treatment options (apply controls, accept, avoid, transfer)
+5. Control selection against Annex A (and additional controls where needed)
+6. Management approval of residual risk
+7. A Statement of Applicability that justifies inclusions and exclusions
+8. Authorisation to implement and operate
+
+Security then continues through every subsequent stage.
+
+---
+
+## 2. What ISO/IEC 27001 does—and does not do
+
+### 2.1 What it does
+
+ISO/IEC 27001 establishes requirements for managing information security consistently across an organisation.
+
+It covers:
+
+* Organisational context and interested parties
+* Leadership and information security policy
+* Planning, including risk assessment and risk treatment
+* Support: resources, competence, awareness, communication, documented information
+* Operation of the ISMS and risk-treatment plans
+* Performance evaluation: monitoring, internal audit, management review
+* Nonconformity, corrective action and continual improvement
+* Selection of information security controls, summarised in Annex A and guided in practice by ISO/IEC 27002
+
+### 2.2 What it does not do
+
+ISO/IEC 27001 does not:
+
+* Declare a particular AI model legally compliant
+* Replace the EU AI Act, GDPR/UK GDPR or sector regulation
+* Replace ISO/IEC 42001 for AI management-system requirements
+* Replace ISO/IEC 27701 for privacy-information management detail
+* Guarantee that an AI system is safe, fair or accurate
+* Prescribe one risk-scoring methodology
+* Prescribe a specific cloud or model architecture
+* Require every organisation to implement identical controls
+* Eliminate the need for technical testing (STRIDE, OWASP LLM, MITRE ATLAS, red teaming)
+* Eliminate the need for legal interpretation
+* Make SOC 2, Cyber Essentials or NIST CSF unnecessary as complementary evidence frames
+
+The distinction is important:
+
+> ISO/IEC 27001 provides the organisational machinery for information security. Laws determine mandatory obligations. Engineering methods determine how individual technical controls are implemented and tested. ISO/IEC 42001 adds AI-specific management-system requirements on top of that spine.
+
+---
+
+## 3. Editions, PDCA and the current clause model
+
+### 3.1 Edition path
+
+| Edition | Practical meaning |
+| --- | --- |
+| **ISO/IEC 27001:2005** | First ISMS requirements standard; explicit Plan–Do–Check–Act structure; Annex A aligned with the then code of practice (ISO/IEC 17799:2005) |
+| **ISO/IEC 27001:2013** | Harmonised management-system structure; Annex A with 114 controls across 14 domains |
+| **ISO/IEC 27001:2022** | Current edition for new certifications and transitions; Clauses 4–10; Annex A with **93 controls** in **four themes**, aligned with ISO/IEC 27002:2022 |
+
+If you are implementing or certifying today, design against **ISO/IEC 27001:2022**. If you inherited documentation from 2005/2013 programmes, map controls forward rather than rewriting risk language from scratch.
+
+### 3.2 PDCA still explains the operating rhythm
+
+The 2005 edition made PDCA explicit. The current edition uses the harmonised clause structure, but the operating rhythm remains the same:
+
+| Phase | Intent | Typical activities |
+| --- | --- | --- |
+| **Plan** | Establish the ISMS | Scope, policy, risk methodology, risk assessment, risk treatment, SoA, residual-risk approval |
+| **Do** | Implement and operate | Risk-treatment plan, selected controls, competence, operations, incident detection/response |
+| **Check** | Monitor and review | Effectiveness measurement, risk reassessment, internal audit, management review |
+| **Act** | Maintain and improve | Corrective action, preventive improvement, communication of changes, verify intended outcomes |
+
+### 3.3 Combined operating model with AI governance frameworks
+
+| Framework | Primary function |
+| --- | --- |
+| ISO/IEC 27001 | Organisation-wide information security management system |
+| ISO/IEC 27002 | Implementation guidance for information security controls |
+| ISO/IEC 42001 | Artificial Intelligence Management System (AIMS) |
+| NIST CSF | Practical cybersecurity outcomes (Identify–Protect–Detect–Respond–Recover) |
+| NIST AI RMF | AI risk practice (Govern–Map–Measure–Manage) |
+| EU AI Act | Binding legal classification and obligations for AI |
+| ISO/IEC 27701 | Privacy information management extension |
+| OWASP / MITRE ATLAS | Technical threat catalogues for applications, LLMs and adversarial ML |
+
+A practical enterprise pattern is:
+
+> Use ISO/IEC 27001 as the security management-system backbone, ISO/IEC 42001 as the AI management-system backbone, NIST AI RMF / ISO/IEC 23894 for AI risk practice, and the EU AI Act for legal classification—then map Annex A controls into architecture, CI/CD, cloud and supplier contracts.
+
+---
+
+## 4. Understanding the ISMS scope for AI
+
+The first major implementation decision is not which Annex A control to tick.
+
+It is:
+
+> What exactly is included within the information security management system?
+
+### 4.1 Possible scope models
+
+#### Enterprise-wide scope
+
+All information processing and AI use across legal entities and geographies. Best for mature, centralised platforms and highly regulated enterprises.
+
+#### Business-unit scope
+
+One division (for example UK statutory audit AI, retail banking digital, clinical decision support). Supports phased certification.
+
+#### Product / platform scope
+
+A named AI product or shared platform:
+
+> Design, development, deployment and operation of the organisation’s private RAG customer-assistant platform in the UK and EU, including foundation-model API access, vector stores, prompt/response logging, agent tool integrations and supporting identity services.
+
+#### Capability-based scope
+
+Shared AI capability: model gateway, MLOps platform, evaluation harness, AI SOC monitoring, or AI supplier-management function.
+
+### 4.2 Questions used to determine AI-aware scope
+
+* Which legal entities and geographies are included?
+* Which AI systems are in production, pilot or retirement?
+* Are employee productivity tools and shadow AI in or out?
+* Are externally hosted foundation models in scope as suppliers?
+* Are embeddings, evaluation corpora and prompt logs treated as information assets?
+* Which lifecycle stages are controlled (build, deploy, operate, retire)?
+* Which cloud accounts, regions and network paths are necessary?
+* Which exclusions are justified—and do they undermine security claims?
+
+### 4.3 Example scope statement
+
+> The Information Security Management System covers the qualification, design, development, procurement, deployment, operation, monitoring and retirement of customer-facing and employee-facing AI systems delivered by the UK Digital AI function, including third-party foundation models, retrieval systems, AI agents, associated data stores, prompt and evaluation logs, and supporting identity, networking and logging services. Training foundation models on cross-client confidential filings is explicitly excluded and prohibited.
+
+### 4.4 Common scope failure
+
+A weak scope might say:
+
+> All information security activities.
+
+This is difficult to audit because it does not define organisational boundaries, systems, locations, interfaces or exclusions.
+
+A useful scope must allow an auditor or executive to determine what is inside and outside the management system—especially for AI assets that did not exist when the ISMS was first certified.
+
+---
+
+## 5. Clause 4: Context of the organisation
+
+Clause 4 establishes the foundation of the ISMS.
+
+### 5.1 Understand internal context
+
+Internal factors may include business strategy, AI ambitions, operating model, risk appetite, cloud maturity, identity maturity, existing ISO certifications, decentralised product teams, shadow AI adoption, engineering capability, data classification maturity and financial constraints.
+
+#### Practical output: internal-context register
+
+| Factor | Relevance to the ISMS | Required response |
+| --- | --- | --- |
+| Rapid generative AI adoption | Prompt/data leakage and unapproved model use | Approved-tool policy and DLP |
+| Decentralised product teams | Inconsistent control baselines | Central control catalogue and SoA |
+| Existing ISO/IEC 42001 AIMS | Reusable governance forums | Integrated ISMS–AIMS mapping |
+| Limited AI security skills | Weak challenge of RAG/agent designs | Competence programme and specialist audit |
+| Multiple model providers | Supply-chain and residency complexity | Cloud/AI supplier standard |
+
+### 5.2 Understand external context
+
+External factors may include laws and regulation, customer contractual security schedules, sector expectations, threat landscape change, model-provider policy changes, public trust, standards and insurance requirements.
+
+### 5.3 Identify interested parties
+
+Interested parties may include customers, employees, regulators, board members, suppliers, model providers, cloud providers, auditors, insurers, data subjects and works councils.
+
+#### Practical interested-party register
+
+| Interested party | Relevant expectation | How it is addressed |
+| --- | --- | --- |
+| Customers | Confidential handling of their data in AI workflows | Isolation, encryption, access control, DPIA where required |
+| Regulators | Traceable security evidence | Audit programme and management review |
+| Board | Controlled residual risk | Risk acceptance records and dashboard |
+| Model provider | Compliance with acceptable-use and data-use terms | Technical and contractual controls |
+| Internal audit | Retrievable evidence of control operation | Controlled document and record system |
+
+### 5.4 Define and maintain the ISMS
+
+The organisation must establish the processes needed to operate the management system. For AI-heavy environments these normally include asset inventory, use-case intake, risk assessment, control selection, SoA maintenance, change control, supplier management, secure development, monitoring, incident management, internal audit, management review, corrective action and continual improvement.
+
+---
+
+## 6. Clause 5: Leadership
+
+ISO/IEC 27001 requires active leadership, not passive sponsorship.
+
+### 6.1 Leadership responsibilities
+
+Top management must demonstrate commitment by establishing policy and objectives, assigning roles, communicating importance, providing resources, deciding risk acceptance criteria, ensuring internal audits occur, and conducting management reviews.
+
+### 6.2 Information security policy
+
+The policy must be appropriate to the organisation’s purpose, provide a framework for objectives, include a commitment to satisfy applicable requirements and to continual improvement, be communicated, and be available as documented information.
+
+For AI programmes, the policy should explicitly address:
+
+* Approved vs prohibited AI uses of confidential data
+* Rules for foundation-model providers and training/opt-out expectations
+* Accountability for agents and automated tool use
+* Requirement that AI assets appear in the ISMS inventory and change process
+
+### 6.3 Roles, responsibilities and authorities
+
+All information security responsibilities must be assigned and communicated. For AI, name owners for:
+
+* ISMS manager / CISO interface
+* AI platform owner
+* Model gateway / approved-model registry owner
+* RAG / data-store owner
+* Agent tool catalogue owner
+* Prompt and evaluation corpus owner
+* AI supplier relationship owner
+* Incident commander for AI-related events
+
+---
+
+## 7. Clause 6: Planning
+
+Planning converts context into risk treatment and objectives.
+
+### 7.1 Actions to address risks and opportunities
+
+The organisation must determine risks and opportunities that need to be addressed to ensure the ISMS can achieve intended outcomes, prevent or reduce undesired effects, and achieve continual improvement.
+
+### 7.2 Information security risk assessment
+
+The organisation must define and apply an information security risk assessment process that:
+
+* Establishes and maintains risk criteria (including acceptance criteria)
+* Ensures repeated assessments produce **consistent, valid and comparable** results
+* Identifies risks associated with loss of confidentiality, integrity and availability
+* Identifies risk owners
+* Analyses and evaluates risks
+
+#### Practical risk-assessment sequence (AI-aware)
+
+1. **Identify assets** within scope and their owners (including AI-specific assets).
+2. **Identify threats** (external attackers, insider misuse, supplier failure, model abuse, data poisoning, prompt injection, cross-tenant retrieval bleed).
+3. **Identify vulnerabilities** (over-permissioned service identities, shared vector collections, unvalidated tool calls, weak logging, missing isolation).
+4. **Identify impacts** of CIA loss on the business, customers and legal obligations.
+5. **Assess likelihood and impact** given current controls.
+6. **Estimate risk levels** against published criteria.
+7. **Decide** whether each risk is acceptable or requires treatment.
+
+### 7.3 Information security risk treatment
+
+Possible treatment options include:
+
+1. Applying appropriate controls
+2. Knowingly accepting risks that meet acceptance criteria
+3. Avoiding risks (for example by prohibiting a use case)
+4. Sharing or transferring risk (for example insurance or contractual allocation—without abandoning accountability for customer impact)
+
+Control objectives and controls shall be determined considering risk assessment results. Annex A shall be compared so that necessary controls are not overlooked. Additional controls beyond Annex A are allowed and often required for AI.
+
+### 7.4 Information security objectives
+
+Objectives must be consistent with the policy, measurable where practicable, monitored, communicated, updated and available as documented information. Planning must determine what will be done, resources, responsibilities, completion timing and evaluation of results.
+
+#### Example ISMS objectives for AI platforms
+
+| Objective | Example metric |
+| --- | --- |
+| No unapproved model endpoint in production | 100% registry coverage |
+| Cross-client retrieval isolation | Zero confirmed isolation defects in audit samples |
+| Privileged AI-admin access reviewed | Quarterly completion ≥ 100% |
+| Prompt-log access least privilege | Access review exceptions closed within SLA |
+| Supplier no-training clauses | 100% in-scope providers covered |
+| Incident detection for AI abuse patterns | Mean time to detect within target |
+
+---
+
+## 8. AI information assets you must inventory
+
+Traditional ISMS inventories often miss the assets that make AI programmes fail audits.
+
+| Asset class | Examples | Why it matters |
+| --- | --- | --- |
+| Model endpoints | Hosted LLM APIs, fine-tuned deployments, embedding services | Confidentiality of prompts; integrity of outputs; availability of service |
+| Model artefacts | Weights, adapters, prompts-as-code, guardrail configs | Tampering and leakage of proprietary or sensitive material |
+| Retrieval stores | Vector indexes, document corpora, graph memories | Cross-tenant disclosure; poisoning; retention |
+| Conversation and prompt logs | Prompts, completions, tool traces, evaluator transcripts | Often contain personal and confidential data |
+| Evaluation datasets | Golden sets, red-team corpora, PII-bearing fixtures | Leakage and unlawful secondary use |
+| Agent tools | Plugins, browsers, code runners, ERP connectors | Privilege escalation and unintended actions |
+| Secrets and keys | API keys, signing keys, service principals | Complete platform compromise |
+| CI/CD for AI | Prompt pack pipelines, model promotion workflows | Supply-chain and change-control failure |
+| Supplier subprocessors | Model hosts, observability vendors, labelling vendors | Shared-responsibility and residency risk |
+
+Every important asset needs a designated owner. “Owner” means approved management responsibility for production, development, maintenance, use and security—not property title.
+
+---
+
+## 9. Clause 7: Support
+
+### 9.1 Resources
+
+Provide the people, tools and budget needed to establish, implement, maintain and continually improve the ISMS—and to keep AI-specific controls operating under load.
+
+### 9.2 Competence
+
+Determine required competence for people doing work under the ISMS’s control, ensure competence on the basis of education, training or experience, take actions where needed, evaluate effectiveness, and retain evidence.
+
+For AI programmes, competence usually spans:
+
+* Secure cloud and identity engineering
+* Application security for LLM/agent systems
+* Privacy and DPIA practice
+* Secure MLOps / model change control
+* ISMS internal auditing with AI literacy
+
+### 9.3 Awareness
+
+People must be aware of the information security policy, their contribution to ISMS effectiveness, and the implications of not conforming.
+
+Shadow AI awareness is not optional: unapproved paste of confidential text into public models is a classic ISMS nonconformity in generative-AI programmes.
+
+### 9.4 Communication
+
+Determine what to communicate, when, with whom, how and who communicates—internally and externally (including customers and authorities where required).
+
+### 9.5 Documented information
+
+The ISMS must include documented information required by the standard and determined by the organisation as necessary for effectiveness. Control creation, update, protection, retrieval, retention and disposition.
+
+#### Core ISMS documents for AI programmes
+
+* ISMS scope and policy
+* Risk assessment methodology and reports
+* Risk treatment plan
+* Statement of Applicability
+* Operating procedures for AI change control, access, logging, incident response and suppliers
+* Records of audits, incidents, access reviews, management reviews and competence
+
+---
+
+## 10. Clause 8: Operation
+
+### 10.1 Operational planning and control
+
+Plan, implement and control processes needed to meet information security requirements and to implement actions determined in planning. Control planned changes and review unintended consequences. Ensure outsourced processes are controlled.
+
+### 10.2 Information security risk assessment (operational)
+
+Perform risk assessments at planned intervals or when significant changes occur—including new model providers, new agent tools, new data classes, architecture changes and material incidents.
+
+### 10.3 Information security risk treatment (operational)
+
+Implement the risk treatment plan and retain documented information on results.
+
+### 10.4 AI operational governance gates
+
+Translate Clause 8 into delivery gates:
+
+| Gate | Security question | Evidence |
+| --- | --- | --- |
+| Intake | Is the use case in ISMS scope? | Scope decision record |
+| Data | What classification and lawful basis apply? | Classification + DPIA/transfer record where needed |
+| Architecture | Are trust boundaries and controls designed? | Threat model + control mapping |
+| Build | Are secrets, environments and code controls operated? | Pipeline evidence |
+| Pre-prod | Do control tests and red-team results meet criteria? | Test reports |
+| Go-live | Is residual risk accepted by accountable owners? | Signed acceptance |
+| Operate | Are monitoring, access reviews and supplier checks running? | Operational records |
+| Change | Does model/prompt/tool change re-enter risk treatment? | Change tickets + SoA delta |
+| Retire | Are embeddings, logs and keys disposed securely? | Disposal records |
+
+---
+
+## 11. Clause 9: Performance evaluation
+
+### 11.1 Monitoring, measurement, analysis and evaluation
+
+Determine what needs to be monitored and measured, methods, when monitoring is performed, when results are analysed, and who analyses/evaluates. Retain appropriate documented information.
+
+#### Useful AI security measurements
+
+* Control coverage of in-scope AI systems
+* Failed access reviews for AI admins
+* Isolation / tenancy test pass rate
+* Prompt-injection and data-exfiltration test outcomes
+* Mean time to detect and respond to AI-related incidents
+* Percentage of production models with pinned versions and owners
+* Supplier assurance currency
+* Backup/restore success for critical AI data stores
+
+### 11.2 Internal audit
+
+Conduct internal audits at planned intervals to determine whether the ISMS conforms to the organisation’s requirements and to ISO/IEC 27001, and is effectively implemented and maintained.
+
+Auditors must be objective and impartial and must not audit their own work. Audit programmes should prioritise high-risk AI processes—not only traditional data centres.
+
+### 11.3 Management review
+
+Top management must review the ISMS at planned intervals. Inputs typically include status of actions from previous reviews, changes in external/internal issues, information security performance, nonconformities and corrective actions, monitoring results, audit results, fulfilment of objectives, interested-party feedback, results of risk assessment and status of the risk treatment plan, and opportunities for continual improvement.
+
+Outputs include decisions on continual improvement and any need for changes to the ISMS.
+
+For AI programmes, management review should explicitly cover:
+
+* New AI systems entering scope
+* Material model-provider changes
+* Critical AI incidents and near misses
+* Exceptions and accepted residual risks approaching appetite limits
+* Resource needs for AI security engineering
+
+---
+
+## 12. Clause 10: Improvement
+
+### 12.1 Continual improvement
+
+Continually improve the suitability, adequacy and effectiveness of the ISMS.
+
+### 12.2 Nonconformity and corrective action
+
+When a nonconformity occurs, the organisation must react, evaluate the need for action to eliminate causes, implement action, review effectiveness, make changes to the ISMS if necessary, and retain documented information.
+
+Corrective action must be appropriate to the effects of the nonconformities encountered.
+
+#### AI examples of nonconformity
+
+* Production RAG index without engagement/tenant partition
+* Untracked foundation-model API key in a shared vault
+* Prompt logs retained indefinitely without access control
+* Agent tool with write privileges not covered by change control
+* Supplier processing confidential prompts without contractual no-training clause
+
+---
+
+## 13. Annex A control themes (ISO/IEC 27001:2022)
+
+Annex A is normative as a reference set of possible controls. Organisations compare their risk treatment needs to Annex A so necessary controls are not overlooked. Implementation guidance lives primarily in ISO/IEC 27002.
+
+The 2022 edition organises **93 controls** into four themes:
+
+| Theme | Focus | Approx. count |
+| --- | --- | --- |
+| **A.5 Organisational** | Policies, roles, asset management, identity governance, supplier relationships, incident management, continuity, compliance | 37 |
+| **A.6 People** | Screening, terms of employment, awareness, disciplinary process, remote working, responsibilities after termination/change | 8 |
+| **A.7 Physical** | Secure areas, entry controls, equipment protection, cabling, maintenance, secure disposal, clear desk/screen | 14 |
+| **A.8 Technological** | Endpoint, privileged access, cryptography, malware, backup, logging/monitoring, network security, secure development, vulnerability management | 34 |
+
+### 13.1 New-control emphasis relevant to AI programmes
+
+The 2022 revision emphasises topics that map directly to modern AI platforms, including:
+
+* Threat intelligence
+* Cloud service security
+* ICT readiness for business continuity
+* Configuration management
+* Information deletion
+* Data masking
+* Data leakage prevention
+* Monitoring activities
+* Web filtering
+* Secure coding
+* Physical security monitoring
+
+Treat these as priority SoA candidates whenever generative AI, multi-tenant RAG or agent tooling is in scope.
+
+### 13.2 Domain map for readers of older (2005/2013) programmes
+
+Older programmes organised controls into classic domains (security policy, organisation of information security, asset management, human resources security, physical security, operations, access control, acquisition/development/maintenance, incident management, business continuity, compliance). Those themes remain useful as a communication language. When transitioning, remap each domain into the 2022 four-theme structure and update the SoA—do not maintain two conflicting control catalogues.
+
+---
+
+## 14. Mapping Annex A themes to enterprise AI controls
+
+Management-system requirements must become technical and operational controls.
+
+### 14.1 Organisational controls → AI operating model
+
+* Information security policy that names AI data-handling rules
+* Roles for AI platform, model registry, RAG and agent owners
+* Segregation of duties between model promotion and production admin
+* Supplier security for foundation-model and labelling vendors
+* Incident management that includes model abuse and data-leakage playbooks
+* Continuity plans that cover model-provider outage and RAG store recovery
+* Legal/compliance identification for privacy, IP and sector rules
+
+### 14.2 People controls → AI workforce risk
+
+* Screening proportional to access to confidential corpora and admin planes
+* Awareness for prompt hygiene and shadow AI
+* Disciplinary process for deliberate policy breaches
+* Joiner–mover–leaver processes that revoke model-gateway and vector-admin access
+
+### 14.3 Physical controls → hybrid reality
+
+* Still relevant for offices, labs, on-prem GPU rooms and media handling
+* Secure disposal of devices that may cache embeddings, local models or offline corpora
+* Clear desk/screen for evaluation workstations handling client extracts
+
+### 14.4 Technological controls → AI platform hardening
+
+**Identity and access:** unique IDs, MFA, least privilege, privileged access management, just-in-time elevation for AI admins, regular access reviews.
+
+**Cryptography and key management:** encryption in transit and at rest for stores and logs; controlled key lifecycle.
+
+**Secure development:** threat modelling, secure coding, separation of dev/test/prod, protection of source and prompt packs, controlled installation of operational software.
+
+**Malware and endpoint:** controls on developer and analyst workstations that can export corpora.
+
+**Logging and monitoring:** protect logs against tampering; monitor admin actions; detect anomalous retrieval and exfiltration patterns; synchronise time sources.
+
+**Network and cloud:** private connectivity to model endpoints where required; segregation; routing controls; hardened management planes.
+
+**Backup and deletion:** tested backups of critical indexes and configs; verified deletion/retention for prompts and embeddings.
+
+**Vulnerability and configuration management:** timely patching of AI gateway components; baseline configs; web filtering where browsers are agent tools.
+
+**Data leakage prevention and masking:** reduce confidential/PII exposure in prompts, traces and evaluation sets.
+
+---
+
+## 15. The Statement of Applicability
+
+The Statement of Applicability (SoA) is one of the central ISMS documents.
+
+It connects risk assessment, risk treatment, Annex A controls, organisation-specific controls, implementation status and evidence.
+
+### Recommended fields
+
+| Field | Purpose |
+| --- | --- |
+| Control reference | Annex A or custom control |
+| Control title | Control name |
+| Applicable | Yes or no |
+| Justification | Why included or excluded |
+| Related risks | Risks treated |
+| Implementation | How the control operates for AI assets |
+| Owner | Accountable person |
+| Evidence | Document or system record |
+| Status | Planned, partial or implemented |
+| Test method | How effectiveness is verified |
+| Review date | Next control review |
+
+### Example SoA rows for an AI platform
+
+| Control area | Applicable | Reason | Implementation |
+| --- | --- | --- | --- |
+| Access control / identity | Yes | Multi-tenant client data in RAG | Engagement-scoped entitlements + MFA + quarterly AI-admin review |
+| Cryptography | Yes | Confidential filings and prompt logs | TLS + at-rest encryption + managed keys |
+| Cloud service security | Yes | Hosted model API and vector service | Private link / approved regions + supplier clauses |
+| Secure coding / SDL | Yes | Agent tools can write to enterprise systems | Threat model + PR checks + tool allowlists |
+| Logging and monitoring | Yes | Need detection of abuse and leakage | Immutable logs + alerts on anomalous retrieval |
+| Physical secure areas for GPU lab | No | No on-prem training hardware in scope | Exclusion documented; revisit if lab opens |
+| Data leakage prevention | Yes | Prompt paste and export risk | DLP on endpoints + egress controls on corpora |
+| Supplier no-training commitment | Yes (custom) | Foundation-model provider risk | Contract + technical settings + assurance evidence |
+
+An exclusion should never be justified only with “Not applicable.” Explain why the control is not necessary within the ISMS scope and risk context—and verify that exclusion does not undermine legal or contractual security claims.
+
+---
+
+## 16. Practical example: private RAG assistant on confidential client data
+
+Consider an enterprise assistant that answers staff questions using a private corpus of client or customer documents, with a hosted foundation model, engagement-scoped retrieval, prompt logging and optional agent tools.
+
+### 16.1 ISMS scope
+
+UK production AI assistant platform, including model gateway, vector stores, identity integration, prompt/response logs, evaluation harness, CI for prompt packs, and named model-provider subprocessors. Public consumer AI tools are out of scope for production data and prohibited for confidential corpora.
+
+### 16.2 Asset inventory (extract)
+
+| Asset | Owner | Classification |
+| --- | --- | --- |
+| Engagement-partitioned vector indexes | RAG platform lead | Confidential |
+| Model gateway service principal | Platform SRE | Restricted |
+| Prompt/response log store | Security engineering | Confidential / personal data mixed |
+| Tool: ticket creator | Service management owner | Internal |
+| Foundation-model API | Vendor management + CISO | Supplier critical |
+
+### 16.3 Risk assessment (extract)
+
+| Risk | Inherent | Treatment |
+| --- | --- | --- |
+| Cross-engagement disclosure via shared index | Critical | Partitioned indexes + retrieval entitlement filter + isolation tests |
+| Prompt injection leading to tool abuse | High | Content isolation, tool allowlists, human approval for write actions |
+| Provider trains on confidential prompts | Critical | Contractual prohibition + technical no-train settings + traffic controls |
+| Over-retention of prompt logs | High | Retention schedule + access control + deletion evidence |
+| Unapproved model change | High | Version pinning + change control + regression eval gate |
+
+### 16.4 Residual-risk acceptance statement (example)
+
+> Approved for controlled production as a retrieval-grounded assistant for in-scope staff. Cross-engagement retrieval is prohibited. Write tools require human approval. Foundation-model providers must not train on customer confidential prompts. Residual risk of sophisticated prompt-injection bypass is accepted by the business owner and CISO subject to monthly red-team sampling and monitoring coverage above the agreed threshold.
+
+### 16.5 Evidence auditors will ask for
+
+Scope statement, asset register extract, risk assessment, risk treatment plan, SoA rows for identity/cloud/logging/DLP/supplier controls, access-review records, isolation test results, incident records (or nil returns), internal-audit sample, management-review minutes including AI residual risks.
+
+---
+
+## 17. Integrating ISO/IEC 27001 with ISO/IEC 42001
+
+ISO/IEC 42001 follows the same harmonised management-system structure, which makes integration practical.
+
+### Reusable ISO/IEC 27001 components
+
+Context assessment, interested-party analysis, risk methodology patterns, document control, internal audit, management review, corrective action, supplier management, access control, cryptography, logging, incident management, business continuity and asset management.
+
+### AI-specific additions from ISO/IEC 42001
+
+AI policy depth, AI system impact assessment, AI lifecycle governance, human oversight, transparency to interested parties, responsible use, AI supplier roles, and AI performance evaluation beyond classic CIA metrics.
+
+### Integrated control example
+
+**Information-security objective:** prevent unauthorised access to customer data.
+
+**AI-specific extension:** prevent the generative model, retrieval process or agent workflow from revealing customer data to another user or training corpus.
+
+**Combined controls:** identity and access management, tenant isolation, retrieval permission filtering, prompt-injection testing, output validation, data-leakage monitoring, supplier no-training controls and incident response.
+
+---
+
+## 18. ISMS governance RACI for AI programmes
+
+| Activity | Executive sponsor | ISMS manager / CISO | Business owner | AI engineer | Risk/legal/privacy | Internal audit |
+| --- | --- | --- | --- | --- | --- | --- |
+| Define ISMS scope (incl. AI) | A | R | C | I | C | I |
+| Approve information security policy | A | R | C | I | C | I |
+| Maintain AI asset inventory | I | C | A | R | I | I |
+| Risk assessment | I | A | C | R | C | I |
+| Select controls / SoA | I | A | C | R | C | I |
+| Accept residual risk | A | C | R | C | C | I |
+| Operate technical controls | I | C | C | R | I | I |
+| Supplier assurance (model hosts) | I | A | C | C | C | I |
+| Monitor and respond to incidents | I | A | C | R | C | I |
+| Internal audit | I | C | I | C | C | A/R |
+| Management review | A | R | C | C | C | I |
+
+R = Responsible · A = Accountable · C = Consulted · I = Informed
+
+---
+
+## 19. Minimum ISO/IEC 27001 evidence pack (AI-extended)
+
+A practical evidence repository should include:
+
+1. ISMS scope (with AI inclusions/exclusions)
+2. Context and interested-party registers
+3. Applicable legal/regulatory/contractual requirements register
+4. Information security policy
+5. Roles, authorities and RACI
+6. AI-extended asset inventory
+7. Risk assessment methodology
+8. Risk assessment reports
+9. Risk treatment plan
+10. Statement of Applicability
+11. Information security objectives and plans
+12. Competence and awareness records
+13. Documented operating procedures
+14. Secure development / change-control records for models, prompts and tools
+15. Access control and privileged-access review records
+16. Cryptography and key-management evidence
+17. Logging/monitoring configuration and review records
+18. Backup and restoration test records
+19. Supplier assessments and contracts (incl. model providers)
+20. Incident and near-miss records
+21. Business continuity / ICT readiness evidence for critical AI services
+22. Internal-audit programme and reports
+23. Management-review inputs/outputs
+24. Nonconformity and corrective-action records
+25. Continual-improvement register
+26. Secure disposal / retirement records for embeddings, logs and keys
+
+Evidence may live in GRC platforms, Git, model registries, ticketing systems, cloud inventories, SIEM, contract systems and data catalogues. The requirement is that evidence is controlled, traceable and retrievable.
+
+---
+
+## 20. Certification readiness
+
+ISO/IEC 27001 certification is performed by independent certification bodies. Holding a certificate does not by itself prove that a specific AI system is safe.
+
+### Typical preparation sequence
+
+1. **Gap assessment** — scope, Clauses 4–10, Annex A comparison, AI asset coverage, missing evidence.
+2. **Implementation** — operate controls long enough to generate real records.
+3. **Internal audit** — include AI platform samples.
+4. **Management review** — decide resources, scope changes and residual-risk posture.
+5. **Corrective action** — close significant findings before external assessment.
+6. **Certification / surveillance** — stage assessments of design and operating effectiveness.
+
+### Important principle
+
+Certification should not become the sole objective. An organisation may hold an ISMS certificate and still allow confidential prompts into unapproved public models.
+
+The real objective is:
+
+> A management system that consistently produces controlled, evidenced information security decisions as AI systems change.
+
+---
+
+## 21. A 120-day implementation roadmap (extend or stand up AI coverage)
+
+### Days 1–30: establish foundations
+
+Executive sponsorship, AI-aware ISMS scope, context analysis, interested-party register, AI asset inventory, applicable-requirements register, gap assessment against Clauses 4–10 and Annex A themes, governance structure and policy deltas for generative AI.
+
+### Days 31–60: build core processes
+
+Risk methodology updates for AI scenarios, control library mapping, SoA refresh, supplier standard for model hosts, secure development/change standard for prompts/models/tools, logging/retention standard for prompt traces, documentation templates.
+
+### Days 61–90: operationalise
+
+Apply the ISMS to selected AI systems: complete assessments, implement priority controls (identity, isolation, encryption, logging, DLP, supplier clauses), collect evidence, train teams, test incident response, run go-live gates, publish dashboards.
+
+### Days 91–120: assure and improve
+
+Internal audit sampling of AI controls, management review with residual-risk decisions, root-cause analysis, corrective actions, evidence-quality review, certification or surveillance readiness, and a 12-month improvement backlog.
+
+The ISMS must operate long enough to generate real evidence. A newly written AI security policy without operational records will not demonstrate effectiveness.
+
+---
+
+## 22. Common ISO/IEC 27001 implementation failures in AI programmes
+
+### Treating ISO/IEC 27001 as documentation theatre
+
+Templates exist; delivery teams ship unscoped AI features against production data.
+
+**Correction:** embed ISMS checks into intake, architecture review, CI/CD, procurement and production monitoring.
+
+### Leaving AI assets out of the inventory
+
+Vector stores, prompt logs and agent tools never appear in the asset register.
+
+**Correction:** mandate AI asset classes in inventory standards and audit for completeness.
+
+### Same controls for every AI system
+
+Low-risk internal summarisation receives the same bureaucracy as high-impact multi-tenant RAG—or the reverse.
+
+**Correction:** risk-based control selection with clear acceptance criteria.
+
+### Ignoring purchased and embedded AI
+
+Teams assume vendor copilots are “outside the ISMS.”
+
+**Correction:** govern developed, embedded and externally supplied AI through supplier and acceptable-use controls.
+
+### No link between risks and controls
+
+Controls exist, but no trace shows which AI risks they treat.
+
+**Correction:** maintain bidirectional traceability from risk → treatment → SoA → test → evidence.
+
+### Residual risk accepted by nobody accountable
+
+Engineers “go live” without business owner and security acceptance.
+
+**Correction:** require named residual-risk acceptance before production data access.
+
+### Internal audit lacks AI competence
+
+Auditors check policy PDFs but cannot challenge isolation tests or model-change evidence.
+
+**Correction:** multidisciplinary audit teams with AI security literacy.
+
+### Management review ignores AI
+
+Executives see classic IT metrics while generative AI expands the attack surface.
+
+**Correction:** add AI inventory, incidents, exceptions and supplier concentration to review inputs.
+
+### Certification becomes the destination
+
+The organisation focuses on passing an audit rather than preventing cross-tenant disclosure.
+
+**Correction:** connect ISMS objectives to confidentiality, integrity, availability and customer trust outcomes.
+
+---
+
+## 23. Executive dashboard
+
+### Coverage
+
+AI systems in inventory, systems in ISMS scope, systems with named owners, systems with current risk assessments, systems with approved SoA mappings, systems operating under exceptions.
+
+### Control performance
+
+Failed control tests, overdue corrective actions, missing evidence, expired supplier reviews, unapproved model/prompt/tool changes, monitoring coverage gaps.
+
+### Risk indicators
+
+AI-related security incidents, near misses, privacy events, data-leakage alerts, privileged-access exceptions, kill-switch / disablement events, backup restore failures for AI stores.
+
+### Decision questions for leadership
+
+* Which AI systems exceed risk appetite?
+* Which suppliers create concentration or training-data risk?
+* Which controls fail repeatedly?
+* Where is investment required?
+* Which systems should be restricted, segmented or retired?
+
+---
+
+## Conclusion: ISO/IEC 27001 as the security operating system for enterprise AI
+
+ISO/IEC 27001 should not be seen as another compliance checklist.
+
+Its purpose is to create a durable organisational system for answering:
+
+* Which information and AI assets do we operate?
+* Who owns them?
+* What could go wrong for confidentiality, integrity and availability?
+* Which controls apply—and why?
+* How do we know the controls work?
+* What evidence do we retain?
+* Who accepts the remaining risk?
+* How do we respond to incidents?
+* How do we improve when models, tools and suppliers change?
+
+Its structure can be summarised as:
+
+> **Understand the organisation. Establish leadership. Assess and treat information risk. Support competent operation. Control security processes. Measure performance. Audit the system. Correct failures. Continually improve.**
+
+In the wider enterprise AI governance stack:
+
+* The **EU AI Act** establishes legal classification and obligations.
+* **NIST AI RMF** strengthens practical AI risk management.
+* **ISO/IEC 42001** connects AI decisions through an Artificial Intelligence Management System.
+* **ISO/IEC 27001** protects information, systems and suppliers through an Information Security Management System.
+* Engineering methods (STRIDE, OWASP, MITRE ATLAS, red teaming) prove that technical controls actually work.
+
+The outcome is not security paperwork for its own sake.
+
+The outcome is an organisation capable of building, buying, deploying and scaling AI with clear accountability, controlled information risk, reliable evidence and continual learning.
+
+
+<KeyTakeaways>
+
+- Treat ISO/IEC 27001 as an organisation-wide ISMS—extend scope, inventory, SoA and management review to cover model endpoints, RAG stores, prompt logs, agents and AI suppliers.
+- Lead with ISO/IEC 27001:2022 (Clauses 4–10 and four Annex A themes); use PDCA as the operating rhythm and map older 2005/2013 control catalogues forward.
+- Combine with ISO/IEC 42001, NIST AI RMF/CSF and the EU AI Act: security management system + AI management system + risk practice + legal obligations—backed by retrievable evidence and named residual-risk acceptance.
+
+</KeyTakeaways>
+
+<NextSteps>
+
+- Open [ConsultAI OS](https://sudip-ai-playbook.github.io/consult) and attach ISMS artefacts (scope, SoA, risk treatment) to the use-case workspace
+- Read [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001) for the AIMS layer that sits alongside the ISMS
+- Read [Enterprise AI Security Roadmap](/articles/enterprise-ai-security-roadmap) for the 48-week control programme
+- Pair with [Security and privacy frameworks](/docs/frameworks/security-privacy) and [AI Governance: NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act)
+
+</NextSteps>

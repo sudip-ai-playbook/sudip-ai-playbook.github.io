@@ -1,0 +1,560 @@
+---
+slug: owasp-llm-top-10-governance
+title: "AI Governance in Practice: Applying the OWASP Top 10 for LLM Applications 2025"
+description: A step-by-step governance and engineering playbook for OWASP LLM01–LLM10—controls, evidence, tests and release gates you can follow while building and assuring generative AI systems.
+authors: [sudip]
+tags: [governance, security, consulting, solution-engineering, playbook]
+keywords:
+  - OWASP LLM Top 10
+  - OWASP Top 10 for LLM Applications 2025
+  - prompt injection
+  - RAG security
+  - excessive agency
+  - AI governance
+  - LLM application security
+  - Responsible AI
+---
+
+The OWASP Top 10 for LLM Applications is not a reading list. It is a **release language**: every generative-AI system that touches tools, retrieval, personal data or production users should map risks, implement controls, test them and accept residual risk before scale.
+
+{/* truncate */}
+
+<ExecSummary>
+Use OWASP LLM Top 10 2025 as the application-risk baseline inside AI governance: map each risk to your architecture, implement preventive and detective controls, prove them with tests, and block release on unresolved critical items. Pair with NIST AI RMF / EU AI Act classification and ISO/IEC 42001 so security evidence feeds the management system—not a one-off checklist.
+</ExecSummary>
+
+<WhenToUse>
+- Use when designing, reviewing or releasing any LLM, RAG or agentic application.
+- Use in governance Step 5 (risk and control planning) and again at security/privacy release gates.
+- Pair with [NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act), [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001), [Enterprise AI Security Roadmap](/articles/enterprise-ai-security-roadmap) (Stage 7) and [Security and privacy frameworks](/docs/frameworks/security-privacy).
+- Treat the per-risk **Apply now**, **Evidence** and **Go / no-go** sections as the operating checklist.
+</WhenToUse>
+
+> **Source:** Adapted from [OWASP Top 10 for LLM Applications 2025](https://genai.owasp.org/llm-top-10/) (Version 2025, 18 November 2024; PDF v4.2.0a), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Changes: condensed for enterprise delivery, British spelling, and rewritten as an apply-while-building governance playbook. This is not legal advice.
+
+---
+
+## How to use this article
+
+Work through the article **once per system** (or per material change), not once per organisation.
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Draw the system boundary (UI, gateway, model, RAG, tools, logs, suppliers) | Architecture context diagram |
+| 2 | Score each LLM01–LLM10 risk (likelihood × impact for *this* design) | Risk register rows |
+| 3 | Implement **Apply now** controls for every High/Critical risk | Control design notes |
+| 4 | Run **Tests before release** | Test evidence pack |
+| 5 | Complete **Evidence to retain** | Artefact folder linked to use-case ID |
+| 6 | Decide **Go / no-go** with a named residual-risk owner | Approval or block record |
+
+**Governance rule:** a system prompt, vendor SOC letter or “we use Guardrails” statement is **not** OWASP coverage. Coverage means mapped controls + tests + monitoring + residual-risk acceptance.
+
+### What’s new in the 2025 list
+
+* **LLM10 Unbounded Consumption** expands former DoS thinking to cost (denial of wallet) and model theft.
+* **LLM08 Vector and Embedding Weaknesses** treats RAG as a first-class risk.
+* **LLM07 System Prompt Leakage** was added after real-world prompt extraction; prompts are not a secret boundary.
+* **LLM06 Excessive Agency** grew with agentic and plugin architectures.
+
+---
+
+## Operating model: who does what
+
+| Role | Responsibility for OWASP LLM |
+| --- | --- |
+| **Use-case / product owner** | Accepts residual risk; owns kill criteria |
+| **AI Solution Engineer / architect** | Maps risks to design; implements controls |
+| **AppSec / AI security** | Threat model, tests, monitoring signals |
+| **Data protection / privacy** | PII paths, DPIA linkage (LLM02, LLM08) |
+| **Platform / MLOps** | Supply chain, quotas, model inventory (LLM03, LLM10) |
+| **Risk / Responsible AI / audit** | Samples evidence at release and periodically |
+
+Every High/Critical residual risk needs a **named accepter** and a **review date**.
+
+---
+
+## Master control matrix (print this)
+
+| ID | Risk | Primary control theme | Minimum release evidence |
+| --- | --- | --- | --- |
+| LLM01 | Prompt Injection | Trust boundaries; untrusted content marked; tool auth outside the model | Injection test suite (direct + indirect + multimodal if in scope) |
+| LLM02 | Sensitive Information Disclosure | Minimisation, DLP, tenancy, no secrets in prompts/logs | Extraction tests + log redaction proof |
+| LLM03 | Supply Chain | Approved models/adapters/packages; signing; SBOM/AI BOM | Inventory + integrity checks + supplier review |
+| LLM04 | Data and Model Poisoning | Provenance, sandbox, versioning, backdoor tests | Dataset approval + red-team notes |
+| LLM05 | Improper Output Handling | Zero-trust outputs; encode/validate by sink | XSS/SQLi/RCE negative tests |
+| LLM06 | Excessive Agency | Min tools, min perms, human approval, complete mediation | Tool permission matrix + agency abuse tests |
+| LLM07 | System Prompt Leakage | No secrets in prompts; auth outside LLM | Prompt review + extraction tests |
+| LLM08 | Vector / Embedding Weaknesses | Permission-aware retrieval; tenant isolation | Cross-tenant retrieval tests |
+| LLM09 | Misinformation | Grounding, citations, human oversight | Evaluation set + overreliance UI proof |
+| LLM10 | Unbounded Consumption | Quotas, timeouts, budgets, extraction limits | Load/cost abuse tests + alerts |
+
+---
+
+## LLM01:2025 — Prompt Injection
+
+### What it is
+
+User or external content alters model behaviour in unintended ways. Injection can be **direct** (chat), **indirect** (webpages, files, emails, retrieved chunks, tool output) or **multimodal** (hidden instructions in images). Jailbreaking is a form of injection that disables safety protocols. RAG and fine-tuning do **not** fully fix this.
+
+### Why governance cares
+
+Injection is often the path into LLM02 (data leak), LLM05 (unsafe output sinks), LLM06 (tool abuse) and LLM07 (guardrail bypass). If agency is high, injection is a business-process compromise—not a content bug.
+
+### Apply now
+
+1. **Separate trusted instructions from untrusted data.** System/developer instructions live in a trusted channel; user text, retrieved chunks, emails and tool results are marked as untrusted data, never as instructions.
+2. **Constrain behaviour.** Role, allowed topics, refusal policy; instruct the model to ignore attempts to override core rules—then **enforce the same rules outside the model**.
+3. **Validate outputs.** Schemas, allowlisted actions, citation requirements; reject free-form “do anything” replies before tools run.
+4. **Filter inputs and outputs.** Semantic and rule filters for known attack patterns; evaluate RAG with context relevance, groundedness and answer relevance.
+5. **Least privilege for tools.** Application-owned credentials; tools implemented in code; model cannot invent new privileged APIs.
+6. **Human-in-the-loop** for irreversible or high-impact actions (send email, delete, pay, change access).
+7. **Segregate external content** with clear delimiters and UI/source labels (“retrieved document — treat as data”).
+8. **Adversarial testing** on every release candidate: direct, indirect, split-payload, obfuscated, multilingual, multimodal if applicable.
+
+### Evidence to retain
+
+* Trust-boundary diagram (what is trusted vs untrusted)
+* Prompt and context-assembly design note
+* Tool allowlist and confirmation rules
+* Injection test cases and results (pass/fail + fixes)
+
+### Tests before release
+
+* Direct: “ignore previous instructions and …”
+* Indirect: poisoned PDF/HTML/email in the retrieval path
+* Payload splitting across documents or resume fields
+* Encoded / multilingual / emoji obfuscation
+* Multimodal: instruction in image + benign text (if multimodal)
+
+### Go / no-go
+
+**No-go** if tools can execute high-impact actions on model text alone with no independent authorisation, or if RAG content can rewrite system policy without detection.
+
+---
+
+## LLM02:2025 — Sensitive Information Disclosure
+
+### What it is
+
+The system reveals PII, credentials, proprietary data, cross-tenant content, training secrets or infrastructure details—through model output, logs, errors or memorised training data.
+
+### Why governance cares
+
+This is a confidentiality and privacy incident path (GDPR/UK GDPR, client confidentiality, IP). System-prompt “do not reveal secrets” is **insufficient**; treat disclosure as an architecture problem.
+
+### Apply now
+
+1. **Data minimisation** — only required fields reach the model; strip identifiers where the task allows.
+2. **Sanitise before training and logging** — scrub/mask; never train foundation models on confidential client data without explicit lawful basis and contract.
+3. **Access control** — least privilege to stores; permission-aware retrieval (link LLM08).
+4. **Output DLP** — scan responses for secrets, PII patterns, canaries.
+5. **Privacy techniques** where appropriate — differential privacy, tokenisation, federated approaches for sensitive corpora.
+6. **User transparency** — Terms, retention, training opt-out; teach users not to paste secrets.
+7. **Conceal preamble / misconfig** — follow OWASP API8-style hygiene; no secrets in error messages.
+8. **Never put credentials in prompts** (link LLM07).
+
+### Evidence to retain
+
+* Data-flow diagram (prompt, RAG, logs, eval sets, suppliers)
+* DPIA reference if personal data is processed
+* DLP rules and sample alert evidence
+* Extraction / membership-style test notes
+
+### Tests before release
+
+* Cross-user / cross-tenant prompt attempts
+* “Repeat forever” / extraction-style prompts against known canaries
+* Log-store access review (who can read full prompts?)
+* Training-data leakage checks if fine-tuning on sensitive corpora
+
+### Go / no-go
+
+**No-go** if another tenant’s data can appear in answers, or if secrets exist in system prompts, eval dumps or broadly readable logs.
+
+---
+
+## LLM03:2025 — Supply Chain
+
+### What it is
+
+Compromise via packages, pre-trained models, LoRA/PEFT adapters, datasets, merge/conversion services, containers, plugins/MCP servers, on-device artefacts or unclear supplier T&Cs (including training-on-your-data clauses).
+
+### Why governance cares
+
+You inherit the supplier’s integrity failures. Model Cards are documentation, not provenance guarantees.
+
+### Apply now
+
+1. **Approved catalogue** — models, adapters, embedding services, MCP servers, prompt packs.
+2. **Vet suppliers** — security posture, T&Cs, privacy, residency, no-train clauses; re-audit on change.
+3. **SBOM / AI BOM / ML BOM** — inventory with versions; signed artefacts; hash verification.
+4. **Integrity** — code signing, model checksums, pin dependencies; scan for CVEs (A06-class).
+5. **Red-team third-party models** for *your* use cases; do not trust public safety benchmarks alone.
+6. **Collaborative hub hygiene** — no unreviewed merges/conversions into production; scanner scripts where available.
+7. **Edge / on-device** — encrypt models, attestation, refuse unrecognised firmware/apps.
+8. **Licence compliance** — dataset and model licence inventory.
+9. **Emergency revocation** — ability to pull a bad model/adapter within a defined RTO.
+
+### Evidence to retain
+
+* Component inventory (including adapters and MCP)
+* Supplier assessment and contract extracts (data use)
+* Signing/hash verification records
+* Patch and revocation runbook
+
+### Tests before release
+
+* Dependency and container scans clean or accepted
+* Model/adapter checksum matches approved artefact
+* Attempt to load an unsigned artefact is blocked
+* Licence review signed for commercial use
+
+### Go / no-go
+
+**No-go** if production can pull arbitrary hub models/adapters, or if supplier may train on confidential prompts without opt-out/contractual prohibition.
+
+---
+
+## LLM04 — Data and Model Poisoning
+
+### What it is
+
+Tampering with pre-training, fine-tuning or embedding data to create bias, backdoors or degraded behaviour. Includes “sleeper” triggers and malicious serialisation (e.g. unsafe pickle) when loading models.
+
+### Why governance cares
+
+Integrity of decisions and safety evaluations. Overlaps LLM03 (supply) and LLM08 (RAG poisoning); this entry focuses on **data and model integrity across the lifecycle**.
+
+### Apply now
+
+1. Track dataset **provenance and transformations** (BOM / DVC).
+2. Vet vendors; validate outputs against trusted sources.
+3. **Sandbox** unverified sources; anomaly detection on training/RAG ingest.
+4. Restrict which identities can write to training sets and indexes.
+5. Version datasets and models; support rollback.
+6. Prefer vector-store updates for user content over silent retrain loops.
+7. Red-team for backdoors and trigger phrases.
+8. Monitor training loss and production drift for poisoning signals.
+9. Use grounding/RAG carefully so poisoned retrieval cannot become silent policy (link LLM08, LLM01).
+
+### Evidence to retain
+
+* Dataset approval records and version IDs
+* Ingest pipeline controls (who can write)
+* Backdoor / poison test results
+* Rollback procedure
+
+### Tests before release
+
+* Hidden-instruction documents in training/RAG candidates
+* Trigger-phrase probes after fine-tuning
+* Unsafe model-load formats blocked in CI
+* Integrity mismatch fails the pipeline
+
+### Go / no-go
+
+**No-go** if untrusted users can write into production indexes or fine-tune corpora without review, or if rollback is undefined.
+
+---
+
+## LLM05:2025 — Improper Output Handling
+
+### What it is
+
+LLM output is passed to sinks (HTML, JS, Markdown, SQL, shell, email, files, APIs) without validation, encoding or parameterisation—enabling XSS, SQLi, SSRF, RCE or phishing.
+
+### Why governance cares
+
+This is classic application security with an LLM as the confused deputy. Distinct from misinformation (LLM09): here the issue is **unsafe plumbing**, not truthfulness.
+
+### Apply now
+
+1. Treat the model as an **untrusted user** (zero trust).
+2. Follow OWASP ASVS for validation and encoding.
+3. **Context-aware encoding** by sink (HTML entity encode, JS encode, etc.).
+4. **Parameterised queries** only—never concatenate LLM SQL.
+5. Never `eval` / shell raw model text; use allowlisted structured tool calls.
+6. CSP for LLM-rendered UI content.
+7. Sandbox generated code; verify package names against registries (package hallucination → malware).
+8. Log anomalous outputs that look like code/SQL/markup when unexpected.
+
+### Evidence to retain
+
+* Sink map (where outputs go)
+* Encoding/validation library standards
+* Negative security test results
+* Package-hallucination review process for coding assistants
+
+### Tests before release
+
+* Prompt that returns `<script>` / Markdown image exfil patterns
+* Prompt that returns `DROP TABLE` / path traversal strings
+* Tool path: model asks for shell; platform must refuse
+* Coding assistant: verify suggested packages exist and are approved
+
+### Go / no-go
+
+**No-go** if any path executes or renders model output without a typed schema and sink-specific encoding.
+
+---
+
+## LLM06:2025 — Excessive Agency
+
+### What it is
+
+Damaging actions from unexpected model output because the system has **too much functionality**, **too much permission** or **too much autonomy**. Triggers include hallucination, injection or compromised peer agents—not only attackers.
+
+### Why governance cares
+
+This is where AI becomes an operational control failure (payments, email, document delete, record change). Authorisation must be **complete mediation** in downstream systems—not “the model decided it was OK”.
+
+### Apply now
+
+1. **Minimise extensions** — only tools required for the product.
+2. **Minimise functions per tool** — read-mail tool must not send mail.
+3. **Avoid open-ended tools** (raw shell, arbitrary URL fetch); prefer narrow APIs.
+4. **Minimise permissions** — DB read-only; least tables; no admin roles.
+5. **User-context execution** — OAuth/user tokens with minimum scope, not a god service account.
+6. **Human approval** for high-impact actions.
+7. **Complete mediation** — policy engine / backend checks every request.
+8. Sanitise tool arguments (ASVS); SAST/DAST on tool code.
+9. **Limit blast radius** — rate limits, step caps, kill switch, full action audit log.
+
+### Evidence to retain
+
+* Tool inventory with purpose and permissions
+* AuthN/AuthZ design (per-user vs service identity)
+* Human-approval flows for sensitive actions
+* Agency abuse test results
+
+### Tests before release
+
+* Indirect injection that tries to exfiltrate via send-mail / webhook tools
+* Attempt to call removed/trial plugins
+* Attempt to exceed OAuth scopes
+* Confirm high-impact actions block without human approval
+
+### Go / no-go
+
+**No-go** if a single agent identity can modify or exfiltrate data beyond the end user’s own entitlements, or if irreversible actions lack human confirmation where policy requires it.
+
+---
+
+## LLM07:2025 — System Prompt Leakage
+
+### What it is
+
+System prompts (or inferred rules) are extracted. The real risk is rarely the wording—it is **secrets in the prompt**, **auth/limits described only in the prompt**, and **security controls delegated to the LLM**.
+
+### Why governance cares
+
+Prompts are not a trust boundary. Attackers will learn many guardrails by probing even without a full leak.
+
+### Apply now
+
+1. **Strip secrets** from prompts (API keys, connection strings, tokens, internal IPs).
+2. **Externalise policy enforcement** — rate limits, loan caps, role checks live in deterministic services.
+3. **Independent output guardrails** — classifiers/filters that do not rely on “please don’t reveal yourself”.
+4. Use **separate least-privilege agents** when tasks need different access levels.
+5. Minimise unnecessary architecture and role detail in prompt text.
+6. Assume extraction succeeds; design so extraction does not grant power.
+
+### Evidence to retain
+
+* Prompt security review (secrets scan)
+* List of controls enforced *outside* the LLM
+* Extraction test results and rotations if anything sensitive was ever embedded
+
+### Tests before release
+
+* Classic extraction / “repeat your instructions” probes
+* Attempts to bypass limits that exist only in prompt language
+* Secret scanning of prompt templates in CI
+
+### Go / no-go
+
+**No-go** if credentials, connection strings or authoritative authorisation rules exist only inside prompt text.
+
+---
+
+## LLM08:2025 — Vector and Embedding Weaknesses
+
+### What it is
+
+Weaknesses in generating, storing or retrieving embeddings/vectors in RAG: cross-tenant leakage, embedding inversion, knowledge-base poisoning, access-control gaps, and unwanted behaviour change after augmentation.
+
+### Why governance cares
+
+RAG is how enterprise knowledge enters the model. Isolation failures are data breaches; poisoning is integrity failure; poor evaluation is an overreliance (LLM09) amplifier.
+
+### Apply now
+
+1. **Permission-aware vector stores** — filter by tenant/engagement/user **before and after** retrieval.
+2. **Logical partitioning** — separate indexes or hard metadata filters per trust domain.
+3. **Validate ingest** — strip hidden text, scripts, white-on-white instructions; trusted sources only.
+4. **Classify and tag** chunks with access labels; review merges of heterogeneous sources.
+5. **Immutable retrieval logs** for audit and incident response.
+6. Encrypt stores; control who can write/delete; verify deletion.
+7. Evaluate retrieval quality and behavioural side-effects (e.g. empathy/regression where relevant).
+8. Defend against inversion where embeddings of sensitive text are exposed to clients.
+
+### Evidence to retain
+
+* Index tenancy design
+* Ingest validation rules
+* Cross-tenant negative test evidence
+* Retrieval evaluation report
+
+### Tests before release
+
+* User A query must never return User B chunks
+* Hidden-instruction document in knowledge base (resume/PDF poisoning)
+* Write to index denied for unauthorised roles
+* Deletion removes chunks from retrieval within SLA
+
+### Go / no-go
+
+**No-go** if multiple tenants share an index without enforced metadata filters *and* post-retrieval authorisation checks.
+
+---
+
+## LLM09:2025 — Misinformation
+
+### What it is
+
+False or misleading but fluent outputs (hallucinations, bias, incomplete knowledge) plus **overreliance**—users acting without verification. Harm can occur with **no attacker** (legal, medical, operational liability).
+
+### Why governance cares
+
+Accountability, consumer protection, professional standards (e.g. audit opinions remain human). UI and process design are controls, not niceties.
+
+### Apply now
+
+1. **Ground** answers with RAG from approved sources; require citations where claims matter.
+2. Fine-tune or craft prompts for domain quality; use chain-of-thought only where it improves verifiability.
+3. **Human oversight** for high-stakes outputs; train reviewers not to rubber-stamp AI.
+4. Automatic validators for structured fields (amounts, IDs, dates).
+5. Communicate uncertainty and intended-use limits in the UI.
+6. Secure coding practices for AI-suggested code/packages (link LLM05).
+7. Label AI-generated content; block silent write-back to systems of record without attestation.
+8. Domain evaluation sets and regression on material model/prompt change.
+
+### Evidence to retain
+
+* Evaluation harness results (accuracy, citation correctness, refusal quality)
+* UI screenshots showing AI labelling and limits
+* Human-attestation procedure for regulated outputs
+* Incident lessons from prior misinformation events
+
+### Tests before release
+
+* Known-hard questions with gold answers
+* Fabricated citation / case-law traps
+* Package-hallucination checks for coding tools
+* “User trusts blindly” process test: can a bad answer reach a customer without a human gate?
+
+### Go / no-go
+
+**No-go** for customer-facing or regulated advice if answers can publish without grounding/citation policy and named human accountability.
+
+---
+
+## LLM10:2025 — Unbounded Consumption
+
+### What it is
+
+Uncontrolled inference causing DoS, **denial of wallet**, degradation, or IP theft via model extraction / functional replication / side channels.
+
+### Why governance cares
+
+Cloud AI spend and availability are business risks. Extraction is an IP and competitive risk. This is FinOps + security.
+
+### Apply now
+
+1. **Input size limits** and context overflow protections.
+2. **Rate limits and quotas** per user, tenant, API key and tool.
+3. **Budgets and alerts** (token, $$, tool calls); kill runaway jobs.
+4. Timeouts, throttling, concurrency caps, max agent steps / loop detection.
+5. Limit exposure of logits/logprobs that aid extraction.
+6. Sandbox network egress from tool-running environments.
+7. Monitor anomalous consumption; graceful degradation under load.
+8. Watermarking where IP protection matters; adversarial robustness to extraction.
+9. Central model inventory; RBAC on training/deploy; MLOps approvals.
+10. Glitch-token and abuse-pattern filtering where relevant.
+
+### Evidence to retain
+
+* Quota/budget configuration
+* Cost and abuse alert runbooks
+* Load / DoW test results
+* Model-inventory access review
+
+### Tests before release
+
+* Oversized input rejected
+* Burst traffic throttled without cascading failure
+* Agent loop hits step cap
+* Cost alert fires in staging under synthetic abuse
+* Bulk extraction-style query patterns detected or rate-limited
+
+### Go / no-go
+
+**No-go** if unlimited spend or unlimited tool loops are possible for a single tenant without alerting and automatic throttle.
+
+---
+
+## End-to-end workflow (one sprint)
+
+Use this sequence when a feature approaches production:
+
+1. **Threat workshop (90–120 min)** — architect, AppSec, product, privacy: walk LLM01–LLM10 against the diagram.
+2. **Control backlog** — tickets for every gap on High/Critical risks.
+3. **Implement** — trust boundaries, tool matrix, RAG tenancy, quotas first (they unblock many risks).
+4. **Test pack** — automate what you can; manually run indirect injection and agency abuse.
+5. **Evidence pack** — link artefacts to use-case ID in the AIMS / risk register.
+6. **Residual risk** — owner signs; set reassessment trigger (new tool, new model, new data class).
+7. **Monitor** — same risk IDs in dashboards (injection spikes, cross-tenant denials, cost anomalies, tool errors).
+
+### Material-change triggers (re-run OWASP)
+
+* New tool, MCP server or plugin
+* Model or prompt version change
+* New RAG corpus or tenancy model
+* New supplier or fine-tune
+* Expansion to multimodal input
+* Change in autonomy (human-out-of-the-loop)
+
+---
+
+## Release checklist
+
+- [ ] Architecture context diagram includes model, RAG, tools, logs, suppliers
+- [ ] LLM01–LLM10 scored for this system
+- [ ] High/Critical risks have implemented controls
+- [ ] Direct and indirect injection tests recorded
+- [ ] No secrets in system prompts; auth enforced outside the LLM
+- [ ] Tool permission matrix reviewed; high-impact actions need human approval where required
+- [ ] Tenant/permission-aware retrieval tested
+- [ ] Output sinks encoded/validated
+- [ ] Quotas, timeouts and cost alerts configured
+- [ ] Supply-chain inventory and integrity checks current
+- [ ] Residual risk accepted by named owner with review date
+- [ ] Monitoring mapped to the same ten risk IDs
+
+---
+
+## Key takeaways
+
+* OWASP LLM Top 10 2025 is the **application** layer of AI governance—complementary to NIST AI RMF, EU AI Act and ISO/IEC 42001.
+* Prompt text is not a control plane; **tools, tenancy, encoding, quotas and human approval** are.
+* Evidence without tests is theatre; tests without residual-risk ownership are incomplete.
+* Re-run the matrix on every material change—especially new tools and RAG corpora.
+
+---
+
+## What to do next
+
+1. Copy the **Master control matrix** into your use-case record.
+2. Run the **End-to-end workflow** for your highest-risk LLM system this month.
+3. Align artefacts with [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001) and classification from [NIST AI RMF / EU AI Act](/articles/ai-governance-nist-eu-ai-act).
+4. For the broader 48-week programme view, continue with [Enterprise AI Security Roadmap — Stage 7](/articles/enterprise-ai-security-roadmap).

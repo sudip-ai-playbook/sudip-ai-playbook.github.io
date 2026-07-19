@@ -3,8 +3,6 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import SupportCta from '@site/src/components/SupportCta';
-
 import styles from './index.module.css';
 
 type PathCard = {
@@ -227,13 +225,6 @@ export default function Home(): ReactNode {
           </div>
         </section>
 
-        <section
-          className={clsx(styles.section, styles.sectionMuted)}
-          aria-labelledby="support-playbook">
-          <div className="container">
-            <SupportCta headingId="support-playbook" />
-          </div>
-        </section>
       </main>
     </Layout>
   );

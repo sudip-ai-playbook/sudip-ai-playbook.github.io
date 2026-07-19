@@ -126,7 +126,11 @@ const ARTICLE_SIDEBAR_BY_SLUG: Record<string, ArticleSidebarEntry> = {
   },
   'eu-ai-act-regulation-2024-1689': {
     category: 'Governance',
-    label: 'EU AI Act (2024/1689)',
+    label: 'EU AI Act application playbook',
+  },
+  'owasp-llm-top-10-governance': {
+    category: 'Governance',
+    label: 'OWASP LLM Top 10',
   },
 
   'ai-engineer-roadmap': {

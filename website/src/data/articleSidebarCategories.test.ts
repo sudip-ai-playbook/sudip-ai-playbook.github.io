@@ -23,6 +23,10 @@ describe('articleSidebarCategories', () => {
       'Governance',
     );
     assert.equal(
+      getArticleSidebarCategory('/blog/articles/owasp-llm-top-10-governance'),
+      'Governance',
+    );
+    assert.equal(
       getArticleSidebarCategory('/blog/articles/unknown-future-post'),
       'More',
     );
@@ -39,9 +43,16 @@ describe('articleSidebarCategories', () => {
     assert.equal(
       getArticleSidebarLabel(
         '/blog/articles/eu-ai-act-regulation-2024-1689',
-        'EU AI Act (Regulation 2024/1689): Structured Guide to Risk Tiers, Obligations and Timelines',
+        'EU AI Act Application Playbook: Classify, Control and Evidence Regulation 2024/1689',
       ),
-      'EU AI Act (2024/1689)',
+      'EU AI Act application playbook',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/owasp-llm-top-10-governance',
+        'AI Governance in Practice: Applying the OWASP Top 10 for LLM Applications 2025',
+      ),
+      'OWASP LLM Top 10',
     );
     assert.equal(
       getArticleSidebarLabel('/blog/articles/missing', 'Fallback title'),
