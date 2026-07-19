@@ -26,6 +26,7 @@ describe('HubView orientation', () => {
     expect(screen.getByTestId('hub-primary-cta')).toHaveAttribute('href', '/frame')
     expect(screen.getByTestId('hub-primary-cta')).toHaveTextContent('Start')
 
+    expect(screen.queryByTestId('hub-progress')).not.toBeInTheDocument()
     expect(screen.queryByTestId('start-consulting')).not.toBeInTheDocument()
     expect(screen.queryByTestId('path-learn')).not.toBeInTheDocument()
     expect(screen.queryByTestId('workspace-sync-panel')).not.toBeInTheDocument()

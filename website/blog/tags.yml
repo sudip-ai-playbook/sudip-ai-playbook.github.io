@@ -77,3 +77,8 @@ communication:
   label: Communication
   permalink: /communication
   description: Speaking, writing and influencing with clarity
+
+project-management:
+  label: Project Management
+  permalink: /project-management
+  description: PMI PMBOK study maps, delivery discipline, and project practice

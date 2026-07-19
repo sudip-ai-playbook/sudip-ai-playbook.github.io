@@ -1,0 +1,435 @@
+---
+slug: eu-ai-act-regulation-2024-1689
+title: "EU AI Act (Regulation 2024/1689): Structured Guide to Risk Tiers, Obligations and Timelines"
+description: A structured practitioner map of Regulation (EU) 2024/1689—the Artificial Intelligence Act—covering scope, prohibited practices, high-risk rules, GPAI, transparency, governance, penalties and application dates.
+authors: [sudip]
+tags: [governance, consulting, solution-engineering, playbook, regulation]
+keywords:
+  - EU AI Act
+  - Regulation 2024/1689
+  - Artificial Intelligence Act
+  - high-risk AI
+  - prohibited AI practices
+  - general-purpose AI
+  - AI conformity assessment
+  - Responsible AI
+---
+
+The EU AI Act is the Union’s binding, risk-based rulebook for placing AI systems and general-purpose AI models on the market, putting them into service, and using them. This article maps the regulation’s structure so teams can classify a use case, identify roles, and know which obligations and dates apply.
+
+{/* truncate */}
+
+<ExecSummary>
+Regulation (EU) 2024/1689 uses a risk ladder: prohibit unacceptable practices, impose mandatory requirements on high-risk systems, require transparency for certain systems, and set documentation and systemic-risk duties for general-purpose AI models. Start with scope and role (provider vs deployer), then classify, then build the evidence pack before scale.
+</ExecSummary>
+
+<WhenToUse>
+- Use this as a structured reference to the Act itself (articles, annexes, timelines).
+- For delivery-gate practice with NIST AI RMF, use [AI Governance: NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act).
+- Pair with [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001) and [Responsible AI governance](/learning-map/19-responsible-ai-governance).
+</WhenToUse>
+
+> **Source:** Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 (Artificial Intelligence Act), OJ L, 12.7.2024. Official text: [ELI](http://data.europa.eu/eli/reg/2024/1689/oj). This is a practitioner structure guide, not legal advice.
+
+---
+
+## 1. What the Act is for
+
+**Article 1** sets three linked aims:
+
+1. Improve the functioning of the internal market
+2. Promote human-centric, trustworthy AI
+3. Protect health, safety, fundamental rights (including democracy, rule of law, and environmental protection) while supporting innovation
+
+The Act therefore lays down:
+
+| Pillar | What it covers |
+| --- | --- |
+| Harmonised rules | Placing on the market, putting into service, and use of AI systems |
+| Prohibitions | Certain unacceptable AI practices |
+| High-risk rules | Requirements for systems + obligations for operators |
+| Transparency | Rules for certain AI systems (interaction, synthetic content, deepfakes) |
+| GPAI | Rules for placing general-purpose AI models on the market |
+| Oversight | Market monitoring, surveillance, governance, enforcement |
+| Innovation support | Sandboxes and SME-focused measures |
+
+---
+
+## 2. Who is in scope (and who is out)
+
+### 2.1 In scope — Article 2(1)
+
+The Regulation applies to:
+
+| Actor | Trigger |
+| --- | --- |
+| **Providers** | Place AI systems or GPAI models on the Union market / put AI systems into service — whether established in the EU or a third country |
+| **Deployers** | Established or located in the Union |
+| **Third-country providers/deployers** | Output of the AI system is used in the Union |
+| **Importers and distributors** | AI systems in the supply chain |
+| **Product manufacturers** | Place an AI system on the market with their product under their name/trademark |
+| **Authorised representatives** | Of non-EU providers |
+| **Affected persons** | Located in the Union |
+
+### 2.2 Out of scope or limited — key carve-outs
+
+| Exclusion | Essence |
+| --- | --- |
+| Military, defence, national security | Exclusive use for those purposes (with careful dual-use logic) |
+| Scientific R&D only | Systems/models developed and put into service solely for scientific research and development |
+| Pre-market research/testing | Activity before placing on the market / putting into service (real-world testing is **not** excluded) |
+| Purely personal non-professional use | Deployer obligations do not apply to natural persons in that capacity |
+| Open-source (limited) | Free/open-source AI systems generally out — **except** high-risk, Article 5, or Article 50 systems |
+| International LE/judicial cooperation | Third-country public authorities / international organisations under cooperation frameworks with adequate safeguards |
+| Data protection law | GDPR, LED, ePrivacy, etc. continue to apply; the Act does not replace them |
+
+**Practical rule:** If the output is used in the Union, assume territorial reach even when the model runs outside the EU.
+
+---
+
+## 3. Core definitions you must get right
+
+**Article 3** definitions drive every classification. The ones teams misuse most:
+
+### 3.1 AI system (Art. 3(1))
+
+A machine-based system that:
+
+- Is designed to operate with **varying levels of autonomy**
+- May exhibit **adaptiveness** after deployment
+- For explicit or implicit objectives, **infers** from input how to generate outputs (predictions, content, recommendations, or decisions) that can influence physical or virtual environments
+
+Inference (learning, reasoning, modelling) is the distinguishing feature versus purely hard-coded automation.
+
+### 3.2 Roles along the value chain
+
+| Term | Meaning |
+| --- | --- |
+| **Provider** | Develops (or has developed) an AI system / GPAI model and places it on the market or puts the system into service under its own name/trademark |
+| **Deployer** | Uses an AI system under its authority (not personal non-professional use) |
+| **Importer** | Places a third-country provider’s system on the Union market |
+| **Distributor** | Makes a system available in the supply chain (not provider/importer) |
+| **Operator** | Provider, product manufacturer, deployer, authorised representative, importer, or distributor |
+| **Downstream provider** | Integrates an AI model into an AI system |
+
+**Substantial modification** or putting your own name/trademark on a system can shift who is the provider (Article 25).
+
+### 3.3 Biometrics-related terms (high consequence)
+
+| Term | Short meaning |
+| --- | --- |
+| Biometric identification | Establish identity by comparing biometric data to a database |
+| Biometric verification | One-to-one authentication (“are you who you claim to be?”) — often treated differently from remote identification |
+| Remote biometric identification | Identify without active involvement, typically at a distance, against a reference database |
+| Real-time RBI | Capture, comparison, and identification without significant delay |
+| Emotion recognition | Infer emotions/intentions from biometric data |
+| Biometric categorisation | Assign persons to categories from biometric data |
+
+---
+
+## 4. The risk ladder (how the Act is organised)
+
+```text
+Unacceptable risk  →  Prohibited (Chapter II / Art. 5)
+High risk          →  Mandatory requirements + operator duties (Chapter III)
+Limited / transparency risk → Disclose / label (Chapter IV / Art. 50)
+Minimal risk       →  No specific Act duties (codes of conduct encouraged)
+GPAI models        →  Parallel regime (Chapter V), including systemic-risk layer
+```
+
+Supporting layers:
+
+- **Chapter VI** — sandboxes, real-world testing, SME measures  
+- **Chapters VII–IX** — AI Office, Board, EU database, market surveillance  
+- **Chapter XII** — penalties  
+
+---
+
+## 5. Prohibited AI practices (Article 5)
+
+These apply from **2 February 2025**. Member States set penalties; the upper band for prohibited practices can reach **€35M or 7%** worldwide annual turnover (whichever is higher) for undertakings.
+
+### 5.1 The prohibition list (structured)
+
+| Point | Practice | Core idea |
+| --- | --- | --- |
+| **(a)** | Subliminal / manipulative / deceptive techniques | Materially distort behaviour → significant harm |
+| **(b)** | Exploitation of vulnerabilities | Age, disability, or specific social/economic situation → significant harm |
+| **(c)** | Social scoring | Score over time from behaviour/traits → detrimental treatment in unrelated contexts or disproportionate treatment |
+| **(d)** | Crime-risk prediction from profiling alone | Predict offending risk **solely** from profiling / personality traits (human assessment of objective facts can still be supported) |
+| **(e)** | Untargeted facial scraping | Create/expand facial recognition DBs from internet/CCTV scraping |
+| **(f)** | Emotion inference at work/education | Infer emotions in workplace or education — except medical/safety intent |
+| **(g)** | Sensitive biometric categorisation | Infer race, political opinions, trade-union membership, religion/beliefs, sex life/sexual orientation from biometrics (labelling/filtering of lawful LE datasets excepted) |
+| **(h)** | Real-time RBI in publicly accessible spaces for law enforcement | **Banned by default**, with narrow, heavily conditioned exceptions |
+
+### 5.2 Real-time RBI exceptions (Art. 5(1)(h)) — only if strictly necessary
+
+1. Targeted search for victims of abduction, trafficking, sexual exploitation; search for missing persons  
+2. Prevention of a specific, substantial, imminent threat to life/physical safety, or a genuine present/foreseeable terrorist threat  
+3. Localisation/identification of a suspect of an Annex II offence punishable by ≥ 4 years custodial sentence in the Member State  
+
+Even then: prior judicial/independent authorisation (urgency rules), fundamental-rights impact assessment, EU database registration, temporal/geographic/personal limits, and **no adverse legal decision based solely on the system output**. Member States may choose **not** to enable these exceptions at all.
+
+---
+
+## 6. High-risk AI systems (Chapter III)
+
+### 6.1 Two classification routes — Article 6
+
+**Route A — Product safety (Art. 6(1))**  
+High-risk if the AI system is (or is a safety component of) a product under Annex I Union harmonisation legislation **and** that product requires third-party conformity assessment.
+
+**Route B — Annex III use cases (Art. 6(2))**  
+Stand-alone high-risk uses in the areas below, unless the Art. 6(3) derogation applies.
+
+### 6.2 Annex III areas (map)
+
+| # | Area | Examples of covered uses |
+| --- | --- | --- |
+| 1 | Biometrics | Remote biometric identification; sensitive biometric categorisation; emotion recognition (where permitted) |
+| 2 | Critical infrastructure | Safety components in critical digital infrastructure, road traffic, water/gas/heating/electricity |
+| 3 | Education & vocational training | Admission/assignment; evaluating learning outcomes; level-of-education decisions; exam proctoring |
+| 4 | Employment & workers’ management | Recruitment/selection; decisions on terms, promotion, termination; task allocation; performance monitoring |
+| 5 | Essential private/public services | Public benefits eligibility; credit scoring (fraud detection excepted); life/health insurance risk & pricing; emergency call triage/dispatch |
+| 6 | Law enforcement | Victim-risk assessment; polygraphs; evidence reliability; certain reoffending risk tools; profiling in investigation (where permitted) |
+| 7 | Migration, asylum, border control | Polygraphs; entry/irregular-migration/health risk; asylum/visa eligibility support; detection/recognition/identification (travel-doc verification excepted) |
+| 8 | Justice & democratic processes | Assisting judicial authorities in applying law to facts; influencing election/referendum outcomes or voting behaviour (admin campaign logistics tools generally out) |
+
+### 6.3 Non-high-risk derogation — Article 6(3)
+
+An Annex III system is **not** high-risk if it does **not** pose a significant risk of harm to health, safety, or fundamental rights — including by not materially influencing decision outcomes — **and** one of these applies:
+
+1. Narrow procedural task  
+2. Improves a previously completed human activity  
+3. Detects decision-pattern deviations without replacing the human assessment (with proper review)  
+4. Preparatory task only  
+
+**Hard stop:** If the system performs **profiling** of natural persons, it remains high-risk.  
+Providers relying on the derogation must **document** the assessment and **register** the system (Art. 49(2)).
+
+### 6.4 Mandatory requirements for high-risk systems — Section 2
+
+| Article | Requirement |
+| --- | --- |
+| **9** | Risk management system (lifecycle, iterative) |
+| **10** | Data and data governance (quality, bias, representativeness) |
+| **11** | Technical documentation (Annex IV) |
+| **12** | Record-keeping / automatic logs |
+| **13** | Transparency + instructions for use for deployers |
+| **14** | Human oversight (incl. two-person rule for certain biometric ID uses) |
+| **15** | Accuracy, robustness, cybersecurity |
+
+### 6.5 Provider obligations — Article 16 (headline list)
+
+Providers must, among other duties:
+
+- Ensure compliance with Section 2 requirements  
+- Run a quality management system (Art. 17)  
+- Keep documentation (Art. 18) and logs (Art. 19)  
+- Complete conformity assessment (Art. 43) before market/service  
+- Draw up EU declaration of conformity (Art. 47) and affix CE marking (Art. 48)  
+- Register in the EU database where required (Art. 49)  
+- Take corrective actions (Art. 20)  
+- Meet accessibility requirements  
+
+Non-EU providers appoint an **authorised representative** (Art. 22). Importers and distributors have verification and halt-if-noncompliant duties (Arts. 23–24).
+
+### 6.6 Deployer obligations — Articles 26–27 (headline list)
+
+Deployers must:
+
+- Use systems per instructions for use  
+- Assign competent human oversight  
+- Ensure input data relevance/representativeness where they control inputs  
+- Monitor operation; suspend and escalate if the system presents a risk  
+- Keep logs under their control (≥ 6 months, subject to other law)  
+- Inform workers before workplace deployment of high-risk AI  
+- Inform natural persons subject to Annex III decisioning (with LED rules for LE)  
+- Perform a **fundamental rights impact assessment** before certain public-sector / public-service / credit / insurance deployments (Art. 27)  
+- Register use when they are public authorities (Art. 49(3))  
+
+### 6.7 Conformity assessment — Article 43 (simplified)
+
+| System type | Default path |
+| --- | --- |
+| Annex III point 1 (biometrics) | Internal control **or** notified-body assessment (Annex VII) — notified body required in several “no standards / partial application” cases |
+| Annex III points 2–8 | Internal control (Annex VI) — Commission may later elevate some to Annex VII |
+| Annex I product-related | Follow the product legislation’s procedure, with Chapter III Section 2 requirements integrated |
+
+**Substantial modification** after placing on the market triggers a new assessment. Pre-determined learning changes documented at initial assessment are not substantial modifications.
+
+---
+
+## 7. Transparency obligations (Article 50)
+
+Applies to certain systems **whether or not** they are high-risk.
+
+| Who | Obligation |
+| --- | --- |
+| Providers of systems that interact directly with people | Design so people know they are interacting with AI — unless obvious to a reasonably informed person (LE detection tools: limited exception) |
+| Providers of synthetic audio/image/video/text systems | Machine-readable marking that output is artificially generated/manipulated (assistive editing / non-substantial alteration excepted) |
+| Deployers of emotion recognition / biometric categorisation | Inform exposed persons; process personal data under GDPR/LED as applicable |
+| Deployers of deepfakes | Disclose artificial generation/manipulation (artistic/satirical works: lighter disclosure form) |
+| Deployers of AI text informing the public on matters of public interest | Disclose AI generation — unless human review/editorial responsibility applies |
+
+Information must be clear, distinguishable, timely, and accessible.
+
+---
+
+## 8. General-purpose AI models (Chapter V)
+
+### 8.1 Concepts
+
+| Term | Meaning |
+| --- | --- |
+| **GPAI model** | Model with significant generality, competent across a wide range of distinct tasks; can be integrated into many downstream systems (research/prototype-only before market excluded) |
+| **GPAI system** | AI system based on a GPAI model that can serve many purposes |
+| **Systemic risk** | Risk specific to high-impact capabilities with significant Union-market impact or serious negative effects on health, safety, security, rights, or society at scale |
+
+### 8.2 Systemic-risk classification — Article 51
+
+A GPAI model has systemic risk if:
+
+1. It has **high-impact capabilities**, or  
+2. The Commission designates it as equivalent (Annex XIII criteria)
+
+**Presumption:** cumulative training compute **> 10²⁵ FLOP** → high-impact capabilities.
+
+Providers must notify the AI Office within **two weeks** of meeting (or knowing they will meet) the threshold, with a narrow “specific characteristics” rebuttal path.
+
+### 8.3 Obligations for all GPAI providers — Article 53
+
+1. Technical documentation (Annex XI) — available to AI Office / national authorities  
+2. Information for downstream providers (Annex XII)  
+3. Copyright-compliance policy (incl. TDM opt-outs under Directive (EU) 2019/790 Art. 4(3))  
+4. Publicly available summary of training content (AI Office template)
+
+**Open-source relief:** free/open licence + public parameters/weights/architecture/usage info → (a)+(b) documentation duties eased — **not** for systemic-risk models, and **not** for copyright policy / training-content summary.
+
+### 8.4 Extra obligations for systemic-risk GPAI — Article 55
+
+- Model evaluation + adversarial testing  
+- Systemic-risk assessment and mitigation at Union level  
+- Serious-incident tracking and reporting  
+- Adequate cybersecurity of model and physical infrastructure  
+
+Codes of practice (Art. 56) are the intended compliance bridge until harmonised standards exist.
+
+---
+
+## 9. Innovation support (Chapter VI)
+
+| Measure | Purpose |
+| --- | --- |
+| **AI regulatory sandboxes** (Art. 57) | Controlled development/testing under supervision; at least one per Member State by 2 Aug 2026 |
+| **Real-world testing** outside sandboxes (Art. 60) | Allowed for Annex III systems under plan, authority approval, consent, time limits, safeguards |
+| **SME measures** (Art. 62) | Priority sandbox access, guidance channels, fee proportionality, templates |
+| **Microenterprise QMS relief** (Art. 63) | Simplified quality-management elements (not a free pass on Arts. 9–15 duties) |
+
+---
+
+## 10. Governance and enforcement (map)
+
+| Body / role | Function |
+| --- | --- |
+| **AI Office** (Commission) | Union expertise; GPAI supervision/enforcement; supports Board |
+| **European Artificial Intelligence Board** | Member State coordination, advice, consistency |
+| **Advisory forum** | Stakeholder technical input |
+| **Scientific panel** | Independent experts; systemic-risk alerts |
+| **National competent authorities** | Notifying authority + market surveillance authority; single point of contact |
+| **EDPS** | Market surveillance for Union institutions/bodies |
+| **EU database** (Art. 71) | Registration of Annex III high-risk systems (and Art. 6(3) “not high-risk” claims) |
+
+Affected persons: complaint to market surveillance (Art. 85); right to explanation for certain Annex III deployer decisions (Art. 86); whistleblower protection via Directive (EU) 2019/1937 (Art. 87).
+
+---
+
+## 11. Penalties (Chapter XII) — order of magnitude
+
+| Infringement class | Ceiling (undertakings: higher of amount or %) |
+| --- | --- |
+| Prohibited practices (Art. 5) | €35M or **7%** turnover |
+| Most other operator/notified-body / Art. 50 breaches | €15M or **3%** turnover |
+| Incorrect/incomplete/misleading information to authorities | €7.5M or **1%** turnover |
+| GPAI provider breaches (Commission fines) | €15M or **3%** turnover |
+
+For SMEs/start-ups, the **lower** of the percentage or fixed amount applies. Union institutions: EDPS fines (lower absolute caps).
+
+---
+
+## 12. Application timeline (Article 113)
+
+| Date | What applies |
+| --- | --- |
+| **1 Aug 2024** | Entry into force (20 days after OJ publication; published 12 Jul 2024) |
+| **2 Feb 2025** | Chapters I–II: general provisions + **prohibitions** |
+| **2 May 2025** | GPAI codes of practice targeted ready |
+| **2 Aug 2025** | Governance, notified bodies, GPAI obligations, penalties framework (excl. Art. 101 nuances), confidentiality (Art. 78) |
+| **2 Aug 2026** | **General application** of the Regulation |
+| **2 Aug 2027** | Art. 6(1) high-risk product rules + corresponding obligations; GPAI models already on market must have completed compliance steps (Art. 111(3)) |
+| **2 Aug 2030 / 31 Dec 2030** | Extended transition for certain public-authority high-risk uses and large-scale FSJ IT systems (Art. 111) |
+
+**Legacy systems:** High-risk systems on the market before 2 Aug 2026 generally need compliance only if subject to **significant design changes** thereafter — with stricter public-authority timelines.
+
+---
+
+## 13. Practitioner workflow (use this structure)
+
+```text
+1. Is it an AI system / GPAI model under Art. 3?
+2. Is any Art. 2 exclusion engaged?
+3. Which roles apply (provider / deployer / importer / distributor / manufacturer)?
+4. Does Art. 5 prohibit the practice? → stop or redesign
+5. High-risk?
+   a. Annex I product safety component path?
+   b. Annex III use case?
+   c. Art. 6(3) derogation documented + registered?
+6. If high-risk → Section 2 requirements + Art. 16/26 duties + conformity + CE + database
+7. Art. 50 transparency applicable?
+8. GPAI involved? → Art. 53 (+ 55 if systemic risk)
+9. Evidence pack: risk management, data governance, docs, logs, oversight, FRIA/DPIA as needed
+10. Calendar: which Art. 113 date binds this system?
+```
+
+---
+
+## 14. How this article fits the playbook
+
+| Need | Go here |
+| --- | --- |
+| Legal structure of Regulation 2024/1689 | **This article** |
+| Enterprise Step-5 gate + NIST operationalisation | [NIST AI RMF and the EU AI Act](/articles/ai-governance-nist-eu-ai-act) |
+| Management-system certification spine | [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001) |
+| Learning-map framing | [Responsible AI governance](/learning-map/19-responsible-ai-governance) |
+
+---
+
+## Annex quick index (official)
+
+| Annex | Content |
+| --- | --- |
+| **I** | Union harmonisation legislation (product safety lists) |
+| **II** | Criminal offences for real-time RBI exception (h)(iii) |
+| **III** | High-risk use-case areas |
+| **IV** | Technical documentation for high-risk systems |
+| **V** | EU declaration of conformity content |
+| **VI** | Conformity assessment — internal control |
+| **VII** | Conformity assessment — QMS + technical documentation (notified body) |
+| **VIII** | EU database registration fields |
+| **IX** | Real-world testing registration fields |
+| **X** | Large-scale FSJ IT systems (transition) |
+| **XI–XII** | GPAI technical docs + downstream transparency |
+| **XIII** | Systemic-risk designation criteria |
+
+---
+
+## Closing rule
+
+Treat the Act as a **classification and evidence machine**, not a principles poster:
+
+1. **Role** first  
+2. **Prohibition** screen second  
+3. **High-risk / transparency / GPAI** third  
+4. **Dates and artefacts** last — then build  
+
+If you need the delivery operating model around this structure, continue with the [NIST + EU AI Act practice article](/articles/ai-governance-nist-eu-ai-act).

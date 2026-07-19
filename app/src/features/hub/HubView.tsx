@@ -55,11 +55,6 @@ export function HubView() {
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </motion.div>
-        {framed ? (
-          <p className="mt-6 text-sm text-ink-muted" data-testid="hub-progress">
-            {progress.completedCount} of {progress.totalCount} · {project.outcome}
-          </p>
-        ) : null}
       </motion.section>
     </div>
   )

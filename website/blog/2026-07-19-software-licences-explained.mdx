@@ -1,0 +1,1565 @@
+---
+slug: software-licences-explained
+title: "Software Licences Explained: What You Can and Cannot Do"
+description: A practitioner guide to proprietary, permissive, copyleft, network-copyleft and source-available software licences—what each family allows, restricts, and how enterprises stay compliant.
+authors: [sudip]
+tags: [governance, security, solution-engineering, playbook, architecture]
+keywords:
+  - software licences
+  - open source licensing
+  - GPL
+  - AGPL
+  - Apache 2.0
+  - MIT licence
+  - copyleft
+  - source available
+  - licence compliance
+  - SPDX
+---
+
+A software licence is a legal agreement that gives a person or organisation permission to use software in ways that would otherwise be controlled by copyright law. The copyright owner is the **licensor**, while the person or organisation receiving the permissions is the **licensee**.
+
+{/* truncate */}
+
+<ExecSummary>
+Licences answer what you may run, modify, distribute, host and commercialise—and under which conditions. Treat “open source,” “source available,” “freeware” and “no licence” as different categories; identify the exact SPDX expression; then map use (internal, distributed, SaaS, managed service) to notice, source and patent obligations before you ship.
+</ExecSummary>
+
+<WhenToUse>
+- Use this when adopting dependencies, publishing containers, offering managed services, or choosing an outbound licence for your own project.
+- Pair with [Enterprise AI security roadmap](/articles/enterprise-ai-security-roadmap) and [Responsible AI governance](/learning-map/19-responsible-ai-governance) when licensing sits inside a wider control stack.
+</WhenToUse>
+
+> **Important:** This article provides general educational guidance rather than legal advice. Licence interpretation can depend on jurisdiction, architecture, distribution method, contracts and the facts of a particular implementation.
+
+In the United Kingdom, copyright protection normally arises automatically when an original work is created. Registration is not required. Without permission from the copyright owner, activities such as copying, modifying, distributing or commercially exploiting software may infringe copyright. A licence defines which of these activities are permitted and under what conditions.
+
+Software licences therefore answer questions such as:
+
+* Can the software be used commercially?
+* Can it be modified?
+* Can it be included in a proprietary product?
+* Must modifications be published?
+* Can the software be offered as a cloud service?
+* Must users receive the source code?
+* Can the software be sold?
+* Must copyright and attribution notices be preserved?
+* Are patent rights included?
+* Can the software name or logo be used?
+* Can additional restrictions be imposed?
+
+The exact answer depends on the licence, its version, any exceptions, and how the software is being used.
+
+---
+
+## 1. Copyright and Licensing Are Different
+
+Copyright gives the creator or copyright owner exclusive legal rights over the software. A licence grants selected permissions without necessarily transferring ownership.
+
+For example, a developer may own the copyright in a software library but license it under MIT. Users receive broad permissions, but the original developer still owns the copyright.
+
+A licence may grant permission to:
+
+* Run the software.
+* Copy it.
+* Study the source code.
+* Modify it.
+* Create derivative works.
+* Distribute source code.
+* Distribute compiled binaries.
+* Sublicense it.
+* Sell copies.
+* Include it in another product.
+* Offer services based on it.
+
+The licence may attach conditions such as attribution, source-code disclosure, preservation of notices or use of the same licence for derivative works.
+
+### Owning a copy is not owning the copyright
+
+Downloading or purchasing software does not normally transfer its copyright. You receive only the rights granted by the licence.
+
+For example, purchasing Microsoft Office, an enterprise database or a commercial SaaS subscription does not give the customer the right to copy the source code, sell modified versions or create a competing product.
+
+---
+
+## 2. What Happens When Software Has No Licence?
+
+A public GitHub repository is not automatically open-source software.
+
+When no licence is provided, normal copyright rules apply. The copyright holder generally retains all rights, meaning other people do not automatically receive permission to reproduce, modify, distribute or create derivative works from the code.
+
+You may be able to:
+
+* Read publicly visible code.
+* Fork a repository where platform terms technically enable forking.
+* Refer to ideas that are not themselves protected expressions.
+* Use the software where another valid agreement grants permission.
+
+You should not assume you may:
+
+* Copy the code into your project.
+* Modify and redistribute it.
+* Publish a fork.
+* Include it in a commercial system.
+* Package it into a product.
+* Remove the author’s name.
+* Offer it as a service.
+
+A repository being publicly accessible only means that the source is visible. It does not necessarily mean that the source is open source or available for unrestricted use.
+
+---
+
+## 3. Open Source, Source Available, Freeware and Public Domain
+
+These terms are often incorrectly used as though they mean the same thing.
+
+### 3.1 Open-source software
+
+An open-source licence must grant more than access to the source code. Under the Open Source Definition, the licence must permit redistribution, access to source code, modifications and derived works, and it must not discriminate against people, groups or fields of activity.
+
+Therefore, a genuine open-source licence cannot normally say:
+
+* “Non-commercial use only.”
+* “Not for military use.”
+* “Not for use by competitors.”
+* “Not for use by cloud providers.”
+* “Only educational institutions may use this.”
+* “You must obtain permission before selling it.”
+
+Restrictions of this kind may be valid contractual licence terms, but they generally prevent the licence from meeting the Open Source Definition.
+
+Open source does **not** mean:
+
+* No copyright.
+* No obligations.
+* No commercial use.
+* No licence.
+* No attribution.
+* No legal risk.
+* No cost.
+* No support fees.
+
+Open-source software may be sold commercially. GPL, MIT, Apache and other open-source licences permit commercial use, although their compliance conditions differ.
+
+### 3.2 Source-available software
+
+Source-available software allows users to inspect the source but may restrict production use, cloud services, commercial activities, competitors or redistribution.
+
+For example, Business Source License 1.1 permits copying, modification, redistribution and non-production use, while production use depends on an Additional Use Grant. The software later transitions to a specified Change Licence.
+
+Source-available licences may include:
+
+* Business Source License, or BSL.
+* Server Side Public License, or SSPL.
+* Elastic License.
+* Commons Clause combinations.
+* Vendor-specific community licences.
+* Non-commercial source licences.
+
+SSPL is considered source available rather than an OSI-approved open-source licence.
+
+Source availability is therefore not enough. You must inspect the licence’s production, commercial and managed-service restrictions.
+
+### 3.3 Freeware
+
+Freeware normally means that software can be used without paying a licence fee.
+
+It does not necessarily allow users to:
+
+* View the source code.
+* Modify the program.
+* Redistribute it.
+* Sell it.
+* Reverse-engineer it.
+* Use it commercially.
+* Host it for third parties.
+
+Examples might include free desktop applications, free editions of proprietary platforms or free developer tools.
+
+“Free of charge” describes price. It does not describe legal freedom.
+
+### 3.4 Freemium software
+
+Freemium software provides a limited version for free and charges for advanced capabilities.
+
+Restrictions may relate to:
+
+* Number of users.
+* Storage.
+* API calls.
+* Processing capacity.
+* Commercial features.
+* Security capabilities.
+* Support.
+* High availability.
+* Audit logs.
+* Enterprise identity integration.
+
+The free tier remains governed by a proprietary or source-available licence unless an open-source licence is explicitly provided.
+
+### 3.5 Public-domain software
+
+Public-domain software is software for which copyright has expired, does not apply or has been validly waived.
+
+Public-domain-equivalent instruments include CC0 and the Unlicense, although the legal effectiveness of copyright waivers can vary by jurisdiction. A permissive licence such as 0BSD may sometimes provide clearer contractual permissions.
+
+Public-domain status does not automatically grant:
+
+* Trademark rights.
+* Patent rights.
+* Rights to third-party code included in the project.
+* A warranty.
+* Indemnification.
+* Rights over personal data or confidential information.
+
+---
+
+## 4. The Main Software-Licence Families
+
+Software licences can be organised into six major groups:
+
+| Licence family         | Main purpose                                    | Can be used commercially? | Can proprietary software include it?         | Source-disclosure requirement   |
+| ---------------------- | ----------------------------------------------- | ------------------------: | -------------------------------------------: | ------------------------------- |
+| Proprietary            | Retain vendor control                           |   Usually, under contract |                      Not normally applicable | Usually none provided           |
+| Permissive open source | Maximise adoption and reuse                     |                       Yes |                                          Yes | Usually no                      |
+| Weak copyleft          | Keep certain components open                    |                       Yes |                       Often, with conditions | Covered files or libraries      |
+| Strong copyleft        | Keep distributed derivatives open               |                       Yes | Generally difficult for combined derivatives | Complete corresponding source   |
+| Network copyleft       | Extend copyleft to network use                  |                       Yes |   High compliance risk for combined services | Modified network-served program |
+| Source available       | Provide visibility with commercial restrictions |                   Depends |                                      Depends | Defined by custom terms         |
+
+---
+
+## 5. Proprietary Software Licences
+
+A proprietary licence keeps most rights with the software owner.
+
+Examples include:
+
+* Desktop end-user licence agreements.
+* Enterprise software agreements.
+* SaaS terms of service.
+* Cloud marketplace subscriptions.
+* Per-user licences.
+* Per-device licences.
+* Per-core or per-CPU licences.
+* Concurrent-user licences.
+* Site licences.
+* Original equipment manufacturer licences.
+* Developer licences.
+* Evaluation and trial licences.
+
+### What is normally allowed
+
+Depending on the agreement, users may be allowed to:
+
+* Install the software on an authorised device.
+* Use it for an authorised business purpose.
+* Give access to a defined number of users.
+* Create permitted backups.
+* Use vendor APIs.
+* Configure the software.
+* Use documentation.
+* Receive updates and support.
+* Run it within an agreed geographical region.
+* Transfer the licence where the contract permits it.
+
+### What is normally restricted
+
+A proprietary licence may prohibit:
+
+* Sharing licence keys.
+* Exceeding authorised users or devices.
+* Copying the software.
+* Redistributing it.
+* Reselling it.
+* Publishing benchmarks.
+* Reverse-engineering it.
+* Decompiling or disassembling it.
+* Circumventing access controls.
+* Using it to build a competing product.
+* Providing it as a managed service.
+* Allowing third-party access.
+* Removing copyright notices.
+* Using it outside the agreed territory.
+* Processing prohibited categories of data.
+* Using an evaluation licence in production.
+
+Some statutory exceptions may override contractual restrictions in certain jurisdictions, so a prohibition in an agreement is not always the final legal answer.
+
+### Common proprietary licence metrics
+
+#### Named-user licence
+
+Only specifically registered users may access the software.
+
+You generally cannot share one account among a team unless expressly permitted.
+
+#### Concurrent-user licence
+
+Any authorised employee may use the software, but only a fixed number of users may use it simultaneously.
+
+#### Per-device licence
+
+The licence is attached to a particular computer, server or device.
+
+#### Per-core or per-processor licence
+
+The cost depends on the processing resources on which the software runs. Virtualisation and autoscaling can make compliance complicated.
+
+#### Site licence
+
+The software may be used at a specified office, campus or organisational site.
+
+#### Enterprise licence
+
+Broad use is permitted across a defined legal entity or corporate group. Subsidiaries, contractors and acquired companies may not automatically be covered.
+
+#### OEM licence
+
+The software may be embedded in or distributed with authorised hardware or another approved product.
+
+#### Evaluation licence
+
+Use is limited to testing, demonstrations or proof-of-concept work. Production workloads are usually prohibited.
+
+#### Academic licence
+
+Use may be limited to teaching or non-commercial academic research.
+
+---
+
+## 6. Permissive Open-Source Licences
+
+Permissive licences allow broad reuse with relatively few conditions.
+
+The best-known permissive licences are:
+
+* MIT.
+* Apache License 2.0.
+* BSD 2-Clause.
+* BSD 3-Clause.
+* ISC.
+* 0BSD.
+
+They generally permit:
+
+* Commercial use.
+* Private use.
+* Modification.
+* Copying.
+* Distribution.
+* Forking.
+* Selling copies.
+* Incorporation into proprietary products.
+* Distribution without releasing your proprietary source code.
+
+However, copyright, licence and attribution notices usually need to be preserved.
+
+### 6.1 MIT Licence
+
+The MIT Licence permits users to use, copy, modify, merge, publish, distribute, sublicense and sell copies of the software. Its principal condition is that the copyright and permission notice must be included in copies or substantial portions of the software. It also includes warranty and liability disclaimers.
+
+#### You can
+
+* Use MIT software commercially.
+* Modify it.
+* Sell a product containing it.
+* Include it in closed-source software.
+* Offer a SaaS product based on it.
+* Fork and redistribute it.
+* Re-license your own modifications.
+* Charge for support or hosting.
+
+#### You must
+
+* Preserve the copyright notice.
+* Preserve the MIT licence text in copies or substantial portions.
+* Avoid implying that the original author provides a warranty.
+
+#### You cannot
+
+* Remove required notices from redistributed copies.
+* Claim ownership of the original author’s code.
+* Assume trademark rights.
+* Assume the author will indemnify you.
+* Hold the author responsible where the disclaimer is legally effective.
+
+#### Enterprise example
+
+A company includes an MIT-licensed Python package in a proprietary AI platform.
+
+The company can keep its platform source code private. It should include the package’s copyright and MIT licence notice in a third-party notices file, software documentation or another appropriate distribution location.
+
+### 6.2 BSD 2-Clause Licence
+
+BSD 2-Clause is similar to MIT.
+
+It allows redistribution in source and binary forms, with or without modification, provided that copyright notices, conditions and disclaimers are preserved.
+
+#### You can
+
+* Use it commercially.
+* Modify it.
+* Include it in proprietary products.
+* Distribute binaries without publishing your source code.
+* Sell products containing it.
+
+#### You must
+
+* Preserve notices in source distributions.
+* Reproduce required notices in documentation or other materials accompanying binary distributions.
+
+### 6.3 BSD 3-Clause Licence
+
+BSD 3-Clause adds a non-endorsement condition.
+
+You cannot use the names of copyright holders or contributors to promote a derived product without prior written permission.
+
+For example, using BSD-licensed software created by a university does not automatically allow you to advertise:
+
+> “Officially approved by the university.”
+
+The software licence and the organisation’s trademark or endorsement rights are separate.
+
+### 6.4 Apache License 2.0
+
+Apache 2.0 is a permissive licence with more detailed provisions than MIT or BSD.
+
+It permits:
+
+* Commercial use.
+* Modification.
+* Distribution.
+* Sublicensing.
+* Proprietary derivative works.
+* Source and binary distribution.
+
+It also includes an express contributor patent licence. The patent grant may terminate for a party that initiates certain patent litigation relating to the licensed work.
+
+#### You must
+
+* Include a copy of the Apache 2.0 licence.
+* Mark files that you have changed.
+* Preserve applicable copyright, patent, trademark and attribution notices.
+* Include relevant NOTICE-file attributions where the original distribution contains a NOTICE file.
+
+The NOTICE file does not change the licence but may contain attribution information that must be reproduced in an appropriate form.
+
+#### You can
+
+* Build a proprietary commercial product.
+* Keep your own source code closed.
+* Distribute modified binaries.
+* Charge for the product.
+* Offer the product as SaaS.
+* Add your own copyright notices.
+* License your original additions under different terms.
+
+#### You cannot
+
+* Remove applicable notices.
+* Misrepresent the origin of the software.
+* Assume that the licence grants rights to the licensor’s trademarks.
+* Ignore a NOTICE file.
+* Assume that the licence provides support, warranty or indemnity.
+
+#### Apache 2.0 versus MIT
+
+Apache 2.0 is often preferred by enterprises because it explicitly addresses:
+
+* Patent grants.
+* Patent termination.
+* Modified-file notices.
+* Contribution licensing.
+* NOTICE files.
+* Trademark exclusions.
+
+MIT is shorter and simpler, but it does not contain an equally detailed express patent framework.
+
+---
+
+## 7. Weak Copyleft Licences
+
+Weak copyleft licences require certain parts of a distributed system to remain open while allowing combination with proprietary software under defined conditions.
+
+Common examples include:
+
+* Mozilla Public License 2.0.
+* GNU Lesser General Public License.
+* Eclipse Public License 2.0.
+* Common Development and Distribution License.
+
+The exact boundary differs by licence.
+
+### 7.1 Mozilla Public License 2.0
+
+MPL 2.0 applies copyleft primarily at the file level. Files containing MPL-covered code generally remain under MPL when distributed, while separate new files may remain proprietary. Mozilla describes MPL as sitting between permissive licences and stronger GNU copyleft licences.
+
+#### You can
+
+* Use MPL software commercially.
+* Modify it.
+* Combine it with proprietary code.
+* Statically link it into a larger proprietary application.
+* Keep new, separate proprietary files closed.
+* Sell the combined product.
+
+#### You must
+
+When distributing the software:
+
+* Keep MPL-covered source files under MPL.
+* Make modifications to MPL-covered files available.
+* Preserve relevant licence notices.
+* Tell recipients how to obtain the MPL-covered source code.
+* Ensure proprietary terms do not interfere with recipients’ MPL rights.
+
+New files that contain no MPL code are not automatically subject to MPL merely because they form part of the same larger application.
+
+#### SaaS effect
+
+MPL generally treats distribution as delivery of a copy. Server-side code that users merely interact with over the web is not normally treated as distributed under MPL. Client-side HTML, CSS and JavaScript sent to the user can constitute distribution.
+
+#### Example
+
+You modify an MPL-licensed authentication module and integrate it into a proprietary AI platform.
+
+You may keep the platform’s separate proprietary files closed. When distributing the platform, you must provide the source for the MPL-covered files, including your modifications to those files.
+
+### 7.2 GNU Lesser General Public License
+
+LGPL is commonly used for software libraries.
+
+It allows proprietary applications to use an LGPL-covered library, provided that users retain the ability to modify or replace the LGPL component and the distributor complies with the licence’s source and relinking requirements.
+
+#### You can
+
+* Use an LGPL library in a commercial product.
+* Link a proprietary application to the library.
+* Charge for the combined product.
+* Keep the application’s independent source code proprietary.
+* Modify the LGPL library.
+
+#### You must generally
+
+* Keep the LGPL-covered library and modifications under LGPL.
+* Provide the corresponding source for the LGPL-covered component when distribution triggers that requirement.
+* Preserve notices.
+* Make clear that the LGPL library is used.
+* Permit reverse engineering for debugging modifications to the LGPL component.
+* Provide a method that allows users to replace or relink the LGPL component where required.
+
+LGPL permits combined works under terms of the distributor’s choice only where those terms do not restrict modification of the LGPL portions or reverse engineering for debugging those modifications.
+
+#### Dynamic versus static linking
+
+Dynamic linking often makes replacement of the LGPL library easier.
+
+Static linking may require additional measures, such as providing object files or another relinking mechanism. The exact requirements depend on the LGPL version and architecture.
+
+Do not rely only on the terms “static” and “dynamic.” Review:
+
+* The licence version.
+* How components exchange data.
+* Whether users can replace the library.
+* What is included in the distributed binary.
+* Whether modifications were made.
+* Whether a linking exception applies.
+
+### 7.3 Eclipse Public License 2.0
+
+EPL 2.0 is a weak copyleft licence often used in enterprise and Java ecosystems.
+
+It generally requires source availability for modifications to the EPL-covered program when the relevant distribution conditions apply, while allowing separate modules to use other licences.
+
+EPL 2.0 also contains provisions addressing patents and compatibility through optional secondary-licence mechanisms. The Eclipse Foundation warns that inclusion on an approved licence list does not automatically mean every licence can be combined with every other licence.
+
+---
+
+## 8. Strong Copyleft: GNU General Public License
+
+GPL is a strong copyleft licence.
+
+It permits commercial use, private use, modification and distribution. However, when a covered or derivative work is conveyed to recipients, the complete corresponding source must generally be available under GPL, and recipients must receive the same freedoms.
+
+### You can
+
+* Use GPL software commercially.
+* Run it internally.
+* Modify it privately.
+* Sell copies.
+* Charge for distribution.
+* Charge for support, installation or consulting.
+* Redistribute it.
+* Build a commercial business around it.
+
+### You must, when distributing a covered work
+
+* Provide the applicable GPL licence.
+* Preserve copyright and legal notices.
+* Mark modified versions appropriately.
+* License the covered work under GPL.
+* Provide complete corresponding source.
+* Include necessary build and installation materials where required.
+* Avoid imposing additional restrictions.
+* Allow recipients to redistribute the software.
+
+### You cannot
+
+* Distribute GPL-covered software under a licence that removes recipients’ GPL rights.
+* Distribute a GPL derivative as proprietary software.
+* Provide the GPL software to recipients under a restrictive NDA that prevents redistribution.
+* Supply only binaries without satisfying the applicable source-code requirements.
+* Require downstream recipients to pay you merely for exercising GPL rights.
+* Prevent lawful redistribution by recipients.
+* Use a proprietary EULA to override the GPL.
+
+### Private and internal modification
+
+GPL does not require every modification to be made public.
+
+A person or company may modify GPL software and use it privately or internally without publishing the modifications. Source-sharing obligations are generally associated with conveying or distributing the covered software outside the organisation.
+
+### Source code does not always have to be published to the entire world
+
+A common misconception is that GPL always requires source code to be posted publicly.
+
+When GPL software is distributed, the source must generally be made available to the recipients in the manner required by the licence. Those recipients then have the right to redistribute it.
+
+The licence does not necessarily require the original distributor to create a public GitHub repository for everyone.
+
+### Selling GPL software
+
+GPL software can be sold.
+
+However, a recipient who obtains a copy normally receives the right to redistribute that copy, including without charge. The seller cannot prevent this by adding downstream restrictions.
+
+### GPL and proprietary applications
+
+Combining GPL code with proprietary code can create significant compliance risk.
+
+Where the combination forms a single derivative or combined work, the GPL may require the complete combined work to be distributed under GPL.
+
+However, placing two programs on the same device does not automatically combine them. Mere aggregation of independent programs may remain permissible.
+
+Relevant factors may include:
+
+* Static or dynamic linking.
+* Shared internal data structures.
+* Plug-in architecture.
+* Function calls.
+* Whether components are specifically designed for each other.
+* Whether they can operate independently.
+* Whether communication occurs through standard protocols.
+* Whether the integration creates one program or an aggregate.
+* The amount and nature of copied code.
+
+Containers, virtual machines or microservices do not automatically resolve the question. The GNU FAQ states that putting components in separate containers does not itself change whether they form a single work or an aggregate.
+
+Architectural separation can be relevant, but it is not a guaranteed method of avoiding copyleft obligations.
+
+---
+
+## 9. Network Copyleft: GNU Affero General Public License
+
+AGPL 3.0 is based on GPL 3.0 but adds a network-use provision.
+
+It was designed for software that users interact with over a network.
+
+### The key difference
+
+Under ordinary GPL, running a modified program on a server without distributing a copy to users generally does not trigger the same source-sharing obligation.
+
+Under AGPL, when a modified version allows users to interact with it remotely through a computer network, those users must be offered an opportunity to receive the corresponding source for that modified version.
+
+### You can
+
+* Use AGPL software commercially.
+* Host it.
+* Modify it.
+* Sell it.
+* Offer services around it.
+* Use it internally.
+* Redistribute it.
+
+### You must
+
+Depending on the use:
+
+* Preserve the AGPL licence and notices.
+* Make distributed covered source available.
+* Keep covered derivatives under AGPL.
+* Provide remote users with access to corresponding source where the network-use clause applies.
+* Avoid additional restrictions.
+
+### You cannot
+
+* Modify an AGPL application, provide the modified functionality to network users and remove the required source offer.
+* Convert an AGPL derivative into a closed-source product without separate permission.
+* Hide modifications where AGPL requires them to be available.
+* Add terms preventing recipients from exercising AGPL rights.
+
+### SaaS example
+
+A company modifies an AGPL-licensed analytics dashboard and exposes the modified version to customers through a web application.
+
+The company may need to provide those network users with an accessible source-code offer covering the modified AGPL program.
+
+### Important architecture point
+
+Moving AGPL software to another:
+
+* Server.
+* Virtual machine.
+* Container.
+* Kubernetes namespace.
+* Network.
+* Repository.
+* Microservice.
+
+does not automatically eliminate AGPL obligations.
+
+The important questions include:
+
+* Was the AGPL program modified?
+* Are users interacting with it remotely?
+* Does proprietary code form a combined or derivative work?
+* Is the proprietary system merely communicating through an independent standard interface?
+* Are copies being distributed?
+* What source-code offer is provided?
+* Are licence notices preserved?
+
+Infrastructure isolation may support a separation argument, but the licence analysis depends on the legal and technical relationship between the components.
+
+---
+
+## 10. Source-Available Licences
+
+Source-available licences are frequently used by database, infrastructure, observability and developer-tool vendors.
+
+They may permit:
+
+* Reading source code.
+* Internal evaluation.
+* Development use.
+* Testing.
+* Limited production use.
+* Modifying source.
+* Redistributing certain versions.
+* Using the software below a revenue or capacity threshold.
+
+They may prohibit:
+
+* Offering the software as a competing hosted service.
+* Production use above a threshold.
+* Removing licence-key controls.
+* Providing managed services.
+* Commercial redistribution.
+* Creating competing products.
+* Offering substantially similar functionality.
+* Using enterprise-only features without payment.
+
+### Business Source License
+
+BSL is parameterised. The licensor specifies:
+
+* A Change Date.
+* A Change Licence.
+* An Additional Use Grant.
+* Any production-use restrictions.
+
+A project under BSL may later convert to an open-source licence, but the currently released version remains subject to its BSL conditions until the applicable change occurs.
+
+### Elastic License 2.0
+
+Elastic License 2.0 grants rights to use, copy, distribute, make available and create derivative works, but those rights are subject to licence-specific limitations.
+
+A company must inspect whether its intended activity amounts to:
+
+* Internal use.
+* A hosted service.
+* A managed service.
+* Resale.
+* Circumvention of licence-key functionality.
+* Distribution of modified software.
+
+### Commons Clause
+
+The Commons Clause is an additional restriction sometimes attached to an otherwise permissive licence. It restricts certain sales of the software.
+
+“Apache 2.0 with Commons Clause” should not be treated as equivalent to ordinary Apache 2.0.
+
+Always evaluate the complete licence expression rather than relying on the familiar part of its name.
+
+---
+
+## 11. Dual and Multi-Licensing
+
+Under dual licensing, the same software is offered under two or more licences.
+
+For example:
+
+* GPL or a paid commercial licence.
+* AGPL or an enterprise licence.
+* MPL or a commercial OEM licence.
+* Community licence or enterprise subscription.
+* Apache 2.0 or a proprietary feature licence.
+
+### How it works
+
+The user normally selects one available licence path.
+
+#### Open-source path
+
+The user follows the open-source licence and accepts its obligations.
+
+#### Commercial path
+
+The user pays for a commercial licence that may allow:
+
+* Closed-source distribution.
+* OEM embedding.
+* Removal of copyleft obligations.
+* Private modifications.
+* Enterprise support.
+* Indemnification.
+* Additional warranty.
+* Proprietary plug-ins.
+* Managed-service rights.
+
+### What dual licensing does not mean
+
+It does not necessarily mean that users can combine the most favourable terms from both licences.
+
+A user normally complies with one selected licence unless the licensing terms explicitly permit mixing.
+
+### Contributor ownership
+
+A company can dual-license the complete project only if it has sufficient rights over all relevant contributions.
+
+This may be achieved through:
+
+* Copyright assignment.
+* Contributor licence agreements.
+* Employment agreements.
+* Corporate contribution agreements.
+* Inbound-equals-outbound licensing.
+* Separate contributor permissions.
+
+Where independent contributors retain copyright and have granted rights only under GPL, relicensing their contributions may require their permission.
+
+---
+
+## 12. Creative Commons and Software
+
+Creative Commons licences are primarily intended for creative works such as:
+
+* Articles.
+* Documentation.
+* Images.
+* Videos.
+* Training materials.
+* Presentations.
+* Data visualisations.
+* Website content.
+
+Creative Commons does not recommend using its standard licences for computer software or hardware. Standard software licences are designed to address matters such as source code, object code, linking and distribution.
+
+A project may therefore use different licences for different components:
+
+| Component                | Possible licence          |
+| ------------------------ | ------------------------- |
+| Source code              | Apache 2.0                |
+| Documentation            | CC BY 4.0                 |
+| Website articles         | CC BY-SA 4.0              |
+| Logo and brand           | All rights reserved       |
+| Example data             | CC0                       |
+| Machine-learning model   | Model-specific licence    |
+| Third-party dependencies | Their respective licences |
+
+Do not assume that a repository-level software licence automatically covers every dataset, model, image, font or logo in the repository.
+
+---
+
+## 13. Licence Permissions Explained
+
+### Commercial use
+
+Commercial use means using the software in connection with business or revenue-generating activity.
+
+Commercial use may include:
+
+* Internal business systems.
+* Paid SaaS.
+* Consulting.
+* Selling devices containing the software.
+* Advertising-supported applications.
+* Paid mobile apps.
+* Enterprise deployments.
+* Reselling services.
+
+All OSI-approved open-source licences permit commercial use. A licence that prohibits all commercial use does not satisfy the Open Source Definition’s field-of-endeavour requirements.
+
+Commercial use does not mean that all commercial distribution models are compatible with every licence.
+
+### Modification
+
+Permission to modify means that source code may be changed or adapted.
+
+Modification may trigger obligations such as:
+
+* Marking changed files.
+* Publishing modifications.
+* Licensing modifications under the same licence.
+* Providing corresponding source.
+* Preserving authorship notices.
+* Documenting changes.
+
+### Distribution
+
+Distribution generally involves providing a copy to another person or legal entity.
+
+Examples include:
+
+* Shipping a binary.
+* Publishing a package.
+* Giving software to a customer.
+* Including software in a device.
+* Sending source code to a contractor.
+* Providing downloadable JavaScript.
+* Publishing a container image.
+* Supplying a virtual-machine image.
+
+Whether transfers within a corporate group count as internal use can depend on whether the entities are legally distinct and on the licence and jurisdiction.
+
+### Private use
+
+Private use normally means running or modifying the software without providing copies or access to external parties.
+
+Many copyleft obligations are not triggered by purely private modification. AGPL requires additional attention where modified software is made available for remote network interaction.
+
+### Sublicensing
+
+Sublicensing means granting another party rights under your own licence arrangement.
+
+MIT and Apache provide broad sublicensing permissions. GPL instead gives downstream recipients rights directly under the original licence framework and does not rely on conventional sublicensing.
+
+### Patent use
+
+An express patent licence gives recipients permission to practise certain patent claims controlled by contributors.
+
+Apache 2.0, GPL 3.0, AGPL 3.0, MPL 2.0 and EPL 2.0 include express patent provisions.
+
+MIT and BSD do not contain equally explicit patent grants. This does not necessarily mean that no implied patent rights could ever exist, but organisations with meaningful patent exposure may prefer licences with express patent terms.
+
+### Trademark use
+
+Software copyright licences do not usually grant broad rights to use:
+
+* Product names.
+* Logos.
+* Company names.
+* Certification marks.
+* Contributor branding.
+
+Apache 2.0 explicitly excludes general trademark permission apart from limited descriptive and attribution uses.
+
+You may be allowed to say:
+
+> “This product includes Apache-licensed component X.”
+
+You may not automatically be allowed to call your modified product:
+
+> “Official Apache X Enterprise Edition.”
+
+---
+
+## 14. Licence Compatibility
+
+Licence compatibility asks whether code under different licences can legally be combined and distributed together.
+
+Compatibility depends on:
+
+* Exact licence versions.
+* “Only” versus “or later” wording.
+* Linking exceptions.
+* Secondary-licence clauses.
+* Additional permissions.
+* Additional restrictions.
+* The relationship between components.
+* Whether a derivative work is created.
+* The intended outbound licence.
+
+### Simplified compatibility guide
+
+| Incoming licence |                                 Proprietary product |  GPL 2.0-only project |         GPL 3.0 project | Main concern                        |
+| ---------------- | --------------------------------------------------: | --------------------: | ----------------------: | ----------------------------------- |
+| MIT              |                                         Usually yes |           Usually yes |             Usually yes | Preserve notice                     |
+| BSD 2-Clause     |                                         Usually yes |           Usually yes |             Usually yes | Preserve notice                     |
+| BSD 3-Clause     |                                         Usually yes |           Usually yes |             Usually yes | No endorsement                      |
+| Apache 2.0       |                                                 Yes | Generally problematic |    Generally compatible | Patent terms                        |
+| MPL 2.0          |                         Yes, with file-level duties |           Conditional |             Conditional | Covered files remain MPL            |
+| LGPL             |                                Yes, with conditions |           Conditional |             Conditional | Relinking and library source        |
+| GPL              | Generally not for a combined proprietary derivative |     Version-sensitive |       Version-sensitive | Whole-work copyleft                 |
+| AGPL             |         High risk for proprietary combined services |               Limited | GPLv3 combination rules | Network source obligation           |
+| Source available |                           Depends entirely on terms |               Depends |                 Depends | Commercial and service restrictions |
+
+Apache states that Apache 2.0 is considered compatible with GPL 3.0. It is not generally treated as compatible with GPL 2.0-only because Apache 2.0 contains requirements not found in that older licence.
+
+This table is a screening tool, not a legal compatibility opinion.
+
+---
+
+## 15. Distribution Scenarios and Their Likely Effect
+
+### Scenario 1: Running open-source software internally
+
+You install an unmodified GPL application on an internal server.
+
+Normally:
+
+* Commercial internal use is allowed.
+* You do not have to publish your proprietary business data.
+* You do not have to release unrelated internal applications.
+* Purely internal modifications ordinarily do not trigger public GPL disclosure.
+
+### Scenario 2: Shipping a binary to customers
+
+You include GPL software in a customer appliance.
+
+You will likely need to:
+
+* Include the GPL.
+* Preserve notices.
+* Provide corresponding source.
+* Provide installation information where GPL 3.0 requires it.
+* Ensure the distributed covered work is under GPL.
+* Avoid restrictive downstream terms.
+
+### Scenario 3: MIT dependency in SaaS
+
+Your proprietary SaaS backend uses an MIT package.
+
+You can normally:
+
+* Keep your backend proprietary.
+* Charge users.
+* Modify the package.
+* Host it at scale.
+
+You should preserve the MIT notice where copies or substantial portions are distributed. Maintaining a third-party notice register is good practice even where server-side code is not delivered to users.
+
+### Scenario 4: Apache library in a mobile app
+
+You include an Apache 2.0 library in an application-store binary.
+
+You should:
+
+* Include the Apache licence.
+* Preserve applicable notices.
+* Reproduce relevant NOTICE attributions.
+* Mark modified files where applicable.
+* Avoid implying trademark endorsement.
+
+### Scenario 5: LGPL library in a desktop product
+
+You dynamically link an LGPL library to a proprietary desktop application.
+
+You may keep the application proprietary, but you should:
+
+* Keep the LGPL library under LGPL.
+* Provide the library source where required.
+* Preserve notices.
+* Allow library replacement.
+* Avoid terms prohibiting reverse engineering needed to debug modifications to the library.
+
+### Scenario 6: MPL component in a proprietary product
+
+You modify two MPL-covered files and add ten new proprietary files.
+
+When distributing the product:
+
+* The modified MPL files must remain available under MPL.
+* The ten independent files may remain proprietary.
+* Recipients must be told how to obtain the MPL-covered source.
+
+### Scenario 7: AGPL application exposed online
+
+You modify an AGPL application and provide it to customers through a web interface.
+
+You should expect to provide remote users with access to the corresponding source of the modified AGPL-covered program.
+
+### Scenario 8: Source-available database in production
+
+A BSL database permits evaluation but limits production use.
+
+You cannot assume that free download means free production deployment. You must inspect the Additional Use Grant, Change Date, Change Licence and production limitation.
+
+### Scenario 9: Public GitHub code with no licence
+
+You discover useful code in a public repository with no licence.
+
+You should not copy it into a commercial project merely because it can be viewed or forked. Obtain permission or use a properly licensed alternative.
+
+---
+
+## 16. Software, Containers and Cloud Deployment
+
+Container images can contain many separately licensed components:
+
+* Linux packages.
+* Runtime libraries.
+* Language dependencies.
+* Application code.
+* Fonts.
+* Web assets.
+* Database clients.
+* Command-line tools.
+* Model-serving libraries.
+* Monitoring agents.
+
+A Dockerfile with no licence does not override the licences of everything installed by that Dockerfile.
+
+### Container distribution
+
+Publishing a container image may distribute:
+
+* Compiled binaries.
+* Shared libraries.
+* Package metadata.
+* Licence files.
+* Source archives.
+* Modified system packages.
+
+This can trigger source and notice obligations even where the application is primarily delivered as SaaS.
+
+### Kubernetes separation
+
+Running components in separate pods does not automatically mean they are legally separate works.
+
+Relevant considerations include:
+
+* Whether the components were designed to operate together.
+* Communication protocols.
+* Shared memory or internal APIs.
+* Code copying.
+* Linking.
+* Plug-in interfaces.
+* Independent usefulness.
+* Deployment and packaging.
+* How the combined system is distributed.
+
+### Managed services
+
+Before offering third-party software as a managed service, check for:
+
+* AGPL obligations.
+* SSPL restrictions.
+* Elastic License restrictions.
+* BSL production limitations.
+* “Service bureau” restrictions.
+* Hosting restrictions.
+* Multi-tenant restrictions.
+* OEM requirements.
+* Trademark rules.
+* Support and certification requirements.
+
+---
+
+## 17. AI Models, Datasets and Software Licences
+
+AI systems frequently combine several separately licensed layers:
+
+1. Application source code.
+2. Orchestration frameworks.
+3. Model-serving infrastructure.
+4. Model weights.
+5. Training data.
+6. Evaluation datasets.
+7. Embedding models.
+8. Vector databases.
+9. User-interface assets.
+10. Generated outputs.
+11. Documentation.
+12. Cloud APIs.
+
+An open-source application does not automatically make its model weights open source.
+
+Similarly, an openly downloadable model may have restrictions covering:
+
+* Commercial use.
+* Number of users.
+* Revenue.
+* Training competing models.
+* Prohibited-use policies.
+* High-risk activities.
+* Attribution.
+* Redistribution.
+* Hosting.
+* Output ownership.
+* Fine-tuned derivatives.
+* Acceptable-use requirements.
+
+A model may use an “open” label while providing fewer freedoms than an OSI-approved software licence.
+
+For every AI component, record:
+
+* Copyright licence.
+* Model licence.
+* Dataset licence.
+* Acceptable-use policy.
+* API terms.
+* Hosting restrictions.
+* Geographic restrictions.
+* Data-retention terms.
+* Output terms.
+* Patent conditions.
+* Attribution requirements.
+
+---
+
+## 18. Common Licensing Mistakes
+
+### Mistake 1: “It is on GitHub, so we can use it”
+
+Public visibility does not grant copyright permission.
+
+### Mistake 2: “Open source means non-commercial”
+
+Open-source software can be used and sold commercially.
+
+### Mistake 3: “We did not change the code, so there are no obligations”
+
+Unmodified redistribution may still require:
+
+* Licence text.
+* Copyright notices.
+* Attribution.
+* NOTICE files.
+* Source availability.
+* Written offers.
+
+### Mistake 4: “We use SaaS, so licences do not matter”
+
+SaaS can still involve:
+
+* AGPL.
+* Source-available hosting restrictions.
+* Client-side code distribution.
+* Container distribution.
+* Customer deployment.
+* Managed-service limitations.
+
+### Mistake 5: “Putting it in another container avoids copyleft”
+
+Container boundaries are not automatically legal boundaries.
+
+### Mistake 6: “MIT means no obligations”
+
+MIT still requires preservation of its copyright and licence notice in copies or substantial portions.
+
+### Mistake 7: “Apache and MIT are identical”
+
+Apache contains more detailed patent, NOTICE, contribution and modified-file provisions.
+
+### Mistake 8: “GPL requires publishing everything publicly”
+
+GPL usually requires providing corresponding source when covered software is conveyed. It does not automatically require every private modification to be published to the world.
+
+### Mistake 9: “AGPL means any network use publishes our entire platform”
+
+AGPL analysis depends on modification, covered works, combination and network interaction. It should not be reduced to the assumption that every adjacent service automatically becomes AGPL.
+
+### Mistake 10: “Open-source licences grant brand rights”
+
+Copyright permission does not automatically grant trademark endorsement or naming rights.
+
+### Mistake 11: “The direct dependency is the only licence that matters”
+
+Transitive dependencies, build tools, copied snippets, fonts, models and container packages can carry different obligations.
+
+### Mistake 12: “The licence never changes”
+
+A vendor may relicense later versions. Your rights in an earlier version usually remain governed by the licence under which that version was validly obtained, but upgrading may introduce different terms.
+
+---
+
+## 19. Enterprise Licence-Compliance Process
+
+A mature organisation should treat software licensing as an engineering, procurement, security and legal-control process.
+
+### Step 1: Identify every component
+
+Maintain an inventory covering:
+
+* Direct dependencies.
+* Transitive dependencies.
+* Container packages.
+* Operating-system packages.
+* JavaScript bundles.
+* Mobile libraries.
+* Build-time tools.
+* Copied source snippets.
+* Models.
+* Datasets.
+* Fonts.
+* Images.
+* Documentation.
+
+### Step 2: Capture the exact licence expression
+
+Do not record only “GPL” or “BSD.”
+
+Record exact identifiers such as:
+
+* `MIT`
+* `Apache-2.0`
+* `BSD-3-Clause`
+* `MPL-2.0`
+* `LGPL-2.1-only`
+* `LGPL-2.1-or-later`
+* `GPL-2.0-only`
+* `GPL-2.0-or-later`
+* `GPL-3.0-only`
+* `AGPL-3.0-only`
+* `GPL-2.0-only WITH Classpath-exception-2.0`
+
+SPDX provides standard identifiers, canonical names and vetted licence texts to support consistent software-component documentation.
+
+### Step 3: Classify the use
+
+For each component, determine whether it is:
+
+* Used only for development.
+* Used internally.
+* Modified.
+* Linked.
+* Embedded.
+* Distributed as source.
+* Distributed as a binary.
+* Included in a container.
+* Sent to customers.
+* Installed on customer infrastructure.
+* Exposed through a network.
+* Offered as a managed service.
+* Used to generate client-side code.
+
+### Step 4: Assess compatibility
+
+Compare inbound licences with:
+
+* Your product’s outbound licence.
+* Customer contractual requirements.
+* App-store terms.
+* Cloud marketplace terms.
+* Government procurement conditions.
+* Confidentiality obligations.
+* Export-control requirements.
+* Patent policies.
+* Contribution policies.
+
+### Step 5: Create compliance artefacts
+
+Depending on the licences, prepare:
+
+* `LICENSE`
+* `NOTICE`
+* `THIRD-PARTY-NOTICES`
+* Copyright attribution list.
+* Source-code download page.
+* Written source offer.
+* Modified-file notices.
+* Build scripts.
+* Installation information.
+* Software bill of materials.
+* Licence approval record.
+* Legal review decision.
+* Open-source contribution record.
+
+### Step 6: Automate scanning
+
+Software-composition-analysis tools can detect:
+
+* Package licences.
+* Copyleft dependencies.
+* Unknown licences.
+* Licence conflicts.
+* Licence changes.
+* Prohibited packages.
+* Missing notices.
+* Vulnerable dependencies.
+
+Automation should support—not replace—human review. Scanners may misidentify licence text, miss copied code or fail to interpret custom exceptions.
+
+### Step 7: Monitor changes
+
+Reassess licensing when:
+
+* Upgrading a dependency.
+* Changing from self-hosted to SaaS.
+* Creating a mobile or desktop distribution.
+* Publishing container images.
+* Adding customer deployment options.
+* Acquiring another company.
+* Moving to a cloud marketplace.
+* Adding a commercial edition.
+* Accepting external contributions.
+* Changing the product’s outbound licence.
+
+---
+
+## 20. Choosing a Licence for Your Own Project
+
+### Choose MIT when
+
+* Maximum adoption is the priority.
+* Proprietary reuse is acceptable.
+* You want a short, simple licence.
+* You are comfortable without detailed express patent language.
+
+### Choose Apache 2.0 when
+
+* You want permissive commercial adoption.
+* Patent protection is important.
+* Enterprise users are expected.
+* You want explicit contribution and NOTICE provisions.
+
+### Choose BSD 3-Clause when
+
+* You want permissive reuse.
+* You want an explicit non-endorsement clause.
+* You are comfortable with relatively concise terms.
+
+### Choose MPL 2.0 when
+
+* Modifications to your source files should remain open.
+* Proprietary products should still be able to use the project.
+* File-level copyleft provides the desired balance.
+
+### Choose LGPL when
+
+* You are publishing a reusable library.
+* Proprietary applications may link to it.
+* Modifications to the library itself should remain open.
+* User replacement and relinking rights are acceptable.
+
+### Choose GPL when
+
+* Distributed derivatives should remain free and open.
+* You do not want the covered program incorporated into a closed-source combined derivative.
+* Community reciprocity is more important than unrestricted proprietary adoption.
+
+### Choose AGPL when
+
+* The software is primarily server-side.
+* You want modifications used through network services to be shared with remote users.
+* You accept that some enterprises may avoid the dependency because of compliance concerns.
+
+### Choose a proprietary licence when
+
+* Source code must remain confidential.
+* Distribution must be tightly controlled.
+* Use must be limited by users, devices, revenue or territory.
+* You need paid OEM, SaaS or managed-service rights.
+* Customers require warranty, support or indemnification.
+
+### Choose dual licensing when
+
+* You want a community edition and a commercial alternative.
+* Open-source users can comply with copyleft.
+* Proprietary customers can purchase broader rights.
+* You maintain sufficient ownership or contributor permissions.
+
+### Choose source available when
+
+* Code visibility is desirable.
+* You want to restrict competing cloud services or production use.
+* You accept that the licence may not qualify as open source.
+* Custom commercial restrictions are strategically important.
+
+---
+
+## 21. A Practical Licence Decision Tree
+
+Ask the following questions in order.
+
+### 1. Is there a licence?
+
+If not, do not assume permission.
+
+### 2. Is it an OSI-approved open-source licence?
+
+If not, classify it as proprietary, source available, public domain or custom.
+
+### 3. Is commercial use allowed?
+
+Check the exact text rather than relying on “free” or “community.”
+
+### 4. Are you modifying the software?
+
+Record which files, modules or libraries are changed.
+
+### 5. Are you distributing any copy?
+
+Include source packages, binaries, container images, JavaScript, devices and customer deployments.
+
+### 6. Is it being used only internally?
+
+Confirm whether contractors, subsidiaries and customers count as outside recipients.
+
+### 7. Is it being exposed as a network service?
+
+Review AGPL and source-available hosting restrictions.
+
+### 8. Is it linked to proprietary code?
+
+Determine whether the relevant licence uses file-level, library-level or whole-work copyleft.
+
+### 9. Are notices required?
+
+Preserve licence, copyright, attribution and NOTICE materials.
+
+### 10. Is source disclosure required?
+
+Determine:
+
+* What source must be provided.
+* To whom.
+* For how long.
+* In what format.
+* With which build and installation materials.
+
+### 11. Are there patent or trademark issues?
+
+Do not confuse source-code permission with patent clearance or brand permission.
+
+### 12. Are there licence exceptions?
+
+A Classpath, linking, font, runtime or other exception may materially change the result.
+
+---
+
+## Conclusion
+
+Software licensing is not simply a choice between “free” and “paid.” It is a framework that determines how software may be used, changed, combined, hosted, distributed and commercialised.
+
+The most important distinctions are:
+
+* **Proprietary licences** retain extensive vendor control.
+* **Permissive licences** allow broad proprietary and commercial reuse with limited notice obligations.
+* **Weak copyleft licences** keep defined files or libraries open.
+* **Strong copyleft licences** require distributed covered derivatives to remain under the same licence.
+* **Network copyleft licences** can extend source-sharing duties to modified software used through a network.
+* **Source-available licences** expose code while restricting particular commercial or production activities.
+* **Publicly visible code without a licence** is not automatically reusable.
+* **Software licences do not automatically grant patent, trademark, data or model rights.**
+
+Before adopting any software component, an organisation should identify the exact licence, understand how the component is integrated, determine whether it is modified or distributed, evaluate SaaS and managed-service implications, preserve required notices and maintain an auditable software bill of materials.
+
+The correct question is not merely:
+
+> “Is this software open source?”
+
+The more useful questions are:
+
+> “Which exact version and licence apply, what activity are we performing, which obligations does that activity trigger, and can we satisfy those obligations within our technical and commercial model?”

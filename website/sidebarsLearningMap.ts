@@ -37,6 +37,19 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Project Management',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'project-management/overview',
+      },
+      items: [
+        'project-management/overview',
+        'project-management/pmbok-fifth-edition',
+      ],
+    },
+    {
+      type: 'category',
       label: '1. Business & consulting',
       collapsed: true,
       items: [

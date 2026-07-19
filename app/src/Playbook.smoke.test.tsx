@@ -104,7 +104,7 @@ describe('End-to-end journey smoke', () => {
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(framedProject))
     render(<App />)
     expect(screen.getByTestId('hub-primary-cta')).toHaveTextContent('Continue')
-    expect(screen.getByTestId('hub-progress')).toBeInTheDocument()
+    expect(screen.queryByTestId('hub-progress')).not.toBeInTheDocument()
     expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
     expect(screen.getByTestId('nav-buy-me-a-coffee')).toHaveAttribute(
       'href',
