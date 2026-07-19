@@ -132,8 +132,59 @@
   padding: 0;
 }
 
+.taskBoard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ase-space-4);
+}
+
+.todayBlock {
+  border: 1px solid var(--ase-rule);
+  border-radius: var(--ifm-global-radius);
+  padding: var(--ase-space-3) var(--ase-space-4);
+  background: var(--ifm-background-color);
+}
+
+.todayEmpty {
+  margin: 0;
+  color: var(--ase-muted);
+  font-size: 0.92rem;
+}
+
+.daySection {
+  border: 1px solid var(--ase-rule);
+  border-radius: var(--ifm-global-radius);
+  padding: var(--ase-space-2) var(--ase-space-3);
+}
+
+.daySectionSummary {
+  cursor: pointer;
+  color: var(--ase-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.daySectionSummary::-webkit-details-marker {
+  display: none;
+}
+
+.daySectionSummary::before {
+  content: '▸ ';
+  color: var(--ase-muted);
+}
+
+.daySection[open] .daySectionSummary::before {
+  content: '▾ ';
+}
+
+.daySection[open] .taskList {
+  margin-top: var(--ase-space-2);
+}
+
 .taskItem,
-.carryoverItem {
+.futureItem,
+.pastItem {
   padding: var(--ase-space-2) 0;
   border-bottom: 1px solid var(--ase-rule);
 }
@@ -160,17 +211,28 @@
   flex-shrink: 0;
 }
 
-.dateTag {
+.dateTag,
+.dateTagFuture,
+.dateTagPast {
   flex-shrink: 0;
   min-width: 3.25rem;
-  color: var(--ase-color-warning);
   font-size: 0.8rem;
   font-weight: 700;
 }
 
+.dateTag,
+.dateTagPast {
+  color: var(--ase-color-warning);
+}
+
+.dateTagFuture {
+  color: var(--ase-color-info);
+}
+
 .taskEdit,
 .taskEditDone,
-.carryoverEdit {
+.futureEdit,
+.pastEdit {
   flex: 1;
   min-width: 0;
   border: none;
@@ -184,7 +246,8 @@
 
 .taskEdit:focus,
 .taskEditDone:focus,
-.carryoverEdit:focus {
+.futureEdit:focus,
+.pastEdit:focus {
   outline: none;
   border-bottom: 1px solid var(--ifm-color-primary);
 }
@@ -194,11 +257,19 @@
   text-decoration: line-through;
 }
 
-.carryoverEdit {
+.futureEdit {
+  color: var(--ase-color-info);
+}
+
+.futureEdit:focus {
+  border-bottom-color: var(--ase-color-info);
+}
+
+.pastEdit {
   color: var(--ase-color-warning);
 }
 
-.carryoverEdit:focus {
+.pastEdit:focus {
   border-bottom-color: var(--ase-color-warning);
 }
 

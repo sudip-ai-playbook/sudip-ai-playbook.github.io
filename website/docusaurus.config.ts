@@ -1,6 +1,10 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import {
+  BUY_ME_A_COFFEE_URL,
+  KO_FI_URL,
+} from './src/constants/support';
 
 const config: Config = {
   title: 'AI Solution Engineering Playbook',
@@ -176,7 +180,51 @@ const config: Config = {
         href: 'https://sudip-ai-playbook.github.io/',
         target: '_self',
       },
-      items: [],
+      items: [
+        {
+          type: 'dropdown',
+          label: 'Menu',
+          position: 'right',
+          items: [
+            {label: 'Home', to: '/'},
+            {label: 'Learning Map', to: '/learning-map/overview'},
+            {label: 'Guide', to: '/ai-solution-engineering/overview'},
+            {label: 'Roadmaps', to: '/roadmaps/overview'},
+            {label: 'Startup', to: '/startup-entrepreneurship/overview'},
+            {label: 'Framework', to: '/docs/framework'},
+            {label: 'Articles', to: '/articles'},
+            {label: 'Daily Notes', to: '/notes'},
+            {
+              type: 'html',
+              value: '<hr class="dropdown-separator" />',
+            },
+            {
+              label: 'Interactive playbook',
+              href: 'https://sudip-ai-playbook.github.io/',
+            },
+            {
+              label: 'ConsultAI OS',
+              href: 'https://sudip-ai-playbook.github.io/consult',
+            },
+            {
+              type: 'html',
+              value: '<hr class="dropdown-separator" />',
+            },
+            {
+              label: 'Buy me a coffee',
+              href: BUY_ME_A_COFFEE_URL,
+            },
+            {
+              label: 'Support on Ko-fi',
+              href: KO_FI_URL,
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
+            },
+          ],
+        },
+      ],
     },
     footer: {
       style: 'light',

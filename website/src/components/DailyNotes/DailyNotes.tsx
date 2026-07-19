@@ -3,6 +3,7 @@ import type {
   FormEvent,
   KeyboardEvent,
   ReactNode,
+  SyntheticEvent,
 } from 'react';
 import {useEffect, useState} from 'react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
@@ -16,19 +17,26 @@ import {
   formatDateKey,
   formatDisplayDate,
   formatShortDate,
+  FUTURE_SECTION_LABEL,
   getQuickNoteForDay,
   getTasksForDay,
   isValidDateKey,
   listCompletedTasksByDate,
-  listIncompleteTasksExcludingDay,
+  listFutureIncompleteTasks,
+  listPastIncompleteTasks,
   loadDailyNotesStore,
+  PAST_SECTION_LABEL,
   saveDailyNotesStore,
   setQuickNoteForDay,
   setTasksForDay,
+  shouldExpandDaySection,
   updateTaskText,
   type DailyNotesStore,
   type DailyTask,
+  type IncompleteTaskRef,
 } from './notesStorage';
+
+type TaskTone = 'future' | 'past';
 
 function updateTaskDone(
   tasks: DailyTask[],
@@ -48,15 +56,43 @@ type TaskRowProps = {
   task: DailyTask;
   dateKey: string;
   dateTag?: string;
+  tone?: TaskTone;
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
 };
 
+function resolveDateTagClass(tone: TaskTone | undefined): string {
+  if (tone === 'future') {
+    return styles.dateTagFuture;
+  }
+  if (tone === 'past') {
+    return styles.dateTagPast;
+  }
+  return styles.dateTag;
+}
+
+function resolveEditClass(
+  done: boolean,
+  tone: TaskTone | undefined,
+): string {
+  if (done) {
+    return styles.taskEditDone;
+  }
+  if (tone === 'future') {
+    return styles.futureEdit;
+  }
+  if (tone === 'past') {
+    return styles.pastEdit;
+  }
+  return styles.taskEdit;
+}
+
 function TaskRow({
   task,
   dateKey,
   dateTag,
+  tone,
   onToggle,
   onEdit,
   onDelete,
@@ -93,13 +129,18 @@ function TaskRow({
     onDelete(dateKey, task.id);
   }
 
-  const isCarryover = dateTag !== undefined;
+  const isDated = dateTag !== undefined;
+  const itemClassName = isDated
+    ? tone === 'future'
+      ? styles.futureItem
+      : styles.pastItem
+    : styles.taskItem;
 
   return (
     <li
-      className={isCarryover ? styles.carryoverItem : styles.taskItem}
+      className={itemClassName}
       data-testid={
-        isCarryover
+        isDated
           ? `daily-notes-open-${task.id}`
           : `daily-notes-task-${task.id}`
       }>
@@ -112,18 +153,14 @@ function TaskRow({
             data-testid={`daily-notes-checkbox-${task.id}`}
           />
           {dateTag ? (
-            <span className={styles.dateTag} data-testid={`daily-notes-date-tag-${task.id}`}>
+            <span
+              className={resolveDateTagClass(tone)}
+              data-testid={`daily-notes-date-tag-${task.id}`}>
               {dateTag}
             </span>
           ) : null}
           <input
-            className={
-              task.done
-                ? styles.taskEditDone
-                : isCarryover
-                  ? styles.carryoverEdit
-                  : styles.taskEdit
-            }
+            className={resolveEditClass(task.done, tone)}
             type="text"
             value={draft}
             onChange={handleDraftChange}
@@ -143,6 +180,61 @@ function TaskRow({
         </button>
       </div>
     </li>
+  );
+}
+
+type DaySectionProps = {
+  label: string;
+  testId: string;
+  tasks: IncompleteTaskRef[];
+  tone: TaskTone;
+  onToggle: (dateKey: string, taskId: string, done: boolean) => void;
+  onEdit: (dateKey: string, taskId: string, text: string) => void;
+  onDelete: (dateKey: string, taskId: string) => void;
+};
+
+function DaySection({
+  label,
+  testId,
+  tasks,
+  tone,
+  onToggle,
+  onEdit,
+  onDelete,
+}: DaySectionProps): ReactNode {
+  const expandByDefault = shouldExpandDaySection(tasks.length);
+  const [isOpen, setIsOpen] = useState(expandByDefault);
+
+  function handleSectionToggle(
+    event: SyntheticEvent<HTMLDetailsElement>,
+  ): void {
+    setIsOpen(event.currentTarget.open);
+  }
+
+  return (
+    <details
+      className={styles.daySection}
+      open={isOpen}
+      onToggle={handleSectionToggle}
+      data-testid={testId}>
+      <summary className={styles.daySectionSummary}>
+        {label} ({tasks.length})
+      </summary>
+      <ul className={styles.taskList} data-testid={`${testId}-list`}>
+        {tasks.map((item) => (
+          <TaskRow
+            key={`${item.dateKey}-${item.task.id}`}
+            task={item.task}
+            dateKey={item.dateKey}
+            dateTag={formatShortDate(item.dateKey)}
+            tone={tone}
+            onToggle={onToggle}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ))}
+      </ul>
+    </details>
   );
 }
 
@@ -241,8 +333,11 @@ export default function DailyNotes(): ReactNode {
   const isToday = selectedDateKey === todayKey;
   const dayTasks = getTasksForDay(store, selectedDateKey);
   const openTasks = dayTasks.filter((task) => !task.done);
-  const carryovers = isToday
-    ? listIncompleteTasksExcludingDay(store, todayKey)
+  const futureTasks = isToday
+    ? listFutureIncompleteTasks(store, todayKey)
+    : [];
+  const pastTasks = isToday
+    ? listPastIncompleteTasks(store, todayKey)
     : [];
   const quickNote = getQuickNoteForDay(store, selectedDateKey);
   const completedGroups = listCompletedTasksByDate(store);
@@ -250,7 +345,13 @@ export default function DailyNotes(): ReactNode {
     (total, group) => total + group.tasks.length,
     0,
   );
-  const hasAnyTasks = carryovers.length > 0 || openTasks.length > 0;
+  const hasFutureEntries = futureTasks.length > 0;
+  const hasPastEntries = pastTasks.length > 0;
+  const hasTodayOpenTasks = openTasks.length > 0;
+  const hasAnyTasks =
+    hasFutureEntries || hasTodayOpenTasks || hasPastEntries;
+  const showFuturePastBoard =
+    isToday && (hasFutureEntries || hasPastEntries);
 
   if (!hasHydrated) {
     return (
@@ -328,19 +429,57 @@ export default function DailyNotes(): ReactNode {
           <p className={styles.empty} data-testid="daily-notes-empty">
             No tasks for this day.
           </p>
-        ) : (
-          <ul className={styles.taskList} data-testid="daily-notes-list">
-            {carryovers.map((item) => (
-              <TaskRow
-                key={`${item.dateKey}-${item.task.id}`}
-                task={item.task}
-                dateKey={item.dateKey}
-                dateTag={formatShortDate(item.dateKey)}
+        ) : showFuturePastBoard ? (
+          <div className={styles.taskBoard} data-testid="daily-notes-list">
+            {hasFutureEntries ? (
+              <DaySection
+                key={`future-${shouldExpandDaySection(futureTasks.length) ? 'open' : 'closed'}`}
+                label={FUTURE_SECTION_LABEL}
+                testId="daily-notes-future"
+                tasks={futureTasks}
+                tone="future"
                 onToggle={handleToggle}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />
-            ))}
+            ) : null}
+
+            <div
+              className={styles.todayBlock}
+              data-testid="daily-notes-today">
+              {hasTodayOpenTasks ? (
+                <ul className={styles.taskList}>
+                  {openTasks.map((task) => (
+                    <TaskRow
+                      key={task.id}
+                      task={task}
+                      dateKey={selectedDateKey}
+                      onToggle={handleToggle}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
+                  ))}
+                </ul>
+              ) : (
+                <p className={styles.todayEmpty}>No open tasks for today.</p>
+              )}
+            </div>
+
+            {hasPastEntries ? (
+              <DaySection
+                key={`past-${shouldExpandDaySection(pastTasks.length) ? 'open' : 'closed'}`}
+                label={PAST_SECTION_LABEL}
+                testId="daily-notes-past"
+                tasks={pastTasks}
+                tone="past"
+                onToggle={handleToggle}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ) : null}
+          </div>
+        ) : (
+          <ul className={styles.taskList} data-testid="daily-notes-list">
             {openTasks.map((task) => (
               <TaskRow
                 key={task.id}

@@ -13,11 +13,14 @@ import {
   listCompletedTasksByDate,
   listDayKeys,
   listIncompleteTasksExcludingDay,
+  listFutureIncompleteTasks,
+  listPastIncompleteTasks,
   moveTaskToDate,
   parseDailyNotesStore,
   serializeDailyNotesStore,
   setQuickNoteForDay,
   setTasksForDay,
+  shouldExpandDaySection,
   updateTaskText,
 } from './notesStorage.ts';
 
@@ -207,6 +210,52 @@ describe('notesStorage', () => {
         task: {id: 'open-old', text: 'Still open', done: false},
       },
     ]);
+  });
+
+  it('partitions future and past incomplete tasks around today', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-17', [
+      {id: 'past-1', text: 'Older past', done: false},
+    ]);
+    store = setTasksForDay(store, '2026-07-18', [
+      {id: 'past-2', text: 'Recent past', done: false},
+    ]);
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'today', text: 'Today task', done: false},
+    ]);
+    store = setTasksForDay(store, '2026-07-20', [
+      {id: 'future-1', text: 'Near future', done: false},
+    ]);
+    store = setTasksForDay(store, '2026-07-22', [
+      {id: 'future-2', text: 'Far future', done: false},
+      {id: 'future-done', text: 'Done future', done: true},
+    ]);
+
+    assert.deepEqual(listFutureIncompleteTasks(store, '2026-07-19'), [
+      {
+        dateKey: '2026-07-22',
+        task: {id: 'future-2', text: 'Far future', done: false},
+      },
+      {
+        dateKey: '2026-07-20',
+        task: {id: 'future-1', text: 'Near future', done: false},
+      },
+    ]);
+    assert.deepEqual(listPastIncompleteTasks(store, '2026-07-19'), [
+      {
+        dateKey: '2026-07-18',
+        task: {id: 'past-2', text: 'Recent past', done: false},
+      },
+      {
+        dateKey: '2026-07-17',
+        task: {id: 'past-1', text: 'Older past', done: false},
+      },
+    ]);
+  });
+
+  it('expands day sections by default until more than 6 entries', () => {
+    assert.equal(shouldExpandDaySection(0), true);
+    assert.equal(shouldExpandDaySection(6), true);
+    assert.equal(shouldExpandDaySection(7), false);
   });
 
   it('lists completed tasks grouped by date newest first', () => {

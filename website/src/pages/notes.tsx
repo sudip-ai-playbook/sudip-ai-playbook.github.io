@@ -8,7 +8,8 @@ export default function NotesPage(): ReactNode {
   return (
     <Layout
       title="Daily Notes"
-      description="Personal daily tasks stored only in this browser.">
+      description="Personal daily tasks stored only in this browser."
+      noFooter>
       <main className={styles.main}>
         <div className="container">
           <DailyNotes />

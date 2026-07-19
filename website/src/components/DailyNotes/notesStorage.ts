@@ -362,13 +362,47 @@ export function listIncompleteTasksExcludingDay(
   return results;
 }
 
+/** Collapse Future/Past sections once they grow past this many tasks. */
+export const DAY_SECTION_COLLAPSE_THRESHOLD = 6;
+
+export const FUTURE_SECTION_LABEL = 'Future';
+export const PAST_SECTION_LABEL = 'Past';
+
+export function shouldExpandDaySection(entryCount: number): boolean {
+  return entryCount <= DAY_SECTION_COLLAPSE_THRESHOLD;
+}
+
+function compareDateKeysDescending(left: string, right: string): number {
+  return right.localeCompare(left);
+}
+
+/** Incomplete tasks on dates after today, farthest future first (today sits below). */
+export function listFutureIncompleteTasks(
+  store: DailyNotesStore,
+  todayKey: string,
+): IncompleteTaskRef[] {
+  return listIncompleteTasksExcludingDay(store, todayKey)
+    .filter((item) => item.dateKey > todayKey)
+    .sort((left, right) => compareDateKeysDescending(left.dateKey, right.dateKey));
+}
+
+/** Incomplete tasks on dates before today, most recent past first (today sits above). */
+export function listPastIncompleteTasks(
+  store: DailyNotesStore,
+  todayKey: string,
+): IncompleteTaskRef[] {
+  return listIncompleteTasksExcludingDay(store, todayKey)
+    .filter((item) => item.dateKey < todayKey)
+    .sort((left, right) => compareDateKeysDescending(left.dateKey, right.dateKey));
+}
+
 export function buildTodayReportTaskRows(
   store: DailyNotesStore,
   todayKey: string,
 ): TodayReportTaskRow[] {
   const rows: TodayReportTaskRow[] = [];
 
-  for (const item of listIncompleteTasksExcludingDay(store, todayKey)) {
+  for (const item of listFutureIncompleteTasks(store, todayKey)) {
     rows.push({
       done: false,
       text: item.task.text,
@@ -381,6 +415,14 @@ export function buildTodayReportTaskRows(
       done: task.done,
       text: task.text,
       fromDateKey: null,
+    });
+  }
+
+  for (const item of listPastIncompleteTasks(store, todayKey)) {
+    rows.push({
+      done: false,
+      text: item.task.text,
+      fromDateKey: item.dateKey,
     });
   }
 
