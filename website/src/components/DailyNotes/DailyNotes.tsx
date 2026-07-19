@@ -1,23 +1,30 @@
-import type {ChangeEvent, FormEvent, ReactNode} from 'react';
+import type {
+  ChangeEvent,
+  FormEvent,
+  KeyboardEvent,
+  ReactNode,
+} from 'react';
 import {useEffect, useState} from 'react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import Heading from '@theme/Heading';
 
 import styles from './DailyNotes.module.css';
 import {
+  buildNotesExcelCsv,
   createEmptyStore,
   createTask,
   formatDateKey,
   formatDisplayDate,
+  formatShortDate,
   getQuickNoteForDay,
   getTasksForDay,
   isValidDateKey,
-  listDayKeys,
+  listIncompleteTasksExcludingDay,
   loadDailyNotesStore,
-  moveTaskToDate,
   saveDailyNotesStore,
   setQuickNoteForDay,
   setTasksForDay,
+  updateTaskText,
   type DailyNotesStore,
   type DailyTask,
 } from './notesStorage';
@@ -36,88 +43,76 @@ function removeTask(tasks: DailyTask[], taskId: string): DailyTask[] {
   return tasks.filter((task) => task.id !== taskId);
 }
 
-function getVisibleDayKeys(
-  dayKeys: string[],
-  todayKey: string,
-  selectedDateKey: string,
-): string[] {
-  const uniqueKeys = new Set(dayKeys);
-  uniqueKeys.add(todayKey);
-  uniqueKeys.add(selectedDateKey);
-  return Array.from(uniqueKeys).sort((left, right) =>
-    right.localeCompare(left),
-  );
+function downloadNotesCsv(store: DailyNotesStore, todayKey: string): void {
+  const csv = buildNotesExcelCsv(store);
+  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `daily-notes-${todayKey}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
 }
 
-type DayButtonProps = {
-  dateKey: string;
-  todayKey: string;
-  isSelected: boolean;
-  onSelectDay: (dateKey: string) => void;
-};
-
-function DayButton({
-  dateKey,
-  todayKey,
-  isSelected,
-  onSelectDay,
-}: DayButtonProps): ReactNode {
-  function handleClick(): void {
-    onSelectDay(dateKey);
-  }
-
-  return (
-    <button
-      type="button"
-      className={isSelected ? styles.dayButtonActive : styles.dayButton}
-      onClick={handleClick}
-      data-testid={`daily-notes-day-${dateKey}`}
-      aria-pressed={isSelected}>
-      {dateKey === todayKey ? 'Today' : dateKey}
-    </button>
-  );
-}
-
-type TaskItemProps = {
+type TaskRowProps = {
   task: DailyTask;
-  selectedDateKey: string;
-  onToggleTask: (taskId: string, done: boolean) => void;
-  onDeleteTask: (taskId: string) => void;
-  onMoveTask: (taskId: string, toDateKey: string) => void;
+  dateKey: string;
+  dateTag?: string;
+  onToggle: (dateKey: string, taskId: string, done: boolean) => void;
+  onEdit: (dateKey: string, taskId: string, text: string) => void;
+  onDelete: (dateKey: string, taskId: string) => void;
 };
 
-function TaskItem({
+function TaskRow({
   task,
-  selectedDateKey,
-  onToggleTask,
-  onDeleteTask,
-  onMoveTask,
-}: TaskItemProps): ReactNode {
-  const [moveDate, setMoveDate] = useState('');
+  dateKey,
+  dateTag,
+  onToggle,
+  onEdit,
+  onDelete,
+}: TaskRowProps): ReactNode {
+  const [draft, setDraft] = useState(task.text);
+
+  useEffect(() => {
+    setDraft(task.text);
+  }, [task.text]);
 
   function handleToggle(event: ChangeEvent<HTMLInputElement>): void {
-    onToggleTask(task.id, event.target.checked);
+    onToggle(dateKey, task.id, event.target.checked);
+  }
+
+  function handleDraftChange(event: ChangeEvent<HTMLInputElement>): void {
+    setDraft(event.target.value);
+  }
+
+  function handleDraftBlur(): void {
+    if (draft.trim() !== '' && draft.trim() !== task.text) {
+      onEdit(dateKey, task.id, draft);
+    } else {
+      setDraft(task.text);
+    }
+  }
+
+  function handleDraftKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
+    if (event.key === 'Enter') {
+      event.currentTarget.blur();
+    }
   }
 
   function handleDelete(): void {
-    onDeleteTask(task.id);
+    onDelete(dateKey, task.id);
   }
 
-  function handleMoveDateChange(event: ChangeEvent<HTMLInputElement>): void {
-    setMoveDate(event.target.value);
-  }
-
-  function handleMoveSubmit(event: FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-    if (!isValidDateKey(moveDate) || moveDate === selectedDateKey) {
-      return;
-    }
-    onMoveTask(task.id, moveDate);
-    setMoveDate('');
-  }
+  const isCarryover = dateTag !== undefined;
 
   return (
-    <li className={styles.taskItem}>
+    <li
+      className={isCarryover ? styles.carryoverItem : styles.taskItem}
+      data-testid={
+        isCarryover
+          ? `daily-notes-open-${task.id}`
+          : `daily-notes-task-${task.id}`
+      }>
       <div className={styles.taskMain}>
         <label className={styles.taskLabel}>
           <input
@@ -126,9 +121,27 @@ function TaskItem({
             onChange={handleToggle}
             data-testid={`daily-notes-checkbox-${task.id}`}
           />
-          <span className={task.done ? styles.taskTextDone : styles.taskText}>
-            {task.text}
-          </span>
+          {dateTag ? (
+            <span className={styles.dateTag} data-testid={`daily-notes-date-tag-${task.id}`}>
+              {dateTag}
+            </span>
+          ) : null}
+          <input
+            className={
+              task.done
+                ? styles.taskEditDone
+                : isCarryover
+                  ? styles.carryoverEdit
+                  : styles.taskEdit
+            }
+            type="text"
+            value={draft}
+            onChange={handleDraftChange}
+            onBlur={handleDraftBlur}
+            onKeyDown={handleDraftKeyDown}
+            aria-label="Edit task"
+            data-testid={`daily-notes-edit-${task.id}`}
+          />
         </label>
         <button
           type="button"
@@ -136,34 +149,9 @@ function TaskItem({
           onClick={handleDelete}
           aria-label={`Delete task ${task.text}`}
           data-testid={`daily-notes-delete-${task.id}`}>
-          Delete
+          ×
         </button>
       </div>
-      <form
-        className={styles.moveForm}
-        onSubmit={handleMoveSubmit}
-        data-testid={`daily-notes-move-form-${task.id}`}>
-        <label
-          className={styles.srOnly}
-          htmlFor={`daily-notes-move-${task.id}`}>
-          Move task to date
-        </label>
-        <input
-          id={`daily-notes-move-${task.id}`}
-          className={styles.moveInput}
-          type="date"
-          value={moveDate}
-          onChange={handleMoveDateChange}
-          data-testid={`daily-notes-move-date-${task.id}`}
-        />
-        <button
-          type="submit"
-          className={styles.moveButton}
-          disabled={!isValidDateKey(moveDate) || moveDate === selectedDateKey}
-          data-testid={`daily-notes-move-${task.id}`}>
-          Move
-        </button>
-      </form>
     </li>
   );
 }
@@ -192,11 +180,6 @@ export default function DailyNotes(): ReactNode {
     }
   }
 
-  function handleSelectDay(dateKey: string): void {
-    setSelectedDateKey(dateKey);
-    setPickerDate(dateKey);
-  }
-
   function handlePickerChange(event: ChangeEvent<HTMLInputElement>): void {
     const nextDate = event.target.value;
     setPickerDate(nextDate);
@@ -216,51 +199,42 @@ export default function DailyNotes(): ReactNode {
       return;
     }
     const currentTasks = getTasksForDay(store, selectedDateKey);
-    const nextStore = setTasksForDay(store, selectedDateKey, [
-      ...currentTasks,
-      task,
-    ]);
-    persistStore(nextStore);
+    persistStore(
+      setTasksForDay(store, selectedDateKey, [...currentTasks, task]),
+    );
     setDraftText('');
   }
 
-  function handleToggleTask(taskId: string, done: boolean): void {
-    const currentTasks = getTasksForDay(store, selectedDateKey);
-    const nextStore = setTasksForDay(
-      store,
-      selectedDateKey,
-      updateTaskDone(currentTasks, taskId, done),
+  function handleToggle(
+    dateKey: string,
+    taskId: string,
+    done: boolean,
+  ): void {
+    const currentTasks = getTasksForDay(store, dateKey);
+    persistStore(
+      setTasksForDay(
+        store,
+        dateKey,
+        updateTaskDone(currentTasks, taskId, done),
+      ),
     );
-    persistStore(nextStore);
   }
 
-  function handleDeleteTask(taskId: string): void {
-    const currentTasks = getTasksForDay(store, selectedDateKey);
-    const nextStore = setTasksForDay(
-      store,
-      selectedDateKey,
-      removeTask(currentTasks, taskId),
-    );
-    persistStore(nextStore);
+  function handleEdit(dateKey: string, taskId: string, text: string): void {
+    persistStore(updateTaskText(store, dateKey, taskId, text));
   }
 
-  function handleMoveTask(taskId: string, toDateKey: string): void {
-    const nextStore = moveTaskToDate(
-      store,
-      selectedDateKey,
-      toDateKey,
-      taskId,
+  function handleDelete(dateKey: string, taskId: string): void {
+    const currentTasks = getTasksForDay(store, dateKey);
+    persistStore(
+      setTasksForDay(store, dateKey, removeTask(currentTasks, taskId)),
     );
-    persistStore(nextStore);
   }
 
   function handleQuickNoteChange(event: ChangeEvent<HTMLTextAreaElement>): void {
-    const nextStore = setQuickNoteForDay(
-      store,
-      selectedDateKey,
-      event.target.value,
+    persistStore(
+      setQuickNoteForDay(store, selectedDateKey, event.target.value),
     );
-    persistStore(nextStore);
   }
 
   function handleOpenToday(): void {
@@ -268,18 +242,24 @@ export default function DailyNotes(): ReactNode {
     setPickerDate(todayKey);
   }
 
-  const tasks = getTasksForDay(store, selectedDateKey);
+  function handleDownload(): void {
+    downloadNotesCsv(store, todayKey);
+  }
+
+  const isToday = selectedDateKey === todayKey;
+  const dayTasks = getTasksForDay(store, selectedDateKey);
+  const openTasks = dayTasks.filter((task) => !task.done);
+  const doneTasks = dayTasks.filter((task) => task.done);
+  const carryovers = isToday
+    ? listIncompleteTasksExcludingDay(store, todayKey)
+    : [];
   const quickNote = getQuickNoteForDay(store, selectedDateKey);
-  const visibleDayKeys = getVisibleDayKeys(
-    listDayKeys(store),
-    todayKey,
-    selectedDateKey,
-  );
+  const hasAnyTasks = carryovers.length > 0 || dayTasks.length > 0;
 
   if (!hasHydrated) {
     return (
       <div className={styles.root} data-testid="daily-notes-loading">
-        <p className={styles.loading}>Loading notes…</p>
+        <p className={styles.loading}>Loading…</p>
       </div>
     );
   }
@@ -287,50 +267,42 @@ export default function DailyNotes(): ReactNode {
   return (
     <div className={styles.root} data-testid="daily-notes">
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Daily Notes</p>
-        <Heading as="h1" className={styles.title}>
-          {formatDisplayDate(selectedDateKey)}
-        </Heading>
-      </header>
-
-      <section className={styles.daySwitcher} aria-label="Choose day">
+        <div className={styles.headerRow}>
+          <Heading as="h1" className={styles.title}>
+            {formatDisplayDate(selectedDateKey)}
+          </Heading>
+          <button
+            type="button"
+            className={styles.downloadButton}
+            onClick={handleDownload}
+            data-testid="daily-notes-download">
+            Download
+          </button>
+        </div>
         <div className={styles.pickerRow}>
-          <label className={styles.pickerLabel} htmlFor="daily-notes-date-picker">
-            Open date
-          </label>
           <input
             id="daily-notes-date-picker"
             className={styles.datePicker}
             type="date"
             value={pickerDate}
             onChange={handlePickerChange}
+            aria-label="Open date"
             data-testid="daily-notes-date-picker"
           />
-          {selectedDateKey !== todayKey ? (
+          {!isToday ? (
             <button
               type="button"
               className={styles.todayLink}
               onClick={handleOpenToday}
               data-testid="daily-notes-open-today">
-              Back to today
+              Today
             </button>
           ) : null}
         </div>
-        <div className={styles.dayList} data-testid="daily-notes-days">
-          {visibleDayKeys.map((dateKey) => (
-            <DayButton
-              key={dateKey}
-              dateKey={dateKey}
-              todayKey={todayKey}
-              isSelected={dateKey === selectedDateKey}
-              onSelectDay={handleSelectDay}
-            />
-          ))}
-        </div>
-      </section>
+      </header>
 
       <section className={styles.tasksSection} aria-labelledby="daily-notes-tasks">
-        <Heading as="h2" id="daily-notes-tasks" className={styles.tasksHeading}>
+        <Heading as="h2" id="daily-notes-tasks" className={styles.sectionHeading}>
           Tasks
         </Heading>
 
@@ -344,7 +316,7 @@ export default function DailyNotes(): ReactNode {
             type="text"
             value={draftText}
             onChange={handleDraftChange}
-            placeholder="Add a task for this day"
+            placeholder="Add a task"
             autoComplete="off"
             data-testid="daily-notes-input"
           />
@@ -356,20 +328,41 @@ export default function DailyNotes(): ReactNode {
           </button>
         </form>
 
-        {tasks.length === 0 ? (
+        {!hasAnyTasks ? (
           <p className={styles.empty} data-testid="daily-notes-empty">
-            No tasks yet for this day.
+            No tasks for this day.
           </p>
         ) : (
           <ul className={styles.taskList} data-testid="daily-notes-list">
-            {tasks.map((task) => (
-              <TaskItem
+            {carryovers.map((item) => (
+              <TaskRow
+                key={`${item.dateKey}-${item.task.id}`}
+                task={item.task}
+                dateKey={item.dateKey}
+                dateTag={formatShortDate(item.dateKey)}
+                onToggle={handleToggle}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))}
+            {openTasks.map((task) => (
+              <TaskRow
                 key={task.id}
                 task={task}
-                selectedDateKey={selectedDateKey}
-                onToggleTask={handleToggleTask}
-                onDeleteTask={handleDeleteTask}
-                onMoveTask={handleMoveTask}
+                dateKey={selectedDateKey}
+                onToggle={handleToggle}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))}
+            {doneTasks.map((task) => (
+              <TaskRow
+                key={task.id}
+                task={task}
+                dateKey={selectedDateKey}
+                onToggle={handleToggle}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
               />
             ))}
           </ul>
@@ -378,23 +371,20 @@ export default function DailyNotes(): ReactNode {
 
       <section
         className={styles.notesSection}
-        aria-labelledby="daily-notes-quick-notes">
-        <Heading
-          as="h2"
-          id="daily-notes-quick-notes"
-          className={styles.tasksHeading}>
-          Quick notes
+        aria-labelledby="daily-notes-notes">
+        <Heading as="h2" id="daily-notes-notes" className={styles.sectionHeading}>
+          Notes
         </Heading>
         <label className={styles.srOnly} htmlFor="daily-notes-quick-note">
-          Quick notes for this day
+          Notes for this day
         </label>
         <textarea
           id="daily-notes-quick-note"
           className={styles.textarea}
           value={quickNote}
           onChange={handleQuickNoteChange}
-          placeholder="Scratch notes for this day…"
-          rows={6}
+          placeholder="Notes…"
+          rows={5}
           data-testid="daily-notes-quick-note"
         />
       </section>

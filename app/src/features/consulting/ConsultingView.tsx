@@ -21,7 +21,6 @@ import {
 } from 'lucide-react'
 import {
   BUSINESS_SITUATIONS,
-  CONSULTING_OS_META,
   CONSULTING_STAGES,
   FRAMEWORK_RECOMMENDATIONS,
 } from '../../data/consultingOs'
@@ -55,10 +54,6 @@ import {
   type FrameworkOutput,
 } from './workshop.logic'
 import { useConsultingWorkspace } from './useConsultingWorkspace'
-import {
-  CONSULT_PERSONA_OPTIONS,
-  type ConsultPersona,
-} from './roles/roles.logic'
 import type { DeliverableTemplateId } from './deliverable.logic'
 import {
   getWorkshopForStage,
@@ -137,7 +132,6 @@ export function ConsultingView() {
     persona,
     persistStore,
     persistEngagement,
-    setPersona,
   } = useConsultingWorkspace()
 
   const [stageFilter, setStageFilter] = useState<StageFilterId>(
@@ -269,10 +263,6 @@ export function ConsultingView() {
     setTab(TAB_WORKSHOP, stageId)
   }
 
-  function handlePersonaChange(event: ChangeEvent<HTMLSelectElement>): void {
-    setPersona(event.target.value as ConsultPersona)
-  }
-
   function handleOpenDeliverablesFromCopilot(templateId: string | null): void {
     setPreferredDeliverable((templateId as DeliverableTemplateId | null) ?? null)
     setTab(TAB_DELIVERABLES)
@@ -292,32 +282,9 @@ export function ConsultingView() {
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-blue">
           Engagement workspace · legacy ConsultAI OS
         </p>
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">
-              Engagement workspace
-            </h1>
-            <p className="mt-1 max-w-3xl text-sm text-ink-secondary">
-              {CONSULTING_OS_META.positioning} Start with Home or Journey; open More tools only
-              when you need advanced centres.
-            </p>
-          </div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-ink-muted">
-            Persona (UI stub)
-            <select
-              className="field-input mt-2"
-              data-testid="consult-persona"
-              value={persona}
-              onChange={handlePersonaChange}
-            >
-              {CONSULT_PERSONA_OPTIONS.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
+        <h1 className="font-[family-name:var(--font-display)] text-3xl font-600 tracking-[0.02em]">
+          Engagement workspace
+        </h1>
         <p className="text-xs text-ink-muted" data-testid="consult-active-context">
           Active: {engagement.clientName || 'Unnamed client'} /{' '}
           {engagement.engagementName || 'Unnamed engagement'}

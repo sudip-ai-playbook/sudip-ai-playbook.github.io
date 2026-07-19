@@ -19,6 +19,10 @@ describe('articleSidebarCategories', () => {
       'Roadmaps',
     );
     assert.equal(
+      getArticleSidebarCategory('/blog/articles/eu-ai-act-regulation-2024-1689'),
+      'Governance',
+    );
+    assert.equal(
       getArticleSidebarCategory('/blog/articles/unknown-future-post'),
       'More',
     );
@@ -31,6 +35,13 @@ describe('articleSidebarCategories', () => {
         'Business: Hiring and Team Building',
       ),
       'Hiring and team building',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/eu-ai-act-regulation-2024-1689',
+        'EU AI Act (Regulation 2024/1689): Structured Guide to Risk Tiers, Obligations and Timelines',
+      ),
+      'EU AI Act (2024/1689)',
     );
     assert.equal(
       getArticleSidebarLabel('/blog/articles/missing', 'Fallback title'),

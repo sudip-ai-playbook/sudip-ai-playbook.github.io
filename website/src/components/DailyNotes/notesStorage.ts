@@ -61,6 +61,26 @@ export function formatDisplayDate(dateKey: string): string {
   }).format(date);
 }
 
+export function formatShortDate(dateKey: string): string {
+  const [yearText, monthText, dayText] = dateKey.split('-');
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  if (
+    !Number.isInteger(year) ||
+    !Number.isInteger(month) ||
+    !Number.isInteger(day)
+  ) {
+    return dateKey;
+  }
+
+  const date = new Date(year, month - 1, day);
+  return new Intl.DateTimeFormat(undefined, {
+    day: 'numeric',
+    month: 'short',
+  }).format(date);
+}
+
 export function isValidDateKey(dateKey: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) {
     return false;
@@ -116,6 +136,13 @@ function parseDayEntry(value: unknown): DayEntry | null {
 
 function isDayEntryEmpty(entry: DayEntry): boolean {
   return entry.tasks.length === 0 && entry.quickNote.trim() === '';
+}
+
+function dayHasActiveContent(entry: DayEntry): boolean {
+  return (
+    entry.quickNote.trim() !== '' ||
+    entry.tasks.some((task) => !task.done)
+  );
 }
 
 export function parseDailyNotesStore(raw: string | null): DailyNotesStore {
@@ -190,6 +217,13 @@ export function listDayKeys(store: DailyNotesStore): string[] {
     .sort((left, right) => right.localeCompare(left));
 }
 
+/** Days that still have open tasks or quick notes (completed-only days stay hidden). */
+export function listActiveDayKeys(store: DailyNotesStore): string[] {
+  return Object.keys(store.days)
+    .filter((dateKey) => dayHasActiveContent(store.days[dateKey]))
+    .sort((left, right) => right.localeCompare(left));
+}
+
 export function createTaskId(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
@@ -239,6 +273,23 @@ export function setTasksForDay(
   });
 }
 
+export function updateTaskText(
+  store: DailyNotesStore,
+  dateKey: string,
+  taskId: string,
+  text: string,
+): DailyNotesStore {
+  const trimmedText = text.trim();
+  if (trimmedText === '') {
+    return store;
+  }
+  const currentTasks = getTasksForDay(store, dateKey);
+  const nextTasks = currentTasks.map((task) =>
+    task.id === taskId ? {...task, text: trimmedText} : task,
+  );
+  return setTasksForDay(store, dateKey, nextTasks);
+}
+
 export function setQuickNoteForDay(
   store: DailyNotesStore,
   dateKey: string,
@@ -280,6 +331,59 @@ export function moveTaskToDate(
     tasks: targetTasks,
   });
   return nextStore;
+}
+
+export type IncompleteTaskRef = {
+  dateKey: string;
+  task: DailyTask;
+};
+
+export function listIncompleteTasksExcludingDay(
+  store: DailyNotesStore,
+  excludeDateKey: string,
+): IncompleteTaskRef[] {
+  const results: IncompleteTaskRef[] = [];
+  for (const dateKey of listDayKeys(store)) {
+    if (dateKey === excludeDateKey) {
+      continue;
+    }
+    for (const task of getTasksForDay(store, dateKey)) {
+      if (!task.done) {
+        results.push({dateKey, task});
+      }
+    }
+  }
+  return results;
+}
+
+function escapeCsvCell(value: string): string {
+  if (/[",\n\r]/.test(value)) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
+}
+
+export function buildNotesExcelCsv(store: DailyNotesStore): string {
+  const rows: string[] = ['Date,Done,Type,Text'];
+  for (const dateKey of listDayKeys(store)) {
+    const entry = getDayEntry(store, dateKey);
+    for (const task of entry.tasks) {
+      rows.push(
+        [
+          dateKey,
+          task.done ? 'TRUE' : 'FALSE',
+          'task',
+          escapeCsvCell(task.text),
+        ].join(','),
+      );
+    }
+    if (entry.quickNote.trim() !== '') {
+      rows.push(
+        [dateKey, '', 'note', escapeCsvCell(entry.quickNote)].join(','),
+      );
+    }
+  }
+  return `\uFEFF${rows.join('\r\n')}\r\n`;
 }
 
 export function loadDailyNotesStore(): DailyNotesStore {

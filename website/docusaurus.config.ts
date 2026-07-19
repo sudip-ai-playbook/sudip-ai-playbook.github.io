@@ -240,35 +240,18 @@ const config: Config = {
       logo: undefined,
       links: [
         {
-          title: 'Start here',
+          title: 'Explore',
           items: [
             {label: 'Home', to: '/'},
             {label: 'Learning Map', to: '/learning-map/overview'},
-            {label: 'How to practise', to: '/learning-map/how-to-use'},
-            {label: 'Guide overview', to: '/ai-solution-engineering/overview'},
+            {label: 'Guide', to: '/ai-solution-engineering/overview'},
             {label: 'Roadmaps', to: '/roadmaps/overview'},
             {
-              label: 'Startup and Entrepreneurship',
+              label: 'Startup',
               to: '/startup-entrepreneurship/overview',
             },
-            {label: 'Framework Library', to: '/docs/framework'},
-            {label: '8D Framework', to: '/docs/ai-solution-engineering/8d-framework'},
-          ],
-        },
-        {
-          title: 'Learning stages',
-          items: [
-            {label: 'Business Learning', to: '/learning-map/business-learning/overview'},
-            {
-              label: 'Project Management',
-              to: '/learning-map/project-management/overview',
-            },
-            {label: '1. Business & consulting', to: '/learning-map/stage-1-business-consulting'},
-            {label: '2. AI & data', to: '/learning-map/stage-2-ai-data'},
-            {label: '3. Architecture & cloud', to: '/learning-map/stage-3-architecture-cloud'},
-            {label: '4. Trust & control', to: '/learning-map/stage-4-trust-control'},
-            {label: '5. Commercial & delivery', to: '/learning-map/stage-5-commercial-delivery'},
-            {label: '6. Leadership', to: '/learning-map/stage-6-leadership'},
+            {label: 'Framework', to: '/docs/framework'},
+            {label: 'Articles', to: '/articles'},
           ],
         },
         {
@@ -283,57 +266,6 @@ const config: Config = {
               href: 'https://sudip-ai-playbook.github.io/consult',
             },
             {label: 'Daily Notes', to: '/notes'},
-            {label: 'Articles', to: '/articles'},
-            {label: 'AI Engineer roadmap', to: '/roadmaps/ai-engineer'},
-            {
-              label: 'AI Data Scientist roadmap',
-              to: '/roadmaps/ai-data-scientist',
-            },
-            {label: 'AI Agents roadmap', to: '/roadmaps/ai-agents'},
-            {
-              label: 'AI Product Builder roadmap',
-              to: '/roadmaps/ai-product-builder',
-            },
-            {
-              label: 'Forward-Deployed Engineer roadmap',
-              to: '/roadmaps/forward-deployed-engineer',
-            },
-            {
-              label: 'AI Product Management roadmap',
-              to: '/roadmaps/ai-product-management',
-            },
-            {
-              label: 'Engineering Manager roadmap',
-              to: '/roadmaps/engineering-manager',
-            },
-            {
-              label: 'DevSecOps roadmap',
-              to: '/roadmaps/devsecops',
-            },
-            {
-              label: 'AI Red Teaming roadmap',
-              to: '/roadmaps/ai-red-teaming',
-            },
-            {
-              label: 'Enterprise AI Security roadmap',
-              to: '/roadmaps/enterprise-ai-security',
-            },
-            {
-              label: 'Software Architect roadmap',
-              to: '/roadmaps/software-architect',
-            },
-            {label: 'AWS Learning Roadmap', to: '/roadmaps/aws'},
-            {label: 'Azure Learning Roadmap', to: '/roadmaps/azure'},
-            {
-              label: 'Model FinOps roadmap',
-              to: '/roadmaps/model-finops',
-            },
-            {label: 'Google Cloud Learning Roadmap', to: '/roadmaps/gcp'},
-            {label: 'Competency test', to: '/learning-map/competency-test'},
-            {
-              label: 'GitHub',
-              href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
-            },
           ],
         },
         {

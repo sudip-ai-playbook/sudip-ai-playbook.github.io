@@ -192,8 +192,5 @@ describe('Consulting workshop flow', () => {
     expect(screen.getByTestId('copilot-disclaimer')).toBeInTheDocument()
     await user.click(screen.getByTestId('copilot-open-deliverable'))
     expect(await screen.findByTestId('deliverable-builder-view')).toBeInTheDocument()
-
-    await user.selectOptions(screen.getByTestId('consult-persona'), 'read_only')
-    expect(screen.getByTestId('consult-persona')).toHaveValue('read_only')
   })
 })

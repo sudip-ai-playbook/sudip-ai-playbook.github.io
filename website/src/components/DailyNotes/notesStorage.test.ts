@@ -1,19 +1,24 @@
 import assert from 'node:assert/strict';
 import {describe, it} from 'node:test';
 import {
+  buildNotesExcelCsv,
   createEmptyStore,
   createTask,
   formatDateKey,
   formatDisplayDate,
+  formatShortDate,
   getQuickNoteForDay,
   getTasksForDay,
   isValidDateKey,
+  listActiveDayKeys,
   listDayKeys,
+  listIncompleteTasksExcludingDay,
   moveTaskToDate,
   parseDailyNotesStore,
   serializeDailyNotesStore,
   setQuickNoteForDay,
   setTasksForDay,
+  updateTaskText,
 } from './notesStorage.ts';
 
 describe('notesStorage', () => {
@@ -26,6 +31,11 @@ describe('notesStorage', () => {
     const displayDate = formatDisplayDate('2026-07-19');
     assert.match(displayDate, /2026/);
     assert.match(displayDate, /19/);
+  });
+
+  it('formats a short date tag from a date key', () => {
+    const shortDate = formatShortDate('2026-07-17');
+    assert.match(shortDate, /17/);
   });
 
   it('validates date keys', () => {
@@ -110,6 +120,34 @@ describe('notesStorage', () => {
     ]);
   });
 
+  it('hides completed-only days from active day keys', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-17', [
+      {id: 'done', text: 'Finished', done: true},
+    ]);
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'open', text: 'Still open', done: false},
+    ]);
+    store = setQuickNoteForDay(store, '2026-07-18', 'note only');
+    assert.deepEqual(listActiveDayKeys(store), [
+      '2026-07-19',
+      '2026-07-18',
+    ]);
+  });
+
+  it('updates task text and ignores empty edits', () => {
+    const store = setTasksForDay(createEmptyStore(), '2026-07-19', [
+      {id: 't1', text: 'Old', done: false},
+    ]);
+    const updated = updateTaskText(store, '2026-07-19', 't1', '  New text  ');
+    assert.deepEqual(getTasksForDay(updated, '2026-07-19'), [
+      {id: 't1', text: 'New text', done: false},
+    ]);
+    assert.deepEqual(
+      updateTaskText(store, '2026-07-19', 't1', '   '),
+      store,
+    );
+  });
+
   it('creates a task from trimmed text and rejects empty input', () => {
     const task = createTask('  Ship notes  ');
     assert.ok(task);
@@ -152,5 +190,37 @@ describe('notesStorage', () => {
       moveTaskToDate(store, '2026-07-19', 'bad-date', 'only'),
       store,
     );
+  });
+
+  it('lists incomplete tasks from other days only', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-17', [
+      {id: 'open-old', text: 'Still open', done: false},
+      {id: 'done-old', text: 'Finished', done: true},
+    ]);
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'today-open', text: 'Today open', done: false},
+    ]);
+
+    assert.deepEqual(listIncompleteTasksExcludingDay(store, '2026-07-19'), [
+      {
+        dateKey: '2026-07-17',
+        task: {id: 'open-old', text: 'Still open', done: false},
+      },
+    ]);
+  });
+
+  it('builds an Excel-friendly CSV with checkbox Done values', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-18', [
+      {id: 'a', text: 'Open task', done: false},
+      {id: 'b', text: 'Done task', done: true},
+    ]);
+    store = setQuickNoteForDay(store, '2026-07-18', 'Note with, comma');
+
+    const csv = buildNotesExcelCsv(store);
+    assert.ok(csv.startsWith('\uFEFF'));
+    assert.match(csv, /Date,Done,Type,Text/);
+    assert.match(csv, /2026-07-18,FALSE,task,Open task/);
+    assert.match(csv, /2026-07-18,TRUE,task,Done task/);
+    assert.match(csv, /2026-07-18,,note,"Note with, comma"/);
   });
 });
