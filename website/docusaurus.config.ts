@@ -217,6 +217,7 @@ const config: Config = {
           label: 'Framework',
         },
         {to: '/articles', label: 'Articles', position: 'left'},
+        {to: '/notes', label: 'Notes', position: 'left'},
         {
           type: 'dropdown',
           label: 'Support',
@@ -281,6 +282,7 @@ const config: Config = {
               label: 'ConsultAI OS',
               href: 'https://sudip-ai-playbook.github.io/consult',
             },
+            {label: 'Daily Notes', to: '/notes'},
             {label: 'Articles', to: '/articles'},
             {label: 'AI Engineer roadmap', to: '/roadmaps/ai-engineer'},
             {
