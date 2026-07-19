@@ -1,6 +1,6 @@
 export const DAILY_NOTES_STORAGE_KEY = 'sudip-ai-playbook-daily-notes';
 
-export const DAILY_NOTES_STORE_VERSION = 1 as const;
+export const DAILY_NOTES_STORE_VERSION = 2 as const;
 
 export type DailyTask = {
   id: string;
@@ -8,10 +8,22 @@ export type DailyTask = {
   done: boolean;
 };
 
+export type DayEntry = {
+  tasks: DailyTask[];
+  quickNote: string;
+};
+
 export type DailyNotesStore = {
   version: typeof DAILY_NOTES_STORE_VERSION;
-  days: Record<string, DailyTask[]>;
+  days: Record<string, DayEntry>;
 };
+
+export function createEmptyDayEntry(): DayEntry {
+  return {
+    tasks: [],
+    quickNote: '',
+  };
+}
 
 export function createEmptyStore(): DailyNotesStore {
   return {
@@ -49,6 +61,22 @@ export function formatDisplayDate(dateKey: string): string {
   }).format(date);
 }
 
+export function isValidDateKey(dateKey: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) {
+    return false;
+  }
+  const [yearText, monthText, dayText] = dateKey.split('-');
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+}
+
 function isDailyTask(value: unknown): value is DailyTask {
   if (typeof value !== 'object' || value === null) {
     return false;
@@ -62,6 +90,34 @@ function isDailyTask(value: unknown): value is DailyTask {
   );
 }
 
+function parseTaskList(value: unknown): DailyTask[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value.filter(isDailyTask);
+}
+
+function parseDayEntry(value: unknown): DayEntry | null {
+  if (Array.isArray(value)) {
+    return {
+      tasks: parseTaskList(value),
+      quickNote: '',
+    };
+  }
+  if (typeof value !== 'object' || value === null) {
+    return null;
+  }
+  const candidate = value as Partial<DayEntry>;
+  return {
+    tasks: parseTaskList(candidate.tasks),
+    quickNote: typeof candidate.quickNote === 'string' ? candidate.quickNote : '',
+  };
+}
+
+function isDayEntryEmpty(entry: DayEntry): boolean {
+  return entry.tasks.length === 0 && entry.quickNote.trim() === '';
+}
+
 export function parseDailyNotesStore(raw: string | null): DailyNotesStore {
   if (raw === null || raw.trim() === '') {
     return createEmptyStore();
@@ -73,20 +129,25 @@ export function parseDailyNotesStore(raw: string | null): DailyNotesStore {
       return createEmptyStore();
     }
 
-    const candidate = parsed as Partial<DailyNotesStore>;
-    if (candidate.version !== DAILY_NOTES_STORE_VERSION) {
+    const candidate = parsed as {
+      version?: unknown;
+      days?: unknown;
+    };
+    const version = candidate.version;
+    if (version !== 1 && version !== DAILY_NOTES_STORE_VERSION) {
       return createEmptyStore();
     }
     if (typeof candidate.days !== 'object' || candidate.days === null) {
       return createEmptyStore();
     }
 
-    const days: Record<string, DailyTask[]> = {};
-    for (const [dateKey, tasks] of Object.entries(candidate.days)) {
-      if (!Array.isArray(tasks)) {
+    const days: Record<string, DayEntry> = {};
+    for (const [dateKey, dayValue] of Object.entries(candidate.days)) {
+      const entry = parseDayEntry(dayValue);
+      if (entry === null) {
         continue;
       }
-      days[dateKey] = tasks.filter(isDailyTask);
+      days[dateKey] = entry;
     }
 
     return {
@@ -102,15 +163,31 @@ export function serializeDailyNotesStore(store: DailyNotesStore): string {
   return JSON.stringify(store);
 }
 
+export function getDayEntry(
+  store: DailyNotesStore,
+  dateKey: string,
+): DayEntry {
+  return store.days[dateKey] ?? createEmptyDayEntry();
+}
+
 export function getTasksForDay(
   store: DailyNotesStore,
   dateKey: string,
 ): DailyTask[] {
-  return store.days[dateKey] ?? [];
+  return getDayEntry(store, dateKey).tasks;
+}
+
+export function getQuickNoteForDay(
+  store: DailyNotesStore,
+  dateKey: string,
+): string {
+  return getDayEntry(store, dateKey).quickNote;
 }
 
 export function listDayKeys(store: DailyNotesStore): string[] {
-  return Object.keys(store.days).sort((left, right) => right.localeCompare(left));
+  return Object.keys(store.days)
+    .filter((dateKey) => !isDayEntryEmpty(store.days[dateKey]))
+    .sort((left, right) => right.localeCompare(left));
 }
 
 export function createTaskId(): string {
@@ -132,18 +209,77 @@ export function createTask(text: string): DailyTask | null {
   };
 }
 
+function withDayEntry(
+  store: DailyNotesStore,
+  dateKey: string,
+  entry: DayEntry,
+): DailyNotesStore {
+  const nextDays = {...store.days};
+  if (isDayEntryEmpty(entry)) {
+    delete nextDays[dateKey];
+  } else {
+    nextDays[dateKey] = entry;
+  }
+  return {
+    ...store,
+    version: DAILY_NOTES_STORE_VERSION,
+    days: nextDays,
+  };
+}
+
 export function setTasksForDay(
   store: DailyNotesStore,
   dateKey: string,
   tasks: DailyTask[],
 ): DailyNotesStore {
-  return {
-    ...store,
-    days: {
-      ...store.days,
-      [dateKey]: tasks,
-    },
-  };
+  const current = getDayEntry(store, dateKey);
+  return withDayEntry(store, dateKey, {
+    ...current,
+    tasks,
+  });
+}
+
+export function setQuickNoteForDay(
+  store: DailyNotesStore,
+  dateKey: string,
+  quickNote: string,
+): DailyNotesStore {
+  const current = getDayEntry(store, dateKey);
+  return withDayEntry(store, dateKey, {
+    ...current,
+    quickNote,
+  });
+}
+
+export function moveTaskToDate(
+  store: DailyNotesStore,
+  fromDateKey: string,
+  toDateKey: string,
+  taskId: string,
+): DailyNotesStore {
+  if (fromDateKey === toDateKey || !isValidDateKey(toDateKey)) {
+    return store;
+  }
+
+  const sourceEntry = getDayEntry(store, fromDateKey);
+  const task = sourceEntry.tasks.find((item) => item.id === taskId);
+  if (!task) {
+    return store;
+  }
+
+  const sourceTasks = sourceEntry.tasks.filter((item) => item.id !== taskId);
+  const targetEntry = getDayEntry(store, toDateKey);
+  const targetTasks = [...targetEntry.tasks, task];
+
+  let nextStore = withDayEntry(store, fromDateKey, {
+    ...sourceEntry,
+    tasks: sourceTasks,
+  });
+  nextStore = withDayEntry(nextStore, toDateKey, {
+    ...targetEntry,
+    tasks: targetTasks,
+  });
+  return nextStore;
 }
 
 export function loadDailyNotesStore(): DailyNotesStore {

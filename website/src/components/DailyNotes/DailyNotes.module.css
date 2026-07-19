@@ -24,12 +24,6 @@
   line-height: 1.2;
 }
 
-.disclaimer {
-  margin: var(--ase-space-3) 0 0;
-  color: var(--ase-muted);
-  font-size: 0.95rem;
-}
-
 .loading {
   margin: 0;
   color: var(--ase-muted);
@@ -37,10 +31,31 @@
 
 .daySwitcher {
   display: flex;
+  flex-direction: column;
+  gap: var(--ase-space-3);
+  margin-bottom: var(--ase-space-5);
+}
+
+.pickerRow {
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--ase-space-3);
-  margin-bottom: var(--ase-space-5);
+}
+
+.pickerLabel {
+  color: var(--ase-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.datePicker {
+  border: 1px solid var(--ase-rule);
+  border-radius: var(--ifm-global-radius);
+  padding: 0.4rem 0.65rem;
+  background: var(--ifm-background-color);
+  color: var(--ase-ink);
+  font: inherit;
 }
 
 .dayList {
@@ -143,11 +158,17 @@
 
 .taskItem {
   display: flex;
+  flex-direction: column;
+  gap: var(--ase-space-2);
+  padding: var(--ase-space-3) 0;
+  border-bottom: 1px solid var(--ase-rule);
+}
+
+.taskMain {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--ase-space-3);
-  padding: var(--ase-space-3) 0;
-  border-bottom: 1px solid var(--ase-rule);
 }
 
 .taskLabel {
@@ -157,6 +178,71 @@
   flex: 1;
   min-width: 0;
   cursor: pointer;
+}
+
+.moveForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ase-space-2);
+  padding-left: 1.85rem;
+}
+
+.moveInput {
+  border: 1px solid var(--ase-rule);
+  border-radius: var(--ifm-global-radius);
+  padding: 0.3rem 0.5rem;
+  background: var(--ifm-background-color);
+  color: var(--ase-ink);
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.moveButton {
+  border: 1px solid var(--ase-rule);
+  border-radius: var(--ifm-global-radius);
+  padding: 0.3rem 0.65rem;
+  background: transparent;
+  color: var(--ase-ink);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.moveButton:hover:not(:disabled) {
+  background: var(--ase-accent-soft);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.moveButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.notesSection {
+  border-top: 1px solid var(--ase-rule);
+  margin-top: var(--ase-space-6);
+  padding-top: var(--ase-space-5);
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 9rem;
+  border: 1px solid var(--ase-rule);
+  border-radius: var(--ifm-global-radius);
+  padding: 0.75rem 0.85rem;
+  background: var(--ifm-background-color);
+  color: var(--ase-ink);
+  font: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 1px;
 }
 
 .taskLabel input {

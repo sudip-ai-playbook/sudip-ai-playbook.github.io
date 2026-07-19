@@ -5,10 +5,14 @@ import {
   createTask,
   formatDateKey,
   formatDisplayDate,
+  getQuickNoteForDay,
   getTasksForDay,
+  isValidDateKey,
   listDayKeys,
+  moveTaskToDate,
   parseDailyNotesStore,
   serializeDailyNotesStore,
+  setQuickNoteForDay,
   setTasksForDay,
 } from './notesStorage.ts';
 
@@ -24,56 +28,81 @@ describe('notesStorage', () => {
     assert.match(displayDate, /19/);
   });
 
+  it('validates date keys', () => {
+    assert.equal(isValidDateKey('2026-07-19'), true);
+    assert.equal(isValidDateKey('2026-02-30'), false);
+    assert.equal(isValidDateKey('not-a-date'), false);
+  });
+
   it('returns empty store for null, empty, or corrupt JSON', () => {
     assert.deepEqual(parseDailyNotesStore(null), createEmptyStore());
     assert.deepEqual(parseDailyNotesStore(''), createEmptyStore());
     assert.deepEqual(parseDailyNotesStore('{not-json'), createEmptyStore());
     assert.deepEqual(parseDailyNotesStore('[]'), createEmptyStore());
     assert.deepEqual(
-      parseDailyNotesStore(JSON.stringify({version: 2, days: {}})),
+      parseDailyNotesStore(JSON.stringify({version: 99, days: {}})),
       createEmptyStore(),
     );
   });
 
-  it('round-trips a valid store through serialize and parse', () => {
-    const store = setTasksForDay(createEmptyStore(), '2026-07-19', [
+  it('migrates version 1 task arrays into day entries', () => {
+    const raw = JSON.stringify({
+      version: 1,
+      days: {
+        '2026-07-18': [{id: 'old', text: 'Yesterday task', done: false}],
+      },
+    });
+    const store = parseDailyNotesStore(raw);
+    assert.equal(store.version, 2);
+    assert.deepEqual(getTasksForDay(store, '2026-07-18'), [
+      {id: 'old', text: 'Yesterday task', done: false},
+    ]);
+    assert.equal(getQuickNoteForDay(store, '2026-07-18'), '');
+  });
+
+  it('round-trips a valid v2 store through serialize and parse', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-19', [
       {id: 'task-1', text: 'Write notes', done: false},
       {id: 'task-2', text: 'Review PR', done: true},
     ]);
+    store = setQuickNoteForDay(store, '2026-07-19', 'Meeting at 3pm');
 
     const restored = parseDailyNotesStore(serializeDailyNotesStore(store));
     assert.deepEqual(restored, store);
-    assert.deepEqual(getTasksForDay(restored, '2026-07-19'), store.days['2026-07-19']);
+    assert.equal(getQuickNoteForDay(restored, '2026-07-19'), 'Meeting at 3pm');
   });
 
   it('drops invalid tasks while keeping valid ones', () => {
     const raw = JSON.stringify({
-      version: 1,
+      version: 2,
       days: {
-        '2026-07-19': [
-          {id: 'ok', text: 'Valid', done: false},
-          {id: '', text: 'Bad id', done: false},
-          {text: 'Missing id', done: true},
-          null,
-        ],
+        '2026-07-19': {
+          tasks: [
+            {id: 'ok', text: 'Valid', done: false},
+            {id: '', text: 'Bad id', done: false},
+            {text: 'Missing id', done: true},
+            null,
+          ],
+          quickNote: 'Keep me',
+        },
       },
     });
 
     const store = parseDailyNotesStore(raw);
-    assert.deepEqual(store.days['2026-07-19'], [
+    assert.deepEqual(getTasksForDay(store, '2026-07-19'), [
       {id: 'ok', text: 'Valid', done: false},
     ]);
+    assert.equal(getQuickNoteForDay(store, '2026-07-19'), 'Keep me');
   });
 
-  it('lists day keys newest first', () => {
-    const store = {
-      version: 1 as const,
-      days: {
-        '2026-07-17': [],
-        '2026-07-19': [],
-        '2026-07-18': [],
-      },
-    };
+  it('lists non-empty day keys newest first', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-17', [
+      {id: 'a', text: 'A', done: false},
+    ]);
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'b', text: 'B', done: false},
+    ]);
+    store = setQuickNoteForDay(store, '2026-07-18', 'note only');
     assert.deepEqual(listDayKeys(store), [
       '2026-07-19',
       '2026-07-18',
@@ -89,5 +118,39 @@ describe('notesStorage', () => {
     assert.ok(task.id.length > 0);
     assert.equal(createTask('   '), null);
     assert.equal(createTask(''), null);
+  });
+
+  it('moves a task to another date and keeps other days intact', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-18', [
+      {id: 'move-me', text: 'Carry over', done: false},
+      {id: 'stay', text: 'Stay yesterday', done: true},
+    ]);
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'today', text: 'Today task', done: false},
+    ]);
+
+    store = moveTaskToDate(store, '2026-07-18', '2026-07-19', 'move-me');
+
+    assert.deepEqual(getTasksForDay(store, '2026-07-18'), [
+      {id: 'stay', text: 'Stay yesterday', done: true},
+    ]);
+    assert.deepEqual(getTasksForDay(store, '2026-07-19'), [
+      {id: 'today', text: 'Today task', done: false},
+      {id: 'move-me', text: 'Carry over', done: false},
+    ]);
+  });
+
+  it('ignores move to the same or invalid date', () => {
+    const store = setTasksForDay(createEmptyStore(), '2026-07-19', [
+      {id: 'only', text: 'Only', done: false},
+    ]);
+    assert.deepEqual(
+      moveTaskToDate(store, '2026-07-19', '2026-07-19', 'only'),
+      store,
+    );
+    assert.deepEqual(
+      moveTaskToDate(store, '2026-07-19', 'bad-date', 'only'),
+      store,
+    );
   });
 });
