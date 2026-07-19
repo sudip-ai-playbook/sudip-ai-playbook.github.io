@@ -232,22 +232,22 @@ describe('notesStorage', () => {
 
     assert.deepEqual(listFutureIncompleteTasks(store, '2026-07-19'), [
       {
-        dateKey: '2026-07-22',
-        task: {id: 'future-2', text: 'Far future', done: false},
-      },
-      {
         dateKey: '2026-07-20',
         task: {id: 'future-1', text: 'Near future', done: false},
+      },
+      {
+        dateKey: '2026-07-22',
+        task: {id: 'future-2', text: 'Far future', done: false},
       },
     ]);
     assert.deepEqual(listPastIncompleteTasks(store, '2026-07-19'), [
       {
-        dateKey: '2026-07-18',
-        task: {id: 'past-2', text: 'Recent past', done: false},
-      },
-      {
         dateKey: '2026-07-17',
         task: {id: 'past-1', text: 'Older past', done: false},
+      },
+      {
+        dateKey: '2026-07-18',
+        task: {id: 'past-2', text: 'Recent past', done: false},
       },
     ]);
   });

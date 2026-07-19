@@ -2,6 +2,7 @@ export const APP_NAME = 'AI Solution Engineering Playbook'
 export const APP_TAGLINE = 'Learn. Decide. Deliver.'
 export const BLOG_BASE_PATH = '/blog/'
 export const LEARNING_MAP_PATH = `${BLOG_BASE_PATH}learning-map/overview/`
+export const DAILY_NOTES_PATH = `${BLOG_BASE_PATH}notes/`
 export const BUY_ME_A_COFFEE_URL = 'https://www.buymeacoffee.com/kandelsudir'
 export const KO_FI_URL = 'https://ko-fi.com/sudipkandel123'
 

@@ -7,7 +7,7 @@ import {
 } from './notesStorage.ts';
 
 describe('notesExport data', () => {
-  it('builds today report rows with future, today, then past', () => {
+  it('builds today report rows with past, today, then future', () => {
     let store = setTasksForDay(createEmptyStore(), '2026-07-17', [
       {id: 'old', text: 'Past task', done: false},
     ]);
@@ -20,10 +20,10 @@ describe('notesExport data', () => {
     ]);
 
     assert.deepEqual(buildTodayReportTaskRows(store, '2026-07-19'), [
-      {done: false, text: 'Future task', fromDateKey: '2026-07-21'},
+      {done: false, text: 'Past task', fromDateKey: '2026-07-17'},
       {done: false, text: 'Today open', fromDateKey: null},
       {done: true, text: 'Today done', fromDateKey: null},
-      {done: false, text: 'Past task', fromDateKey: '2026-07-17'},
+      {done: false, text: 'Future task', fromDateKey: '2026-07-21'},
     ]);
   });
 });

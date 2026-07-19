@@ -12,6 +12,8 @@ describe('App', () => {
       'href',
       '/blog/learning-map/overview/',
     )
+    expect(screen.getByTestId('nav-notes')).toHaveAttribute('href', '/blog/notes/')
+    expect(screen.getByTestId('nav-notes')).toHaveAttribute('aria-label', 'Daily Notes')
     expect(screen.getByTestId('app-footer')).toBeInTheDocument()
     expect(screen.getByTestId('nav-buy-me-a-coffee')).toHaveAttribute(
       'href',

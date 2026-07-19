@@ -461,12 +461,12 @@ export default function DailyNotes(): ReactNode {
           </p>
         ) : showFuturePastBoard ? (
           <div className={styles.taskBoard} data-testid="daily-notes-list">
-            {hasFutureEntries ? (
+            {hasPastEntries ? (
               <DaySection
-                label={FUTURE_SECTION_LABEL}
-                testId="daily-notes-future"
-                tasks={futureTasks}
-                tone="future"
+                label={PAST_SECTION_LABEL}
+                testId="daily-notes-past"
+                tasks={pastTasks}
+                tone="past"
                 onToggle={handleToggle}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
@@ -495,12 +495,12 @@ export default function DailyNotes(): ReactNode {
               )}
             </div>
 
-            {hasPastEntries ? (
+            {hasFutureEntries ? (
               <DaySection
-                label={PAST_SECTION_LABEL}
-                testId="daily-notes-past"
-                tasks={pastTasks}
-                tone="past"
+                label={FUTURE_SECTION_LABEL}
+                testId="daily-notes-future"
+                tasks={futureTasks}
+                tone="future"
                 onToggle={handleToggle}
                 onEdit={handleEdit}
                 onDelete={handleDelete}

@@ -372,28 +372,24 @@ export function shouldExpandDaySection(entryCount: number): boolean {
   return entryCount <= DAY_SECTION_COLLAPSE_THRESHOLD;
 }
 
-function compareDateKeysDescending(left: string, right: string): number {
-  return right.localeCompare(left);
-}
-
-/** Incomplete tasks on dates after today, farthest future first (today sits below). */
-export function listFutureIncompleteTasks(
-  store: DailyNotesStore,
-  todayKey: string,
-): IncompleteTaskRef[] {
-  return listIncompleteTasksExcludingDay(store, todayKey)
-    .filter((item) => item.dateKey > todayKey)
-    .sort((left, right) => compareDateKeysDescending(left.dateKey, right.dateKey));
-}
-
-/** Incomplete tasks on dates before today, most recent past first (today sits above). */
+/** Incomplete tasks on dates before today, oldest past first (today sits below). */
 export function listPastIncompleteTasks(
   store: DailyNotesStore,
   todayKey: string,
 ): IncompleteTaskRef[] {
   return listIncompleteTasksExcludingDay(store, todayKey)
     .filter((item) => item.dateKey < todayKey)
-    .sort((left, right) => compareDateKeysDescending(left.dateKey, right.dateKey));
+    .sort((left, right) => left.dateKey.localeCompare(right.dateKey));
+}
+
+/** Incomplete tasks on dates after today, nearest future first (today sits above). */
+export function listFutureIncompleteTasks(
+  store: DailyNotesStore,
+  todayKey: string,
+): IncompleteTaskRef[] {
+  return listIncompleteTasksExcludingDay(store, todayKey)
+    .filter((item) => item.dateKey > todayKey)
+    .sort((left, right) => left.dateKey.localeCompare(right.dateKey));
 }
 
 export function buildTodayReportTaskRows(
@@ -402,7 +398,7 @@ export function buildTodayReportTaskRows(
 ): TodayReportTaskRow[] {
   const rows: TodayReportTaskRow[] = [];
 
-  for (const item of listFutureIncompleteTasks(store, todayKey)) {
+  for (const item of listPastIncompleteTasks(store, todayKey)) {
     rows.push({
       done: false,
       text: item.task.text,
@@ -418,7 +414,7 @@ export function buildTodayReportTaskRows(
     });
   }
 
-  for (const item of listPastIncompleteTasks(store, todayKey)) {
+  for (const item of listFutureIncompleteTasks(store, todayKey)) {
     rows.push({
       done: false,
       text: item.task.text,

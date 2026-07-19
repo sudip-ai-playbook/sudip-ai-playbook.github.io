@@ -1,10 +1,11 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
-import { BookOpen, Coffee, ClipboardList, Heart } from 'lucide-react'
+import { BookOpen, Coffee, ClipboardList, Heart, Notebook } from 'lucide-react'
 import {
   APP_NAME,
   APP_TAGLINE,
   BLOG_BASE_PATH,
   BUY_ME_A_COFFEE_URL,
+  DAILY_NOTES_PATH,
   KO_FI_URL,
   LEARNING_MAP_PATH,
   NAV_ITEMS,
@@ -70,6 +71,15 @@ export function AppShell() {
                 <BookOpen className="h-3.5 w-3.5" aria-hidden />
                 Learn
               </span>
+            </a>
+            <a
+              href={DAILY_NOTES_PATH}
+              data-testid="nav-notes"
+              aria-label="Daily Notes"
+              title="Daily Notes"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink-secondary transition hover:bg-white/70 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-blue active:scale-95"
+            >
+              <Notebook className="h-4 w-4" strokeWidth={1.75} aria-hidden />
             </a>
           </nav>
         </div>

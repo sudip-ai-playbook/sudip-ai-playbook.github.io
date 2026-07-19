@@ -106,6 +106,7 @@ describe('End-to-end journey smoke', () => {
     expect(screen.getByTestId('hub-primary-cta')).toHaveTextContent('Continue')
     expect(screen.queryByTestId('hub-progress')).not.toBeInTheDocument()
     expect(screen.getByTestId('nav-blog')).toHaveAttribute('href', LEARNING_MAP_PATH)
+    expect(screen.getByTestId('nav-notes')).toHaveAttribute('href', '/blog/notes/')
     expect(screen.getByTestId('nav-buy-me-a-coffee')).toHaveAttribute(
       'href',
       BUY_ME_A_COFFEE_URL,

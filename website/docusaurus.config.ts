@@ -36,8 +36,6 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           sidebarCollapsed: true,
-          editUrl:
-            'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
         },
@@ -53,8 +51,6 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          editUrl:
-            'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
@@ -99,8 +95,6 @@ const config: Config = {
         routeBasePath: 'ai-solution-engineering',
         sidebarPath: './sidebarsAiSolutionEngineering.ts',
         sidebarCollapsed: true,
-        editUrl:
-          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
       },
@@ -113,8 +107,6 @@ const config: Config = {
         routeBasePath: 'learning-map',
         sidebarPath: './sidebarsLearningMap.ts',
         sidebarCollapsed: true,
-        editUrl:
-          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
       },
@@ -127,8 +119,6 @@ const config: Config = {
         routeBasePath: 'roadmaps',
         sidebarPath: './sidebarsRoadmaps.ts',
         sidebarCollapsed: true,
-        editUrl:
-          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
       },
@@ -141,8 +131,6 @@ const config: Config = {
         routeBasePath: 'startup-entrepreneurship',
         sidebarPath: './sidebarsStartupEntrepreneurship.ts',
         sidebarCollapsed: true,
-        editUrl:
-          'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io/tree/main/website/',
         showLastUpdateTime: true,
         showLastUpdateAuthor: false,
       },
@@ -182,6 +170,13 @@ const config: Config = {
       },
       items: [
         {
+          to: '/notes',
+          label: 'Notes',
+          position: 'right',
+          className: 'navbar-notes-link',
+          title: 'Daily Notes',
+        },
+        {
           type: 'dropdown',
           label: 'Menu',
           position: 'right',
@@ -193,7 +188,6 @@ const config: Config = {
             {label: 'Startup', to: '/startup-entrepreneurship/overview'},
             {label: 'Framework', to: '/docs/framework'},
             {label: 'Articles', to: '/articles'},
-            {label: 'Daily Notes', to: '/notes'},
             {
               type: 'html',
               value: '<hr class="dropdown-separator" />',
@@ -217,10 +211,6 @@ const config: Config = {
             {
               label: 'Support on Ko-fi',
               href: KO_FI_URL,
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/sudip-ai-playbook/sudip-ai-playbook.github.io',
             },
           ],
         },
