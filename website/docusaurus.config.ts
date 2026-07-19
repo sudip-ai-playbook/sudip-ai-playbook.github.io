@@ -170,6 +170,11 @@ const config: Config = {
       },
       items: [
         {
+          to: '/',
+          label: 'Home',
+          position: 'left',
+        },
+        {
           to: '/notes',
           label: 'Notes',
           position: 'right',
@@ -181,7 +186,6 @@ const config: Config = {
           label: 'Menu',
           position: 'right',
           items: [
-            {label: 'Home', to: '/'},
             {label: 'Learning Map', to: '/learning-map/overview'},
             {label: 'Guide', to: '/ai-solution-engineering/overview'},
             {label: 'Roadmaps', to: '/roadmaps/overview'},
