@@ -338,6 +338,12 @@ export type IncompleteTaskRef = {
   task: DailyTask;
 };
 
+export type TodayReportTaskRow = {
+  done: boolean;
+  text: string;
+  fromDateKey: string | null;
+};
+
 export function listIncompleteTasksExcludingDay(
   store: DailyNotesStore,
   excludeDateKey: string,
@@ -356,34 +362,49 @@ export function listIncompleteTasksExcludingDay(
   return results;
 }
 
-function escapeCsvCell(value: string): string {
-  if (/[",\n\r]/.test(value)) {
-    return `"${value.replace(/"/g, '""')}"`;
+export function buildTodayReportTaskRows(
+  store: DailyNotesStore,
+  todayKey: string,
+): TodayReportTaskRow[] {
+  const rows: TodayReportTaskRow[] = [];
+
+  for (const item of listIncompleteTasksExcludingDay(store, todayKey)) {
+    rows.push({
+      done: false,
+      text: item.task.text,
+      fromDateKey: item.dateKey,
+    });
   }
-  return value;
+
+  for (const task of getTasksForDay(store, todayKey)) {
+    rows.push({
+      done: task.done,
+      text: task.text,
+      fromDateKey: null,
+    });
+  }
+
+  return rows;
 }
 
-export function buildNotesExcelCsv(store: DailyNotesStore): string {
-  const rows: string[] = ['Date,Done,Type,Text'];
+export type CompletedTasksGroup = {
+  dateKey: string;
+  tasks: DailyTask[];
+};
+
+export function listCompletedTasksByDate(
+  store: DailyNotesStore,
+): CompletedTasksGroup[] {
+  const groups: CompletedTasksGroup[] = [];
   for (const dateKey of listDayKeys(store)) {
-    const entry = getDayEntry(store, dateKey);
-    for (const task of entry.tasks) {
-      rows.push(
-        [
-          dateKey,
-          task.done ? 'TRUE' : 'FALSE',
-          'task',
-          escapeCsvCell(task.text),
-        ].join(','),
-      );
-    }
-    if (entry.quickNote.trim() !== '') {
-      rows.push(
-        [dateKey, '', 'note', escapeCsvCell(entry.quickNote)].join(','),
-      );
+    const completed = getTasksForDay(store, dateKey).filter(
+      (task) => task.done,
+    );
+    if (completed.length > 0) {
+      groups.push({dateKey, tasks: completed});
     }
   }
-  return `\uFEFF${rows.join('\r\n')}\r\n`;
+  return groups;
 }
 
 export function loadDailyNotesStore(): DailyNotesStore {

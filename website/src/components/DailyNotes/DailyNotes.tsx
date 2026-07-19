@@ -9,8 +9,8 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import Heading from '@theme/Heading';
 
 import styles from './DailyNotes.module.css';
+import {downloadNotesXlsx} from './notesExport';
 import {
-  buildNotesExcelCsv,
   createEmptyStore,
   createTask,
   formatDateKey,
@@ -19,6 +19,7 @@ import {
   getQuickNoteForDay,
   getTasksForDay,
   isValidDateKey,
+  listCompletedTasksByDate,
   listIncompleteTasksExcludingDay,
   loadDailyNotesStore,
   saveDailyNotesStore,
@@ -41,17 +42,6 @@ function updateTaskDone(
 
 function removeTask(tasks: DailyTask[], taskId: string): DailyTask[] {
   return tasks.filter((task) => task.id !== taskId);
-}
-
-function downloadNotesCsv(store: DailyNotesStore, todayKey: string): void {
-  const csv = buildNotesExcelCsv(store);
-  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `daily-notes-${todayKey}.csv`;
-  link.click();
-  URL.revokeObjectURL(url);
 }
 
 type TaskRowProps = {
@@ -243,18 +233,24 @@ export default function DailyNotes(): ReactNode {
   }
 
   function handleDownload(): void {
-    downloadNotesCsv(store, todayKey);
+    void downloadNotesXlsx(store, todayKey).catch(() => {
+      // Keep the page usable if the workbook write fails in an older browser.
+    });
   }
 
   const isToday = selectedDateKey === todayKey;
   const dayTasks = getTasksForDay(store, selectedDateKey);
   const openTasks = dayTasks.filter((task) => !task.done);
-  const doneTasks = dayTasks.filter((task) => task.done);
   const carryovers = isToday
     ? listIncompleteTasksExcludingDay(store, todayKey)
     : [];
   const quickNote = getQuickNoteForDay(store, selectedDateKey);
-  const hasAnyTasks = carryovers.length > 0 || dayTasks.length > 0;
+  const completedGroups = listCompletedTasksByDate(store);
+  const completedCount = completedGroups.reduce(
+    (total, group) => total + group.tasks.length,
+    0,
+  );
+  const hasAnyTasks = carryovers.length > 0 || openTasks.length > 0;
 
   if (!hasHydrated) {
     return (
@@ -276,7 +272,7 @@ export default function DailyNotes(): ReactNode {
             className={styles.downloadButton}
             onClick={handleDownload}
             data-testid="daily-notes-download">
-            Download
+            Download Excel
           </button>
         </div>
         <div className={styles.pickerRow}>
@@ -355,16 +351,6 @@ export default function DailyNotes(): ReactNode {
                 onDelete={handleDelete}
               />
             ))}
-            {doneTasks.map((task) => (
-              <TaskRow
-                key={task.id}
-                task={task}
-                dateKey={selectedDateKey}
-                onToggle={handleToggle}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            ))}
           </ul>
         )}
       </section>
@@ -388,6 +374,42 @@ export default function DailyNotes(): ReactNode {
           data-testid="daily-notes-quick-note"
         />
       </section>
+
+      {completedCount > 0 ? (
+        <details
+          className={styles.completedSection}
+          data-testid="daily-notes-completed">
+          <summary className={styles.completedSummary}>
+            Completed ({completedCount})
+          </summary>
+          <div className={styles.completedBody}>
+            {completedGroups.map((group) => (
+              <div
+                key={group.dateKey}
+                className={styles.completedGroup}
+                data-testid={`daily-notes-completed-${group.dateKey}`}>
+                <p className={styles.completedDate}>
+                  {group.dateKey === todayKey
+                    ? 'Today'
+                    : formatShortDate(group.dateKey)}
+                </p>
+                <ul className={styles.completedList}>
+                  {group.tasks.map((task) => (
+                    <TaskRow
+                      key={task.id}
+                      task={task}
+                      dateKey={group.dateKey}
+                      onToggle={handleToggle}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </details>
+      ) : null}
     </div>
   );
 }

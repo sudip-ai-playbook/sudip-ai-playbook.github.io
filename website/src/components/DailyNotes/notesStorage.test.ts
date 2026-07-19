@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import {describe, it} from 'node:test';
 import {
-  buildNotesExcelCsv,
   createEmptyStore,
   createTask,
   formatDateKey,
@@ -11,6 +10,7 @@ import {
   getTasksForDay,
   isValidDateKey,
   listActiveDayKeys,
+  listCompletedTasksByDate,
   listDayKeys,
   listIncompleteTasksExcludingDay,
   moveTaskToDate,
@@ -209,18 +209,24 @@ describe('notesStorage', () => {
     ]);
   });
 
-  it('builds an Excel-friendly CSV with checkbox Done values', () => {
-    let store = setTasksForDay(createEmptyStore(), '2026-07-18', [
-      {id: 'a', text: 'Open task', done: false},
-      {id: 'b', text: 'Done task', done: true},
+  it('lists completed tasks grouped by date newest first', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-17', [
+      {id: 'old-done', text: 'Earlier done', done: true},
+      {id: 'old-open', text: 'Earlier open', done: false},
     ]);
-    store = setQuickNoteForDay(store, '2026-07-18', 'Note with, comma');
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'today-done', text: 'Today done', done: true},
+    ]);
 
-    const csv = buildNotesExcelCsv(store);
-    assert.ok(csv.startsWith('\uFEFF'));
-    assert.match(csv, /Date,Done,Type,Text/);
-    assert.match(csv, /2026-07-18,FALSE,task,Open task/);
-    assert.match(csv, /2026-07-18,TRUE,task,Done task/);
-    assert.match(csv, /2026-07-18,,note,"Note with, comma"/);
+    assert.deepEqual(listCompletedTasksByDate(store), [
+      {
+        dateKey: '2026-07-19',
+        tasks: [{id: 'today-done', text: 'Today done', done: true}],
+      },
+      {
+        dateKey: '2026-07-17',
+        tasks: [{id: 'old-done', text: 'Earlier done', done: true}],
+      },
+    ]);
   });
 });

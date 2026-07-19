@@ -227,6 +227,61 @@
   outline-offset: 1px;
 }
 
+.completedSection {
+  margin-top: var(--ase-space-5);
+  border-top: 1px solid var(--ase-rule);
+  padding-top: var(--ase-space-3);
+}
+
+.completedSummary {
+  cursor: pointer;
+  color: var(--ase-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.completedSummary::-webkit-details-marker {
+  display: none;
+}
+
+.completedSummary::before {
+  content: '▸ ';
+  color: var(--ase-muted);
+}
+
+.completedSection[open] .completedSummary::before {
+  content: '▾ ';
+}
+
+.completedBody {
+  margin-top: var(--ase-space-3);
+}
+
+.completedGroup + .completedGroup {
+  margin-top: var(--ase-space-4);
+}
+
+.completedDate {
+  margin: 0 0 var(--ase-space-2);
+  color: var(--ase-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.completedList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.completedList .taskItem {
+  border-bottom-color: transparent;
+  padding: var(--ase-space-1) 0;
+}
+
 .deleteButton {
   border: none;
   padding: 0.15rem 0.4rem;
