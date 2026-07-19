@@ -25,7 +25,9 @@ import {
   listCompletedTasksByDate,
   listFutureIncompleteTasks,
   listPastIncompleteTasks,
+  listPastQuickNotes,
   loadDailyNotesStore,
+  PAST_NOTES_SECTION_LABEL,
   PAST_SECTION_LABEL,
   saveDailyNotesStore,
   setQuickNoteForDay,
@@ -35,6 +37,7 @@ import {
   type DailyNotesStore,
   type DailyTask,
   type IncompleteTaskRef,
+  type PastQuickNoteRef,
 } from './notesStorage';
 
 type TaskTone = 'future' | 'past';
@@ -260,6 +263,65 @@ function DaySection({
   );
 }
 
+type PastNotesSectionProps = {
+  notes: PastQuickNoteRef[];
+  onOpenDate: (dateKey: string) => void;
+};
+
+function PastNotesSection({
+  notes,
+  onOpenDate,
+}: PastNotesSectionProps): ReactNode {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleSectionToggle(
+    event: SyntheticEvent<HTMLDetailsElement>,
+  ): void {
+    setIsOpen(event.currentTarget.open);
+  }
+
+  function handlePastNoteDateClick(
+    event: MouseEvent<HTMLButtonElement>,
+  ): void {
+    event.preventDefault();
+    const dateKey = event.currentTarget.dataset.dateKey;
+    if (dateKey) {
+      onOpenDate(dateKey);
+    }
+  }
+
+  return (
+    <details
+      className={styles.pastNotesSection}
+      open={isOpen}
+      onToggle={handleSectionToggle}
+      data-testid="daily-notes-past-notes">
+      <summary className={styles.pastNotesSummary}>
+        {PAST_NOTES_SECTION_LABEL} ({notes.length})
+      </summary>
+      <div className={styles.pastNotesBody}>
+        {notes.map((item) => (
+          <article
+            key={item.dateKey}
+            className={styles.pastNoteItem}
+            data-testid={`daily-notes-past-note-${item.dateKey}`}>
+            <button
+              type="button"
+              className={styles.pastNoteDate}
+              data-date-key={item.dateKey}
+              onClick={handlePastNoteDateClick}
+              aria-label={`Open ${formatShortDate(item.dateKey)}`}
+              data-testid={`daily-notes-past-note-date-${item.dateKey}`}>
+              {formatShortDate(item.dateKey)}
+            </button>
+            <p className={styles.pastNoteText}>{item.quickNote}</p>
+          </article>
+        ))}
+      </div>
+    </details>
+  );
+}
+
 export default function DailyNotes(): ReactNode {
   const isBrowser = useIsBrowser();
   const todayKey = formatDateKey(new Date());
@@ -375,6 +437,7 @@ export default function DailyNotes(): ReactNode {
     (total, group) => total + group.tasks.length,
     0,
   );
+  const pastQuickNotes = listPastQuickNotes(store, todayKey);
   const hasFutureEntries = futureTasks.length > 0;
   const hasPastEntries = pastTasks.length > 0;
   const hasTodayOpenTasks = openTasks.length > 0;
@@ -578,6 +641,10 @@ export default function DailyNotes(): ReactNode {
             ))}
           </div>
         </details>
+      ) : null}
+
+      {pastQuickNotes.length > 0 ? (
+        <PastNotesSection notes={pastQuickNotes} onOpenDate={handleOpenDate} />
       ) : null}
     </div>
   );

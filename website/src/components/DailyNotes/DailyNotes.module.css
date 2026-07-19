@@ -365,6 +365,71 @@
   padding: var(--ase-space-1) 0;
 }
 
+.pastNotesSection {
+  margin-top: var(--ase-space-5);
+  border-top: 1px solid var(--ase-rule);
+  padding-top: var(--ase-space-3);
+}
+
+.pastNotesSummary {
+  cursor: pointer;
+  color: var(--ase-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.pastNotesSummary::-webkit-details-marker {
+  display: none;
+}
+
+.pastNotesSummary::before {
+  content: '▸ ';
+  color: var(--ase-muted);
+}
+
+.pastNotesSection[open] .pastNotesSummary::before {
+  content: '▾ ';
+}
+
+.pastNotesBody {
+  margin-top: var(--ase-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ase-space-4);
+}
+
+.pastNoteItem {
+  margin: 0;
+}
+
+.pastNoteDate {
+  display: inline-block;
+  margin: 0 0 var(--ase-space-2);
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--ase-color-warning);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.pastNoteDate:hover {
+  text-decoration: underline;
+}
+
+.pastNoteText {
+  margin: 0;
+  color: var(--ase-ink);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
 .deleteButton {
   border: none;
   padding: 0.15rem 0.4rem;

@@ -15,6 +15,7 @@ import {
   listIncompleteTasksExcludingDay,
   listFutureIncompleteTasks,
   listPastIncompleteTasks,
+  listPastQuickNotes,
   moveTaskToDate,
   parseDailyNotesStore,
   serializeDailyNotesStore,
@@ -277,6 +278,23 @@ describe('notesStorage', () => {
         dateKey: '2026-07-17',
         tasks: [{id: 'old-done', text: 'Earlier done', done: true}],
       },
+    ]);
+  });
+
+  it('lists past quick notes from earlier dates only', () => {
+    let store = setQuickNoteForDay(
+      createEmptyStore(),
+      '2026-07-17',
+      '  Older note  ',
+    );
+    store = setQuickNoteForDay(store, '2026-07-18', 'Recent note');
+    store = setQuickNoteForDay(store, '2026-07-19', 'Today note');
+    store = setQuickNoteForDay(store, '2026-07-20', 'Future note');
+    store = setQuickNoteForDay(store, '2026-07-16', '   ');
+
+    assert.deepEqual(listPastQuickNotes(store, '2026-07-19'), [
+      {dateKey: '2026-07-18', quickNote: 'Recent note'},
+      {dateKey: '2026-07-17', quickNote: 'Older note'},
     ]);
   });
 });

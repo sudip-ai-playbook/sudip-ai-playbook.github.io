@@ -367,6 +367,7 @@ export const DAY_SECTION_COLLAPSE_THRESHOLD = 2;
 
 export const FUTURE_SECTION_LABEL = 'Future';
 export const PAST_SECTION_LABEL = 'Past';
+export const PAST_NOTES_SECTION_LABEL = 'Past notes';
 
 export function shouldExpandDaySection(entryCount: number): boolean {
   return entryCount <= DAY_SECTION_COLLAPSE_THRESHOLD;
@@ -429,6 +430,32 @@ export type CompletedTasksGroup = {
   dateKey: string;
   tasks: DailyTask[];
 };
+
+export type PastQuickNoteRef = {
+  dateKey: string;
+  quickNote: string;
+};
+
+/** Non-empty quick notes from dates before today, newest past first. */
+export function listPastQuickNotes(
+  store: DailyNotesStore,
+  todayKey: string,
+): PastQuickNoteRef[] {
+  const results: PastQuickNoteRef[] = [];
+  for (const dateKey of listDayKeys(store)) {
+    if (dateKey >= todayKey) {
+      continue;
+    }
+    const quickNote = getQuickNoteForDay(store, dateKey).trim();
+    if (quickNote === '') {
+      continue;
+    }
+    results.push({dateKey, quickNote});
+  }
+  return results.sort((left, right) =>
+    right.dateKey.localeCompare(left.dateKey),
+  );
+}
 
 export function listCompletedTasksByDate(
   store: DailyNotesStore,
