@@ -82,3 +82,8 @@ project-management:
   label: Project Management
   permalink: /project-management
   description: PMI PMBOK study maps, delivery discipline, and project practice
+
+regulation:
+  label: Regulation
+  permalink: /regulation
+  description: Regulatory frameworks, compliance duties, and legal operating constraints
