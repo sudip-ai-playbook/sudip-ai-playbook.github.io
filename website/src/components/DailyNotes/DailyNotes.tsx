@@ -2,6 +2,7 @@ import type {
   ChangeEvent,
   FormEvent,
   KeyboardEvent,
+  MouseEvent,
   ReactNode,
   SyntheticEvent,
 } from 'react';
@@ -60,6 +61,7 @@ type TaskRowProps = {
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
+  onOpenDate?: (dateKey: string) => void;
 };
 
 function resolveDateTagClass(tone: TaskTone | undefined): string {
@@ -96,6 +98,7 @@ function TaskRow({
   onToggle,
   onEdit,
   onDelete,
+  onOpenDate,
 }: TaskRowProps): ReactNode {
   const [draft, setDraft] = useState(task.text);
 
@@ -129,6 +132,12 @@ function TaskRow({
     onDelete(dateKey, task.id);
   }
 
+  function handleOpenDate(event: MouseEvent<HTMLButtonElement>): void {
+    event.preventDefault();
+    event.stopPropagation();
+    onOpenDate?.(dateKey);
+  }
+
   const isDated = dateTag !== undefined;
   const itemClassName = isDated
     ? tone === 'future'
@@ -152,7 +161,16 @@ function TaskRow({
             onChange={handleToggle}
             data-testid={`daily-notes-checkbox-${task.id}`}
           />
-          {dateTag ? (
+          {dateTag && onOpenDate ? (
+            <button
+              type="button"
+              className={resolveDateTagClass(tone)}
+              onClick={handleOpenDate}
+              aria-label={`Open ${dateTag}`}
+              data-testid={`daily-notes-date-tag-${task.id}`}>
+              {dateTag}
+            </button>
+          ) : dateTag ? (
             <span
               className={resolveDateTagClass(tone)}
               data-testid={`daily-notes-date-tag-${task.id}`}>
@@ -191,6 +209,7 @@ type DaySectionProps = {
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
+  onOpenDate: (dateKey: string) => void;
 };
 
 function DaySection({
@@ -201,9 +220,11 @@ function DaySection({
   onToggle,
   onEdit,
   onDelete,
+  onOpenDate,
 }: DaySectionProps): ReactNode {
-  const expandByDefault = shouldExpandDaySection(tasks.length);
-  const [isOpen, setIsOpen] = useState(expandByDefault);
+  const [isOpen, setIsOpen] = useState(() =>
+    shouldExpandDaySection(tasks.length),
+  );
 
   function handleSectionToggle(
     event: SyntheticEvent<HTMLDetailsElement>,
@@ -231,6 +252,7 @@ function DaySection({
             onToggle={onToggle}
             onEdit={onEdit}
             onDelete={onDelete}
+            onOpenDate={onOpenDate}
           />
         ))}
       </ul>
@@ -322,6 +344,14 @@ export default function DailyNotes(): ReactNode {
   function handleOpenToday(): void {
     setSelectedDateKey(todayKey);
     setPickerDate(todayKey);
+  }
+
+  function handleOpenDate(dateKey: string): void {
+    if (!isValidDateKey(dateKey)) {
+      return;
+    }
+    setSelectedDateKey(dateKey);
+    setPickerDate(dateKey);
   }
 
   function handleDownload(): void {
@@ -433,7 +463,6 @@ export default function DailyNotes(): ReactNode {
           <div className={styles.taskBoard} data-testid="daily-notes-list">
             {hasFutureEntries ? (
               <DaySection
-                key={`future-${shouldExpandDaySection(futureTasks.length) ? 'open' : 'closed'}`}
                 label={FUTURE_SECTION_LABEL}
                 testId="daily-notes-future"
                 tasks={futureTasks}
@@ -441,6 +470,7 @@ export default function DailyNotes(): ReactNode {
                 onToggle={handleToggle}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onOpenDate={handleOpenDate}
               />
             ) : null}
 
@@ -467,7 +497,6 @@ export default function DailyNotes(): ReactNode {
 
             {hasPastEntries ? (
               <DaySection
-                key={`past-${shouldExpandDaySection(pastTasks.length) ? 'open' : 'closed'}`}
                 label={PAST_SECTION_LABEL}
                 testId="daily-notes-past"
                 tasks={pastTasks}
@@ -475,6 +504,7 @@ export default function DailyNotes(): ReactNode {
                 onToggle={handleToggle}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onOpenDate={handleOpenDate}
               />
             ) : null}
           </div>

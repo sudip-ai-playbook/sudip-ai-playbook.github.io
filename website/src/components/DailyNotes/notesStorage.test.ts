@@ -252,10 +252,11 @@ describe('notesStorage', () => {
     ]);
   });
 
-  it('expands day sections by default until more than 6 entries', () => {
+  it('expands day sections by default until more than 2 entries', () => {
     assert.equal(shouldExpandDaySection(0), true);
-    assert.equal(shouldExpandDaySection(6), true);
-    assert.equal(shouldExpandDaySection(7), false);
+    assert.equal(shouldExpandDaySection(1), true);
+    assert.equal(shouldExpandDaySection(2), true);
+    assert.equal(shouldExpandDaySection(3), false);
   });
 
   it('lists completed tasks grouped by date newest first', () => {

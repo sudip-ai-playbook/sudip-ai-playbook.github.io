@@ -216,8 +216,20 @@
 .dateTagPast {
   flex-shrink: 0;
   min-width: 3.25rem;
+  border: none;
+  padding: 0;
+  background: none;
+  font: inherit;
   font-size: 0.8rem;
   font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dateTag:hover,
+.dateTagFuture:hover,
+.dateTagPast:hover {
+  text-decoration: underline;
 }
 
 .dateTag,

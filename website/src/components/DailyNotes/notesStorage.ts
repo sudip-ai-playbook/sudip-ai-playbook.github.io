@@ -363,7 +363,7 @@ export function listIncompleteTasksExcludingDay(
 }
 
 /** Collapse Future/Past sections once they grow past this many tasks. */
-export const DAY_SECTION_COLLAPSE_THRESHOLD = 6;
+export const DAY_SECTION_COLLAPSE_THRESHOLD = 2;
 
 export const FUTURE_SECTION_LABEL = 'Future';
 export const PAST_SECTION_LABEL = 'Past';
