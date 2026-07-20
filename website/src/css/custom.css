@@ -763,3 +763,10 @@ article .markdown > h1:first-child,
     border-right: none !important;
   }
 }
+
+mark.reading-sticky-mark {
+  background: color-mix(in srgb, var(--ifm-color-primary) 18%, transparent);
+  color: inherit;
+  border-radius: 0.15em;
+  padding: 0.05em 0;
+}
