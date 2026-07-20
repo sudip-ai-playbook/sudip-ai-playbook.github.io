@@ -1,0 +1,1575 @@
+---
+slug: leadership-risk-governance-assurance-decisions
+title: "Leadership: Make Risk, Governance and Assurance Decisions"
+description: The Executive Data and AI Leader’s playbook for trusted innovation—risk appetite, use-case classification, production readiness, confidentiality, independence, incidents, assurance cases and decision rights.
+authors: [sudip]
+tags: [leadership, governance, security, consulting, playbook, roadmaps]
+keywords:
+  - AI risk governance
+  - Data and AI assurance
+  - Executive AI risk decisions
+  - Professional services AI confidentiality
+  - Cross-client data separation
+  - AI production readiness
+  - Human oversight AI
+  - Responsible AI leadership
+---
+
+Data and AI create significant opportunities for growth, operational improvement, better decision-making and new client services. However, these opportunities also introduce risks that are different from, and often more complex than, those associated with traditional technology.
+
+{/* truncate */}
+
+<ExecSummary>
+Accelerate innovation within the organisation’s risk appetite. Identify risks early, assess them consistently, assign clear owners, reduce them with proportionate controls, retain evidence, escalate when necessary, monitor across the lifecycle, and accept residual risk only with authorised decision-makers. Trusted innovation needs clear boundaries, decision rights and assurance—not the elimination of all risk.
+</ExecSummary>
+
+<WhenToUse>
+- Use when governing Data and AI portfolios, approving high-risk use cases, or deciding production readiness in a professional-services environment.
+- Pair with the [Risk, Governance and Assurance roadmap](/roadmaps/leadership-risk-governance-assurance), [Leadership Direction and Priorities](/roadmaps/leadership-direction-priorities), [Data & AI Centre of Excellence](/roadmaps/data-ai-centre-of-excellence) and [Responsible AI governance frameworks](/docs/frameworks/responsible-ai-governance).
+- Cross-check technical controls with [Enterprise AI Security](/roadmaps/enterprise-ai-security), [OWASP LLM Top 10 governance](/articles/owasp-llm-top-10-governance) and [NIST / EU AI Act](/articles/ai-governance-nist-eu-ai-act).
+</WhenToUse>
+
+An AI system may expose confidential information, produce inaccurate recommendations, introduce unfair outcomes, breach regulatory obligations, undermine professional judgement or create reputational damage. A technically successful solution can therefore still be unacceptable from a business, ethical, legal or professional perspective.
+
+For this reason, an Executive Data and AI Leader is accountable not only for accelerating innovation, but also for ensuring that innovation proceeds within the organisation’s risk appetite.
+
+Their objective is not to eliminate all risk. That would prevent experimentation and slow down useful progress. Their responsibility is to ensure that risks are:
+
+* Identified early.
+* Assessed consistently.
+* Owned by the right people.
+* Reduced through appropriate controls.
+* Supported by evidence.
+* Escalated when necessary.
+* Monitored throughout the system lifecycle.
+* Accepted only by people with the authority to do so.
+
+The leader must create an environment in which teams can innovate confidently because the boundaries, decision rights and assurance requirements are clear.
+
+---
+
+## 1. Risk Governance Is a Leadership Responsibility
+
+Risk management cannot be treated as a final compliance review that takes place immediately before deployment.
+
+By that stage, the team may already have:
+
+* Selected an unsuitable technology.
+* Used data without the correct permissions.
+* Designed a process with insufficient human oversight.
+* Created a dependency on an unacceptable third party.
+* Built a solution that cannot be properly audited.
+* Made commitments to a client that cannot safely be delivered.
+* Invested significant time and money in an approach that will not receive approval.
+
+Effective governance begins when the opportunity is first identified.
+
+The Executive Data and AI Leader should ensure that risk considerations influence:
+
+1. Use-case selection.
+2. Business-case development.
+3. Data sourcing.
+4. Model and vendor selection.
+5. Solution architecture.
+6. Testing and evaluation.
+7. Human oversight design.
+8. Deployment approval.
+9. Production monitoring.
+10. Incident response.
+11. Periodic reassessment.
+12. System retirement.
+
+Risk governance must therefore be integrated into the complete Data and AI lifecycle.
+
+The leader does not personally carry out every legal, privacy, security, model-risk or assurance review. Instead, they ensure that the organisation has a reliable governance system in which:
+
+* The correct specialists are involved.
+* Responsibilities are clearly assigned.
+* Decisions are documented.
+* Evidence is retained.
+* Exceptions are controlled.
+* High-risk matters are escalated.
+* Production systems remain monitored.
+* Accountable executives understand the residual risk they are accepting.
+
+---
+
+## 2. Establish the Organisation’s Risk Appetite
+
+One of the most important responsibilities of an Executive Data and AI Leader is translating the organisation’s broad risk appetite into practical rules for Data and AI teams.
+
+A general statement such as “we are committed to responsible AI” is not sufficient. Delivery teams need to understand what this means in practice.
+
+The leader should help define:
+
+* Which AI uses are prohibited.
+* Which uses require senior approval.
+* Which uses may proceed under standard controls.
+* Which data types may be processed.
+* Which model providers may be used.
+* Which decisions must remain under human control.
+* Which environments are approved for experimentation.
+* What level of explainability is required.
+* What evidence is required before production deployment.
+* Which incidents must be reported immediately.
+* Who can accept residual risk.
+
+For example, an organisation may permit employees to use an approved generative AI assistant for summarising public information but prohibit the use of unapproved public tools for processing confidential client data.
+
+Similarly, an internal administrative assistant may be approved under a lightweight review, while an AI system influencing audit conclusions, credit decisions, employment decisions, legal advice or regulated client outcomes may require extensive assurance and executive approval.
+
+The leader must ensure that risk requirements are proportionate. Applying the same governance process to every use case creates unnecessary bureaucracy. Applying too little governance to high-impact systems creates unacceptable exposure.
+
+The aim is risk-based governance.
+
+---
+
+## 3. Classify AI Use Cases by Risk
+
+A consistent risk-classification process helps determine the level of review, evidence and executive oversight required.
+
+Risk classification should consider more than the type of model being used. A relatively simple model may create serious consequences if it influences a high-impact decision. A technically advanced model may present limited risk if it operates in a controlled, low-impact environment.
+
+The classification should consider several dimensions.
+
+### 3.1 Impact on people
+
+The leader should ask:
+
+* Could the system affect a person’s employment, finances, access to services or legal rights?
+* Could an incorrect output cause physical, financial, emotional or reputational harm?
+* Is the user aware that AI is being used?
+* Can an affected person challenge the decision?
+* Is there a clear route for human review?
+* Could the system treat groups differently?
+
+Systems influencing people’s rights or opportunities generally require stronger controls.
+
+### 3.2 Impact on clients
+
+The leader should determine:
+
+* Could the output influence client decisions?
+* Could the client rely on inaccurate or incomplete information?
+* Is the system presented as advisory or authoritative?
+* Could errors create contractual, legal or financial consequences?
+* Has the client approved the proposed use of AI?
+* Are limitations clearly communicated?
+
+The more directly the system contributes to client advice or deliverables, the greater the assurance requirement.
+
+### 3.3 Data sensitivity
+
+The review should consider whether the system processes:
+
+* Personal data.
+* Special-category or highly sensitive personal data.
+* Confidential client information.
+* Financial information.
+* Health information.
+* Employee information.
+* Legally privileged material.
+* Commercially sensitive information.
+* Security credentials.
+* Source code.
+* Intellectual property.
+* Government-classified or regulated information.
+
+Higher data sensitivity requires stronger restrictions on access, processing, retention, transfer and model-provider usage.
+
+### 3.4 Autonomy
+
+The leader should ask:
+
+* Does the system merely provide information?
+* Does it recommend an action?
+* Does it make a decision?
+* Does it execute an action?
+* Can it access other systems?
+* Can it communicate externally?
+* Can it modify records?
+* Can it initiate financial or operational transactions?
+* Can it act repeatedly without human approval?
+
+Agentic or autonomous systems may require enhanced controls because their actions can create real-world consequences before a human intervenes.
+
+### 3.5 Scale
+
+A small pilot involving ten trained users creates a different risk profile from a system serving thousands of employees or millions of customers.
+
+Scale considerations include:
+
+* Number of users.
+* Number of decisions or transactions.
+* Geographic reach.
+* Number of clients affected.
+* Volume of data processed.
+* Level of dependency on the system.
+* Difficulty of reversing an error.
+* Potential cumulative impact of repeated mistakes.
+
+### 3.6 Regulatory and professional significance
+
+The system may require stronger review if it affects:
+
+* Audit work.
+* Financial reporting.
+* Tax advice.
+* Legal services.
+* Regulated financial activity.
+* Public-sector decisions.
+* Healthcare activity.
+* Employment decisions.
+* Consumer protection.
+* Competition law.
+* Data protection.
+* Sector-specific regulatory requirements.
+
+The Executive Data and AI Leader should ensure that each use case is assigned a clear risk level and that the classification is reviewed when the use case, data, model, scale or operating environment changes.
+
+---
+
+## 4. Review High-Risk AI Use Cases
+
+High-risk use cases require structured executive attention.
+
+The leader should not allow a high-risk proposal to proceed solely because:
+
+* The technology appears impressive.
+* A competitor has launched something similar.
+* A client has requested it.
+* A senior sponsor is enthusiastic.
+* A vendor claims the solution is compliant.
+* A successful proof of concept has been completed.
+* The team has already invested heavily in development.
+
+The decision must be based on evidence.
+
+A high-risk review should examine:
+
+### Business purpose
+
+* What problem is being solved?
+* Is the use case genuinely necessary?
+* Is AI the most appropriate approach?
+* Is there a less risky alternative?
+* What business value is expected?
+* Who owns the outcome?
+
+### Affected stakeholders
+
+* Who will use the system?
+* Who may be affected by its outputs?
+* Could vulnerable groups be affected?
+* Are users adequately informed?
+* Can people challenge or appeal outcomes?
+
+### Data
+
+* What data is being used?
+* Where did it come from?
+* Is there a lawful and contractual basis for using it?
+* Is the data accurate, representative and current?
+* Does the system require all the data being collected?
+* How long will the data be retained?
+* Where will it be processed?
+
+### Model
+
+* Which model is being used?
+* Is it internally developed or externally provided?
+* How was it evaluated?
+* What are its known limitations?
+* Can the provider use submitted data for training?
+* Can the provider change the model without notice?
+* Is the model available in approved regions?
+* Is there an acceptable exit strategy?
+
+### Controls
+
+* What prevents misuse?
+* What prevents unauthorised access?
+* How are inputs and outputs monitored?
+* What human checks are required?
+* Can unsafe outputs be blocked?
+* Can the system be stopped quickly?
+* Are logs sufficient for investigation?
+
+### Residual risk
+
+* What risks remain after controls are applied?
+* Who is accepting those risks?
+* Is the residual risk within the organisation’s appetite?
+* Are additional conditions required before deployment?
+
+The review must result in a clear decision rather than an open-ended discussion.
+
+Possible decisions include:
+
+* Approved.
+* Approved with conditions.
+* Approved for a limited pilot.
+* Returned for remediation.
+* Escalated for specialist or executive review.
+* Deferred until evidence is available.
+* Rejected.
+
+---
+
+## 5. Make Production-Readiness Decisions
+
+A system should not proceed to production simply because the development team has completed its technical work.
+
+Production approval should be based on a complete view of readiness.
+
+The Executive Data and AI Leader should ensure that the decision includes the following areas.
+
+### 5.1 Business readiness
+
+* The business owner has accepted responsibility.
+* The intended outcomes are measurable.
+* The operating process has been redesigned where necessary.
+* Users have been trained.
+* Support arrangements are in place.
+* Limitations are clearly communicated.
+* Adoption and change-management plans exist.
+
+### 5.2 Technical readiness
+
+* The architecture has been reviewed.
+* Performance is acceptable.
+* Capacity and scalability have been tested.
+* Availability requirements are understood.
+* Dependencies are documented.
+* Disaster-recovery arrangements are appropriate.
+* Rollback mechanisms exist.
+* The system can be disabled safely.
+
+### 5.3 Data readiness
+
+* Data ownership is clear.
+* Data quality is sufficient.
+* Data permissions have been verified.
+* Retention rules are defined.
+* Data lineage is documented.
+* Sensitive data is appropriately protected.
+* Cross-border processing has been reviewed.
+* Production data has not been used improperly during testing.
+
+### 5.4 Model readiness
+
+* Evaluation results meet agreed thresholds.
+* Known failure modes are documented.
+* Bias and fairness concerns have been assessed where relevant.
+* Hallucination or inaccuracy risks are understood.
+* Model drift can be detected.
+* Prompt, model and configuration versions are controlled.
+* Model changes can be traced.
+* The system can be revalidated after material changes.
+
+### 5.5 Security readiness
+
+* Access is based on least privilege.
+* Authentication and authorisation controls are in place.
+* Secrets are securely managed.
+* The system has been tested for relevant attacks.
+* Prompt injection and data-exfiltration risks have been considered.
+* External tools and plugins are controlled.
+* Network boundaries are appropriate.
+* Logs and alerts support incident detection.
+
+### 5.6 Legal, regulatory and policy readiness
+
+* Required privacy assessments are complete.
+* Contractual restrictions have been reviewed.
+* Regulatory obligations have been identified.
+* Intellectual-property risks have been assessed.
+* Client approval has been obtained where necessary.
+* Internal policy requirements have been satisfied.
+* Records of decisions are retained.
+
+### 5.7 Operational readiness
+
+* Monitoring is active.
+* Incident-management procedures are documented.
+* Escalation contacts are known.
+* Human review responsibilities are defined.
+* Service ownership is confirmed.
+* Support teams understand the system.
+* Post-deployment review dates are scheduled.
+
+The executive decision should be supported by an assurance pack summarising the evidence, outstanding risks, control owners and approval conditions.
+
+---
+
+## 6. Review Privacy, Security and Confidentiality Concerns
+
+Data and AI systems often process large quantities of information, combine data from different sources and transmit information to external platforms. This creates privacy, security and confidentiality risks that require executive oversight.
+
+### Privacy
+
+The leader should ensure that teams answer:
+
+* What personal data is being processed?
+* Why is it necessary?
+* Is the purpose clearly defined?
+* Is the processing lawful?
+* Are individuals appropriately informed?
+* Can the data be minimised?
+* Can data be anonymised or pseudonymised?
+* Are retention periods appropriate?
+* Are individual rights supported?
+* Is automated decision-making involved?
+* Are international data transfers involved?
+
+Privacy cannot be reduced to a consent checkbox. It requires clarity about purpose, necessity, proportionality, transparency and individual rights.
+
+### Security
+
+AI introduces new attack paths in addition to traditional application-security risks.
+
+The leader should ensure that teams consider:
+
+* Prompt injection.
+* Indirect prompt injection.
+* Data poisoning.
+* Model extraction.
+* Sensitive-information disclosure.
+* Insecure output handling.
+* Excessive system permissions.
+* Malicious file uploads.
+* Uncontrolled tool use.
+* Supply-chain vulnerabilities.
+* Compromised third-party models.
+* Adversarial inputs.
+* Weak identity and access management.
+* Inadequate logging.
+* Unprotected APIs.
+* Insecure model endpoints.
+
+The security review should reflect what the AI system can actually do, not merely what the interface appears to allow.
+
+### Confidentiality
+
+In a professional-services environment, confidentiality is fundamental.
+
+The leader must ensure that:
+
+* Client data is used only for approved purposes.
+* Access is limited to authorised engagement personnel.
+* Data is not entered into unapproved public AI tools.
+* Model providers cannot reuse confidential information inappropriately.
+* Client-specific material is separated from other clients.
+* Retrieval systems apply access control before returning information.
+* Logs do not expose sensitive content unnecessarily.
+* Test environments do not contain uncontrolled production data.
+* Confidential outputs cannot be accessed by unauthorised users.
+
+Confidentiality must be enforced through architecture, access controls, contracts, training and monitoring. It cannot rely solely on employee judgement.
+
+---
+
+## 7. Protect Client Confidentiality and Cross-Client Data Separation
+
+Professional-services firms frequently work with competing organisations, regulated businesses and clients involved in confidential transactions.
+
+An AI platform that serves multiple clients must therefore enforce strict information barriers.
+
+The leader should ensure that cross-client data separation is addressed at multiple layers.
+
+### Identity layer
+
+* Every user must be authenticated.
+* Client and engagement membership must be verified.
+* Permissions must be role-based.
+* Temporary access must expire.
+* Privileged access must be controlled and reviewed.
+
+### Application layer
+
+* Users should only be able to search, retrieve or generate content from authorised data sources.
+* Client context should be established before processing begins.
+* Administrative functions should be restricted.
+* The system should not rely on the model to decide whether data is accessible.
+
+### Data layer
+
+* Client data should be logically or physically segregated.
+* Metadata should identify ownership, sensitivity and permitted use.
+* Row-level, document-level or object-level security should be enforced.
+* Encryption keys may need to be separated for high-risk clients.
+* Backups must preserve segregation.
+
+### Retrieval layer
+
+* Access control must be applied before information is passed to the model.
+* Vector databases and search indexes must support tenant isolation.
+* Embeddings must not become an uncontrolled route to cross-client information.
+* Retrieved evidence should be traceable to authorised sources.
+
+### Model layer
+
+* Prompts must not combine information from unrelated clients.
+* Fine-tuning must not use client data without explicit approval.
+* Training data must be governed.
+* Model memory and conversation history must be separated.
+* Cached responses must not leak information across users or clients.
+
+### Monitoring layer
+
+* Access patterns should be monitored.
+* Cross-client retrieval attempts should generate alerts.
+* Unusual bulk extraction should be investigated.
+* Logs should support forensic review.
+* Periodic penetration and segregation testing should be performed.
+
+A serious cross-client data leak can create contractual, legal, regulatory and reputational consequences. For that reason, separation should be treated as a core architectural requirement, not an optional enhancement.
+
+---
+
+## 8. Preserve Professional Judgement
+
+AI systems can support analysis, research, drafting, summarisation and pattern recognition. However, professional responsibility cannot be delegated to a model.
+
+The Executive Data and AI Leader should ensure that AI does not create the false impression that professional judgement has been automated.
+
+This is especially important where outputs contribute to:
+
+* Audit conclusions.
+* Tax positions.
+* Legal interpretations.
+* Valuations.
+* Risk assessments.
+* Regulatory submissions.
+* Financial advice.
+* Due-diligence findings.
+* Investigations.
+* Client recommendations.
+
+Human professionals must understand:
+
+* What the system produced.
+* Which evidence was used.
+* What assumptions were made.
+* What limitations apply.
+* What checks are required.
+* Who remains accountable for the conclusion.
+
+The leader should challenge systems that encourage users to accept outputs without critical review.
+
+Useful controls may include:
+
+* Mandatory source citations.
+* Confidence or uncertainty indicators.
+* Human sign-off requirements.
+* Review checklists.
+* Restricted use for specific tasks.
+* Independent validation.
+* Clear separation between AI-generated content and approved professional conclusions.
+* Training on appropriate reliance.
+* Sampling of completed work.
+* Monitoring for automation bias.
+
+The principle should be clear: AI may support professional judgement, but it does not replace professional accountability.
+
+---
+
+## 9. Protect Audit Independence
+
+In firms providing audit and assurance services, AI innovation must be assessed against independence requirements.
+
+An AI service may create concerns if the firm:
+
+* Designs or operates systems that it later audits.
+* Makes management decisions for an audit client.
+* Assumes responsibility that belongs to client management.
+* Creates financial dependence or conflicting commercial interests.
+* Uses confidential information obtained through an audit engagement for another purpose.
+* Provides prohibited non-audit services.
+* Develops tools that impair objectivity.
+
+The Executive Data and AI Leader must ensure that independence specialists are involved early when a proposed capability may be used for audit clients.
+
+Key questions include:
+
+* Is the service permitted for this client?
+* Would the firm be auditing its own work?
+* Would the system make decisions that management should make?
+* Who owns the system and its outputs?
+* Does the proposed commercial arrangement create a concern?
+* Can the capability be separated from the audit engagement?
+* Are additional safeguards required?
+* Must the use case be prohibited for certain clients?
+
+Independence cannot be treated as a commercial inconvenience. It is a foundational obligation that protects trust in the firm and the profession.
+
+---
+
+## 10. Identify and Manage Conflicts of Interest
+
+AI platforms may combine data, expertise, reusable assets and insights from multiple engagements. This creates potential conflicts of interest even when direct data leakage does not occur.
+
+For example:
+
+* A model developed for one client may later be used for a competitor.
+* A sector solution may incorporate confidential knowledge from multiple engagements.
+* An AI system may prioritise products from a commercial partner.
+* A firm may advise different parties involved in the same transaction.
+* Internal data may reveal confidential information about future client activity.
+* A vendor relationship may influence recommendations.
+
+The leader should ensure that conflict checks cover both the client engagement and the AI capability itself.
+
+The review should determine:
+
+* Who funded the capability?
+* Who owns the intellectual property?
+* What data contributed to its development?
+* Which clients may use it?
+* Could its use disadvantage another client?
+* Are commercial partnerships influencing the output?
+* Are information barriers sufficient?
+* Does the firm need client consent?
+* Should certain use cases be restricted?
+
+Conflicts must be identified before commercial commitments are made.
+
+---
+
+## 11. Protect Legal Privilege
+
+Some client material may be protected by legal professional privilege or similar legal doctrines.
+
+Using privileged material in AI systems can create risks if:
+
+* It is transferred to a third-party provider.
+* It is stored in an inappropriate jurisdiction.
+* It is accessed by people outside the privileged relationship.
+* It is reused for model training.
+* It appears in system logs.
+* It is incorporated into a shared knowledge base.
+* It is disclosed through generated outputs.
+* Retention controls are unclear.
+
+The Executive Data and AI Leader should ensure that legal counsel determines whether privileged information may be processed and under what conditions.
+
+Possible controls include:
+
+* Approved private environments.
+* Restricted access groups.
+* No provider training on submitted data.
+* Limited logging.
+* Segregated storage.
+* Regional processing.
+* Explicit retention and deletion terms.
+* Contractual protections.
+* Prohibition of certain tools.
+* Client-specific approvals.
+
+The safest approach is not to assume that a general enterprise AI approval automatically covers privileged material.
+
+---
+
+## 12. Manage Intellectual-Property Risk
+
+AI systems create intellectual-property questions relating to inputs, outputs, training data, models, software, prompts and reusable assets.
+
+The leader should ensure that the organisation understands:
+
+* Whether it has the right to use the input data.
+* Whether client materials may be used for model training.
+* Whether generated outputs can be used commercially.
+* Whether outputs may reproduce protected content.
+* Whether open-source components have acceptable licence terms.
+* Whether model-provider terms grant excessive rights.
+* Whether employees are uploading proprietary code.
+* Who owns fine-tuned models, prompts and evaluation datasets.
+* Whether reusable assets contain client-specific intellectual property.
+* Whether the firm can transfer the solution to another client.
+
+A sound intellectual-property review should cover the complete solution supply chain, not only the final output.
+
+Controls may include:
+
+* Approved data-source lists.
+* Code-scanning and licence-review processes.
+* Restrictions on external training.
+* Output review for high-risk content.
+* Contractual ownership provisions.
+* Provenance records.
+* Clear separation of client and firm intellectual property.
+* Approval before reusing engagement assets.
+* Vendor terms review.
+* Documentation of human contribution.
+
+---
+
+## 13. Assess Third-Party and Model-Provider Risk
+
+Many organisations depend on external model providers, cloud platforms, data suppliers, AI tools and specialist vendors.
+
+The Executive Data and AI Leader should ensure that third-party assessments examine more than functionality and price.
+
+The review should consider:
+
+### Data handling
+
+* What information is sent to the provider?
+* Is it retained?
+* Is it used for provider training?
+* Can retention be disabled?
+* Where is it processed?
+* Which subprocessors are involved?
+* Can data be deleted?
+
+### Security
+
+* What security certifications and controls exist?
+* How is tenant isolation implemented?
+* How are vulnerabilities managed?
+* How are incidents reported?
+* Does the provider support customer-managed encryption?
+* Are administrative actions logged?
+
+### Model behaviour
+
+* How is the model evaluated?
+* Are limitations documented?
+* Can the model generate unsafe or discriminatory outputs?
+* How frequently is it updated?
+* Can updates materially change behaviour?
+* Can customers remain on a fixed version?
+
+### Availability and resilience
+
+* What service levels apply?
+* Is the provider financially and operationally stable?
+* Is there a fallback option?
+* Can the system continue if the service is unavailable?
+* How difficult would migration be?
+
+### Contractual protection
+
+* Who owns inputs and outputs?
+* What liability does the provider accept?
+* Are confidentiality obligations sufficient?
+* Are audit rights available?
+* Can the provider change terms unilaterally?
+* What happens when the contract ends?
+
+### Regulatory suitability
+
+* Is the provider acceptable for the relevant jurisdiction and sector?
+* Can it support regulatory inquiries?
+* Does it provide the evidence required for assurance?
+* Are cross-border transfer mechanisms adequate?
+* Does it meet client-specific requirements?
+
+Vendor approval should not be permanent. Providers should be reassessed when there are material changes to their ownership, terms, model behaviour, subprocessors, security posture or service architecture.
+
+---
+
+## 14. Design Appropriate Human Oversight
+
+“Human in the loop” is often used as a general assurance statement, but it is meaningful only when the human role is clearly designed.
+
+The leader should ask:
+
+* Who performs the review?
+* At what stage does the review occur?
+* What information does the reviewer receive?
+* Does the reviewer have sufficient expertise?
+* Does the reviewer have enough time?
+* Can the reviewer reject or override the AI output?
+* Is the reviewer accountable for the decision?
+* Is the review recorded?
+* Are reviewers trained to recognise AI failure modes?
+* Is the review practical at the expected scale?
+
+A human review may provide little protection if the person:
+
+* Sees only the AI recommendation.
+* Cannot inspect the supporting evidence.
+* Reviews hundreds of cases under severe time pressure.
+* Assumes the model is more accurate than they are.
+* Has no authority to reject the result.
+* Is measured mainly on processing speed.
+* Does not understand the model’s limitations.
+
+Human oversight should be proportionate to the consequence of error.
+
+Examples include:
+
+### Human-on-the-loop
+
+The system performs actions while a human monitors activity and intervenes when necessary. This may suit lower-risk, reversible processes with strong monitoring.
+
+### Human-in-the-loop
+
+The system proposes an output, but a human must approve it before action is taken. This may suit client communications, financial decisions or professional conclusions.
+
+### Human-in-command
+
+Humans retain authority over the purpose, boundaries, design, deployment and termination of the system. This is a wider governance principle that should apply to all significant AI systems.
+
+The leader should ensure that the selected oversight model is tested in real operating conditions.
+
+---
+
+## 15. Review and Respond to AI Incidents
+
+AI incidents should be treated as business-risk events, not merely technical defects.
+
+Examples may include:
+
+* Disclosure of confidential information.
+* Cross-client data leakage.
+* Harmful or discriminatory outputs.
+* Incorrect client advice.
+* Unauthorised autonomous actions.
+* Security compromise.
+* Use of an unapproved model.
+* Processing of data without permission.
+* Major hallucinations in a production workflow.
+* Failure of required human oversight.
+* Regulatory non-compliance.
+* Inappropriate use by employees.
+* Unexpected model changes.
+* Significant service disruption.
+* Intellectual-property complaints.
+
+The Executive Data and AI Leader should ensure that the organisation has a specific AI incident-management process.
+
+### Immediate response
+
+The first priorities may include:
+
+* Containing the issue.
+* Disabling the system or affected feature.
+* Preserving logs and evidence.
+* Preventing further data exposure.
+* Informing legal, privacy, security and risk teams.
+* Identifying affected clients or individuals.
+* Activating regulatory or contractual notification processes.
+* Establishing an incident leader.
+
+### Investigation
+
+The investigation should determine:
+
+* What happened?
+* When did it begin?
+* Who or what was affected?
+* Which data was involved?
+* Was the incident caused by design, model behaviour, user action, malicious activity or control failure?
+* Why was the issue not detected earlier?
+* Did the system operate outside approved boundaries?
+* Were previous warning signs ignored?
+* Is the issue isolated or systemic?
+
+### Executive decisions
+
+The leader may need to decide:
+
+* Whether the system remains suspended.
+* Whether affected clients must be informed.
+* Whether regulators must be notified.
+* Whether outputs must be withdrawn or corrected.
+* Whether similar systems must be reviewed.
+* Whether a vendor should be restricted.
+* Whether disciplinary or contractual action is required.
+* Whether the system can safely return to service.
+
+### Learning
+
+After the incident, the organisation should identify:
+
+* Root causes.
+* Control failures.
+* Governance weaknesses.
+* Required policy changes.
+* Required technical changes.
+* Training needs.
+* Monitoring improvements.
+* Wider implications for the AI portfolio.
+
+A mature organisation does not hide incidents to protect innovation metrics. It uses them to improve controls and decision-making.
+
+---
+
+## 16. Approve and Control Exceptions
+
+No governance framework can anticipate every situation. Teams may occasionally need an exception to a standard requirement.
+
+For example, a team may request:
+
+* Temporary use of a non-standard model.
+* Processing in a different region.
+* A shortened testing period.
+* Use of a new vendor before full onboarding is complete.
+* A temporary manual control.
+* Access to restricted data.
+* Deployment before every low-priority issue is resolved.
+
+Exceptions should not become informal workarounds.
+
+Every exception should state:
+
+* The requirement being waived.
+* The business justification.
+* The duration.
+* The affected systems and users.
+* The risks introduced.
+* The compensating controls.
+* The accountable owner.
+* The expiry date.
+* The approval authority.
+* The remediation plan.
+
+The Executive Data and AI Leader should ensure that:
+
+* High-risk exceptions receive appropriate senior approval.
+* Exceptions are time-limited.
+* Expired exceptions are reviewed.
+* Repeated exceptions trigger a policy or architecture review.
+* Exception volumes are monitored.
+* Teams cannot approve their own material exceptions.
+
+A growing number of exceptions may indicate that the policy is unrealistic, the platform is inadequate or teams are bypassing governance.
+
+---
+
+## 17. Maintain Regional and Global Policy Alignment
+
+Large professional-services organisations frequently operate under multiple layers of governance.
+
+These may include:
+
+* Global AI principles.
+* Regional regulation.
+* National law.
+* Industry-specific requirements.
+* Firm-wide security policies.
+* Service-line standards.
+* Client contractual obligations.
+* Local professional rules.
+* Model-provider restrictions.
+
+The Executive Data and AI Leader must ensure that local innovation remains aligned with global standards while also addressing regional requirements.
+
+This can be difficult when:
+
+* Global policies are broad.
+* Regional laws are more restrictive.
+* Different countries classify risk differently.
+* A global platform lacks local functionality.
+* Client requirements exceed firm standards.
+* Responsibility is split across teams.
+* Regulations evolve faster than policy updates.
+
+The leader should establish a clear hierarchy of requirements.
+
+A practical principle is that the strictest applicable requirement should generally prevail unless legal or policy specialists determine otherwise.
+
+The leader should also ensure that policy interpretation is converted into practical delivery guidance. Teams should not be expected to interpret complex legal and regulatory language without support.
+
+---
+
+## 18. Establish Clear Decision Rights
+
+Risk governance fails when everyone participates in discussions but nobody has clear authority.
+
+The operating model should distinguish between:
+
+* Who proposes.
+* Who assesses.
+* Who advises.
+* Who approves.
+* Who accepts residual risk.
+* Who operates the control.
+* Who monitors compliance.
+* Who can stop the system.
+
+A typical decision structure may include:
+
+### Business owner
+
+Accountable for the business outcome, process design, user adoption and operational impact.
+
+### Product or solution owner
+
+Accountable for delivery, requirements, system performance and lifecycle management.
+
+### Data owner
+
+Accountable for data quality, permitted use, access and retention.
+
+### Technology owner
+
+Accountable for architecture, integration, reliability and technical operation.
+
+### Security owner
+
+Advises on security risk and validates relevant controls.
+
+### Privacy or legal owner
+
+Advises on privacy, legal basis, contracts, privilege and regulatory obligations.
+
+### Model-risk or Responsible AI owner
+
+Assesses model behaviour, fairness, explainability, human oversight and AI-specific risk.
+
+### Professional-practice or independence owner
+
+Determines whether the use is consistent with professional obligations.
+
+### Executive risk acceptor
+
+Has the authority to accept significant residual risk.
+
+### Internal audit or independent assurance
+
+Provides independent assessment of governance and control effectiveness.
+
+The Executive Data and AI Leader ensures that these roles operate as one governance system rather than as disconnected approval functions.
+
+---
+
+## 19. Require Evidence, Not Reassurance
+
+A mature risk decision cannot be based on statements such as:
+
+* “The model is industry leading.”
+* “The vendor says it is secure.”
+* “The team has tested it.”
+* “A human will check the output.”
+* “The data is anonymised.”
+* “The client is comfortable.”
+* “The pilot worked well.”
+* “The system is only advisory.”
+
+The leader should ask for evidence.
+
+Relevant evidence may include:
+
+* Architecture diagrams.
+* Data-flow maps.
+* Data-protection assessments.
+* Threat models.
+* Security-test results.
+* Model evaluations.
+* Bias and fairness assessments.
+* Accuracy and hallucination tests.
+* Human-oversight procedures.
+* Access-control records.
+* Vendor-risk assessments.
+* Contractual terms.
+* Client approvals.
+* Independence assessments.
+* Incident-response plans.
+* Monitoring dashboards.
+* User-acceptance results.
+* Training records.
+* Decision logs.
+* Residual-risk statements.
+
+Evidence should be proportionate to risk, but material decisions should always be traceable.
+
+---
+
+## 20. Create an AI Assurance Case
+
+For important systems, the leader should require an assurance case.
+
+An assurance case is a structured argument showing why the system is considered acceptable for its intended use.
+
+It should explain:
+
+1. What the system is intended to do.
+2. What it is not intended to do.
+3. Who may use it.
+4. What data it processes.
+5. Which risks have been identified.
+6. Which controls address those risks.
+7. What testing has been completed.
+8. What evidence supports the claims.
+9. What limitations remain.
+10. Who has approved the system.
+11. How it will be monitored.
+12. Under what conditions it will be suspended.
+
+The assurance case creates a coherent view of the system rather than relying on separate documents held by different functions.
+
+It is particularly valuable where multiple specialists must contribute to one executive decision.
+
+---
+
+## 21. Apply Stage Gates Across the Lifecycle
+
+Governance is most effective when decisions occur at defined points.
+
+### Gate 1: Use-case approval
+
+The organisation confirms that:
+
+* The business problem is clear.
+* AI is appropriate.
+* The initial risk classification is complete.
+* A business owner exists.
+* Prohibited uses have been excluded.
+
+### Gate 2: Data and design approval
+
+The organisation confirms that:
+
+* Data use is permitted.
+* The proposed architecture is appropriate.
+* Privacy and security requirements are understood.
+* Human oversight has been designed.
+* Vendor selection is acceptable.
+
+### Gate 3: Build and test approval
+
+The organisation confirms that:
+
+* Development may proceed in an approved environment.
+* Test data is appropriate.
+* Evaluation criteria are defined.
+* Required specialists are involved.
+* Evidence will be captured.
+
+### Gate 4: Production approval
+
+The organisation confirms that:
+
+* Testing is complete.
+* Controls are operational.
+* Residual risks are understood.
+* Support and monitoring exist.
+* Required approvals have been received.
+
+### Gate 5: Post-deployment review
+
+The organisation confirms that:
+
+* Real-world behaviour remains acceptable.
+* Users are following procedures.
+* Benefits are being achieved.
+* Incidents and complaints are reviewed.
+* Controls remain effective.
+
+### Gate 6: Material-change review
+
+A new approval may be required when:
+
+* The model changes.
+* The provider changes.
+* New data is introduced.
+* The use case expands.
+* The user population increases.
+* The system becomes more autonomous.
+* The solution enters a new jurisdiction.
+* A material incident occurs.
+
+### Gate 7: Retirement
+
+The organisation confirms that:
+
+* Data is retained or deleted appropriately.
+* Access is removed.
+* Dependencies are decommissioned.
+* Client obligations are satisfied.
+* Records are preserved.
+* Users are informed.
+* Replacement arrangements are in place.
+
+---
+
+## 22. Balance Innovation Speed with Control
+
+A frequent concern is that governance will slow innovation.
+
+Poorly designed governance can create delay. Effective governance should increase speed by making requirements predictable.
+
+The Executive Data and AI Leader can reduce unnecessary friction by:
+
+* Publishing clear prohibited-use rules.
+* Providing pre-approved platforms and models.
+* Offering reusable security patterns.
+* Creating standard contract clauses.
+* Defining risk tiers.
+* Using lightweight reviews for low-risk cases.
+* Establishing fast-track routes for common patterns.
+* Providing self-service assessment tools.
+* Embedding specialists within product teams.
+* Automating evidence collection.
+* Maintaining approved vendor lists.
+* Reusing prior assurance where appropriate.
+* Setting service-level targets for reviews.
+* Escalating only genuinely material issues.
+
+The objective is not fewer controls. It is better-designed controls.
+
+Governance should make the safe route the easiest route.
+
+---
+
+## 23. Questions the Executive Leader Should Ask
+
+During governance and assurance reviews, the leader should ask direct questions.
+
+### Purpose and value
+
+* What business problem does this solve?
+* What happens if we do not build it?
+* Is AI genuinely required?
+* What outcome is the business owner accountable for?
+
+### Risk
+
+* What is the most serious plausible failure?
+* Who could be harmed?
+* What would the front-page headline be if this failed publicly?
+* Which risk is still not adequately controlled?
+* Are we inside our stated risk appetite?
+
+### Data
+
+* Do we have permission to use this data?
+* Are we collecting more than we need?
+* Could another client’s data become visible?
+* Where is the data processed and retained?
+* Can the provider reuse it?
+
+### Model
+
+* What evidence shows the model is suitable?
+* Where does it fail?
+* How will we detect behaviour changes?
+* What happens when the provider updates the model?
+* Can we explain the output sufficiently for this use?
+
+### Human oversight
+
+* Who reviews the output?
+* Can they genuinely challenge it?
+* What evidence do they see?
+* What happens when they disagree?
+* Is the review sustainable at scale?
+
+### Operations
+
+* How will we know when the system is failing?
+* Who can stop it?
+* What is the fallback process?
+* Who handles complaints and incidents?
+* When will the system be reassessed?
+
+### Accountability
+
+* Who owns the risk?
+* Who has accepted the residual risk?
+* Is that person authorised to accept it?
+* What conditions are attached to the approval?
+* Where is the decision recorded?
+
+---
+
+## 24. Common Governance Failure Modes
+
+The Executive Data and AI Leader should actively look for recurring weaknesses.
+
+### Governance starts too late
+
+Risk teams are engaged only after the system is built.
+
+**Consequence:** expensive redesign, delayed deployment or rejection.
+
+### No clear business owner
+
+The technical team owns the system, but nobody owns the operational outcome.
+
+**Consequence:** unclear accountability and weak post-deployment control.
+
+### Governance is treated as paperwork
+
+Templates are completed, but risks are not meaningfully challenged.
+
+**Consequence:** formal compliance without actual protection.
+
+### Excessive reliance on vendors
+
+The organisation accepts provider claims without independent assessment.
+
+**Consequence:** unverified security, privacy and model risks.
+
+### Human oversight is symbolic
+
+A human is nominally involved but cannot practically evaluate the output.
+
+**Consequence:** automation bias and false assurance.
+
+### Pilot controls disappear at scale
+
+A controlled experiment becomes a widely used service without reassessment.
+
+**Consequence:** risk increases faster than governance maturity.
+
+### No monitoring after launch
+
+The system is approved once and assumed to remain safe.
+
+**Consequence:** model, data and usage changes go undetected.
+
+### Uncontrolled employee experimentation
+
+Employees use public AI tools for confidential or client-related work.
+
+**Consequence:** data leakage, contractual breach and loss of trust.
+
+### Cross-client data boundaries are weak
+
+Access control depends on prompts or user behaviour.
+
+**Consequence:** serious confidentiality breaches.
+
+### Too many permanent exceptions
+
+Temporary workarounds remain in place indefinitely.
+
+**Consequence:** the actual operating model differs from the approved model.
+
+### Activity is mistaken for assurance
+
+The organisation reports the number of assessments completed but not whether risks are being reduced.
+
+**Consequence:** governance appears mature while control effectiveness remains unknown.
+
+---
+
+## 25. Measure Governance and Assurance Effectiveness
+
+The Executive Data and AI Leader needs indicators showing whether governance is working.
+
+Useful measures include:
+
+### Portfolio measures
+
+* Number of AI systems by risk category.
+* Percentage with named business owners.
+* Percentage with current risk assessments.
+* Number of systems using unapproved technology.
+* Number of systems overdue for reassessment.
+* Number of systems operating under exceptions.
+
+### Review measures
+
+* Average review time by risk category.
+* Percentage of reviews completed within target.
+* Number of proposals returned for remediation.
+* Most common control gaps.
+* Percentage of high-risk systems with complete assurance cases.
+* Number of late-stage governance interventions.
+
+### Control measures
+
+* Percentage of systems with active monitoring.
+* Percentage with tested rollback procedures.
+* Percentage with documented human oversight.
+* Percentage with complete data lineage.
+* Percentage with current vendor assessments.
+* Percentage with verified access controls.
+
+### Incident measures
+
+* Number and severity of AI incidents.
+* Time to detect.
+* Time to contain.
+* Time to notify relevant stakeholders.
+* Recurrence of similar incidents.
+* Number of incidents caused by policy non-compliance.
+* Number of near misses.
+
+### Culture measures
+
+* Employee awareness of approved tools.
+* Training completion.
+* Confidence in raising concerns.
+* Number of self-reported issues.
+* Frequency of policy bypass.
+* User understanding of system limitations.
+
+The leader should avoid rewarding teams merely for completing forms. Measures should focus on risk reduction, control quality, decision speed and operational outcomes.
+
+---
+
+## 26. Build a Culture of Responsible Challenge
+
+Policies and committees are not enough. Employees must feel able to challenge unsafe decisions.
+
+The Executive Data and AI Leader should model the expected behaviour by:
+
+* Asking difficult questions even when a project is commercially attractive.
+* Welcoming concerns from junior employees.
+* Avoiding retaliation against people who identify risks.
+* Making it acceptable to pause or stop a system.
+* Being transparent about incidents and lessons.
+* Recognising teams that prevent problems.
+* Avoiding pressure to approve unsupported claims.
+* Encouraging collaboration between innovation and risk teams.
+* Treating Responsible AI as a delivery capability rather than an obstacle.
+
+The leader should make clear that raising a risk is not resistance to innovation. It is part of professional responsibility.
+
+A healthy culture allows employees to say:
+
+* “We do not have sufficient evidence.”
+* “The client has not approved this use.”
+* “The human-review process is not realistic.”
+* “The model is not reliable enough for this decision.”
+* “The data should not be used for this purpose.”
+* “We need to stop deployment until this is resolved.”
+
+---
+
+## 27. Example Executive Decision
+
+Consider a proposal to deploy a generative AI assistant that helps engagement teams draft client deliverables using internal knowledge and client documents.
+
+The solution may offer significant productivity benefits, but it also creates several risks:
+
+* Client-confidentiality exposure.
+* Cross-client data leakage.
+* Inaccurate generated content.
+* Over-reliance by junior employees.
+* Inappropriate processing by model providers.
+* Intellectual-property concerns.
+* Insufficient source traceability.
+* Weak access controls.
+* Use in regulated or audit-sensitive engagements.
+
+The Executive Data and AI Leader should not make a binary decision based only on whether the tool works.
+
+A responsible decision may be:
+
+> Approve a limited production release for selected internal teams, subject to client-level access controls, approved private model endpoints, no provider training on submitted data, mandatory source citations, documented human review, restricted use for audit conclusions, active monitoring, user training and a formal review after eight weeks.
+
+This decision:
+
+* Enables controlled innovation.
+* Defines clear boundaries.
+* Places accountability with named owners.
+* Creates evidence for wider scaling.
+* Prevents the pilot from becoming uncontrolled enterprise deployment.
+* Preserves the ability to stop or modify the system.
+
+This is the practical role of executive governance: not simply approving or rejecting technology, but defining the conditions under which it can be used responsibly.
+
+---
+
+## 28. The Executive Leader’s Regular Governance Cadence
+
+Risk oversight should form part of the leader’s normal operating rhythm.
+
+### Daily or near-daily activities
+
+* Reviewing serious incidents or near misses.
+* Resolving urgent production decisions.
+* Supporting high-risk client opportunities.
+* Responding to escalations.
+* Reviewing emerging vendor or regulatory concerns.
+* Deciding whether immediate restrictions are required.
+
+### Weekly activities
+
+* Reviewing high-risk use cases.
+* Monitoring overdue control actions.
+* Reviewing proposed exceptions.
+* Examining incident trends.
+* Discussing major vendor decisions.
+* Checking whether projects are approaching production without adequate assurance.
+
+### Monthly activities
+
+* Reviewing the complete high-risk AI portfolio.
+* Assessing governance performance.
+* Reviewing changes to policies and regulations.
+* Examining recurring control weaknesses.
+* Reviewing third-party concentration risk.
+* Evaluating whether risk resources match portfolio demand.
+* Reporting material risks to executive leadership.
+
+### Quarterly activities
+
+* Reviewing the organisation’s AI risk appetite.
+* Reassessing strategic high-risk systems.
+* Testing crisis and incident-response arrangements.
+* Reviewing Responsible AI maturity.
+* Examining cross-regional and cross-service-line consistency.
+* Commissioning independent assurance where required.
+* Reviewing whether governance is enabling or obstructing responsible growth.
+
+---
+
+## 29. What the Executive Data and AI Leader Is Ultimately Accountable For
+
+The leader is not expected to personally perform every privacy assessment, penetration test, legal review, model evaluation or audit.
+
+They are accountable for ensuring that:
+
+* Every material AI system has an owner.
+* Risks are identified early.
+* High-risk uses receive appropriate scrutiny.
+* Decisions are made by authorised people.
+* Evidence supports approvals.
+* Client confidentiality is protected.
+* Professional judgement is preserved.
+* Independence and conflicts are considered.
+* Legal privilege is respected.
+* Intellectual property is governed.
+* Third-party risks are understood.
+* Human oversight is meaningful.
+* Cross-client data remains separated.
+* Incidents are handled transparently.
+* Exceptions are controlled.
+* Systems are monitored after launch.
+* Unsafe systems can be stopped.
+* Governance remains proportionate and practical.
+
+Their role is to create a trusted operating environment in which Data and AI innovation can scale without compromising clients, employees, regulators, the public or the reputation of the firm.
+
+---
+
+## Conclusion
+
+Making risk, governance and assurance decisions is one of the most important responsibilities of an Executive Data and AI Leader.
+
+The leader must balance two obligations that can appear to compete:
+
+* Accelerating Data and AI innovation.
+* Protecting the organisation and its stakeholders from unacceptable harm.
+
+Strong leadership does not choose one over the other.
+
+Instead, it establishes clear risk boundaries, proportionate controls, accountable owners, reliable evidence and transparent escalation mechanisms. It enables teams to move quickly where risk is low and demands deeper assurance where the consequences are significant.
+
+In a professional-services firm, this responsibility is especially important because trust is central to the business model. Client confidentiality, professional judgement, independence, legal privilege, intellectual property and cross-client separation are not secondary compliance matters. They are essential conditions for serving clients responsibly.
+
+The Executive Data and AI Leader therefore acts as both an innovation enabler and a guardian of trust.
+
+Their success is not measured by how many AI systems are approved or rejected. It is measured by whether the organisation can create value from Data and AI while maintaining professional integrity, regulatory compliance, operational resilience and the confidence of its clients.
+
+<KeyTakeaways>
+- Risk governance starts at opportunity identification—not as a late compliance gate before deployment.
+- Translate risk appetite into practical rules: prohibited uses, approval tiers, data and provider constraints, and who may accept residual risk.
+- Demand evidence and assurance cases for material systems; design human oversight that can genuinely challenge outputs.
+- In professional services, confidentiality, cross-client separation, independence, privilege and IP are core architecture and decision requirements.
+- Measure control effectiveness and culture of challenge—not only the volume of assessments completed.
+</KeyTakeaways>
+
+<NextSteps>
+- Use the condensed [Risk, Governance and Assurance roadmap](/roadmaps/leadership-risk-governance-assurance) for stage gates, decision rights and readiness checklists.
+- Align portfolio choices with [Leadership: How to Set Direction and Priorities](/articles/leadership-set-direction-and-priorities) and mobilise capability via the [Data & AI CoE](/roadmaps/data-ai-centre-of-excellence).
+- Deepen frameworks with [Responsible AI governance](/docs/frameworks/responsible-ai-governance), [Enterprise AI Security](/articles/enterprise-ai-security-roadmap) and [ISO/IEC 42001](/articles/ai-governance-iso-iec-42001).
+</NextSteps>

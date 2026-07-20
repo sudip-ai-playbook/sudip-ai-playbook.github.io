@@ -19,6 +19,72 @@ describe('articleSidebarCategories', () => {
       'Roadmaps',
     );
     assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-engage-business-service-line-leaders',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-set-direction-and-priorities',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-shape-major-market-opportunities',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-organisation-wide-transformation',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-protect-quality-independence-and-trust',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-develop-people-and-organisational-capability',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-create-an-exceptional-culture',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-build-future-capability',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-exceptional-professional-services',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/leadership-represent-the-firm-externally',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/regional-data-ai-centre-of-excellence',
+      ),
+      'Consulting',
+    );
+    assert.equal(
       getArticleSidebarCategory('/blog/articles/eu-ai-act-regulation-2024-1689'),
       'Governance',
     );
@@ -55,8 +121,39 @@ describe('articleSidebarCategories', () => {
       'OWASP LLM Top 10',
     );
     assert.equal(
-      getArticleSidebarLabel('/blog/articles/missing', 'Fallback title'),
-      'Fallback title',
+      getArticleSidebarLabel(
+        '/blog/articles/leadership-represent-the-firm-externally',
+        'Leadership: Represent the Firm Externally',
+      ),
+      'Represent the firm externally',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/leadership-build-future-capability',
+        'Leadership: Build Future Capability Before It Is Urgently Needed',
+      ),
+      'Build future capability',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/leadership-exceptional-professional-services',
+        'Exceptional Leadership: Building a Resilient, Commercially Strong and Future-Ready Professional-Services Firm',
+      ),
+      'Exceptional firm leadership',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/leadership-protect-quality-independence-and-trust',
+        'Leadership: Protect Quality, Independence and Trust',
+      ),
+      'Quality, independence and trust',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/leadership-shape-major-market-opportunities',
+        'Leadership: How to Shape Major Market Opportunities',
+      ),
+      'Shape market opportunities',
     );
   });
 

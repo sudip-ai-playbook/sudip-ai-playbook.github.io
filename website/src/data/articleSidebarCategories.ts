@@ -110,6 +110,66 @@ const ARTICLE_SIDEBAR_BY_SLUG: Record<string, ArticleSidebarEntry> = {
     category: 'Consulting',
     label: 'AI consulting roadmap',
   },
+  'regional-data-ai-centre-of-excellence': {
+    category: 'Consulting',
+    label: 'Regional Data & AI CoE',
+  },
+  'leadership-engage-business-service-line-leaders': {
+    category: 'Consulting',
+    label: 'Engage business leaders',
+  },
+  'leadership-set-direction-and-priorities': {
+    category: 'Consulting',
+    label: 'Set direction and priorities',
+  },
+  'leadership-develop-people-and-organisational-capability': {
+    category: 'Consulting',
+    label: 'Develop people & capability',
+  },
+  'leadership-create-an-exceptional-culture': {
+    category: 'Consulting',
+    label: 'Create an exceptional culture',
+  },
+  'leadership-build-future-capability': {
+    category: 'Consulting',
+    label: 'Build future capability',
+  },
+  'leadership-exceptional-professional-services': {
+    category: 'Consulting',
+    label: 'Exceptional firm leadership',
+  },
+  'leadership-portfolio-performance-and-business-value': {
+    category: 'Consulting',
+    label: 'Portfolio performance and value',
+  },
+  'leadership-shaping-major-data-ai-client-opportunities': {
+    category: 'Consulting',
+    label: 'Shape client opportunities',
+  },
+  'leadership-represent-the-firm-externally': {
+    category: 'Consulting',
+    label: 'Represent the firm externally',
+  },
+  'leadership-risk-governance-assurance-decisions': {
+    category: 'Consulting',
+    label: 'Risk, governance and assurance',
+  },
+  'leadership-protect-quality-independence-and-trust': {
+    category: 'Consulting',
+    label: 'Quality, independence and trust',
+  },
+  'leadership-remove-delivery-blockers': {
+    category: 'Consulting',
+    label: 'Remove delivery blockers',
+  },
+  'leadership-organisation-wide-transformation': {
+    category: 'Consulting',
+    label: 'Organisation-wide transformation',
+  },
+  'leadership-shape-major-market-opportunities': {
+    category: 'Consulting',
+    label: 'Shape market opportunities',
+  },
 
   'ai-engineering-chip-huyen-deep-dive': {
     category: 'AI Engineering',

@@ -26,6 +26,28 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Organisation roadmaps',
+      collapsed: true,
+      items: [
+        'data-ai-centre-of-excellence',
+        'leadership-direction-priorities',
+        'leadership-engage-business-leaders',
+        'leadership-remove-delivery-blockers',
+        'leadership-risk-governance-assurance',
+        'leadership-portfolio-performance',
+        'leadership-client-opportunity-shaping',
+        'leadership-market-opportunity-shaping',
+        'leadership-external-representation',
+        'leadership-people-organisational-capability',
+        'leadership-exceptional-culture',
+        'leadership-future-capability',
+        'leadership-exceptional-professional-services',
+        'leadership-quality-independence-trust',
+        'leadership-organisation-wide-transformation',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Security roadmaps',
       collapsed: true,
       items: [
