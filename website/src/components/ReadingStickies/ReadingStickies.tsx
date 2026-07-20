@@ -5,7 +5,7 @@ import type {
   ReactNode,
   SVGProps,
 } from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useLocation} from '@docusaurus/router';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import clsx from 'clsx';
@@ -14,10 +14,15 @@ import {isContentPage} from '@site/src/components/ReadingBookmark/bookmarkStorag
 
 import styles from './ReadingStickies.module.css';
 import {
-  applyStickyMarks,
+  applyStickyVisuals,
+  clearStickyHighlights,
+  cleanupLegacyStickyMarks,
+  createRangeForSticky,
   getArticleContentRoot,
+  pinPositionForRange,
   readSelectionContext,
-  STICKY_MARK_ATTRIBUTE,
+  resolveOutsideEditorPosition,
+  type StickyPinPosition,
 } from './stickyDom';
 import {
   addStickyNote,
@@ -126,18 +131,6 @@ function TrashIcon({className, ...props}: IconProps): ReactNode {
   );
 }
 
-function clampEditorPosition(
-  top: number,
-  left: number,
-): {top: number; left: number} {
-  const maxLeft = Math.max(16, window.innerWidth - 304);
-  const maxTop = Math.max(16, window.innerHeight - 180);
-  return {
-    top: Math.min(Math.max(16, top), maxTop),
-    left: Math.min(Math.max(16, left), maxLeft),
-  };
-}
-
 function createClientStore(isBrowser: boolean): ReadingStickiesStore {
   if (!isBrowser) {
     return createEmptyStore();
@@ -145,19 +138,15 @@ function createClientStore(isBrowser: boolean): ReadingStickiesStore {
   return loadReadingStickiesStore();
 }
 
-function resolveStickyIdFromTarget(target: EventTarget | null): string | undefined {
-  if (!(target instanceof Element)) {
-    return undefined;
-  }
-  const openButton = target.closest('[data-reading-sticky-open]');
-  if (openButton instanceof HTMLElement) {
-    return openButton.dataset.readingStickyOpen;
-  }
-  const mark = target.closest(`[${STICKY_MARK_ATTRIBUTE}]`);
-  if (mark instanceof HTMLElement) {
-    return mark.getAttribute(STICKY_MARK_ATTRIBUTE) ?? undefined;
-  }
-  return undefined;
+function selectionToolbarPosition(
+  selectionRect: DOMRect,
+  contentRoot: Element,
+): {top: number; left: number} {
+  const contentRect = contentRoot.getBoundingClientRect();
+  return {
+    top: Math.max(8, selectionRect.top + selectionRect.height / 2),
+    left: Math.min(window.innerWidth - 18, contentRect.right + 14),
+  };
 }
 
 export default function ReadingStickies(): ReactNode {
@@ -173,11 +162,15 @@ export default function ReadingStickies(): ReactNode {
     SelectionDraft | undefined
   >(undefined);
   const [editor, setEditor] = useState<EditorState | undefined>(undefined);
+  const [pins, setPins] = useState<StickyPinPosition[]>([]);
+  const stickyRangesRef = useRef<Map<string, Range>>(new Map());
 
   useEffect(() => {
     if (!showOnPage) {
       setSelectionDraft(undefined);
       setEditor(undefined);
+      setPins([]);
+      stickyRangesRef.current.clear();
       return;
     }
     setStore(loadReadingStickiesStore());
@@ -188,68 +181,60 @@ export default function ReadingStickies(): ReactNode {
       return;
     }
 
-    function refreshMarks(): void {
+    function refreshVisuals(): void {
       const contentRoot = getArticleContentRoot();
       if (!contentRoot) {
+        stickyRangesRef.current.clear();
+        setPins([]);
         return;
       }
-      applyStickyMarks(
+      const pageStickies = getStickiesForPage(store, pathname);
+      const nextPins = applyStickyVisuals(
         contentRoot,
-        getStickiesForPage(store, pathname),
+        pageStickies,
         store.visible,
       );
+      stickyRangesRef.current.clear();
+      for (const sticky of pageStickies) {
+        const range = createRangeForSticky(contentRoot, sticky);
+        if (range) {
+          stickyRangesRef.current.set(sticky.id, range);
+        }
+      }
+      setPins(nextPins);
     }
 
-    const timeoutId = window.setTimeout(refreshMarks, 60);
+    function repositionPins(): void {
+      if (!store.visible) {
+        setPins([]);
+        return;
+      }
+      const contentRoot = getArticleContentRoot();
+      const nextPins: StickyPinPosition[] = [];
+      stickyRangesRef.current.forEach((range, stickyId) => {
+        const pin = pinPositionForRange(range, stickyId, contentRoot);
+        if (pin) {
+          nextPins.push(pin);
+        }
+      });
+      setPins(nextPins);
+    }
+
+    const timeoutId = window.setTimeout(refreshVisuals, 60);
+    window.addEventListener('scroll', repositionPins, {passive: true});
+    window.addEventListener('resize', refreshVisuals);
+
     return () => {
       window.clearTimeout(timeoutId);
+      window.removeEventListener('scroll', repositionPins);
+      window.removeEventListener('resize', refreshVisuals);
       const contentRoot = getArticleContentRoot();
       if (contentRoot) {
-        applyStickyMarks(contentRoot, [], false);
+        cleanupLegacyStickyMarks(contentRoot);
       }
-    };
-  }, [pathname, showOnPage, store]);
-
-  useEffect(() => {
-    if (!showOnPage) {
-      return;
-    }
-
-    function handleContentClick(event: Event): void {
-      const stickyId = resolveStickyIdFromTarget(event.target);
-      if (!stickyId) {
-        return;
-      }
-      event.preventDefault();
-      event.stopPropagation();
-      const sticky = getStickiesForPage(store, pathname).find(
-        (item) => item.id === stickyId,
-      );
-      if (!sticky) {
-        return;
-      }
-      let top = window.innerHeight / 3;
-      let left = window.innerWidth / 2 - 140;
-      if (event.target instanceof Element) {
-        const rect = event.target.getBoundingClientRect();
-        top = rect.bottom + 8;
-        left = rect.left;
-      }
-      const position = clampEditorPosition(top, left);
-      setEditor({
-        mode: 'edit',
-        stickyId: sticky.id,
-        note: sticky.note,
-        top: position.top,
-        left: position.left,
-      });
-      setSelectionDraft(undefined);
-    }
-
-    const contentRoot = getArticleContentRoot();
-    contentRoot?.addEventListener('click', handleContentClick);
-    return () => {
-      contentRoot?.removeEventListener('click', handleContentClick);
+      clearStickyHighlights();
+      stickyRangesRef.current.clear();
+      setPins([]);
     };
   }, [pathname, showOnPage, store]);
 
@@ -278,10 +263,11 @@ export default function ReadingStickies(): ReactNode {
         setSelectionDraft(undefined);
         return;
       }
+      const toolbar = selectionToolbarPosition(rect, contentRoot);
       setSelectionDraft({
         ...context,
-        top: Math.max(8, rect.top - 44),
-        left: rect.left + rect.width / 2,
+        top: toolbar.top,
+        left: toolbar.left,
       });
     }
 
@@ -310,10 +296,7 @@ export default function ReadingStickies(): ReactNode {
     if (!selectionDraft) {
       return;
     }
-    const position = clampEditorPosition(
-      selectionDraft.top + 48,
-      selectionDraft.left - 140,
-    );
+    const position = resolveOutsideEditorPosition(selectionDraft.top);
     setEditor({
       mode: 'create',
       note: '',
@@ -330,8 +313,32 @@ export default function ReadingStickies(): ReactNode {
   function handleSelectionButtonMouseDown(
     event: MouseEvent<HTMLButtonElement>,
   ): void {
-    // Keep the text selection until the create editor opens.
     event.preventDefault();
+  }
+
+  function handlePinButtonClick(event: MouseEvent<HTMLButtonElement>): void {
+    const stickyId = event.currentTarget.dataset.stickyId;
+    if (!stickyId) {
+      return;
+    }
+    const sticky = getStickiesForPage(store, pathname).find(
+      (item) => item.id === stickyId,
+    );
+    if (!sticky) {
+      return;
+    }
+    const pin = pins.find((item) => item.id === stickyId);
+    const position = resolveOutsideEditorPosition(
+      pin ? pin.top : window.innerHeight / 3,
+    );
+    setEditor({
+      mode: 'edit',
+      stickyId: sticky.id,
+      note: sticky.note,
+      top: position.top,
+      left: position.left,
+    });
+    setSelectionDraft(undefined);
   }
 
   function handleEditorNoteChange(
@@ -421,7 +428,7 @@ export default function ReadingStickies(): ReactNode {
           style={{
             top: selectionDraft.top,
             left: selectionDraft.left,
-            transform: 'translateX(-50%)',
+            transform: 'translate(-50%, -50%)',
           }}
           aria-label="Add sticky note"
           data-testid="reading-stickies-selection"
@@ -430,6 +437,22 @@ export default function ReadingStickies(): ReactNode {
           <StickyIcon className={styles.icon} />
         </button>
       ) : null}
+
+      {store.visible
+        ? pins.map((pin) => (
+            <button
+              key={pin.id}
+              type="button"
+              className={styles.marginPin}
+              style={{top: pin.top, left: pin.left}}
+              aria-label="Open sticky note"
+              data-sticky-id={pin.id}
+              data-testid={`reading-sticky-pin-${pin.id}`}
+              onClick={handlePinButtonClick}>
+              <StickyIcon className={styles.marginPinIcon} />
+            </button>
+          ))
+        : null}
 
       {editor ? (
         <form

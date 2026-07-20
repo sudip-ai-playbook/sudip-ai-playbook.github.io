@@ -83,23 +83,25 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: min(18rem, calc(100vw - 2rem));
+  width: min(16.25rem, calc(100vw - 2rem));
   padding: 0.65rem;
   border: 1px solid var(--ase-rule);
   border-radius: 12px;
-  background: color-mix(in srgb, var(--ase-paper) 96%, transparent);
+  background: color-mix(in srgb, var(--ase-paper) 98%, transparent);
   box-shadow: 0 12px 32px rgba(20, 32, 27, 0.16);
   backdrop-filter: blur(10px);
+  pointer-events: auto;
 }
 
 .editorTextarea {
   width: 100%;
-  min-height: 4.5rem;
+  min-height: 3.75rem;
+  max-height: 10rem;
   resize: vertical;
   padding: 0.5rem 0.6rem;
   border: 1px solid var(--ase-rule);
   border-radius: 8px;
-  background: transparent;
+  background: var(--ase-paper);
   color: var(--ase-ink);
   font: inherit;
   font-size: 0.92rem;
@@ -125,6 +127,38 @@
 
 .danger {
   color: var(--ase-color-danger);
+}
+
+.marginPin {
+  position: fixed;
+  z-index: 340;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid var(--ase-rule);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ase-paper) 96%, transparent);
+  color: var(--ifm-color-primary);
+  box-shadow: 0 4px 14px rgba(20, 32, 27, 0.12);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.marginPin:hover {
+  background: var(--ase-accent-soft);
+}
+
+.marginPin:focus-visible {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
+}
+
+.marginPinIcon {
+  width: 0.85rem;
+  height: 0.85rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

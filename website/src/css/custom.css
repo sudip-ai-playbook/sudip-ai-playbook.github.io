@@ -764,36 +764,7 @@ article .markdown > h1:first-child,
   }
 }
 
-mark.reading-sticky-mark {
-  background: color-mix(in srgb, var(--ifm-color-primary) 18%, transparent);
+::highlight(reading-sticky) {
+  background-color: color-mix(in srgb, var(--ifm-color-primary) 18%, transparent);
   color: inherit;
-  border-radius: 0.15em;
-  padding: 0.05em 0;
-  cursor: pointer;
-}
-
-button.reading-sticky-pin {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.15rem;
-  height: 1.15rem;
-  margin-left: 0.2rem;
-  padding: 0;
-  border: 1px solid var(--ase-rule);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ase-paper) 92%, transparent);
-  color: var(--ifm-color-primary);
-  vertical-align: middle;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(20, 32, 27, 0.1);
-}
-
-button.reading-sticky-pin:hover {
-  background: var(--ase-accent-soft);
-}
-
-button.reading-sticky-pin:focus-visible {
-  outline: 2px solid var(--ase-focus);
-  outline-offset: 1px;
 }

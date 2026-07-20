@@ -4,7 +4,16 @@ import {
   type StickyNote,
 } from './stickyStorage';
 
+/** Legacy attribute from older inline-mark implementation. */
 export const STICKY_MARK_ATTRIBUTE = 'data-reading-sticky';
+
+export const READING_STICKY_HIGHLIGHT = 'reading-sticky';
+
+export type StickyPinPosition = {
+  id: string;
+  top: number;
+  left: number;
+};
 
 export function getArticleContentRoot(): Element | null {
   return (
@@ -109,7 +118,8 @@ function toNormalizedIndexMap(fullText: string): number[] {
   return map;
 }
 
-export function unwrapStickyMarks(root: Element): void {
+/** Removes older inline sticky marks that were breaking list/text layout. */
+export function cleanupLegacyStickyMarks(root: Element): void {
   const marks = Array.from(
     root.querySelectorAll(`[${STICKY_MARK_ATTRIBUTE}]`),
   );
@@ -118,6 +128,8 @@ export function unwrapStickyMarks(root: Element): void {
     if (!parent) {
       continue;
     }
+    const pin = mark.querySelector('.reading-sticky-pin');
+    pin?.remove();
     while (mark.firstChild) {
       parent.insertBefore(mark.firstChild, mark);
     }
@@ -126,10 +138,10 @@ export function unwrapStickyMarks(root: Element): void {
   }
 }
 
-export function wrapStickyInRoot(
+export function createRangeForSticky(
   root: Element,
   sticky: StickyNote,
-): HTMLElement | undefined {
+): Range | undefined {
   const mapped = mapTextNodes(root);
   const normalizedMap = toNormalizedIndexMap(mapped.fullText);
   const normalizedStart = findQuoteIndex(
@@ -157,46 +169,108 @@ export function wrapStickyInRoot(
   const range = document.createRange();
   range.setStart(startPoint.node, startPoint.offset);
   range.setEnd(endPoint.node, endPoint.offset + 1);
-
-  const mark = document.createElement('mark');
-  mark.setAttribute(STICKY_MARK_ATTRIBUTE, sticky.id);
-  mark.className = 'reading-sticky-mark';
-  mark.title = 'Open sticky note';
-
-  const pin = document.createElement('button');
-  pin.type = 'button';
-  pin.className = 'reading-sticky-pin';
-  pin.setAttribute('data-reading-sticky-open', sticky.id);
-  pin.setAttribute('aria-label', 'Open sticky note');
-  pin.innerHTML =
-    '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/><path d="M15 3v5h5"/></svg>';
-
-  try {
-    range.surroundContents(mark);
-  } catch {
-    const fragment = range.extractContents();
-    mark.appendChild(fragment);
-    range.insertNode(mark);
-  }
-  mark.appendChild(pin);
-  return mark;
+  return range;
 }
 
-export function applyStickyMarks(
+export function pinPositionForRange(
+  range: Range,
+  stickyId: string,
+  contentRoot?: Element | null,
+): StickyPinPosition | undefined {
+  const clientRects = range.getClientRects();
+  const rect = clientRects.item(0) ?? range.getBoundingClientRect();
+  if (rect.width === 0 && rect.height === 0) {
+    return undefined;
+  }
+
+  const contentRect = contentRoot?.getBoundingClientRect();
+  // Prefer the right gutter outside the article text column.
+  const left = contentRect
+    ? Math.min(window.innerWidth - 18, contentRect.right + 14)
+    : Math.min(window.innerWidth - 18, rect.right + 14);
+
+  return {
+    id: stickyId,
+    top: rect.top + rect.height / 2,
+    left,
+  };
+}
+
+export function resolveOutsideEditorPosition(anchorTop: number): {
+  top: number;
+  left: number;
+} {
+  const editorWidth = Math.min(260, window.innerWidth - 24);
+  const editorHeight = 180;
+  const contentRoot = getArticleContentRoot();
+  const contentRect = contentRoot?.getBoundingClientRect();
+  const maxTop = Math.max(16, window.innerHeight - editorHeight - 16);
+  const top = Math.min(Math.max(16, anchorTop - 24), maxTop);
+
+  if (contentRect) {
+    const rightSlot = contentRect.right + 12;
+    const leftSlot = contentRect.left - editorWidth - 12;
+    if (window.innerWidth - rightSlot >= editorWidth + 8) {
+      return {top, left: rightSlot};
+    }
+    if (leftSlot >= 8) {
+      return {top, left: leftSlot};
+    }
+  }
+
+  // Narrow layout: keep the note card on the far right, clear of mid-page text.
+  return {
+    top: Math.min(top, window.innerHeight - editorHeight - 72),
+    left: Math.max(8, window.innerWidth - editorWidth - 16),
+  };
+}
+
+function supportsCssHighlight(): boolean {
+  return (
+    typeof CSS !== 'undefined' &&
+    'highlights' in CSS &&
+    typeof Highlight !== 'undefined'
+  );
+}
+
+export function clearStickyHighlights(): void {
+  if (!supportsCssHighlight()) {
+    return;
+  }
+  CSS.highlights.delete(READING_STICKY_HIGHLIGHT);
+}
+
+export function applyStickyVisuals(
   root: Element,
   stickies: StickyNote[],
   visible: boolean,
-): Map<string, HTMLElement> {
-  unwrapStickyMarks(root);
-  const marks = new Map<string, HTMLElement>();
-  if (!visible) {
-    return marks;
+): StickyPinPosition[] {
+  cleanupLegacyStickyMarks(root);
+  clearStickyHighlights();
+
+  if (!visible || stickies.length === 0) {
+    return [];
   }
+
+  const ranges: Range[] = [];
+  const pins: StickyPinPosition[] = [];
+
   for (const sticky of stickies) {
-    const mark = wrapStickyInRoot(root, sticky);
-    if (mark) {
-      marks.set(sticky.id, mark);
+    const range = createRangeForSticky(root, sticky);
+    if (!range) {
+      continue;
+    }
+    ranges.push(range);
+    const pin = pinPositionForRange(range, sticky.id, root);
+    if (pin) {
+      pins.push(pin);
     }
   }
-  return marks;
+
+  if (supportsCssHighlight() && ranges.length > 0) {
+    const highlight = new Highlight(...ranges);
+    CSS.highlights.set(READING_STICKY_HIGHLIGHT, highlight);
+  }
+
+  return pins;
 }
