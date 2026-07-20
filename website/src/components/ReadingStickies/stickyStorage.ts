@@ -19,7 +19,7 @@ export type StickyNote = {
 
 export type ReadingStickiesStore = {
   version: typeof READING_STICKIES_STORE_VERSION;
-  /** When false, highlights and margin markers stay hidden. */
+  /** When false, highlights and pins stay hidden. Note text still opens only on click. */
   visible: boolean;
   pages: Record<string, StickyNote[]>;
 };
@@ -27,7 +27,7 @@ export type ReadingStickiesStore = {
 export function createEmptyStore(): ReadingStickiesStore {
   return {
     version: READING_STICKIES_STORE_VERSION,
-    visible: false,
+    visible: true,
     pages: {},
   };
 }
@@ -278,7 +278,7 @@ export function parseReadingStickiesStore(
     }
     return {
       version: READING_STICKIES_STORE_VERSION,
-      visible: record.visible === true,
+      visible: record.visible !== false,
       pages,
     };
   } catch {

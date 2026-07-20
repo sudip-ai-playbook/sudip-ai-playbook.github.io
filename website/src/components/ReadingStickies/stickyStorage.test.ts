@@ -61,9 +61,9 @@ describe('stickyStorage', () => {
     );
   });
 
-  it('defaults visibility to hidden and round-trips stickies', () => {
+  it('defaults visibility to shown and round-trips stickies', () => {
     const empty = createEmptyStore();
-    assert.equal(empty.visible, false);
+    assert.equal(empty.visible, true);
 
     const added = addStickyNote(empty, '/blog/articles/a/', {
       quote: 'important line',
@@ -81,6 +81,27 @@ describe('stickyStorage', () => {
     );
     assert.equal(restored.visible, true);
     assert.equal(getStickiesForPage(restored, '/blog/articles/a')[0]?.note, 'Remember this');
+  });
+
+  it('treats missing visibility as shown when parsing', () => {
+    const raw = JSON.stringify({
+      version: 1,
+      pages: {
+        '/p': [
+          {
+            id: '1',
+            quote: 'q',
+            prefix: '',
+            suffix: '',
+            note: 'n',
+            createdAt: 't',
+            updatedAt: 't',
+          },
+        ],
+      },
+    });
+    const store = parseReadingStickiesStore(raw);
+    assert.equal(store.visible, true);
   });
 
   it('rejects empty notes and quotes when adding', () => {

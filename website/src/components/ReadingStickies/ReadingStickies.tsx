@@ -1,6 +1,7 @@
 import type {
   ChangeEvent,
   FormEvent,
+  MouseEvent,
   ReactNode,
   SVGProps,
 } from 'react';
@@ -16,6 +17,7 @@ import {
   applyStickyMarks,
   getArticleContentRoot,
   readSelectionContext,
+  STICKY_MARK_ATTRIBUTE,
 } from './stickyDom';
 import {
   addStickyNote,
@@ -29,7 +31,6 @@ import {
   setStickiesVisible,
   updateStickyNote,
   type ReadingStickiesStore,
-  type StickyNote,
 } from './stickyStorage';
 
 type IconProps = SVGProps<SVGSVGElement>;
@@ -51,12 +52,6 @@ type EditorState = {
   prefix?: string;
   quote?: string;
   suffix?: string;
-};
-
-type MarkerPosition = {
-  id: string;
-  top: number;
-  left: number;
 };
 
 function StickyIcon({className, ...props}: IconProps): ReactNode {
@@ -150,6 +145,21 @@ function createClientStore(isBrowser: boolean): ReadingStickiesStore {
   return loadReadingStickiesStore();
 }
 
+function resolveStickyIdFromTarget(target: EventTarget | null): string | undefined {
+  if (!(target instanceof Element)) {
+    return undefined;
+  }
+  const openButton = target.closest('[data-reading-sticky-open]');
+  if (openButton instanceof HTMLElement) {
+    return openButton.dataset.readingStickyOpen;
+  }
+  const mark = target.closest(`[${STICKY_MARK_ATTRIBUTE}]`);
+  if (mark instanceof HTMLElement) {
+    return mark.getAttribute(STICKY_MARK_ATTRIBUTE) ?? undefined;
+  }
+  return undefined;
+}
+
 export default function ReadingStickies(): ReactNode {
   const isBrowser = useIsBrowser();
   const location = useLocation();
@@ -163,19 +173,11 @@ export default function ReadingStickies(): ReactNode {
     SelectionDraft | undefined
   >(undefined);
   const [editor, setEditor] = useState<EditorState | undefined>(undefined);
-  const [markers, setMarkers] = useState<MarkerPosition[]>([]);
-  const [markElements, setMarkElements] = useState<Map<string, HTMLElement>>(
-    () => new Map(),
-  );
-
-  const pageStickies = getStickiesForPage(store, pathname);
 
   useEffect(() => {
     if (!showOnPage) {
       setSelectionDraft(undefined);
       setEditor(undefined);
-      setMarkers([]);
-      setMarkElements(new Map());
       return;
     }
     setStore(loadReadingStickiesStore());
@@ -189,19 +191,16 @@ export default function ReadingStickies(): ReactNode {
     function refreshMarks(): void {
       const contentRoot = getArticleContentRoot();
       if (!contentRoot) {
-        setMarkElements(new Map());
-        setMarkers([]);
         return;
       }
-      const nextMarks = applyStickyMarks(
+      applyStickyMarks(
         contentRoot,
         getStickiesForPage(store, pathname),
         store.visible,
       );
-      setMarkElements(nextMarks);
     }
 
-    const timeoutId = window.setTimeout(refreshMarks, 80);
+    const timeoutId = window.setTimeout(refreshMarks, 60);
     return () => {
       window.clearTimeout(timeoutId);
       const contentRoot = getArticleContentRoot();
@@ -209,45 +208,57 @@ export default function ReadingStickies(): ReactNode {
         applyStickyMarks(contentRoot, [], false);
       }
     };
-  }, [pathname, showOnPage, store, store.visible, pageStickies.length]);
-
-  useEffect(() => {
-    if (!showOnPage || !store.visible) {
-      setMarkers([]);
-      return;
-    }
-
-    function updateMarkerPositions(): void {
-      const nextMarkers: MarkerPosition[] = [];
-      markElements.forEach((element, stickyId) => {
-        const rect = element.getBoundingClientRect();
-        if (rect.height === 0 && rect.width === 0) {
-          return;
-        }
-        nextMarkers.push({
-          id: stickyId,
-          top: window.scrollY + rect.top + rect.height / 2,
-          left: Math.max(12, rect.left - 14),
-        });
-      });
-      setMarkers(nextMarkers);
-    }
-
-    updateMarkerPositions();
-    window.addEventListener('scroll', updateMarkerPositions, {passive: true});
-    window.addEventListener('resize', updateMarkerPositions);
-    return () => {
-      window.removeEventListener('scroll', updateMarkerPositions);
-      window.removeEventListener('resize', updateMarkerPositions);
-    };
-  }, [markElements, showOnPage, store.visible]);
+  }, [pathname, showOnPage, store]);
 
   useEffect(() => {
     if (!showOnPage) {
       return;
     }
 
-    function handleSelectionChange(): void {
+    function handleContentClick(event: Event): void {
+      const stickyId = resolveStickyIdFromTarget(event.target);
+      if (!stickyId) {
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      const sticky = getStickiesForPage(store, pathname).find(
+        (item) => item.id === stickyId,
+      );
+      if (!sticky) {
+        return;
+      }
+      let top = window.innerHeight / 3;
+      let left = window.innerWidth / 2 - 140;
+      if (event.target instanceof Element) {
+        const rect = event.target.getBoundingClientRect();
+        top = rect.bottom + 8;
+        left = rect.left;
+      }
+      const position = clampEditorPosition(top, left);
+      setEditor({
+        mode: 'edit',
+        stickyId: sticky.id,
+        note: sticky.note,
+        top: position.top,
+        left: position.left,
+      });
+      setSelectionDraft(undefined);
+    }
+
+    const contentRoot = getArticleContentRoot();
+    contentRoot?.addEventListener('click', handleContentClick);
+    return () => {
+      contentRoot?.removeEventListener('click', handleContentClick);
+    };
+  }, [pathname, showOnPage, store]);
+
+  useEffect(() => {
+    if (!showOnPage) {
+      return;
+    }
+
+    function updateSelectionDraft(): void {
       if (editor) {
         return;
       }
@@ -258,11 +269,7 @@ export default function ReadingStickies(): ReactNode {
         return;
       }
       const context = readSelectionContext(contentRoot, selection);
-      if (!context) {
-        setSelectionDraft(undefined);
-        return;
-      }
-      if (selection.rangeCount === 0) {
+      if (!context || selection.rangeCount === 0) {
         setSelectionDraft(undefined);
         return;
       }
@@ -273,16 +280,20 @@ export default function ReadingStickies(): ReactNode {
       }
       setSelectionDraft({
         ...context,
-        top: rect.top + window.scrollY - 40,
-        left: rect.left + window.scrollX + rect.width / 2,
+        top: Math.max(8, rect.top - 44),
+        left: rect.left + rect.width / 2,
       });
     }
 
-    document.addEventListener('mouseup', handleSelectionChange);
-    document.addEventListener('keyup', handleSelectionChange);
+    function handleMouseUp(): void {
+      window.setTimeout(updateSelectionDraft, 0);
+    }
+
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('keyup', updateSelectionDraft);
     return () => {
-      document.removeEventListener('mouseup', handleSelectionChange);
-      document.removeEventListener('keyup', handleSelectionChange);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('keyup', updateSelectionDraft);
     };
   }, [editor, showOnPage]);
 
@@ -300,7 +311,7 @@ export default function ReadingStickies(): ReactNode {
       return;
     }
     const position = clampEditorPosition(
-      selectionDraft.top - window.scrollY + 8,
+      selectionDraft.top + 48,
       selectionDraft.left - 140,
     );
     setEditor({
@@ -316,23 +327,16 @@ export default function ReadingStickies(): ReactNode {
     window.getSelection()?.removeAllRanges();
   }
 
-  function handleOpenEdit(sticky: StickyNote, marker?: MarkerPosition): void {
-    const fallbackTop = marker
-      ? marker.top - window.scrollY
-      : window.innerHeight / 3;
-    const fallbackLeft = marker ? marker.left + 16 : window.innerWidth / 2 - 140;
-    const position = clampEditorPosition(fallbackTop, fallbackLeft);
-    setEditor({
-      mode: 'edit',
-      stickyId: sticky.id,
-      note: sticky.note,
-      top: position.top,
-      left: position.left,
-    });
-    setSelectionDraft(undefined);
+  function handleSelectionButtonMouseDown(
+    event: MouseEvent<HTMLButtonElement>,
+  ): void {
+    // Keep the text selection until the create editor opens.
+    event.preventDefault();
   }
 
-  function handleEditorNoteChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+  function handleEditorNoteChange(
+    event: ChangeEvent<HTMLTextAreaElement>,
+  ): void {
     if (!editor) {
       return;
     }
@@ -392,15 +396,6 @@ export default function ReadingStickies(): ReactNode {
     setEditor(undefined);
   }
 
-  function handleMarkerClick(stickyId: string): void {
-    const sticky = pageStickies.find((item) => item.id === stickyId);
-    if (!sticky) {
-      return;
-    }
-    const marker = markers.find((item) => item.id === stickyId);
-    handleOpenEdit(sticky, marker);
-  }
-
   if (!showOnPage) {
     return null;
   }
@@ -419,38 +414,22 @@ export default function ReadingStickies(): ReactNode {
         </button>
       </div>
 
-      {selectionDraft ? (
+      {selectionDraft && !editor ? (
         <button
           type="button"
           className={styles.selectionButton}
           style={{
-            top: selectionDraft.top - window.scrollY,
+            top: selectionDraft.top,
             left: selectionDraft.left,
             transform: 'translateX(-50%)',
           }}
           aria-label="Add sticky note"
           data-testid="reading-stickies-selection"
+          onMouseDown={handleSelectionButtonMouseDown}
           onClick={handleOpenCreateFromSelection}>
           <StickyIcon className={styles.icon} />
         </button>
       ) : null}
-
-      {store.visible
-        ? markers.map((marker) => (
-            <button
-              key={marker.id}
-              type="button"
-              className={styles.marker}
-              style={{top: marker.top, left: marker.left}}
-              aria-label="Open sticky note"
-              data-testid={`reading-sticky-marker-${marker.id}`}
-              onClick={() => {
-                handleMarkerClick(marker.id);
-              }}>
-              <StickyIcon className={styles.markerIcon} />
-            </button>
-          ))
-        : null}
 
       {editor ? (
         <form
@@ -464,6 +443,7 @@ export default function ReadingStickies(): ReactNode {
             placeholder="Add note"
             aria-label="Sticky note"
             maxLength={MAX_STICKY_NOTE_LENGTH}
+            autoFocus
             data-testid="reading-stickies-note"
             onChange={handleEditorNoteChange}
           />

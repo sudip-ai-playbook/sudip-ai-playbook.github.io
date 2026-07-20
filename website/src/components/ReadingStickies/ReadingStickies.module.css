@@ -57,19 +57,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   padding: 0;
   border: 1px solid var(--ase-rule);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--ase-paper) 94%, transparent);
-  color: var(--ase-ink);
-  box-shadow: 0 8px 24px rgba(20, 32, 27, 0.14);
+  background: color-mix(in srgb, var(--ase-paper) 96%, transparent);
+  color: var(--ifm-color-primary);
+  box-shadow: 0 8px 24px rgba(20, 32, 27, 0.16);
   cursor: pointer;
 }
 
 .selectionButton:hover {
-  color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
 }
 
 .selectionButton:focus-visible {
@@ -125,34 +125,6 @@
 
 .danger {
   color: var(--ase-color-danger);
-}
-
-.marker {
-  position: fixed;
-  z-index: 340;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  padding: 0;
-  border: 1px solid var(--ase-rule);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ase-paper) 94%, transparent);
-  color: var(--ifm-color-primary);
-  box-shadow: 0 4px 14px rgba(20, 32, 27, 0.12);
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-}
-
-.marker:focus-visible {
-  outline: 2px solid var(--ase-focus);
-  outline-offset: 2px;
-}
-
-.markerIcon {
-  width: 0.85rem;
-  height: 0.85rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

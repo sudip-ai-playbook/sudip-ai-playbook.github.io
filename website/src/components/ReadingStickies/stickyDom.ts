@@ -161,16 +161,25 @@ export function wrapStickyInRoot(
   const mark = document.createElement('mark');
   mark.setAttribute(STICKY_MARK_ATTRIBUTE, sticky.id);
   mark.className = 'reading-sticky-mark';
+  mark.title = 'Open sticky note';
+
+  const pin = document.createElement('button');
+  pin.type = 'button';
+  pin.className = 'reading-sticky-pin';
+  pin.setAttribute('data-reading-sticky-open', sticky.id);
+  pin.setAttribute('aria-label', 'Open sticky note');
+  pin.innerHTML =
+    '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/><path d="M15 3v5h5"/></svg>';
 
   try {
     range.surroundContents(mark);
-    return mark;
   } catch {
     const fragment = range.extractContents();
     mark.appendChild(fragment);
     range.insertNode(mark);
-    return mark;
   }
+  mark.appendChild(pin);
+  return mark;
 }
 
 export function applyStickyMarks(
