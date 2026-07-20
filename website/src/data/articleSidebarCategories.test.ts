@@ -93,6 +93,20 @@ describe('articleSidebarCategories', () => {
       'Governance',
     );
     assert.equal(
+      getArticleSidebarCategory('/blog/articles/ai-governance-iso-iec-27001'),
+      'Governance',
+    );
+    assert.equal(
+      getArticleSidebarCategory('/blog/articles/software-licences-explained'),
+      'Governance',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/pmbok-fifth-edition-project-management-study-guide',
+      ),
+      'Solution Engineering',
+    );
+    assert.equal(
       getArticleSidebarCategory('/blog/articles/unknown-future-post'),
       'More',
     );

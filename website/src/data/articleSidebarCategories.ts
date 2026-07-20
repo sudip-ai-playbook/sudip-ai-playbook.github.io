@@ -101,6 +101,10 @@ const ARTICLE_SIDEBAR_BY_SLUG: Record<string, ArticleSidebarEntry> = {
     category: 'Solution Engineering',
     label: 'Framework playbook',
   },
+  'pmbok-fifth-edition-project-management-study-guide': {
+    category: 'Solution Engineering',
+    label: 'PMBOK study guide',
+  },
 
   'consultai-os-in-ten-minutes': {
     category: 'Consulting',
@@ -191,6 +195,14 @@ const ARTICLE_SIDEBAR_BY_SLUG: Record<string, ArticleSidebarEntry> = {
   'owasp-llm-top-10-governance': {
     category: 'Governance',
     label: 'OWASP LLM Top 10',
+  },
+  'ai-governance-iso-iec-27001': {
+    category: 'Governance',
+    label: 'ISO/IEC 27001',
+  },
+  'software-licences-explained': {
+    category: 'Governance',
+    label: 'Software licences explained',
   },
 
   'ai-engineer-roadmap': {

@@ -333,6 +333,15 @@ body {
   opacity: 0.9;
 }
 
+.dropdown-section-label {
+  margin: 0.45rem 0.85rem 0.15rem;
+  color: var(--ase-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .footer {
   border-top: 1px solid var(--ase-rule);
   background-color: var(--ase-paper-deep) !important;

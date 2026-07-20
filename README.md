@@ -19,7 +19,7 @@ Target product docs for the **AI Playbook** (8D primary journey; existing 20-sta
 | **Home (app)** | Choose: learn the method, run ConsultAI, or start an architecture journey |
 | **ConsultAI OS** | End-to-end AI consulting lifecycle (stages 0–19), workshops, HTML/Excel export |
 | **Architecture journey** | Frame → Map → Picks → Compare → Decide → FinOps → Canvas → Record |
-| **Learn site** | Home, 18-part Guide, 8D/VALUE Framework, Articles at [/blog/](https://sudip-ai-playbook.github.io/blog/) |
+| **Learn · Library** | Progressive home (Learn / Deliver / Grow) at [/blog/](https://sudip-ai-playbook.github.io/blog/) — full catalog at [/blog/catalog/](https://sudip-ai-playbook.github.io/blog/catalog/) |
 
 ## ConsultAI OS
 

@@ -1,16 +1,19 @@
 # AI Playbook — Learning site (Docusaurus)
 
-Companion home, Learning Map, Guide, Framework and Articles for the [AI Playbook](https://sudip-ai-playbook.github.io), published at `/blog/`.
+Companion **Library** home, Learning Map, Guide, Framework, Roadmaps, Startup and Articles for the [AI Playbook](https://sudip-ai-playbook.github.io), published at `/blog/`.
 
 ## How docs integrate with the app
 
 | Surface | URL | Role |
 | --- | --- | --- |
 | Interactive app | `/` | Workshops, architecture tools, ConsultAI OS |
-| Learn site | `/blog/` | Curriculum + playbooks (this Docusaurus project) |
+| Learn · Library | `/blog/` | Progressive home: Learn / Deliver / Grow (short paths) |
+| Browse all | `/blog/catalog/` | Full catalog tree of every published page |
 | Learning Map | `/blog/learning-map/` | 35 practice-first capability topics |
 | Guide | `/blog/ai-solution-engineering/` | 18-part engagement playbooks |
-| Framework | `/blog/docs/` | 8D + VALUE |
+| Framework | `/blog/docs/` | 8D + VALUE + catalogue |
+| Roadmaps | `/blog/roadmaps/` | Career and capability paths |
+| Startup | `/blog/startup-entrepreneurship/` | Founder practice |
 | Articles | `/blog/articles/` | Short notes |
 
 Deploy merges `website/build/` into `app/dist/blog/` so one GitHub Pages site serves both.

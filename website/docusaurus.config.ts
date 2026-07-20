@@ -171,8 +171,15 @@ const config: Config = {
       items: [
         {
           to: '/',
-          label: 'Home',
+          label: 'Library',
           position: 'left',
+          title: 'Choose Learn, Deliver, or Grow',
+        },
+        {
+          to: '/catalog',
+          label: 'Browse all',
+          position: 'left',
+          title: 'Full content catalog',
         },
         {
           to: '/notes',
@@ -183,21 +190,39 @@ const config: Config = {
         },
         {
           type: 'dropdown',
-          label: 'Menu',
+          label: 'Sections',
           position: 'right',
           items: [
-            {label: 'Learning Map', to: '/learning-map/overview'},
-            {label: 'Guide', to: '/ai-solution-engineering/overview'},
-            {label: 'Roadmaps', to: '/roadmaps/overview'},
-            {label: 'Startup', to: '/startup-entrepreneurship/overview'},
-            {label: 'Framework', to: '/docs/framework'},
-            {label: 'Articles', to: '/articles'},
+            {
+              type: 'html',
+              value:
+                '<div class="dropdown-section-label">Learn & deliver</div>',
+            },
+            {label: '01 Learning Map', to: '/learning-map/overview'},
+            {label: '02 Guide', to: '/ai-solution-engineering/overview'},
+            {label: '03 Frameworks', to: '/docs/framework'},
             {
               type: 'html',
               value: '<hr class="dropdown-separator" />',
             },
             {
-              label: 'Interactive playbook',
+              type: 'html',
+              value:
+                '<div class="dropdown-section-label">Grow & read</div>',
+            },
+            {label: '04 Roadmaps', to: '/roadmaps/overview'},
+            {label: '05 Startup', to: '/startup-entrepreneurship/overview'},
+            {label: '06 Articles', to: '/articles'},
+            {
+              type: 'html',
+              value: '<hr class="dropdown-separator" />',
+            },
+            {
+              type: 'html',
+              value: '<div class="dropdown-section-label">Tools</div>',
+            },
+            {
+              label: '07 Interactive playbook',
               href: 'https://sudip-ai-playbook.github.io/',
             },
             {

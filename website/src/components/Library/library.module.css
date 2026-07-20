@@ -1,0 +1,163 @@
+.catalogJump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.1rem;
+  margin: 0 0 1.75rem;
+}
+
+.catalogJump a {
+  color: var(--ifm-color-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.catalogJump a:hover {
+  text-decoration: underline;
+}
+
+.catalogList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.catalogCard {
+  padding: 1.35rem 1.45rem 1.5rem;
+  border: 1px solid var(--ase-rule);
+  border-radius: 12px;
+  background: var(--ase-paper);
+  scroll-margin-top: 5.5rem;
+}
+
+.catalogHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.catalogNumber {
+  color: var(--ifm-color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.catalogTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+.catalogSummary {
+  margin: 0.4rem 0 0;
+  color: var(--ase-muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.catalogOverview {
+  white-space: nowrap;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.branchList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 1.15rem;
+  padding-left: 0.35rem;
+  border-left: 2px solid var(--ase-rule);
+}
+
+.branch {
+  padding: 0.15rem 0 0.15rem 0.85rem;
+}
+
+.branchSummary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ifm-font-color-base);
+  font-weight: 600;
+}
+
+.branchSummary::-webkit-details-marker {
+  display: none;
+}
+
+.branchSummary::before {
+  content: '▸';
+  color: var(--ifm-color-primary);
+  font-size: 0.85rem;
+}
+
+.branch[open] > .branchSummary::before {
+  content: '▾';
+}
+
+.branchTitle {
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+}
+
+.branchCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--ase-accent-soft);
+  color: var(--ifm-color-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.treeList {
+  margin: 0.45rem 0 0.35rem;
+  padding: 0 0 0 1.1rem;
+  list-style: none;
+}
+
+.treeList li {
+  position: relative;
+  margin: 0.2rem 0;
+  padding-left: 0.85rem;
+}
+
+.treeList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7rem;
+  width: 0.55rem;
+  border-top: 1px solid var(--ase-rule);
+}
+
+.treeLink {
+  color: inherit;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.treeLink:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+}
+
+@media (max-width: 996px) {
+  .catalogHeader {
+    grid-template-columns: auto 1fr;
+  }
+
+  .catalogOverview {
+    grid-column: 2;
+  }
+}
