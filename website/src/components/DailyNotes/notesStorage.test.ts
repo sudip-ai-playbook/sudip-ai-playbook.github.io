@@ -17,8 +17,12 @@ import {
   listPastIncompleteTasks,
   listPastQuickNotes,
   moveTaskToDate,
+  offsetDateKey,
   parseDailyNotesStore,
+  parseTaskDragPayload,
+  resolveDropDateKey,
   serializeDailyNotesStore,
+  serializeTaskDragPayload,
   setQuickNoteForDay,
   setTasksForDay,
   shouldExpandDaySection,
@@ -296,5 +300,50 @@ describe('notesStorage', () => {
       {dateKey: '2026-07-18', quickNote: 'Recent note'},
       {dateKey: '2026-07-17', quickNote: 'Older note'},
     ]);
+  });
+
+  it('offsets a date key by whole days', () => {
+    assert.equal(offsetDateKey('2026-07-19', -1), '2026-07-18');
+    assert.equal(offsetDateKey('2026-07-19', 1), '2026-07-20');
+    assert.equal(offsetDateKey('2026-03-01', -1), '2026-02-28');
+    assert.equal(offsetDateKey('bad-date', 1), 'bad-date');
+  });
+
+  it('resolves drop targets for past, today, and future sections', () => {
+    assert.equal(
+      resolveDropDateKey('today', '2026-07-19', '2026-07-18'),
+      '2026-07-19',
+    );
+    assert.equal(
+      resolveDropDateKey('past', '2026-07-19', '2026-07-19'),
+      '2026-07-18',
+    );
+    assert.equal(
+      resolveDropDateKey('past', '2026-07-19', '2026-07-10'),
+      '2026-07-10',
+    );
+    assert.equal(
+      resolveDropDateKey('future', '2026-07-19', '2026-07-19'),
+      '2026-07-20',
+    );
+    assert.equal(
+      resolveDropDateKey('future', '2026-07-19', '2026-07-25'),
+      '2026-07-25',
+    );
+  });
+
+  it('serializes and parses task drag payloads', () => {
+    const payload = {taskId: 'task-1', fromDateKey: '2026-07-19'};
+    assert.deepEqual(
+      parseTaskDragPayload(serializeTaskDragPayload(payload)),
+      payload,
+    );
+    assert.equal(parseTaskDragPayload(''), null);
+    assert.equal(parseTaskDragPayload('{'), null);
+    assert.equal(parseTaskDragPayload('{"taskId":"","fromDateKey":"x"}'), null);
+    assert.equal(
+      parseTaskDragPayload('{"taskId":"a","fromDateKey":"bad"}'),
+      null,
+    );
   });
 });

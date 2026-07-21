@@ -1,5 +1,6 @@
 import type {
   ChangeEvent,
+  DragEvent,
   FormEvent,
   KeyboardEvent,
   MouseEvent,
@@ -11,6 +12,7 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import Heading from '@theme/Heading';
 
 import styles from './DailyNotes.module.css';
+import {allowTaskDrop, readTaskDragPayload, writeTaskDragPayload} from './notesDrag';
 import {downloadNotesXlsx} from './notesExport';
 import {
   createEmptyStore,
@@ -27,17 +29,21 @@ import {
   listPastIncompleteTasks,
   listPastQuickNotes,
   loadDailyNotesStore,
+  moveTaskToDate,
   PAST_NOTES_SECTION_LABEL,
   PAST_SECTION_LABEL,
+  resolveDropDateKey,
   saveDailyNotesStore,
   setQuickNoteForDay,
   setTasksForDay,
   shouldExpandDaySection,
+  TODAY_SECTION_LABEL,
   updateTaskText,
   type DailyNotesStore,
   type DailyTask,
   type IncompleteTaskRef,
   type PastQuickNoteRef,
+  type TaskBoardSection,
 } from './notesStorage';
 
 type TaskTone = 'future' | 'past';
@@ -61,6 +67,7 @@ type TaskRowProps = {
   dateKey: string;
   dateTag?: string;
   tone?: TaskTone;
+  canDrag?: boolean;
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
@@ -98,11 +105,13 @@ function TaskRow({
   dateKey,
   dateTag,
   tone,
+  canDrag,
   onToggle,
   onEdit,
   onDelete,
   onOpenDate,
 }: TaskRowProps): ReactNode {
+  const isDraggable = canDrag === true;
   const [draft, setDraft] = useState(task.text);
 
   useEffect(() => {
@@ -141,6 +150,18 @@ function TaskRow({
     onOpenDate?.(dateKey);
   }
 
+  function handleDragStart(event: DragEvent<HTMLLIElement>): void {
+    writeTaskDragPayload(event, {
+      taskId: task.id,
+      fromDateKey: dateKey,
+    });
+    event.currentTarget.classList.add(styles.taskDragging);
+  }
+
+  function handleDragEnd(event: DragEvent<HTMLLIElement>): void {
+    event.currentTarget.classList.remove(styles.taskDragging);
+  }
+
   const isDated = dateTag !== undefined;
   const itemClassName = isDated
     ? tone === 'future'
@@ -151,12 +172,23 @@ function TaskRow({
   return (
     <li
       className={itemClassName}
+      draggable={isDraggable}
+      onDragStart={isDraggable ? handleDragStart : undefined}
+      onDragEnd={isDraggable ? handleDragEnd : undefined}
       data-testid={
         isDated
           ? `daily-notes-open-${task.id}`
           : `daily-notes-task-${task.id}`
       }>
       <div className={styles.taskMain}>
+        {isDraggable ? (
+          <span
+            className={styles.dragHandle}
+            aria-hidden="true"
+            data-testid={`daily-notes-drag-${task.id}`}>
+            ⋮⋮
+          </span>
+        ) : null}
         <label className={styles.taskLabel}>
           <input
             type="checkbox"
@@ -204,29 +236,35 @@ function TaskRow({
   );
 }
 
-type DaySectionProps = {
+type DropSectionProps = {
+  section: TaskBoardSection;
   label: string;
   testId: string;
-  tasks: IncompleteTaskRef[];
-  tone: TaskTone;
-  onToggle: (dateKey: string, taskId: string, done: boolean) => void;
-  onEdit: (dateKey: string, taskId: string, text: string) => void;
-  onDelete: (dateKey: string, taskId: string) => void;
-  onOpenDate: (dateKey: string) => void;
+  taskCount: number;
+  isActive: boolean;
+  collapsible?: boolean;
+  children: ReactNode;
+  onDragActiveChange: (section: TaskBoardSection | null) => void;
+  onDropEvent: (
+    section: TaskBoardSection,
+    event: DragEvent<HTMLElement>,
+  ) => void;
 };
 
-function DaySection({
+function DropSection({
+  section,
   label,
   testId,
-  tasks,
-  tone,
-  onToggle,
-  onEdit,
-  onDelete,
-  onOpenDate,
-}: DaySectionProps): ReactNode {
+  taskCount,
+  isActive,
+  collapsible,
+  children,
+  onDragActiveChange,
+  onDropEvent,
+}: DropSectionProps): ReactNode {
+  const isCollapsible = collapsible === true;
   const [isOpen, setIsOpen] = useState(() =>
-    shouldExpandDaySection(tasks.length),
+    shouldExpandDaySection(taskCount),
   );
 
   function handleSectionToggle(
@@ -235,31 +273,241 @@ function DaySection({
     setIsOpen(event.currentTarget.open);
   }
 
+  function handleDragOver(event: DragEvent<HTMLElement>): void {
+    allowTaskDrop(event);
+    onDragActiveChange(section);
+  }
+
+  function handleDragLeave(event: DragEvent<HTMLElement>): void {
+    const nextTarget = event.relatedTarget;
+    if (
+      nextTarget instanceof Node &&
+      event.currentTarget.contains(nextTarget)
+    ) {
+      return;
+    }
+    onDragActiveChange(null);
+  }
+
+  function handleDrop(event: DragEvent<HTMLElement>): void {
+    onDropEvent(section, event);
+  }
+
+  const dropClassName = isActive
+    ? `${styles.dropSection} ${styles.dropSectionActive}`
+    : styles.dropSection;
+
+  if (!isCollapsible) {
+    return (
+      <div
+        className={`${styles.todayBlock} ${dropClassName}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        data-testid={testId}>
+        <p className={styles.todayLabel}>
+          {label} ({taskCount})
+        </p>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <details
-      className={styles.daySection}
-      open={isOpen}
+      className={`${styles.daySection} ${dropClassName}`}
+      open={isOpen || isActive}
       onToggle={handleSectionToggle}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
       data-testid={testId}>
       <summary className={styles.daySectionSummary}>
-        {label} ({tasks.length})
+        {label} ({taskCount})
       </summary>
-      <ul className={styles.taskList} data-testid={`${testId}-list`}>
-        {tasks.map((item) => (
-          <TaskRow
-            key={`${item.dateKey}-${item.task.id}`}
-            task={item.task}
-            dateKey={item.dateKey}
-            dateTag={formatShortDate(item.dateKey)}
-            tone={tone}
-            onToggle={onToggle}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onOpenDate={onOpenDate}
-          />
-        ))}
-      </ul>
+      {children}
     </details>
+  );
+}
+
+type DaySectionListProps = {
+  tasks: IncompleteTaskRef[];
+  tone: TaskTone;
+  listTestId: string;
+  emptyLabel: string;
+  onToggle: (dateKey: string, taskId: string, done: boolean) => void;
+  onEdit: (dateKey: string, taskId: string, text: string) => void;
+  onDelete: (dateKey: string, taskId: string) => void;
+  onOpenDate: (dateKey: string) => void;
+};
+
+function DaySectionList({
+  tasks,
+  tone,
+  listTestId,
+  emptyLabel,
+  onToggle,
+  onEdit,
+  onDelete,
+  onOpenDate,
+}: DaySectionListProps): ReactNode {
+  if (tasks.length === 0) {
+    return (
+      <p className={styles.sectionEmpty} data-testid={`${listTestId}-empty`}>
+        {emptyLabel}
+      </p>
+    );
+  }
+
+  return (
+    <ul className={styles.taskList} data-testid={listTestId}>
+      {tasks.map((item) => (
+        <TaskRow
+          key={`${item.dateKey}-${item.task.id}`}
+          task={item.task}
+          dateKey={item.dateKey}
+          dateTag={formatShortDate(item.dateKey)}
+          tone={tone}
+          canDrag
+          onToggle={onToggle}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onOpenDate={onOpenDate}
+        />
+      ))}
+    </ul>
+  );
+}
+
+type TaskBoardProps = {
+  pastTasks: IncompleteTaskRef[];
+  openTasks: DailyTask[];
+  futureTasks: IncompleteTaskRef[];
+  selectedDateKey: string;
+  todayKey: string;
+  store: DailyNotesStore;
+  activeDropSection: TaskBoardSection | null;
+  onActiveDropSectionChange: (section: TaskBoardSection | null) => void;
+  onPersist: (store: DailyNotesStore) => void;
+  onToggle: (dateKey: string, taskId: string, done: boolean) => void;
+  onEdit: (dateKey: string, taskId: string, text: string) => void;
+  onDelete: (dateKey: string, taskId: string) => void;
+  onOpenDate: (dateKey: string) => void;
+};
+
+function TaskBoard({
+  pastTasks,
+  openTasks,
+  futureTasks,
+  selectedDateKey,
+  todayKey,
+  store,
+  activeDropSection,
+  onActiveDropSectionChange,
+  onPersist,
+  onToggle,
+  onEdit,
+  onDelete,
+  onOpenDate,
+}: TaskBoardProps): ReactNode {
+  function applyDrop(
+    section: TaskBoardSection,
+    event: DragEvent<HTMLElement>,
+  ): void {
+    event.preventDefault();
+    onActiveDropSectionChange(null);
+    const payload = readTaskDragPayload(event);
+    if (!payload) {
+      return;
+    }
+    const toDateKey = resolveDropDateKey(
+      section,
+      todayKey,
+      payload.fromDateKey,
+    );
+    onPersist(
+      moveTaskToDate(
+        store,
+        payload.fromDateKey,
+        toDateKey,
+        payload.taskId,
+      ),
+    );
+  }
+
+  return (
+    <div className={styles.taskBoard} data-testid="daily-notes-list">
+      <DropSection
+        section="past"
+        label={PAST_SECTION_LABEL}
+        testId="daily-notes-past"
+        taskCount={pastTasks.length}
+        isActive={activeDropSection === 'past'}
+        collapsible
+        onDragActiveChange={onActiveDropSectionChange}
+        onDropEvent={applyDrop}>
+        <DaySectionList
+          tasks={pastTasks}
+          tone="past"
+          listTestId="daily-notes-past-list"
+          emptyLabel="Drop here"
+          onToggle={onToggle}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onOpenDate={onOpenDate}
+        />
+      </DropSection>
+
+      <DropSection
+        section="today"
+        label={TODAY_SECTION_LABEL}
+        testId="daily-notes-today"
+        taskCount={openTasks.length}
+        isActive={activeDropSection === 'today'}
+        onDragActiveChange={onActiveDropSectionChange}
+        onDropEvent={applyDrop}>
+        {openTasks.length > 0 ? (
+          <ul className={styles.taskList}>
+            {openTasks.map((task) => (
+              <TaskRow
+                key={task.id}
+                task={task}
+                dateKey={selectedDateKey}
+                canDrag
+                onToggle={onToggle}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            ))}
+          </ul>
+        ) : (
+          <p className={styles.todayEmpty} data-testid="daily-notes-today-empty">
+            Drop here
+          </p>
+        )}
+      </DropSection>
+
+      <DropSection
+        section="future"
+        label={FUTURE_SECTION_LABEL}
+        testId="daily-notes-future"
+        taskCount={futureTasks.length}
+        isActive={activeDropSection === 'future'}
+        collapsible
+        onDragActiveChange={onActiveDropSectionChange}
+        onDropEvent={applyDrop}>
+        <DaySectionList
+          tasks={futureTasks}
+          tone="future"
+          listTestId="daily-notes-future-list"
+          emptyLabel="Drop here"
+          onToggle={onToggle}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onOpenDate={onOpenDate}
+        />
+      </DropSection>
+    </div>
   );
 }
 
@@ -330,6 +578,8 @@ export default function DailyNotes(): ReactNode {
   const [draftText, setDraftText] = useState('');
   const [pickerDate, setPickerDate] = useState(todayKey);
   const [hasHydrated, setHasHydrated] = useState(false);
+  const [activeDropSection, setActiveDropSection] =
+    useState<TaskBoardSection | null>(null);
 
   useEffect(() => {
     if (!isBrowser) {
@@ -438,13 +688,9 @@ export default function DailyNotes(): ReactNode {
     0,
   );
   const pastQuickNotes = listPastQuickNotes(store, todayKey);
-  const hasFutureEntries = futureTasks.length > 0;
-  const hasPastEntries = pastTasks.length > 0;
   const hasTodayOpenTasks = openTasks.length > 0;
   const hasAnyTasks =
-    hasFutureEntries || hasTodayOpenTasks || hasPastEntries;
-  const showFuturePastBoard =
-    isToday && (hasFutureEntries || hasPastEntries);
+    futureTasks.length > 0 || hasTodayOpenTasks || pastTasks.length > 0;
 
   if (!hasHydrated) {
     return (
@@ -544,59 +790,26 @@ export default function DailyNotes(): ReactNode {
           </button>
         </form>
 
-        {!hasAnyTasks ? (
+        {!hasAnyTasks && !isToday ? (
           <p className={styles.empty} data-testid="daily-notes-empty">
             No tasks for this day.
           </p>
-        ) : showFuturePastBoard ? (
-          <div className={styles.taskBoard} data-testid="daily-notes-list">
-            {hasPastEntries ? (
-              <DaySection
-                label={PAST_SECTION_LABEL}
-                testId="daily-notes-past"
-                tasks={pastTasks}
-                tone="past"
-                onToggle={handleToggle}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onOpenDate={handleOpenDate}
-              />
-            ) : null}
-
-            <div
-              className={styles.todayBlock}
-              data-testid="daily-notes-today">
-              {hasTodayOpenTasks ? (
-                <ul className={styles.taskList}>
-                  {openTasks.map((task) => (
-                    <TaskRow
-                      key={task.id}
-                      task={task}
-                      dateKey={selectedDateKey}
-                      onToggle={handleToggle}
-                      onEdit={handleEdit}
-                      onDelete={handleDelete}
-                    />
-                  ))}
-                </ul>
-              ) : (
-                <p className={styles.todayEmpty}>No open tasks for today.</p>
-              )}
-            </div>
-
-            {hasFutureEntries ? (
-              <DaySection
-                label={FUTURE_SECTION_LABEL}
-                testId="daily-notes-future"
-                tasks={futureTasks}
-                tone="future"
-                onToggle={handleToggle}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onOpenDate={handleOpenDate}
-              />
-            ) : null}
-          </div>
+        ) : isToday ? (
+          <TaskBoard
+            pastTasks={pastTasks}
+            openTasks={openTasks}
+            futureTasks={futureTasks}
+            selectedDateKey={selectedDateKey}
+            todayKey={todayKey}
+            store={store}
+            activeDropSection={activeDropSection}
+            onActiveDropSectionChange={setActiveDropSection}
+            onPersist={persistStore}
+            onToggle={handleToggle}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            onOpenDate={handleOpenDate}
+          />
         ) : (
           <ul className={styles.taskList} data-testid="daily-notes-list">
             {openTasks.map((task) => (

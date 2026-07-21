@@ -210,7 +210,15 @@
   background: var(--ifm-background-color);
 }
 
-.todayEmpty {
+.todayLabel {
+  margin: 0 0 var(--ase-space-2);
+  color: var(--ase-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.todayEmpty,
+.sectionEmpty {
   margin: 0;
   color: var(--ase-muted);
   font-size: 0.92rem;
@@ -220,6 +228,37 @@
   border: 1px solid var(--ase-rule);
   border-radius: var(--ifm-global-radius);
   padding: var(--ase-space-2) var(--ase-space-3);
+}
+
+.dropSection {
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.dropSectionActive {
+  border-color: var(--ifm-color-primary);
+  background: var(--ase-accent-soft);
+}
+
+.dragHandle {
+  flex-shrink: 0;
+  color: var(--ase-muted);
+  font-size: 0.85rem;
+  letter-spacing: -0.12em;
+  line-height: 1;
+  cursor: grab;
+  user-select: none;
+}
+
+.taskDragging {
+  opacity: 0.55;
+}
+
+.taskItem[draggable='true'],
+.pastItem[draggable='true'],
+.futureItem[draggable='true'] {
+  cursor: grab;
 }
 
 .daySectionSummary {

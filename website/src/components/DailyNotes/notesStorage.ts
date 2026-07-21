@@ -333,6 +333,83 @@ export function moveTaskToDate(
   return nextStore;
 }
 
+export type TaskBoardSection = 'past' | 'today' | 'future';
+
+export const TODAY_SECTION_LABEL = 'Today';
+
+export const TASK_DRAG_MIME = 'application/x-daily-notes-task';
+
+export type TaskDragPayload = {
+  taskId: string;
+  fromDateKey: string;
+};
+
+export function offsetDateKey(dateKey: string, dayOffset: number): string {
+  if (!isValidDateKey(dateKey)) {
+    return dateKey;
+  }
+  const [yearText, monthText, dayText] = dateKey.split('-');
+  const date = new Date(
+    Number(yearText),
+    Number(monthText) - 1,
+    Number(dayText),
+  );
+  date.setDate(date.getDate() + dayOffset);
+  return formatDateKey(date);
+}
+
+/** Map a board drop target to a concrete date. Keeps the source date when it already belongs in that section. */
+export function resolveDropDateKey(
+  section: TaskBoardSection,
+  todayKey: string,
+  fromDateKey: string,
+): string {
+  if (section === 'today') {
+    return todayKey;
+  }
+  if (section === 'past') {
+    if (fromDateKey < todayKey) {
+      return fromDateKey;
+    }
+    return offsetDateKey(todayKey, -1);
+  }
+  if (fromDateKey > todayKey) {
+    return fromDateKey;
+  }
+  return offsetDateKey(todayKey, 1);
+}
+
+export function serializeTaskDragPayload(payload: TaskDragPayload): string {
+  return JSON.stringify(payload);
+}
+
+export function parseTaskDragPayload(raw: string): TaskDragPayload | null {
+  if (raw.trim() === '') {
+    return null;
+  }
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (typeof parsed !== 'object' || parsed === null) {
+      return null;
+    }
+    const candidate = parsed as Partial<TaskDragPayload>;
+    if (
+      typeof candidate.taskId !== 'string' ||
+      candidate.taskId.length === 0 ||
+      typeof candidate.fromDateKey !== 'string' ||
+      !isValidDateKey(candidate.fromDateKey)
+    ) {
+      return null;
+    }
+    return {
+      taskId: candidate.taskId,
+      fromDateKey: candidate.fromDateKey,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export type IncompleteTaskRef = {
   dateKey: string;
   task: DailyTask;
