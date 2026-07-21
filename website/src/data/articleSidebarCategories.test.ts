@@ -85,6 +85,18 @@ describe('articleSidebarCategories', () => {
       'Consulting',
     );
     assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/from-ai-experimentation-to-enterprise-advantage',
+      ),
+      'Consulting',
+    );
+    assert.equal(
+      getArticleSidebarCategory(
+        '/blog/articles/ai-sales-marketing-funnel-to-customer-value',
+      ),
+      'Business',
+    );
+    assert.equal(
       getArticleSidebarCategory('/blog/articles/eu-ai-act-regulation-2024-1689'),
       'Governance',
     );
@@ -168,6 +180,20 @@ describe('articleSidebarCategories', () => {
         'Leadership: How to Shape Major Market Opportunities',
       ),
       'Shape market opportunities',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/from-ai-experimentation-to-enterprise-advantage',
+        'From AI Experimentation to Enterprise Advantage',
+      ),
+      'AI experimentation to enterprise advantage',
+    );
+    assert.equal(
+      getArticleSidebarLabel(
+        '/blog/articles/ai-sales-marketing-funnel-to-customer-value',
+        'How AI Companies and Professional-Services Firms Move from Market Awareness to Measurable Customer Value',
+      ),
+      'AI sales funnel to customer value',
     );
   });
 

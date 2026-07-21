@@ -59,6 +59,10 @@ const ARTICLE_SIDEBAR_BY_SLUG: Record<string, ArticleSidebarEntry> = {
     category: 'Business',
     label: 'Go-to-market strategies',
   },
+  'ai-sales-marketing-funnel-to-customer-value': {
+    category: 'Business',
+    label: 'AI sales funnel to customer value',
+  },
   'business-perfect-pitch': {
     category: 'Business',
     label: 'Perfect pitch',
@@ -117,6 +121,10 @@ const ARTICLE_SIDEBAR_BY_SLUG: Record<string, ArticleSidebarEntry> = {
   'regional-data-ai-centre-of-excellence': {
     category: 'Consulting',
     label: 'Regional Data & AI CoE',
+  },
+  'from-ai-experimentation-to-enterprise-advantage': {
+    category: 'Consulting',
+    label: 'AI experimentation to enterprise advantage',
   },
   'leadership-engage-business-service-line-leaders': {
     category: 'Consulting',
