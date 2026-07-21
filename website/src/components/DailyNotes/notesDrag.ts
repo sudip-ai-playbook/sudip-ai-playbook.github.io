@@ -31,3 +31,21 @@ export function allowTaskDrop(event: DragEvent): void {
   event.preventDefault();
   event.dataTransfer.dropEffect = 'move';
 }
+
+/** Resolves the task id to insert before from a drop target, or null for end-of-list. */
+export function resolveDropBeforeTaskId(
+  target: EventTarget | null,
+): string | null {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+  const taskElement = target.closest('[data-task-id]');
+  if (!(taskElement instanceof HTMLElement)) {
+    return null;
+  }
+  const taskId = taskElement.dataset.taskId;
+  if (typeof taskId !== 'string' || taskId.length === 0) {
+    return null;
+  }
+  return taskId;
+}

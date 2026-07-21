@@ -20,12 +20,14 @@ import {
   offsetDateKey,
   parseDailyNotesStore,
   parseTaskDragPayload,
+  reorderIncompleteTask,
   resolveDropDateKey,
   serializeDailyNotesStore,
   serializeTaskDragPayload,
   setQuickNoteForDay,
   setTasksForDay,
   shouldExpandDaySection,
+  toggleTaskPriority,
   updateTaskText,
 } from './notesStorage.ts';
 
@@ -161,9 +163,78 @@ describe('notesStorage', () => {
     assert.ok(task);
     assert.equal(task.text, 'Ship notes');
     assert.equal(task.done, false);
+    assert.equal(task.priority, undefined);
     assert.ok(task.id.length > 0);
     assert.equal(createTask('   '), null);
     assert.equal(createTask(''), null);
+  });
+
+  it('toggles priority and auto-sorts high-priority open tasks to the top', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-19', [
+      {id: 'a', text: 'Alpha', done: false},
+      {id: 'b', text: 'Beta', done: false},
+      {id: 'c', text: 'Done', done: true},
+    ]);
+
+    store = toggleTaskPriority(store, '2026-07-19', 'b');
+
+    assert.deepEqual(getTasksForDay(store, '2026-07-19'), [
+      {id: 'b', text: 'Beta', done: false, priority: true},
+      {id: 'a', text: 'Alpha', done: false},
+      {id: 'c', text: 'Done', done: true},
+    ]);
+
+    store = toggleTaskPriority(store, '2026-07-19', 'b');
+    assert.deepEqual(getTasksForDay(store, '2026-07-19'), [
+      {id: 'b', text: 'Beta', done: false},
+      {id: 'a', text: 'Alpha', done: false},
+      {id: 'c', text: 'Done', done: true},
+    ]);
+  });
+
+  it('reorders incomplete tasks within a day and keeps priority groups', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-19', [
+      {id: 'p1', text: 'Priority one', done: false, priority: true},
+      {id: 'p2', text: 'Priority two', done: false, priority: true},
+      {id: 'n1', text: 'Normal one', done: false},
+      {id: 'n2', text: 'Normal two', done: false},
+      {id: 'done', text: 'Done', done: true},
+    ]);
+
+    store = reorderIncompleteTask(store, '2026-07-19', 'p2', 'p1');
+    assert.deepEqual(
+      getTasksForDay(store, '2026-07-19').map((task) => task.id),
+      ['p2', 'p1', 'n1', 'n2', 'done'],
+    );
+
+    store = reorderIncompleteTask(store, '2026-07-19', 'n1', null);
+    assert.deepEqual(
+      getTasksForDay(store, '2026-07-19').map((task) => task.id),
+      ['p2', 'p1', 'n2', 'n1', 'done'],
+    );
+
+    // Dropping a normal task above priorities still keeps priorities on top.
+    store = reorderIncompleteTask(store, '2026-07-19', 'n2', 'p2');
+    assert.deepEqual(
+      getTasksForDay(store, '2026-07-19').map((task) => task.id),
+      ['p2', 'p1', 'n2', 'n1', 'done'],
+    );
+  });
+
+  it('moves a priority task onto today and keeps it above normal tasks', () => {
+    let store = setTasksForDay(createEmptyStore(), '2026-07-18', [
+      {id: 'urgent', text: 'Urgent', done: false, priority: true},
+    ]);
+    store = setTasksForDay(store, '2026-07-19', [
+      {id: 'today', text: 'Today task', done: false},
+    ]);
+
+    store = moveTaskToDate(store, '2026-07-18', '2026-07-19', 'urgent');
+
+    assert.deepEqual(getTasksForDay(store, '2026-07-19'), [
+      {id: 'urgent', text: 'Urgent', done: false, priority: true},
+      {id: 'today', text: 'Today task', done: false},
+    ]);
   });
 
   it('moves a task to another date and keeps other days intact', () => {

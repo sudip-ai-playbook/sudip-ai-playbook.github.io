@@ -6,6 +6,8 @@ export type DailyTask = {
   id: string;
   text: string;
   done: boolean;
+  /** When true, task sorts above non-priority open tasks. */
+  priority?: boolean;
 };
 
 export type DayEntry = {
@@ -97,24 +99,71 @@ export function isValidDateKey(dateKey: string): boolean {
   );
 }
 
+export function isTaskPriority(task: DailyTask): boolean {
+  return task.priority === true;
+}
+
+export function normalizeTask(task: DailyTask): DailyTask {
+  if (isTaskPriority(task)) {
+    return {
+      id: task.id,
+      text: task.text,
+      done: task.done,
+      priority: true,
+    };
+  }
+  return {
+    id: task.id,
+    text: task.text,
+    done: task.done,
+  };
+}
+
+/** Priority open tasks first, then normal open tasks, then done — stable within each group. */
+export function normalizeTaskOrder(tasks: DailyTask[]): DailyTask[] {
+  const priorityOpen: DailyTask[] = [];
+  const normalOpen: DailyTask[] = [];
+  const doneTasks: DailyTask[] = [];
+  for (const task of tasks) {
+    const normalized = normalizeTask(task);
+    if (normalized.done) {
+      doneTasks.push(normalized);
+    } else if (isTaskPriority(normalized)) {
+      priorityOpen.push(normalized);
+    } else {
+      normalOpen.push(normalized);
+    }
+  }
+  return [...priorityOpen, ...normalOpen, ...doneTasks];
+}
+
 function isDailyTask(value: unknown): value is DailyTask {
   if (typeof value !== 'object' || value === null) {
     return false;
   }
   const candidate = value as Partial<DailyTask>;
-  return (
-    typeof candidate.id === 'string' &&
-    candidate.id.length > 0 &&
-    typeof candidate.text === 'string' &&
-    typeof candidate.done === 'boolean'
-  );
+  if (
+    typeof candidate.id !== 'string' ||
+    candidate.id.length === 0 ||
+    typeof candidate.text !== 'string' ||
+    typeof candidate.done !== 'boolean'
+  ) {
+    return false;
+  }
+  if (
+    candidate.priority !== undefined &&
+    typeof candidate.priority !== 'boolean'
+  ) {
+    return false;
+  }
+  return true;
 }
 
 function parseTaskList(value: unknown): DailyTask[] {
   if (!Array.isArray(value)) {
     return [];
   }
-  return value.filter(isDailyTask);
+  return normalizeTaskOrder(value.filter(isDailyTask).map(normalizeTask));
 }
 
 function parseDayEntry(value: unknown): DayEntry | null {
@@ -269,8 +318,73 @@ export function setTasksForDay(
   const current = getDayEntry(store, dateKey);
   return withDayEntry(store, dateKey, {
     ...current,
-    tasks,
+    tasks: normalizeTaskOrder(tasks),
   });
+}
+
+export function toggleTaskPriority(
+  store: DailyNotesStore,
+  dateKey: string,
+  taskId: string,
+): DailyNotesStore {
+  const currentTasks = getTasksForDay(store, dateKey);
+  const taskIndex = currentTasks.findIndex((task) => task.id === taskId);
+  if (taskIndex < 0) {
+    return store;
+  }
+  const current = currentTasks[taskIndex];
+  const nextTask = normalizeTask({
+    ...current,
+    priority: !isTaskPriority(current),
+  });
+  const nextTasks = currentTasks.map((task, index) =>
+    index === taskIndex ? nextTask : task,
+  );
+  return setTasksForDay(store, dateKey, nextTasks);
+}
+
+/**
+ * Reorders an incomplete task within a day.
+ * `beforeTaskId` null appends to the end of the incomplete list.
+ * Priority auto-sort is reapplied via setTasksForDay.
+ */
+export function reorderIncompleteTask(
+  store: DailyNotesStore,
+  dateKey: string,
+  taskId: string,
+  beforeTaskId: string | null,
+): DailyNotesStore {
+  if (beforeTaskId === taskId) {
+    return store;
+  }
+
+  const currentTasks = getTasksForDay(store, dateKey);
+  const incomplete = currentTasks.filter((task) => !task.done);
+  const doneTasks = currentTasks.filter((task) => task.done);
+  const fromIndex = incomplete.findIndex((task) => task.id === taskId);
+  if (fromIndex < 0) {
+    return store;
+  }
+
+  const nextIncomplete = [...incomplete];
+  const [movedTask] = nextIncomplete.splice(fromIndex, 1);
+  if (!movedTask) {
+    return store;
+  }
+
+  let insertAt = nextIncomplete.length;
+  if (beforeTaskId !== null) {
+    const targetIndex = nextIncomplete.findIndex(
+      (task) => task.id === beforeTaskId,
+    );
+    if (targetIndex < 0) {
+      return store;
+    }
+    insertAt = targetIndex;
+  }
+
+  nextIncomplete.splice(insertAt, 0, movedTask);
+  return setTasksForDay(store, dateKey, [...nextIncomplete, ...doneTasks]);
 }
 
 export function updateTaskText(
@@ -322,14 +436,8 @@ export function moveTaskToDate(
   const targetEntry = getDayEntry(store, toDateKey);
   const targetTasks = [...targetEntry.tasks, task];
 
-  let nextStore = withDayEntry(store, fromDateKey, {
-    ...sourceEntry,
-    tasks: sourceTasks,
-  });
-  nextStore = withDayEntry(nextStore, toDateKey, {
-    ...targetEntry,
-    tasks: targetTasks,
-  });
+  let nextStore = setTasksForDay(store, fromDateKey, sourceTasks);
+  nextStore = setTasksForDay(nextStore, toDateKey, targetTasks);
   return nextStore;
 }
 

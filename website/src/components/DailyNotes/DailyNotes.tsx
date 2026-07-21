@@ -7,12 +7,18 @@ import type {
   ReactNode,
   SyntheticEvent,
 } from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import Heading from '@theme/Heading';
 
 import styles from './DailyNotes.module.css';
-import {allowTaskDrop, readTaskDragPayload, writeTaskDragPayload} from './notesDrag';
+import {fitTextareaToContent} from './fitTextareaHeight';
+import {
+  allowTaskDrop,
+  readTaskDragPayload,
+  resolveDropBeforeTaskId,
+  writeTaskDragPayload,
+} from './notesDrag';
 import {downloadNotesXlsx} from './notesExport';
 import {
   createEmptyStore,
@@ -23,6 +29,7 @@ import {
   FUTURE_SECTION_LABEL,
   getQuickNoteForDay,
   getTasksForDay,
+  isTaskPriority,
   isValidDateKey,
   listCompletedTasksByDate,
   listFutureIncompleteTasks,
@@ -32,12 +39,14 @@ import {
   moveTaskToDate,
   PAST_NOTES_SECTION_LABEL,
   PAST_SECTION_LABEL,
+  reorderIncompleteTask,
   resolveDropDateKey,
   saveDailyNotesStore,
   setQuickNoteForDay,
   setTasksForDay,
   shouldExpandDaySection,
   TODAY_SECTION_LABEL,
+  toggleTaskPriority,
   updateTaskText,
   type DailyNotesStore,
   type DailyTask,
@@ -68,11 +77,31 @@ type TaskRowProps = {
   dateTag?: string;
   tone?: TaskTone;
   canDrag?: boolean;
+  showPriority?: boolean;
+  dropBeforeActive?: boolean;
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
+  onTogglePriority?: (dateKey: string, taskId: string) => void;
   onOpenDate?: (dateKey: string) => void;
 };
+
+function PriorityFlagIcon(): ReactNode {
+  return (
+    <svg
+      className={styles.priorityIcon}
+      viewBox="0 0 12 12"
+      width="11"
+      height="11"
+      aria-hidden="true"
+      focusable="false">
+      <path
+        fill="currentColor"
+        d="M2.5 1v10M2.5 1.25h6.2L7.1 3.6 8.7 6H2.5z"
+      />
+    </svg>
+  );
+}
 
 function resolveDateTagClass(tone: TaskTone | undefined): string {
   if (tone === 'future') {
@@ -106,12 +135,17 @@ function TaskRow({
   dateTag,
   tone,
   canDrag,
+  showPriority,
+  dropBeforeActive,
   onToggle,
   onEdit,
   onDelete,
+  onTogglePriority,
   onOpenDate,
 }: TaskRowProps): ReactNode {
   const isDraggable = canDrag === true;
+  const canShowPriority = showPriority === true && onTogglePriority !== undefined;
+  const isPriority = isTaskPriority(task);
   const [draft, setDraft] = useState(task.text);
 
   useEffect(() => {
@@ -144,6 +178,12 @@ function TaskRow({
     onDelete(dateKey, task.id);
   }
 
+  function handlePriorityClick(event: MouseEvent<HTMLButtonElement>): void {
+    event.preventDefault();
+    event.stopPropagation();
+    onTogglePriority?.(dateKey, task.id);
+  }
+
   function handleOpenDate(event: MouseEvent<HTMLButtonElement>): void {
     event.preventDefault();
     event.stopPropagation();
@@ -163,16 +203,22 @@ function TaskRow({
   }
 
   const isDated = dateTag !== undefined;
-  const itemClassName = isDated
-    ? tone === 'future'
-      ? styles.futureItem
-      : styles.pastItem
-    : styles.taskItem;
+  const itemClassName = [
+    isDated
+      ? tone === 'future'
+        ? styles.futureItem
+        : styles.pastItem
+      : styles.taskItem,
+    dropBeforeActive === true ? styles.taskDropBefore : '',
+  ]
+    .filter((className) => className.length > 0)
+    .join(' ');
 
   return (
     <li
       className={itemClassName}
       draggable={isDraggable}
+      data-task-id={task.id}
       onDragStart={isDraggable ? handleDragStart : undefined}
       onDragEnd={isDraggable ? handleDragEnd : undefined}
       data-testid={
@@ -223,6 +269,24 @@ function TaskRow({
             data-testid={`daily-notes-edit-${task.id}`}
           />
         </label>
+        {canShowPriority ? (
+          <button
+            type="button"
+            className={
+              isPriority
+                ? `${styles.priorityButton} ${styles.priorityButtonActive}`
+                : styles.priorityButton
+            }
+            onClick={handlePriorityClick}
+            aria-label={
+              isPriority ? 'Remove high priority' : 'Mark high priority'
+            }
+            aria-pressed={isPriority}
+            title={isPriority ? 'High priority' : 'Priority'}
+            data-testid={`daily-notes-priority-${task.id}`}>
+            <PriorityFlagIcon />
+          </button>
+        ) : null}
         <button
           type="button"
           className={styles.deleteButton}
@@ -338,6 +402,7 @@ type DaySectionListProps = {
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
+  onTogglePriority: (dateKey: string, taskId: string) => void;
   onOpenDate: (dateKey: string) => void;
 };
 
@@ -349,6 +414,7 @@ function DaySectionList({
   onToggle,
   onEdit,
   onDelete,
+  onTogglePriority,
   onOpenDate,
 }: DaySectionListProps): ReactNode {
   if (tasks.length === 0) {
@@ -369,9 +435,11 @@ function DaySectionList({
           dateTag={formatShortDate(item.dateKey)}
           tone={tone}
           canDrag
+          showPriority
           onToggle={onToggle}
           onEdit={onEdit}
           onDelete={onDelete}
+          onTogglePriority={onTogglePriority}
           onOpenDate={onOpenDate}
         />
       ))}
@@ -387,11 +455,14 @@ type TaskBoardProps = {
   todayKey: string;
   store: DailyNotesStore;
   activeDropSection: TaskBoardSection | null;
+  dropBeforeTaskId: string | null;
   onActiveDropSectionChange: (section: TaskBoardSection | null) => void;
+  onDropBeforeTaskIdChange: (taskId: string | null) => void;
   onPersist: (store: DailyNotesStore) => void;
   onToggle: (dateKey: string, taskId: string, done: boolean) => void;
   onEdit: (dateKey: string, taskId: string, text: string) => void;
   onDelete: (dateKey: string, taskId: string) => void;
+  onTogglePriority: (dateKey: string, taskId: string) => void;
   onOpenDate: (dateKey: string) => void;
 };
 
@@ -403,23 +474,59 @@ function TaskBoard({
   todayKey,
   store,
   activeDropSection,
+  dropBeforeTaskId,
   onActiveDropSectionChange,
+  onDropBeforeTaskIdChange,
   onPersist,
   onToggle,
   onEdit,
   onDelete,
+  onTogglePriority,
   onOpenDate,
 }: TaskBoardProps): ReactNode {
+  function clearDropIndicators(): void {
+    onActiveDropSectionChange(null);
+    onDropBeforeTaskIdChange(null);
+  }
+
   function applyDrop(
     section: TaskBoardSection,
     event: DragEvent<HTMLElement>,
   ): void {
     event.preventDefault();
-    onActiveDropSectionChange(null);
     const payload = readTaskDragPayload(event);
+    const beforeTaskId = resolveDropBeforeTaskId(event.target);
+    clearDropIndicators();
     if (!payload) {
       return;
     }
+
+    if (section === 'today') {
+      let nextStore = store;
+      if (payload.fromDateKey !== todayKey) {
+        nextStore = moveTaskToDate(
+          nextStore,
+          payload.fromDateKey,
+          todayKey,
+          payload.taskId,
+        );
+      }
+      if (beforeTaskId === payload.taskId) {
+        onPersist(nextStore);
+        return;
+      }
+      if (payload.fromDateKey === todayKey || beforeTaskId !== null) {
+        nextStore = reorderIncompleteTask(
+          nextStore,
+          todayKey,
+          payload.taskId,
+          beforeTaskId,
+        );
+      }
+      onPersist(nextStore);
+      return;
+    }
+
     const toDateKey = resolveDropDateKey(
       section,
       todayKey,
@@ -433,6 +540,23 @@ function TaskBoard({
         payload.taskId,
       ),
     );
+  }
+
+  function handleTodayDragOver(event: DragEvent<HTMLElement>): void {
+    allowTaskDrop(event);
+    onActiveDropSectionChange('today');
+    onDropBeforeTaskIdChange(resolveDropBeforeTaskId(event.target));
+  }
+
+  function handleTodayDragLeave(event: DragEvent<HTMLElement>): void {
+    const nextTarget = event.relatedTarget;
+    if (
+      nextTarget instanceof Node &&
+      event.currentTarget.contains(nextTarget)
+    ) {
+      return;
+    }
+    clearDropIndicators();
   }
 
   return (
@@ -454,18 +578,26 @@ function TaskBoard({
           onToggle={onToggle}
           onEdit={onEdit}
           onDelete={onDelete}
+          onTogglePriority={onTogglePriority}
           onOpenDate={onOpenDate}
         />
       </DropSection>
 
-      <DropSection
-        section="today"
-        label={TODAY_SECTION_LABEL}
-        testId="daily-notes-today"
-        taskCount={openTasks.length}
-        isActive={activeDropSection === 'today'}
-        onDragActiveChange={onActiveDropSectionChange}
-        onDropEvent={applyDrop}>
+      <div
+        className={
+          activeDropSection === 'today'
+            ? `${styles.todayBlock} ${styles.dropSection} ${styles.dropSectionActive}`
+            : `${styles.todayBlock} ${styles.dropSection}`
+        }
+        onDragOver={handleTodayDragOver}
+        onDragLeave={handleTodayDragLeave}
+        onDrop={(event) => {
+          applyDrop('today', event);
+        }}
+        data-testid="daily-notes-today">
+        <p className={styles.todayLabel}>
+          {TODAY_SECTION_LABEL} ({openTasks.length})
+        </p>
         {openTasks.length > 0 ? (
           <ul className={styles.taskList}>
             {openTasks.map((task) => (
@@ -474,9 +606,12 @@ function TaskBoard({
                 task={task}
                 dateKey={selectedDateKey}
                 canDrag
+                showPriority
+                dropBeforeActive={dropBeforeTaskId === task.id}
                 onToggle={onToggle}
                 onEdit={onEdit}
                 onDelete={onDelete}
+                onTogglePriority={onTogglePriority}
               />
             ))}
           </ul>
@@ -485,7 +620,7 @@ function TaskBoard({
             Drop here
           </p>
         )}
-      </DropSection>
+      </div>
 
       <DropSection
         section="future"
@@ -504,6 +639,7 @@ function TaskBoard({
           onToggle={onToggle}
           onEdit={onEdit}
           onDelete={onDelete}
+          onTogglePriority={onTogglePriority}
           onOpenDate={onOpenDate}
         />
       </DropSection>
@@ -580,6 +716,11 @@ export default function DailyNotes(): ReactNode {
   const [hasHydrated, setHasHydrated] = useState(false);
   const [activeDropSection, setActiveDropSection] =
     useState<TaskBoardSection | null>(null);
+  const [dropBeforeTaskId, setDropBeforeTaskId] = useState<string | null>(
+    null,
+  );
+  const quickNoteTextareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const quickNote = getQuickNoteForDay(store, selectedDateKey);
 
   useEffect(() => {
     if (!isBrowser) {
@@ -588,6 +729,36 @@ export default function DailyNotes(): ReactNode {
     setStore(loadDailyNotesStore());
     setHasHydrated(true);
   }, [isBrowser]);
+
+  useEffect(() => {
+    if (!hasHydrated) {
+      return;
+    }
+    const textarea = quickNoteTextareaRef.current;
+    if (!textarea) {
+      return;
+    }
+    fitTextareaToContent(textarea);
+  }, [hasHydrated, quickNote, selectedDateKey]);
+
+  useEffect(() => {
+    if (!hasHydrated || !isBrowser) {
+      return;
+    }
+
+    function handleWindowResize(): void {
+      const textarea = quickNoteTextareaRef.current;
+      if (!textarea) {
+        return;
+      }
+      fitTextareaToContent(textarea);
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, [hasHydrated, isBrowser]);
 
   function persistStore(nextStore: DailyNotesStore): void {
     setStore(nextStore);
@@ -647,10 +818,24 @@ export default function DailyNotes(): ReactNode {
     );
   }
 
+  function handleTogglePriority(dateKey: string, taskId: string): void {
+    persistStore(toggleTaskPriority(store, dateKey, taskId));
+  }
+
+  function handleActiveDropSectionChange(
+    section: TaskBoardSection | null,
+  ): void {
+    setActiveDropSection(section);
+    if (section !== 'today') {
+      setDropBeforeTaskId(null);
+    }
+  }
+
   function handleQuickNoteChange(event: ChangeEvent<HTMLTextAreaElement>): void {
     persistStore(
       setQuickNoteForDay(store, selectedDateKey, event.target.value),
     );
+    fitTextareaToContent(event.currentTarget);
   }
 
   function handleOpenToday(): void {
@@ -681,7 +866,6 @@ export default function DailyNotes(): ReactNode {
   const pastTasks = isToday
     ? listPastIncompleteTasks(store, todayKey)
     : [];
-  const quickNote = getQuickNoteForDay(store, selectedDateKey);
   const completedGroups = listCompletedTasksByDate(store);
   const completedCount = completedGroups.reduce(
     (total, group) => total + group.tasks.length,
@@ -803,11 +987,14 @@ export default function DailyNotes(): ReactNode {
             todayKey={todayKey}
             store={store}
             activeDropSection={activeDropSection}
-            onActiveDropSectionChange={setActiveDropSection}
+            dropBeforeTaskId={dropBeforeTaskId}
+            onActiveDropSectionChange={handleActiveDropSectionChange}
+            onDropBeforeTaskIdChange={setDropBeforeTaskId}
             onPersist={persistStore}
             onToggle={handleToggle}
             onEdit={handleEdit}
             onDelete={handleDelete}
+            onTogglePriority={handleTogglePriority}
             onOpenDate={handleOpenDate}
           />
         ) : (
@@ -817,9 +1004,11 @@ export default function DailyNotes(): ReactNode {
                 key={task.id}
                 task={task}
                 dateKey={selectedDateKey}
+                showPriority
                 onToggle={handleToggle}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onTogglePriority={handleTogglePriority}
               />
             ))}
           </ul>
@@ -837,11 +1026,12 @@ export default function DailyNotes(): ReactNode {
         </label>
         <textarea
           id="daily-notes-quick-note"
+          ref={quickNoteTextareaRef}
           className={styles.textarea}
           value={quickNote}
           onChange={handleQuickNoteChange}
           placeholder="Notes…"
-          rows={5}
+          rows={3}
           data-testid="daily-notes-quick-note"
         />
       </section>
