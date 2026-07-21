@@ -1,0 +1,15 @@
+---
+description: Auto-increment PLAYBOOK commit task numbers
+alwaysApply: true
+---
+
+# Commit task numbers (PLAYBOOK)
+
+When creating a git commit in this repo:
+
+1. Read the latest commit subject: `git log -1 --format='%s'`
+2. If it matches `[PLAYBOOK-N]: …`, use **`[PLAYBOOK-(N+1)]`** for the new commit — do **not** ask for a task number.
+3. If there is no `[PLAYBOOK-N]` prefix on HEAD, ask the user for the starting number once, then continue incrementing.
+4. Format: `[PLAYBOOK-N]: short imperative summary` (one logical change per commit).
+
+Example: HEAD is `[PLAYBOOK-49]: …` → next commit is `[PLAYBOOK-50]: …`.

@@ -271,7 +271,7 @@
   align-items: center;
   justify-content: center;
   border: none;
-  padding: 0.2rem;
+  padding: 0.15rem 0.25rem;
   background: none;
   color: var(--ase-muted);
   opacity: 0.35;
@@ -294,6 +294,8 @@
 
 .priorityIcon {
   display: block;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .daySectionSummary {
@@ -428,6 +430,37 @@
   border-top: 1px solid var(--ase-rule);
   margin-top: var(--ase-space-6);
   padding-top: var(--ase-space-5);
+}
+
+.notesSummary {
+  cursor: pointer;
+  margin: 0;
+  color: var(--ase-ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  list-style: none;
+}
+
+.notesSummary::-webkit-details-marker {
+  display: none;
+}
+
+.notesSummary::before {
+  content: '▸ ';
+  color: var(--ase-muted);
+  font-weight: 600;
+}
+
+.notesSection[open] .notesSummary::before {
+  content: '▾ ';
+}
+
+.notesSection[open] .notesSummary {
+  margin-bottom: var(--ase-space-4);
+}
+
+.notesBody {
+  margin-top: 0;
 }
 
 .textarea {

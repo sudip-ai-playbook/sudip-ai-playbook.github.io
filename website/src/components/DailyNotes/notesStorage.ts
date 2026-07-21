@@ -553,9 +553,42 @@ export const DAY_SECTION_COLLAPSE_THRESHOLD = 2;
 export const FUTURE_SECTION_LABEL = 'Future';
 export const PAST_SECTION_LABEL = 'Past';
 export const PAST_NOTES_SECTION_LABEL = 'Past notes';
+export const NOTES_SECTION_LABEL = 'Notes';
+export const NOTES_SECTION_OPEN_STORAGE_KEY =
+  'sudip-ai-playbook-daily-notes-notes-open';
+export const NOTES_SECTION_OPEN_DEFAULT = true;
 
 export function shouldExpandDaySection(entryCount: number): boolean {
   return entryCount <= DAY_SECTION_COLLAPSE_THRESHOLD;
+}
+
+export function parseNotesSectionOpen(raw: string | null): boolean {
+  if (raw === 'false') {
+    return false;
+  }
+  if (raw === 'true') {
+    return true;
+  }
+  return NOTES_SECTION_OPEN_DEFAULT;
+}
+
+export function loadNotesSectionOpen(): boolean {
+  if (typeof localStorage === 'undefined') {
+    return NOTES_SECTION_OPEN_DEFAULT;
+  }
+  return parseNotesSectionOpen(
+    localStorage.getItem(NOTES_SECTION_OPEN_STORAGE_KEY),
+  );
+}
+
+export function saveNotesSectionOpen(isOpen: boolean): void {
+  if (typeof localStorage === 'undefined') {
+    return;
+  }
+  localStorage.setItem(
+    NOTES_SECTION_OPEN_STORAGE_KEY,
+    isOpen ? 'true' : 'false',
+  );
 }
 
 /** Incomplete tasks on dates before today, oldest past first (today sits below). */

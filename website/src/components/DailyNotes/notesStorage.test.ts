@@ -16,12 +16,17 @@ import {
   listFutureIncompleteTasks,
   listPastIncompleteTasks,
   listPastQuickNotes,
+  loadNotesSectionOpen,
   moveTaskToDate,
+  NOTES_SECTION_OPEN_DEFAULT,
+  NOTES_SECTION_OPEN_STORAGE_KEY,
   offsetDateKey,
   parseDailyNotesStore,
+  parseNotesSectionOpen,
   parseTaskDragPayload,
   reorderIncompleteTask,
   resolveDropDateKey,
+  saveNotesSectionOpen,
   serializeDailyNotesStore,
   serializeTaskDragPayload,
   setQuickNoteForDay,
@@ -333,6 +338,62 @@ describe('notesStorage', () => {
     assert.equal(shouldExpandDaySection(1), true);
     assert.equal(shouldExpandDaySection(2), true);
     assert.equal(shouldExpandDaySection(3), false);
+  });
+
+  it('defaults notes section to expanded and remembers collapse', () => {
+    assert.equal(NOTES_SECTION_OPEN_DEFAULT, true);
+    assert.equal(parseNotesSectionOpen(null), true);
+    assert.equal(parseNotesSectionOpen(''), true);
+    assert.equal(parseNotesSectionOpen('true'), true);
+    assert.equal(parseNotesSectionOpen('false'), false);
+    assert.equal(parseNotesSectionOpen('nope'), true);
+
+    const memory = new Map<string, string>();
+    const originalLocalStorage = globalThis.localStorage;
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem(key: string): string | null {
+          return memory.has(key) ? memory.get(key)! : null;
+        },
+        setItem(key: string, value: string): void {
+          memory.set(key, value);
+        },
+      },
+    });
+    try {
+      assert.equal(loadNotesSectionOpen(), true);
+      saveNotesSectionOpen(false);
+      assert.equal(
+        memory.get(NOTES_SECTION_OPEN_STORAGE_KEY),
+        'false',
+      );
+      assert.equal(loadNotesSectionOpen(), false);
+      saveNotesSectionOpen(true);
+      assert.equal(loadNotesSectionOpen(), true);
+    } finally {
+      Object.defineProperty(globalThis, 'localStorage', {
+        configurable: true,
+        value: originalLocalStorage,
+      });
+    }
+  });
+
+  it('no-ops notes section preference when localStorage is unavailable', () => {
+    const originalLocalStorage = globalThis.localStorage;
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: undefined,
+    });
+    try {
+      assert.equal(loadNotesSectionOpen(), NOTES_SECTION_OPEN_DEFAULT);
+      saveNotesSectionOpen(false);
+    } finally {
+      Object.defineProperty(globalThis, 'localStorage', {
+        configurable: true,
+        value: originalLocalStorage,
+      });
+    }
   });
 
   it('lists completed tasks grouped by date newest first', () => {

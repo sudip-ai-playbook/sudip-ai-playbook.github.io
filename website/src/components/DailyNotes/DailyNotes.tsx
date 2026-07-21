@@ -36,12 +36,16 @@ import {
   listPastIncompleteTasks,
   listPastQuickNotes,
   loadDailyNotesStore,
+  loadNotesSectionOpen,
   moveTaskToDate,
+  NOTES_SECTION_LABEL,
+  NOTES_SECTION_OPEN_DEFAULT,
   PAST_NOTES_SECTION_LABEL,
   PAST_SECTION_LABEL,
   reorderIncompleteTask,
   resolveDropDateKey,
   saveDailyNotesStore,
+  saveNotesSectionOpen,
   setQuickNoteForDay,
   setTasksForDay,
   shouldExpandDaySection,
@@ -91,8 +95,8 @@ function PriorityFlagIcon(): ReactNode {
     <svg
       className={styles.priorityIcon}
       viewBox="0 0 12 12"
-      width="11"
-      height="11"
+      width="19"
+      height="19"
       aria-hidden="true"
       focusable="false">
       <path
@@ -719,6 +723,7 @@ export default function DailyNotes(): ReactNode {
   const [dropBeforeTaskId, setDropBeforeTaskId] = useState<string | null>(
     null,
   );
+  const [isNotesOpen, setIsNotesOpen] = useState(NOTES_SECTION_OPEN_DEFAULT);
   const quickNoteTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const quickNote = getQuickNoteForDay(store, selectedDateKey);
 
@@ -727,11 +732,12 @@ export default function DailyNotes(): ReactNode {
       return;
     }
     setStore(loadDailyNotesStore());
+    setIsNotesOpen(loadNotesSectionOpen());
     setHasHydrated(true);
   }, [isBrowser]);
 
   useEffect(() => {
-    if (!hasHydrated) {
+    if (!hasHydrated || !isNotesOpen) {
       return;
     }
     const textarea = quickNoteTextareaRef.current;
@@ -739,7 +745,7 @@ export default function DailyNotes(): ReactNode {
       return;
     }
     fitTextareaToContent(textarea);
-  }, [hasHydrated, quickNote, selectedDateKey]);
+  }, [hasHydrated, isNotesOpen, quickNote, selectedDateKey]);
 
   useEffect(() => {
     if (!hasHydrated || !isBrowser) {
@@ -836,6 +842,16 @@ export default function DailyNotes(): ReactNode {
       setQuickNoteForDay(store, selectedDateKey, event.target.value),
     );
     fitTextareaToContent(event.currentTarget);
+  }
+
+  function handleNotesSectionToggle(
+    event: SyntheticEvent<HTMLDetailsElement>,
+  ): void {
+    const nextOpen = event.currentTarget.open;
+    setIsNotesOpen(nextOpen);
+    if (isBrowser) {
+      saveNotesSectionOpen(nextOpen);
+    }
   }
 
   function handleOpenToday(): void {
@@ -1015,26 +1031,32 @@ export default function DailyNotes(): ReactNode {
         )}
       </section>
 
-      <section
+      <details
         className={styles.notesSection}
-        aria-labelledby="daily-notes-notes">
-        <Heading as="h2" id="daily-notes-notes" className={styles.sectionHeading}>
-          Notes
-        </Heading>
-        <label className={styles.srOnly} htmlFor="daily-notes-quick-note">
-          Notes for this day
-        </label>
-        <textarea
-          id="daily-notes-quick-note"
-          ref={quickNoteTextareaRef}
-          className={styles.textarea}
-          value={quickNote}
-          onChange={handleQuickNoteChange}
-          placeholder="Notes…"
-          rows={3}
-          data-testid="daily-notes-quick-note"
-        />
-      </section>
+        open={isNotesOpen}
+        onToggle={handleNotesSectionToggle}
+        data-testid="daily-notes-notes">
+        <summary
+          className={styles.notesSummary}
+          id="daily-notes-notes-heading">
+          {NOTES_SECTION_LABEL}
+        </summary>
+        <div className={styles.notesBody}>
+          <label className={styles.srOnly} htmlFor="daily-notes-quick-note">
+            Notes for this day
+          </label>
+          <textarea
+            id="daily-notes-quick-note"
+            ref={quickNoteTextareaRef}
+            className={styles.textarea}
+            value={quickNote}
+            onChange={handleQuickNoteChange}
+            placeholder="Notes…"
+            rows={3}
+            data-testid="daily-notes-quick-note"
+          />
+        </div>
+      </details>
 
       {completedCount > 0 ? (
         <details
