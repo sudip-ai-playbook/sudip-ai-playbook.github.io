@@ -19,12 +19,14 @@ import {
   setPomodoroRemaining,
   startPomodoro,
   tickPomodoro,
+  type PomodoroMode,
   type PomodoroState,
 } from './pomodoroLogic';
 import {
   ensureNotificationPermission,
   notifySessionComplete,
 } from './pomodoroNotifications';
+import {playPomodoroChime, primePomodoroAudio} from './pomodoroSound';
 import {loadPomodoroState, savePomodoroState} from './pomodoroStorage';
 
 const TICK_INTERVAL_MS = 250;
@@ -40,6 +42,11 @@ function modeLabel(state: PomodoroState): string {
   return state.mode === POMODORO_MODE_FOCUS
     ? MODE_LABEL_FOCUS
     : MODE_LABEL_BREAK;
+}
+
+function announceSessionComplete(nextMode: PomodoroMode): void {
+  playPomodoroChime(nextMode);
+  notifySessionComplete(nextMode);
 }
 
 function PlayIcon(): ReactNode {
@@ -112,7 +119,7 @@ export default function PomodoroTimer(): ReactNode {
     setState(hydrated.state);
     savePomodoroState(hydrated.state);
     if (hydrated.didComplete && hydrated.nextMode !== null) {
-      notifySessionComplete(hydrated.nextMode);
+      announceSessionComplete(hydrated.nextMode);
     }
     setHasHydrated(true);
   }, [isBrowser]);
@@ -141,7 +148,7 @@ export default function PomodoroTimer(): ReactNode {
         return;
       }
       if (next.mode !== previous.mode) {
-        notifySessionComplete(next.mode);
+        announceSessionComplete(next.mode);
       }
       setState(next);
     }
@@ -176,6 +183,7 @@ export default function PomodoroTimer(): ReactNode {
       return;
     }
     await ensureNotificationPermission();
+    await primePomodoroAudio();
     setState(startPomodoro(stateRef.current, Date.now()));
   }
 
