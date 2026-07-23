@@ -20,6 +20,7 @@ import {
   writeTaskDragPayload,
 } from './notesDrag';
 import {downloadNotesXlsx} from './notesExport';
+import PomodoroTimer from './PomodoroTimer';
 import {
   createEmptyStore,
   createTask,
@@ -912,26 +913,29 @@ export default function DailyNotes(): ReactNode {
             data-testid="daily-notes-title">
             {formatDisplayDate(selectedDateKey)}
           </Heading>
-          <button
-            type="button"
-            className={styles.downloadButton}
-            onClick={handleDownload}
-            aria-label="Download"
-            title="Download"
-            data-testid="daily-notes-download">
-            <svg
-              className={styles.downloadIcon}
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              aria-hidden="true"
-              focusable="false">
-              <path
-                fill="currentColor"
-                d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"
-              />
-            </svg>
-          </button>
+          <div className={styles.headerActions}>
+            <PomodoroTimer />
+            <button
+              type="button"
+              className={styles.downloadButton}
+              onClick={handleDownload}
+              aria-label="Download"
+              title="Download"
+              data-testid="daily-notes-download">
+              <svg
+                className={styles.downloadIcon}
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                aria-hidden="true"
+                focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
         <div className={styles.pickerRow}>
           <input
