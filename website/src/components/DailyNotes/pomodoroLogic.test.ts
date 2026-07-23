@@ -11,11 +11,14 @@ import {
   formatPomodoroClock,
   hydratePomodoroAt,
   isPomodoroMode,
+  MAX_REMAINING_MS,
   nextMode,
+  parsePomodoroClock,
   pausePomodoro,
   POMODORO_MODE_BREAK,
   POMODORO_MODE_FOCUS,
   resetPomodoro,
+  setPomodoroRemaining,
   startPomodoro,
   tickPomodoro,
 } from './pomodoroLogic.ts';
@@ -40,6 +43,7 @@ describe('pomodoroLogic', () => {
     assert.equal(clampRemainingMs(-10), 0);
     assert.equal(clampRemainingMs(Number.NaN), 0);
     assert.equal(clampRemainingMs(1500.9), 1500);
+    assert.equal(clampRemainingMs(MAX_REMAINING_MS + 1), MAX_REMAINING_MS);
   });
 
   it('formats the clock as MM:SS', () => {
@@ -48,6 +52,37 @@ describe('pomodoroLogic', () => {
     assert.equal(formatPomodoroClock(61_000), '01:01');
     assert.equal(formatPomodoroClock(999), '00:01');
     assert.equal(formatPomodoroClock(0), '00:00');
+  });
+
+  it('parses MM:SS clock text', () => {
+    assert.equal(parsePomodoroClock('25:00'), FOCUS_MS);
+    assert.equal(parsePomodoroClock('5:00'), BREAK_MS);
+    assert.equal(parsePomodoroClock(' 01:30 '), 90_000);
+    assert.equal(parsePomodoroClock('00:00'), 0);
+    assert.equal(parsePomodoroClock('99:59'), MAX_REMAINING_MS);
+    assert.equal(parsePomodoroClock(''), null);
+    assert.equal(parsePomodoroClock('25'), null);
+    assert.equal(parsePomodoroClock('25:60'), null);
+    assert.equal(parsePomodoroClock('100:00'), null);
+    assert.equal(parsePomodoroClock('ab:cd'), null);
+  });
+
+  it('sets remaining while paused and while running', () => {
+    const nowMs = 1_000_000;
+    const paused = setPomodoroRemaining(
+      createInitialPomodoroState(),
+      90_000,
+      nowMs,
+    );
+    assert.equal(paused.remainingMs, 90_000);
+    assert.equal(paused.running, false);
+    assert.equal(paused.endsAtMs, null);
+
+    const started = startPomodoro(paused, nowMs);
+    const updated = setPomodoroRemaining(started, 45_000, nowMs + 100);
+    assert.equal(updated.remainingMs, 45_000);
+    assert.equal(updated.running, true);
+    assert.equal(updated.endsAtMs, nowMs + 100 + 45_000);
   });
 
   it('starts a paused session from remaining time', () => {

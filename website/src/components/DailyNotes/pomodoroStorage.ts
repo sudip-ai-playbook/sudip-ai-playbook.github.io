@@ -1,9 +1,7 @@
 import {
-  BREAK_MS,
   createInitialPomodoroState,
-  FOCUS_MS,
   isPomodoroMode,
-  POMODORO_MODE_BREAK,
+  MAX_REMAINING_MS,
   type PomodoroState,
 } from './pomodoroLogic.ts';
 
@@ -47,11 +45,9 @@ export function parsePomodoroState(raw: string | null): PomodoroState {
     if (!isFiniteNumber(candidate.remainingMs)) {
       return createInitialPomodoroState();
     }
-    const maxMs =
-      candidate.mode === POMODORO_MODE_BREAK ? BREAK_MS : FOCUS_MS;
     const remainingMs = Math.min(
       Math.max(0, Math.floor(candidate.remainingMs)),
-      maxMs,
+      MAX_REMAINING_MS,
     );
     return {
       mode: candidate.mode,

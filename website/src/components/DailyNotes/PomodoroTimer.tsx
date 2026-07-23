@@ -1,4 +1,9 @@
-import type {ReactNode} from 'react';
+import type {
+  ChangeEvent,
+  FocusEvent,
+  KeyboardEvent,
+  ReactNode,
+} from 'react';
 import {useEffect, useRef, useState} from 'react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 
@@ -7,9 +12,11 @@ import {
   createInitialPomodoroState,
   formatPomodoroClock,
   hydratePomodoroAt,
+  parsePomodoroClock,
   pausePomodoro,
   POMODORO_MODE_FOCUS,
   resetPomodoro,
+  setPomodoroRemaining,
   startPomodoro,
   tickPomodoro,
   type PomodoroState,
@@ -27,6 +34,7 @@ const MODE_LABEL_BREAK = 'Break';
 const LABEL_START = 'Start pomodoro';
 const LABEL_PAUSE = 'Pause pomodoro';
 const LABEL_RESET = 'Reset pomodoro';
+const LABEL_EDIT_TIME = 'Edit remaining time';
 
 function modeLabel(state: PomodoroState): string {
   return state.mode === POMODORO_MODE_FOCUS
@@ -86,7 +94,10 @@ export default function PomodoroTimer(): ReactNode {
   const isBrowser = useIsBrowser();
   const [state, setState] = useState<PomodoroState>(createInitialPomodoroState);
   const [hasHydrated, setHasHydrated] = useState(false);
+  const [isEditingTime, setIsEditingTime] = useState(false);
+  const [timeDraft, setTimeDraft] = useState('');
   const stateRef = useRef(state);
+  const timeInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     stateRef.current = state;
@@ -114,7 +125,7 @@ export default function PomodoroTimer(): ReactNode {
   }, [hasHydrated, isBrowser, state]);
 
   useEffect(() => {
-    if (!hasHydrated || !isBrowser || !state.running) {
+    if (!hasHydrated || !isBrowser || !state.running || isEditingTime) {
       return;
     }
 
@@ -139,7 +150,19 @@ export default function PomodoroTimer(): ReactNode {
     return () => {
       window.clearInterval(intervalId);
     };
-  }, [hasHydrated, isBrowser, state.running]);
+  }, [hasHydrated, isBrowser, state.running, isEditingTime]);
+
+  useEffect(() => {
+    if (!isEditingTime) {
+      return;
+    }
+    const input = timeInputRef.current;
+    if (!input) {
+      return;
+    }
+    input.focus();
+    input.select();
+  }, [isEditingTime]);
 
   function handleToggleClick(): void {
     void togglePomodoro();
@@ -157,7 +180,46 @@ export default function PomodoroTimer(): ReactNode {
   }
 
   function handleReset(): void {
+    setIsEditingTime(false);
     setState(resetPomodoro());
+  }
+
+  function beginEditingTime(): void {
+    setTimeDraft(formatPomodoroClock(stateRef.current.remainingMs));
+    setIsEditingTime(true);
+  }
+
+  function commitTimeDraft(): void {
+    const parsedMs = parsePomodoroClock(timeDraft);
+    setIsEditingTime(false);
+    if (parsedMs === null) {
+      return;
+    }
+    setState(setPomodoroRemaining(stateRef.current, parsedMs, Date.now()));
+  }
+
+  function cancelTimeEdit(): void {
+    setIsEditingTime(false);
+  }
+
+  function handleTimeDraftChange(event: ChangeEvent<HTMLInputElement>): void {
+    setTimeDraft(event.target.value);
+  }
+
+  function handleTimeKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      commitTimeDraft();
+      return;
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      cancelTimeEdit();
+    }
+  }
+
+  function handleTimeBlur(_event: FocusEvent<HTMLInputElement>): void {
+    commitTimeDraft();
   }
 
   const clock = formatPomodoroClock(state.remainingMs);
@@ -169,14 +231,33 @@ export default function PomodoroTimer(): ReactNode {
 
   return (
     <div className={styles.pomodoro} data-testid="daily-notes-pomodoro">
-      <span
-        className={timeClassName}
-        aria-live="polite"
-        aria-label={`${label} ${clock}`}
-        title={label}
-        data-testid="daily-notes-pomodoro-time">
-        {clock}
-      </span>
+      {isEditingTime ? (
+        <input
+          ref={timeInputRef}
+          className={`${timeClassName} ${styles.pomodoroTimeInput}`}
+          value={timeDraft}
+          onChange={handleTimeDraftChange}
+          onKeyDown={handleTimeKeyDown}
+          onBlur={handleTimeBlur}
+          aria-label={LABEL_EDIT_TIME}
+          title={LABEL_EDIT_TIME}
+          inputMode="numeric"
+          autoComplete="off"
+          spellCheck={false}
+          maxLength={5}
+          data-testid="daily-notes-pomodoro-time-input"
+        />
+      ) : (
+        <button
+          type="button"
+          className={`${timeClassName} ${styles.pomodoroTimeButton}`}
+          onClick={beginEditingTime}
+          aria-label={`${label} ${clock}. ${LABEL_EDIT_TIME}`}
+          title={`${label} — click to edit`}
+          data-testid="daily-notes-pomodoro-time">
+          <span aria-live="polite">{clock}</span>
+        </button>
+      )}
       <button
         type="button"
         className={styles.pomodoroButton}

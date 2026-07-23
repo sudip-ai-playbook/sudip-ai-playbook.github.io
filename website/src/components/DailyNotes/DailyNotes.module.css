@@ -45,7 +45,7 @@
 }
 
 .pomodoroTime {
-  min-width: 4.25ch;
+  min-width: 4.75ch;
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   font-size: 0.95rem;
@@ -60,6 +60,60 @@
 
 .pomodoroTimeBreak {
   color: var(--ase-muted);
+}
+
+.pomodoroTimeButton {
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: var(--ifm-global-radius);
+  padding: 0.35rem 0.35rem;
+  background: transparent;
+  cursor: text;
+  font: inherit;
+  font-variant-numeric: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.pomodoroTimeButton:hover {
+  border-color: var(--ase-rule);
+  background: var(--ase-accent-soft);
+}
+
+.pomodoroTimeButton:focus-visible {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
+}
+
+.pomodoroTimeInput {
+  box-sizing: border-box;
+  width: 5.5ch;
+  margin: 0;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: var(--ifm-global-radius);
+  padding: 0.3rem 0.25rem;
+  background: var(--ifm-background-color);
+  font: inherit;
+  font-variant-numeric: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: center;
+  color: inherit;
+}
+
+.pomodoroTimeInput:focus {
+  outline: 2px solid var(--ase-focus);
+  outline-offset: 2px;
 }
 
 .pomodoroButton {

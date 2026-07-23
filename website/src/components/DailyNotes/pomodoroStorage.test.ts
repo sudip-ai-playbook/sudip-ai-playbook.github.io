@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import {describe, it} from 'node:test';
 import {
-  BREAK_MS,
   createInitialPomodoroState,
   FOCUS_MS,
+  MAX_REMAINING_MS,
   POMODORO_MODE_BREAK,
   POMODORO_MODE_FOCUS,
 } from './pomodoroLogic.ts';
@@ -60,7 +60,7 @@ describe('pomodoroStorage', () => {
     );
   });
 
-  it('clamps remaining and clears endsAt when not running', () => {
+  it('clamps remaining to max editable duration', () => {
     const parsed = parsePomodoroState(
       JSON.stringify({
         mode: POMODORO_MODE_BREAK,
@@ -72,7 +72,20 @@ describe('pomodoroStorage', () => {
     assert.equal(parsed.mode, POMODORO_MODE_BREAK);
     assert.equal(parsed.running, false);
     assert.equal(parsed.endsAtMs, null);
-    assert.equal(parsed.remainingMs, BREAK_MS);
+    assert.equal(parsed.remainingMs, MAX_REMAINING_MS);
+  });
+
+  it('preserves custom remaining below the max', () => {
+    const parsed = parsePomodoroState(
+      JSON.stringify({
+        mode: POMODORO_MODE_FOCUS,
+        running: false,
+        endsAtMs: null,
+        remainingMs: 90_000,
+      }),
+    );
+    assert.equal(parsed.remainingMs, 90_000);
+    assert.equal(parsed.mode, POMODORO_MODE_FOCUS);
   });
 
   it('rejects non-finite remaining and clears invalid endsAt', () => {
